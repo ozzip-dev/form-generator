@@ -1,5 +1,5 @@
-// components/ui/google-icon.tsx
 "use client";
+// components/ui/google-icon.tsx
 
 import React from "react";
 
