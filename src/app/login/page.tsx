@@ -1,8 +1,8 @@
 import Login from "@/components/pages/Login";
 
-const LoginPage = () => {
+const PageLogin = () => {
   return (
       <Login />
   );
 };
-export default LoginPage;
+export default PageLogin;

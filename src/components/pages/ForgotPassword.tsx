@@ -26,13 +26,13 @@ import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { InputField } from "@/components/Auth/FormFields";
 import {
-  ForgotPasswordFormValues,
+  TForgotPasswordShema,
   forgotPasswordSchema,
 } from "@/lib/schema/forgotPasswordSchema";
 import { authClient } from "@/lib/auth-client";
 
 const ForgotPassword = () => {
-  const form = useForm<ForgotPasswordFormValues>({
+  const form = useForm<TForgotPasswordShema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
@@ -41,7 +41,7 @@ const ForgotPassword = () => {
   const [pending, setPending] = useState(false);
   const { toast } = useToast();
 
-  const onSubmit = async (data: ForgotPasswordFormValues) => {
+  const onSubmit = async (data: TForgotPasswordShema) => {
     setPending(true);
     const { error } = await authClient.forgetPassword({
       email: data.email,

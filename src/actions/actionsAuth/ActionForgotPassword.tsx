@@ -2,14 +2,14 @@
 
 import { parseZodErrors } from "@/helpers/helpersValidation/parseZodErrors";
 import { authClient } from "@/lib/auth-client";
-import { loginSchema } from "@/lib/schema/loginSchema";
+import { forgotPasswordSchema } from "@/lib/schema/forgotPasswordSchema";
 import { redirect } from "next/navigation";
 
 export async function ActionLogin(
   _: any,
   data: { email: string; password: string; rememberMe?: boolean }
 ) {
-  const validationResult = loginSchema.safeParse(data);
+  const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {
     const fieldErrors = parseZodErrors(validationResult.error);
@@ -17,9 +17,9 @@ export async function ActionLogin(
     return { error: fieldErrors };
   }
 
-  console.log('data',data)
-
-  const result = await authClient.signIn?.email(data);
+  const result = await authClient.forgetPassword({
+    email: data.email,
+  });
 
   if (result.error) {
     console.log("validationReresult.error.messagesult", result.error.message);
@@ -27,5 +27,5 @@ export async function ActionLogin(
     throw new Error(result.error.message ?? "Coś poszło nie tak");
   }
 
-  redirect("/dashboard");
+  redirect("/reset-password");
 }
