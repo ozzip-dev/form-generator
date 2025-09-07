@@ -198,7 +198,7 @@ const Signup = () => {
       {
         email: data.email,
         password: data.password,
-        name: data.name,
+        name: "hhhhhhhhh",
       },
       {
         onRequest: () => {

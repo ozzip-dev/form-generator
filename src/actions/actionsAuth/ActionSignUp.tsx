@@ -19,11 +19,11 @@ export async function ActionSignUp(
   const result = await authClient.signUp?.email({
     email: data.email,
     password: data.password,
-    name: data.name,
+    name: "lllllllllll",
   });
 
   if (result.error) {
-    console.log("validationReresult.error.messagesult", result.error.message);
+    // console.log("validationReresult.error.messagesult", result.error.message);
 
     throw new Error(result.error.message ?? "Coś poszło nie tak");
   }

@@ -27,8 +27,6 @@ const dataInputsLogin = [
   },
 ];
 
-
-
 const Login = () => {
   const { toast } = useToast();
 
@@ -37,6 +35,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -45,15 +44,22 @@ const Login = () => {
     },
   });
 
-
-
   const onSubmit = async (data: TLoginSchema) => {
+
+  const hardcoded = {
+    email: "gitaragra@gmail.com",
+    password: "25czerwcaxxxxxxxx",
+    rememberMe: false,
+  };
+
+
+
     try {
-      const resp = await ActionLogin(null, data);
-      if (resp?.error) {
-        setServerErrors<TLoginSchema>(resp.error, setError);
-        return;
-      }
+      const resp = await ActionLogin(hardcoded);
+      // if (resp?.error) {
+      //   setServerErrors<TLoginSchema>(resp.error, setError);
+      //   return;
+      // }
     } catch (err: any) {
       toast({
         title: "Błąd logowania",

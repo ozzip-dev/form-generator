@@ -6,21 +6,46 @@ import { loginSchema } from "@/lib/schema/loginSchema";
 import { redirect } from "next/navigation";
 
 export async function ActionLogin(
-  _: any,
-  data: { email: string; password: string; rememberMe?: boolean }
+  
+  data: {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+}
+
 ) {
-  const validationResult = loginSchema.safeParse(data);
+  // const validationResult = loginSchema.safeParse(data);
 
-  if (!validationResult.success) {
-    const fieldErrors = parseZodErrors(validationResult.error);
+  // if (!validationResult.success) {
+  //   const fieldErrors = parseZodErrors(validationResult.error);
 
-    return { error: fieldErrors };
-  }
+  //   return { error: fieldErrors };
+  // }
 
-  console.log('data',data)
+  // console.log("datadddd", data);
+ const hardcoded = {
+    email: "gitaragra@gmail.com",
+    password: "25czerwcaaaa",
+    rememberMe: false,
+  };
+  // const result = await authClient.signIn?.email(data);
 
-  const result = await authClient.signIn?.email(data);
+  // const result = await authClient.signIn?.email({
+  //   email: "gitaragra@gmail.com",
+  //   password: "25czerwca",
+  //   rememberMe: false,
+  // });
 
+//  const result = await authClient.signUp?.email({
+//     email: data.email,
+//     password: data.password,
+//     name: data.name,
+//   });
+
+
+  const result = await authClient.signIn?.email(hardcoded);
+
+  
   if (result.error) {
     console.log("validationReresult.error.messagesult", result.error.message);
 

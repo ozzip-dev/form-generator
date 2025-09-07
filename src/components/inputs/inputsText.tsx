@@ -17,8 +17,6 @@ type Props = {
 };
 
 const InputsText = ({ inputsData, register, errorMsg }: Props) => {
-
-  console.log('',inputsData)
   return (
     <>
       {inputsData.map(({ label, name, placeholder, type }) => {

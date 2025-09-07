@@ -22,7 +22,7 @@ export async function ActionLogin(
   });
 
   if (result.error) {
-    console.log("validationReresult.error.messagesult", result.error.message);
+    // console.log("validationReresult.error.messagesult", result.error.message);
 
     throw new Error(result.error.message ?? "Coś poszło nie tak");
   }
