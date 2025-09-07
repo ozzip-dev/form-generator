@@ -1,17 +1,21 @@
 import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { PrismaClient } from "@prisma/client";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { sendEmail } from "@/lib/email";
 import { nextCookies } from "better-auth/next-js";
+import { db } from "@/lib/mongo";
+import { UserRole } from "@/models/User";
 
-
-
-
-const prisma = new PrismaClient();
 export const auth = betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: "mongodb",
-  }),
+  database: mongodbAdapter(db),
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: UserRole.MODERATOR as string,
+        input: false, /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */
+      },
+    }
+  },
   emailAndPassword: {
     enabled: true,
     // requireEmailVerification: true,

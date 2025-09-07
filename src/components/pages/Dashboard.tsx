@@ -5,8 +5,14 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { authClient } from "@/lib/auth-client";
+import { IUser } from "@/types/user";
 
-const Dashboard = () => {
+// TODO: added for role validation only, edit later
+type Props = {
+  user: IUser
+}
+
+const Dashboard = ({ user }: Props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -35,6 +41,7 @@ const Dashboard = () => {
     <div className="p-4">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">Admin panel</h1>
+        <div>{user.role}</div>
         <Button
           variant="outline"
           onClick={handleSignOut}

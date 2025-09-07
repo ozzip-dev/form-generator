@@ -1,14 +1,21 @@
-generator client {
-  provider = "prisma-client-js"
+import { MongoClient } from 'mongodb';
+import { makeDbCollection } from './mongo-utils';
+import { UserModel } from '@/models';
+
+const client = new MongoClient(process.env.DATABASE_URL as string);
+const db = client.db();
+
+// TODO Pawel
+const collections = db.listCollections({ name: 'users' })
+
+if (!(await collections.toArray())?.length) {
+  makeDbCollection(db, UserModel)
 }
 
-datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
-}
-
+/*
+Prisma models
 model User {
-  id            String    @id @map("_id")
+  id            String    @id @map('_id')
   name          String
   email         String
   emailVerified Boolean
@@ -19,11 +26,11 @@ model User {
   accounts      Account[]
 
   @@unique([email])
-  @@map("user")
+  @@map('user')
 }
 
 model Session {
-  id        String   @id @map("_id")
+  id        String   @id @map('_id')
   expiresAt DateTime
   token     String
   createdAt DateTime
@@ -34,11 +41,11 @@ model Session {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([token])
-  @@map("session")
+  @@map('session')
 }
 
 model Account {
-  id                    String    @id @map("_id")
+  id                    String    @id @map('_id')
   accountId             String
   providerId            String
   userId                String
@@ -53,19 +60,19 @@ model Account {
   createdAt             DateTime
   updatedAt             DateTime
 
-  @@map("account")
+  @@map('account')
 }
 
 model Verification {
-  id         String    @id @map("_id")
+  id         String    @id @map('_id')
   identifier String
   value      String
   expiresAt  DateTime
   createdAt  DateTime?
   updatedAt  DateTime?
 
-  @@map("verification")
+  @@map('verification')
 }
+*/
 
-
-// npx prisma generate
+export { db }
