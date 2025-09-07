@@ -1,5 +1,5 @@
+import { FieldType } from "@/lib/mongo/mongo-utils"
 import { DbModel, Properties } from "@/types/mongo"
-import { BSONType } from "mongodb"
 
 /* Leave commented out code for now */
 enum InputField {
@@ -13,16 +13,16 @@ enum InputField {
 }
 
 const inputProperties: Properties = {
-  [InputField.TYPE]: { bsonType: BSONType.string },
-  [InputField.HEADER]: { bsonType: BSONType.string },
-  [InputField.DESCRIPTION]: { bsonType: BSONType.string },
-  [InputField.VALIDATION]: { bsonType: BSONType.object }
+  [InputField.TYPE]: { bsonType: FieldType.STRING },
+  [InputField.HEADER]: { bsonType: FieldType.STRING },
+  [InputField.DESCRIPTION]: { bsonType: FieldType.STRING },
+  [InputField.VALIDATION]: { bsonType: FieldType.OBJECT }
 }
 
 // const formInputProperties: Properties = {
 //   ...inputProperties,
-//   [InputField.ORDER]: { bsonType: BSONType.int },
-//   [InputField.REQUIRED]: { bsonType: BSONType.bool }
+//   [InputField.ORDER]: { bsonType: FieldType.int },
+//   [InputField.REQUIRED]: { bsonType: FieldType.bool }
 // }
 
 const inputRequired = [

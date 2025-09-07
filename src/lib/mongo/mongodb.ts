@@ -1,16 +1,30 @@
 import { MongoClient } from 'mongodb';
 import { makeDbCollection } from './mongo-utils';
-import { UserModel } from '@/models';
+import { FormModel, InputModel, UserModel } from '@/models';
+import { DbModel } from '@/types/mongo';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
 
-// TODO Pawel
-const collections = db.listCollections({ name: 'user' })
+const collections: [string, DbModel][] = [
+  ['user', UserModel], 
+  ['input', InputModel],
+  ['form', FormModel]
+]
 
-if (!(await collections.toArray())?.length) {
-  makeDbCollection(db, UserModel)
+  // TODO Pawel
+async function initCollections() {
+  for (const [name, model] of collections) {
+    const collections = db.listCollections({ name })
+    
+    if (!(await collections.toArray())?.length) {
+      await makeDbCollection(db, model)
+      console.log(`Initialized the '${name}' collection`)
+    }
+  }
 }
+
+await initCollections()
 
 /*
 Prisma models

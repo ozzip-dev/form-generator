@@ -1,25 +1,33 @@
 import { DbModel, Properties } from "@/types/mongo"
 import { Collection, Db, Document, ObjectId } from "mongodb"
 
+export enum FieldType {
+  STRING = 'string',
+  OBJECT = 'object',
+  OBJECT_ID = 'objectId',
+  INT = 'int',
+  BOOL = 'bool',
+  DATE = 'date',
+  ARRAY = 'array',
+}
+
 const getModelValidator = (
   properties: Properties, 
   required: string[],
 ): Document => ({
-  validator: {
     $jsonSchema: {
       bsonType: 'object',
       required,
       properties
-    }
   }
 })
 
-export const makeDbCollection = (db: Db, model: DbModel) => {
+export const makeDbCollection = async  (db: Db, model: DbModel) => {
   const { name, properties, required } = model
   const validator: Document = getModelValidator(
     properties, required
   )
-  db.createCollection(name, { validator })
+  await db.createCollection(name, { validator })
 }
 
 /* queries */

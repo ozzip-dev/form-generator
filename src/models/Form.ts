@@ -1,5 +1,5 @@
+import { FieldType } from "@/lib/mongo/mongo-utils"
 import { DbModel, Properties } from "@/types/mongo"
-import { BSONType } from "mongodb"
 
 enum FormField {
   TITLE = 'title',
@@ -9,20 +9,22 @@ enum FormField {
   UPDATED_BY = 'updatedBy',
   UPDATED_AT = 'updatedAt',
   INPUTS = 'inputs',
+  STATE = 'state',
 }
 
 const formProperties: Properties = {
-  [FormField.TITLE]: { bsonType: BSONType.string },
-  [FormField.DESCRIPTION]: { bsonType: BSONType.string },
-  [FormField.CREATED_BY]: { bsonType: BSONType.objectId },
-  [FormField.CREATED_AT]: { bsonType: BSONType.date },
-  [FormField.UPDATED_BY]: { bsonType: BSONType.objectId },
-  [FormField.UPDATED_AT]: { bsonType: BSONType.date },
-  [FormField.INPUTS]: { bsonType: BSONType.array }
+  [FormField.TITLE]: { bsonType: FieldType.STRING },
+  [FormField.DESCRIPTION]: { bsonType: FieldType.STRING },
+  [FormField.CREATED_BY]: { bsonType: FieldType.OBJECT_ID },
+  [FormField.CREATED_AT]: { bsonType: FieldType.DATE },
+  [FormField.UPDATED_BY]: { bsonType: FieldType.OBJECT_ID },
+  [FormField.UPDATED_AT]: { bsonType: FieldType.DATE },
+  [FormField.INPUTS]: { bsonType: FieldType.ARRAY },
+  [FormField.STATE]: { bsonType: FieldType.STRING }
 }
 
 const formRequired = [
-  FormField.TITLE, FormField.CREATED_BY, FormField.CREATED_AT, FormField.UPDATED_BY, FormField.UPDATED_AT
+  FormField.TITLE, FormField.CREATED_BY, FormField.CREATED_AT, FormField.UPDATED_BY, FormField.UPDATED_AT, FormField.STATE
 ]
 
 export const FormModel: DbModel = {

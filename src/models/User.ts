@@ -1,5 +1,5 @@
+import { FieldType } from "@/lib/mongo/mongo-utils"
 import { DbModel, Properties } from "@/types/mongo"
-import { BSONType } from "mongodb"
 
 enum UserField {
   NAME = 'name',
@@ -17,13 +17,13 @@ export enum UserRole {
 }
 
 const userProperties: Properties = {
-  [UserField.NAME]: { bsonType: BSONType.string },
-  [UserField.EMAIL]: { bsonType: BSONType.string },
-  [UserField.EMAIL_VERIFIED]: { bsonType: BSONType.bool },
-  [UserField.IMAGE]: { bsonType: BSONType.string },
-  [UserField.ROLE]: { bsonType: BSONType.string },
-  [UserField.CREATED_AT]: { bsonType: BSONType.date },
-  [UserField.UPDATED_AT]: { bsonType: BSONType.date }
+  [UserField.NAME]: { bsonType: FieldType.STRING },
+  [UserField.EMAIL]: { bsonType: FieldType.STRING },
+  [UserField.EMAIL_VERIFIED]: { bsonType: FieldType.BOOL },
+  [UserField.IMAGE]: { bsonType: FieldType.STRING },
+  [UserField.ROLE]: { bsonType: FieldType.STRING },
+  [UserField.CREATED_AT]: { bsonType: FieldType.DATE },
+  [UserField.UPDATED_AT]: { bsonType: FieldType.DATE }
   // sessions      Session[]
   // accounts      Account[]
 }
