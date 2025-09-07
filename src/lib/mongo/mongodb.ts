@@ -6,7 +6,7 @@ const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
 
 // TODO Pawel
-const collections = db.listCollections({ name: 'users' })
+const collections = db.listCollections({ name: 'user' })
 
 if (!(await collections.toArray())?.length) {
   makeDbCollection(db, UserModel)
