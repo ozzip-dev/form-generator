@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { makeDbCollection } from './mongo-utils';
-import { UserModel } from '@/models/User';
+import { UserModel } from '@/models';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
