@@ -5,11 +5,10 @@ import { UseFormRegister, FieldErrors } from "react-hook-form";
 type Props = {
   inputsData: {
     label: string;
-    // name: keyof FormVoteSchemaModel | string;
-    name: any;
+    name: string;
     placeholder: string;
     type: string;
-    // defaultValue?: string;
+    defaultValue?: string;
   }[];
   errorMsg?: FieldErrors<any> & {
     server?: Record<string, { message: string }>;
@@ -18,12 +17,14 @@ type Props = {
 };
 
 const InputsText = ({ inputsData, register, errorMsg }: Props) => {
+
+  console.log('',inputsData)
   return (
     <>
       {inputsData.map(({ label, name, placeholder, type }) => {
         return (
           <div key={name}>
-            <label htmlFor={name} className="text-lg text-accent block">
+            <label htmlFor={name} className="text-lg  block">
               {label}
             </label>
             <input

@@ -4,7 +4,7 @@ import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import InputsText from "@/components/inputs/inputsText";
 import { setServerErrors } from "@/helpers/helpersValidation/setServerErrors";
 import { useToast } from "@/hooks/use-toast";
-import { LoginFormValues, loginSchema } from "@/lib/schema/loginSchema";
+import { TLoginSchema, loginSchema } from "@/lib/schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -21,13 +21,13 @@ const dataInputsLogin = [
   {
     label: "Hasło",
     name: "password",
-    placeholder: "Hasło",
+    placeholder: "hasło",
     type: "password",
     defaultValue: "password1234",
   },
 ];
 
-type TLoginSchema = z.infer<typeof loginSchema>;
+
 
 const Login = () => {
   const { toast } = useToast();
@@ -45,7 +45,7 @@ const Login = () => {
     },
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: TLoginSchema) => {
     try {
       const resp = await ActionLogin(null, data);
       if (resp?.error) {
