@@ -1,13 +1,13 @@
+import { DbModel, Properties } from "@/types/mongo"
 import { Db, Document } from "mongodb"
 
 const getModelValidator = (
-  properties: unknown, 
-  required: string[] = [], 
-  bsonType: string = 'object'
+  properties: Properties, 
+  required: string[],
 ): Document => ({
   validator: {
     $jsonSchema: {
-      bsonType,
+      bsonType: 'object',
       required,
       properties
     }
@@ -15,15 +15,10 @@ const getModelValidator = (
 })
 
 // TODO Pawel: allow for other options?
-export const makeDbCollection = (
-  db: Db, 
-  name: string, 
-  properties: unknown, 
-  required: string[] = [], 
-  bsonType: string = 'object'
-) => {
+export const makeDbCollection = (db: Db, model: DbModel) => {
+  const { name, properties, required } = model
   const validator: Document = getModelValidator(
-    properties, required, bsonType
+    properties, required
   )
   db.createCollection(name, { validator })
 }

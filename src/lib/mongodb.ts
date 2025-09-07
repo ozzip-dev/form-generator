@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { makeDbCollection } from './mongo-utils';
+import { UserModel } from '@/models/User';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
@@ -7,40 +8,8 @@ const db = client.db();
 // TODO Pawel
 const collections = db.listCollections({ name: 'users' })
 
-if (!(await collections.toArray()).length) {
-  makeDbCollection(
-    db,
-    'user',
-    {
-      name: {
-        bsonType: 'string',
-        description: 'User name'
-      },
-      email: {
-        bsonType: 'string',
-        description: 'User email'
-      },
-      emailVerified: {
-        bsonType: 'boolean',
-        description: 'Is user email verified'
-      },
-      image: {
-        bsonType: 'string',
-        description: 'User image - Optional'
-      },
-      createdAt: {
-        bsonType: 'date',
-        description: 'User creation date'
-      },
-      updatedAt: {
-        bsonType: 'date',
-        description: 'User update date'
-      }
-      // sessions      Session[]
-      // accounts      Account[]
-    },
-    [ 'name', 'email', 'emailVerified', 'createdAt', 'updatedAt' ]
-  )
+if (!(await collections.toArray())?.length) {
+  makeDbCollection(db, UserModel)
 }
 
 /*
