@@ -5,7 +5,7 @@ type Property = {
   maximum?: number,
 }
 
-interface Properties {
+export interface Properties {
   [key:string]: Property
 }
 
