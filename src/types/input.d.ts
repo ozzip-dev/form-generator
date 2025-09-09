@@ -13,6 +13,7 @@ export interface Input {
   header: string
   description?: string
   validation?: InputValidation
+  template: boolean
 }
 
 export interface FormInput extends Input {

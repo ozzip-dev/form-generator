@@ -10,13 +10,15 @@ enum InputField {
   DESCRIPTION = 'description',
   // ORDER = 'order',
   VALIDATION = 'validation', // ?
+  TEMPLATE = 'template',
 }
 
 const inputProperties: Properties = {
   [InputField.TYPE]: { bsonType: FieldType.STRING },
   [InputField.HEADER]: { bsonType: FieldType.STRING },
   [InputField.DESCRIPTION]: { bsonType: FieldType.STRING },
-  [InputField.VALIDATION]: { bsonType: FieldType.OBJECT }
+  [InputField.VALIDATION]: { bsonType: FieldType.OBJECT },
+  [InputField.TEMPLATE]: { bsonType: FieldType.BOOL }
 }
 
 // const formInputProperties: Properties = {
