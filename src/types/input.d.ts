@@ -8,7 +8,7 @@ interface InputValidation {
   custom?: bool // fn returning bool? 
 }
 
-interface Input {
+export interface Input {
   type: FieldType
   header: string
   description?: string
