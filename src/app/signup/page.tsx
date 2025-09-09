@@ -1,8 +1,8 @@
-import Signup from "@/components/pages/SignUp";
+import SignUp from "@/components/pages/Signup";
 
-const PageSignup = () => {
+const PageSignUp = () => {
   return (
-      <Signup />
+      <SignUp />
   );
 };
-export default PageSignup;
+export default PageSignUp;

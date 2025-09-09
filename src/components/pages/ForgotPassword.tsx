@@ -1,126 +1,232 @@
 "use client";
-import React, { useState } from "react";
-import { Mail, ArrowRight, Loader2 } from "lucide-react";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import Link from "next/link";
+import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
+import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
-import { InputField } from "@/components/Auth/FormFields";
 import {
   TForgotPasswordShema,
   forgotPasswordSchema,
 } from "@/lib/schema/forgotPasswordSchema";
-import { authClient } from "@/lib/auth-client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import InputsText from "../inputs/inputsText";
+
+const dataInputsForgotPassword = [
+  {
+    label: "Podaj swój email",
+    name: "email",
+    placeholder: "kamil@ozzip.com",
+    type: "email",
+    defaultValue: "test@example.com",
+  },
+];
 
 const ForgotPassword = () => {
-  const form = useForm<TForgotPasswordShema>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<TForgotPasswordShema>({
     resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: {
-      email: "",
-    },
+    // defaultValues: {
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    //   confirmPassword: "",
+    // },
   });
-  const [pending, setPending] = useState(false);
+
   const { toast } = useToast();
 
   const onSubmit = async (data: TForgotPasswordShema) => {
-    setPending(true);
-    const { error } = await authClient.forgetPassword({
-      email: data.email,
-      redirectTo: "/reset-password",
-    });
-    if (error) {
+    try {
+      const resp = await ActionForgotPassword(data);
+
+      // if (resp?.error?.email?.type === "auth") {
+      //   toast({
+      //     title: "Błąd logowania",
+      //     description: resp.error.email.message,
+      //     variant: "destructive",
+      //   });
+      //   return;
+      // }
+
+      if (resp?.error) {
+        handleFormErrors<TForgotPasswordShema>(resp.error, setError);
+        return;
+      }
+
       toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Success",
-        description:
-          "If an account exists with this email, you will receive a password reset link",
+        title: "Sukces",
+        description: "Jeżeli konto istnieje, wysłaliśmy link do resetu hasła",
         variant: "default",
       });
+    } catch (err: any) {
+      toast({
+        title: "Błąd. Spróbuj ponownie",
+        description: err.message,
+        variant: "destructive",
+      });
     }
-    setPending(false);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
       <div className="w-full max-w-md">
-        <Card className="border-none shadow-lg">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">
-              Nie pamiętasz hasła
-            </CardTitle>
-            <CardDescription className="text-center">
-              Podaj swój email, aby otrzymać link do zmiany hasła
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <InputField
-                  control={form.control}
-                  name="email"
-                  label="Email"
-                  placeholder="jan@ozzip.com"
-                  type="email"
-                  icon={<Mail className="h-5 w-5 text-muted-foreground" />}
-                />
+        <h1>Nie pamiętasz hasła?</h1>
 
-                <Button type="submit" className="w-full" disabled={pending}>
-                  {pending ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                      Sending email...
-                    </>
-                  ) : (
-                    <>
-                      Wyślij link <ArrowRight className="h-4 w-4 ml-2" />
-                    </>
-                  )}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="text-center text-sm">
-              Pamiętasz hasło?{" "}
-              <Link
-                href="/login"
-                className="font-medium text-primary underline-offset-4 hover:underline"
-              >
-                Zaloguj się
-              </Link>
-            </div>
-          </CardFooter>
-        </Card>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <InputsText
+            inputsData={dataInputsForgotPassword}
+            register={register}
+            errorMsg={errors}
+          />
+
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Logowanie..." : "Wyślij link"}
+          </button>
+        </form>
+
+        <div className="text-center text-sm">
+          Masz konto?{" "}
+          <Link
+            href="/login"
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Zaloguj się
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 export default ForgotPassword;
+
+// "use client";
+// import React, { useState } from "react";
+// import { Mail, ArrowRight, Loader2 } from "lucide-react";
+// import { z } from "zod";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+// import {
+//   Card,
+//   CardContent,
+//   CardDescription,
+//   CardFooter,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form";
+// import Link from "next/link";
+// import { useToast } from "@/hooks/use-toast";
+// import { InputField } from "@/components/Auth/FormFields";
+// import {
+//   TForgotPasswordShema,
+//   forgotPasswordSchema,
+// } from "@/lib/schema/forgotPasswordSchema";
+// import { authClient } from "@/lib/auth-client";
+
+// const ForgotPassword = () => {
+//   const form = useForm<TForgotPasswordShema>({
+//     resolver: zodResolver(forgotPasswordSchema),
+//     defaultValues: {
+//       email: "",
+//     },
+//   });
+//   const [pending, setPending] = useState(false);
+//   const { toast } = useToast();
+
+//   const onSubmit = async (data: TForgotPasswordShema) => {
+//     setPending(true);
+//     const { error } = await authClient.forgetPassword({
+//       email: data.email,
+//       redirectTo: "/reset-password",
+//     });
+//     if (error) {
+//       toast({
+//         title: "Error",
+//         description: error.message,
+//         variant: "destructive",
+//       });
+//     } else {
+//       toast({
+//         title: "Success",
+//         description:
+//           "If an account exists with this email, you will receive a password reset link",
+//         variant: "default",
+//       });
+//     }
+//     setPending(false);
+//   };
+
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
+//       <div className="w-full max-w-md">
+//         <Card className="border-none shadow-lg">
+//           <CardHeader className="space-y-1">
+//             <CardTitle className="text-2xl font-bold text-center">
+//               Nie pamiętasz hasła
+//             </CardTitle>
+//             <CardDescription className="text-center">
+//               Podaj swój email, aby otrzymać link do zmiany hasła
+//             </CardDescription>
+//           </CardHeader>
+//           <CardContent>
+//             <Form {...form}>
+//               <form
+//                 onSubmit={form.handleSubmit(onSubmit)}
+//                 className="space-y-4"
+//               >
+//                 <InputField
+//                   control={form.control}
+//                   name="email"
+//                   label="Email"
+//                   placeholder="jan@ozzip.com"
+//                   type="email"
+//                   icon={<Mail className="h-5 w-5 text-muted-foreground" />}
+//                 />
+
+//                 <Button type="submit" className="w-full" disabled={pending}>
+//                   {pending ? (
+//                     <>
+//                       <Loader2 className="h-4 w-4 animate-spin mr-2" />
+//                       Sending email...
+//                     </>
+//                   ) : (
+//                     <>
+//                       Wyślij link <ArrowRight className="h-4 w-4 ml-2" />
+//                     </>
+//                   )}
+//                 </Button>
+//               </form>
+//             </Form>
+//           </CardContent>
+//           <CardFooter className="flex flex-col space-y-4">
+//             <div className="text-center text-sm">
+//               Pamiętasz hasło?{" "}
+//               <Link
+//                 href="/login"
+//                 className="font-medium text-primary underline-offset-4 hover:underline"
+//               >
+//                 Zaloguj się
+//               </Link>
+//             </div>
+//           </CardFooter>
+//         </Card>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ForgotPassword;

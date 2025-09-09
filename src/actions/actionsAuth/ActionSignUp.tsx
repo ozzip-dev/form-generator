@@ -1,13 +1,14 @@
 "use server";
-import { parseZodErrors } from "@/helpers/helpersValidation/parseZodErrors";
-import { authClient } from "@/lib/auth-client";
+import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { auth } from "@/lib/auth";
 import { signUpSchema } from "@/lib/schema/signupSchema";
 import { redirect } from "next/navigation";
 
-export async function ActionSignUp(
-  _: any,
-  data: { email: string; password: string; name: string }
-) {
+export async function ActionSignUp(data: {
+  email: string;
+  password: string;
+  name: string;
+}) {
   const validationResult = signUpSchema.safeParse(data);
 
   if (!validationResult.success) {
@@ -16,17 +17,19 @@ export async function ActionSignUp(
     return { error: fieldErrors };
   }
 
-  const result = await authClient.signUp?.email({
-    email: data.email,
-    password: data.password,
-    name: "lllllllllll",
-  });
-
-  if (result.error) {
-    // console.log("validationReresult.error.messagesult", result.error.message);
-
-    throw new Error(result.error.message ?? "Coś poszło nie tak");
+  try {
+    await auth.api.signUpEmail({
+      body: { email: data.email, password: data.password, name: data.name },
+    });
+    return { success: true };
+  } catch (err: any) {
+    return {
+      error: {
+        email: {
+          type: "auth",
+          message: err?.message ?? "Rejestracja nie powiodła się",
+        },
+      },
+    };
   }
-
-  redirect("/dashboard");
 }

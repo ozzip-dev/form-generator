@@ -1,5 +1,15 @@
 "use client";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, TLoginSchema } from "@/lib/schema/loginSchema";
+import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
+import InputsText from "@/components/inputs/inputsText";
+import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useToast } from "@/hooks/use-toast";
+import Link from "next/link";
+import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
+
 const dataInputsLogin = [
   {
     label: "Email",
@@ -16,14 +26,6 @@ const dataInputsLogin = [
     defaultValue: "password1234",
   },
 ];
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, TLoginSchema } from "@/lib/schema/loginSchema";
-import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
-import InputsText from "@/components/inputs/inputsText";
-import { setServerErrors } from "@/helpers/helpersValidation/setServerErrors";
-import { useToast } from "@/hooks/use-toast";
 
 const Login = () => {
   const { toast } = useToast();
@@ -51,7 +53,7 @@ const Login = () => {
       }
 
       if (resp?.error) {
-        setServerErrors<TLoginSchema>(resp.error, setError);
+        handleFormErrors<TLoginSchema>(resp.error, setError);
         return;
       }
     } catch (err: any) {
@@ -74,17 +76,41 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputsText
-        inputsData={dataInputsLogin}
-        register={register}
-        errorMsg={errors}
-      />
+    <>
+      <h1>Logowanie</h1>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Logowanie..." : "Zaloguj"}
-      </button>
-    </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputsText
+          inputsData={dataInputsLogin}
+          register={register}
+          errorMsg={errors}
+        />
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Logowanie..." : "Zaloguj"}
+        </button>
+
+        <div className="flex gap-4 ">
+          <GoogleAuthButton
+            action="login"
+            buttonText="Zaloguj się z Google"
+            redirectTo="/dashboard"
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <Link
+            href="/forgot-password"
+            className="link intent-info variant-ghost text-sm"
+          >
+            Nie pamiętam hasła
+          </Link>
+        </div>
+        <div className="bg-muted rounded-(--radius) border p-3">
+          <p className="text-accent-foreground text-center text-sm">
+            Nie masz konta?<Link href="/signup">Załóż konto</Link>
+          </p>
+        </div>
+      </form>
+    </>
   );
 };
 

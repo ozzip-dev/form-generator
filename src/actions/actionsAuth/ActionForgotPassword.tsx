@@ -1,31 +1,31 @@
 "use server";
 
-import { parseZodErrors } from "@/helpers/helpersValidation/parseZodErrors";
-import { authClient } from "@/lib/auth-client";
+import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { auth } from "@/lib/auth";
 import { forgotPasswordSchema } from "@/lib/schema/forgotPasswordSchema";
-import { redirect } from "next/navigation";
 
-export async function ActionLogin(
-  _: any,
-  data: { email: string; password: string; rememberMe?: boolean }
-) {
+export async function ActionForgotPassword(data: { email: string }) {
   const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {
     const fieldErrors = parseZodErrors(validationResult.error);
-
     return { error: fieldErrors };
   }
 
-  const result = await authClient.forgetPassword({
-    email: data.email,
-  });
+  try {
+    await auth.api.forgetPassword({
+      body: { email: data.email, redirectTo: "/reset-password" },
+    });
 
-  if (result.error) {
-    // console.log("validationReresult.error.messagesult", result.error.message);
-
-    throw new Error(result.error.message ?? "Coś poszło nie tak");
+    return { success: true };
+  } catch (err: any) {
+    return {
+      error: {
+        email: {
+          type: "auth",
+          message: err?.message ?? "Nie można wysłać linku resetującego hasło",
+        },
+      },
+    };
   }
-
-  redirect("/reset-password");
 }
