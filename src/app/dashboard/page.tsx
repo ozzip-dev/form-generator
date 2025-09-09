@@ -5,7 +5,7 @@ import Dashboard from "@/components/pages/Dashboard";
 import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
 
-const dashboardPage = async () => {
+const PageDashboard = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
     redirect("/login");
@@ -13,10 +13,6 @@ const dashboardPage = async () => {
 
   const { user } = session;
 
-  return (
-    <>
-      <Dashboard user={user as IUser} />
-    </>
-  );
+  return <Dashboard user={user as IUser} />;
 };
-export default dashboardPage;
+export default PageDashboard;
