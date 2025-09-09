@@ -61,13 +61,8 @@ const SignUp = () => {
         handleFormErrors<TSignUpShema>(resp.error, setError);
         return;
       }
-
-      toast({
-        title: "Account created",
-        description:
-          "your account has been created check your email for confirmation",
-      });
     } catch (err: any) {
+      // Allow Next.js server redirect to propagate
       const digest = err?.digest;
       const message = err?.message;
       if (
@@ -79,7 +74,7 @@ const SignUp = () => {
       }
 
       toast({
-        title: "Błąd zapisu",
+        title: "Błąd rejestracji",
         description: err.message || "Coś poszło nie tak",
         variant: "destructive",
       });

@@ -21,7 +21,6 @@ export async function ActionSignUp(data: {
     await auth.api.signUpEmail({
       body: { email: data.email, password: data.password, name: data.name },
     });
-    return { success: true };
   } catch (err: any) {
     return {
       error: {
@@ -32,4 +31,5 @@ export async function ActionSignUp(data: {
       },
     };
   }
+  redirect("/dashboard");
 }
