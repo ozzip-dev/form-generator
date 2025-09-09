@@ -6,17 +6,16 @@ import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
 
 const dashboardPage = async () => {
-  const session = await auth.api.getSession({headers: await headers()});
+  const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
-      redirect("/login");
+    redirect("/login");
   }
 
-  // TODO: for user role tests only, delete
-  const { user } = session
+  const { user } = session;
 
   return (
     <>
-      <Dashboard user={user as IUser}  />
+      <Dashboard user={user as IUser} />
     </>
   );
 };

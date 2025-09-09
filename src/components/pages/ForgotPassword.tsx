@@ -84,7 +84,7 @@ const ForgotPassword = () => {
           />
 
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Logowanie..." : "Wyślij link"}
+            {isSubmitting ? "Wysyła" : "Wyślij link"}
           </button>
         </form>
 

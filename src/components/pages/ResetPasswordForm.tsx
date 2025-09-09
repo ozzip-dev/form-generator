@@ -1,114 +1,118 @@
 "use client";
-import React, { useState } from "react";
-import { Lock, ArrowRight, Loader2 } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Form } from "@/components/ui/form";
-import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { InputField } from "@/components/Auth/FormFields";
-import {
-  ResetPasswordFormValues,
-  resetPasswordSchema,
-} from "@/lib/schema/resetPasswordSchema";
-import { authClient } from "@/lib/auth-client";
+import { useToast } from "@/hooks/use-toast";
+import { TResetPasswordShema } from "@/lib/schema/resetPasswordSchema";
+import { Lock } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import InputsText from "../inputs/inputsText";
+import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
 
-// TODO Pawel: discuss component prop types
+const dataInputsResetPassword = [
+  {
+    label: "Nowe hasło",
+    name: "password",
+    placeholder: "XXXX",
+    type: "password",
+  },
+  {
+    label: "Powtórz hasło",
+    name: "confirmPassword",
+    placeholder: "XXXX",
+    type: "password",
+  },
+];
+
 const ResetPasswordForm = ({ token }: { token: string }) => {
-  const form = useForm<ResetPasswordFormValues>({
-    resolver: zodResolver(resetPasswordSchema),
-    defaultValues: {
-      password: "",
-      confirmPassword: "",
-    },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<TResetPasswordShema>({
+    // resolver: zodResolver(resetPasswordSchema),
+    // defaultValues: {
+    //   name: "",
+    //   email: "",
+    //   password: "",
+    //   confirmPassword: "",
+    // },
   });
 
-  const [pending, setPending] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  const onSubmit = async (data: ResetPasswordFormValues) => {
-    setPending(true);
-    const { error } = await authClient.resetPassword({
-      newPassword: data.password,
-      token,
-    });
-    if (error) {
+  const onSubmit = async (data: TResetPasswordShema) => {
+    try {
+      const resp = await ActionResetPassword({ ...data, token });
+
+      if (resp?.error?.password?.type === "auth") {
+        toast({
+          title: "Błąd resetowania hasła",
+          description: resp.error.password.message,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (resp?.error) {
+        handleFormErrors<TResetPasswordShema>(resp.error, setError);
+        return;
+      }
+
+      // Success case
+      if (resp?.success) {
+        toast({
+          title: "Hasło zostało zresetowane",
+          description:
+            "Twoje hasło zostało pomyślnie zmienione. Możesz się teraz zalogować.",
+        });
+
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
+      }
+    } catch (err: any) {
+      const digest = err?.digest;
+      const message = err?.message;
+      if (
+        digest === "NEXT_REDIRECT" ||
+        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
+        message === "NEXT_REDIRECT"
+      ) {
+        throw err;
+      }
+
       toast({
-        title: "Error",
-        description: error.message,
+        title: "Błąd logowania",
+        description: err.message || "Coś poszło nie tak",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Success",
-        description:
-          "Your password has been reset successfully. login to continue",
-      });
-      router.push("/login");
     }
-    setPending(false);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
       <div className="w-full max-w-md">
-        <Card className="border-none shadow-lg">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">
-              Zmień hasło
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
-              >
-                <InputField
-                  control={form.control}
-                  name="password"
-                  label="Nowe hasło"
-                  placeholder="••••••••"
-                  type="password"
-                  icon={<Lock className="h-5 w-5 text-muted-foreground" />}
-                  showPasswordToggle={true}
-                />
+        <h1 className="text-2xl font-bold text-center">Zmień hasło</h1>
 
-                <InputField
-                  control={form.control}
-                  name="confirmPassword"
-                  label="Powtórz nowe hasło"
-                  placeholder="••••••••"
-                  type="password"
-                  icon={<Lock className="h-5 w-5 text-muted-foreground" />}
-                  showPasswordToggle={true}
-                />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <InputsText
+            inputsData={dataInputsResetPassword}
+            register={register}
+            errorMsg={errors}
+          />
 
-                <Button type="submit" className="w-full" disabled={pending}>
-                  {pending ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                      Updating password...
-                    </>
-                  ) : (
-                    <>
-                      Zmień hasło <ArrowRight className="h-4 w-4 ml-2" />
-                    </>
-                  )}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+          <button
+            type="submit"
+            className="w-full bg-red-100 flex"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? <>Zapis</> : <>Zmień hasło</>}
+          </button>
+        </form>
 
         <div className="mt-4 text-center text-sm">
           Pamiętasz hasło?{" "}
@@ -122,6 +126,6 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       </div>
     </div>
   );
-}
+};
 
 export default ResetPasswordForm;
