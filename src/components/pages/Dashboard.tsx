@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
@@ -59,11 +58,7 @@ const Dashboard = ({ user }: Props) => {
         <div>
           {user.role}: {user.name}
         </div>
-        <Button
-          variant="outline"
-          onClick={handleSignOut}
-          disabled={isSigningOut}
-        >
+        <button onClick={handleSignOut} disabled={isSigningOut}>
           {isSigningOut ? (
             <>
               <LogOut className="mr-2 h-4 w-4 animate-spin" />
@@ -75,7 +70,7 @@ const Dashboard = ({ user }: Props) => {
               Wyloguj
             </>
           )}
-        </Button>
+        </button>
       </div>
     </div>
   );

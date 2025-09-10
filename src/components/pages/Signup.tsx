@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import InputsText from "@/components/inputs/inputsText";
+import ButtonSubmitt from "../ui/ButtonSubmitt";
 
 const dataInputsSignUp = [
   {
@@ -93,13 +94,7 @@ const SignUp = () => {
             errorMsg={errors}
           />
 
-          <button
-            type="submit"
-            className="w-full bg-red-100 flex"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? <>Zapis</> : <>Załóż</>}
-          </button>
+          <ButtonSubmitt isSubmitting={isSubmitting} text="Załóż konto" />
         </form>
 
         <div className="flex flex-col space-y-4">

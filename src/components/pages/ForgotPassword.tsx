@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
+import ButtonSubmitt from "../ui/ButtonSubmitt";
 
 const dataInputsForgotPassword = [
   {
@@ -83,9 +84,7 @@ const ForgotPassword = () => {
             errorMsg={errors}
           />
 
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Wysyła" : "Wyślij link"}
-          </button>
+          <ButtonSubmitt isSubmitting={isSubmitting} text="Wyślij link" />
         </form>
 
         <div className="text-center text-sm">

@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "@/components/ui/google-icon";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -50,8 +49,7 @@ export const GoogleAuthButton = ({
   };
 
   return (
-    <Button
-      variant="outline"
+    <button
       className="w-full flex items-center justify-center gap-2"
       onClick={handleGoogleAuth}
       disabled={isLoading}
@@ -64,6 +62,6 @@ export const GoogleAuthButton = ({
           <span>{buttonText}</span>
         </>
       )}
-    </Button>
+    </button>
   );
 };

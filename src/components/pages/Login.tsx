@@ -9,6 +9,8 @@ import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
+import Loader from "../ui/Loader";
+import ButtonSubmitt from "../ui/ButtonSubmitt";
 
 const dataInputsLogin = [
   {
@@ -85,9 +87,8 @@ const Login = () => {
           register={register}
           errorMsg={errors}
         />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Logowanie..." : "Zaloguj"}
-        </button>
+
+        <ButtonSubmitt isSubmitting={isSubmitting} text="Zaloguj" />
 
         <div className="flex gap-4 ">
           <GoogleAuthButton

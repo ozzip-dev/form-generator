@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
+import ButtonSubmitt from "../ui/ButtonSubmitt";
 
 const dataInputsResetPassword = [
   {
@@ -104,14 +105,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             register={register}
             errorMsg={errors}
           />
-
-          <button
-            type="submit"
-            className="w-full bg-red-100 flex"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? <>Zapis</> : <>Zmień hasło</>}
-          </button>
+          <ButtonSubmitt isSubmitting={isSubmitting} text="Zmień hasło" />
         </form>
 
         <div className="mt-4 text-center text-sm">
