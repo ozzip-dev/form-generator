@@ -11,6 +11,7 @@ import Link from "next/link";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
 import Loader from "../ui/Loader";
 import ButtonSubmitt from "../ui/ButtonSubmitt";
+import FormAuthFooter from "../ui/FormAuthFooter";
 
 const dataInputsLogin = [
   {
@@ -105,11 +106,12 @@ const Login = () => {
             Nie pamiętam hasła
           </Link>
         </div>
-        <div className="bg-muted rounded-(--radius) border p-3">
-          <p className="text-accent-foreground text-center text-sm">
-            Nie masz konta?<Link href="/signup">Załóż konto</Link>
-          </p>
-        </div>
+
+        <FormAuthFooter
+          text1="Nie masz konta?"
+          text2="Założ konto"
+          link="/signup"
+        />
       </form>
     </>
   );

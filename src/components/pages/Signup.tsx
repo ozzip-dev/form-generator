@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import InputsText from "@/components/inputs/inputsText";
 import ButtonSubmitt from "../ui/ButtonSubmitt";
+import FormAuthFooter from "../ui/FormAuthFooter";
 
 const dataInputsSignUp = [
   {
@@ -112,15 +113,11 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="text-center text-sm">
-            Masz konto?{" "}
-            <Link
-              href="/login"
-              className="font-medium text-primary underline-offset-4 hover:underline"
-            >
-              Zaloguj się
-            </Link>
-          </div>
+          <FormAuthFooter
+            text1="Masz konto?"
+            text2="Zaloguj się"
+            link="/login"
+          />
         </div>
       </div>
     </div>

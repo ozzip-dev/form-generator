@@ -10,6 +10,7 @@ import InputsText from "../inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
 import ButtonSubmitt from "../ui/ButtonSubmitt";
+import FormAuthFooter from "../ui/FormAuthFooter";
 
 const dataInputsResetPassword = [
   {
@@ -108,15 +109,11 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
           <ButtonSubmitt isSubmitting={isSubmitting} text="Zmień hasło" />
         </form>
 
-        <div className="mt-4 text-center text-sm">
-          Pamiętasz hasło?{" "}
-          <Link
-            href="/login"
-            className="font-medium text-primary underline-offset-4 hover:underline"
-          >
-            Zaloguj
-          </Link>
-        </div>
+        <FormAuthFooter
+          text1="Pamiętasz hasło?"
+          text2="Zaloguj się"
+          link="/login"
+        />
       </div>
     </div>
   );
