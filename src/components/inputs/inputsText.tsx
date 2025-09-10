@@ -28,7 +28,7 @@ const InputsText = ({ inputsData, register, errorMsg }: Props) => {
             <input
               type={type}
               id={name}
-              className="w-full max-w-xs border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
+              className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
               placeholder={placeholder}
               // defaultValue={defaultValue}
               {...(register ? register(name as string) : {})}

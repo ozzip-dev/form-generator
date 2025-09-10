@@ -79,41 +79,42 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h1>Logowanie</h1>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center">Zaloguj się</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <InputsText
-          inputsData={dataInputsLogin}
-          register={register}
-          errorMsg={errors}
-        />
-
-        <ButtonSubmitt isSubmitting={isSubmitting} text="Zaloguj" />
-
-        <div className="flex gap-4 ">
-          <GoogleAuthButton
-            action="login"
-            buttonText="Zaloguj się z Google"
-            redirectTo="/dashboard"
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <InputsText
+            inputsData={dataInputsLogin}
+            register={register}
+            errorMsg={errors}
           />
-        </div>
-        <div className="flex items-center justify-between">
-          <Link
-            href="/forgot-password"
-            className="link intent-info variant-ghost text-sm"
-          >
-            Nie pamiętam hasła
-          </Link>
-        </div>
+          <div className="flex items-center justify-end">
+            <Link
+              href="/forgot-password"
+              className="text-blue-600 hover:underline hover:decoration-blue-600"
+            >
+              Nie pamiętasz hasła?
+            </Link>
+          </div>
+          <ButtonSubmitt isSubmitting={isSubmitting} text="Zaloguj" />
 
-        <FormAuthFooter
-          text1="Nie masz konta?"
-          text2="Założ konto"
-          link="/signup"
-        />
-      </form>
-    </>
+          <div className="flex gap-4 ">
+            <GoogleAuthButton
+              action="login"
+              buttonText="Zaloguj się z Google"
+              redirectTo="/dashboard"
+            />
+          </div>
+
+          <FormAuthFooter
+            text1="Nie masz konta?"
+            text2="Założ konto"
+            link="/signup"
+          />
+        </form>
+      </div>
+    </div>
   );
 };
 
