@@ -14,7 +14,7 @@ export interface Input {
   header: string
   description?: string
   // placeholder?: string // ?
-  validation?: InputValidation
+  validation: InputValidation
   options?: string[]
   template?: boolean
 }

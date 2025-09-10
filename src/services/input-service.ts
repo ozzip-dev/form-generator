@@ -6,9 +6,7 @@ import { Db } from "mongodb";
 async function addTemplateInput(
   db: Db,
   inputTemplate: Input
-): Promise<void> {
-  console.log(`Inserted '${inputTemplate.id}' input template`)
-
+): Promise<void> {  
   await insert(
     db,
     'input',
@@ -17,6 +15,8 @@ async function addTemplateInput(
       template: true
     }
   )
+
+  console.log(`Inserted '${inputTemplate.id}' input template`)
 }
 
 export async function maybeAddTemplateInput(id: string) {
@@ -25,7 +25,8 @@ export async function maybeAddTemplateInput(id: string) {
   /* If input exists, skip */
   if (input?.length) return
   
-  const inputTemplate: Input | undefined = inputTemplates.find(({ id: templateId }) => templateId === id)
+  const inputTemplate: Input | undefined = inputTemplates
+    .find(({ id: templateId }) => templateId === id)
   
   /* If no template found, skip */
   if (!inputTemplate) return

@@ -4,6 +4,8 @@ import { FormModel, InputModel, UserModel } from '@/models';
 import { DbModel } from '@/types/mongo';
 import { TemplateInputId } from '@/models/Input';
 import { maybeAddTemplateInput } from '@/services/input-service';
+import { TemplateFormId } from '@/models/Form';
+import { maybeAddTemplateForm } from '@/services/form-service';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
@@ -26,6 +28,15 @@ async function initCollections() {
   }
 }
 
+// TODO Pawel: or simply iterate through formTemplates?
+async function addTemplateForms() {
+  const { MEMBERSHIP } = TemplateFormId
+  for (const id of [MEMBERSHIP]) {
+    await maybeAddTemplateForm(id)
+  }
+}
+
+// TODO Pawel: or simply iterate through inputTemplates?
 async function addTemplateInputs() {
   const { SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE } = TemplateInputId
   for (const id of [SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE]) {
@@ -35,6 +46,7 @@ async function addTemplateInputs() {
 
 await initCollections()
 await addTemplateInputs()
+await addTemplateForms()
 
 /*
 Prisma models
