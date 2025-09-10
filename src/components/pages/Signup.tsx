@@ -64,7 +64,6 @@ const SignUp = () => {
         return;
       }
     } catch (err: any) {
-      // Allow Next.js server redirect to propagate
       const digest = err?.digest;
       const message = err?.message;
       if (

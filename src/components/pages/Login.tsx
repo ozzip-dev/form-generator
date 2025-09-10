@@ -1,15 +1,14 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, TLoginSchema } from "@/lib/schema/loginSchema";
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
+import { loginSchema, TLoginSchema } from "@/lib/schema/loginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import Loader from "../ui/Loader";
 import ButtonSubmitt from "../ui/ButtonSubmitt";
 import FormAuthFooter from "../ui/FormAuthFooter";
 

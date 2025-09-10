@@ -22,6 +22,8 @@ export async function ActionSignUp(data: {
       body: { email: data.email, password: data.password, name: data.name },
     });
   } catch (err: any) {
+    console.log("Eeee", err);
+
     return {
       error: {
         email: {
