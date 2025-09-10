@@ -1,6 +1,7 @@
 import { DbModel, Properties } from "@/types/mongo"
 import { Collection, Db, DeleteResult, Document, InsertManyResult, InsertOneResult, ObjectId, UpdateResult } from "mongodb"
 
+// TODO Pawel: wrong place
 export enum FieldType {
   STRING = 'string',
   OBJECT = 'object',
@@ -16,7 +17,7 @@ const getModelValidator = (
   required: string[],
 ): Document => ({
     $jsonSchema: {
-      bsonType: 'object',
+      // bsonType: 'object',
       required,
       properties
   }
@@ -69,6 +70,10 @@ export async function insert(
   doc: Document
 ): Promise<InsertOneResult<Document>> {
   const collection: Collection<Document> = getCollection(db, collectionName)
+
+  // console.log(collection.collectionName)
+
+  // console.log({ doc })
   const result: InsertOneResult<Document> = await collection.insertOne(doc)
   return result
 }

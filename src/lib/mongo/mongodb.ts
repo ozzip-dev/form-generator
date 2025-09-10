@@ -1,7 +1,9 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import { makeDbCollection } from './mongo-utils';
 import { FormModel, InputModel, UserModel } from '@/models';
 import { DbModel } from '@/types/mongo';
+import { TemplateInputId } from '@/models/Input';
+import { maybeAddTemplateInput } from '@/services/input-service';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
@@ -24,7 +26,15 @@ async function initCollections() {
   }
 }
 
+async function addTemplateInputs() {
+  const { SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE } = TemplateInputId
+  for (const id of [SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE]) {
+    await maybeAddTemplateInput(id)
+  }
+}
+
 await initCollections()
+await addTemplateInputs()
 
 /*
 Prisma models

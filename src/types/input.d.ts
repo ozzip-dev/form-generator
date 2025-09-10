@@ -1,6 +1,6 @@
-export type InputType = {
-  'text', 'superText' /* ? */, 'email', 'date', 'number', 'checkbox', 'singleSelect', 'multiSelect'  
-}
+import { ObjectId } from "mongodb"
+
+export type InputType = 'text' | 'superText' /* ? */ | 'email' | 'date' | 'number' | 'checkbox' | 'singleSelect' | 'multiSelect'  
 
 interface InputValidation {
   min?: number
@@ -9,11 +9,14 @@ interface InputValidation {
 }
 
 export interface Input {
-  type: FieldType
+  id?: string /* template inputs only */
+  type: InputType
   header: string
   description?: string
+  // placeholder?: string // ?
   validation?: InputValidation
-  template: boolean
+  options?: string[]
+  template?: boolean
 }
 
 export interface FormInput extends Input {
