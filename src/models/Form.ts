@@ -3,6 +3,7 @@ import { DbModel, Properties } from "@/types/mongo"
 
 export enum TemplateFormId {
   MEMBERSHIP = 'membership',
+  FAVOURITE_COLOR = 'favourite-color'
   // TODO Pawel: add more
 }
 

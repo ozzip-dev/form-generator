@@ -94,5 +94,45 @@ export const formTemplates: Form[] = [
         unique: true
       },
     ]
+  },
+  {
+    id: 'favourite-color',
+    title: 'Ulubionny kolor',
+    description: 'Jaki jest Twój ulubiony kolor?',
+    ...getCreatedUpdatedDates(),
+    inputs: [
+      {
+        id: 'name-surname',
+        type: 'text',
+        header: 'Imię i nazwisko',
+        validation: {},
+        required: true,
+        order: 0,
+        unique: false
+      },
+      {
+        id: 'age',
+        type: 'number',
+        header: 'Wiek',
+        validation: {},
+        required: false,
+        order: 1,
+        unique: false
+      },
+      {
+        id: 'color',
+        type: 'text',
+        header: 'Kolor',
+        validation: {},
+        required: true,
+        order: 2,
+        unique: false,
+        options: [
+          'żółty',
+          'zielony',
+          'czerwony'
+        ]
+      },
+    ]
   }
 ]

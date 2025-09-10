@@ -3,9 +3,10 @@ import { makeDbCollection } from './mongo-utils';
 import { FormModel, InputModel, UserModel } from '@/models';
 import { DbModel } from '@/types/mongo';
 import { TemplateInputId } from '@/models/Input';
-import { maybeAddTemplateInput } from '@/services/input-service';
 import { TemplateFormId } from '@/models/Form';
-import { maybeAddTemplateForm } from '@/services/form-service';
+import { 
+  maybeAddTemplateForm, maybeAddTemplateInput
+} from '@/services/migrations/form-input-migrations';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 const db = client.db();
@@ -30,8 +31,8 @@ async function initCollections() {
 
 // TODO Pawel: or simply iterate through formTemplates?
 async function addTemplateForms() {
-  const { MEMBERSHIP } = TemplateFormId
-  for (const id of [MEMBERSHIP]) {
+  const { MEMBERSHIP, FAVOURITE_COLOR } = TemplateFormId
+  for (const id of [MEMBERSHIP, FAVOURITE_COLOR]) {
     await maybeAddTemplateForm(id)
   }
 }
