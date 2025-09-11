@@ -6,10 +6,10 @@ import { ChangeEvent, useState } from "react";
 // TODO Pawel: it's a draft only
 
 const TemplateSelect = ({ templates }: { templates: FormTemplate[] }) => {
-  const [template, useTemplate] = useState("");
+  const [template, setTemplate] = useState("");
 
   const onTemplateSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    useTemplate(e.target.value);
+    setTemplate(e.target.value);
   };
 
   return (
