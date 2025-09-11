@@ -3,7 +3,10 @@ import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
-import { TSignUpShema, signUpSchema } from "@/lib/schema/signupSchema";
+import {
+  TSignUpShema,
+  signUpSchema,
+} from "@/lib/zodShema/zodAuthShema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";

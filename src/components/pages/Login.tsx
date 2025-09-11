@@ -4,7 +4,10 @@ import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
-import { loginSchema, TLoginSchema } from "@/lib/schema/loginSchema";
+import {
+  loginSchema,
+  TLoginSchema,
+} from "@/lib/zodShema/zodAuthShema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";

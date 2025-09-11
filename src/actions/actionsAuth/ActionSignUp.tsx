@@ -1,14 +1,16 @@
 "use server";
 import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
-import { signUpSchema } from "@/lib/schema/signupSchema";
+import { signUpSchema } from "@/lib/zodShema/zodAuthShema/signupSchema";
 import { redirect } from "next/navigation";
 
-export async function ActionSignUp(data: {
+type FormData = {
   email: string;
   password: string;
   name: string;
-}) {
+};
+
+export async function ActionSignUp(data: FormData) {
   const validationResult = signUpSchema.safeParse(data);
 
   if (!validationResult.success) {
@@ -22,8 +24,6 @@ export async function ActionSignUp(data: {
       body: { email: data.email, password: data.password, name: data.name },
     });
   } catch (err: any) {
-    console.log("Eeee", err);
-
     return {
       error: {
         email: {

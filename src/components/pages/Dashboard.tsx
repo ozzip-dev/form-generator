@@ -11,7 +11,7 @@ type Props = {
   user: IUser;
 };
 
-const Dashboard = ({ user }: Props) => {
+const Dashboard = (props: Props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
@@ -56,7 +56,7 @@ const Dashboard = ({ user }: Props) => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">Admin panel</h1>
         <div>
-          {user.role}: {user.name}
+          {props.user.role}: {props.user.name}
         </div>
         <button onClick={handleSignOut} disabled={isSigningOut}>
           {isSigningOut ? (

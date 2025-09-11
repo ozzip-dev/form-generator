@@ -16,10 +16,10 @@ type Props = {
   register?: UseFormRegister<any>;
 };
 
-const InputsText = ({ inputsData, register, errorMsg }: Props) => {
+const InputsText = (props: Props) => {
   return (
     <>
-      {inputsData.map(({ label, name, placeholder, type }) => {
+      {props.inputsData.map(({ label, name, placeholder, type }) => {
         return (
           <div key={name}>
             <label htmlFor={name} className="text-lg  block">
@@ -31,10 +31,10 @@ const InputsText = ({ inputsData, register, errorMsg }: Props) => {
               className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
               placeholder={placeholder}
               // defaultValue={defaultValue}
-              {...(register ? register(name as string) : {})}
+              {...(props.register ? props.register(name as string) : {})}
             />
             <div className="text-xs text-danger h-4">
-              {errorMsg?.[name]?.message as string}
+              {props.errorMsg?.[name]?.message as string}
             </div>
           </div>
         );

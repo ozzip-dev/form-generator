@@ -1,11 +1,16 @@
 "use server";
 
-import { loginSchema } from "@/lib/schema/loginSchema";
+import { loginSchema } from "@/lib/zodShema/zodAuthShema/loginSchema";
 import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-export async function ActionLogin(data: { email: string; password: string }) {
+type FormData = {
+  email: string;
+  password: string;
+};
+
+export async function ActionLogin(data: FormData) {
   const validationResult = loginSchema.safeParse(data);
   if (!validationResult.success) {
     return { error: parseZodErrors(validationResult.error) };

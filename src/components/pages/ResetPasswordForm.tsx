@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import {
   TResetPasswordShema,
   resetPasswordSchema,
-} from "@/lib/schema/resetPasswordSchema";
+} from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
