@@ -1,14 +1,15 @@
 "use client";
-import { InputField } from "@/components/Auth/FormFields";
+import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
+import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
-import { TResetPasswordShema } from "@/lib/schema/resetPasswordSchema";
-import { Lock } from "lucide-react";
-import Link from "next/link";
+import {
+  TResetPasswordShema,
+  resetPasswordSchema,
+} from "@/lib/schema/resetPasswordSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
 import ButtonSubmitt from "../ui/ButtonSubmitt";
 import FormAuthFooter from "../ui/FormAuthFooter";
 
@@ -34,7 +35,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     formState: { errors, isSubmitting },
     setError,
   } = useForm<TResetPasswordShema>({
-    // resolver: zodResolver(resetPasswordSchema),
+    resolver: zodResolver(resetPasswordSchema),
     // defaultValues: {
     //   name: "",
     //   email: "",
