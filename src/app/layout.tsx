@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Form Generator",
   description: "IP Form Generator App",
+  icons: "/favicon.png",
 };
 
 export default function RootLayout({
@@ -24,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pl">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
         <Toaster />
