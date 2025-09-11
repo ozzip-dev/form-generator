@@ -1,7 +1,7 @@
-import { ObjectId } from "mongodb"
-import { FormInput } from "./input"
+import { ObjectId } from "mongodb";
+import { FormInput } from "./input";
 
-export type FormState = 'draft' | 'active' | 'disabled' | 'template'
+export type FormState = "draft" | "active" | "disabled" | "template";
 
 export interface FormTemplate {
   id?: string, // TODO Pawel: id + state 'template': too much?

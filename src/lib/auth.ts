@@ -12,9 +12,10 @@ export const auth = betterAuth({
       role: {
         type: "string",
         defaultValue: UserRole.MODERATOR as string,
-        input: false, /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */
+        input:
+          false /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */,
       },
-    }
+    },
   },
   emailAndPassword: {
     enabled: true,
@@ -41,17 +42,17 @@ export const auth = betterAuth({
       maxAge: 5 * 60,
     },
   },
-  emailVerification: {
-    sendOnSignUp: true,
-    autoSignInAfterVerification: true,
-    sendVerificationEmail: async ({ user, token }) => {
-      const verificationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
-      await sendEmail({
-        to: user.email,
-        subject: "Potwierdź email",
-        text: `Kliknij w link aby zweryfikować email: ${verificationUrl}`,
-      });
-    },
-  },
+  // emailVerification: {
+  //   sendOnSignUp: true,
+  //   autoSignInAfterVerification: true,
+  //   sendVerificationEmail: async ({ user, token }) => {
+  //     const verificationUrl = `${process.env.BETTER_AUTH_URL}/api/auth/verify-email?token=${token}&callbackURL=${process.env.EMAIL_VERIFICATION_CALLBACK_URL}`;
+  //     await sendEmail({
+  //       to: user.email,
+  //       subject: "Potwierdź email",
+  //       text: `Kliknij w link aby zweryfikować email: ${verificationUrl}`,
+  //     });
+  //   },
+  // },
   plugins: [nextCookies()],
 });

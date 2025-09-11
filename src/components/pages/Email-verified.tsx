@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
@@ -23,9 +21,7 @@ const EmailVerified = () => {
         </p>
 
         <Link href="/dashboard" className="w-full block">
-          <Button className="w-full" size="lg">
-            Go to Dashboard
-          </Button>
+          <button className="w-full">Go to Dashboard</button>
         </Link>
       </div>
     </div>
