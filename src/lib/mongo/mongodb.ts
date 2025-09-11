@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import { makeDbCollection } from './mongo-utils';
 import { FormModel, InputModel, UserModel } from '@/models';
 import { DbModel } from '@/types/mongo';
@@ -9,6 +9,7 @@ import {
 } from '@/services/migrations/form-input-migrations';
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
+await client.connect();
 const db = client.db();
 
 const collections: [string, DbModel][] = [
@@ -33,7 +34,7 @@ async function initCollections() {
 async function addTemplateForms() {
   const { MEMBERSHIP, FAVOURITE_COLOR } = TemplateFormId
   for (const id of [MEMBERSHIP, FAVOURITE_COLOR]) {
-    await maybeAddTemplateForm(id)
+    await maybeAddTemplateForm(db, id)
   }
 }
 
@@ -41,7 +42,7 @@ async function addTemplateForms() {
 async function addTemplateInputs() {
   const { SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE } = TemplateInputId
   for (const id of [SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE]) {
-    await maybeAddTemplateInput(id)
+    await maybeAddTemplateInput(db, id)
   }
 }
 

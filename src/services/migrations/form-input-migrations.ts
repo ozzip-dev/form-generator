@@ -1,4 +1,4 @@
-import { db, find, insert } from "@/lib/mongo";
+import { find, insert } from "@/lib/mongo";
 import { formTemplates, inputTemplates } from "@/lib/mongo/templates";
 import { Form } from "@/types/form";
 import { Input } from "@/types/input";
@@ -22,7 +22,7 @@ async function addTemplateForm(
   console.log(`Inserted '${formTemplate.id}' form template`)
 }
 
-export async function maybeAddTemplateForm(id: string) {
+export async function maybeAddTemplateForm(db: Db, id: string) {
   const form = await find(db, 'form', { id })
   
   /* If form exists, skip */
@@ -53,7 +53,7 @@ async function addTemplateInput(
   console.log(`Inserted '${inputTemplate.id}' input template`)
 }
 
-export async function maybeAddTemplateInput(id: string) {
+export async function maybeAddTemplateInput(db: Db, id: string) {
   const input = await find(db, 'input', { id })
   
   /* If input exists, skip */
