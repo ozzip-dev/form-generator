@@ -1,25 +1,30 @@
-import { db, find, insert } from "@/lib/mongo";
-import { formTemplates } from "@/lib/mongo/templates";
+import { find, insert } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
-import { Db, Document, ObjectId } from "mongodb";
+import { Db, ObjectId } from "mongodb";
 
 export async function createDraft(
   db: Db,
   userId: ObjectId,
+  title: string,
+  description: string,
   inputs: FormInput[]
-): Promise<void> {
+): Promise<ObjectId> {
   const now: Date = new Date()
   const insertData: Form = {
     createdBy: userId,
     createdAt: now,
     updatedBy: userId,
     updatedAt: now,
+    title,
+    description,
     inputs,
     state: 'draft'
   }
 
-  await insert(db, 'form', insertData)
+  const { insertedId } = await insert(db, 'form', insertData)
+
+  return insertedId
 }
 
 

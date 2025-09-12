@@ -1,4 +1,4 @@
-import CreateForm from "@/components/pages/Create-form";
+import CreateForm from "@/components/pages/CreateForm";
 import { getFormTemplates } from "@/services/form-service";
 import { db } from "@/lib/mongo";
 import "@/components/pages/create-form/create-form.css";
