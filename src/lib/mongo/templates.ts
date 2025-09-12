@@ -121,7 +121,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: 'color',
-        type: 'text',
+        type: 'singleSelect',
         header: 'Kolor',
         validation: {},
         required: true,
