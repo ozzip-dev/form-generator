@@ -4,6 +4,8 @@ import EditForm from "@/components/pages/EditForm";
 import { Document, ObjectId } from "mongodb";
 import { Form } from "@/types/form";
 import { redirect } from "next/navigation";
+import { Input } from "@/types/input";
+import { getTemplateInputs } from "@/services/input-services";
 
 type Props = { params: { formId: string } };
 
@@ -27,9 +29,14 @@ const CreateFormPage = async (props: Props) => {
 
     if (!form) goToCreateForm();
 
+    const templateInputs: Input[] = await getTemplateInputs(db);
+
     return (
       <>
-        <EditForm form={parseObjProps(form) as Form} />
+        <EditForm
+          form={parseObjProps(form) as Form}
+          templateInputs={templateInputs.map((el) => parseObjProps(el))}
+        />
       </>
     );
   } catch (e) {

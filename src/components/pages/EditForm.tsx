@@ -3,10 +3,11 @@
 import { findOne } from "@/lib/mongo";
 import { formatDate } from "@/lib/utils";
 import { Form } from "@/types/form";
-import { FormInput } from "@/types/input";
+import { FormInput, Input } from "@/types/input";
 import CreateFormField from "../form/CreateFormField";
+import AddTemplateField from "./create-form/AddTemplateField";
 
-type Props = { form: Form };
+type Props = { form: Form; templateInputs: Input[] };
 
 // TODO Pawel: why rendered twice?
 const EditForm = (props: Props) => {
@@ -24,6 +25,8 @@ const EditForm = (props: Props) => {
             <CreateFormField {...el} key={i} />
           ))}
       </div>
+
+      <AddTemplateField inputs={props.templateInputs} />
     </div>
   );
 };

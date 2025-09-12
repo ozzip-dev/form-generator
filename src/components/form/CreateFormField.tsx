@@ -3,8 +3,6 @@
 import { FormInput } from "@/types/input";
 
 function CreateFormField(props: FormInput) {
-  console.log(props);
-
   const { description, type, header, required } = props;
   return (
     <>

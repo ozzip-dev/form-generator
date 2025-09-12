@@ -85,10 +85,6 @@ export async function insert(
   doc: Document
 ): Promise<InsertOneResult<Document>> {
   const collection: Collection<Document> = getCollection(db, collectionName)
-
-  // console.log(collection.collectionName)
-
-  // console.log({ doc })
   const result: InsertOneResult<Document> = await collection.insertOne(doc)
   return result
 }
