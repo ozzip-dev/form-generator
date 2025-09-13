@@ -24,7 +24,7 @@ const AddTemplateField = (props: Props) => {
   return (
     <>
       <select onChange={setFieldValue}>
-        <option value="">Dodaj pole</option>
+        <option value="">Wybierz pole</option>
         {props.inputs.map((el, i) => (
           <option value={el._id} key={i}>
             {el.header}
@@ -32,7 +32,11 @@ const AddTemplateField = (props: Props) => {
         ))}
       </select>
 
-      <button disabled={!input} onClick={() => props.addField(input as Input)}>
+      <button
+        className="btn-main"
+        disabled={!input}
+        onClick={() => props.addField(input as Input)}
+      >
         Dodaj
       </button>
     </>

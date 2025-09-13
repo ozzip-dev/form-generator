@@ -36,7 +36,13 @@ const TemplateSelect = ({ templates, insertDraft }: Props) => {
 
       <div>Wybrano szablon: {templateId}</div>
 
-      <button onClick={() => insertDraft(templateId)}>Utwórz</button>
+      <button
+        disabled={!templateId}
+        className="btn-main"
+        onClick={() => insertDraft(templateId)}
+      >
+        Utwórz
+      </button>
     </div>
   );
 };

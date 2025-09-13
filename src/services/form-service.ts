@@ -65,6 +65,9 @@ export async function addInputToDraft(
       inputs: {
         ...inputData
       }
+    },
+    $set: {
+      updatedAt: new Date()
     }
   })
 }

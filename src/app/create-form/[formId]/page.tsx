@@ -1,7 +1,6 @@
 "use server";
 
 import { db, findById, parseObjProps } from "@/lib/mongo";
-import "@/components/pages/create-form/create-form.css";
 import EditForm from "@/components/pages/EditForm";
 import { Document, ObjectId } from "mongodb";
 import { Form } from "@/types/form";
