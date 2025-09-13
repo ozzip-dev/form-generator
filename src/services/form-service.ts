@@ -1,6 +1,6 @@
-import { find, findById, insert, update } from "@/lib/mongo";
+import { find, insert } from "@/lib/mongo";
 import { Form } from "@/types/form";
-import { FormInput, Input } from "@/types/input";
+import { FormInput } from "@/types/input";
 import { Db, ObjectId } from "mongodb";
 
 export async function createDraft(
@@ -25,51 +25,6 @@ export async function createDraft(
   const { insertedId } = await insert(db, 'form', insertData)
 
   return insertedId
-}
-
-function getNextOrder(form: Form): number {
-  const orderValues: number[] = form.inputs.map(({order}) => order)
-  const maxOrder = Math.max(...orderValues)
-  return maxOrder + 1
-}
-
-function mapInputDocToFormInputData(input: Input, order: number): FormInput {
-  const {
-    type, header, description, validation, options
-  } = input
-  return {
-    /* id: create from input's id + some number if ids are duplicated? */
-    type,
-    header,
-    description,
-    validation,
-    options,
-    required: false,
-    unique: false,
-    order
-  }
-}
-
-export async function addInputToDraft(
-  db: Db,
-  formId: ObjectId,
-  input: Input
-): Promise<void> {
-  const draft = await findById(db, 'form', formId)
-  if (!draft) return
-  const order = getNextOrder(draft as Form)
-  const inputData = mapInputDocToFormInputData(input, order)
-  
-  await update(db, 'form', { _id: formId }, {
-    $push: {
-      inputs: {
-        ...inputData
-      }
-    },
-    $set: {
-      updatedAt: new Date()
-    }
-  })
 }
 
 export async function getFormTemplates(database: Db): Promise<Form[]> {

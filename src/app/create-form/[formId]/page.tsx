@@ -7,7 +7,7 @@ import { Form } from "@/types/form";
 import { redirect } from "next/navigation";
 import { Input } from "@/types/input";
 import { getTemplateInputs } from "@/services/input-services";
-import { addInputToDraft } from "@/services/form-service";
+import { AddInputToDraft } from "@/actions/form/AddInputToDraft";
 
 type Props = { params: { formId: string } };
 
@@ -36,7 +36,7 @@ const CreateFormPage = async (props: Props) => {
     async function addField(input: Input): Promise<void> {
       "use server";
 
-      await addInputToDraft(db, new ObjectId(formId), input as Input);
+      await AddInputToDraft(db, new ObjectId(formId), input as Input);
     }
 
     return (
