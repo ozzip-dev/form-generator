@@ -1,9 +1,9 @@
-import { ObjectId } from "mongodb";
+import { Document, ObjectId } from "mongodb";
 import { FormInput } from "./input";
 
 export type FormState = "draft" | "active" | "disabled" | "template";
 
-export interface FormTemplate {
+export interface FormTemplate extends Document {
   id?: string, // TODO Pawel: id + state 'template': too much?
   title?: string,
   description?: string,

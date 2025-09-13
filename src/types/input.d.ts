@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { Document, ObjectId } from "mongodb";
 
 export type InputType =
   | "text"
@@ -16,7 +16,7 @@ interface InputValidation {
   custom?: bool; // fn returning bool?
 }
 
-export interface Input {
+export interface Input extends Document {
   id?: string /* template inputs only */;
   type: InputType;
   header: string;

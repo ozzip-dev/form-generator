@@ -1,6 +1,6 @@
-import { find, insert } from "@/lib/mongo";
+import { find, findById, insert, update } from "@/lib/mongo";
 import { Form } from "@/types/form";
-import { FormInput } from "@/types/input";
+import { FormInput, Input } from "@/types/input";
 import { Db, ObjectId } from "mongodb";
 
 export async function createDraft(
@@ -27,6 +27,46 @@ export async function createDraft(
   return insertedId
 }
 
+function getNextOrder(form: Form): number {
+  const orderValues: number[] = form.inputs.map(({order}) => order)
+  const maxOrder = Math.max(...orderValues)
+  return maxOrder + 1
+}
+
+function mapInputDocToFormInputData(input: Input, order: number): FormInput {
+  const {
+    type, header, description, validation, options
+  } = input
+  return { 
+    type,
+    header,
+    description,
+    validation,
+    options,
+    required: false,
+    unique: false,
+    order
+  }
+}
+
+export async function addInputToDraft(
+  db: Db,
+  formId: ObjectId,
+  input: Input
+): Promise<void> {
+  const draft = await findById(db, 'form', formId)
+  if (!draft) return
+  const order = getNextOrder(draft as Form)
+  const inputData = mapInputDocToFormInputData(input, order)
+  
+  await update(db, 'form', { _id: formId }, {
+    $push: {
+      inputs: {
+        ...inputData
+      }
+    }
+  })
+}
 
 export async function getFormTemplates(database: Db): Promise<Form[]> {
   const forms =  await find(database, 'form', { state: 'template' })

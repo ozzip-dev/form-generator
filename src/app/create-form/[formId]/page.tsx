@@ -1,3 +1,5 @@
+"use server";
+
 import { db, findById, parseObjProps } from "@/lib/mongo";
 import "@/components/pages/create-form/create-form.css";
 import EditForm from "@/components/pages/EditForm";
@@ -6,6 +8,7 @@ import { Form } from "@/types/form";
 import { redirect } from "next/navigation";
 import { Input } from "@/types/input";
 import { getTemplateInputs } from "@/services/input-services";
+import { addInputToDraft } from "@/services/form-service";
 
 type Props = { params: { formId: string } };
 
@@ -31,11 +34,18 @@ const CreateFormPage = async (props: Props) => {
 
     const templateInputs: Input[] = await getTemplateInputs(db);
 
+    async function addField(input: Input): Promise<void> {
+      "use server";
+
+      await addInputToDraft(db, new ObjectId(formId), input as Input);
+    }
+
     return (
       <>
         <EditForm
           form={parseObjProps(form) as Form}
           templateInputs={templateInputs.map((el) => parseObjProps(el))}
+          addField={addField}
         />
       </>
     );

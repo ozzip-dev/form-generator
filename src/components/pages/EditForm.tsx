@@ -1,24 +1,28 @@
 "use client";
 
-import { findOne } from "@/lib/mongo";
 import { formatDate } from "@/lib/utils";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import CreateFormField from "../form/CreateFormField";
 import AddTemplateField from "./create-form/AddTemplateField";
 
-type Props = { form: Form; templateInputs: Input[] };
+type Props = {
+  form: Form;
+  templateInputs: Input[];
+  addField: (input: Input) => Promise<void>;
+};
 
-// TODO Pawel: why rendered twice?
+// TODO: why rendered twice?
+// TODO: add live rerender
 const EditForm = (props: Props) => {
-  const { title, description, inputs, createdAt, updatedAt } = props.form;
+  const { _id, title, description, inputs, createdAt, updatedAt } = props.form;
   return (
     <div className="p-4">
       <div>Utworzono: {formatDate(new Date(createdAt))}</div>
       <div>Edytowano: {formatDate(new Date(updatedAt))}</div>
       <div className="text-5xl">{title}</div>
       <div className="text-3xl">{description}</div>
-      <div className="mt-6 flex flex-col gap-4">
+      <div className="my-6 flex flex-col gap-4">
         {inputs
           .sort((a, b) => a.order - b.order)
           .map((el: FormInput, i: number) => (
@@ -26,7 +30,11 @@ const EditForm = (props: Props) => {
           ))}
       </div>
 
-      <AddTemplateField inputs={props.templateInputs} />
+      <AddTemplateField
+        formId={_id as string}
+        inputs={props.templateInputs}
+        addField={props.addField}
+      />
     </div>
   );
 };

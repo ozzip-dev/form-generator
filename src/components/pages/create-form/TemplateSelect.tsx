@@ -13,7 +13,7 @@ type Props = {
 const TemplateSelect = ({ templates, insertDraft }: Props) => {
   const [templateId, setTemplateId] = useState("");
 
-  const onTemplateSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+  const onTemplateSelect = (e: ChangeEvent<HTMLSelectElement>): void => {
     setTemplateId(e.target.value);
   };
 
