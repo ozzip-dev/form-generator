@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
 import { IUser } from "@/types/user";
+import Link from "next/link";
 
 // TODO: added for role validation only, edit later
 type Props = {
@@ -58,6 +59,9 @@ const Dashboard = (props: Props) => {
         <div>
           {props.user.role}: {props.user.name}
         </div>
+        <button className="btn-main">
+          <Link href="/create-form">Utwórz formularz</Link>
+        </button>
         <button onClick={handleSignOut} disabled={isSigningOut}>
           {isSigningOut ? (
             <>

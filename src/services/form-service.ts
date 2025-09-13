@@ -1,27 +1,76 @@
-import { db, find, insert } from "@/lib/mongo";
-import { formTemplates } from "@/lib/mongo/templates";
+import { find, findById, insert, update } from "@/lib/mongo";
 import { Form } from "@/types/form";
-import { FormInput } from "@/types/input";
-import { Db, Document, ObjectId } from "mongodb";
+import { FormInput, Input } from "@/types/input";
+import { Db, ObjectId } from "mongodb";
 
 export async function createDraft(
   db: Db,
   userId: ObjectId,
+  title: string,
+  description: string,
   inputs: FormInput[]
-): Promise<void> {
+): Promise<ObjectId> {
   const now: Date = new Date()
   const insertData: Form = {
     createdBy: userId,
     createdAt: now,
     updatedBy: userId,
     updatedAt: now,
+    title,
+    description,
     inputs,
     state: 'draft'
   }
 
-  await insert(db, 'form', insertData)
+  const { insertedId } = await insert(db, 'form', insertData)
+
+  return insertedId
 }
 
+function getNextOrder(form: Form): number {
+  const orderValues: number[] = form.inputs.map(({order}) => order)
+  const maxOrder = Math.max(...orderValues)
+  return maxOrder + 1
+}
+
+function mapInputDocToFormInputData(input: Input, order: number): FormInput {
+  const {
+    type, header, description, validation, options
+  } = input
+  return {
+    /* id: create from input's id + some number if ids are duplicated? */
+    type,
+    header,
+    description,
+    validation,
+    options,
+    required: false,
+    unique: false,
+    order
+  }
+}
+
+export async function addInputToDraft(
+  db: Db,
+  formId: ObjectId,
+  input: Input
+): Promise<void> {
+  const draft = await findById(db, 'form', formId)
+  if (!draft) return
+  const order = getNextOrder(draft as Form)
+  const inputData = mapInputDocToFormInputData(input, order)
+  
+  await update(db, 'form', { _id: formId }, {
+    $push: {
+      inputs: {
+        ...inputData
+      }
+    },
+    $set: {
+      updatedAt: new Date()
+    }
+  })
+}
 
 export async function getFormTemplates(database: Db): Promise<Form[]> {
   const forms =  await find(database, 'form', { state: 'template' })

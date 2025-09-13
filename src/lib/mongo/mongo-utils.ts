@@ -12,6 +12,11 @@ export enum FieldType {
   ARRAY = 'array',
 }
 
+/* Next throws error if ObjectId(...) is passed inside an object */
+export const parseObjProps = (obj: unknown) => (
+  JSON.parse(JSON.stringify(obj))
+)
+
 const getModelValidator = (
   properties: Properties, 
   required: string[],
@@ -47,6 +52,16 @@ export async function find(
   return docs
 }
 
+export async function findOne(
+  db: Db,
+  collectionName: string,
+  query: Document
+): Promise<Document | null> {
+  const collection: Collection<Document> = getCollection(db, collectionName)
+  const doc: Document | null  = await collection.findOne(query)
+  return doc
+}
+
 export async function findById(
   db: Db,
   collectionName: string,
@@ -70,10 +85,6 @@ export async function insert(
   doc: Document
 ): Promise<InsertOneResult<Document>> {
   const collection: Collection<Document> = getCollection(db, collectionName)
-
-  // console.log(collection.collectionName)
-
-  // console.log({ doc })
   const result: InsertOneResult<Document> = await collection.insertOne(doc)
   return result
 }
