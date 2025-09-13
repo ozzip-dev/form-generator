@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { Input } from "@/types/input";
 import { getTemplateInputs } from "@/services/input-services";
 import { AddInputToDraft } from "@/actions/form/AddInputToDraft";
+import { RemoveInputFromDraft } from "@/actions/form/RemoveInputFromDraft";
 
 type Props = { params: { formId: string } };
 
@@ -33,10 +34,16 @@ const CreateFormPage = async (props: Props) => {
 
     const templateInputs: Input[] = await getTemplateInputs(db);
 
-    async function addField(input: Input): Promise<void> {
+    async function addInput(input: Input): Promise<void> {
       "use server";
 
       await AddInputToDraft(db, new ObjectId(formId), input as Input);
+    }
+
+    async function removeInput(inputId: string): Promise<void> {
+      "use server";
+
+      await RemoveInputFromDraft(db, new ObjectId(formId), inputId);
     }
 
     return (
@@ -44,7 +51,8 @@ const CreateFormPage = async (props: Props) => {
         <EditForm
           form={parseObjProps(form) as Form}
           templateInputs={templateInputs.map((el) => parseObjProps(el))}
-          addField={addField}
+          addInput={addInput}
+          removeInput={removeInput}
         />
       </>
     );

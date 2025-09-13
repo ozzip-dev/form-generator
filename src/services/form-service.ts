@@ -1,4 +1,4 @@
-import { find, insert } from "@/lib/mongo";
+import { find, insert, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId } from "mongodb";
@@ -30,4 +30,21 @@ export async function createDraft(
 export async function getFormTemplates(database: Db): Promise<Form[]> {
   const forms =  await find(database, 'form', { state: 'template' })
   return forms as Form[]
+}
+
+export async function removeInputFromDraft(
+  db: Db,
+  formId: ObjectId,
+  inputId: string
+): Promise<void> {
+  await updateById(
+    db,
+    'form',
+    formId,
+    {
+      $pull: {
+        inputs: { id: inputId }
+      }
+    }
+  )
 }

@@ -6,7 +6,7 @@ import { ChangeEvent, useState } from "react";
 type Props = {
   formId: string;
   inputs: Input[];
-  addField: (input: Input) => Promise<void>;
+  addInput: (input: Input) => Promise<void>;
 };
 
 // TODO: change to <form>
@@ -33,9 +33,9 @@ const AddTemplateField = (props: Props) => {
       </select>
 
       <button
-        className="btn-main"
+        className="btn btn-main"
         disabled={!input}
-        onClick={() => props.addField(input as Input)}
+        onClick={() => props.addInput(input as Input)}
       >
         Dodaj
       </button>

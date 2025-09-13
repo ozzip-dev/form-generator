@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -59,7 +60,7 @@ const Dashboard = (props: Props) => {
         <div>
           {props.user.role}: {props.user.name}
         </div>
-        <button className="btn-main">
+        <button className="btn btn-main">
           <Link href="/create-form">Utwórz formularz</Link>
         </button>
         <button onClick={handleSignOut} disabled={isSigningOut}>

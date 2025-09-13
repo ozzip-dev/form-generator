@@ -38,7 +38,7 @@ const TemplateSelect = ({ templates, insertDraft }: Props) => {
 
       <button
         disabled={!templateId}
-        className="btn-main"
+        className="btn btn-main"
         onClick={() => insertDraft(templateId)}
       >
         Utwórz

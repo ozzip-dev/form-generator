@@ -5,8 +5,10 @@ import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Db, ObjectId } from "mongodb";
 
+/* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
   const orderValues: number[] = form.inputs.map(({ order }) => order);
+  if (!orderValues.length) return 0;
   const maxOrder = Math.max(...orderValues);
   return maxOrder + 1;
 }

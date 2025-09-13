@@ -3,13 +3,14 @@
 import { formatDate } from "@/lib/utils";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import CreateFormField from "../form/CreateFormField";
+import CreateFormInput from "../form/CreateFormInput";
 import AddTemplateField from "./create-form/AddTemplateField";
 
 type Props = {
   form: Form;
   templateInputs: Input[];
-  addField: (input: Input) => Promise<void>;
+  addInput: (input: Input) => Promise<void>;
+  removeInput: (id: string) => Promise<void>;
 };
 
 // TODO: why rendered twice?
@@ -26,14 +27,18 @@ const EditForm = (props: Props) => {
         {inputs
           .sort((a, b) => a.order - b.order)
           .map((el: FormInput, i: number) => (
-            <CreateFormField {...el} key={i} />
+            <CreateFormInput
+              input={el}
+              removeInput={props.removeInput}
+              key={i}
+            />
           ))}
       </div>
 
       <AddTemplateField
         formId={_id as string}
         inputs={props.templateInputs}
-        addField={props.addField}
+        addInput={props.addInput}
       />
     </div>
   );
