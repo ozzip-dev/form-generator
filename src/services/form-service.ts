@@ -37,7 +37,8 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const {
     type, header, description, validation, options
   } = input
-  return { 
+  return {
+    /* id: create from input's id + some number if ids are duplicated? */
     type,
     header,
     description,
