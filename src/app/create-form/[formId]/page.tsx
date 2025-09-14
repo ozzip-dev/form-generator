@@ -4,7 +4,7 @@ import { db, findById, parseObjProps } from "@/lib/mongo";
 import { Document, ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { Input } from "@/types/input";
-import { getTemplateInputs } from "@/services/input-services";
+import { getTemplateInputs } from "@/services/input-service";
 import EditForm from "@/components/form/EditForm";
 import { Form } from "@/types/form";
 import { serializeForm } from "@/lib/form-utils";
