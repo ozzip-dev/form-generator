@@ -17,7 +17,7 @@ function getNextOrder(form: Form): number {
 function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const { type, header, description, validation, options } = input;
   return {
-    /* id: create from input's id + some number if ids are duplicated? */
+    /* id: create from input's id + some number if ids are duplicated? or simply uuid? */
     id: Math.random().toString(),
     type,
     header,

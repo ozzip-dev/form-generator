@@ -27,8 +27,8 @@ export const inputTemplates: Input[] = [
   {
     id: TemplateInputId.AGE,
     type: 'number',
-    header: 'Adres',
-    description: 'Podaj swój adres',
+    header: 'Wiek',
+    description: 'Podaj swój wiek',
     validation: {},
   },
   {
