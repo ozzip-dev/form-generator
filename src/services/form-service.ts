@@ -41,11 +41,51 @@ export async function getFormTemplates(database: Db): Promise<Form[]> {
   return forms as Form[]
 }
 
+async function decreaseRemainingInputsOrder(
+  db: Db,
+  formId: ObjectId,
+  inputId: string
+) {
+  const form =  await findById(db, 'form', formId) as Form 
+  const { inputs } = form
+  const startingOrder: number | undefined = getFormInputById(form.inputs, inputId!)?.order
+  /* if order is undefined/null or is last element. We have no inputs to update */
+  if (startingOrder == undefined || startingOrder >= inputs.length - 1) return
+  const remainingOrders = inputs
+    .sort((a, b) => a.order - b.order)
+    .map(({ order }) => order)
+    .filter((order) => order > startingOrder)
+
+  for (const order of remainingOrders) {
+    await update(
+      db,
+      'form',
+      {
+        _id: form._id,
+        "inputs.order": order
+      },
+      {
+        $inc: {
+          "inputs.$.order": -1
+        }
+      }
+    )
+  }
+}
+
 export async function removeInputFromDraft(
   db: Db,
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form>> {
+
+  /* all inputs higher than removed one get their order decreased by 1 */
+  await decreaseRemainingInputsOrder(
+    db,
+    formId,
+    inputId
+  )
+
   return (await updateById(
     db,
     'form',
@@ -75,7 +115,7 @@ export async function moveInputUp(
 ): Promise<WithId<Form> | undefined> {
   const form =  await findById(db, 'form', formId) as Form
   const { inputs } = form
-  const updatedOrder: number = getFormInputById(inputs, inputId!)?.order!
+  const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
   /* if order is undefined/null or 0. We can't move up input with index 0 */
   if (!updatedOrder) return
 
@@ -124,8 +164,8 @@ export async function moveInputDown(
 ): Promise<WithId<Form> | undefined> {
   const form =  await findById(db, 'form', formId) as Form
   const { inputs } = form
-  const updatedOrder: number = getFormInputById(inputs, inputId!)?.order!
-  /* if order is undefined/null is last element. We can't move up input with index 0 */
+  const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
+  /* if order is undefined/null or is last element. We can't move down last input */
   if (updatedOrder == undefined || updatedOrder >= inputs.length - 1) return
 
   const nextOrder = updatedOrder + 1
