@@ -11,6 +11,8 @@ type Props = {
   templateInputs: Input[];
   addInput: (input: Input) => Promise<void>;
   removeInput: (id: string) => Promise<void>;
+  moveInputDown: (id: string) => Promise<void>;
+  moveInputUp: (id: string) => Promise<void>;
 };
 
 // stupid name but it's a form to edit forms:)
@@ -28,8 +30,11 @@ const EditFormForm = (props: Props) => {
           .sort((a, b) => a.order - b.order)
           .map((el: FormInput, i: number) => (
             <CreateFormInput
+              inputs={inputs}
               input={el}
               removeInput={props.removeInput}
+              moveInputDown={props.moveInputDown}
+              moveInputUp={props.moveInputUp}
               key={i}
             />
           ))}

@@ -99,7 +99,7 @@ export async function insertMany(
   return result
 }
 
-export async function update(
+export async function updateMany(
   db: Db, 
   collectionName: string,
   query: Document,
@@ -110,8 +110,19 @@ export async function update(
   return result
 }
 
-export async function updateById(
+export async function update(
   db: Db, 
+  collectionName: string,
+  query: Document,
+  updateData: Document,
+): Promise<WithId<Document> | null> {
+  const collection: Collection<Document> = getCollection(db, collectionName)
+  const result = await collection.findOneAndUpdate(query, updateData)
+  return result
+}
+
+export async function updateById(
+  db: Db,
   collectionName: string,
   _id: ObjectId,
   updateData: Document,

@@ -1,7 +1,17 @@
-import { find, insert, updateById } from "@/lib/mongo";
+import { find, findById, insert, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
+
+export async function formHasInputWithId(
+  db: Db,
+  formId: ObjectId,
+  inputId: string
+): Promise<boolean> {
+  const form = (await findById(db, "form", formId)) as Form | null;
+  if (!form) return false;
+  return form.inputs.some(({ id }) => id === inputId);
+}
 
 export async function createDraft(
   db: Db,
@@ -43,7 +53,114 @@ export async function removeInputFromDraft(
     {
       $pull: {
         inputs: { id: inputId }
-      }
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
     }
   )) as WithId<Form>
+}
+
+function getFormInputById(
+  inputs: FormInput[],
+  id: string
+): FormInput | undefined {
+  return inputs.find((el: FormInput) => el.id == id!)
+}
+
+export async function moveInputUp(
+  db: Db,
+  formId: ObjectId,
+  inputId: string
+): Promise<WithId<Form> | undefined> {
+  const form =  await findById(db, 'form', formId) as Form
+  const { inputs } = form
+  const updatedOrder: number = getFormInputById(inputs, inputId!)?.order!
+  /* if order is undefined/null or 0. We can't move up input with index 0 */
+  if (!updatedOrder) return
+
+  const previousOrder = updatedOrder - 1
+
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.order": previousOrder
+    },
+    {
+      $inc: {
+        "inputs.$.order": 1
+      }
+    }
+  )
+  
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.id": inputId
+    },
+    {
+      $inc: {
+        "inputs.$.order": -1
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    }
+  )
+
+  const updatedForm =  await findById(db, 'form', formId) as Form
+  return updatedForm as WithId<Form>
+}
+
+
+export async function moveInputDown(
+  db: Db,
+  formId: ObjectId,
+  inputId: string
+): Promise<WithId<Form> | undefined> {
+  const form =  await findById(db, 'form', formId) as Form
+  const { inputs } = form
+  const updatedOrder: number = getFormInputById(inputs, inputId!)?.order!
+  /* if order is undefined/null is last element. We can't move up input with index 0 */
+  if (updatedOrder == undefined || updatedOrder >= inputs.length - 1) return
+
+  const nextOrder = updatedOrder + 1
+
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.order": nextOrder
+    },
+    {
+      $inc: {
+        "inputs.$.order": -1
+      }
+    }
+  )
+  
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.id": inputId
+    },
+    {
+      $inc: {
+        "inputs.$.order": 1
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    }
+  )
+
+  const updatedForm =  await findById(db, 'form', formId) as Form
+  return updatedForm as WithId<Form>
 }

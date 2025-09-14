@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { FormSerialized } from "@/types/form";
 import { Input } from "@/types/input";
-import { AddInputToDraft } from "@/actions/form/AddInputToDraft";
-import { RemoveInputFromDraft } from "@/actions/form/RemoveInputFromDraft";
 import EditFormForm from "../pages/EditFormForm";
+import {
+  AddInputToDraft,
+  MoveInputDown,
+  MoveInputUp,
+  RemoveInputFromDraft,
+} from "@/actions/form";
 
 type Props = {
   initialForm: FormSerialized;
@@ -31,12 +35,28 @@ const EditForm = ({ initialForm, templateInputs }: Props) => {
     setFormData(updatedResult);
   }
 
+  async function moveInputUp(inputId: string): Promise<void> {
+    const updatedResult = await MoveInputUp(formId, inputId);
+    if (!updatedResult) return;
+
+    setFormData(updatedResult);
+  }
+
+  async function moveInputDown(inputId: string): Promise<void> {
+    const updatedResult = await MoveInputDown(formId, inputId);
+    if (!updatedResult) return;
+
+    setFormData(updatedResult);
+  }
+
   return (
     <EditFormForm
       form={formData}
       templateInputs={templateInputs}
       addInput={addInput}
       removeInput={removeInput}
+      moveInputDown={moveInputDown}
+      moveInputUp={moveInputUp}
     />
   );
 };
