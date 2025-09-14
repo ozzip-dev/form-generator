@@ -1,9 +1,10 @@
 "use server";
 
-import { findById, update } from "@/lib/mongo";
-import { Form } from "@/types/form";
+import { serializeForm } from "@/lib/form-utils";
+import { db, findById, updateById } from "@/lib/mongo";
+import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import { Db, ObjectId } from "mongodb";
+import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
@@ -17,6 +18,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const { type, header, description, validation, options } = input;
   return {
     /* id: create from input's id + some number if ids are duplicated? */
+    id: Math.random().toString(),
     type,
     header,
     description,
@@ -29,19 +31,18 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 }
 
 export async function AddInputToDraft(
-  db: Db,
-  formId: ObjectId,
+  formId: string,
   input: Input
-): Promise<void> {
-  const draft = await findById(db, "form", formId);
+): Promise<FormSerialized | undefined> {
+  const draft = await findById(db, "form", new ObjectId(formId));
   if (!draft) return;
   const order = getNextOrder(draft as Form);
   const inputData = mapInputDocToFormInputData(input, order);
 
-  await update(
+  const result: WithId<Document> | null = await updateById(
     db,
     "form",
-    { _id: formId },
+    new ObjectId(formId),
     {
       $push: {
         inputs: {
@@ -53,4 +54,8 @@ export async function AddInputToDraft(
       },
     }
   );
+
+  if (!result) return;
+
+  return serializeForm(result as Form);
 }

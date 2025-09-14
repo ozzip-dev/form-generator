@@ -1,9 +1,10 @@
 "use server";
 
-import { Form } from "@/types/form";
-import { findById } from "@/lib/mongo";
-import { Db, ObjectId } from "mongodb";
+import { Form, FormSerialized } from "@/types/form";
+import { db, findById } from "@/lib/mongo";
+import { Db, ObjectId, WithId } from "mongodb";
 import { removeInputFromDraft } from "@/services/form-service";
+import { serializeForm } from "@/lib/form-utils";
 
 async function formHasInputWithId(
   db: Db,
@@ -16,13 +17,20 @@ async function formHasInputWithId(
 }
 
 export async function RemoveInputFromDraft(
-  db: Db,
-  formId: ObjectId,
+  formIdString: string,
   inputId: string
-): Promise<void> {
-  console.log(formId, inputId);
+): Promise<FormSerialized | undefined> {
+  const formId = new ObjectId(formIdString);
   if (!formHasInputWithId(db, formId, inputId))
     console.error(`Form doesn\'t contain input: ${inputId}`);
 
-  await removeInputFromDraft(db, formId, inputId);
+  const result: WithId<Form> | null = await removeInputFromDraft(
+    db,
+    formId,
+    inputId
+  );
+
+  if (!result) return;
+
+  return serializeForm(result);
 }

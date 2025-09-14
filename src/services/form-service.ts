@@ -1,7 +1,7 @@
 import { find, insert, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
-import { Db, ObjectId } from "mongodb";
+import { Db, ObjectId, WithId } from "mongodb";
 
 export async function createDraft(
   db: Db,
@@ -14,7 +14,6 @@ export async function createDraft(
   const insertData: Form = {
     createdBy: userId,
     createdAt: now,
-    updatedBy: userId,
     updatedAt: now,
     title,
     description,
@@ -36,8 +35,8 @@ export async function removeInputFromDraft(
   db: Db,
   formId: ObjectId,
   inputId: string
-): Promise<void> {
-  await updateById(
+): Promise<WithId<Form>> {
+  return (await updateById(
     db,
     'form',
     formId,
@@ -46,5 +45,5 @@ export async function removeInputFromDraft(
         inputs: { id: inputId }
       }
     }
-  )
+  )) as WithId<Form>
 }

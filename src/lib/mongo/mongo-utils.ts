@@ -1,5 +1,5 @@
 import { DbModel, Properties } from "@/types/mongo"
-import { Collection, Db, DeleteResult, Document, InsertManyResult, InsertOneResult, ObjectId, UpdateResult } from "mongodb"
+import { Collection, Db, DeleteResult, Document, InsertManyResult, InsertOneResult, ObjectId, UpdateResult, WithId } from "mongodb"
 
 // TODO Pawel: wrong place
 export enum FieldType {
@@ -115,8 +115,16 @@ export async function updateById(
   collectionName: string,
   _id: ObjectId,
   updateData: Document,
-): Promise<UpdateResult<Document>> {
-  return update(db, collectionName, { _id }, updateData)
+): Promise<WithId<Document> | null> {
+  const collection: Collection<Document> = getCollection(db, collectionName)
+
+  const result = await collection.findOneAndUpdate(
+    { _id },
+    updateData,
+    { returnDocument: "after" }
+  );
+
+  return result;
 }
 
 export async function deleteMany(

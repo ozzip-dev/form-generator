@@ -1,22 +1,22 @@
 "use client";
 
 import { formatDate } from "@/lib/utils";
-import { Form } from "@/types/form";
+import { FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import CreateFormInput from "../form/CreateFormInput";
 import AddTemplateField from "./create-form/AddTemplateField";
 
 type Props = {
-  form: Form;
+  form: FormSerialized;
   templateInputs: Input[];
   addInput: (input: Input) => Promise<void>;
   removeInput: (id: string) => Promise<void>;
 };
 
-// TODO: why rendered twice?
-// TODO: add live rerender
-const EditForm = (props: Props) => {
+// stupid name but it's a form to edit forms:)
+const EditFormForm = (props: Props) => {
   const { _id, title, description, inputs, createdAt, updatedAt } = props.form;
+
   return (
     <div className="p-4">
       <div>Utworzono: {formatDate(new Date(createdAt))}</div>
@@ -36,7 +36,7 @@ const EditForm = (props: Props) => {
       </div>
 
       <AddTemplateField
-        formId={_id as string}
+        formId={_id?.toString() as string}
         inputs={props.templateInputs}
         addInput={props.addInput}
       />
@@ -44,4 +44,4 @@ const EditForm = (props: Props) => {
   );
 };
 
-export default EditForm;
+export default EditFormForm;

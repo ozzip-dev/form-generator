@@ -1,22 +1,17 @@
 "use server";
 
 import { db, findById, parseObjProps } from "@/lib/mongo";
-import EditForm from "@/components/pages/EditForm";
 import { Document, ObjectId } from "mongodb";
-import { Form } from "@/types/form";
 import { redirect } from "next/navigation";
 import { Input } from "@/types/input";
 import { getTemplateInputs } from "@/services/input-services";
-import { AddInputToDraft } from "@/actions/form/AddInputToDraft";
-import { RemoveInputFromDraft } from "@/actions/form/RemoveInputFromDraft";
+import EditForm from "@/components/form/EditForm";
+import { Form } from "@/types/form";
+import { serializeForm } from "@/lib/form-utils";
 
 type Props = { params: { formId: string } };
 
 const CreateFormPage = async (props: Props) => {
-  /* 
-    If id in url is an invalid ObjectId or record doesn't exist, 
-    redirect to create form. Add info msg 
-  */
   const goToCreateForm = () => {
     redirect("/create-form");
   };
@@ -34,30 +29,15 @@ const CreateFormPage = async (props: Props) => {
 
     const templateInputs: Input[] = await getTemplateInputs(db);
 
-    async function addInput(input: Input): Promise<void> {
-      "use server";
-
-      await AddInputToDraft(db, new ObjectId(formId), input as Input);
-    }
-
-    async function removeInput(inputId: string): Promise<void> {
-      "use server";
-
-      await RemoveInputFromDraft(db, new ObjectId(formId), inputId);
-    }
-
     return (
-      <>
-        <EditForm
-          form={parseObjProps(form) as Form}
-          templateInputs={templateInputs.map((el) => parseObjProps(el))}
-          addInput={addInput}
-          removeInput={removeInput}
-        />
-      </>
+      <EditForm
+        initialForm={serializeForm(form as Form)}
+        templateInputs={templateInputs.map((el) => parseObjProps(el))}
+      />
     );
   } catch (e) {
     goToCreateForm();
   }
 };
+
 export default CreateFormPage;
