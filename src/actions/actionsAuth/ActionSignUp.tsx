@@ -1,4 +1,5 @@
 "use server";
+
 import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { signUpSchema } from "@/lib/zodShema/zodAuthShema/signupSchema";
@@ -24,14 +25,7 @@ export async function ActionSignUp(data: FormData) {
       body: { email: data.email, password: data.password, name: data.name },
     });
   } catch (err: any) {
-    return {
-      error: {
-        email: {
-          type: "auth",
-          message: err?.message ?? "Rejestracja nie powiodła się",
-        },
-      },
-    };
+    throw new Error(err?.message ?? "Rejestracja się nie powiodła");
   }
-  redirect("/dashboard");
+  redirect("/dashboard?login=success");
 }

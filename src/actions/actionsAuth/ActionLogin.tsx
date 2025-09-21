@@ -23,5 +23,5 @@ export async function ActionLogin(data: FormData) {
   } catch (err: any) {
     throw new Error(err?.message ?? "Nieprawidłowy email lub hasło");
   }
-  redirect("/dashboard");
+  redirect("/dashboard?login=success");
 }

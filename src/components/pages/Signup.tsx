@@ -11,12 +11,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import InputsText from "@/components/inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/ButtonSubmit";
+import FormAuthFooter from "../Auth/FormAuthFooter";
 
 const dataInputsSignUp = [
   {
-    label: "Nazwa",
+    label: "Imię",
     name: "name",
     placeholder: "Jan",
     type: "text",
@@ -49,12 +49,6 @@ const SignUp = () => {
     setError,
   } = useForm<TSignUpShema>({
     resolver: zodResolver(signUpSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
   const { toast } = useToast();
@@ -100,7 +94,7 @@ const SignUp = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Załóż konto" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Załóż konto" />
         </form>
 
         <div className="flex flex-col space-y-4">
@@ -119,8 +113,8 @@ const SignUp = () => {
           </div>
 
           <FormAuthFooter
-            text1="Masz konto?"
-            text2="Zaloguj się"
+            text="Masz konto?"
+            textLink="Zaloguj się"
             link="/login"
           />
         </div>

@@ -2,10 +2,12 @@ import Dashboard from "@/components/pages/Dashboard";
 import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
 import { headers } from "next/headers";
+
 import Link from "next/link";
 
 const PageDashboard = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
+
   if (!session) {
     return (
       <div className="flex items-center justify-center min-h-screen">

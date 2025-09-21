@@ -12,8 +12,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/ButtonSubmit";
+import FormAuthFooter from "../Auth/FormAuthFooter";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const dataInputsLogin = [
   {
@@ -34,6 +36,7 @@ const dataInputsLogin = [
 
 const Login = () => {
   const { toast } = useToast();
+  const searchParams = useSearchParams();
 
   const {
     register,
@@ -44,9 +47,23 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  useEffect(() => {
+    if (searchParams.get("logout") === "success") {
+      toast({
+        title: "Witaj!",
+        description: "Zostałeś pomyślnie wylogowany",
+      });
+    }
+  }, [searchParams, toast]);
+
   const onSubmit = async (data: TLoginSchema) => {
     try {
       const resp = await ActionLogin(data);
+
+      if (resp?.error) {
+        handleFormErrors<TLoginSchema>(resp.error, setError);
+        return;
+      }
 
       if (resp?.error?.email?.type === "auth") {
         toast({
@@ -54,11 +71,6 @@ const Login = () => {
           description: resp.error.email.message,
           variant: "destructive",
         });
-        return;
-      }
-
-      if (resp?.error) {
-        handleFormErrors<TLoginSchema>(resp.error, setError);
         return;
       }
     } catch (err: any) {
@@ -99,7 +111,7 @@ const Login = () => {
               Nie pamiętasz hasła?
             </Link>
           </div>
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Zaloguj" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Zaloguj" />
 
           <div className="flex gap-4 ">
             <GoogleAuthButton
@@ -110,8 +122,8 @@ const Login = () => {
           </div>
 
           <FormAuthFooter
-            text1="Nie masz konta?"
-            text2="Założ konto"
+            text="Nie masz konta?"
+            textLink="Założ konto"
             link="/signup"
           />
         </form>

@@ -10,8 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/ButtonSubmit";
+import FormAuthFooter from "../Auth/FormAuthFooter";
 
 const dataInputsResetPassword = [
   {
@@ -107,12 +107,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             register={register}
             errorMsg={errors}
           />
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Zmień hasło" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Zmień hasło" />
         </form>
 
         <FormAuthFooter
-          text1="Pamiętasz hasło?"
-          text2="Zaloguj się"
+          text="Pamiętasz hasło?"
+          textLink="Zaloguj się"
           link="/login"
         />
       </div>

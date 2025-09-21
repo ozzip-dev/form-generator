@@ -1,46 +1,43 @@
 "use client";
-import React, { useState } from "react";
-import { LogOut } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
+import { useToast } from "@/hooks/use-toast";
 import { IUser } from "@/types/user";
+import { LogOut } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-// TODO: added for role validation only, edit later
 type Props = {
   user: IUser;
 };
 
 const Dashboard = (props: Props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const router = useRouter();
   const { toast } = useToast();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("login") === "success") {
+      toast({
+        title: "Witaj!",
+        description: "Zostałeś pomyślnie zalogowany",
+      });
+    }
+  }, [searchParams, toast]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
     try {
-      const resp = await ActionSignOut();
-
-      if (resp?.error) {
-        toast({
-          variant: "destructive",
-          title: "Błąd wylogowania",
-          description: resp.error.message,
-        });
-        return;
-      }
-
-      if (resp?.success) {
-        toast({
-          title: "Wylogowano pomyślnie",
-          description: "Zostałeś pomyślnie wylogowany",
-        });
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 1500);
-      }
+      await ActionSignOut();
     } catch (err: any) {
+      const digest = err?.digest;
+      const message = err?.message;
+      if (
+        digest === "NEXT_REDIRECT" ||
+        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
+        message === "NEXT_REDIRECT"
+      ) {
+        throw err;
+      }
       toast({
         variant: "destructive",
         title: "Błąd wylogowania",

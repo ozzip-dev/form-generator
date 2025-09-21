@@ -1,4 +1,5 @@
 "use client";
+
 import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/use-toast";
@@ -7,11 +8,10 @@ import {
   forgotPasswordSchema,
 } from "@/lib/zodShema/zodAuthShema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
+import FormAuthFooter from "../Auth/FormAuthFooter";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/ButtonSubmit";
 
 const dataInputsForgotPassword = [
   {
@@ -19,7 +19,6 @@ const dataInputsForgotPassword = [
     name: "email",
     placeholder: "kamil@ozzip.com",
     type: "email",
-    defaultValue: "test@example.com",
   },
 ];
 
@@ -85,10 +84,14 @@ const ForgotPassword = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Wyślij link" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Wyślij link" />
         </form>
 
-        <FormAuthFooter text1="Masz konto?" text2="Zaloguj się" link="/login" />
+        <FormAuthFooter
+          text="Masz konto?"
+          textLink="Zaloguj się"
+          link="/login"
+        />
       </div>
     </div>
   );

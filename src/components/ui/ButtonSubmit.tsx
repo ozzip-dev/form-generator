@@ -5,7 +5,7 @@ type Props = {
   text: string;
 };
 
-export default function ButtonSubmitt(props: Props) {
+export default function ButtonSubmit(props: Props) {
   return (
     <button
       type="submit"
