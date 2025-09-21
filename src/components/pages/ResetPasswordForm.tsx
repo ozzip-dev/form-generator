@@ -36,46 +36,16 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     setError,
   } = useForm<TResetPasswordShema>({
     resolver: zodResolver(resetPasswordSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
-  const router = useRouter();
   const { toast } = useToast();
 
   const onSubmit = async (data: TResetPasswordShema) => {
     try {
       const resp = await ActionResetPassword({ ...data, token });
-
-      if (resp?.error?.password?.type === "auth") {
-        toast({
-          title: "Błąd resetowania hasła",
-          description: resp.error.password.message,
-          variant: "destructive",
-        });
-        return;
-      }
-
       if (resp?.error) {
         handleFormErrors<TResetPasswordShema>(resp.error, setError);
         return;
-      }
-
-      // Success case
-      if (resp?.success) {
-        toast({
-          title: "Hasło zostało zresetowane",
-          description:
-            "Twoje hasło zostało pomyślnie zmienione. Możesz się teraz zalogować.",
-        });
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
       }
     } catch (err: any) {
       const digest = err?.digest;
@@ -89,7 +59,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       }
 
       toast({
-        title: "Błąd logowania",
+        title: "Błąd zmiany hasła",
         description: err.message || "Coś poszło nie tak",
         variant: "destructive",
       });

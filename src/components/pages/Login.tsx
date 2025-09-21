@@ -54,6 +54,14 @@ const Login = () => {
         description: "Zostałeś pomyślnie wylogowany",
       });
     }
+
+    if (searchParams.get("resetPassword") === "success") {
+      toast({
+        title: "Hasło zostało zresetowane!",
+        description:
+          "Twoje hasło zostało pomyślnie zmienione. Możesz się zalogować",
+      });
+    }
   }, [searchParams, toast]);
 
   const onSubmit = async (data: TLoginSchema) => {

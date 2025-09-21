@@ -30,12 +30,6 @@ const ForgotPassword = () => {
     setError,
   } = useForm<TForgotPasswordShema>({
     resolver: zodResolver(forgotPasswordSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
   const { toast } = useToast();
@@ -43,15 +37,6 @@ const ForgotPassword = () => {
   const onSubmit = async (data: TForgotPasswordShema) => {
     try {
       const resp = await ActionForgotPassword(data);
-
-      // if (resp?.error?.email?.type === "auth") {
-      //   toast({
-      //     title: "Błąd logowania",
-      //     description: resp.error.email.message,
-      //     variant: "destructive",
-      //   });
-      //   return;
-      // }
 
       if (resp?.error) {
         handleFormErrors<TForgotPasswordShema>(resp.error, setError);
