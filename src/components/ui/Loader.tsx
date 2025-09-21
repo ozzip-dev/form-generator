@@ -12,7 +12,7 @@ export default function Loader(props: Props) {
       className={`
         ${sizeClasses}
         animate-spin rounded-full
-        border-t-transparent border-solid border-current border-sky-500
+        border-t-transparent border-solid border-current border-zinc-500
       `}
       role="status"
     ></div>

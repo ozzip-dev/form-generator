@@ -1,13 +1,12 @@
 "use client";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/context/ContextProvider";
 import {
   TResetPasswordShema,
   resetPasswordSchema,
 } from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
 import ButtonSubmit from "../ui/ButtonSubmit";
@@ -61,7 +60,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       toast({
         title: "Błąd zmiany hasła",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };

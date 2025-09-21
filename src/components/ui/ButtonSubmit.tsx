@@ -14,7 +14,7 @@ export default function ButtonSubmit(props: Props) {
         flex items-center justify-center
         w-full rounded-lg px-4 py-2
         font-medium text-white
-        bg-blue-500 hover:bg-blue-600
+        bg-sky-500 hover:bg-sky-600
         disabled:opacity-70 disabled:cursor-not-allowed
         transition-colors duration-200
         shadow-sm 

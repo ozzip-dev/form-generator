@@ -20,9 +20,10 @@ const Dashboard = (props: Props) => {
       toast({
         title: "Witaj!",
         description: "Zostałeś pomyślnie zalogowany",
+        variant: "success",
       });
     }
-  }, [searchParams, toast]);
+  }, [searchParams]);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);

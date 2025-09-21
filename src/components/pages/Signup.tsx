@@ -1,18 +1,17 @@
 "use client";
 import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
+import InputsText from "@/components/inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/context/ContextProvider";
 import {
   TSignUpShema,
   signUpSchema,
 } from "@/lib/zodShema/zodAuthShema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
-import InputsText from "@/components/inputs/inputsText";
-import ButtonSubmit from "../ui/ButtonSubmit";
 import FormAuthFooter from "../Auth/FormAuthFooter";
+import ButtonSubmit from "../ui/ButtonSubmit";
 
 const dataInputsSignUp = [
   {
@@ -74,7 +73,7 @@ const SignUp = () => {
       toast({
         title: "Błąd rejestracji",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };

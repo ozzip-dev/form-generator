@@ -2,6 +2,7 @@
 
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
+import { useToast } from "@/context/ContextProvider";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import {
   loginSchema,
@@ -9,13 +10,12 @@ import {
 } from "@/lib/zodShema/zodAuthShema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import ButtonSubmit from "../ui/ButtonSubmit";
-import FormAuthFooter from "../Auth/FormAuthFooter";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useToast } from "@/context/ContextProvider";
+import { useForm } from "react-hook-form";
+import FormAuthFooter from "../Auth/FormAuthFooter";
+import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
+import ButtonSubmit from "../ui/ButtonSubmit";
 
 const dataInputsLogin = [
   {

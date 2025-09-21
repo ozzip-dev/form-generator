@@ -2,7 +2,7 @@
 
 import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/context/ContextProvider";
 import {
   TForgotPasswordShema,
   forgotPasswordSchema,
@@ -46,13 +46,13 @@ const ForgotPassword = () => {
       toast({
         title: "Sukces",
         description: "Jeżeli konto istnieje, wysłaliśmy link do resetu hasła",
-        variant: "default",
+        variant: "info",
       });
     } catch (err: any) {
       toast({
         title: "Błąd. Spróbuj ponownie",
         description: err.message,
-        variant: "destructive",
+        variant: "error",
       });
     }
   };

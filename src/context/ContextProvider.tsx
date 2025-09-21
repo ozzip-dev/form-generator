@@ -19,7 +19,19 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
   const toast = (t: Omit<Toast, "id">) => {
     const id = Date.now();
-    setToasts((prev) => [...prev, { ...t, id }]);
+    setToasts((prev) => {
+      if (
+        prev.some(
+          (p) =>
+            p.title === t.title &&
+            p.description === t.description &&
+            p.variant === t.variant
+        )
+      ) {
+        return prev;
+      }
+      return [...prev, { ...t, id }];
+    });
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, 4000);
@@ -31,9 +43,9 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
       <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
         {toasts.map((t) => {
-          let bgColor = "bg-blue-600";
-          if (t.variant === "success") bgColor = "bg-green-600";
-          if (t.variant === "error") bgColor = "bg-red-600";
+          let bgColor = "bg-zinc-400";
+          if (t.variant === "success") bgColor = "bg-sky-400";
+          if (t.variant === "error") bgColor = "bg-rose-400";
 
           return (
             <div
