@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 220 33% 98%;
     --foreground: 220 14% 15%;
@@ -148,4 +148,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
+} */

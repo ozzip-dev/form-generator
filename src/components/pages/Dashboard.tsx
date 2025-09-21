@@ -1,6 +1,6 @@
 "use client";
 import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/context/ContextProvider";
 import { IUser } from "@/types/user";
 import { LogOut } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -38,10 +38,11 @@ const Dashboard = (props: Props) => {
       ) {
         throw err;
       }
+
       toast({
-        variant: "destructive",
         title: "Błąd wylogowania",
         description: "Wystąpił problem podczas wylogowywania",
+        variant: "error",
       });
     } finally {
       setIsSigningOut(false);

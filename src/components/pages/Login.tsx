@@ -3,7 +3,6 @@
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
 import {
   loginSchema,
   TLoginSchema,
@@ -16,6 +15,7 @@ import ButtonSubmit from "../ui/ButtonSubmit";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { useToast } from "@/context/ContextProvider";
 
 const dataInputsLogin = [
   {
@@ -50,8 +50,9 @@ const Login = () => {
   useEffect(() => {
     if (searchParams.get("logout") === "success") {
       toast({
-        title: "Witaj!",
+        title: "Wylogowanie",
         description: "Zostałeś pomyślnie wylogowany",
+        variant: "info",
       });
     }
 
@@ -60,9 +61,10 @@ const Login = () => {
         title: "Hasło zostało zresetowane!",
         description:
           "Twoje hasło zostało pomyślnie zmienione. Możesz się zalogować",
+        variant: "info",
       });
     }
-  }, [searchParams, toast]);
+  }, [searchParams]);
 
   const onSubmit = async (data: TLoginSchema) => {
     try {
@@ -76,9 +78,10 @@ const Login = () => {
       if (resp?.error?.email?.type === "auth") {
         toast({
           title: "Błąd logowania",
-          description: resp.error.email.message,
-          variant: "destructive",
+          description: resp.error.email.message || "Coś poszło nie tak",
+          variant: "error",
         });
+
         return;
       }
     } catch (err: any) {
@@ -95,7 +98,7 @@ const Login = () => {
       toast({
         title: "Błąd logowania",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };
