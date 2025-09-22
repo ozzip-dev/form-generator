@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmit from "../ui/ButtonSubmit";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsForgotPassword = [
   {

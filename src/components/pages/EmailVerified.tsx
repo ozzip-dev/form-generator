@@ -1,7 +1,5 @@
-"use client";
-
 import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import ButtonLink from "../ui/buttons/ButtonLInk";
 
 const EmailVerified = () => {
   return (
@@ -12,17 +10,15 @@ const EmailVerified = () => {
         </div>
 
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          Email Verified!
+          Email zweryfikowany!
         </h1>
 
         <p className="text-gray-600">
-          Your email address has been successfully verified. You can now access
-          all features.
+          Twój email został zweryfikowany. Uzyskałeś dostęp do funkcji
+          moderatora.
         </p>
 
-        <Link href="/dashboard" className="w-full block">
-          <button className="w-full">Go to Dashboard</button>
-        </Link>
+        <ButtonLink text="Przejdź do panelu moderatora" link="/dashboard" />
       </div>
     </div>
   );

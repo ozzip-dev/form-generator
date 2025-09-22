@@ -9,8 +9,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmit from "../ui/ButtonSubmit";
 import FormAuthFooter from "../Auth/FormAuthFooter";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsResetPassword = [
   {
@@ -47,15 +48,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
         return;
       }
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
         title: "Błąd zmiany hasła",

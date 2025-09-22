@@ -3,7 +3,6 @@
 import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { signUpSchema } from "@/lib/zodShema/zodAuthShema/signupSchema";
-import { redirect } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -27,5 +26,4 @@ export async function ActionSignUp(data: FormData) {
   } catch (err: any) {
     throw new Error(err?.message ?? "Rejestracja się nie powiodła");
   }
-  redirect("/dashboard?login=success");
 }

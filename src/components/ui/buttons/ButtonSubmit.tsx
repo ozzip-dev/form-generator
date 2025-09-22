@@ -1,4 +1,4 @@
-import Loader from "./Loader";
+import Loader from "../Loader";
 
 type Props = {
   isSubmitting: boolean;
@@ -18,7 +18,7 @@ export default function ButtonSubmit(props: Props) {
         disabled:opacity-70 disabled:cursor-not-allowed
         transition-colors duration-200
         shadow-sm 
-        h-10   /* <- stała wysokość przycisku */
+        h-10  
       `}
     >
       {props.isSubmitting ? <Loader /> : props.text}

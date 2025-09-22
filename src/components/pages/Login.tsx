@@ -15,7 +15,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import ButtonSubmit from "../ui/ButtonSubmit";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsLogin = [
   {
@@ -85,15 +86,7 @@ const Login = () => {
         return;
       }
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
         title: "Błąd logowania",

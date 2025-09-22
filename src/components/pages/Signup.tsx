@@ -11,7 +11,8 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
-import ButtonSubmit from "../ui/ButtonSubmit";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsSignUp = [
   {
@@ -46,6 +47,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset,
   } = useForm<TSignUpShema>({
     resolver: zodResolver(signUpSchema),
   });
@@ -59,16 +61,16 @@ const SignUp = () => {
         handleFormErrors<TSignUpShema>(resp.error, setError);
         return;
       }
+
+      toast({
+        title: "Sukces",
+        description:
+          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+        variant: "success",
+      });
+      reset();
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
         title: "Błąd rejestracji",
