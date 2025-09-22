@@ -2,8 +2,10 @@
 
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
-import { useToast } from "@/context/ContextProvider";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useOneTimeToast } from "@/hooks/useOneTimeToast";
+import { useToast } from "@/hooks/useToast";
 import {
   loginSchema,
   TLoginSchema,
@@ -11,12 +13,29 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+import { ModelToast } from "@/hooks/useOneTimeToast";
+
+const ToastsData: ModelToast[] = [
+  {
+    param: "logout",
+    expectedValue: "success",
+    title: "Wylogowanie",
+    description: "Zostałeś pomyślnie wylogowany",
+    variant: "info",
+  },
+  {
+    param: "resetPassword",
+    expectedValue: "success",
+    title: "Hasło zostało zresetowane!",
+    description:
+      "Twoje hasło zostało pomyślnie zmienione. Możesz się zalogować",
+    variant: "info",
+  },
+];
 
 const dataInputsLogin = [
   {
@@ -48,24 +67,7 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  useEffect(() => {
-    if (searchParams.get("logout") === "success") {
-      toast({
-        title: "Wylogowanie",
-        description: "Zostałeś pomyślnie wylogowany",
-        variant: "info",
-      });
-    }
-
-    if (searchParams.get("resetPassword") === "success") {
-      toast({
-        title: "Hasło zostało zresetowane!",
-        description:
-          "Twoje hasło zostało pomyślnie zmienione. Możesz się zalogować",
-        variant: "info",
-      });
-    }
-  }, [searchParams]);
+  useOneTimeToast(ToastsData);
 
   const onSubmit = async (data: TLoginSchema) => {
     try {

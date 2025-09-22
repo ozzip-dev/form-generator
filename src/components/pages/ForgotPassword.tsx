@@ -2,7 +2,7 @@
 
 import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/context/ContextProvider";
+import { useToast } from "@/hooks/useToast";
 import {
   TForgotPasswordShema,
   forgotPasswordSchema,

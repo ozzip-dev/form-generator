@@ -12,7 +12,9 @@ type ToastContextType = {
   toast: (t: Omit<Toast, "id">) => void;
 };
 
-const ToastContext = createContext<ToastContextType | undefined>(undefined);
+export const ToastContext = createContext<ToastContextType | undefined>(
+  undefined
+);
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
@@ -62,12 +64,4 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       </div>
     </ToastContext.Provider>
   );
-};
-
-export const useToast = () => {
-  const ctx = useContext(ToastContext);
-  if (!ctx) {
-    throw new Error("useToast must be used inside <ToastProvider>");
-  }
-  return ctx;
 };

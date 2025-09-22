@@ -1,7 +1,7 @@
 "use client";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/context/ContextProvider";
+import { useToast } from "@/hooks/useToast";
 import {
   TResetPasswordShema,
   resetPasswordSchema,

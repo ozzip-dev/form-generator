@@ -14,7 +14,7 @@ export default function ButtonLink(props: Props) {
         flex items-center justify-center
         w-full rounded-lg px-4 py-2
         font-medium text-white
-        bg-sky-500 hover:bg-sky-600
+        bg-zinc-300 hover:bg-zinc-400
         transition-colors duration-200
         shadow-sm 
     

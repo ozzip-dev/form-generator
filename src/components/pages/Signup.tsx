@@ -3,7 +3,7 @@ import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import InputsText from "@/components/inputs/inputsText";
 import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/context/ContextProvider";
+import { useToast } from "@/hooks/useToast";
 import {
   TSignUpShema,
   signUpSchema,

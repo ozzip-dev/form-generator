@@ -1,10 +1,22 @@
 "use client";
 import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
-import { useToast } from "@/context/ContextProvider";
+import { useOneTimeToast } from "@/hooks/useOneTimeToast";
+import { useToast } from "@/hooks/useToast";
 import { IUser } from "@/types/user";
 import { LogOut } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { ModelToast } from "@/hooks/useOneTimeToast";
+
+const ToastsData: ModelToast[] = [
+  {
+    param: "login",
+    expectedValue: "success",
+    title: "Witaj!",
+    description: "Zostałeś pomyślnie zalogowany",
+    variant: "success",
+  },
+];
 
 type Props = {
   user: IUser;
@@ -15,15 +27,7 @@ const Dashboard = (props: Props) => {
   const { toast } = useToast();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    if (searchParams.get("login") === "success") {
-      toast({
-        title: "Witaj!",
-        description: "Zostałeś pomyślnie zalogowany",
-        variant: "success",
-      });
-    }
-  }, [searchParams]);
+  useOneTimeToast(ToastsData);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);

@@ -22,6 +22,19 @@ const PageDashboard = async () => {
   }
   const { user } = session;
 
+  if (!user.emailVerified) {
+    return (
+      <div className="flex items-center justify-center flex-col min-h-screen">
+        <p className="text-center">
+          Musisz potwierdzić email, aby wejść do panelu moderatora.
+        </p>
+        <p className="text-center">
+          Wejdź w link weryfikacyjny wysłany na Twój email.
+        </p>
+      </div>
+    );
+  }
+
   return <Dashboard user={user as IUser} />;
 };
 
