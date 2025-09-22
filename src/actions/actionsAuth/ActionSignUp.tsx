@@ -1,6 +1,6 @@
 "use server";
 
-import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { signUpSchema } from "@/lib/zodShema/zodAuthShema/signupSchema";
 
@@ -14,7 +14,7 @@ export async function ActionSignUp(data: FormData) {
   const validationResult = signUpSchema.safeParse(data);
 
   if (!validationResult.success) {
-    const fieldErrors = parseZodErrors(validationResult.error);
+    const fieldErrors = handleServerErrors(validationResult.error);
 
     return { error: fieldErrors };
   }

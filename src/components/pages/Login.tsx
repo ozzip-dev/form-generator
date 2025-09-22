@@ -3,7 +3,7 @@
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -74,7 +74,8 @@ const Login = () => {
       const resp = await ActionLogin(data);
 
       if (resp?.error) {
-        handleFormErrors<TLoginSchema>(resp.error, setError);
+        console.log("server", resp?.error);
+        handleClientErrors<TLoginSchema>(resp.error, setError);
         return;
       }
 

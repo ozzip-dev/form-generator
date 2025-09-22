@@ -1,7 +1,7 @@
 "use server";
 
 import { loginSchema } from "@/lib/zodShema/zodAuthShema/loginSchema";
-import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -13,7 +13,7 @@ type FormData = {
 export async function ActionLogin(data: FormData) {
   const validationResult = loginSchema.safeParse(data);
   if (!validationResult.success) {
-    return { error: parseZodErrors(validationResult.error) };
+    return { error: handleServerErrors(validationResult.error) };
   }
 
   try {

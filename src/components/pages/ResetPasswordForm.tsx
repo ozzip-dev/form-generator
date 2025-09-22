@@ -1,6 +1,6 @@
 "use client";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
   TResetPasswordShema,
@@ -44,7 +44,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     try {
       const resp = await ActionResetPassword({ ...data, token });
       if (resp?.error) {
-        handleFormErrors<TResetPasswordShema>(resp.error, setError);
+        handleClientErrors<TResetPasswordShema>(resp.error, setError);
         return;
       }
     } catch (err: any) {

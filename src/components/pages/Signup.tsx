@@ -2,7 +2,7 @@
 import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import InputsText from "@/components/inputs/inputsText";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
   TSignUpShema,
@@ -58,7 +58,7 @@ const SignUp = () => {
     try {
       const resp = await ActionSignUp(data);
       if (resp?.error) {
-        handleFormErrors<TSignUpShema>(resp.error, setError);
+        handleClientErrors<TSignUpShema>(resp.error, setError);
         return;
       }
 

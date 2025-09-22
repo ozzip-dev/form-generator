@@ -1,7 +1,7 @@
 "use client";
 
 import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
   TForgotPasswordShema,
@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       const resp = await ActionForgotPassword(data);
 
       if (resp?.error) {
-        handleFormErrors<TForgotPasswordShema>(resp.error, setError);
+        handleClientErrors<TForgotPasswordShema>(resp.error, setError);
         return;
       }
 

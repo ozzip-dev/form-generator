@@ -1,11 +1,11 @@
 import { ZodError, ZodIssue } from "zod";
 import { FieldValues, UseFormSetError, Path } from "react-hook-form";
 
-export type FieldError = { type: string; message: string };
-export type FieldErrors = Record<string, FieldError>;
+export type ModelFieldError = { type: string; message: string };
+export type MoledFieldErrors = Record<string, ModelFieldError>;
 
-export function parseZodErrors(zodError: ZodError): FieldErrors {
-  const fieldErrors: FieldErrors = {};
+export function handleServerErrors(zodError: ZodError): MoledFieldErrors {
+  const fieldErrors: MoledFieldErrors = {};
 
   zodError.issues.forEach((issue: ZodIssue) => {
     const path = issue.path.map(String).join(".");
@@ -19,8 +19,8 @@ export function parseZodErrors(zodError: ZodError): FieldErrors {
   return fieldErrors;
 }
 
-export function handleFormErrors<T extends FieldValues>(
-  errors: FieldErrors | { error: FieldErrors },
+export function handleClientErrors<T extends FieldValues>(
+  errors: MoledFieldErrors | { error: MoledFieldErrors },
   setError: UseFormSetError<T>
 ) {
   const fieldErrors = "error" in errors ? errors.error : errors;
@@ -31,11 +31,4 @@ export function handleFormErrors<T extends FieldValues>(
       message: error.message,
     });
   });
-}
-
-export function setServerErrors<T extends FieldValues>(
-  errors: FieldErrors,
-  setError: UseFormSetError<T>
-) {
-  handleFormErrors(errors, setError);
 }

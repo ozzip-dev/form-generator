@@ -1,6 +1,6 @@
 "use server";
 
-import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { resetPasswordSchema } from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
 import { redirect } from "next/navigation";
@@ -13,7 +13,7 @@ type FormData = {
 export async function ActionResetPassword(data: FormData) {
   const validationResult = resetPasswordSchema.safeParse(data);
   if (!validationResult.success) {
-    return { error: parseZodErrors(validationResult.error) };
+    return { error: handleServerErrors(validationResult.error) };
   }
 
   try {

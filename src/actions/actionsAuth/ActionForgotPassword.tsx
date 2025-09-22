@@ -1,6 +1,6 @@
 "use server";
 
-import { parseZodErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth";
 import { forgotPasswordSchema } from "@/lib/zodShema/zodAuthShema/forgotPasswordSchema";
 
@@ -12,7 +12,7 @@ export async function ActionForgotPassword(data: FormData) {
   const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {
-    const fieldErrors = parseZodErrors(validationResult.error);
+    const fieldErrors = handleServerErrors(validationResult.error);
     return { error: fieldErrors };
   }
 
