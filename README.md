@@ -4,7 +4,7 @@ An full stack application that enables the creation of voting forms in workplace
 
 Union activists can register by app admin to gain moderator privileges.
 
-A moderator can:
+A moderator after logging in can:
 
 - Generate voting forms available under a unique public URL,
 - Collect responses from employees,
