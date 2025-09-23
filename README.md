@@ -16,28 +16,17 @@ The application was developed as part of the Transferhub grant program.
 <br/>
 <br/>
 
-
- <div width="200" height="100"> 
-[![TransferHub Logo](https://github.com/user-attachments/assets/9b8272e5-a6fb-4a13-a69a-8720820d9055)](https://transferhub.pl/)
-
-</div>
-
-
-<a href="https://transferhub.pl/">
   <img 
     src="https://github.com/user-attachments/assets/9b8272e5-a6fb-4a13-a69a-8720820d9055" 
     alt="TransferHub Logo" 
     width="200" 
     height="100"
   />
-</a>
+  <br/>
+  https://transferhub.pl/
+  
 
 
-<a href = "https://transferhub.pl/"
- <div>
-  <img src="https://github.com/user-attachments/assets/9b8272e5-a6fb-4a13-a69a-8720820d9055"  alt="cropped-transferhub_logo-1024x281" width="200" height="100"/> 
-</div>
->
 <br/>
 
 
