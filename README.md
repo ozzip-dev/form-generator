@@ -38,12 +38,14 @@ The application was developed as part of the Transferhub grant program.
 ## Features
 
 * Comunication with database
-* Auth
+* Auth / reset password
 * Protected Routes
 * Data Access Layer / Middleware
 * Forms
+* Dynamic forms creation
 * Validations - client side, server side
 * HTTP requests state messages for user
+* RWD
 
 
 ## Technologies
