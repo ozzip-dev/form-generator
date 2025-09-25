@@ -28,6 +28,7 @@ const ForgotPassword = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset,
   } = useForm<TForgotPasswordShema>({
     resolver: zodResolver(forgotPasswordSchema),
   });
@@ -52,6 +53,7 @@ const ForgotPassword = () => {
         description: "Jeżeli konto istnieje, dostałeś link do resetu hasła",
         variant: "info",
       });
+      reset();
     } catch (err: any) {
       toast({
         title: "Błąd. Spróbuj ponownie",

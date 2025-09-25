@@ -4,7 +4,7 @@ import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useOneTimeToast } from "@/hooks/useOneTimeToast";
+import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import {
   loginSchema,
@@ -12,12 +12,8 @@ import {
 } from "@/lib/zodShema/zodAuthShema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import FormAuthFooter from "../Auth/FormAuthFooter";
-import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
 import ButtonSubmit from "../ui/buttons/ButtonSubmit";
-import { ModelToast } from "@/hooks/useOneTimeToast";
 
 const ToastsData: ModelToast[] = [
   {
@@ -55,7 +51,6 @@ const dataInputsLogin = [
 
 const Login = () => {
   const { toast } = useToast();
-  const searchParams = useSearchParams();
 
   const {
     register,
@@ -122,20 +117,6 @@ const Login = () => {
             </Link>
           </div>
           <ButtonSubmit isSubmitting={isSubmitting} text="Zaloguj" />
-
-          <div className="flex gap-4 ">
-            <GoogleAuthButton
-              action="login"
-              buttonText="Zaloguj się z Google"
-              redirectTo="/dashboard"
-            />
-          </div>
-
-          <FormAuthFooter
-            text="Nie masz konta?"
-            textLink="Założ konto"
-            link="/signup"
-          />
         </form>
       </div>
     </div>

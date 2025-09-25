@@ -1,3 +1,4 @@
+import AdminPanel from "@/components/pages/AdminPanel";
 import Dashboard from "@/components/pages/Dashboard";
 import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
@@ -34,8 +35,12 @@ const PageDashboard = async () => {
       </div>
     );
   }
-
-  return <Dashboard user={user as IUser} />;
+  if (user.role === "moderator") {
+    return <Dashboard user={user as IUser} />;
+  }
+  if (user.role === "admin") {
+    return <AdminPanel user={user as IUser} />;
+  }
 };
 
 export default PageDashboard;

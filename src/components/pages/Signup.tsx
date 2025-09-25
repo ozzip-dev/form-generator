@@ -111,20 +111,6 @@ const SignUp = () => {
               <span className="w-full border-t" />
             </div>
           </div>
-
-          <div className="flex gap-4 ">
-            <GoogleAuthButton
-              action="signup"
-              buttonText="Zaloguj się z Google"
-              redirectTo="/dashboard"
-            />
-          </div>
-
-          <FormAuthFooter
-            text="Masz konto?"
-            textLink="Zaloguj się"
-            link="/login"
-          />
         </div>
       </div>
     </div>
