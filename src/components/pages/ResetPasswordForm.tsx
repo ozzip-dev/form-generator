@@ -41,8 +41,13 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   const { toast } = useToast();
 
   const onSubmit = async (data: TResetPasswordShema) => {
+    const trimmedData = {
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword.trim(),
+    };
+
     try {
-      const resp = await ActionResetPassword({ ...data, token });
+      const resp = await ActionResetPassword({ ...trimmedData, token });
       if (resp?.error) {
         handleClientErrors<TResetPasswordShema>(resp.error, setError);
         return;

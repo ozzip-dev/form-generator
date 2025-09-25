@@ -35,8 +35,12 @@ const ForgotPassword = () => {
   const { toast } = useToast();
 
   const onSubmit = async (data: TForgotPasswordShema) => {
+    const trimmedData = {
+      email: data.email.trim(),
+    };
+
     try {
-      const resp = await ActionForgotPassword(data);
+      const resp = await ActionForgotPassword(trimmedData);
 
       if (resp?.error) {
         handleClientErrors<TForgotPasswordShema>(resp.error, setError);
@@ -45,7 +49,7 @@ const ForgotPassword = () => {
 
       toast({
         title: "Sukces",
-        description: "Jeżeli konto istnieje, wysłaliśmy link do resetu hasła",
+        description: "Jeżeli konto istnieje, dostałeś link do resetu hasła",
         variant: "info",
       });
     } catch (err: any) {

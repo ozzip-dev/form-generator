@@ -23,16 +23,15 @@ const ToastsData: ModelToast[] = [
   {
     param: "logout",
     expectedValue: "success",
-    title: "Wylogowanie",
-    description: "Zostałeś pomyślnie wylogowany",
+    title: "Wylogowano",
+    description: "Zostałeś wylogowany",
     variant: "info",
   },
   {
     param: "resetPassword",
     expectedValue: "success",
-    title: "Hasło zostało zresetowane!",
-    description:
-      "Twoje hasło zostało pomyślnie zmienione. Możesz się zalogować",
+    title: "Zmiana hasła",
+    description: "Twoje hasło zostało zmienione. Możesz się zalogować",
     variant: "info",
   },
 ];
@@ -70,11 +69,15 @@ const Login = () => {
   useOneTimeToast(ToastsData);
 
   const onSubmit = async (data: TLoginSchema) => {
+    const trimmedData = {
+      email: data.email.trim(),
+      password: data.password.trim(),
+    };
+
     try {
-      const resp = await ActionLogin(data);
+      const resp = await ActionLogin(trimmedData);
 
       if (resp?.error) {
-        console.log("server", resp?.error);
         handleClientErrors<TLoginSchema>(resp.error, setError);
         return;
       }

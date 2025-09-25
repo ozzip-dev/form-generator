@@ -55,8 +55,15 @@ const SignUp = () => {
   const { toast } = useToast();
 
   const onSubmit = async (data: TSignUpShema) => {
+    const trimmedData = {
+      name: data.name.trim(),
+      email: data.email.trim(),
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword.trim(),
+    };
+
     try {
-      const resp = await ActionSignUp(data);
+      const resp = await ActionSignUp(trimmedData);
       if (resp?.error) {
         handleClientErrors<TSignUpShema>(resp.error, setError);
         return;

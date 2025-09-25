@@ -13,7 +13,7 @@ const ToastsData: ModelToast[] = [
     param: "login",
     expectedValue: "success",
     title: "Witaj!",
-    description: "Zostałeś pomyślnie zalogowany",
+    description: "Zostałeś zalogowany",
     variant: "success",
   },
 ];
