@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# form-pattern (Generator formularzy sieciujący komisje związków zawodowych)
 
-## Getting Started
+A full stack application that enables the creation of voting forms in workplaces, serving as a contact database for other trade union commisions undertaking similar activities, and also as an archive of protocols from collective disputes.
 
-First, run the development server:
+Union activists can register by app admin to gain moderator privileges.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+A moderator after logging in can:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Generate voting forms available under a unique public URL,
+- Collect responses from employees,
+- Access all submitted data in their moderator account,
+- Export collected results into PDF format for reporting and archiving.
+<br/>
+<br/>
+The application is developed as part of the Transferhub grant program.
+<br/>
+<br/>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+  <img 
+    src="https://github.com/user-attachments/assets/9b8272e5-a6fb-4a13-a69a-8720820d9055" 
+    alt="TransferHub Logo" 
+    width="200" 
+    height="100"
+  />
+  <br/>
+  https://transferhub.pl/
+  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Vesion for tests: <br> https://form-generator.sliplane.app/ <br/> 
+## Features
+
+* Comunication with database
+* Auth / reset password
+* Protected Routes
+* Data Access Layer / Middleware
+* Forms
+* Dynamic forms creation
+* Validations - client side, server side
+* HTTP requests state messages for user
+* RWD
+
+
+## Technologies
+
+* TypeScript
+* Next.js
+* MongoDB
+* Tailwind 
+
+
+## Libraries
+
+* better-auth
+* zod
+* react-hook-form
+  
+## Hooks
+* useState, useEffect, useForm, useSearchParams
+
+## Prerequisites
+* Before getting started, make sure you have the Node.js and npm or yarn
+* Clone this repository to your local machine
+* Navigate to the project directory: **cd .\form-generator**
+* Install the project dependencies by running **npm install** or **yarn install** 
+* Start the development server: **cd .\form-generator npm run dev** 
+* Open your browser and visit your localhost:3000 to see the running application.
+
+ 
+

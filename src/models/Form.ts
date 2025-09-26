@@ -1,7 +1,14 @@
 import { FieldType } from "@/lib/mongo/mongo-utils"
 import { DbModel, Properties } from "@/types/mongo"
 
+export enum TemplateFormId {
+  MEMBERSHIP = 'membership',
+  FAVOURITE_COLOR = 'favourite-color'
+  // TODO Pawel: add more
+}
+
 enum FormField {
+  ID = 'id',
   TITLE = 'title',
   DESCRIPTION = 'description',
   CREATED_BY = 'createdBy',
@@ -13,6 +20,7 @@ enum FormField {
 }
 
 const formProperties: Properties = {
+  [FormField.ID]: { bsonType: FieldType.STRING },
   [FormField.TITLE]: { bsonType: FieldType.STRING },
   [FormField.DESCRIPTION]: { bsonType: FieldType.STRING },
   [FormField.CREATED_BY]: { bsonType: FieldType.OBJECT_ID },
@@ -20,11 +28,11 @@ const formProperties: Properties = {
   [FormField.UPDATED_BY]: { bsonType: FieldType.OBJECT_ID },
   [FormField.UPDATED_AT]: { bsonType: FieldType.DATE },
   [FormField.INPUTS]: { bsonType: FieldType.ARRAY },
-  [FormField.STATE]: { bsonType: FieldType.STRING }
+  [FormField.STATE]: { bsonType: FieldType.STRING },
 }
 
-const formRequired = [
-  FormField.TITLE, FormField.CREATED_BY, FormField.CREATED_AT, FormField.UPDATED_BY, FormField.UPDATED_AT, FormField.STATE
+const formRequired: any[] = [
+  FormField.TITLE, FormField.CREATED_AT, FormField.UPDATED_AT, FormField.STATE, FormField.INPUTS
 ]
 
 export const FormModel: DbModel = {
