@@ -9,7 +9,7 @@ import EditForm from "@/components/form/EditForm";
 import { Form } from "@/types/form";
 import { serializeForm } from "@/lib/form-utils";
 
-type Props = { params: { formId: string } };
+type Props = { params: Promise<{ formId: string }> };
 
 const CreateFormPage = async (props: Props) => {
   const goToCreateForm = () => {
