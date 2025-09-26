@@ -12,7 +12,7 @@ A moderator after logging in can:
 - Export collected results into PDF format for reporting and archiving.
 <br/>
 <br/>
-The application is developed as part of the Transferhub grant program.
+The application was developed with grant support received in the grant competition under the project “TransferHub – Incubator of Social Innovations in the Field of Employment.” The grant project is implemented by the Foundation for Socio-Economic Initiatives in partnership with the “Technological Incubator” Foundation (Youth Business Poland) as part of the European Funds for Social Development 2021–2027 Program, co-financed by the European Social Fund Plus. The innovation was developed within the TransferHub Incubator.
 <br/>
 <br/>
 
