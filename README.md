@@ -1,10 +1,14 @@
 # form-pattern (Generator formularzy sieciujący komisje związków zawodowych)
 
-A full stack application that enables the creation of voting forms in workplaces, serving as a contact database for other trade union commisions undertaking similar activities, and also as an archive of protocols from collective disputes.
+A platform built to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. This full-stack application empowers trade union activists by providing:
+- Voting forms – easily create and share workplace voting forms available under a unique link.
+- Contact database – maintain a network of other trade union commissions engaged in similar initiatives.
+- Archive – securely store and access protocols from collective disputes.
+- Discussion forum – connect, exchange ideas, and collaborate with fellow union members.
 
-Union activists can register by app admin to gain moderator privileges.
-
-A moderator after logging in can:
+<br/>
+<br/>
+Union activists can register by app admin to gain moderator privileges. A moderator after logging in can:
 
 - Generate voting forms available under a unique public URL,
 - Collect responses from employees,
