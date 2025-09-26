@@ -4,7 +4,6 @@ import { Input } from "@/types/input";
 import { ChangeEvent, useState } from "react";
 
 type Props = {
-  formId: string;
   inputs: Input[];
   addInput: (input: Input) => Promise<void>;
 };
@@ -23,6 +22,8 @@ const AddTemplateField = (props: Props) => {
 
   return (
     <>
+      <h2>Dodaj jedno z defaultowych dostępnych pól</h2>
+      
       <select onChange={setFieldValue}>
         <option value="">Wybierz pole</option>
         {props.inputs.map((el, i) => (
@@ -33,11 +34,11 @@ const AddTemplateField = (props: Props) => {
       </select>
 
       <button
-        className="btn btn-main"
+        className="btn btn-main block mt-2"
         disabled={!input}
         onClick={() => props.addInput(input as Input)}
       >
-        Dodaj
+        Dodaj jedno z pól
       </button>
     </>
   );

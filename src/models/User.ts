@@ -1,4 +1,4 @@
-import { FieldType } from "@/lib/mongo/mongo-utils"
+import { FieldType } from "@/enums"
 import { DbModel, Properties } from "@/types/mongo"
 
 enum UserField {

@@ -5,6 +5,7 @@ import { FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import CreateFormInput from "../form/CreateFormInput";
 import AddTemplateField from "./create-form/AddTemplateField";
+import AddCustomField from "./create-form/AddCustomField";
 
 type Props = {
   form: FormSerialized;
@@ -17,10 +18,10 @@ type Props = {
 
 // stupid name but it's a form to edit forms:)
 const EditFormForm = (props: Props) => {
-  const { _id, title, description, inputs, createdAt, updatedAt } = props.form;
+  const { title, description, inputs, createdAt, updatedAt } = props.form;
 
   return (
-    <div className="p-4">
+    <div className="p-4 [&_h2]:text-xl [&_h2]:mt-6">
       <div>Utworzono: {formatDate(new Date(createdAt))}</div>
       <div>Edytowano: {formatDate(new Date(updatedAt))}</div>
       <div className="text-5xl">{title}</div>
@@ -40,9 +41,13 @@ const EditFormForm = (props: Props) => {
           ))}
       </div>
 
+      {/* TODO: these two need a separate wrapper but let's wait for design etc. */}
       <AddTemplateField
-        formId={_id?.toString() as string}
         inputs={props.templateInputs}
+        addInput={props.addInput}
+        />
+
+      <AddCustomField
         addInput={props.addInput}
       />
     </div>

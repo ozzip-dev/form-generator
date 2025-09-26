@@ -1,16 +1,7 @@
 import { DbModel, Properties } from "@/types/mongo"
-import { Collection, Db, DeleteResult, Document, InsertManyResult, InsertOneResult, ObjectId, UpdateResult, WithId } from "mongodb"
-
-// TODO Pawel: wrong place
-export enum FieldType {
-  STRING = 'string',
-  OBJECT = 'object',
-  OBJECT_ID = 'objectId',
-  INT = 'int',
-  BOOL = 'bool',
-  DATE = 'date',
-  ARRAY = 'array',
-}
+import { 
+  Collection, Db, DeleteResult, Document, InsertManyResult, InsertOneResult, ObjectId, UpdateResult, WithId
+} from "mongodb"
 
 /* Next throws error if ObjectId(...) is passed inside an object */
 export const parseObjProps = (obj: unknown) => (
