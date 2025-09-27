@@ -53,7 +53,7 @@ The application was developed with grant support received in the grant competiti
 
 * Comunication with database
 * Auth / reset password
-* Role-based access (Admin, Moderator)  
+* Role-based access (admin, moderator)  
 * Protected Routes
 * Data Access Layer / Middleware
 * Forms
