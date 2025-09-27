@@ -1,5 +1,5 @@
-# form-pattern (Generator formularzy sieciujący komisje związków zawodowych)
-
+# form-pattern - Next/TS, Mongo DB
+### Generator formularzy sieciujący komisje związków zawodowych
 A platform built to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. This full-stack application empowers trade union activists by providing:
 - Voting forms – easily create and share workplace voting forms available under a unique link.
 - Contact database – maintain a network of other trade union commissions engaged in similar initiatives.
