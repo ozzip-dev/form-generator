@@ -4,7 +4,7 @@ A  full-stack applicatio to support trade union organizations with digital tools
 <br/>
 **Admin** - manages registrations and grants moderator privileges. 
 <br/>
-**Moderator** – after logging in, gains access to the following tools
+**Moderator** – after logging in, gains access to the following tools:
 
 #### Voting forms
 - Generate voting forms available under a unique public URLs.
