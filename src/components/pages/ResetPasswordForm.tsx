@@ -1,17 +1,17 @@
 "use client";
 import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useToast } from "@/hooks/useToast";
 import {
   TResetPasswordShema,
   resetPasswordSchema,
 } from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import FormAuthFooter from "../Auth/FormAuthFooter";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsResetPassword = [
   {
@@ -36,62 +36,29 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     setError,
   } = useForm<TResetPasswordShema>({
     resolver: zodResolver(resetPasswordSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
-  const router = useRouter();
   const { toast } = useToast();
 
   const onSubmit = async (data: TResetPasswordShema) => {
+    const trimmedData = {
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword.trim(),
+    };
+
     try {
-      const resp = await ActionResetPassword({ ...data, token });
-
-      if (resp?.error?.password?.type === "auth") {
-        toast({
-          title: "Błąd resetowania hasła",
-          description: resp.error.password.message,
-          variant: "destructive",
-        });
-        return;
-      }
-
+      const resp = await ActionResetPassword({ ...trimmedData, token });
       if (resp?.error) {
-        handleFormErrors<TResetPasswordShema>(resp.error, setError);
+        handleClientErrors<TResetPasswordShema>(resp.error, setError);
         return;
-      }
-
-      // Success case
-      if (resp?.success) {
-        toast({
-          title: "Hasło zostało zresetowane",
-          description:
-            "Twoje hasło zostało pomyślnie zmienione. Możesz się teraz zalogować.",
-        });
-
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
       }
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
-        title: "Błąd logowania",
+        title: "Błąd zmiany hasła",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };
@@ -107,12 +74,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             register={register}
             errorMsg={errors}
           />
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Zmień hasło" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Zmień hasło" />
         </form>
 
         <FormAuthFooter
-          text1="Pamiętasz hasło?"
-          text2="Zaloguj się"
+          text="Pamiętasz hasło?"
+          textLink="Zaloguj się"
           link="/login"
         />
       </div>

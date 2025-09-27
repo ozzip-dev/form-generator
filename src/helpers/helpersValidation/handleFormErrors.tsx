@@ -1,12 +1,11 @@
 import { ZodError, ZodIssue } from "zod";
 import { FieldValues, UseFormSetError, Path } from "react-hook-form";
 
-export type FieldError = { type: string; message: string };
-export type FieldErrors = Record<string, FieldError>;
+export type ModelFieldError = { type: string; message: string };
+export type MoledFieldErrors = Record<string, ModelFieldError>;
 
-// Parse Zod errors into the same format as server errors
-export function parseZodErrors(zodError: ZodError): FieldErrors {
-  const fieldErrors: FieldErrors = {};
+export function handleServerErrors(zodError: ZodError): MoledFieldErrors {
+  const fieldErrors: MoledFieldErrors = {};
 
   zodError.issues.forEach((issue: ZodIssue) => {
     const path = issue.path.map(String).join(".");
@@ -20,12 +19,10 @@ export function parseZodErrors(zodError: ZodError): FieldErrors {
   return fieldErrors;
 }
 
-// Unified function that handles both Zod and server errors
-export function handleFormErrors<T extends FieldValues>(
-  errors: FieldErrors | { error: FieldErrors },
+export function handleClientErrors<T extends FieldValues>(
+  errors: MoledFieldErrors | { error: MoledFieldErrors },
   setError: UseFormSetError<T>
 ) {
-  // Extract errors if wrapped in { error: ... }
   const fieldErrors = "error" in errors ? errors.error : errors;
 
   Object.entries(fieldErrors).forEach(([field, error]) => {
@@ -34,12 +31,4 @@ export function handleFormErrors<T extends FieldValues>(
       message: error.message,
     });
   });
-}
-
-// Legacy function for backward compatibility
-export function setServerErrors<T extends FieldValues>(
-  errors: FieldErrors,
-  setError: UseFormSetError<T>
-) {
-  handleFormErrors(errors, setError);
 }

@@ -1,17 +1,17 @@
 "use client";
+
 import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useToast } from "@/hooks/useToast";
 import {
   TForgotPasswordShema,
   forgotPasswordSchema,
 } from "@/lib/zodShema/zodAuthShema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
+import FormAuthFooter from "../Auth/FormAuthFooter";
 import InputsText from "../inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsForgotPassword = [
   {
@@ -19,7 +19,6 @@ const dataInputsForgotPassword = [
     name: "email",
     placeholder: "kamil@ozzip.com",
     type: "email",
-    defaultValue: "test@example.com",
   },
 ];
 
@@ -29,46 +28,37 @@ const ForgotPassword = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset,
   } = useForm<TForgotPasswordShema>({
     resolver: zodResolver(forgotPasswordSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
   const { toast } = useToast();
 
   const onSubmit = async (data: TForgotPasswordShema) => {
-    try {
-      const resp = await ActionForgotPassword(data);
+    const trimmedData = {
+      email: data.email.trim(),
+    };
 
-      // if (resp?.error?.email?.type === "auth") {
-      //   toast({
-      //     title: "Błąd logowania",
-      //     description: resp.error.email.message,
-      //     variant: "destructive",
-      //   });
-      //   return;
-      // }
+    try {
+      const resp = await ActionForgotPassword(trimmedData);
 
       if (resp?.error) {
-        handleFormErrors<TForgotPasswordShema>(resp.error, setError);
+        handleClientErrors<TForgotPasswordShema>(resp.error, setError);
         return;
       }
 
       toast({
         title: "Sukces",
-        description: "Jeżeli konto istnieje, wysłaliśmy link do resetu hasła",
-        variant: "default",
+        description: "Jeżeli konto istnieje, dostałeś link do resetu hasła",
+        variant: "info",
       });
+      reset();
     } catch (err: any) {
       toast({
         title: "Błąd. Spróbuj ponownie",
         description: err.message,
-        variant: "destructive",
+        variant: "error",
       });
     }
   };
@@ -85,10 +75,14 @@ const ForgotPassword = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Wyślij link" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Wyślij link" />
         </form>
 
-        <FormAuthFooter text1="Masz konto?" text2="Zaloguj się" link="/login" />
+        <FormAuthFooter
+          text="Masz konto?"
+          textLink="Zaloguj się"
+          link="/login"
+        />
       </div>
     </div>
   );

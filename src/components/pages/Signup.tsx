@@ -1,22 +1,22 @@
 "use client";
 import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import InputsText from "@/components/inputs/inputsText";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useToast } from "@/hooks/useToast";
 import {
   TSignUpShema,
   signUpSchema,
 } from "@/lib/zodShema/zodAuthShema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
-import InputsText from "@/components/inputs/inputsText";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import FormAuthFooter from "../Auth/FormAuthFooter";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsSignUp = [
   {
-    label: "Nazwa",
+    label: "Imię",
     name: "name",
     placeholder: "Jan",
     type: "text",
@@ -47,40 +47,42 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    reset,
   } = useForm<TSignUpShema>({
     resolver: zodResolver(signUpSchema),
-    // defaultValues: {
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // },
   });
 
   const { toast } = useToast();
 
   const onSubmit = async (data: TSignUpShema) => {
+    const trimmedData = {
+      name: data.name.trim(),
+      email: data.email.trim(),
+      password: data.password.trim(),
+      confirmPassword: data.confirmPassword.trim(),
+    };
+
     try {
-      const resp = await ActionSignUp(data);
+      const resp = await ActionSignUp(trimmedData);
       if (resp?.error) {
-        handleFormErrors<TSignUpShema>(resp.error, setError);
+        handleClientErrors<TSignUpShema>(resp.error, setError);
         return;
       }
+
+      toast({
+        title: "Sukces",
+        description:
+          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+        variant: "success",
+      });
+      reset();
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
         title: "Błąd rejestracji",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };
@@ -100,7 +102,7 @@ const SignUp = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Załóż konto" />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Załóż konto" />
         </form>
 
         <div className="flex flex-col space-y-4">
@@ -109,20 +111,6 @@ const SignUp = () => {
               <span className="w-full border-t" />
             </div>
           </div>
-
-          <div className="flex gap-4 ">
-            <GoogleAuthButton
-              action="signup"
-              buttonText="Zaloguj się z Google"
-              redirectTo="/dashboard"
-            />
-          </div>
-
-          <FormAuthFooter
-            text1="Masz konto?"
-            text2="Zaloguj się"
-            link="/login"
-          />
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@
     if it's missing add to input/form template list
 */
 
+import { InputType } from "@/enums";
 import { TemplateInputId } from "@/models/Input";
 import { Form } from "@/types/form";
 import { Input } from "@/types/input";
@@ -12,28 +13,28 @@ import { Input } from "@/types/input";
 export const inputTemplates: Input[] = [
   {
     id: TemplateInputId.SURNAME_NAME,
-    type: 'text',
+    type: InputType.TEXT,
     header: 'Imię i nazwisko',
     description: 'Podaj swoje imię i nazwisko',
     validation: {},
   },
   {
     id: TemplateInputId.ADDRESS,
-    type: 'text',
+    type: InputType.TEXT,
     header: 'Adres',
     description: 'Podaj swój adres',
     validation: {},
   },
   {
     id: TemplateInputId.AGE,
-    type: 'number',
+    type: InputType.NUMBER,
     header: 'Wiek',
     description: 'Podaj swój wiek',
     validation: {},
   },
   {
     id: TemplateInputId.CONTRACT_TYPE,
-    type: 'singleSelect',
+    type: InputType.SINGLE_SELECT,
     header: 'Typ umowy',
     description: 'Jaką masz umowę?',
     validation: {},
@@ -68,7 +69,7 @@ export const formTemplates: Form[] = [
     inputs: [
       {
         id: 'name',
-        type: 'text',
+        type: InputType.TEXT,
         header: 'Imię',
         validation: {},
         required: true,
@@ -77,7 +78,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: 'email',
-        type: 'email',
+        type: InputType.EMAIL,
         header: 'Email',
         validation: {},
         required: true,
@@ -86,7 +87,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: 'login',
-        type: 'text',
+        type: InputType.TEXT,
         header: 'Login id',
         validation: {},
         required: true,
@@ -103,7 +104,7 @@ export const formTemplates: Form[] = [
     inputs: [
       {
         id: 'name-surname',
-        type: 'text',
+        type: InputType.TEXT,
         header: 'Imię i nazwisko',
         validation: {},
         required: true,
@@ -112,7 +113,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: 'age',
-        type: 'number',
+        type: InputType.NUMBER,
         header: 'Wiek',
         validation: {},
         required: false,
@@ -121,7 +122,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: 'color',
-        type: 'singleSelect',
+        type: InputType.SINGLE_SELECT,
         header: 'Kolor',
         validation: {},
         required: true,

@@ -1,11 +1,14 @@
+import AdminPanel from "@/components/pages/AdminPanel";
 import Dashboard from "@/components/pages/Dashboard";
 import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
 import { headers } from "next/headers";
+
 import Link from "next/link";
 
 const PageDashboard = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
+
   if (!session) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -20,7 +23,24 @@ const PageDashboard = async () => {
   }
   const { user } = session;
 
-  return <Dashboard user={user as IUser} />;
+  if (!user.emailVerified) {
+    return (
+      <div className="flex items-center justify-center flex-col min-h-screen">
+        <p className="text-center">
+          Musisz potwierdzić email, aby wejść do panelu moderatora.
+        </p>
+        <p className="text-center">
+          Wejdź w link weryfikacyjny wysłany na Twój email.
+        </p>
+      </div>
+    );
+  }
+  if (user.role === "moderator") {
+    return <Dashboard user={user as IUser} />;
+  }
+  if (user.role === "admin") {
+    return <AdminPanel user={user as IUser} />;
+  }
 };
 
 export default PageDashboard;

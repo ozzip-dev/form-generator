@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   :root {
     --background: 220 33% 98%;
     --foreground: 220 14% 15%;
@@ -43,7 +43,6 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* TODO: change, add to dark mode */
     --color-main: rgb(189, 216, 216);
     --color-danger: rgb(231, 0, 0);
   }
@@ -155,7 +154,6 @@
 }
 
 
-/* TODO: move to components? add proper styling */
 .btn {
   padding: 0.5rem 2rem;
   border-radius: 1rem;
@@ -169,7 +167,7 @@
   background-color: var(--color-danger);
 }
 
-/* TOOD: different way of showing disabled */
 .btn:disabled {
   color: grey;
 }
+*/

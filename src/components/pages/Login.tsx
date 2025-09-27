@@ -2,8 +2,10 @@
 
 import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
-import { handleFormErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/use-toast";
+import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
+import { useToast } from "@/hooks/useToast";
 import {
   loginSchema,
   TLoginSchema,
@@ -11,9 +13,24 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { GoogleAuthButton } from "../Auth/GoogleAuthButton";
-import ButtonSubmitt from "../ui/ButtonSubmitt";
-import FormAuthFooter from "../ui/FormAuthFooter";
+import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+
+const ToastsData: ModelToast[] = [
+  {
+    param: "logout",
+    expectedValue: "success",
+    title: "Wylogowano",
+    description: "Zostałeś wylogowany",
+    variant: "info",
+  },
+  {
+    param: "resetPassword",
+    expectedValue: "success",
+    title: "Zmiana hasła",
+    description: "Twoje hasło zostało zmienione. Możesz się zalogować",
+    variant: "info",
+  },
+];
 
 const dataInputsLogin = [
   {
@@ -44,38 +61,38 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  useOneTimeToast(ToastsData);
+
   const onSubmit = async (data: TLoginSchema) => {
+    const trimmedData = {
+      email: data.email.trim(),
+      password: data.password.trim(),
+    };
+
     try {
-      const resp = await ActionLogin(data);
+      const resp = await ActionLogin(trimmedData);
+
+      if (resp?.error) {
+        handleClientErrors<TLoginSchema>(resp.error, setError);
+        return;
+      }
 
       if (resp?.error?.email?.type === "auth") {
         toast({
           title: "Błąd logowania",
-          description: resp.error.email.message,
-          variant: "destructive",
+          description: resp.error.email.message || "Coś poszło nie tak",
+          variant: "error",
         });
-        return;
-      }
 
-      if (resp?.error) {
-        handleFormErrors<TLoginSchema>(resp.error, setError);
         return;
       }
     } catch (err: any) {
-      const digest = err?.digest;
-      const message = err?.message;
-      if (
-        digest === "NEXT_REDIRECT" ||
-        (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-        message === "NEXT_REDIRECT"
-      ) {
-        throw err;
-      }
+      handleNextRedirectError(err);
 
       toast({
         title: "Błąd logowania",
         description: err.message || "Coś poszło nie tak",
-        variant: "destructive",
+        variant: "error",
       });
     }
   };
@@ -99,21 +116,7 @@ const Login = () => {
               Nie pamiętasz hasła?
             </Link>
           </div>
-          <ButtonSubmitt isSubmitting={isSubmitting} text="Zaloguj" />
-
-          <div className="flex gap-4 ">
-            <GoogleAuthButton
-              action="login"
-              buttonText="Zaloguj się z Google"
-              redirectTo="/dashboard"
-            />
-          </div>
-
-          <FormAuthFooter
-            text1="Nie masz konta?"
-            text2="Założ konto"
-            link="/signup"
-          />
+          <ButtonSubmit isSubmitting={isSubmitting} text="Zaloguj" />
         </form>
       </div>
     </div>

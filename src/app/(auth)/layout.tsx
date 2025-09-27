@@ -1,4 +1,4 @@
-import Link from "next/link";
+import ButtonLink from "@/components/ui/buttons/ButtonLink";
 
 export default function Layout({
   children,
@@ -7,9 +7,10 @@ export default function Layout({
 }>) {
   return (
     <>
-      <Link href="/" aria-label="go home">
-        Wróć do strony głównej
-      </Link>
+      <div className="w-fit">
+        <ButtonLink text="Wróć do strony głównej" link="/" />
+      </div>
+
       {children}
     </>
   );

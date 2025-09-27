@@ -2,7 +2,7 @@
 
 import { GoogleIcon } from "@/components/ui/google-icon";
 import { Loader2 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
@@ -39,7 +39,7 @@ export const GoogleAuthButton = ({
       });
     } catch (error) {
       toast({
-        variant: "destructive",
+        variant: "error",
         title: action === "login" ? "Error logging in" : "Error signing up",
         description: `Could not ${action} with Google. Please try again.`,
       });
