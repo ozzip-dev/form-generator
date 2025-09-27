@@ -39,7 +39,7 @@ export const GoogleAuthButton = ({
       });
     } catch (error) {
       toast({
-        variant: "destructive",
+        variant: "error",
         title: action === "login" ? "Error logging in" : "Error signing up",
         description: `Could not ${action} with Google. Please try again.`,
       });

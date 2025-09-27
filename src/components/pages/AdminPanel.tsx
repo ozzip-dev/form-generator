@@ -4,7 +4,7 @@ import { useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import { IUser } from "@/types/user";
 import { LogOut } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ModelToast } from "@/hooks/useOneTimeToast";
 import SignUp from "./Signup";
@@ -26,7 +26,8 @@ type Props = {
 const AdminPanel = (props: Props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const { toast } = useToast();
-  const searchParams = useSearchParams();
+  // TODO Krzysztof: if not needed, delete
+  // const searchParams = useSearchParams();
 
   useOneTimeToast(ToastsData);
 
