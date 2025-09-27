@@ -26,7 +26,7 @@ A  full-stack applicatio to support trade union organizations with digital tools
 
 <br/>
 <br/>
-The application was developed with grant support received in the grant competition under the project “TransferHub – Incubator of Social Innovations in the Field of Employment.” The grant project is implemented by the Foundation for Socio-Economic Initiatives in partnership with the “Technological Incubator” Foundation (Youth Business Poland) as part of the European Funds for Social Development 2021–2027 Program, co-financed by the European Social Fund Plus. The innovation was developed within the TransferHub Incubator.
+The application was developed with grant support received in the grant competition under the project “TransferHub – inkubator innowacji społecznych w obszarze zatrudnienia 2.” The grant project is implemented by the Fundacja Inicjatyw Społeczno-Ekonomicznych in partnership with the “Inkubator Technologiczny” (Youth Business Poland) as part of the European Funds for Social Development 2021–2027 Program, co-financed by the European Social Fund Plus. The innovation was developed within the TransferHub Incubator.
 <br/>
 <br/>
 
