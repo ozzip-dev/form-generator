@@ -1,19 +1,29 @@
 # form-pattern - Next/TS, Mongo DB
-### Generator formularzy sieciujący komisje związków zawodowych
-A platform built to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. This full-stack application empowers trade union activists by providing:
-- Voting forms – easily create and share workplace voting forms available under a unique link.
-- Contact database – maintain a network of other trade union commissions engaged in similar initiatives.
-- Archive – securely store and access protocols from collective disputes.
-- Discussion forum – connect, exchange ideas, and collaborate with fellow union members.
-
+## Generator formularzy sieciujący komisje związków zawodowych
+A  full-stack applicatio to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. 
 <br/>
+**Admin** - manages registrations and grants moderator privileges. 
 <br/>
-Union activists can register by app admin to gain moderator privileges. A moderator after logging in can:
+**Moderator** – after logging in, gains access to the following tools
 
-- Generate voting forms available under a unique public URL,
-- Collect responses from employees,
-- Access all submitted data in their moderator account,
-- Export collected results into PDF format for reporting and archiving.
+#### Voting forms
+- Generate voting forms available under a unique public URLs.
+- Collect responses directly from employees.
+- Manage and view all submissions in the moderator dashboard. 
+- Export results to PDF for reporting and archiving. 
+
+#### Contact database
+- Build and maintain a network of other trade union commissions.  
+- Share and discover initiatives across organizations.
+
+#### Archive
+- Store and access protocols and documentation from collective disputes.  
+
+#### Discussion forum
+- Connect with other union members.  
+- Exchange ideas, discuss strategies, and collaborate on common goals.  
+
+
 <br/>
 <br/>
 The application was developed with grant support received in the grant competition under the project “TransferHub – Incubator of Social Innovations in the Field of Employment.” The grant project is implemented by the Foundation for Socio-Economic Initiatives in partnership with the “Technological Incubator” Foundation (Youth Business Poland) as part of the European Funds for Social Development 2021–2027 Program, co-financed by the European Social Fund Plus. The innovation was developed within the TransferHub Incubator.
@@ -43,6 +53,7 @@ The application was developed with grant support received in the grant competiti
 
 * Comunication with database
 * Auth / reset password
+* Role-based access (Admin, Moderator)  
 * Protected Routes
 * Data Access Layer / Middleware
 * Forms
