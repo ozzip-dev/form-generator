@@ -49,8 +49,9 @@ const inputRequired: InputField[] = [
 
 export const InputModel: DbModel = {
   name: 'input',
-  properties: inputProperties,
-  required: inputRequired as unknown as string[]
+  // TODO Pawel: uncomment once db schemas are established
+  // properties: inputProperties,
+  // required: inputRequired as unknown as string[]
 }
 
 // export const FormInputModel: DbModel = {

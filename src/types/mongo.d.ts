@@ -11,6 +11,6 @@ export interface Properties {
 
 export type DbModel = {
   name: string /* model name */;
-  properties: Properties /* model field properties */;
-  required: string[] /* required field keys */;
+  properties?: Properties /* model field properties */;
+  required?: string[] /* required field keys */;
 };

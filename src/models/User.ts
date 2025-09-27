@@ -34,6 +34,7 @@ const userRequired = [
 
 export const UserModel: DbModel = {
   name: 'user',
-  properties: userProperties,
-  required: userRequired as unknown as string[]
+  // TODO Pawel: uncomment once db schemas are established
+  // properties: userProperties,
+  // required: userRequired as unknown as string[]
 }

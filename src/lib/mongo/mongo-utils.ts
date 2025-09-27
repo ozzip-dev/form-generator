@@ -24,13 +24,13 @@ const getModelValidator = (
 })
 
 export const makeDbCollection = async  (db: Db, model: DbModel) => {
-  const { name, properties, required } = model
-  const validator: Document = getModelValidator(
-    properties, required
-  )
-    // TODO Pawel: uncomment once db schemas are established
+  // TODO Pawel: uncomment once db schemas are established
+  // const { name, properties, required } = model
+  // const validator: Document = getModelValidator(
+  //   properties, required
+  // )
   // await db.createCollection(name, { validator })
-  await db.createCollection(name)
+  await db.createCollection(model.name)
 }
 
 /* queries */

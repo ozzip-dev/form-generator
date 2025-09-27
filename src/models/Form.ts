@@ -37,6 +37,7 @@ const formRequired: any[] = [
 
 export const FormModel: DbModel = {
   name: 'form',
-  properties: formProperties,
-  required: formRequired as unknown as string[]
+  // TODO Pawel: uncomment once db schemas are established
+  // properties: formProperties,
+  // required: formRequired as unknown as string[]
 }
