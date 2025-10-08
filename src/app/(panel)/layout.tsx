@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/dataAccessLayer/queries";
 import DashboardClientLayout from "@/components/pages/dashboardClientLayout/DashboardClientLayout";
+import { UserProvider } from "@/context/UserProvider";
 
 export default async function DashboardLayout({
   children,
@@ -13,5 +14,9 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
-  return <DashboardClientLayout user={user}>{children}</DashboardClientLayout>;
+  return (
+    <UserProvider user={user}>
+      <DashboardClientLayout user={user}>{children}</DashboardClientLayout>;
+    </UserProvider>
+  );
 }

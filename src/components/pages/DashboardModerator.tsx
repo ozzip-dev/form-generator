@@ -1,12 +1,4 @@
-"use client";
-
-import { IUser } from "@/types/user";
-
-type Props = {
-  user: IUser;
-};
-
-const DashboardModerator = (props: Props) => {
+const DashboardModerator = () => {
   return <div className="p-4">twoje formularze</div>;
 };
 
