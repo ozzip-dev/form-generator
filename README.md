@@ -1,4 +1,4 @@
-# form-generator - Next/TS, Mongo DB
+# form-generator - Next/TS, MongoDB
 ## Generator formularzy sieciujący komisje związków zawodowych
 A  full-stack application to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. 
 <br/>
