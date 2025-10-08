@@ -1,6 +1,6 @@
 "use client";
-import { ActionSignUp } from "@/actions/actionsAuth/ActionSignUp";
-import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
+
+import { ActionSignUp } from "@/actions/auth/ActionSignUp";
 import InputsText from "@/components/inputs/inputsText";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";

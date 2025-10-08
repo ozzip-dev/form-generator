@@ -1,10 +1,9 @@
 "use client";
-import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
+import { ActionSignOut } from "@/actions/auth/ActionSignOut";
 import { useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import { IUser } from "@/types/user";
 import { LogOut } from "lucide-react";
-// import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ModelToast } from "@/hooks/useOneTimeToast";
 import SignUp from "./Signup";

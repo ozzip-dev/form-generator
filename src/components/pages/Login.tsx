@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
+import { ActionLogin } from "@/actions/auth/ActionLogin";
 import InputsText from "@/components/inputs/inputsText";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
