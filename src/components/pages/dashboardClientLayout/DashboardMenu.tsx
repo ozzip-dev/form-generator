@@ -3,6 +3,7 @@ import ButtonLink from "@/components/ui/buttons/ButtonLink";
 const dataNavLinks = [
   { text: "Panel", link: "/dashboard" },
   { text: "Utwórz formularz", link: "/create-form" },
+  { text: "Baza protokołów", link: "/protocols" },
   { text: "Forum", link: "/forum" },
 ];
 

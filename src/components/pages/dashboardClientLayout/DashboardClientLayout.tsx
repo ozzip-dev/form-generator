@@ -56,15 +56,15 @@ export default function DashboardClientLayout({ children, user }: Props) {
 
             <button onClick={handleSignOut} disabled={isSigningOut}>
               {isSigningOut ? (
-                <>
+                <div className="flex">
                   <LogOut className="mr-2 h-4 w-4 animate-spin" />
                   Signing out...
-                </>
+                </div>
               ) : (
-                <>
+                <div className="flex">
                   <LogOut className="mr-2 h-4 w-4" />
                   Wyloguj
-                </>
+                </div>
               )}
             </button>
           </div>

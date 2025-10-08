@@ -1,5 +1,7 @@
+import Forum from "@/components/pages/forum/Forum";
+
 const PageForum = () => {
-  return <div>forum</div>;
+  return <Forum />;
 };
 
 export default PageForum;
