@@ -5,11 +5,16 @@ import { ChangeEvent, useState } from "react";
 
 // TODO Pawel: it's a draft only
 
-const TemplateSelect = ({ templates }: { templates: FormTemplate[] }) => {
-  const [template, setTemplate] = useState("");
+type Props = {
+  templates: FormTemplate[];
+  insertDraft: (templateId: string) => Promise<void>;
+};
 
-  const onTemplateSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    setTemplate(e.target.value);
+const TemplateSelect = ({ templates, insertDraft }: Props) => {
+  const [templateId, setTemplateId] = useState("");
+
+  const onTemplateSelect = (e: ChangeEvent<HTMLSelectElement>): void => {
+    setTemplateId(e.target.value);
   };
 
   return (
@@ -20,15 +25,24 @@ const TemplateSelect = ({ templates }: { templates: FormTemplate[] }) => {
         id="form-template-select"
         onChange={onTemplateSelect}
       >
+        <option value="">-- wybierz --</option>
         {templates.map(({ id, title, inputs }, i) => (
           <option value={id} key={i}>
             {title} ({inputs.map(({ header }) => header).join(", ")})
           </option>
         ))}
-        <option value="new">Nowy</option>
+        <option value="empty">Nowy (pusty formularz)</option>
       </select>
 
-      <div>Wybrano szablon: {template}</div>
+      <div>Wybrano szablon: {templateId}</div>
+
+      <button
+        disabled={!templateId}
+        className="btn btn-main"
+        onClick={() => insertDraft(templateId)}
+      >
+        Utwórz
+      </button>
     </div>
   );
 };

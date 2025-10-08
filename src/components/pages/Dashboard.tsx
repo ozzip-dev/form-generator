@@ -1,10 +1,12 @@
 "use client";
+
+import Link from "next/link";
 import { ActionSignOut } from "@/actions/actionsAuth/ActionSignOut";
 import { useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import { IUser } from "@/types/user";
 import { LogOut } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { ModelToast } from "@/hooks/useOneTimeToast";
 
@@ -25,7 +27,8 @@ type Props = {
 const Dashboard = (props: Props) => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const { toast } = useToast();
-  const searchParams = useSearchParams();
+  // TODO Krzysztof: if not needed, delete
+  // const searchParams = useSearchParams();
 
   useOneTimeToast(ToastsData);
 
@@ -61,6 +64,9 @@ const Dashboard = (props: Props) => {
         <div>
           {props.user.role}: {props.user.name}
         </div>
+        <button className="btn btn-main">
+          <Link href="/create-form">Utwórz formularz</Link>
+        </button>
         <button onClick={handleSignOut} disabled={isSigningOut}>
           {isSigningOut ? (
             <>

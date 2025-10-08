@@ -148,4 +148,29 @@
   body {
     @apply bg-background text-foreground;
   }
-} */
+}
+*/
+
+@layer base {
+  :root {
+    --color-main: rgb(189, 216, 216);
+    --color-danger: rgb(231, 0, 0);
+  }
+}
+
+.btn {
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+}
+
+.btn-main {
+  background-color: var(--color-main);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+}
+
+.btn:disabled {
+  color: grey;
+}
