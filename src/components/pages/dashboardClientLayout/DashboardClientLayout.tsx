@@ -6,6 +6,7 @@ import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import { LogOut } from "lucide-react";
 import React, { useState } from "react";
+import DashboardMenu from "./DashboardMenu";
 
 type Props = {
   children: React.ReactNode;
@@ -67,6 +68,7 @@ export default function DashboardClientLayout({ children, user }: Props) {
               )}
             </button>
           </div>
+          {user.role === "moderator" && <DashboardMenu />}
         </div>
       </header>
 

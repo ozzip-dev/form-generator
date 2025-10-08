@@ -1,5 +1,5 @@
 import AdminPanel from "@/components/pages/AdminPanel";
-import Dashboard from "@/components/pages/Dashboard";
+import DashboardModerator from "@/components/pages/DashboardModerator";
 import { auth } from "@/lib/auth";
 import { IUser } from "@/types/user";
 import { headers } from "next/headers";
@@ -36,7 +36,7 @@ const PageDashboard = async () => {
     );
   }
   if (user.role === "moderator") {
-    return <Dashboard user={user as IUser} />;
+    return <DashboardModerator user={user as IUser} />;
   }
   if (user.role === "admin") {
     return <AdminPanel user={user as IUser} />;

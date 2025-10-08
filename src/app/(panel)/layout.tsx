@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/dataAccessLayer/queries";
-import DashboardClientLayout from "@/components/pages/DasboardClientLayout";
+import DashboardClientLayout from "@/components/pages/dashboardClientLayout/DashboardClientLayout";
 
 export default async function DashboardLayout({
   children,
