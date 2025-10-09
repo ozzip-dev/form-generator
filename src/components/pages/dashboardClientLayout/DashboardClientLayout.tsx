@@ -44,30 +44,26 @@ export default function DashboardClientLayout({ user }: Props) {
   };
 
   return (
-    <header className="bg-gray-50">
-      <div className="p-4">
-        <div className="flex justify-between items-center">
-          <p className="mb-4">
-            <span>{user.role}: </span>
-            <span className="font-bold">{user.name}</span> <br />
-          </p>
-
-          <button onClick={handleSignOut} disabled={isSigningOut}>
-            {isSigningOut ? (
-              <div className="flex items-center">
-                <LogOut className="mr-2 h-4 w-4 animate-spin" />
-                Signing out...
-              </div>
-            ) : (
-              <div className="flex items-center">
-                <LogOut className="mr-2 h-4 w-4" />
-                Wyloguj
-              </div>
-            )}
-          </button>
-        </div>
-        {user.role === "moderator" && <DashboardMenu />}
+    <div className="p-4">
+      <div className="flex justify-between items-center">
+        <p className="mb-4">
+          <span>{user.role}: </span>
+          <span className="font-bold">{user.name}</span> <br />
+        </p>
+        <button onClick={handleSignOut} disabled={isSigningOut}>
+          {isSigningOut ? (
+            <div className="flex items-center">
+              <LogOut className="mr-2 h-4 w-4 animate-spin" />
+              Signing out...
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <LogOut className="mr-2 h-4 w-4" />
+              Wyloguj
+            </div>
+          )}
+        </button>
       </div>
-    </header>
+    </div>
   );
 }

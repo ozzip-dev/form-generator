@@ -4,7 +4,6 @@ import { cache } from "react";
 
 const getUser = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
-  console.log("aaaaa");
   if (!session) return null;
   return session.user;
 };
