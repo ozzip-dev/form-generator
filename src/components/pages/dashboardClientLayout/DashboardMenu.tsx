@@ -5,6 +5,7 @@ const dataNavLinks = [
   { text: "Utwórz formularz", link: "/create-form" },
   { text: "Protokoły", link: "/protocols" },
   { text: "Forum", link: "/forum" },
+  { text: "Ustawienia", link: "/user-settings" },
 ];
 
 const DashboardMenu = () => {

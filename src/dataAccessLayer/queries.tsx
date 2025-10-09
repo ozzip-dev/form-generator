@@ -1,8 +1,11 @@
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import { cache } from "react";
 
-export const getUser = async () => {
+const getUser = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
+  console.log("aaaaa");
   if (!session) return null;
   return session.user;
 };
+export const getUserCash = cache(getUser);

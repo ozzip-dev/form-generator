@@ -1,7 +1,7 @@
 import ButtonLink from "@/components/ui/buttons/ButtonLink";
 
 const dataNavLinks = [
-  { text: "Nowy formulaż", link: "/create-form/new-form" },
+  { text: "Nowy formularz", link: "/create-form/new-form" },
   { text: "Wyniki", link: "/create-form/results" },
 ];
 

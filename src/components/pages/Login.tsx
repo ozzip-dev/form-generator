@@ -38,14 +38,14 @@ const dataInputsLogin = [
     name: "email",
     placeholder: "kamil@ozzip.com",
     type: "email",
-    defaultValue: "test@example.com",
+    defaultValue: "krzysztofkroladam@gmail.com",
   },
   {
     label: "Hasło",
     name: "password",
     placeholder: "hasło",
     type: "password",
-    defaultValue: "password1234",
+    defaultValue: "aaaaaaaa",
   },
 ];
 

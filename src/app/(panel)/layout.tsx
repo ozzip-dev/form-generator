@@ -1,22 +1,22 @@
 import { redirect } from "next/navigation";
-import { getUser } from "@/dataAccessLayer/queries";
+import { getUserCash } from "@/dataAccessLayer/queries";
 import DashboardClientLayout from "@/components/pages/dashboardClientLayout/DashboardClientLayout";
-import { UserProvider } from "@/context/UserProvider";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getUser();
+  const user = await getUserCash();
 
   if (!user) {
     redirect("/login");
   }
 
   return (
-    <UserProvider user={user}>
-      <DashboardClientLayout user={user}>{children}</DashboardClientLayout>;
-    </UserProvider>
+    <>
+      <DashboardClientLayout user={user} />
+      <main>{children}</main>
+    </>
   );
 }
