@@ -2,6 +2,19 @@ import { redirect } from "next/navigation";
 import { getUserCash } from "@/dataAccessLayer/queries";
 import DashboardClientLayout from "@/components/pages/dashboardClientLayout/DashboardClientLayout";
 import DashboardMenu from "@/components/pages/dashboardClientLayout/DashboardMenu";
+import { Suspense } from "react";
+import Loader from "@/components/ui/Loader";
+
+function LayoutLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <Loader size="lg" />
+        <p className="mt-4 text-gray-600">Ładowanie panelu...</p>
+      </div>
+    </div>
+  );
+}
 
 export default async function DashboardLayout({
   children,
@@ -21,7 +34,9 @@ export default async function DashboardLayout({
         {user.role === "moderator" && <DashboardMenu />}
       </header>
 
-      <main>{children}</main>
+      <main>
+        <Suspense fallback={<LayoutLoading />}>{children}</Suspense>
+      </main>
     </>
   );
 }
