@@ -58,6 +58,7 @@ The application was developed with grant support received in the grant competiti
 * Data Access Layer / Middleware
 * Forms
 * Dynamic forms creation
+* Dynamic routing
 * Validations - client side, server side
 * HTTP requests state messages for user
 * RWD
