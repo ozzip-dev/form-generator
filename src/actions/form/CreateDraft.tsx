@@ -1,13 +1,11 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { Form } from "@/types/form";
-import { createDraft } from "@/services/form-service";
-import { db, findOne } from "@/lib/mongo";
-import { auth } from "@/lib/auth";
-import { Document, ObjectId } from "mongodb";
-import { headers } from "next/headers";
 import { getUserCash } from "@/dataAccessLayer/queries";
+import { db, findOne } from "@/lib/mongo";
+import { createDraft } from "@/services/form-service";
+import { Form } from "@/types/form";
+import { Document, ObjectId } from "mongodb";
+import { redirect } from "next/navigation";
 
 // TODO: move out
 const isEmpty = (templateId: string) => templateId === "empty";
