@@ -1,17 +1,14 @@
 import { redirect } from "next/navigation";
 import { getUserCash } from "@/dataAccessLayer/queries";
-import DashboardClientLayout from "@/components/pages/dashboardClientLayout/DashboardClientLayout";
-import DashboardMenu from "@/components/pages/dashboardClientLayout/DashboardMenu";
+import DashboardTopBar from "@/components/pages/dashboard/DashboardTopBar";
+import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import { Suspense } from "react";
-import Loader from "@/components/ui/Loader";
+import Loader from "@/components/ui/loaders/Loader";
 
 function LayoutLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <Loader size="lg" />
-        <p className="mt-4 text-gray-600">Ładowanie panelu...</p>
-      </div>
+    <div className="flex items-center justify-center">
+      <Loader size="lg" />
     </div>
   );
 }
@@ -30,7 +27,7 @@ export default async function DashboardLayout({
   return (
     <>
       <header className="bg-gray-50">
-        <DashboardClientLayout user={user} />
+        <DashboardTopBar user={user} />
         {user.role === "moderator" && <DashboardMenu />}
       </header>
 

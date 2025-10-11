@@ -22,7 +22,7 @@ const ToastsData: ModelToast[] = [
   },
 ];
 
-export default function DashboardClientLayout({ user }: Props) {
+export default function DashboardTopBar({ user }: Props) {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const { toast } = useToast();
   useOneTimeToast(ToastsData);

@@ -3,13 +3,17 @@
 import ButtonLink from "@/components/ui/buttons/ButtonLink";
 import { usePathname } from "next/navigation";
 
-const dataNavLinks = [
-  { text: "Nowy formularz", link: "/create-form" },
-  { text: "Wyniki", link: "/create-form/results" },
-];
+type Props = {
+  formId: string;
+};
 
-const CreateFormMenu = () => {
+const CreateFormMenu = (props: Props) => {
   const pathname = usePathname();
+
+  const dataNavLinks = [
+    { text: "Formularz", link: `/create-form/${props.formId}/edit` },
+    { text: "Wyniki", link: `/create-form/${props.formId}/results` },
+  ];
 
   return (
     <div>

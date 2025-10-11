@@ -11,7 +11,7 @@ import { serializeForm } from "@/lib/form-utils";
 
 type Props = { params: Promise<{ formId: string }> };
 
-const CreateFormPage = async (props: Props) => {
+const PageEditForm = async (props: Props) => {
   const goToCreateForm = () => {
     redirect("/create-form");
   };
@@ -40,4 +40,4 @@ const CreateFormPage = async (props: Props) => {
   }
 };
 
-export default CreateFormPage;
+export default PageEditForm;

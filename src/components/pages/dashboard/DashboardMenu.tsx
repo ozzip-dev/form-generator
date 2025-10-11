@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 const dataNavLinks = [
   { text: "Panel", link: "/dashboard-moderator" },
-  { text: "Utwórz formularz", link: "/create-form" },
   { text: "Protokoły", link: "/protocols" },
   { text: "Forum", link: "/forum" },
   { text: "Ustawienia", link: "/user-settings" },

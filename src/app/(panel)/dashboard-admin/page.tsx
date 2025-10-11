@@ -1,4 +1,4 @@
-import DashboardAdmin from "@/components/pages/DashboardAdmin";
+import DashboardAdmin from "@/components/pages/dashboard/DashboardAdmin";
 
 const PageDashboardAdmin = () => {
   return <DashboardAdmin />;

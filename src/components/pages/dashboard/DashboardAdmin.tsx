@@ -1,4 +1,4 @@
-import SignUp from "./Signup";
+import SignUp from "../Signup";
 
 const DashboardAdmin = () => {
   return <SignUp />;

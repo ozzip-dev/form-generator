@@ -12,7 +12,7 @@ export default function ButtonLink(props: Props) {
         type="submit"
         className={`
         flex items-center justify-center
-        w-full rounded-lg px-4 py-2
+        w-full rounded-lg px-2 
         font-medium text-white
         bg-zinc-300 hover:bg-zinc-400
         transition-colors duration-200
