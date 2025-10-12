@@ -1,4 +1,4 @@
-import DashboardModerator from "@/components/pages/dashboard/DashboardModerator";
+import DashboardModerator from "@/components/pages/dashboard/dashboardModerator/DashboardModerator";
 
 const PageDashboardModerator = async () => {
   return <DashboardModerator />;

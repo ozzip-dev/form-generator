@@ -1,0 +1,42 @@
+"use server";
+
+import { getUserCash } from "@/dataAccessLayer/queries";
+import { db } from "@/lib/mongo";
+import { redirect } from "next/navigation";
+
+type Form = {
+  createdAt: string | null;
+  updatedAt: string | null;
+  description: string;
+  id: string;
+  inputs: any[];
+  state: string;
+  title: string;
+  _id: string;
+};
+
+export async function GetFormsLst() {
+  const user = await getUserCash();
+  if (!user) {
+    redirect("/login");
+  }
+
+  try {
+    const forms = await db.collection("form").find({}).toArray();
+
+    const safeForms: Form[] = forms.map((form) => ({
+      _id: form._id.toString(),
+      id: form.id?.toString() ?? "",
+      title: form.title ?? "",
+      description: form.description ?? "",
+      state: form.state ?? "",
+      inputs: form.inputs ?? [],
+      createdAt: form.createdAt?.toISOString?.() ?? null,
+      updatedAt: form.updatedAt?.toISOString?.() ?? null,
+    }));
+
+    return safeForms;
+  } catch (err: any) {
+    throw new Error(err?.message ?? "Nie można się wylogować");
+  }
+}

@@ -3,6 +3,7 @@ import { db } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import TemplateSelect from "./TemplateSelect";
 import AddForm from "./AddForm";
+import FormsLIst from "./FormsLIst";
 
 const DashboardModerator = async () => {
   const templates: Form[] = await getFormTemplates(db);
@@ -18,9 +19,9 @@ const DashboardModerator = async () => {
       <div className="size-fit">
         <AddForm />
       </div>
+      <FormsLIst />
 
       {/* <TemplateSelect templates={templates} /> */}
-      <div className="p-4">twoje formularze</div>
     </>
   );
 };
