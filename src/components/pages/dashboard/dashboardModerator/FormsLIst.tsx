@@ -1,13 +1,18 @@
 import { GetFormsLst } from "@/actions/form/GetFormsList";
+import FormLink from "./FormLink";
 
 const FormsLIst = async () => {
   const forms = await GetFormsLst();
 
+  if (forms.length === 0) {
+    return <div>Brak zapisanych formularzy</div>;
+  }
+
   return (
     <>
-      <div>twoje formy</div>
-      {forms.map(({ title, _id }) => {
-        return <div>{title}</div>;
+      <div>twoje formularze</div>
+      {forms.map((form) => {
+        return <FormLink form={form} key={form._id} />;
       })}
     </>
   );

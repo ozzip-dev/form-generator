@@ -18,7 +18,7 @@ const AddForm = () => {
 
   return (
     <ButtonClick
-      text="Utwórz formulaż"
+      text="Utwórz formularz"
       onClickAction={handleCreateForm}
       isLoading={isloading}
     />

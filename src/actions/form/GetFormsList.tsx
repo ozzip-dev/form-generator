@@ -4,9 +4,9 @@ import { getUserCash } from "@/dataAccessLayer/queries";
 import { db } from "@/lib/mongo";
 import { redirect } from "next/navigation";
 
-type Form = {
+export type FormType = {
   createdAt: string | null;
-  updatedAt: string | null;
+  updatedAt: string;
   description: string;
   id: string;
   inputs: any[];
@@ -24,7 +24,7 @@ export async function GetFormsLst() {
   try {
     const forms = await db.collection("form").find({}).toArray();
 
-    const safeForms: Form[] = forms.map((form) => ({
+    const safeForms: FormType[] = forms.map((form) => ({
       _id: form._id.toString(),
       id: form.id?.toString() ?? "",
       title: form.title ?? "",
