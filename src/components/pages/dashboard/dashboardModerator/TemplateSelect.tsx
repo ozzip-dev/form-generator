@@ -17,7 +17,6 @@ const TemplateSelect = ({ templates }: Props) => {
   };
 
   const handleCreate = async () => {
-    console.log("templateId", templateId);
     if (!templateId) return;
     setLoading(true);
     try {

@@ -4,7 +4,7 @@ import FormLink from "./FormLink";
 const FormsLIst = async () => {
   const forms = await GetFormsLst();
 
-  if (forms.length === 0) {
+  if (!forms || forms.length === 0) {
     return <div>Brak zapisanych formularzy</div>;
   }
 

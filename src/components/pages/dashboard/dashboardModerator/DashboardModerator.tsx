@@ -4,6 +4,10 @@ import { Form } from "@/types/form";
 import TemplateSelect from "./TemplateSelect";
 import AddForm from "./AddForm";
 import FormsLIst from "./FormsLIst";
+import { Suspense } from "react";
+import Loading from "@/app/(panel)/dashboard-moderator/loading";
+import Error from "@/app/(panel)/dashboard-moderator/error";
+import { ErrorBoundary } from "react-error-boundary";
 
 const DashboardModerator = async () => {
   const templates: Form[] = await getFormTemplates(db);
@@ -19,7 +23,11 @@ const DashboardModerator = async () => {
       <div className="size-fit">
         <AddForm />
       </div>
-      <FormsLIst />
+      <ErrorBoundary FallbackComponent={Error}>
+        <Suspense fallback={<Loading />}>
+          <FormsLIst />
+        </Suspense>
+      </ErrorBoundary>
 
       {/* <TemplateSelect templates={templates} /> */}
     </>

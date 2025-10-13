@@ -1,6 +1,6 @@
 "use server";
 
-import { getUserCash } from "@/dataAccessLayer/queries";
+import { requireUser } from "@/dataAccessLayer/queries";
 import { db, findOne } from "@/lib/mongo";
 import { createDraft } from "@/services/form-service";
 import { Form } from "@/types/form";
@@ -11,10 +11,16 @@ import { redirect } from "next/navigation";
 const isEmpty = (templateId: string) => templateId === "empty";
 
 export async function CreateDraft(templateId: string) {
-  const user = await getUserCash();
-  if (!user) {
-    redirect("/login");
-  }
+  const user = await requireUser();
+
+  // const formsCount = await db.collection("form").countDocuments({
+  //   userId: new ObjectId(user.id),
+  // });
+
+  // if (formsCount >= 10) {
+  //   console.error("Osiągnięto limit 10 formularzy");
+  //   throw new Error("Możesz zapisać maksymalnie 10 formularzy.");
+  // }
 
   const empty = isEmpty(templateId);
 

@@ -134,7 +134,6 @@ export async function ActionLogin(data: FormData) {
     const response = await auth.api.signInEmail({
       body: { email: data.email, password: data.password },
     });
-    console.log("resp", response);
   } catch (err: any) {
     throw new Error(err?.message ?? "Nieprawidłowy email lub hasło");
   }

@@ -1,15 +1,11 @@
 import Link from "next/link";
 import { FormType } from "@/actions/form/GetFormsList";
+import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 
 type Props = { form: FormType };
 
 export default function FormLink(props: Props) {
-  const formatted = props.form.updatedAt
-    ? new Date(props.form.updatedAt).toLocaleString("pl-PL", {
-        dateStyle: "short",
-        timeStyle: "short",
-      })
-    : "Brak daty";
+  const formatted = formatDateAndHour(props.form.updatedAt);
 
   return (
     <Link

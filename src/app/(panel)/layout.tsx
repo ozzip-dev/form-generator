@@ -1,9 +1,8 @@
-import { redirect } from "next/navigation";
-import { getUserCash } from "@/dataAccessLayer/queries";
 import DashboardTopBar from "@/components/pages/dashboard/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import { Suspense } from "react";
 import Loader from "@/components/ui/loaders/Loader";
+import { requireUser } from "@/dataAccessLayer/queries";
 
 function LayoutLoading() {
   return (
@@ -18,17 +17,13 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getUserCash();
-
-  if (!user) {
-    redirect("/login");
-  }
+  const user = await requireUser();
 
   return (
     <>
       <header className="bg-gray-50">
         <DashboardTopBar user={user} />
-        {user.role === "moderator" && <DashboardMenu />}
+        {user?.role === "moderator" && <DashboardMenu />}
       </header>
 
       <main>

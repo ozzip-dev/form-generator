@@ -1,6 +1,6 @@
 "use server";
 
-import { getUserCash } from "@/dataAccessLayer/queries";
+import { requireUser } from "@/dataAccessLayer/queries";
 import { db } from "@/lib/mongo";
 import { redirect } from "next/navigation";
 
@@ -16,10 +16,7 @@ export type FormType = {
 };
 
 export async function GetFormsLst() {
-  const user = await getUserCash();
-  if (!user) {
-    redirect("/login");
-  }
+  await requireUser();
 
   try {
     const forms = await db.collection("form").find({}).toArray();
@@ -37,6 +34,6 @@ export async function GetFormsLst() {
 
     return safeForms;
   } catch (err: any) {
-    throw new Error(err?.message ?? "Nie można się wylogować");
+    throw new Error(err);
   }
 }
