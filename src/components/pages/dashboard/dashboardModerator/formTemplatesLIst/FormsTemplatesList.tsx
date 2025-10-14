@@ -5,9 +5,11 @@ const formsTemplates = ["favourite-color", "membership"];
 const FormsTemplatesList = () => {
   return (
     <>
-      <div>przykładowe szablony</div>
-      {formsTemplates.map((templateName, idx) => {
-        return <FormTemplateLink templateName={templateName} key={idx} />;
+      <div>przykładowe formularze</div>
+      {formsTemplates.map((templateName) => {
+        return (
+          <FormTemplateLink templateName={templateName} key={templateName} />
+        );
       })}
     </>
   );

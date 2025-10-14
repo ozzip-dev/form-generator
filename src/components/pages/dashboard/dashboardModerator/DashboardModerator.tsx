@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import Loading from "@/app/(panel)/dashboard-moderator/loading";
 import Error from "@/app/(panel)/dashboard-moderator/error";
 import { ErrorBoundary } from "react-error-boundary";
-import FormsTemplatesList from "./formTemplatesLIst/FormsTemplatesLIst";
+import FormsTemplatesList from "./formTemplatesLIst/FormsTemplatesList";
 
 const DashboardModerator = async () => {
   const templates: Form[] = await getFormTemplates(db);
