@@ -8,6 +8,7 @@ import { Suspense } from "react";
 import Loading from "@/app/(panel)/dashboard-moderator/loading";
 import Error from "@/app/(panel)/dashboard-moderator/error";
 import { ErrorBoundary } from "react-error-boundary";
+import FormsTemplatesList from "./formTemplatesLIst/FormsTemplatesLIst";
 
 const DashboardModerator = async () => {
   const templates: Form[] = await getFormTemplates(db);
@@ -28,6 +29,7 @@ const DashboardModerator = async () => {
           <FormsLIst />
         </Suspense>
       </ErrorBoundary>
+      <FormsTemplatesList />
 
       {/* <TemplateSelect templates={templates} /> */}
     </>
