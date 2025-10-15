@@ -6,11 +6,18 @@ const FormsTemplatesList = () => {
   return (
     <>
       <div>przykładowe formularze</div>
-      {formsTemplates.map((templateName) => {
-        return (
-          <FormTemplateLink templateName={templateName} key={templateName} />
-        );
-      })}
+      <div className="flex">
+        {formsTemplates.map((templateName) => {
+          return (
+            <div className="size-fit mr-2">
+              <FormTemplateLink
+                templateName={templateName}
+                key={templateName}
+              />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

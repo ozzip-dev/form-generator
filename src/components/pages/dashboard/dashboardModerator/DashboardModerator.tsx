@@ -3,7 +3,7 @@ import { db } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import TemplateSelect from "./TemplateSelect";
 import AddForm from "./AddForm";
-import FormsLIst from "./FormsLIst";
+import FormsLIst from "./formsList/FormsLIst";
 import { Suspense } from "react";
 import Loading from "@/app/(panel)/dashboard-moderator/loading";
 import Error from "@/app/(panel)/dashboard-moderator/error";
@@ -20,7 +20,7 @@ const DashboardModerator = async () => {
   }));
 
   return (
-    <>
+    <div className="mb-10">
       <div className="size-fit">
         <AddForm />
       </div>
@@ -29,10 +29,11 @@ const DashboardModerator = async () => {
           <FormsLIst />
         </Suspense>
       </ErrorBoundary>
+
       <FormsTemplatesList />
 
       {/* <TemplateSelect templates={templates} /> */}
-    </>
+    </div>
   );
 };
 

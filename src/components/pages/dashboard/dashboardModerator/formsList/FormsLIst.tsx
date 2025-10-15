@@ -10,7 +10,7 @@ const FormsLIst = async () => {
 
   return (
     <>
-      <div>twoje formularze</div>
+      <div>twoje formularze (maksymalnie 10 formularzy)</div>
       {forms.map((form) => {
         return <FormLink form={form} key={form._id} />;
       })}

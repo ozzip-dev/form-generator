@@ -26,7 +26,6 @@ export async function CreateDraft(templateId: string) {
 
   const template: Document | null = await findOne(db, "form", {
     id: templateId,
-    createdBy: userId,
   });
 
   if (!template && !empty) {
