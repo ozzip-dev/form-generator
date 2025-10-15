@@ -1,4 +1,4 @@
-import FormTemplateLink from "./FormTemplateLink";
+import FormTemplateTrigger from "./FormTemplateTrigger";
 
 const formsTemplates = ["favourite-color", "membership"];
 
@@ -10,7 +10,7 @@ const FormsTemplatesList = () => {
         {formsTemplates.map((templateName) => {
           return (
             <div className="size-fit mr-2">
-              <FormTemplateLink
+              <FormTemplateTrigger
                 templateName={templateName}
                 key={templateName}
               />

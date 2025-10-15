@@ -3,16 +3,20 @@
 import ButtonClick from "@/components/ui/buttons/ButtonClick";
 import UseCreateForm from "@/hooks/useCreateForm";
 
-const AddForm = () => {
-  const { handleCreateForm, isloading } = UseCreateForm("empty");
+type Props = {
+  templateName: string;
+};
+
+const FormTemplateTrigger = (props: Props) => {
+  const { handleCreateForm, isloading } = UseCreateForm(props.templateName);
 
   return (
     <ButtonClick
-      text="Utwórz formularz"
+      text={props.templateName}
       onClickAction={handleCreateForm}
       isLoading={isloading}
     />
   );
 };
 
-export default AddForm;
+export default FormTemplateTrigger;
