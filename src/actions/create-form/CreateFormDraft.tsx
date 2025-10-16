@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 
 const isEmpty = (templateId: string) => templateId === "empty";
 
-export async function CreateDraft(templateId: string) {
+export async function CreateFormDraft(templateId: string) {
   const user = await requireUser();
 
   const userId = new ObjectId(user.id);

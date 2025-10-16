@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { FormSerialized } from "@/types/form";
 import { Input } from "@/types/input";
-import EditFormForm from "../pages/EditFormForm";
 import {
   AddInputToDraft,
   MoveInputDown,
   MoveInputUp,
   RemoveInputFromDraft,
-} from "@/actions/form";
+} from "@/actions/create-form";
+import EditFormForm from "../pages/create-form/EditFormForm";
 
 type Props = {
   initialForm: FormSerialized;

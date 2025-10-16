@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionForgotPassword } from "@/actions/actionsAuth/ActionForgotPassword";
+import { ActionForgotPassword } from "@/actions/auth/ActionForgotPassword";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {

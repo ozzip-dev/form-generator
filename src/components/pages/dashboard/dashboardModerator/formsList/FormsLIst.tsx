@@ -1,4 +1,4 @@
-import { GetFormsLst } from "@/actions/form/GetFormsList";
+import { GetFormsLst } from "@/actions/create-form/GetFormsList";
 import FormLink from "./FormLink";
 
 const FormsLIst = async () => {

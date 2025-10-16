@@ -1,60 +1,55 @@
 "use client";
 
+import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import { InputType } from "@/enums";
 import { Input } from "@/types/input";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 
 type Props = {
-  addInput: (input: Input) => Promise<void>
+  addInput: (input: Input) => Promise<void>;
 };
 
 type FormValues = {
-  type: InputType
-  header: string
-  description: string
+  type: InputType;
+  header: string;
+  description: string;
   // TODO: for select types add options field
 };
 
 const AddCustomField = (props: Props) => {
-  const inputTypes = Object.values(InputType)
+  const inputTypes = Object.values(InputType);
 
-  const { register, handleSubmit } = useForm<FormValues>()
-  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>();
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     props.addInput({
       ...data,
-      validation: {}
-    })
-  }
+      validation: {},
+    });
+  };
+  // console.log("isSubmitting", isSubmitting);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="*:block [&>input]:my-2"
-    >
-      <h2>Dodaj własne customowe pole</h2>
-
-      <select {...register('type', { required: true })}>
-        <option value="">Wybierz typ</option>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex [&>input]:my-2">
+      <input
+        type="text"
+        placeholder="Nazwa pola"
+        {...register("header", { required: true })}
+      />
+      <select {...register("type", { required: true })}>
         {inputTypes.map((el, i) => (
           <option value={el} key={i}>
             {el}
           </option>
         ))}
       </select>
-      <input 
-        type="text"
-        placeholder="nagłówek"
-        {...register('header',{ required: true })}
-      />
-      <input
-        type="text"
-        placeholder="opis (opcjonalne)"
-        {...register('description')}
-      />
-
-      <button type="submit" className="btn btn-main">
-        Dodaj customowe pole
-      </button>
+      <div className="w-fit">
+        <ButtonSubmit isSubmitting={isSubmitting} text="+" />
+      </div>
     </form>
   );
 };

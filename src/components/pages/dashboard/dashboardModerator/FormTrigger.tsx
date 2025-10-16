@@ -3,7 +3,7 @@
 import ButtonClick from "@/components/ui/buttons/ButtonClick";
 import UseCreateForm from "@/hooks/useCreateForm";
 
-const AddForm = () => {
+const FormTrigger = () => {
   const { handleCreateForm, isloading } = UseCreateForm("empty");
 
   return (
@@ -15,4 +15,4 @@ const AddForm = () => {
   );
 };
 
-export default AddForm;
+export default FormTrigger;

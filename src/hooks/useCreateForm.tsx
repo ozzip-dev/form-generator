@@ -1,7 +1,7 @@
 import { useToast } from "./useToast";
 import { useState } from "react";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { CreateDraft } from "@/actions/form";
+import { CreateFormDraft } from "@/actions/create-form/CreateFormDraft";
 
 const UseCreateForm = (templateName: string) => {
   const [isloading, setLoading] = useState(false);
@@ -10,7 +10,7 @@ const UseCreateForm = (templateName: string) => {
   const handleCreateForm = async () => {
     setLoading(true);
     try {
-      await CreateDraft(templateName);
+      await CreateFormDraft(templateName);
     } catch (err: any) {
       handleNextRedirectError(err);
       toast({

@@ -2,7 +2,7 @@ import { getFormTemplates } from "@/services/form-service";
 import { db } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import TemplateSelect from "./TemplateSelect";
-import AddForm from "./AddForm";
+import FormTrigger from "./FormTrigger";
 import FormsLIst from "./formsList/FormsLIst";
 import { Suspense } from "react";
 import Loading from "@/app/(panel)/dashboard-moderator/loading";
@@ -22,7 +22,7 @@ const DashboardModerator = async () => {
   return (
     <div className="mb-10">
       <div className="size-fit">
-        <AddForm />
+        <FormTrigger />
       </div>
       <ErrorBoundary FallbackComponent={Error}>
         <Suspense fallback={<Loading />}>

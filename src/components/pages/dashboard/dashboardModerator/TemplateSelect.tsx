@@ -2,7 +2,7 @@
 
 import { FormTemplate } from "@/types/form";
 import { ChangeEvent, useState } from "react";
-import { CreateDraft } from "@/actions/form/CreateDraft";
+import { CreateFormDraft } from "@/actions/create-form/CreateFormDraft";
 
 type Props = {
   templates: FormTemplate[];
@@ -20,7 +20,7 @@ const TemplateSelect = ({ templates }: Props) => {
     if (!templateId) return;
     setLoading(true);
     try {
-      await CreateDraft(templateId);
+      await CreateFormDraft(templateId);
     } finally {
       setLoading(false);
     }

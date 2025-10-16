@@ -1,7 +1,7 @@
 import Loader from "../loaders/Loader";
 
 type Props = {
-  isLoading: boolean;
+  isLoading?: boolean;
   text: string;
   onClickAction: (...args: any[]) => void | Promise<void>;
 };

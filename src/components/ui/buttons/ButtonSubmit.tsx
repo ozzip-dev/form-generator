@@ -6,6 +6,7 @@ type Props = {
 };
 
 export default function ButtonSubmit(props: Props) {
+  console.log("props.isSubmitting ", props.isSubmitting);
   return (
     <button
       type="submit"
