@@ -1,40 +1,50 @@
 "use client";
 
+import { useFormContext } from "react-hook-form";
 import { FormInput } from "@/types/input";
-import RemoveInputBtn from "./RemoveInputBtn";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { InputType } from "@/enums";
+import RemoveInputBtn from "./RemoveInputBtn";
+import { useEffect } from "react";
 
 type Props = {
-  inputs: FormInput[];
   input: FormInput;
+  index: number;
   removeInput: (id: string) => Promise<void>;
   moveInputDown: (id: string) => Promise<void>;
   moveInputUp: (id: string) => Promise<void>;
+  updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
-type FormValues = {
-  type: InputType;
-  header: string;
-  description: string;
-  // TODO: for select types add options field
-};
-function CreateFormInput(props: Props) {
-  const { id, description, type, header, required, order } = props.input;
-  const lastInput = order >= props.inputs.length - 1;
-  const inputTypes = Object.values(InputType);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>();
 
-  // const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-  //   props.addInput({
-  //     ...data,
-  //     validation: {},
-  //   });
-  // };
-  // console.log("", props.input);
+export default function CreateFormInput({
+  input,
+  index,
+  removeInput,
+  moveInputDown,
+  moveInputUp,
+  updateInput,
+}: Props) {
+  const { id, required, order } = input;
+  const inputTypes = Object.values(InputType);
+  const lastInput = order >= index - 1;
+
+  console.log("input", input);
+
+  const { register, watch } = useFormContext();
+
+  const watchedHeader = watch(`inputs.${index}.header`);
+  const watchedType = watch(`inputs.${index}.type`);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (updateInput) {
+        updateInput(id as string, {
+          header: watchedHeader,
+          type: watchedType,
+        });
+      }
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [watchedHeader, watchedType, id, updateInput]);
 
   return (
     <div className="flex gap-2">
@@ -42,19 +52,18 @@ function CreateFormInput(props: Props) {
         <div>
           <input
             type="text"
-            value={header}
+            {...register(`inputs.${index}.header`)}
             className="border border-black mr-4"
           />
           {required && "Required"}
         </div>
 
         <select
-          defaultValue={props.input.type}
-          {...register("type", { required: true })}
-          className="h-fit border border-black "
+          {...register(`inputs.${index}.type`)}
+          className="h-fit border border-black"
         >
-          {inputTypes.map((el, i) => (
-            <option value={el} key={i}>
+          {inputTypes.map((el) => (
+            <option key={el} value={el}>
               {el}
             </option>
           ))}
@@ -63,30 +72,27 @@ function CreateFormInput(props: Props) {
 
       <div className="flex flex-col justify-center gap-2">
         <button
+          type="button"
           disabled={!order}
           className="btn btn-main"
-          onClick={() => {
-            props.moveInputUp(id as string);
-          }}
+          onClick={() => moveInputUp(id as string)}
         >
           ⇧
         </button>
 
         <button
+          type="button"
           disabled={lastInput}
           className="btn btn-main"
-          onClick={() => {
-            props.moveInputDown(id as string);
-          }}
+          onClick={() => moveInputDown(id as string)}
         >
           ⇩
         </button>
       </div>
+
       <div>
-        <RemoveInputBtn id={id as string} removeInput={props.removeInput} />
+        <RemoveInputBtn id={id as string} removeInput={removeInput} />
       </div>
     </div>
   );
 }
-
-export default CreateFormInput;
