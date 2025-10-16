@@ -37,7 +37,8 @@ The application was developed with grant support received in the grant competiti
     height="100"
   />
   <br/>
-  https://transferhub.pl/
+
+  https://transferhub.pl/generator-formularzy-sieciujacy-komisje-zwiazkow-zawodowych/
   
 
 
@@ -52,7 +53,7 @@ The application was developed with grant support received in the grant competiti
 ## Features
 
 * Comunication with database
-* Auth / reset password
+* Auth (reset password, registration link)
 * Role-based access (admin, moderator)  
 * Data Access Layer / Middleware
 * Forms
