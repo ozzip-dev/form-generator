@@ -5,8 +5,12 @@ import InputFields from "@/components/inputs/InputFields";
 import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import { InputType } from "@/enums";
 import { Input } from "@/types/input";
-import { Pompiere } from "next/font/google";
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  addFormFieldSchema,
+  TAddFormFieldSchema,
+} from "@/lib/zodShema/addFormFieldShema";
 
 const dataInputsheader = [
   {
@@ -20,35 +24,34 @@ type Props = {
   addInput: (input: Input) => Promise<void>;
 };
 
-type FormValues = {
-  type: InputType;
-  header: string;
-};
-
-const AddCustomField = (props: Props) => {
+const AddFormField = (props: Props) => {
   const inputTypes = Object.values(InputType);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
     setError,
-  } = useForm<FormValues>();
+    reset,
+  } = useForm<TAddFormFieldSchema>({
+    resolver: zodResolver(addFormFieldSchema),
+  });
 
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const onSubmit: SubmitHandler<TAddFormFieldSchema> = async (
+    data: TAddFormFieldSchema
+  ) => {
     try {
       await props.addInput({
         ...data,
+        type: data.type as InputType,
         validation: {},
       });
+      reset();
     } catch (err: any) {
       setError("root", {
         message: `Błąd: ${err.message || err}`,
       });
     }
-
-    reset();
   };
 
   return (
@@ -67,7 +70,7 @@ const AddCustomField = (props: Props) => {
             </option>
           ))}
         </select>
-        <div>aa{errors.root?.message}</div>
+
         <div className="w-fit">
           <ButtonSubmit isSubmitting={isSubmitting} text="+" />
         </div>
@@ -77,4 +80,4 @@ const AddCustomField = (props: Props) => {
   );
 };
 
-export default AddCustomField;
+export default AddFormField;

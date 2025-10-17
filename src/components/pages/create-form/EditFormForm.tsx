@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import AddCustomField from "./AddCustomField";
+import AddFormField from "./AddFormField";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import CreateFormInput from "@/components/form/CreateFormInput";
 import InputFields from "@/components/inputs/InputFields";
@@ -121,7 +121,7 @@ export default function EditFormForm(props: Props) {
           </div>
         </form>
 
-        <AddCustomField addInput={props.addInput} />
+        <AddFormField addInput={props.addInput} />
       </div>
     </FormProvider>
   );
