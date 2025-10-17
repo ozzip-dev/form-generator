@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { FormSerialized } from "@/types/form";
 import { Input } from "@/types/input";
 import {
@@ -10,6 +10,7 @@ import {
   RemoveInputFromDraft,
 } from "@/actions/create-form";
 import EditFormForm from "../pages/create-form/EditFormForm";
+import DataLoading from "../ui/loaders/DataLoading";
 
 type Props = {
   initialForm: FormSerialized;
@@ -50,14 +51,16 @@ const EditForm = ({ initialForm, templateInputs }: Props) => {
   }
 
   return (
-    <EditFormForm
-      form={formData}
-      templateInputs={templateInputs}
-      addInput={addInput}
-      removeInput={removeInput}
-      moveInputDown={moveInputDown}
-      moveInputUp={moveInputUp}
-    />
+    <Suspense fallback={<DataLoading />}>
+      <EditFormForm
+        form={formData}
+        templateInputs={templateInputs}
+        addInput={addInput}
+        removeInput={removeInput}
+        moveInputDown={moveInputDown}
+        moveInputUp={moveInputUp}
+      />
+    </Suspense>
   );
 };
 

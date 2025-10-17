@@ -27,8 +27,6 @@ export default function CreateFormInput({
   const inputTypes = Object.values(InputType);
   const lastInput = order >= index - 1;
 
-  console.log("input", input);
-
   const { register, watch } = useFormContext();
 
   const watchedHeader = watch(`inputs.${index}.header`);

@@ -10,7 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
-import InputsText from "../inputs/inputsText";
+import InputFields from "../inputs/InputFields";
 import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 
 const dataInputsForgotPassword = [
@@ -69,7 +69,7 @@ const ForgotPassword = () => {
         <h1 className="text-2xl font-bold text-center">Nie pamiętasz hasła?</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <InputsText
+          <InputFields
             inputsData={dataInputsForgotPassword}
             register={register}
             errorMsg={errors}

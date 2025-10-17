@@ -1,5 +1,5 @@
 "use client";
-import { ActionResetPassword } from "@/actions/actionsAuth/ActionResetPassword";
+
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -8,10 +8,11 @@ import {
 } from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import InputsText from "../inputs/inputsText";
+import InputFields from "../inputs/InputFields";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+import { ActionResetPassword } from "@/actions/auth/ActionResetPassword";
 
 const dataInputsResetPassword = [
   {
@@ -69,7 +70,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
         <h1 className="text-2xl font-bold text-center">Zmień hasło</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <InputsText
+          <InputFields
             inputsData={dataInputsResetPassword}
             register={register}
             errorMsg={errors}

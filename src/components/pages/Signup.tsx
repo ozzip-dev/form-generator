@@ -1,7 +1,7 @@
 "use client";
 
 import { ActionSignUp } from "@/actions/auth/ActionSignUp";
-import InputsText from "@/components/inputs/inputsText";
+import InputFields from "@/components/inputs/inputFields";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -96,7 +96,7 @@ const SignUp = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="space-y-4 flex justify-center flex-col"
         >
-          <InputsText
+          <InputFields
             inputsData={dataInputsSignUp}
             register={register}
             errorMsg={errors}

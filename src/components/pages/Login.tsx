@@ -1,7 +1,7 @@
 "use client";
 
 import { ActionLogin } from "@/actions/auth/ActionLogin";
-import InputsText from "@/components/inputs/inputsText";
+import InputFields from "@/components/inputs/InputFields";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
@@ -103,7 +103,7 @@ const Login = () => {
         <h1 className="text-2xl font-bold text-center">Zaloguj się</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <InputsText
+          <InputFields
             inputsData={dataInputsLogin}
             register={register}
             errorMsg={errors}

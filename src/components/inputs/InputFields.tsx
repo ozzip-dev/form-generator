@@ -1,10 +1,11 @@
 "use client";
 
 import { UseFormRegister, FieldErrors } from "react-hook-form";
+import InputError from "./InputError";
 
 type Props = {
   inputsData: {
-    label: string;
+    label?: string;
     name: string;
     placeholder: string;
     type: string;
@@ -16,16 +17,19 @@ type Props = {
   register?: UseFormRegister<any>;
 };
 
-const InputsText = (props: Props) => {
+const InputFields = (props: Props) => {
   return (
     <>
       {props.inputsData.map(
         ({ label, name, placeholder, type, defaultValue }) => {
           return (
             <div key={name}>
-              <label htmlFor={name} className="text-lg  block">
-                {label}
-              </label>
+              {label && (
+                <label htmlFor={name} className="text-lg  block">
+                  {label}
+                </label>
+              )}
+
               <input
                 type={type}
                 id={name}
@@ -34,9 +38,10 @@ const InputsText = (props: Props) => {
                 defaultValue={defaultValue}
                 {...(props.register ? props.register(name as string) : {})}
               />
-              <div className="text-xs text-danger h-4">
-                {props.errorMsg?.[name]?.message as string}
-              </div>
+
+              <InputError
+                errorMsg={props.errorMsg?.[name]?.message as string}
+              />
             </div>
           );
         }
@@ -45,4 +50,4 @@ const InputsText = (props: Props) => {
   );
 };
 
-export default InputsText;
+export default InputFields;
