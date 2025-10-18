@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 
 type Props = {
   inputId: string;
+  removeBtn: number;
 };
 
 const MoveInputUpBtn = (props: Props) => {
@@ -13,7 +14,14 @@ const MoveInputUpBtn = (props: Props) => {
     await MoveInputUp(formId as string, props.inputId);
   }
 
-  return <ButtonClick text="^" onClickAction={handleRemoveInput} />;
+  return (
+    <>
+      {" "}
+      {props.removeBtn > 0 && (
+        <ButtonClick text="^" onClickAction={handleRemoveInput} />
+      )}{" "}
+    </>
+  );
 };
 
 export default MoveInputUpBtn;

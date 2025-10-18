@@ -9,7 +9,6 @@ export const GetForm = cache(async (formId: string) => {
   await requireUser();
 
   try {
-    console.log("bbbb");
     const [form, templateInputs] = await Promise.all([
       findById(db, "form", new ObjectId(formId)),
       getTemplateInputs(db),

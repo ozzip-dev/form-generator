@@ -6,19 +6,19 @@ import { InputType } from "@/enums";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { useEffect } from "react";
 import MoveInputUpBtn from "./MoveInputUpBtn";
+import MoveInputDownBtn from "./MoveInputDownBtn";
 
 type Props = {
   input: FormInput;
   index: number;
-  moveInputDown: (id: string) => Promise<void>;
-  moveInputUp: (id: string) => Promise<void>;
+  totalInputs: number;
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
 
 export default function CreateFormInput(props: Props) {
   const { id, required, order } = props.input;
   const inputTypes = Object.values(InputType);
-  const lastInput = order >= props.index - 1;
+  const isLastInput = props.index === props.totalInputs - 1;
 
   const { register, watch } = useFormContext();
 
@@ -62,24 +62,9 @@ export default function CreateFormInput(props: Props) {
       </div>
 
       <div className="flex flex-col justify-center gap-2">
-        <MoveInputUpBtn inputId={id as string} />
-        <button
-          type="button"
-          disabled={!order}
-          className="btn btn-main"
-          onClick={() => props.moveInputUp(id as string)}
-        >
-          ⇧
-        </button>
+        <MoveInputUpBtn inputId={id as string} removeBtn={order} />
 
-        <button
-          type="button"
-          disabled={lastInput}
-          className="btn btn-main"
-          onClick={() => props.moveInputDown(id as string)}
-        >
-          ⇩
-        </button>
+        <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
       </div>
 
       <div>

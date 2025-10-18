@@ -25,8 +25,6 @@ const dataInputsTitle = [
 type Props = {
   form: FormSerialized;
   templateInputs: Input[];
-  moveInputDown: (id: string) => Promise<void>;
-  moveInputUp: (id: string) => Promise<void>;
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
   updateForm?: (data: {
     title?: string;
@@ -121,8 +119,7 @@ export default function EditFormForm(props: Props) {
                   key={el.id}
                   input={el}
                   index={index}
-                  moveInputDown={props.moveInputDown}
-                  moveInputUp={props.moveInputUp}
+                  totalInputs={inputs.length}
                   updateInput={handleUpdateInput}
                 />
               ))}
