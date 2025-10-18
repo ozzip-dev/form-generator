@@ -11,6 +11,9 @@ import {
 } from "@/actions/create-form";
 import EditFormForm from "../pages/create-form/EditFormForm";
 import DataLoading from "../ui/loaders/DataLoading";
+import { GetForm } from "@/actions/create-form/GetForm";
+import { useParams } from "next/navigation";
+import AddFormField from "../pages/create-form/AddFormField";
 
 type Props = {
   initialForm: FormSerialized;
@@ -18,23 +21,14 @@ type Props = {
 };
 
 const EditForm = ({ initialForm, templateInputs }: Props) => {
+  const params = useParams();
+  const formIdx = params?.formId;
+
+  console.log("initialForm", initialForm);
+
   const [formData, setFormData] = useState<FormSerialized>(initialForm);
 
   const formId = initialForm._id as unknown as string;
-
-  async function addInput(input: Input): Promise<void> {
-    const updatedResult = await AddInputToDraft(formId, input);
-    if (!updatedResult) return;
-
-    setFormData(updatedResult);
-  }
-
-  async function removeInput(inputId: string): Promise<void> {
-    const updatedResult = await RemoveInputFromDraft(formId, inputId);
-    if (!updatedResult) return;
-
-    setFormData(updatedResult);
-  }
 
   async function moveInputUp(inputId: string): Promise<void> {
     const updatedResult = await MoveInputUp(formId, inputId);
@@ -51,16 +45,17 @@ const EditForm = ({ initialForm, templateInputs }: Props) => {
   }
 
   return (
-    <Suspense fallback={<DataLoading />}>
-      <EditFormForm
-        form={formData}
-        templateInputs={templateInputs}
-        addInput={addInput}
-        removeInput={removeInput}
-        moveInputDown={moveInputDown}
-        moveInputUp={moveInputUp}
-      />
-    </Suspense>
+    <>
+      <Suspense fallback={<DataLoading />}>
+        <EditFormForm
+          form={initialForm}
+          templateInputs={templateInputs}
+          moveInputDown={moveInputDown}
+          moveInputUp={moveInputUp}
+        />
+      </Suspense>
+      <AddFormField />
+    </>
   );
 };
 

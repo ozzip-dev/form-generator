@@ -11,6 +11,8 @@ import {
   addFormFieldSchema,
   TAddFormFieldSchema,
 } from "@/lib/zodShema/addFormFieldShema";
+import { AddInputToDraft } from "@/actions/create-form";
+import { useParams } from "next/navigation";
 
 const dataInputsheader = [
   {
@@ -20,12 +22,9 @@ const dataInputsheader = [
   },
 ];
 
-type Props = {
-  addInput: (input: Input) => Promise<void>;
-};
-
-const AddFormField = (props: Props) => {
+const AddFormField = () => {
   const inputTypes = Object.values(InputType);
+  const { formId } = useParams();
 
   const {
     register,
@@ -41,11 +40,12 @@ const AddFormField = (props: Props) => {
     data: TAddFormFieldSchema
   ) => {
     try {
-      await props.addInput({
+      await AddInputToDraft(formId as string, {
         ...data,
         type: data.type as InputType,
         validation: {},
       });
+
       reset();
     } catch (err: any) {
       setError("root", {

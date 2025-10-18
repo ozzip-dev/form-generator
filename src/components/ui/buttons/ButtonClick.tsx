@@ -9,6 +9,7 @@ type Props = {
 const ButtonClick = (props: Props) => {
   return (
     <button
+      type="button"
       onClick={props.onClickAction}
       disabled={props.isLoading}
       className={`

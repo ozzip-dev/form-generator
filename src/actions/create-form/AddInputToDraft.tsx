@@ -5,6 +5,7 @@ import { db, findById, updateById } from "@/lib/mongo";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
+import { revalidateTag } from "next/cache";
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
@@ -56,6 +57,7 @@ export async function AddInputToDraft(
   );
 
   if (!result) return;
+  revalidateTag(`form-${formId}`);
 
   return serializeForm(result as Form);
 }

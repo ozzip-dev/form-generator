@@ -25,8 +25,6 @@ const dataInputsTitle = [
 type Props = {
   form: FormSerialized;
   templateInputs: Input[];
-  addInput: (input: Input) => Promise<void>;
-  removeInput: (id: string) => Promise<void>;
   moveInputDown: (id: string) => Promise<void>;
   moveInputUp: (id: string) => Promise<void>;
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
@@ -53,6 +51,16 @@ export default function EditFormForm(props: Props) {
     formState: { errors, isSubmitting },
   } = methods;
   const watched = watch();
+
+  // console.log("sss", watched);
+
+  const dataCreatedInputs = inputs.map(({ type }, idx) => {
+    return {
+      type: "text",
+      name: `inputs.${idx}.header`,
+      placeholder: "Nazwa pola",
+    };
+  });
 
   useEffect(() => {
     reset({
@@ -105,6 +113,7 @@ export default function EditFormForm(props: Props) {
           </div>
 
           <div className="my-6 flex flex-col gap-4">
+            <div className="w-48"></div>
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((el, index) => (
@@ -112,7 +121,6 @@ export default function EditFormForm(props: Props) {
                   key={el.id}
                   input={el}
                   index={index}
-                  removeInput={props.removeInput}
                   moveInputDown={props.moveInputDown}
                   moveInputUp={props.moveInputUp}
                   updateInput={handleUpdateInput}
@@ -120,8 +128,6 @@ export default function EditFormForm(props: Props) {
               ))}
           </div>
         </form>
-
-        <AddFormField addInput={props.addInput} />
       </div>
     </FormProvider>
   );

@@ -8,6 +8,7 @@ import {
   removeInputFromDraft,
 } from "@/services/form-service";
 import { serializeForm } from "@/lib/form-utils";
+import { revalidateTag } from "next/cache";
 
 export async function RemoveInputFromDraft(
   formIdString: string,
@@ -24,6 +25,7 @@ export async function RemoveInputFromDraft(
   );
 
   if (!result) return;
+  revalidateTag(`form-${formId}`);
 
   return serializeForm(result);
 }

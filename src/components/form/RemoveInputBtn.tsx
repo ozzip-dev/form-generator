@@ -1,20 +1,21 @@
 "use client";
 
+import { RemoveInputFromDraft } from "@/actions/create-form";
+import ButtonClick from "../ui/buttons/ButtonClick";
+import { useParams } from "next/navigation";
+
 type Props = {
   id: string;
-  removeInput: (id: string) => Promise<void>;
 };
 
 function RemoveInputBtn(props: Props) {
-  return (
-    <button
-      type="button"
-      className="btn btn-danger"
-      onClick={() => props.removeInput(props.id)}
-    >
-      X
-    </button>
-  );
+  const { formId } = useParams();
+
+  async function handleRemoveInput(): Promise<void> {
+    await RemoveInputFromDraft(formId as string, props.id);
+  }
+
+  return <ButtonClick text="X" onClickAction={handleRemoveInput} />;
 }
 
 export default RemoveInputBtn;

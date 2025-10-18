@@ -9,40 +9,32 @@ import { useEffect } from "react";
 type Props = {
   input: FormInput;
   index: number;
-  removeInput: (id: string) => Promise<void>;
   moveInputDown: (id: string) => Promise<void>;
   moveInputUp: (id: string) => Promise<void>;
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
 
-export default function CreateFormInput({
-  input,
-  index,
-  removeInput,
-  moveInputDown,
-  moveInputUp,
-  updateInput,
-}: Props) {
-  const { id, required, order } = input;
+export default function CreateFormInput(props: Props) {
+  const { id, required, order } = props.input;
   const inputTypes = Object.values(InputType);
-  const lastInput = order >= index - 1;
+  const lastInput = order >= props.index - 1;
 
   const { register, watch } = useFormContext();
 
-  const watchedHeader = watch(`inputs.${index}.header`);
-  const watchedType = watch(`inputs.${index}.type`);
+  const watchedHeader = watch(`inputs.${props.index}.header`);
+  const watchedType = watch(`inputs.${props.index}.type`);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (updateInput) {
-        updateInput(id as string, {
+      if (props.updateInput) {
+        props.updateInput(id as string, {
           header: watchedHeader,
           type: watchedType,
         });
       }
-    }, 400);
+    }, 600);
     return () => clearTimeout(timeout);
-  }, [watchedHeader, watchedType, id, updateInput]);
+  }, [watchedHeader, watchedType, id, props.updateInput]);
 
   return (
     <div className="flex gap-2">
@@ -50,14 +42,14 @@ export default function CreateFormInput({
         <div>
           <input
             type="text"
-            {...register(`inputs.${index}.header`)}
+            {...register(`inputs.${props.index}.header`)}
             className="border border-black mr-4"
           />
           {required && "Required"}
         </div>
 
         <select
-          {...register(`inputs.${index}.type`)}
+          {...register(`inputs.${props.index}.type`)}
           className="h-fit border border-black"
         >
           {inputTypes.map((el) => (
@@ -73,7 +65,7 @@ export default function CreateFormInput({
           type="button"
           disabled={!order}
           className="btn btn-main"
-          onClick={() => moveInputUp(id as string)}
+          onClick={() => props.moveInputUp(id as string)}
         >
           ⇧
         </button>
@@ -82,14 +74,14 @@ export default function CreateFormInput({
           type="button"
           disabled={lastInput}
           className="btn btn-main"
-          onClick={() => moveInputDown(id as string)}
+          onClick={() => props.moveInputDown(id as string)}
         >
           ⇩
         </button>
       </div>
 
       <div>
-        <RemoveInputBtn id={id as string} removeInput={removeInput} />
+        <RemoveInputBtn id={id as string} />
       </div>
     </div>
   );
