@@ -5,6 +5,7 @@ import { FormInput } from "@/types/input";
 import { InputType } from "@/enums";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { useEffect } from "react";
+import MoveInputUpBtn from "./MoveInputUpBtn";
 
 type Props = {
   input: FormInput;
@@ -61,6 +62,7 @@ export default function CreateFormInput(props: Props) {
       </div>
 
       <div className="flex flex-col justify-center gap-2">
+        <MoveInputUpBtn inputId={id as string} />
         <button
           type="button"
           disabled={!order}
