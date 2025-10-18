@@ -2,7 +2,8 @@ import Loader from "../loaders/Loader";
 
 type Props = {
   isSubmitting: boolean;
-  text: string;
+  text?: string;
+  icon?: any;
 };
 
 export default function ButtonSubmit(props: Props) {
@@ -21,7 +22,7 @@ export default function ButtonSubmit(props: Props) {
         h-10  
       `}
     >
-      {props.isSubmitting ? <Loader /> : props.text}
+      {props.isSubmitting ? <Loader /> : props.text ? props.text : props.icon}
     </button>
   );
 }

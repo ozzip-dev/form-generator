@@ -13,6 +13,7 @@ import {
 } from "@/lib/zodShema/addFormFieldShema";
 import { AddInputToDraft } from "@/actions/create-form";
 import { useParams } from "next/navigation";
+import IconPlus from "@/icons/iconPlus/IconPlus";
 
 const dataInputsheader = [
   {
@@ -72,7 +73,10 @@ const AddFormField = () => {
         </select>
 
         <div className="w-fit">
-          <ButtonSubmit isSubmitting={isSubmitting} text="+" />
+          <ButtonSubmit
+            isSubmitting={isSubmitting}
+            icon={<IconPlus style="h-7 w-7 bg-white" />}
+          />
         </div>
       </div>
       <InputError errorMsg={errors?.root?.message} />
