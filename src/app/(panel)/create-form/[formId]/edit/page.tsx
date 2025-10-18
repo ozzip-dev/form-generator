@@ -1,8 +1,10 @@
 import { GetForm } from "@/actions/create-form/GetForm";
-import EditForm from "@/components/form/EditForm";
+import AddFormField from "@/components/pages/create-form/AddFormField";
+import EditFormForm from "@/components/pages/create-form/EditFormForm";
+import DataLoading from "@/components/ui/loaders/DataLoading";
 import { serializeForm } from "@/lib/form-utils";
-import { parseObjProps } from "@/lib/mongo";
 import { Form } from "@/types/form";
+import { Suspense } from "react";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -12,10 +14,15 @@ const PageEditForm = async (props: Props) => {
   const { form, templateInputs } = await GetForm(formId);
 
   return (
-    <EditForm
-      initialForm={serializeForm(form as Form)}
-      templateInputs={templateInputs.map((el) => parseObjProps(el))}
-    />
+    <>
+      <Suspense fallback={<DataLoading />}>
+        <EditFormForm
+          form={serializeForm(form as Form)}
+          templateInputs={templateInputs}
+        />
+      </Suspense>
+      <AddFormField />
+    </>
   );
 };
 

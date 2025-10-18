@@ -1,19 +1,18 @@
 "use client";
 
+import { AddInputToDraft } from "@/actions/create-form";
 import InputError from "@/components/inputs/InputError";
 import InputFields from "@/components/inputs/InputFields";
 import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import { InputType } from "@/enums";
-import { Input } from "@/types/input";
-import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
   TAddFormFieldSchema,
 } from "@/lib/zodShema/addFormFieldShema";
-import { AddInputToDraft } from "@/actions/create-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
-import IconPlus from "@/icons/iconPlus/IconPlus";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 const dataInputsheader = [
   {

@@ -1,11 +1,12 @@
-import { useEffect } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { FormSerialized } from "@/types/form";
-import { FormInput, Input } from "@/types/input";
-import AddFormField from "./AddFormField";
-import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+"use client";
+
 import CreateFormInput from "@/components/form/CreateFormInput";
 import InputFields from "@/components/inputs/InputFields";
+import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { FormSerialized } from "@/types/form";
+import { FormInput, Input } from "@/types/input";
+import { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 const dataInputsTitle = [
   {
