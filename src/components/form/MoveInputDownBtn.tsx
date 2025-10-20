@@ -17,7 +17,7 @@ const MoveInputDownBtn = (props: Props) => {
   return (
     <>
       {!props.isLast && (
-        <ButtonClick text="v" onClickAction={handleRemoveInput} />
+        <ButtonClick message="v" onClickAction={handleRemoveInput} />
       )}
     </>
   );

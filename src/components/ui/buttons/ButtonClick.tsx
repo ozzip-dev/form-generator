@@ -2,7 +2,7 @@ import Loader from "../loaders/Loader";
 
 type Props = {
   isLoading?: boolean;
-  text?: string;
+  message?: string;
   onClickAction: (...args: any[]) => void | Promise<void>;
   icon?: React.ReactNode;
 };
@@ -24,7 +24,13 @@ const ButtonClick = (props: Props) => {
       h-10  
     `}
     >
-      {props.isLoading ? <Loader /> : props.text ? props.text : props.icon}
+      {props.isLoading ? (
+        <Loader />
+      ) : props.message ? (
+        props.message
+      ) : (
+        props.icon
+      )}
     </button>
   );
 };

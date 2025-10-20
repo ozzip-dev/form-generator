@@ -3,6 +3,7 @@
 import { AddInputToDraft } from "@/actions/create-form";
 import InputError from "@/components/inputs/InputError";
 import InputFields from "@/components/inputs/InputFields";
+import Select from "@/components/inputs/Select";
 import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import { InputType } from "@/enums";
 import IconPlus from "@/icons/iconPlus/IconPlus";
@@ -12,7 +13,7 @@ import {
 } from "@/lib/zodShema/addFormFieldShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 
 const dataInputsheader = [
   {
@@ -27,6 +28,7 @@ const AddFormField = () => {
   const { formId } = useParams();
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -63,13 +65,39 @@ const AddFormField = () => {
           errorMsg={errors}
         />
 
-        <select {...register("type")}>
+        <div className="w-40">
+          <Controller
+            name="type"
+            control={control}
+            rules={{ required: "Wybór jest wymagany" }}
+            render={({ field, fieldState }) => (
+              <Select
+                name={field.name}
+                value={field.value}
+                onChange={field.onChange}
+                errorMsg={fieldState.error?.message}
+                placeholder="Wybierz"
+                options={[
+                  { label: "Krótka odpowiedź", value: "text" },
+                  { label: "Długa odpowiedź", value: "superText" },
+                  { label: "Email", value: "email" },
+                  { label: "Data", value: "date" },
+                  { label: "Numer", value: "number" },
+                  { label: "Wybierz kilka", value: "checkbox" },
+                  { label: "Wybierz jeden", value: "singleSelect" },
+                ]}
+              />
+            )}
+          />
+        </div>
+
+        {/* <select {...register("type")}>
           {inputTypes.map((el) => (
             <option value={el} key={el}>
               {el}
             </option>
           ))}
-        </select>
+        </select> */}
 
         <div className="w-fit">
           <ButtonSubmit

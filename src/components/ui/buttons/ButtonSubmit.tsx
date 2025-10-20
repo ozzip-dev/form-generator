@@ -2,7 +2,7 @@ import Loader from "../loaders/Loader";
 
 type Props = {
   isSubmitting: boolean;
-  text?: string;
+  message?: string;
   icon?: React.ReactNode;
 };
 
@@ -22,7 +22,13 @@ export default function ButtonSubmit(props: Props) {
         h-10  
       `}
     >
-      {props.isSubmitting ? <Loader /> : props.text ? props.text : props.icon}
+      {props.isSubmitting ? (
+        <Loader />
+      ) : props.message ? (
+        props.message
+      ) : (
+        props.icon
+      )}
     </button>
   );
 }

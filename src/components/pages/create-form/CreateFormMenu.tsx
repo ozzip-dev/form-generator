@@ -34,7 +34,7 @@ const CreateFormMenu = (props: Props) => {
                   : "border-b-2 border-transparent"
               }`}
             >
-              <ButtonLink text={text} link={link} />
+              <ButtonLink message={text} link={link} />
             </li>
           );
         })}

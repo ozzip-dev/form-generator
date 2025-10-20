@@ -8,7 +8,7 @@ export default function Layout({
   return (
     <>
       <div className="w-fit">
-        <ButtonLink text="Strona główna" link="/" />
+        <ButtonLink message="Strona główna" link="/" />
       </div>
 
       {children}

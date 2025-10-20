@@ -15,7 +15,7 @@ const ResetPassword = () => {
         <p className="text-muted-foreground mb-4 text-center">
           Link do zmiany hasła jest błędny lub nieważny
         </p>
-        <ButtonLink text="Przejdź do logowania" link="/login" />
+        <ButtonLink message="Przejdź do logowania" link="/login" />
       </div>
     </div>
   );

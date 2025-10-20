@@ -1,11 +1,7 @@
-import Loader from "@/components/ui/loaders/Loader";
+import DataLoading from "@/components/ui/loaders/DataLoading";
 
 export default function Loading() {
-  return (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="text-center">
-        <Loader size="lg" />
-      </div>
-    </div>
-  );
+  // return <DataLoading className="min-h-[400px]" message="aaaaa" />;
+
+  return <></>;
 }

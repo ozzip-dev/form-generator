@@ -12,7 +12,7 @@ const FormTemplateTrigger = (props: Props) => {
 
   return (
     <ButtonClick
-      text={props.templateName}
+      message={props.templateName}
       onClickAction={handleCreateForm}
       isLoading={isloading}
     />

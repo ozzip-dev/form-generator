@@ -8,7 +8,7 @@ const FormTrigger = () => {
 
   return (
     <ButtonClick
-      text="Utwórz formularz"
+      message="Utwórz formularz"
       onClickAction={handleCreateForm}
       isLoading={isloading}
     />

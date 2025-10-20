@@ -1,7 +1,6 @@
 "use client";
 
 import { ActionSignUp } from "@/actions/auth/ActionSignUp";
-import InputFields from "@/components/inputs/inputFields";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -10,9 +9,9 @@ import {
 } from "@/lib/zodShema/zodAuthShema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import FormAuthFooter from "../Auth/FormAuthFooter";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+import InputFields from "../inputs/InputFields";
 
 const dataInputsSignUp = [
   {
@@ -102,7 +101,7 @@ const SignUp = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmit isSubmitting={isSubmitting} text="Załóż konto" />
+          <ButtonSubmit isSubmitting={isSubmitting} message="Załóż konto" />
         </form>
 
         <div className="flex flex-col space-y-4">

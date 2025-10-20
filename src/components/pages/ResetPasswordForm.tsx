@@ -75,12 +75,12 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             register={register}
             errorMsg={errors}
           />
-          <ButtonSubmit isSubmitting={isSubmitting} text="Zmień hasło" />
+          <ButtonSubmit isSubmitting={isSubmitting} message="Zmień hasło" />
         </form>
 
         <FormAuthFooter
-          text="Pamiętasz hasło?"
-          textLink="Zaloguj się"
+          message="Pamiętasz hasło?"
+          messageLink="Zaloguj się"
           link="/login"
         />
       </div>

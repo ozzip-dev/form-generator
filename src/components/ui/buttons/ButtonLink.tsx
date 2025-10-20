@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 type Props = {
-  text: string;
+  message: string;
   link: string;
 };
 
@@ -20,7 +20,7 @@ export default function ButtonLink(props: Props) {
     
       `}
       >
-        {props.text}
+        {props.message}
       </button>
     </Link>
   );

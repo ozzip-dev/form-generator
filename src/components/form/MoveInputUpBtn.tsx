@@ -18,7 +18,7 @@ const MoveInputUpBtn = (props: Props) => {
     <>
       {" "}
       {props.removeBtn > 0 && (
-        <ButtonClick text="^" onClickAction={handleRemoveInput} />
+        <ButtonClick message="^" onClickAction={handleRemoveInput} />
       )}{" "}
     </>
   );

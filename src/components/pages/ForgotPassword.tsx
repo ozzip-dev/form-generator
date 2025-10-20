@@ -75,12 +75,12 @@ const ForgotPassword = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmit isSubmitting={isSubmitting} text="Wyślij link" />
+          <ButtonSubmit isSubmitting={isSubmitting} message="Wyślij link" />
         </form>
 
         <FormAuthFooter
-          text="Masz konto?"
-          textLink="Zaloguj się"
+          message="Masz konto?"
+          messageLink="Zaloguj się"
           link="/login"
         />
       </div>

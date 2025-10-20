@@ -116,7 +116,7 @@ const Login = () => {
               Nie pamiętasz hasła?
             </Link>
           </div>
-          <ButtonSubmit isSubmitting={isSubmitting} text="Zaloguj" />
+          <ButtonSubmit isSubmitting={isSubmitting} message="Zaloguj" />
         </form>
       </div>
     </div>

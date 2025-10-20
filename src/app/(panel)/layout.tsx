@@ -1,16 +1,6 @@
 import DashboardTopBar from "@/components/pages/dashboard/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
-import { Suspense } from "react";
-import Loader from "@/components/ui/loaders/Loader";
 import { requireUser } from "@/dataAccessLayer/queries";
-
-function LayoutLoading() {
-  return (
-    <div className="flex items-center justify-center">
-      <Loader size="lg" />
-    </div>
-  );
-}
 
 export default async function DashboardLayout({
   children,
@@ -26,9 +16,7 @@ export default async function DashboardLayout({
         {user?.role === "moderator" && <DashboardMenu />}
       </header>
 
-      <main>
-        <Suspense fallback={<LayoutLoading />}>{children}</Suspense>
-      </main>
+      <main>{children}</main>
     </>
   );
 }
