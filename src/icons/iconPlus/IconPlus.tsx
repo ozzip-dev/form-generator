@@ -1,4 +1,4 @@
-import "./#iconPlus.css";
+import "./iconPlus.css";
 
 type Props = {
   style: string;

@@ -3,7 +3,7 @@ import Loader from "../loaders/Loader";
 type Props = {
   isSubmitting: boolean;
   text?: string;
-  icon?: any;
+  icon?: React.ReactNode;
 };
 
 export default function ButtonSubmit(props: Props) {

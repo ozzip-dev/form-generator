@@ -53,14 +53,6 @@ export default function EditFormForm(props: Props) {
 
   // console.log("sss", watched);
 
-  const dataCreatedInputs = inputs.map(({ type }, idx) => {
-    return {
-      type: "text",
-      name: `inputs.${idx}.header`,
-      placeholder: "Nazwa pola",
-    };
-  });
-
   useEffect(() => {
     reset({
       title,

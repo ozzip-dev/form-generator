@@ -3,6 +3,7 @@
 import { RemoveInputFromDraft } from "@/actions/create-form";
 import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
+import IconTrash from "@/icons/iconTrash/IconTrash";
 
 type Props = {
   id: string;
@@ -15,7 +16,12 @@ function RemoveInputBtn(props: Props) {
     await RemoveInputFromDraft(formId as string, props.id);
   }
 
-  return <ButtonClick text="X" onClickAction={handleRemoveInput} />;
+  return (
+    <ButtonClick
+      icon={<IconTrash style="h-5 w-5 bg-white" />}
+      onClickAction={handleRemoveInput}
+    />
+  );
 }
 
 export default RemoveInputBtn;

@@ -34,30 +34,42 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function AddInputToDraft(
   formId: string,
   input: Input
-): Promise<FormSerialized | undefined> {
-  const draft = await findById(db, "form", new ObjectId(formId));
-  if (!draft) return;
-  const order = getNextOrder(draft as Form);
-  const inputData = mapInputDocToFormInputData(input, order);
+): Promise<FormSerialized | { error: string }> {
+  try {
+    throw new Error("ooooo");
 
-  const result: WithId<Document> | null = await updateById(
-    db,
-    "form",
-    new ObjectId(formId),
-    {
-      $push: {
-        inputs: {
-          ...inputData,
-        },
-      },
-      $set: {
-        updatedAt: new Date(),
-      },
+    return { error: "Nie znaleziono formularza" };
+    const draft = await findById(db, "form", new ObjectId(formId));
+    if (!draft) {
+      return { error: "Nie znaleziono formularza" };
     }
-  );
 
-  if (!result) return;
-  revalidateTag(`form-${formId}`);
+    const order = getNextOrder(draft as Form);
+    const inputData = mapInputDocToFormInputData(input, order);
 
-  return serializeForm(result as Form);
+    const result: WithId<Document> | null = await updateById(
+      db,
+      "form",
+      new ObjectId(formId),
+      {
+        $push: {
+          inputs: {
+            ...inputData,
+          },
+        },
+        $set: {
+          updatedAt: new Date(),
+        },
+      }
+    );
+
+    if (!result) {
+      return { error: "Nie udało się zaktualizować formularza" };
+    }
+    revalidateTag(`form-${formId}`);
+
+    return serializeForm(result as Form);
+  } catch (err: any) {
+    return { error: "Wystąpił błąd podczas dodawania pola do formularza" };
+  }
 }

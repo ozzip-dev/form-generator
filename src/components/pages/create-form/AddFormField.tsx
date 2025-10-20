@@ -55,7 +55,7 @@ const AddFormField = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex mb-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex mb-6 px-4">
       <div className="flex mb-6">
         <InputFields
           inputsData={dataInputsheader}
