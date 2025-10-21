@@ -14,6 +14,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { useErrorBoundary } from "react-error-boundary";
 
 const dataInputsheader = [
   {
@@ -37,22 +38,18 @@ const AddFormField = () => {
   } = useForm<TAddFormFieldSchema>({
     resolver: zodResolver(addFormFieldSchema),
   });
+  const { showBoundary } = useErrorBoundary();
 
-  const onSubmit: SubmitHandler<TAddFormFieldSchema> = async (
-    data: TAddFormFieldSchema
-  ) => {
+  const onSubmit = async (data: TAddFormFieldSchema) => {
     try {
       await AddInputToDraft(formId as string, {
         ...data,
         type: data.type as InputType,
         validation: {},
       });
-
       reset();
-    } catch (err: any) {
-      setError("root", {
-        message: `Błąd: ${err.message || err}`,
-      });
+    } catch (err) {
+      showBoundary(err);
     }
   };
 

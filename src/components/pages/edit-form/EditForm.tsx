@@ -13,7 +13,7 @@ const EditForm = async (props: Props) => {
     <>
       <EditFormForm
         form={serializeForm(form as Form)}
-        templateInputs={templateInputs}
+        // templateInputs={templateInputs}
       />
     </>
   );

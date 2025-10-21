@@ -15,7 +15,7 @@ type Props = {
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
 
-export default function CreateFormInput(props: Props) {
+export default function EditFormInputs(props: Props) {
   const { id, required, order } = props.input;
   const inputTypes = Object.values(InputType);
   const isLastInput = props.index === props.totalInputs - 1;
@@ -61,7 +61,7 @@ export default function CreateFormInput(props: Props) {
         </select>
       </div>
 
-      {/* <div className="flex flex-col justify-center gap-2">
+      <div className="flex flex-col justify-center gap-2">
         <MoveInputUpBtn inputId={id as string} removeBtn={order} />
 
         <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
@@ -69,7 +69,7 @@ export default function CreateFormInput(props: Props) {
 
       <div>
         <RemoveInputBtn id={id as string} />
-      </div> */}
+      </div>
     </div>
   );
 }
