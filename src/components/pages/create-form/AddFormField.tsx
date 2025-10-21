@@ -65,7 +65,7 @@ const AddFormField = () => {
           errorMsg={errors}
         />
 
-        <div className="w-40">
+        <div className="w-48">
           <Controller
             name="type"
             control={control}
@@ -78,13 +78,13 @@ const AddFormField = () => {
                 errorMsg={fieldState.error?.message}
                 placeholder="Wybierz"
                 options={[
-                  { label: "Krótka odpowiedź", value: "text" },
-                  { label: "Długa odpowiedź", value: "superText" },
+                  { label: "Odpowiedź krótka", value: "text" },
+                  { label: "Ddpowiedź długa", value: "superText" },
                   { label: "Email", value: "email" },
                   { label: "Data", value: "date" },
                   { label: "Numer", value: "number" },
-                  { label: "Wybierz kilka", value: "checkbox" },
-                  { label: "Wybierz jeden", value: "singleSelect" },
+                  { label: "Wybór pojedynczy", value: "singleSelect" },
+                  { label: "Wybór wielokrotny", value: "checkbox" },
                 ]}
               />
             )}

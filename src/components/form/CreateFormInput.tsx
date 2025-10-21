@@ -61,7 +61,7 @@ export default function CreateFormInput(props: Props) {
         </select>
       </div>
 
-      <div className="flex flex-col justify-center gap-2">
+      {/* <div className="flex flex-col justify-center gap-2">
         <MoveInputUpBtn inputId={id as string} removeBtn={order} />
 
         <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
@@ -69,7 +69,7 @@ export default function CreateFormInput(props: Props) {
 
       <div>
         <RemoveInputBtn id={id as string} />
-      </div>
+      </div> */}
     </div>
   );
 }

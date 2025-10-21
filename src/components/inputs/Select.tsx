@@ -68,7 +68,7 @@ const Select = (props: Props) => {
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => !props.disabled && setOpen((o) => !o)}
-        className={`w-full flex justify-between items-center border rounded-lg px-3 py-2 text-left 
+        className={`w-full flex justify-between items-center border rounded-lg p-1 text-left 
           focus:outline-none focus:ring-2 focus:ring-sky-500 transition
           ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           ${props.errorMsg ? "border-red-500" : "border-gray-300"}`}
