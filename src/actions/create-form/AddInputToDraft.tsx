@@ -69,6 +69,6 @@ export async function AddInputToDraft(
     return serializeForm(result as Form);
   } catch (err: any) {
     console.error("Błąd AddInputToDraft:", err);
-    throw new Error(`Błąd:${err}`);
+    throw new Error(`Błąd: ${err}`);
   }
 }

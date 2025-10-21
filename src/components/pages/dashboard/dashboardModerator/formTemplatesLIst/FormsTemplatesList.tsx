@@ -7,13 +7,10 @@ const FormsTemplatesList = () => {
     <>
       <div>przykładowe formularze</div>
       <div className="flex">
-        {formsTemplates.map((templateName) => {
+        {formsTemplates.map((templateName, idx) => {
           return (
             <div className="size-fit mr-2">
-              <FormTemplateTrigger
-                templateName={templateName}
-                key={templateName}
-              />
+              <FormTemplateTrigger templateName={templateName} key={idx} />
             </div>
           );
         })}
