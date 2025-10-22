@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
+import FullscreenLoader from "@/components/ui/loaders/FullscreenLoader";
 
 const dataInputsheader = [
   {
