@@ -36,7 +36,6 @@ export async function AddInputToDraft(
   input: Input
 ): Promise<FormSerialized | { error: string }> {
   try {
-    throw new Error("ooooo");
     const draft = await findById(db, "form", new ObjectId(formId));
     if (!draft) {
       return { error: "Nie znaleziono formularza" };
