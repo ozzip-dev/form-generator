@@ -35,7 +35,7 @@ export default function EditFormInputs(props: Props) {
       }
     }, 600);
     return () => clearTimeout(timeout);
-  }, [watchedHeader, watchedType, id, props.updateInput]);
+  }, [watchedHeader, watchedType, id, props]);
 
   return (
     <div className="flex gap-2">
