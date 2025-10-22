@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import InputError from "./InputError";
 import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
 
@@ -39,6 +39,13 @@ const Select = (props: Props) => {
     props.onChange?.(val);
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (!isControlled && props.defaultValue) {
+      setInternalValue(props.defaultValue);
+      props.onChange?.(props.defaultValue);
+    }
+  }, [props.defaultValue, isControlled]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -106,10 +113,7 @@ const Select = (props: Props) => {
         </ul>
       )}
 
-      {/* <InputError errorMsg={props.error}/> */}
-      {props.errorMsg && (
-        <p className="mt-1 text-sm text-red-600">{props.errorMsg}</p>
-      )}
+      <InputError errorMsg={props.errorMsg} />
     </div>
   );
 };

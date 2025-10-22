@@ -1,11 +1,12 @@
 "use client";
 
-import { AddInputToDraft } from "@/actions/create-form";
+import { AddFormFieldAction } from "@/actions/create-form/AddFormFieldAction";
 import InputError from "@/components/inputs/InputError";
 import InputFields from "@/components/inputs/InputFields";
 import Select from "@/components/inputs/Select";
 import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import { InputType } from "@/enums";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
@@ -13,9 +14,8 @@ import {
 } from "@/lib/zodShema/addFormFieldShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
-import { useForm, Controller } from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
-import FullscreenLoader from "@/components/ui/loaders/FullscreenLoader";
+import { Controller, useForm } from "react-hook-form";
 
 const dataInputsheader = [
   {
@@ -33,6 +33,7 @@ const AddFormField = () => {
     control,
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
     reset,
   } = useForm<TAddFormFieldSchema>({
@@ -42,11 +43,17 @@ const AddFormField = () => {
 
   const onSubmit = async (data: TAddFormFieldSchema) => {
     try {
-      await AddInputToDraft(formId as string, {
+      const resp = await AddFormFieldAction(formId as string, {
         ...data,
         type: data.type as InputType,
         validation: {},
       });
+
+      if (resp?.error) {
+        handleClientErrors<TAddFormFieldSchema>(resp.error, setError);
+        return;
+      }
+
       reset();
     } catch (err) {
       showBoundary(err);
@@ -66,7 +73,6 @@ const AddFormField = () => {
           <Controller
             name="type"
             control={control}
-            rules={{ required: "Wybór jest wymagany" }}
             render={({ field, fieldState }) => (
               <Select
                 name={field.name}
@@ -74,6 +80,7 @@ const AddFormField = () => {
                 onChange={field.onChange}
                 errorMsg={fieldState.error?.message}
                 placeholder="Wybierz"
+                defaultValue="text"
                 options={[
                   { label: "Odpowiedź krótka", value: "text" },
                   { label: "Ddpowiedź długa", value: "superText" },

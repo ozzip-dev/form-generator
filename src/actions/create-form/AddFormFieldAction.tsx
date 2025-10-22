@@ -1,5 +1,6 @@
 "use server";
 
+import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db, findById, updateById } from "@/lib/mongo";
@@ -33,12 +34,15 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   };
 }
 
-export async function AddInputToDraft(
+export async function AddFormFieldAction(
   formId: string,
   input: Input
-): Promise<FormSerialized | { error: string }> {
-  console.log("input", input);
+): Promise<FormSerialized | { error: string } | { error: any }> {
+  requireUser();
+
   const { header, type } = input;
+
+  console.log("wype", type);
 
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 

@@ -1,4 +1,4 @@
 import { CreateFormDraft } from "./CreateFormDraft";
-export { AddInputToDraft } from "./AddInputToDraft";
+export { AddInputAction } from "./AddFormFieldAction";
 export { RemoveInputFromDraft } from "./RemoveInputFromDraft";
 export { MoveInputUp, MoveInputDown } from "./MoveInput";
