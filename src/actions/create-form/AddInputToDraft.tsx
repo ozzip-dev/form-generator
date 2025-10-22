@@ -1,7 +1,9 @@
 "use server";
 
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db, findById, updateById } from "@/lib/mongo";
+import { addFormFieldSchema } from "@/lib/zodShema/addFormFieldShema";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
@@ -35,8 +37,17 @@ export async function AddInputToDraft(
   formId: string,
   input: Input
 ): Promise<FormSerialized | { error: string }> {
+  console.log("input", input);
+  const { header, type } = input;
+
+  const validationResult = addFormFieldSchema.safeParse({ header, type });
+
+  if (!validationResult.success) {
+    console.log("");
+    return { error: handleServerErrors(validationResult.error) };
+  }
+
   try {
-    throw new Error("ooooo");
     const draft = await findById(db, "form", new ObjectId(formId));
     if (!draft) {
       return { error: "Nie znaleziono formularza" };

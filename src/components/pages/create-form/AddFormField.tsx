@@ -13,7 +13,7 @@ import {
 } from "@/lib/zodShema/addFormFieldShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
 
 const dataInputsheader = [
@@ -33,7 +33,6 @@ const AddFormField = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
     reset,
   } = useForm<TAddFormFieldSchema>({
     resolver: zodResolver(addFormFieldSchema),
