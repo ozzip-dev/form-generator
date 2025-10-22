@@ -72,7 +72,7 @@ export default function EditFormForm(props: Props) {
       }
     }, 600);
     return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, props.updateForm]);
+  }, [watched.title, watched.description, props]);
 
   useEffect(() => {
     setValue("title", title);
