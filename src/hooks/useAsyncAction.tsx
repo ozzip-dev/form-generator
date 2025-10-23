@@ -1,8 +1,10 @@
 import { useState, useCallback } from "react";
+import { useErrorBoundary } from "react-error-boundary";
 
 export function useAsyncAction<T extends (...args: any[]) => Promise<void>>(
   asyncFn: T
 ) {
+  const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState(false);
 
   const runAction = useCallback(
@@ -11,8 +13,8 @@ export function useAsyncAction<T extends (...args: any[]) => Promise<void>>(
       try {
         await asyncFn(...args);
       } catch (err) {
+        showBoundary(err);
         console.error(err);
-        throw err;
       } finally {
         setLoading(false);
       }

@@ -22,7 +22,10 @@ const PageEditForm = async (props: Props) => {
         <EditForm formId={formId} />
       </Suspense>
 
-      <SuspenseErrorBoundary errorMessage="Błąd przesyłu danych formularza">
+      <SuspenseErrorBoundary
+        errorMessage="Błąd przesyłu danych formularza"
+        size="sm"
+      >
         <AddFormField />
       </SuspenseErrorBoundary>
     </>

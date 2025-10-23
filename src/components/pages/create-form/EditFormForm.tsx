@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
+import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 
 const dataInputsTitle = [
   {
@@ -113,13 +114,19 @@ export default function EditFormForm(props: Props) {
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((el, index) => (
-                <EditFormInputs
+                <SuspenseErrorBoundary
                   key={el.id}
-                  input={el}
-                  index={index}
-                  totalInputs={inputs.length}
-                  updateInput={handleUpdateInput}
-                />
+                  size="sm"
+                  errorMessage="Błąd przesyłu danych formularza"
+                >
+                  <EditFormInputs
+                    key={el.id}
+                    input={el}
+                    index={index}
+                    totalInputs={inputs.length}
+                    updateInput={handleUpdateInput}
+                  />
+                </SuspenseErrorBoundary>
               ))}
           </div>
         </form>

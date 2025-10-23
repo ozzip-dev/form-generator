@@ -14,6 +14,9 @@ export async function RemoveInputFromDraft(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {
+  throw new Error(
+    "oooo lorem // TODO Krzysztof: zmieńmy nazwę na Button i dodajmy props typu 'type': 'submit' | 'button'wtedy będziemy mieli jeden uniwersalny komponent do przycisków z którego będą korzystać pozostałeNazwy pozostałych przycisków zmieńmy na SubmitButton, LinkButton itd."
+  );
   const formId = new ObjectId(formIdString);
   if (!formHasInputWithId(db, formId, inputId))
     console.error(`Form doesn\'t contain input: ${inputId}`);

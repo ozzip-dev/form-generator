@@ -17,12 +17,11 @@ export async function MoveInputUp(
 ): Promise<FormSerialized | undefined> {
   const formId = new ObjectId(formIdString);
 
-  console.log("xxxx", formId);
   if (!formHasInputWithId(db, formId, inputId))
     console.error(`Form doesn\'t contain input: ${inputId}`);
 
   const result = await moveInputUp(db, new ObjectId(formId), inputId);
-  console.log("result", result);
+
   if (!result) return;
   revalidateTag(`form-${formId}`);
 

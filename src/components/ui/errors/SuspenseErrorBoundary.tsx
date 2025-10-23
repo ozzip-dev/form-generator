@@ -10,6 +10,7 @@ type Props = {
   children: React.ReactNode;
   errorMessage?: string;
   loadingMessage?: string;
+  size: "sm" | "lg";
 };
 
 const SuspenseErrorBoundary = (props: Props) => {
@@ -28,6 +29,7 @@ const SuspenseErrorBoundary = (props: Props) => {
           {...errorProps}
           message={props.errorMessage}
           onRefresh={handleRefresh}
+          size={props.size}
         />
       )}
     >
