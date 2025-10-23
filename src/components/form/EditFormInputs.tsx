@@ -29,6 +29,7 @@ export default function EditFormInputs(props: Props) {
     {
       type: "text",
       name: `inputs.${props.index}.header`,
+      placeholder: "Nazwa pola",
     },
   ];
 
@@ -50,7 +51,7 @@ export default function EditFormInputs(props: Props) {
   return (
     <div className="flex gap-2">
       <div className="w-96 flex">
-        <div>
+        <div className="mr-4">
           <InputFields inputsData={dataInputField} register={register} />
 
           {required && "Required"}
@@ -70,7 +71,6 @@ export default function EditFormInputs(props: Props) {
 
       <div className="flex flex-col justify-center gap-2">
         <MoveInputUpBtn inputId={id as string} removeBtn={order} />
-
         <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
       </div>
 

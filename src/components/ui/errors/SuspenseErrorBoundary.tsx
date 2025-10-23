@@ -3,7 +3,7 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
-import DataLoading from "@/components/ui/loaders/DataLoading";
+import DataLoader from "@/components/ui/loaders/DataLoader";
 import { LoadingError } from "./LoadingError";
 
 type Props = {
@@ -31,7 +31,7 @@ const SuspenseErrorBoundary = (props: Props) => {
         />
       )}
     >
-      <Suspense fallback={<DataLoading message={props.loadingMessage} />}>
+      <Suspense fallback={<DataLoader message={props.loadingMessage} />}>
         <div key={refreshKey}>{props.children}</div>
       </Suspense>
     </ErrorBoundary>

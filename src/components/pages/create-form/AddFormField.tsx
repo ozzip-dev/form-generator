@@ -110,7 +110,6 @@ const AddFormField = () => {
           />
         </div>
       </div>
-      <InputError errorMsg={errors?.root?.message} />
     </form>
   );
 };

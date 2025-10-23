@@ -1,7 +1,7 @@
-import DataLoading from "@/components/ui/loaders/DataLoading";
+import DataLoader from "@/components/ui/loaders/DataLoader";
 
 export default function LoadingPageEdit() {
   return (
-    <DataLoading className="min-h-[400px]" message="Ładowanie formularza" />
+    <DataLoader className="min-h-[400px]" message="Ładowanie formularza" />
   );
 }

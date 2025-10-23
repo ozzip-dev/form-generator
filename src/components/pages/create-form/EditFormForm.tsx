@@ -10,6 +10,8 @@ import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
 
 const dataInputsTitle = [
   {
@@ -31,11 +33,14 @@ type Props = {
 };
 
 export default function EditFormForm(props: Props) {
-  const { createdAt, updatedAt, title, description, inputs, type } = props.form;
+  const { createdAt, updatedAt, title, description, inputs, type, _id } =
+    props.form;
   const created = formatDateAndHour(createdAt);
   const updated = formatDateAndHour(updatedAt);
 
-  const methods = useForm();
+  const methods = useForm<EditFormSchema>({
+    resolver: zodResolver(editFormSchema),
+  });
 
   const {
     watch,
@@ -52,7 +57,7 @@ export default function EditFormForm(props: Props) {
     // if (props.updateInput) {
     //   await props.updateInput(id, data);
     // }
-    console.log("update input", id, data);
+    // console.log("update input", id, data);
   };
 
   useEffect(() => {
@@ -64,7 +69,7 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
-  const { _id } = props.form;
+  console.log("", errors);
 
   useEffect(() => {
     if (!watched.type) return;
