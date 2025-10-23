@@ -4,6 +4,11 @@ import { requireUser } from "@/dataAccessLayer/queries";
 import { db } from "@/lib/mongo";
 import { ObjectId } from "mongodb";
 
+// TODO Krzysztof: typ juz jest zdefiniowany.
+// Jeśli różni się od tego co jest w typach to trzeba się przyjrzeć temu,
+// ew. dodać nowy typ w pliku .d.ts ale bazujący na innych typach Form
+// sama funkcja tzn pobranie forms powinna być zdefiniowana w service a tutaj tylko wywołana
+
 export type FormType = {
   createdAt: string | null;
   updatedAt: string | null;
