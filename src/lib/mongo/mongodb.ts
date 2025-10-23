@@ -32,16 +32,14 @@ async function initCollections() {
 
 // TODO Pawel: or simply iterate through formTemplates?
 async function addTemplateForms() {
-  const { MEMBERSHIP, FAVOURITE_COLOR } = TemplateFormId
-  for (const id of [MEMBERSHIP, FAVOURITE_COLOR]) {
+  for (const id of Object.values(TemplateFormId)) {
     await maybeAddTemplateForm(db, id)
   }
 }
 
 // TODO Pawel: or simply iterate through inputTemplates?
 async function addTemplateInputs() {
-  const { SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE } = TemplateInputId
-  for (const id of [SURNAME_NAME, ADDRESS, AGE, CONTRACT_TYPE]) {
+  for (const id of Object.values(TemplateInputId)) {
     await maybeAddTemplateInput(db, id)
   }
 }

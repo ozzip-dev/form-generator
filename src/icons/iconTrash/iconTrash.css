@@ -1,0 +1,14 @@
+.iconTrash {
+  mask-image: url("trash-can-regular-full.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("trash-can-regular-full.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+/* .iconTrash:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  } */

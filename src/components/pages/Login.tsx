@@ -1,7 +1,7 @@
 "use client";
 
-import { ActionLogin } from "@/actions/actionsAuth/ActionLogin";
-import InputsText from "@/components/inputs/inputsText";
+import { ActionLogin } from "@/actions/auth/ActionLogin";
+import InputFields from "@/components/inputs/InputFields";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
@@ -38,14 +38,14 @@ const dataInputsLogin = [
     name: "email",
     placeholder: "kamil@ozzip.com",
     type: "email",
-    defaultValue: "test@example.com",
+    defaultValue: "user@user.com",
   },
   {
     label: "Hasło",
     name: "password",
     placeholder: "hasło",
     type: "password",
-    defaultValue: "password1234",
+    defaultValue: "123123123",
   },
 ];
 
@@ -103,7 +103,7 @@ const Login = () => {
         <h1 className="text-2xl font-bold text-center">Zaloguj się</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <InputsText
+          <InputFields
             inputsData={dataInputsLogin}
             register={register}
             errorMsg={errors}
@@ -116,7 +116,7 @@ const Login = () => {
               Nie pamiętasz hasła?
             </Link>
           </div>
-          <ButtonSubmit isSubmitting={isSubmitting} text="Zaloguj" />
+          <ButtonSubmit isSubmitting={isSubmitting} message="Zaloguj" />
         </form>
       </div>
     </div>

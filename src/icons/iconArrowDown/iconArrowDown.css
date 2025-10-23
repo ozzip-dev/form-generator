@@ -1,0 +1,14 @@
+.iconArrowDown {
+  mask-image: url("chevron-down-solid-full.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("chevron-down-solid-full.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+}
+
+/* .iconPlus:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  } */

@@ -1,11 +1,11 @@
 export function handleNextRedirectError(err: any) {
-  const digest = err?.digest;
-  const message = err?.message;
-
+  const { digest, message } = err || {};
+  const nextRedirect: string = "NEXT_REDIRECT";
+  const isString: boolean = typeof digest === "string"
+  
   if (
-    digest === "NEXT_REDIRECT" ||
-    (typeof digest === "string" && digest.includes("NEXT_REDIRECT")) ||
-    message === "NEXT_REDIRECT"
+    (isString && digest.includes(nextRedirect)) ||
+    message === nextRedirect
   ) {
     throw err;
   }

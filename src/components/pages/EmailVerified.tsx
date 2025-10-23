@@ -18,7 +18,7 @@ const EmailVerified = () => {
           moderatora.
         </p>
 
-        <ButtonLink text="Przejdź do panelu moderatora" link="/dashboard" />
+        <ButtonLink message="Przejdź do panelu moderatora" link="/dashboard" />
       </div>
     </div>
   );
