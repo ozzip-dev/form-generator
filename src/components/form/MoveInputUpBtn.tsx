@@ -1,6 +1,8 @@
 import { MoveInputUp } from "@/actions/create-form";
 import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
+import { useAsyncAction } from "@/hooks/useAsyncAction";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 
 type Props = {
   inputId: string;
@@ -10,15 +12,15 @@ type Props = {
 const MoveInputUpBtn = (props: Props) => {
   const { formId } = useParams();
 
-  async function handleRemoveInput(): Promise<void> {
+  const { runAction, isLoading } = useAsyncAction(async () => {
     await MoveInputUp(formId as string, props.inputId);
-  }
+  });
 
   return (
     <>
-      {" "}
+      {isLoading && <FullscreenLoader />}
       {props.removeBtn > 0 && (
-        <ButtonClick message="^" onClickAction={handleRemoveInput} />
+        <ButtonClick message="^" onClickAction={runAction} />
       )}{" "}
     </>
   );

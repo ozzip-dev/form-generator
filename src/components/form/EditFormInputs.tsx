@@ -75,7 +75,7 @@ export default function EditFormInputs(props: Props) {
       </div>
 
       <div>
-        <RemoveInputBtn id={id as string} />
+        <RemoveInputBtn inputId={id as string} />
       </div>
     </div>
   );

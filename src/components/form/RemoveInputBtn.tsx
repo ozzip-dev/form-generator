@@ -1,37 +1,29 @@
 "use client";
 
 import { RemoveInputFromDraft } from "@/actions/create-form";
-import ButtonClick from "../ui/buttons/ButtonClick";
-import { useParams } from "next/navigation";
+import { useAsyncAction } from "@/hooks/useAsyncAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import ButtonClick from "../ui/buttons/ButtonClick";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 
 type Props = {
-  id: string;
+  inputId: string;
 };
 
 function RemoveInputBtn(props: Props) {
   const { formId } = useParams();
-  const [isLoading, setLoading] = useState(false);
 
-  async function handleRemoveInput(): Promise<void> {
-    setLoading(true);
-    try {
-      await RemoveInputFromDraft(formId as string, props.id);
-    } catch (err) {
-      throw new Error(`${err}`);
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { runAction, isLoading } = useAsyncAction(async () => {
+    await RemoveInputFromDraft(formId as string, props.inputId);
+  });
 
   return (
     <>
       {isLoading && <FullscreenLoader />}
       <ButtonClick
         icon={<IconTrash style="h-5 w-5 bg-white" />}
-        onClickAction={handleRemoveInput}
+        onClickAction={runAction}
       />
     </>
   );
