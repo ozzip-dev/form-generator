@@ -1,8 +1,11 @@
 "use client";
 
+import { EditFormAction } from "@/actions/create-form/EditFormAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
+import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { FormType } from "@/enums/form";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { useEffect } from "react";
@@ -25,16 +28,10 @@ const dataInputsTitle = [
 
 type Props = {
   form: FormSerialized;
-  // templateInputs: Input[];
-  updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
-  updateForm?: (data: {
-    title?: string;
-    description?: string;
-  }) => Promise<void>;
 };
 
 export default function EditFormForm(props: Props) {
-  const { createdAt, updatedAt, title, description, inputs } = props.form;
+  const { createdAt, updatedAt, title, description, inputs, type } = props.form;
   const created = formatDateAndHour(createdAt);
   const updated = formatDateAndHour(updatedAt);
 
@@ -51,36 +48,40 @@ export default function EditFormForm(props: Props) {
 
   const watched = watch();
 
+  const handleUpdateInput = async (id: string, data: Partial<FormInput>) => {
+    // if (props.updateInput) {
+    //   await props.updateInput(id, data);
+    // }
+    console.log("update input", id, data);
+  };
+
   useEffect(() => {
     reset({
       title,
       description,
       inputs,
+      type,
     });
-  }, [inputs, title, description, reset]);
+  }, [inputs, title, description, type, reset]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (props.updateForm) {
-        props.updateForm({
-          title: watched.title,
-          description: watched.description,
-        });
-      }
-    }, 600);
+    if (!watched.type) return;
+
+    const timeout = setTimeout(async () => {
+      await EditFormAction(props.form._id!, {
+        title: watched.title,
+        description: watched.description,
+        type: watched.type as FormType,
+      });
+    }, 1000);
     return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, props]);
+  }, [watched.title, watched.description, watched.type, props]);
 
   useEffect(() => {
     setValue("title", title);
     setValue("description", description);
-  }, [title, description, setValue]);
-
-  const handleUpdateInput = async (id: string, data: Partial<FormInput>) => {
-    if (props.updateInput) {
-      await props.updateInput(id, data);
-    }
-  };
+    setValue("type", type);
+  }, [title, description, type, setValue]);
 
   return (
     <FormProvider {...methods}>
@@ -91,6 +92,8 @@ export default function EditFormForm(props: Props) {
         </div>
 
         <form className="mt-4 space-y-2">
+          <FormTypeSelect register={register} />
+
           <div className="w-48">
             <InputFields
               inputsData={dataInputsTitle}

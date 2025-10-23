@@ -9,6 +9,7 @@ export enum TemplateFormId {
 
 enum FormField {
   ID = 'id',
+  TYPE = 'type',
   TITLE = 'title',
   DESCRIPTION = 'description',
   CREATED_BY = 'createdBy',
@@ -20,6 +21,7 @@ enum FormField {
 
 const formProperties: Properties = {
   [FormField.ID]: { bsonType: FieldType.STRING },
+  [FormField.TYPE]: { bsonType: FieldType.STRING },
   [FormField.TITLE]: { bsonType: FieldType.STRING },
   [FormField.DESCRIPTION]: { bsonType: FieldType.STRING },
   [FormField.CREATED_BY]: { bsonType: FieldType.OBJECT_ID },
@@ -30,7 +32,7 @@ const formProperties: Properties = {
 }
 
 const formRequired: any[] = [
-  FormField.TITLE, FormField.CREATED_AT, FormField.UPDATED_AT, FormField.STATE, FormField.INPUTS
+  FormField.TITLE, FormField.TYPE, FormField.CREATED_AT, FormField.UPDATED_AT, FormField.STATE, FormField.INPUTS
 ]
 
 export const FormModel: DbModel = {

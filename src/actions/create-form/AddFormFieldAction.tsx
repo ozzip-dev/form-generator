@@ -12,7 +12,7 @@ import { revalidateTag } from "next/cache";
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
-  const orderValues: number[] = form.inputs.map(({ order }) => order);
+  const orderValues: number[] = form.inputs.map( ({ order }) => order);
   if (!orderValues.length) return 0;
   const maxOrder = Math.max(...orderValues);
   return maxOrder + 1;

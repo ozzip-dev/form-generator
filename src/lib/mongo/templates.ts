@@ -1,6 +1,6 @@
 /*
   Lists of default inputs and forms used as templates to create new forms
-  Custom id values assigned so database can be queried: 
+  Custom id values assigned so database can be queried:
     if input/form exists, do nothing
     if it's missing add to input/form template list
 */
@@ -48,7 +48,7 @@ export const inputTemplates: Input[] = [
   }
 ]
 
-const getCreatedUpdatedDates = (): { 
+const getCreatedUpdatedDates = (): {
   createdAt: Date,
   updatedAt: Date
  } => {
@@ -63,6 +63,7 @@ const getCreatedUpdatedDates = (): {
 export const formTemplates: Form[] = [
   {
     id: 'membership',
+    type: 'other',
     title: 'Członkostwo',
     description: 'Dołącz do nas',
     ...getCreatedUpdatedDates(),
@@ -98,7 +99,8 @@ export const formTemplates: Form[] = [
   },
   {
     id: 'favourite-color',
-    title: 'Ulubionny kolor',
+    type: 'other',
+    title: 'Ulubiony kolor',
     description: 'Jaki jest Twój ulubiony kolor?',
     ...getCreatedUpdatedDates(),
     inputs: [

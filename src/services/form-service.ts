@@ -1,3 +1,4 @@
+import { FormType } from "@/enums/form";
 import { find, findById, insert, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
@@ -28,7 +29,8 @@ export async function createDraft(
     title,
     description,
     inputs,
-    state: 'draft'
+    state: 'draft',
+    type: FormType.Other
   }
 
   const { insertedId } = await insert(db, 'form', insertData)
@@ -46,7 +48,7 @@ async function decreaseRemainingInputsOrder(
   formId: ObjectId,
   inputId: string
 ) {
-  const form =  await findById(db, 'form', formId) as Form 
+  const form =  await findById(db, 'form', formId) as Form
   const { inputs } = form
   const startingOrder: number | undefined = getFormInputById(form.inputs, inputId!)?.order
   /* if order is undefined/null or is last element. We have no inputs to update */
@@ -134,7 +136,7 @@ export async function moveInputUp(
       }
     }
   )
-  
+
   await update(
     db,
     'form',
@@ -183,7 +185,7 @@ export async function moveInputDown(
       }
     }
   )
-  
+
   await update(
     db,
     'form',
@@ -203,4 +205,22 @@ export async function moveInputDown(
 
   const updatedForm =  await findById(db, 'form', formId) as Form
   return updatedForm as WithId<Form>
+}
+
+export async function updateForm(
+  db: Db,
+  formId: ObjectId,
+  updates: { title?: string; description?: string; type?: FormType }
+): Promise<WithId<Form>> {
+  return (await updateById(
+    db,
+    'form',
+    formId,
+    {
+      $set: {
+        ...updates,
+        updatedAt: new Date(),
+      },
+    }
+  )) as WithId<Form>
 }

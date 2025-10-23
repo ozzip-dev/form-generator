@@ -6,9 +6,10 @@ export type FormState = "draft" | "active" | "disabled" | "template";
 export interface FormTemplate extends Document {
   _id?: ObjectId
   id?: string // TODO Pawel: id + state 'template': too much?
+  type: FormType
   title?: string
   description?: string
-  inputs: FormInput[] 
+  inputs: FormInput[]
 }
 
 // TODO: think of better name for non-template forms
