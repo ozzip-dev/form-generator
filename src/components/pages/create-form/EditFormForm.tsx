@@ -64,18 +64,19 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
+  const { _id } = props.form;
+
   useEffect(() => {
     if (!watched.type) return;
-
     const timeout = setTimeout(async () => {
-      await EditFormAction(props.form._id!, {
+      await EditFormAction(_id!, {
         title: watched.title,
         description: watched.description,
         type: watched.type as FormType,
       });
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, watched.type, props]);
+  }, [watched.title, watched.description, watched.type, _id]);
 
   useEffect(() => {
     setValue("title", title);
