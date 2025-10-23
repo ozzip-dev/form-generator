@@ -7,7 +7,7 @@ type Props = {
   inputsData: {
     label?: string;
     name: string;
-    placeholder: string;
+    placeholder?: string;
     type: string;
     defaultValue?: string;
   }[];
