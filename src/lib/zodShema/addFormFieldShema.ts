@@ -5,4 +5,8 @@ export const addFormFieldSchema = z.object({
   type: z.string().nonempty({ message: "Wymagane" }),
 });
 
-export type TAddFormFieldSchema = z.infer<typeof addFormFieldSchema>;
+// TODO Krzysztof: konsultowałem z UI agent i napisał mi coś takiego:
+// Since this type is inferred from a Zod schema, 
+// a common convention is to prefix it with "Schema" or suffix it with "Schema" to indicate it's a schema type.
+// Dla typów inferowanych z zod trzymajmy się takich konwencji
+export type AddFormFieldSchema = z.infer<typeof addFormFieldSchema>;

@@ -10,7 +10,7 @@ import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors
 import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
-  TAddFormFieldSchema,
+  AddFormFieldSchema,
 } from "@/lib/zodShema/addFormFieldShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
@@ -36,12 +36,12 @@ const AddFormField = () => {
     setError,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<TAddFormFieldSchema>({
+  } = useForm<AddFormFieldSchema>({
     resolver: zodResolver(addFormFieldSchema),
   });
   const { showBoundary } = useErrorBoundary();
 
-  const onSubmit = async (data: TAddFormFieldSchema) => {
+  const onSubmit = async (data: AddFormFieldSchema) => {
     try {
       const resp = await AddFormFieldAction(formId as string, {
         ...data,
@@ -50,7 +50,7 @@ const AddFormField = () => {
       });
 
       if (resp?.error) {
-        handleClientErrors<TAddFormFieldSchema>(resp.error, setError);
+        handleClientErrors<AddFormFieldSchema>(resp.error, setError);
         return;
       }
 

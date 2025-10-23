@@ -12,13 +12,13 @@ const dataInputsTitle = [
   {
     label: "Tytuł",
     name: "title",
-    placeholder: "Tytuł formulaża",
+    placeholder: "Tytuł formularza",
     type: "text",
   },
   {
     label: "Opis",
     name: "description",
-    placeholder: "Opis formulaża",
+    placeholder: "Opis formularza",
     type: "text",
   },
 ];
@@ -38,8 +38,6 @@ export default function EditFormForm(props: Props) {
   const created = formatDateAndHour(createdAt);
   const updated = formatDateAndHour(updatedAt);
 
-  // console.log("", inputs);
-
   const methods = useForm();
 
   const {
@@ -50,9 +48,8 @@ export default function EditFormForm(props: Props) {
     reset,
     formState: { errors, isSubmitting },
   } = methods;
-  const watched = watch();
 
-  // console.log("sss", watched);
+  const watched = watch();
 
   useEffect(() => {
     reset({
@@ -84,8 +81,6 @@ export default function EditFormForm(props: Props) {
       await props.updateInput(id, data);
     }
   };
-
-  // console.log("xxx", inputs);
 
   return (
     <FormProvider {...methods}>

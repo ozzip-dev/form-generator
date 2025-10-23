@@ -17,7 +17,7 @@ export async function ActionLogin(data: FormData) {
   }
 
   try {
-    const response = await auth.api.signInEmail({
+    await auth.api.signInEmail({
       body: { email: data.email, password: data.password },
     });
   } catch (err: any) {
