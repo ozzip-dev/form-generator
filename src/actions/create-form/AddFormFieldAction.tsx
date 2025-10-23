@@ -41,9 +41,6 @@ export async function AddFormFieldAction(
   requireUser();
 
   const { header, type } = input;
-
-  console.log("wype", type);
-
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
   if (!validationResult.success) {

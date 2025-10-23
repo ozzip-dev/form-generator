@@ -45,7 +45,7 @@ const Select = (props: Props) => {
       setInternalValue(props.defaultValue);
       props.onChange?.(props.defaultValue);
     }
-  }, [props.defaultValue, isControlled]);
+  }, [props, isControlled]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
