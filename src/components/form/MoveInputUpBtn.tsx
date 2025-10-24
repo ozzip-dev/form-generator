@@ -1,4 +1,4 @@
-import { MoveInputUp } from "@/actions/create-form";
+import { MoveInputUp } from "@/actions/input";
 import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
 

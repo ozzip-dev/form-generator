@@ -7,10 +7,12 @@ import RemoveInputBtn from "./RemoveInputBtn";
 import { useEffect } from "react";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import MoveInputDownBtn from "./MoveInputDownBtn";
+import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 
 type Props = {
   input: FormInput;
   index: number;
+  formId: string;
   totalInputs: number;
   updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
@@ -38,7 +40,7 @@ export default function EditFormInputs(props: Props) {
   }, [watchedHeader, watchedType, id, props]);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-center p-2 bg-slate-200">
       <div className="w-96 flex">
         <div>
           <input
@@ -46,7 +48,6 @@ export default function EditFormInputs(props: Props) {
             {...register(`inputs.${props.index}.header`)}
             className="border border-black mr-4"
           />
-          {required && "Required"}
         </div>
 
         <select
@@ -66,6 +67,8 @@ export default function EditFormInputs(props: Props) {
 
         <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
       </div>
+
+      <RequiredToggleSwitch formId={props.formId} input={props.input} />
 
       <div>
         <RemoveInputBtn id={id as string} />

@@ -2,14 +2,11 @@
 
 import { serializeForm } from "@/lib/form-utils";
 import { db } from "@/lib/mongo";
-import {
-  formHasInputWithId,
-  moveInputDown,
-  moveInputUp,
-} from "@/services/form-service";
+import { moveInputDown, moveInputUp } from "@/services/input-service";
 import { FormSerialized } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
+import { checkFormHasInputWithId } from "../utils";
 
 export async function MoveInputUp(
   formIdString: string,
@@ -17,12 +14,10 @@ export async function MoveInputUp(
 ): Promise<FormSerialized | undefined> {
   const formId = new ObjectId(formIdString);
 
-  console.log("xxxx", formId);
-  if (!formHasInputWithId(db, formId, inputId))
-    console.error(`Form doesn\'t contain input: ${inputId}`);
+  if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
   const result = await moveInputUp(db, new ObjectId(formId), inputId);
-  console.log("result", result);
+
   if (!result) return;
   revalidateTag(`form-${formId}`);
 
@@ -34,12 +29,13 @@ export async function MoveInputDown(
   inputId: string
 ): Promise<FormSerialized | undefined> {
   const formId = new ObjectId(formIdString);
-  if (!formHasInputWithId(db, formId, inputId))
-    console.error(`Form doesn\'t contain input: ${inputId}`);
+
+  if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
   const result = await moveInputDown(db, new ObjectId(formId), inputId);
 
   if (!result) return;
   revalidateTag(`form-${formId}`);
+
   return serializeForm(result);
 }

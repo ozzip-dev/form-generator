@@ -31,7 +31,15 @@ type Props = {
 };
 
 export default function EditFormForm(props: Props) {
-  const { createdAt, updatedAt, title, description, inputs, type } = props.form;
+  const {
+    _id: formId,
+    createdAt,
+    updatedAt,
+    title,
+    description,
+    inputs,
+    type,
+  } = props.form;
   const created = formatDateAndHour(createdAt);
   const updated = formatDateAndHour(updatedAt);
 
@@ -112,6 +120,7 @@ export default function EditFormForm(props: Props) {
                   key={el.id}
                   input={el}
                   index={index}
+                  formId={formId!}
                   totalInputs={inputs.length}
                   updateInput={handleUpdateInput}
                 />
