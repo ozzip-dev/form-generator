@@ -10,7 +10,7 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import { EditFormAction } from "@/actions/create-form/EditFormAction";
 import InputFields from "../inputs/InputFields";
-import { handleInputChange } from "../pages/create-form/EditFormForm";
+import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 
 type Props = {
   input: FormInput;
@@ -46,7 +46,7 @@ export default function EditFormInputs(props: Props) {
           <InputFields
             inputsData={dataInputField}
             register={register}
-            onChange={handleInputChange}
+            onChange={handleEditFormDraft}
           />
           {required && "Required"}
         </div>

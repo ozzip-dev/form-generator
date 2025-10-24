@@ -9,10 +9,6 @@ export const editFormSchema = z.object({
     .string()
     .min(2, { message: "Min. 2 litery" })
     .max(20, { message: "Max. 20 liter" }),
-  header: z
-    .string()
-    .min(2, { message: "Min. 2 litery" })
-    .max(20, { message: "Max. 20 liter" }),
   type: z.string().nonempty({ message: "Wymagane" }),
 });
 
