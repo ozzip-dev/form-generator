@@ -1,4 +1,4 @@
-import { MoveInputDown } from "@/actions/create-form";
+import { MoveInputDown } from "@/actions/input";
 import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
 import { useAsyncAction } from "@/hooks/useAsyncAction";

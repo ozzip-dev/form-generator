@@ -79,7 +79,7 @@ The application was developed with grant support received in the grant competiti
 * react-hook-form
   
 ## Hooks
-* useState, useEffect, useForm, useSearchParams
+* useState, useEffect, useForm, useSearchParams, useParams, useCallback, useContext
 
 ## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn

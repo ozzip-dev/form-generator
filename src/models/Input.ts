@@ -13,7 +13,7 @@ export enum TemplateInputId {
 enum InputField {
   ID = 'id',
   TYPE = 'type',
-  // REQUIRED = 'required',
+  REQUIRED = 'required',
   // UNIQUE = 'unique',
   HEADER = 'header',
   DESCRIPTION = 'description',
@@ -28,6 +28,7 @@ const inputProperties: Properties = {
   [InputField.TYPE]: { bsonType: FieldType.STRING },
   [InputField.HEADER]: { bsonType: FieldType.STRING },
   [InputField.DESCRIPTION]: { bsonType: FieldType.STRING },
+  [InputField.REQUIRED]: { bsonType: FieldType.BOOL },
   [InputField.VALIDATION]: { bsonType: FieldType.OBJECT },
   [InputField.OPTIONS]: { bsonType: FieldType.ARRAY },
   [InputField.TEMPLATE]: { bsonType: FieldType.BOOL }
@@ -36,7 +37,6 @@ const inputProperties: Properties = {
 // const formInputProperties: Properties = {
 //   ...inputProperties,
 //   [InputField.ORDER]: { bsonType: FieldType.int },
-//   [InputField.REQUIRED]: { bsonType: FieldType.bool }
 // }
 
 const inputRequired: InputField[] = [

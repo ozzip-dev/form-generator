@@ -34,8 +34,16 @@ type Props = {
 };
 
 export default function EditFormForm(props: Props) {
-  const { createdAt, updatedAt, title, description, inputs, type, _id } =
-    props.form;
+  const {
+    _id: formId,
+    createdAt,
+    updatedAt,
+    title,
+    description,
+    inputs,
+    type,
+  } = props.form;
+
   const created = formatDateAndHour(createdAt);
   const updated = formatDateAndHour(updatedAt);
 
@@ -75,14 +83,14 @@ export default function EditFormForm(props: Props) {
   useEffect(() => {
     if (!watched.type) return;
     const timeout = setTimeout(async () => {
-      await EditFormAction(_id!, {
+      await EditFormAction(formId!, {
         title: watched.title,
         description: watched.description,
         type: watched.type as FormType,
       });
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, watched.type, _id]);
+  }, [watched.title, watched.description, watched.type, formId]);
 
   useEffect(() => {
     setValue("title", title);
@@ -123,6 +131,7 @@ export default function EditFormForm(props: Props) {
                     key={el.id}
                     input={el}
                     index={index}
+                    formId={formId!}
                     totalInputs={inputs.length}
                     updateInput={handleUpdateInput}
                   />
