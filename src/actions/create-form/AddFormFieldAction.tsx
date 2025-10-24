@@ -40,8 +40,6 @@ export async function AddFormFieldAction(
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
 
-  throw new Error("ppp");
-
   const { header, type } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
