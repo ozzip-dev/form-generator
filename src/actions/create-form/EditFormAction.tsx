@@ -12,10 +12,10 @@ import { revalidateTag } from "next/cache";
 
 export async function EditFormAction(
   formId: string,
-  updateData: EditFormSchema
+  updateData: any
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
-  console.log("sssssssssssss");
+  console.log("sssssssssssss", updateData);
   const { title, description, type } = updateData;
   const validationResult = editFormSchema.safeParse({
     title,
@@ -23,9 +23,9 @@ export async function EditFormAction(
     type,
   });
 
-  if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
-  }
+  // if (!validationResult.success) {
+  //   return { error: handleServerErrors(validationResult.error) };
+  // }
 
   try {
     const result: WithId<Form> = await updateForm(
@@ -33,7 +33,7 @@ export async function EditFormAction(
       new ObjectId(formId),
       updateData
     );
-
+    // console.log("sxxx", result);
     if (!result) {
       return { error: "Nie udało się zaktualizować formularza" };
     }

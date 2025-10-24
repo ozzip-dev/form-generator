@@ -2,6 +2,7 @@
 
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import InputError from "./InputError";
+import { useRef } from "react";
 
 type Props = {
   inputsData: {
@@ -15,9 +16,14 @@ type Props = {
     server?: Record<string, { message: string }>;
   };
   register?: UseFormRegister<any>;
+  onChange?: any;
 };
 
 const InputFields = (props: Props) => {
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  console.log("inp", debounceRef);
+
   return (
     <>
       {props.inputsData.map(
@@ -36,7 +42,16 @@ const InputFields = (props: Props) => {
                 className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
                 placeholder={placeholder}
                 defaultValue={defaultValue}
-                {...(props.register ? props.register(name as string) : {})}
+                // {...(props.register ? props.register(name as string) : {})}
+
+                {...(props.register
+                  ? props.register(name, {
+                      onChange: props.onChange
+                        ? (e) =>
+                            props.onChange(name, e.target.value, debounceRef)
+                        : undefined,
+                    })
+                  : {})}
               />
 
               <InputError

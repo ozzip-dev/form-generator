@@ -8,13 +8,15 @@ import { useEffect } from "react";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
+import { EditFormAction } from "@/actions/create-form/EditFormAction";
+import InputFields from "../inputs/InputFields";
+import { handleInputChange } from "../pages/create-form/EditFormForm";
 
 type Props = {
   input: FormInput;
   index: number;
   formId: string;
   totalInputs: number;
-  updateInput?: (id: string, data: Partial<FormInput>) => Promise<void>;
 };
 
 export default function EditFormInputs(props: Props) {
@@ -37,26 +39,14 @@ export default function EditFormInputs(props: Props) {
   const watchedHeader = watch(`inputs.${props.index}.header`);
   const watchedType = watch(`inputs.${props.index}.type`);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (props.updateInput) {
-        props.updateInput(id as string, {
-          header: watchedHeader,
-          type: watchedType,
-        });
-      }
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, [watchedHeader, watchedType, id, props]);
-
   return (
     <div className="flex gap-2 items-center p-2 bg-slate-200">
       <div className="w-96 flex">
         <div>
-          <input
-            type="text"
-            {...register(`inputs.${props.index}.header`)}
-            className="border border-black mr-4"
+          <InputFields
+            inputsData={dataInputField}
+            register={register}
+            onChange={handleInputChange}
           />
           {required && "Required"}
         </div>

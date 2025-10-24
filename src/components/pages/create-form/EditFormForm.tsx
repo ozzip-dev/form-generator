@@ -8,11 +8,29 @@ import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { FormType } from "@/enums/form";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
-import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useEffect, useRef } from "react";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
+import { handleInputChange } from "@/helpers/handleInputChange";
+
+// export const handleInputChange = (
+//   formId: string | undefined,
+//   name: string,
+//   value: string,
+//   ref: React.RefObject<ReturnType<typeof setTimeout> | null>
+// ) => {
+//   console.log("aaaaa");
+
+//   if (ref.current) clearTimeout(ref.current);
+
+//   ref.current = setTimeout(async () => {
+//     await EditFormAction(formId!, {
+//       [name]: value,
+//     });
+//   }, 2000);
+// };
 
 const dataInputsTitle = [
   {
@@ -44,30 +62,22 @@ export default function EditFormForm(props: Props) {
     type,
   } = props.form;
 
-  const created = formatDateAndHour(createdAt);
-  const updated = formatDateAndHour(updatedAt);
-
-  const methods = useForm<EditFormSchema>({
-    resolver: zodResolver(editFormSchema),
+  const methods = useForm({
+    defaultValues: {
+      title,
+      description,
+      type,
+      inputs,
+    },
   });
 
   const {
     watch,
     control,
     register,
-    setValue,
     reset,
     formState: { errors, isSubmitting },
   } = methods;
-
-  const watched = watch();
-
-  const handleUpdateInput = async (id: string, data: Partial<FormInput>) => {
-    // if (props.updateInput) {
-    //   await props.updateInput(id, data);
-    // }
-    // console.log("update input", id, data);
-  };
 
   useEffect(() => {
     reset({
@@ -78,32 +88,36 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
-  console.log("", errors);
+  // const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (!watched.type) return;
-    const timeout = setTimeout(async () => {
-      await EditFormAction(formId!, {
-        title: watched.title,
-        description: watched.description,
-        type: watched.type as FormType,
-      });
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, watched.type, formId]);
+  // console.log("form", debounceRef);
 
-  useEffect(() => {
-    setValue("title", title);
-    setValue("description", description);
-    setValue("type", type);
-  }, [title, description, type, setValue]);
+  // const handleInputChange = (
+  //   formId: string | undefined,
+  //   name: string,
+  //   value: string,
+  //   ref: React.RefObject<ReturnType<typeof setTimeout> | null>
+  // ) => {
+  //   console.log("funkcja", debounceRef);
+  //   if (ref.current) clearTimeout(ref.current);
+
+  //   ref.current = setTimeout(async () => {
+  //     await EditFormAction(formId!, {
+  //       [name]: value,
+  //     });
+  //   }, 2000);
+  // };
 
   return (
     <FormProvider {...methods}>
       <div className="p-4">
         <div className="flex justify-between">
-          <div className="text-xs text-gray-400 mt-1">Utworzono: {created}</div>
-          <div className="text-xs text-gray-400 mt-1">Edytowano: {updated}</div>
+          <div className="text-xs text-gray-400 mt-1">
+            Utworzono: {formatDateAndHour(createdAt)}
+          </div>
+          <div className="text-xs text-gray-400 mt-1">
+            Edytowano: {formatDateAndHour(updatedAt)}
+          </div>
         </div>
 
         <form className="mt-4 space-y-2">
@@ -114,6 +128,7 @@ export default function EditFormForm(props: Props) {
               inputsData={dataInputsTitle}
               register={register}
               errorMsg={errors}
+              onChange={handleInputChange}
             />
           </div>
 
@@ -121,22 +136,36 @@ export default function EditFormForm(props: Props) {
             <div className="w-48"></div>
             {inputs
               .sort((a, b) => a.order - b.order)
-              .map((el, index) => (
-                <SuspenseErrorBoundary
-                  key={el.id}
-                  size="sm"
-                  errorMessage="Błąd przesyłu danych formularza"
-                >
-                  <EditFormInputs
+              .map((el, index) => {
+                const dataInputField = [
+                  {
+                    type: "text",
+                    name: `inputs.${index}.header`,
+                    placeholder: "Nazwa pola",
+                  },
+                ];
+
+                return (
+                  <SuspenseErrorBoundary
                     key={el.id}
-                    input={el}
-                    index={index}
-                    formId={formId!}
-                    totalInputs={inputs.length}
-                    updateInput={handleUpdateInput}
-                  />
-                </SuspenseErrorBoundary>
-              ))}
+                    size="sm"
+                    errorMessage="Błąd przesyłu danych formularza"
+                  >
+                    {/* <InputFields
+                      inputsData={dataInputField}
+                      register={register}
+                      onChange={handleInputChange}
+                    /> */}
+                    <EditFormInputs
+                      key={el.id}
+                      input={el}
+                      index={index}
+                      formId={formId!}
+                      totalInputs={inputs.length}
+                    />
+                  </SuspenseErrorBoundary>
+                );
+              })}
           </div>
         </form>
       </div>
