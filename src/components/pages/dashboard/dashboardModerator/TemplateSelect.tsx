@@ -2,7 +2,7 @@
 
 import { FormTemplate } from "@/types/form";
 import { ChangeEvent, useState } from "react";
-import { CreateFormDraft } from "@/actions/create-form/CreateFormDraft";
+import { CreateFormDraft } from "@/actions/create-form";
 
 type Props = {
   templates: FormTemplate[];

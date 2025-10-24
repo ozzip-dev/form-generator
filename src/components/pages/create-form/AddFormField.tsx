@@ -1,6 +1,6 @@
 "use client";
 
-import { AddFormFieldAction } from "@/actions/create-form/AddFormFieldAction";
+import { AddFormFieldAction } from "@/actions/create-form";
 import InputError from "@/components/inputs/InputError";
 import InputFields from "@/components/inputs/InputFields";
 import Select from "@/components/inputs/Select";
