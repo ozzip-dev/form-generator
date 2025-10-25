@@ -3,7 +3,7 @@
 import EditFormInputs from "@/components/form/EditFormInputs";
 import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
-import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
+// import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
@@ -11,6 +11,8 @@ import { FormSerialized } from "@/types/form";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import DataLoader from "@/components/ui/loaders/DataLoader";
+import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 
 const dataInputsTitle = [
   {
@@ -52,14 +54,12 @@ export default function EditFormForm(props: Props) {
     },
     mode: "all",
   });
+  const { handleEditFormDraft, savingFields } = useEditFormDraft(formId);
 
   const {
-    watch,
-    control,
     register,
     reset,
-    handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = methods;
 
   useEffect(() => {

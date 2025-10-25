@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import { FieldErrors, UseFormRegister, useFormContext } from "react-hook-form";
 import InputError from "./InputError";
+import DataLoader from "../ui/loaders/DataLoader";
 
 type Props = {
   inputsData: {
@@ -37,20 +38,14 @@ const InputFields = (props: Props) => {
     }
 
     if (props.onChange) {
-      props.onChange(formId, name, value);
+      props.onChange(name, value);
     }
   };
-
-  console.log("props.errorMsg?", props.errorMsg);
 
   return (
     <>
       {props.inputsData.map(
         ({ label, name, placeholder, type, defaultValue }) => {
-          console.log("name", name);
-          console.log("prop", props.errorMsg?.[name]?.message as string);
-
-          const registerField = props.register(name);
           return (
             <div key={name}>
               {label && (
@@ -58,20 +53,47 @@ const InputFields = (props: Props) => {
                   {label}
                 </label>
               )}
+              <div className="flex">
+                <input
+                  type={type}
+                  id={name}
+                  className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
+                  placeholder={placeholder}
+                  defaultValue={defaultValue ?? ""}
+                  // {...props.register(name, {
+                  //   onChange: (e) =>
+                  //     props.onChange(formId, name, e.target.value),
+                  // })}
 
-              <input
-                type={type}
-                id={name}
-                className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
-                placeholder={placeholder}
-                defaultValue={defaultValue ?? ""}
-                {...props.register(name, {
-                  onChange: (e) => handleChange(name, e.target.value),
-                })}
-              />
+                  {...props.register(name, {
+                    onChange: (e) => {
+                      const value = e.target.value;
+                      const inputName = name;
+                      handleChange(inputName, value);
+                    },
+                    // onChange: (e) => {
+                    //   const value = e.target.value;
+                    //   const inputName = name;
+                    //   props.onChange?.(inputName, value);
+                    // },
+                  })}
+
+                  // {...props.register(name)}
+                  // onChange={(e) => {
+                  //   const value = e.target.value;
+                  //   const inputName = name;
+                  //   props.onChange?.(inputName, value);
+                  // }}
+                />
+
+                {/* <DataLoader size="sm" /> */}
+              </div>
 
               <InputError
-                errorMsg={props.errorMsg?.[name]?.message as string}
+                errorMsg={
+                  (props.errorMsg?.[name]?.message as string) ||
+                  (props.errorMsg as any)?.message
+                }
               />
             </div>
           );

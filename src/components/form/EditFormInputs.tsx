@@ -1,16 +1,16 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import { FormInput } from "@/types/input";
+// import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 import { InputType } from "@/enums";
-import RemoveInputBtn from "./RemoveInputBtn";
-import { useEffect } from "react";
-import MoveInputUpBtn from "./MoveInputUpBtn";
-import MoveInputDownBtn from "./MoveInputDownBtn";
-import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
-import { EditFormAction } from "@/actions/create-form/EditFormAction";
+import { FormInput } from "@/types/input";
+import { useFormContext } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
-import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
+import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
+import MoveInputDownBtn from "./MoveInputDownBtn";
+import MoveInputUpBtn from "./MoveInputUpBtn";
+import RemoveInputBtn from "./RemoveInputBtn";
+import { useParams } from "next/navigation";
+import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 
 type Props = {
   input: FormInput;
@@ -23,14 +23,14 @@ export default function EditFormInputs(props: Props) {
   const { id, required, order, type } = props.input;
   const inputTypes = Object.values(InputType);
   const isLastInput = props.index === props.totalInputs - 1;
-
+  const { formId } = useParams();
+  const { handleEditFormDraft, savingFields } = useEditFormDraft(
+    formId as string
+  );
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext();
-
-  // console.log("", props.input);
 
   const dataInputField = [
     {
@@ -39,11 +39,6 @@ export default function EditFormInputs(props: Props) {
       placeholder: "Nazwa pola",
     },
   ];
-
-  console.log("komp", errors.inputs);
-
-  const watchedHeader = watch(`inputs.${props.index}.header`);
-  const watchedType = watch(`inputs.${props.index}.type`);
 
   return (
     <div className="flex gap-2 items-center p-2 bg-slate-200">
