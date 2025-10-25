@@ -54,7 +54,7 @@ export default function EditFormForm(props: Props) {
     },
     mode: "all",
   });
-  const { handleEditFormDraft, savingFields } = useEditFormDraft(formId);
+  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId);
 
   const {
     register,
@@ -92,6 +92,7 @@ export default function EditFormForm(props: Props) {
               register={register}
               errorMsg={errors}
               onChange={handleEditFormDraft}
+              isLoading={isLoading}
             />
           </div>
 

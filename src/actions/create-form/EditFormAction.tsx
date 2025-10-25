@@ -15,7 +15,7 @@ export async function EditFormAction(
   updateData: any
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
-  console.log("sssssssssssss", updateData);
+  console.log("EditFormAction", updateData);
   const { title, description, type } = updateData;
   const validationResult = editFormSchema.safeParse({
     title,

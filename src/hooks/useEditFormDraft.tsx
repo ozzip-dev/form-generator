@@ -4,27 +4,28 @@ import { useState, useRef, useCallback } from "react";
 import { EditFormAction } from "@/actions/create-form/EditFormAction";
 
 export function useEditFormDraft(formId?: string) {
-  const [savingFields, setSavingFields] = useState<Record<string, boolean>>({});
+  const [isLoading, setLoading] = useState<Record<string, boolean>>({});
   const debounceMap = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
   const handleEditFormDraft = useCallback(
-    (name: string, value: string) => {
+    async (name: string, value: string) => {
       if (!formId) return;
       const key = `${formId}-${name}`;
+
+      console.log("use top", value);
 
       if (debounceMap.current.has(key)) {
         clearTimeout(debounceMap.current.get(key)!);
       }
 
-      console.log("name", name);
-      console.log("vale", value);
-      console.log("formId", formId);
       const timeout = setTimeout(async () => {
         try {
-          setSavingFields((prev) => ({ ...prev, [name]: true }));
+          setLoading((prev) => ({ ...prev, [name]: true }));
+
+          console.log("use", value);
           await EditFormAction(formId, { [name]: value });
         } finally {
-          setSavingFields((prev) => ({ ...prev, [name]: false }));
+          setLoading((prev) => ({ ...prev, [name]: false }));
           debounceMap.current.delete(key);
         }
       }, 1200);
@@ -34,5 +35,5 @@ export function useEditFormDraft(formId?: string) {
     [formId]
   );
 
-  return { handleEditFormDraft, savingFields };
+  return { handleEditFormDraft, isLoading };
 }

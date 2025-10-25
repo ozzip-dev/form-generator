@@ -24,9 +24,7 @@ export default function EditFormInputs(props: Props) {
   const inputTypes = Object.values(InputType);
   const isLastInput = props.index === props.totalInputs - 1;
   const { formId } = useParams();
-  const { handleEditFormDraft, savingFields } = useEditFormDraft(
-    formId as string
-  );
+  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId as string);
   const {
     register,
     formState: { errors },
@@ -43,12 +41,13 @@ export default function EditFormInputs(props: Props) {
   return (
     <div className="flex gap-2 items-center p-2 bg-slate-200">
       <div className="w-96 flex">
-        <div>
+        <div className="mr-4">
           <InputFields
             inputsData={dataInputField}
             register={register}
             errorMsg={(errors.inputs as any)?.[props.index]?.header}
             onChange={handleEditFormDraft}
+            isLoading={isLoading}
           />
           {required && "Required"}
         </div>

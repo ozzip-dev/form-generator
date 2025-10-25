@@ -18,28 +18,41 @@ type Props = {
   };
   register: UseFormRegister<any>;
   onChange?: any;
+  isLoading?: Record<string, boolean>;
 };
 
 const InputFields = (props: Props) => {
-  const { formId } = useParams();
+  // let trigger: ((name?: string | string[]) => Promise<boolean>) | undefined;
+  // try {
+  //   const formContext = useFormContext();
+  //   trigger = formContext?.trigger;
+  // } catch {
+  //   trigger = undefined;
+  // }
 
-  let trigger: ((name?: string | string[]) => Promise<boolean>) | undefined;
-  try {
-    const formContext = useFormContext();
-    trigger = formContext?.trigger;
-  } catch {
-    trigger = undefined;
-  }
+  // const handleChange = async (name: string, value: string) => {
+  //   if (trigger) {
+  //     const isValid = await trigger(name);
+  //     if (!isValid) return;
+  //   }
+
+  //   if (props.onChange) {
+  //     props.onChange(name, value);
+  //   }
+  // };
+
+  const formContext = useFormContext();
+  const trigger = formContext?.trigger;
 
   const handleChange = async (name: string, value: string) => {
-    if (trigger) {
-      const isValid = await trigger(name);
-      if (!isValid) return;
-    }
+    if (!trigger) return;
 
-    if (props.onChange) {
-      props.onChange(name, value);
-    }
+    // ✅ używamy walidacji react-hook-form
+    const isValid = await trigger(name);
+    if (!isValid) return; // ❌ jeśli walidacja nie przeszła, nie wysyłamy
+
+    // ✅ tylko wtedy, gdy dane są poprawne
+    props.onChange?.(name, value);
   };
 
   return (
@@ -57,36 +70,25 @@ const InputFields = (props: Props) => {
                 <input
                   type={type}
                   id={name}
-                  className="w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1"
+                  disabled={props.isLoading?.[name]}
+                  className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
+                    ${
+                      props.isLoading?.[name]
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }
+                  `}
                   placeholder={placeholder}
-                  defaultValue={defaultValue ?? ""}
-                  // {...props.register(name, {
-                  //   onChange: (e) =>
-                  //     props.onChange(formId, name, e.target.value),
-                  // })}
-
                   {...props.register(name, {
                     onChange: (e) => {
                       const value = e.target.value;
                       const inputName = name;
                       handleChange(inputName, value);
                     },
-                    // onChange: (e) => {
-                    //   const value = e.target.value;
-                    //   const inputName = name;
-                    //   props.onChange?.(inputName, value);
-                    // },
                   })}
-
-                  // {...props.register(name)}
-                  // onChange={(e) => {
-                  //   const value = e.target.value;
-                  //   const inputName = name;
-                  //   props.onChange?.(inputName, value);
-                  // }}
                 />
 
-                {/* <DataLoader size="sm" /> */}
+                {props.isLoading?.[name] && <DataLoader size="sm" />}
               </div>
 
               <InputError
