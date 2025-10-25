@@ -1,13 +1,12 @@
 "use client";
 
 import { EditFormAction } from "@/actions/create-form/EditFormAction";
-import EditFormInputs from "@/components/form/EditFormInputs";
+import EditFormInput from "@/components/form/EditFormInput";
 import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { FormType } from "@/enums/form";
 import { FormSerialized } from "@/types/form";
-import { FormInput } from "@/types/input";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -55,13 +54,6 @@ export default function EditFormForm(props: Props) {
   } = methods;
 
   const watched = watch();
-
-  const handleUpdateInput = async (id: string, data: Partial<FormInput>) => {
-    // if (props.updateInput) {
-    //   await props.updateInput(id, data);
-    // }
-    console.log("update input", id, data);
-  };
 
   useEffect(() => {
     reset({
@@ -116,13 +108,12 @@ export default function EditFormForm(props: Props) {
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((el, index) => (
-                <EditFormInputs
+                <EditFormInput
                   key={el.id}
                   input={el}
                   index={index}
                   formId={formId!}
                   totalInputs={inputs.length}
-                  updateInput={handleUpdateInput}
                 />
               ))}
           </div>

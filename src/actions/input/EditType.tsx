@@ -4,17 +4,19 @@ import { db } from "@/lib/mongo";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../utils";
-import { toggleRequired } from "@/services/input-service";
+import { updateFormInputType } from "@/services/input-service";
+import { InputType } from "@/enums/input";
 
-export async function ToggleRequired(
+export async function EditType(
   formIdString: string,
-  inputId: string
+  inputId: string,
+  type: InputType
 ): Promise<void> {
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
-  await toggleRequired(db, formId, inputId);
+  await updateFormInputType(db, formId, inputId, type);
 
   revalidateTag(`form-${formId}`);
 }

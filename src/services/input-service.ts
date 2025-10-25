@@ -1,8 +1,19 @@
-import { getFormInputById } from "@/actions/utils";
+import { InputType } from "@/enums";
 import { find, findById, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
+
+function getFormInputById(
+  inputs: FormInput[],
+  id: string
+): FormInput {
+  const input = inputs.find((el: FormInput) => el.id == id!)
+
+  if (!input) throw new Error(`Input not found: ${id}`);
+
+  return input
+}
 
 export async function getTemplateInputs(database: Db): Promise<Input[]> {
   const templateInputs = await find(database, 'input', { template: true })
@@ -170,10 +181,7 @@ export async function moveInputDown(
 
 export async function toggleRequired(db: Db, formId: ObjectId, inputId: string): Promise<void> {
   const form =  await findById(db, 'form', formId) as Form
-  const input: FormInput | undefined = getFormInputById(form.inputs, inputId!)
-
-  // TODO: or handle separately in Action?
-  if (!input) throw new Error(`Input not found: ${inputId}`);
+  const input: FormInput = getFormInputById(form.inputs, inputId)
 
   await update(
     db,
@@ -185,6 +193,59 @@ export async function toggleRequired(db: Db, formId: ObjectId, inputId: string):
     {
       $set: {
         "inputs.$.required": !input.required,
+        updatedAt: new Date(),
+      },
+    }
+  )
+}
+
+export async function updateFormInputTexts(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+  data: { header?: string; description?: string }
+): Promise<void> {
+  const form =  await findById(db, 'form', formId) as Form
+  const { header, description } = data
+
+  const updateData: any = {}
+  if (header !== undefined) updateData["inputs.$.header"] = header
+  if (description !== undefined) updateData["inputs.$.description"] = description
+
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.id": inputId
+    },
+    {
+      $set: {
+        ...updateData,
+        updatedAt: new Date(),
+      },
+    }
+  )
+}
+
+export async function updateFormInputType(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+  type?: InputType
+): Promise<void> {
+  const form =  await findById(db, 'form', formId) as Form
+
+  await update(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.id": inputId
+    },
+    {
+      $set: {
+        "inputs.$.type": type,
         updatedAt: new Date(),
       },
     }
