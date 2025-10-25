@@ -24,7 +24,11 @@ export default function EditFormInputs(props: Props) {
   const inputTypes = Object.values(InputType);
   const isLastInput = props.index === props.totalInputs - 1;
 
-  const { register, watch } = useFormContext();
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useFormContext();
 
   // console.log("", props.input);
 
@@ -36,6 +40,8 @@ export default function EditFormInputs(props: Props) {
     },
   ];
 
+  console.log("komp", errors.inputs);
+
   const watchedHeader = watch(`inputs.${props.index}.header`);
   const watchedType = watch(`inputs.${props.index}.type`);
 
@@ -46,6 +52,7 @@ export default function EditFormInputs(props: Props) {
           <InputFields
             inputsData={dataInputField}
             register={register}
+            errorMsg={(errors.inputs as any)?.[props.index]?.header}
             onChange={handleEditFormDraft}
           />
           {required && "Required"}

@@ -6,9 +6,11 @@ import InputFields from "@/components/inputs/InputFields";
 import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const dataInputsTitle = [
   {
@@ -40,13 +42,15 @@ export default function EditFormForm(props: Props) {
     type,
   } = props.form;
 
-  const methods = useForm({
+  const methods = useForm<EditFormSchema>({
+    resolver: zodResolver(editFormSchema),
     defaultValues: {
       title,
       description,
       type,
       inputs,
     },
+    mode: "all",
   });
 
   const {
@@ -54,6 +58,7 @@ export default function EditFormForm(props: Props) {
     control,
     register,
     reset,
+    handleSubmit,
     formState: { errors, isSubmitting },
   } = methods;
 
