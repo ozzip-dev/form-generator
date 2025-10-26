@@ -1,8 +1,8 @@
 import { MoveInputUp } from "@/actions/input";
-import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
 import { useAsyncAction } from "@/hooks/useAsyncAction";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
@@ -20,7 +20,7 @@ const MoveInputUpBtn = (props: Props) => {
     <>
       {isLoading && <FullscreenLoader />}
       {props.removeBtn > 0 && (
-        <ButtonClick message="^" onClickAction={runAction} />
+        <Button type="button" message="^" onClickAction={runAction} />
       )}{" "}
     </>
   );

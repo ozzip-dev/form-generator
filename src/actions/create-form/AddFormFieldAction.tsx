@@ -4,7 +4,7 @@ import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db, findById, updateById } from "@/lib/mongo";
-import { addFormFieldSchema } from "@/lib/zodShema/addFormFieldShema";
+import { addFormFieldSchema } from "@/lib/zodSchema/addFormFieldShema";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";

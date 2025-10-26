@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
 import { cache } from "react";
 import { redirect } from "next/navigation";
 

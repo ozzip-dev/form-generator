@@ -34,7 +34,7 @@ export function useEditFormDraft(
 
         try {
           setLoading((prev) => ({ ...prev, [name]: true }));
-          await EditFormAction(formId, { [name]: value });
+          await EditFormAction(formId, { [name]: value.trim() });
         } catch (err) {
           showBoundary(err);
         } finally {

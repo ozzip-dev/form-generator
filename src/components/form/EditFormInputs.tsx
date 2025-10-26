@@ -10,7 +10,7 @@ import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
-import { SelectControler } from "../inputs/SelectController";
+import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -29,7 +29,7 @@ type Props = {
 };
 
 export default function EditFormInputs(props: Props) {
-  const { id, required, order, type } = props.input;
+  const { id, required, order, type, header } = props.input;
   const inputTypes = Object.values(InputType);
   const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
@@ -51,38 +51,44 @@ export default function EditFormInputs(props: Props) {
   ];
 
   return (
-    <div className="flex gap-2 items-center p-2 bg-slate-200">
-      <div className="w-96 flex">
-        <div className="mr-4">
-          <InputFields
-            inputsData={dataInputField}
-            register={register}
-            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-            onChange={handleEditFormDraft}
-            isLoading={isLoading}
+    <>
+      {" "}
+      <div className="flex gap-2 items-center p-2 bg-slate-200">
+        <div className="w-96 flex">
+          <div className="mr-4">
+            <InputFields
+              inputsData={dataInputField}
+              register={register}
+              errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
+              onChange={handleEditFormDraft}
+              isLoading={isLoading}
+            />
+            {required && "Required"}
+          </div>
+
+          <SelectFieldControler
+            name={`inputs.${props.inputIdx}.type`}
+            control={control}
+            placeholder="Wybierz"
+            defaultValue="text"
+            options={dataSelectOptions}
           />
-          {required && "Required"}
         </div>
 
-        <SelectControler
-          name={`inputs.${props.inputIdx}.type`}
-          control={control}
-          placeholder="Wybierz"
-          defaultValue="text"
-          options={dataSelectOptions}
-        />
+        <div className="flex flex-col justify-center gap-2">
+          <MoveInputUpBtn inputId={id as string} removeBtn={order} />
+          <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
+        </div>
+
+        <RequiredToggleSwitch input={props.input} />
+
+        <div>
+          <RemoveInputBtn inputId={id as string} />
+        </div>
       </div>
-
-      <div className="flex flex-col justify-center gap-2">
-        <MoveInputUpBtn inputId={id as string} removeBtn={order} />
-        <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
-      </div>
-
-      <RequiredToggleSwitch input={props.input} />
-
       <div>
-        <RemoveInputBtn inputId={id as string} />
+        {header} {type}
       </div>
-    </div>
+    </>
   );
 }

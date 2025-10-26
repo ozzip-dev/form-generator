@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import InputError from "./InputError";
 import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
+import InputError from "../InputError";
 
 export type Option = {
   label: string;
@@ -24,7 +24,7 @@ export type Props = {
   optionClassName?: string;
 };
 
-const Select = (props: Props) => {
+const SelectField = (props: Props) => {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(props.defaultValue || "");
   const ref = useRef<HTMLDivElement>(null);
@@ -118,4 +118,4 @@ const Select = (props: Props) => {
   );
 };
 
-export default Select;
+export default SelectField;

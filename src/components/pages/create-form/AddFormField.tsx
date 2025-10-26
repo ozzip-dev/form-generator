@@ -1,22 +1,20 @@
 "use client";
 
 import { AddFormFieldAction } from "@/actions/create-form";
-import InputError from "@/components/inputs/InputError";
 import InputFields from "@/components/inputs/InputFields";
-import Select from "@/components/inputs/Select";
-import { SelectControler } from "@/components/inputs/SelectController";
-import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
+import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
+import Button from "@/components/ui/buttons/Button";
 import { InputType } from "@/enums";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
   AddFormFieldSchema,
-} from "@/lib/zodShema/addFormFieldShema";
+} from "@/lib/zodSchema/addFormFieldShema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -64,7 +62,6 @@ const AddFormField = () => {
         handleClientErrors<AddFormFieldSchema>(resp.error, setError);
         return;
       }
-
       reset();
     } catch (err) {
       showBoundary(err);
@@ -81,38 +78,18 @@ const AddFormField = () => {
         />
 
         <div className="w-48">
-          <SelectControler
+          <SelectFieldControler
             name="type"
             control={control}
             placeholder="Wybierz"
             defaultValue="text"
             options={dataSelectOptions}
           />
-
-          {/* <Controller
-            name="type"
-            control={control}
-            render={({ field }) => (
-              <Select
-                {...field}
-                defaultValue="text"
-                options={[
-                  { label: "Odpowiedź krótka", value: "text" },
-                  { label: "Ddpowiedź długa", value: "superText" },
-                  { label: "Email", value: "email" },
-                  { label: "Data", value: "date" },
-                  { label: "Numer", value: "number" },
-                  { label: "Wybór pojedynczy", value: "singleSelect" },
-                  { label: "Wybór wielokrotny", value: "checkbox" },
-                ]}
-              />
-            )}
-          /> */}
         </div>
 
         <div className="w-fit">
-          <ButtonSubmit
-            isSubmitting={isSubmitting}
+          <Button
+            isLoading={isSubmitting}
             icon={<IconPlus style="h-7 w-7 bg-white" />}
           />
         </div>

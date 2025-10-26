@@ -27,10 +27,7 @@ export const editFormSchema = z.object({
     .string()
     .min(2, { message: "Min. 2 litery" })
     .max(20, { message: "Max. 20 liter" }),
-  description: z
-    .string()
-    .min(2, { message: "Min. 2 litery" })
-    .max(60, { message: "Max. 60 liter" }),
+  description: z.string().max(60, { message: "Max. 60 liter" }),
   type: z.string().nonempty({ message: "Wymagane" }),
   inputs: z.array(conditionalInputSchema).optional(),
 });

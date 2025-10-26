@@ -4,8 +4,8 @@ import { RemoveInputFromDraft } from "@/actions/create-form";
 import { useAsyncAction } from "@/hooks/useAsyncAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useParams } from "next/navigation";
-import ButtonClick from "../ui/buttons/ButtonClick";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
@@ -21,7 +21,9 @@ function RemoveInputBtn(props: Props) {
   return (
     <>
       {isLoading && <FullscreenLoader />}
-      <ButtonClick
+
+      <Button
+        type="button"
         icon={<IconTrash style="h-5 w-5 bg-white" />}
         onClickAction={runAction}
       />

@@ -6,12 +6,12 @@ import { useToast } from "@/hooks/useToast";
 import {
   TForgotPasswordShema,
   forgotPasswordSchema,
-} from "@/lib/zodShema/zodAuthShema/forgotPasswordSchema";
+} from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import InputFields from "../inputs/InputFields";
-import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+import Button from "../ui/buttons/Button";
 
 const dataInputsForgotPassword = [
   {
@@ -75,7 +75,7 @@ const ForgotPassword = () => {
             errorMsg={errors}
           />
 
-          <ButtonSubmit isSubmitting={isSubmitting} message="Wyślij link" />
+          <Button isLoading={isSubmitting} message="Wyślij link" />
         </form>
 
         <FormAuthFooter

@@ -1,13 +1,13 @@
 "use client";
 
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
+import Button from "@/components/ui/buttons/Button";
 import UseCreateForm from "@/hooks/useCreateForm";
 
 const FormTrigger = () => {
   const { handleCreateForm, isloading } = UseCreateForm("empty");
 
   return (
-    <ButtonClick
+    <Button
       message="Utwórz formularz"
       onClickAction={handleCreateForm}
       isLoading={isloading}

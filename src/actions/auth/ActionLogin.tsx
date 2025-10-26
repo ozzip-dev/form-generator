@@ -1,8 +1,8 @@
 "use server";
 
-import { loginSchema } from "@/lib/zodShema/zodAuthShema/loginSchema";
+import { loginSchema } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
 import { redirect } from "next/navigation";
 
 type FormData = {

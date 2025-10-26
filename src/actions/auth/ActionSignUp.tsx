@@ -1,8 +1,8 @@
 "use server";
 
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { auth } from "@/lib/auth";
-import { signUpSchema } from "@/lib/zodShema/zodAuthShema/signupSchema";
+import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
+import { signUpSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 
 type FormData = {
   email: string;

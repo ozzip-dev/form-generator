@@ -6,7 +6,7 @@ import InputFields from "@/components/inputs/InputFields";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { useEditFormDraft } from "@/hooks/useEditFormDraft";
-import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
+import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";

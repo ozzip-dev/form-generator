@@ -1,8 +1,8 @@
 import { MoveInputDown } from "@/actions/input";
-import ButtonClick from "../ui/buttons/ButtonClick";
 import { useParams } from "next/navigation";
 import { useAsyncAction } from "@/hooks/useAsyncAction";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
@@ -19,7 +19,9 @@ const MoveInputDownBtn = (props: Props) => {
   return (
     <>
       {isLoading && <FullscreenLoader />}
-      {!props.isLast && <ButtonClick message="v" onClickAction={runAction} />}
+      {!props.isLast && (
+        <Button type="button" message="v" onClickAction={runAction} />
+      )}
     </>
   );
 };
