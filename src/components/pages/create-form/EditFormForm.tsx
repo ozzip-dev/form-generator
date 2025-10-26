@@ -54,13 +54,19 @@ export default function EditFormForm(props: Props) {
     },
     mode: "all",
   });
-  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId);
 
+  console.log("", inputs);
   const {
     register,
     reset,
     formState: { errors },
+    trigger,
   } = methods;
+
+  const { handleEditFormDraft, isLoading } = useEditFormDraft({
+    formId,
+    trigger,
+  });
 
   useEffect(() => {
     reset({
@@ -100,7 +106,7 @@ export default function EditFormForm(props: Props) {
             <div className="w-48"></div>
             {inputs
               .sort((a, b) => a.order - b.order)
-              .map((el, index) => {
+              .map((el, idx) => {
                 return (
                   <SuspenseErrorBoundary
                     key={el.id}
@@ -110,8 +116,7 @@ export default function EditFormForm(props: Props) {
                     <EditFormInputs
                       key={el.id}
                       input={el}
-                      index={index}
-                      formId={formId!}
+                      inputIdx={idx}
                       totalInputs={inputs.length}
                     />
                   </SuspenseErrorBoundary>

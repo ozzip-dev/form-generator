@@ -1,7 +1,8 @@
 "use client";
 
-// import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 import { InputType } from "@/enums";
+import { useEditFormDraft } from "@/hooks/useEditFormDraft";
+import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
@@ -9,31 +10,33 @@ import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
-import { useParams } from "next/navigation";
-import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 
 type Props = {
   input: FormInput;
-  index: number;
-  formId: string;
+  inputIdx: number;
   totalInputs: number;
 };
 
 export default function EditFormInputs(props: Props) {
   const { id, required, order, type } = props.input;
   const inputTypes = Object.values(InputType);
-  const isLastInput = props.index === props.totalInputs - 1;
-  const { formId } = useParams();
-  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId as string);
+  const isLastInput = props.inputIdx === props.totalInputs - 1;
+  const formId = useSafeURLParam("formId");
+
   const {
     register,
     formState: { errors },
+    trigger,
   } = useFormContext();
+  const { handleEditFormDraft, isLoading } = useEditFormDraft({
+    formId,
+    trigger,
+  });
 
   const dataInputField = [
     {
       type: "text",
-      name: `inputs.${props.index}.header`,
+      name: `inputs.${props.inputIdx}.header`,
       placeholder: "Nazwa pola",
     },
   ];
@@ -45,7 +48,7 @@ export default function EditFormInputs(props: Props) {
           <InputFields
             inputsData={dataInputField}
             register={register}
-            errorMsg={(errors.inputs as any)?.[props.index]?.header}
+            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
             onChange={handleEditFormDraft}
             isLoading={isLoading}
           />
@@ -53,7 +56,7 @@ export default function EditFormInputs(props: Props) {
         </div>
 
         <select
-          {...register(`inputs.${props.index}.type`)}
+          {...register(`inputs.${props.inputIdx}.type`)}
           className="h-fit border border-black"
         >
           {inputTypes.map((el) => (
@@ -69,7 +72,7 @@ export default function EditFormInputs(props: Props) {
         <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
       </div>
 
-      <RequiredToggleSwitch formId={props.formId} input={props.input} />
+      <RequiredToggleSwitch input={props.input} />
 
       <div>
         <RemoveInputBtn inputId={id as string} />

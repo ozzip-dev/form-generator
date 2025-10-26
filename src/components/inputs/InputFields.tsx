@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { FieldErrors, UseFormRegister, useFormContext } from "react-hook-form";
 import InputError from "./InputError";
 import DataLoader from "../ui/loaders/DataLoader";
+import { az } from "zod/v4/locales";
 
 type Props = {
   inputsData: {
@@ -22,37 +23,22 @@ type Props = {
 };
 
 const InputFields = (props: Props) => {
-  // let trigger: ((name?: string | string[]) => Promise<boolean>) | undefined;
-  // try {
-  //   const formContext = useFormContext();
-  //   trigger = formContext?.trigger;
-  // } catch {
-  //   trigger = undefined;
-  // }
+  // console.log("", props.errorMsg);
 
-  // const handleChange = async (name: string, value: string) => {
-  //   if (trigger) {
-  //     const isValid = await trigger(name);
-  //     if (!isValid) return;
-  //   }
-
-  //   if (props.onChange) {
-  //     props.onChange(name, value);
-  //   }
-  // };
-
-  const formContext = useFormContext();
-  const trigger = formContext?.trigger;
+  const form = useFormContext();
+  const trigger = form?.trigger;
 
   const handleChange = async (name: string, value: string) => {
-    if (!trigger) return;
+    if (trigger) {
+      const isValid = await trigger(name);
 
-    // ✅ używamy walidacji react-hook-form
-    const isValid = await trigger(name);
-    if (!isValid) return; // ❌ jeśli walidacja nie przeszła, nie wysyłamy
+      console.log("isValid", isValid);
+      if (!isValid) return;
+    }
 
-    // ✅ tylko wtedy, gdy dane są poprawne
-    props.onChange?.(name, value);
+    if (props.onChange) {
+      props.onChange(name, value);
+    }
   };
 
   return (
@@ -80,11 +66,7 @@ const InputFields = (props: Props) => {
                   `}
                   placeholder={placeholder}
                   {...props.register(name, {
-                    onChange: (e) => {
-                      const value = e.target.value;
-                      const inputName = name;
-                      handleChange(inputName, value);
-                    },
+                    onChange: (e) => props.onChange(name, e.target.value),
                   })}
                 />
 
