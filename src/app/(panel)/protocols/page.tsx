@@ -10,7 +10,7 @@ const PageProtocols = async () => {
   const serializedProtocols: ProtocolSerialized[] = protocols.map((item) =>
     serializeProtocol(item)
   );
-  return <Protocols protocols={protocols} />;
+  return <Protocols protocols={serializedProtocols} />;
 };
 
 export default PageProtocols;

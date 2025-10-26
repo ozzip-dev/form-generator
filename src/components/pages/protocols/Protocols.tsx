@@ -1,11 +1,28 @@
 "use client";
 
-import { Protocol } from "@/types/protocol";
+import { ProtocolSerialized } from "@/types/protocol";
 import { Binary } from "mongodb";
 import AddProtocolForm from "./AddProtocolForm";
+import ButtonClick from "@/components/ui/buttons/ButtonClick";
+import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { convertBToKB } from "@/lib/utils";
 
 type Props = {
-  protocols: Protocol[];
+  protocols: ProtocolSerialized[];
+};
+
+const mapFileExtensionName = (type: string): string => {
+  const extensionMap: Record<string, string> = {
+    "text/rtf": "rtf",
+    "application/vnd.oasis.opendocument.text": "odt",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+      "docx",
+    "application/pdf": "pdf",
+    "image/png": "png",
+    "image/jpeg": "jpg",
+  };
+
+  return extensionMap[type];
 };
 
 const getFileBlob = (data: Binary, type: string): Blob => {
@@ -31,16 +48,31 @@ const Protocols = ({ protocols }: Props) => {
   };
 
   return (
-    <>
-      <div>protokoły</div>
-      {protocols.map(({ name, data, type }, i) => (
-        <button onClick={() => saveFile(data, type, name)} key={i}>
-          Save
-        </button>
+    <div className="p-8">
+      {protocols.map(({ name, data, type, size, uploadedAt }, i) => (
+        <div
+          className="
+            grid grid-cols-[18rem_5rem_6rem_12rem_6rem]
+            items-center gap-2
+            mb-1
+          "
+          key={i}
+        >
+          <div>{name}</div>
+          <div>{mapFileExtensionName(type)}</div>
+          <div>{convertBToKB(size)} KB</div>
+          <div>{formatDateAndHour(uploadedAt)}</div>
+          <div>
+            <ButtonClick
+              message="Pobierz"
+              onClickAction={() => saveFile(data, type, name)}
+            />
+          </div>
+        </div>
       ))}
-      <div>{protocols?.length}</div>
+
       <AddProtocolForm />
-    </>
+    </div>
   );
 };
 

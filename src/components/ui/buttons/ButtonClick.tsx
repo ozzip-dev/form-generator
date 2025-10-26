@@ -24,15 +24,11 @@ const ButtonClick = (props: Props) => {
       bg-sky-500 hover:bg-sky-600
       disabled:opacity-70 disabled:cursor-not-allowed
       transition-colors duration-200
-      shadow-sm 
-      h-10  
+      shadow-sm
+      h-10
     `}
     >
-      {
-        props.isLoading ? (
-          <Loader />
-        ) : props.message || props.icon
-      }
+      {props.isLoading ? <Loader /> : props.message || props.icon}
     </button>
   );
 };

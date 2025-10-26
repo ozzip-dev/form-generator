@@ -3,6 +3,7 @@
 import { db } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
 import { Binary } from "mongodb";
+import { revalidateTag } from "next/cache";
 
 export async function UploadFile(file: File): Promise<void> {
   const arrayBuffer = await file.arrayBuffer();
@@ -19,4 +20,6 @@ export async function UploadFile(file: File): Promise<void> {
     uploadedAt: new Date(),
     data: new Binary(buffer),
   });
+
+  revalidateTag("protocols");
 }

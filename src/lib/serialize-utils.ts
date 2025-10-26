@@ -42,9 +42,10 @@ export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
     lastModifiedAt,
     uploadedBy,
   } = protocol;
+  const base64 = btoa(String.fromCharCode(...data.buffer));
   return {
     _id: _id?.toString(),
-    data,
+    data: base64,
     name,
     description,
     type,
