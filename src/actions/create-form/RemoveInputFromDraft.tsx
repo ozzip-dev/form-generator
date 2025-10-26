@@ -3,7 +3,7 @@
 import { Form, FormSerialized } from "@/types/form";
 import { db } from "@/lib/mongo";
 import { ObjectId, WithId } from "mongodb";
-import { serializeForm } from "@/lib/form-utils";
+import { serializeForm } from "@/lib/serialize-utils";
 import { revalidateTag } from "next/cache";
 import { removeInputFromDraft } from "@/services/input-service";
 import { checkFormHasInputWithId } from "../utils";
