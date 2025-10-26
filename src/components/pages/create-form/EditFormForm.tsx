@@ -3,16 +3,14 @@
 import EditFormInputs from "@/components/form/EditFormInputs";
 import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
-// import { handleEditFormDraft } from "@/components/pages/create-form/handleIEditFormDraft";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
 import { FormSerialized } from "@/types/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import DataLoader from "@/components/ui/loaders/DataLoader";
-import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 
 const dataInputsTitle = [
   {
@@ -55,7 +53,6 @@ export default function EditFormForm(props: Props) {
     mode: "all",
   });
 
-  console.log("", inputs);
   const {
     register,
     reset,
@@ -63,10 +60,7 @@ export default function EditFormForm(props: Props) {
     trigger,
   } = methods;
 
-  const { handleEditFormDraft, isLoading } = useEditFormDraft({
-    formId,
-    trigger,
-  });
+  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
 
   useEffect(() => {
     reset({
@@ -117,7 +111,7 @@ export default function EditFormForm(props: Props) {
                       key={el.id}
                       input={el}
                       inputIdx={idx}
-                      totalInputs={inputs.length}
+                      inputsLength={inputs.length}
                     />
                   </SuspenseErrorBoundary>
                 );

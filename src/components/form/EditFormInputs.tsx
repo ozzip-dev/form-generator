@@ -10,28 +10,37 @@ import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
+import { SelectControler } from "../inputs/SelectController";
+
+const dataSelectOptions = [
+  { label: "Odpowiedź krótka", value: "text" },
+  { label: "Ddpowiedź długa", value: "superText" },
+  { label: "Email", value: "email" },
+  { label: "Data", value: "date" },
+  { label: "Numer", value: "number" },
+  { label: "Wybór pojedynczy", value: "singleSelect" },
+  { label: "Wybór wielokrotny", value: "checkbox" },
+];
 
 type Props = {
   input: FormInput;
   inputIdx: number;
-  totalInputs: number;
+  inputsLength: number;
 };
 
 export default function EditFormInputs(props: Props) {
   const { id, required, order, type } = props.input;
   const inputTypes = Object.values(InputType);
-  const isLastInput = props.inputIdx === props.totalInputs - 1;
+  const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
 
   const {
     register,
     formState: { errors },
     trigger,
+    control,
   } = useFormContext();
-  const { handleEditFormDraft, isLoading } = useEditFormDraft({
-    formId,
-    trigger,
-  });
+  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
 
   const dataInputField = [
     {
@@ -55,16 +64,13 @@ export default function EditFormInputs(props: Props) {
           {required && "Required"}
         </div>
 
-        <select
-          {...register(`inputs.${props.inputIdx}.type`)}
-          className="h-fit border border-black"
-        >
-          {inputTypes.map((el) => (
-            <option key={el} value={el}>
-              {el}
-            </option>
-          ))}
-        </select>
+        <SelectControler
+          name={`inputs.${props.inputIdx}.type`}
+          control={control}
+          placeholder="Wybierz"
+          defaultValue="text"
+          options={dataSelectOptions}
+        />
       </div>
 
       <div className="flex flex-col justify-center gap-2">

@@ -90,24 +90,24 @@ const Select = (props: Props) => {
         <ul
           role="listbox"
           tabIndex={-1}
-          className=" relative -top-[50%]  translate-y-[-50%] z-10 mb-4 max-fit  overflow-auto rounded-lg border border-gray-200 bg-white shadow-md"
+          className="relative -top-[50%]  translate-y-[-50%] z-10 mb-4 max-fit  overflow-auto rounded-lg border border-gray-200 bg-white shadow-md"
         >
-          {props.options.map((opt) => (
+          {props.options.map((option) => (
             <li
-              key={opt.value}
+              key={option.value}
               role="option"
-              aria-selected={opt.value === selectedValue}
-              onClick={() => !opt.disabled && handleSelect(opt.value)}
+              aria-selected={option.value === selectedValue}
+              onClick={() => !option.disabled && handleSelect(option.value)}
               className={`px-3 py-2 text-sm hover:bg-sky-50 transition 
                 ${
-                  opt.disabled
+                  option.disabled
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
                 }
-                ${opt.value === selectedValue ? "bg-sky-100" : ""}
+                ${option.value === selectedValue ? "bg-sky-100" : ""}
                 ${props.optionClassName}`}
             >
-              {opt.label}
+              {option.label}
             </li>
           ))}
         </ul>

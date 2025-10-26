@@ -3,13 +3,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { EditFormAction } from "@/actions/create-form/EditFormAction";
 import { UseFormTrigger } from "react-hook-form";
+import { useErrorBoundary } from "react-error-boundary";
 
-type UseEditFormDraftArgs = {
-  formId?: string;
-  trigger?: UseFormTrigger<any>;
-};
-
-export function useEditFormDraft({ formId, trigger }: UseEditFormDraftArgs) {
+export function useEditFormDraft(
+  formId?: string,
+  trigger?: UseFormTrigger<any>
+) {
+  const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
   const debounceMap = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
@@ -36,7 +36,7 @@ export function useEditFormDraft({ formId, trigger }: UseEditFormDraftArgs) {
           setLoading((prev) => ({ ...prev, [name]: true }));
           await EditFormAction(formId, { [name]: value });
         } catch (err) {
-          console.error("Błąd edycji formularza:", err);
+          showBoundary(err);
         } finally {
           setLoading((prev) => ({ ...prev, [name]: false }));
           debounceMap.current.delete(key);
