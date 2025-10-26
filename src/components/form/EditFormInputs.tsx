@@ -69,7 +69,6 @@ export default function EditFormInputs(props: Props) {
           <SelectFieldControler
             name={`inputs.${props.inputIdx}.type`}
             control={control}
-            placeholder="Wybierz"
             defaultValue="text"
             options={dataSelectOptions}
           />

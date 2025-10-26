@@ -3,6 +3,7 @@
 import EditFormInputs from "@/components/form/EditFormInputs";
 import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
+import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { useEditFormDraft } from "@/hooks/useEditFormDraft";
@@ -11,6 +12,13 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+
+const dataSelectOptions = [
+  // { label: "Ankieta pracownicza", value: "text" },
+  { label: "Wybory społecznego inspektora pracy", value: "inspector" },
+  { label: "Referedum strajkowe", value: "strike" },
+  { label: "Inne", value: "other" },
+];
 
 const dataInputsTitle = [
   {
@@ -58,6 +66,7 @@ export default function EditFormForm(props: Props) {
     reset,
     formState: { errors },
     trigger,
+    control,
   } = methods;
 
   const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
@@ -84,8 +93,15 @@ export default function EditFormForm(props: Props) {
         </div>
 
         <form className="mt-4 space-y-2">
-          <FormTypeSelect register={register} />
-
+          {/* <FormTypeSelect register={register} /> */}
+          <div className="w-80">
+            <SelectFieldControler
+              name={`type`}
+              control={control}
+              defaultValue="inspector"
+              options={dataSelectOptions}
+            />
+          </div>
           <div className="w-48">
             <InputFields
               inputsData={dataInputsTitle}
