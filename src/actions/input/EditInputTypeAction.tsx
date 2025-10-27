@@ -7,7 +7,7 @@ import { checkFormHasInputWithId } from "../utils";
 import { updateFormInputType } from "@/services/input-service";
 import { InputType } from "@/enums/input";
 
-export async function EditType(
+export async function EditInputTypeAction(
   formIdString: string,
   inputId: string,
   type: InputType

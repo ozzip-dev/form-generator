@@ -15,7 +15,7 @@ export type Props = {
   options: Option[];
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => void | Promise<void>;
   label?: string;
   placeholder?: string;
   disabled?: boolean;

@@ -21,24 +21,6 @@ type Props = {
 };
 
 const InputFields = (props: Props) => {
-  // console.log("", props.errorMsg);
-
-  // const form = useFormContext();
-  // const trigger = form?.trigger;
-
-  // const handleChange = async (name: string, value: string) => {
-  //   if (trigger) {
-  //     const isValid = await trigger(name);
-
-  //     console.log("isValid", isValid);
-  //     if (!isValid) return;
-  //   }
-
-  //   if (props.onChange) {
-  //     props.onChange(name, value);
-  //   }
-  // };
-
   return (
     <>
       {props.inputsData.map(

@@ -5,12 +5,15 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../utils";
 import { updateFormInputTexts } from "@/services/input-service";
+import { requireUser } from "@/dataAccessLayer/queries";
 
 export async function EditInputsTextAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }
 ): Promise<void> {
+  requireUser();
+
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;

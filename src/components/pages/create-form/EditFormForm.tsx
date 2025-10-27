@@ -1,15 +1,16 @@
 "use client";
 
+import { EditFormAction } from "@/actions/create-form/EditFormAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { useEditFormDraft } from "@/hooks/useEditFormDraft";
+import { useEditFormDraftXX } from "@/hooks/useEditFormDraftXX";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -69,7 +70,12 @@ export default function EditFormForm(props: Props) {
     control,
   } = methods;
 
-  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
+  const { handleEdit, isLoading } = useEditFormDraftXX({
+    formId,
+    trigger,
+    action: EditFormAction,
+    mode: "form",
+  });
 
   useEffect(() => {
     reset({
@@ -104,8 +110,8 @@ export default function EditFormForm(props: Props) {
               defaultValue=""
               placeholder="Wybierz kategorię formularza"
               options={dataSelectOptions}
-              onChangeAction={(value) => {
-                handle(value);
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
               }}
             />
           </div>
@@ -114,7 +120,7 @@ export default function EditFormForm(props: Props) {
               inputsData={dataInputsTitle}
               register={register}
               errorMsg={errors}
-              onChange={handleEditFormDraft}
+              onChange={handleEdit}
               isLoading={isLoading}
             />
           </div>

@@ -1,4 +1,4 @@
-import { EditType } from "@/actions/input";
+import { EditInputTypeAction } from "@/actions/input";
 import { InputType } from "@/enums";
 import { FormInput } from "@/types/input";
 import { useEffect } from "react";
@@ -23,7 +23,7 @@ export default function EditFormInputType(props: Props) {
   const watchedType = watch(typeKey);
 
   useEffect(() => {
-    EditType(formId, inputId!, watchedType);
+    EditInputTypeAction(formId, inputId!, watchedType);
   }, [watchedType, formId, inputId]);
 
   useEffect(() => {
