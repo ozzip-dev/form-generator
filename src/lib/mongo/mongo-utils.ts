@@ -36,7 +36,7 @@ export const makeDbCollection = async (db: Db, model: DbModel) => {
 };
 
 /* queries */
-const getCollection = (db: Db, collectionName: string): Collection<Document> =>
+export const getCollection = (db: Db, collectionName: string): Collection<Document> =>
   db.collection(collectionName);
 
 export async function find(

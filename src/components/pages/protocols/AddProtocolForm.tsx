@@ -1,14 +1,16 @@
+"use client";
+
+import { ChangeEvent, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/useToast";
 import { UploadFile } from "@/actions/protocol";
 import InputError from "@/components/inputs/InputError";
 import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
-import { useToast } from "@/hooks/useToast";
 import {
   uploadProtocolSchema,
   UploadProtocolSchema,
 } from "@/lib/zodShema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent, useRef } from "react";
-import { useForm } from "react-hook-form";
 
 const AddProtocolForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
