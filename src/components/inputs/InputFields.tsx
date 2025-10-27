@@ -46,6 +46,7 @@ const InputFields = (props: Props) => {
       {props.inputsData.map(
         ({ label, name, placeholder, type, defaultValue }) => {
           return (
+            // TODO: make a separate component for input field
             <div key={name}>
               {label && (
                 <label htmlFor={name} className="text-lg  block">

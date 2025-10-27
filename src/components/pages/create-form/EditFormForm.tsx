@@ -1,7 +1,6 @@
 "use client";
 
 import EditFormInputs from "@/components/form/EditFormInputs";
-import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
@@ -10,9 +9,9 @@ import { useEditFormDraft } from "@/hooks/useEditFormDraft";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { az } from "zod/v4/locales";
 
 const dataSelectOptions = [
   // { label: "Ankieta pracownicza", value: "text" },
@@ -124,6 +123,7 @@ export default function EditFormForm(props: Props) {
             <div className="w-48"></div>
             {inputs
               .sort((a, b) => a.order - b.order)
+
               .map((el, idx) => {
                 return (
                   <SuspenseErrorBoundary

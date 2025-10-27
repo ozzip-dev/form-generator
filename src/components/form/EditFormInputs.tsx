@@ -11,7 +11,6 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
-import { az } from "zod/v4/locales";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -82,8 +81,8 @@ export default function EditFormInputs(props: Props) {
         </div>
 
         <div className="flex flex-col justify-center gap-2">
-          <MoveInputUpBtn inputId={id as string} removeBtn={order} />
-          <MoveInputDownBtn inputId={id as string} isLast={isLastInput} />
+          {order > 0 && <MoveInputUpBtn inputId={id as string} />}
+          {!isLastInput && <MoveInputDownBtn inputId={id as string} />}
         </div>
 
         <RequiredToggleSwitch input={props.input} />

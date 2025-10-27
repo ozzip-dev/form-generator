@@ -6,7 +6,6 @@ import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
-  isLast: boolean;
 };
 
 const MoveInputDownBtn = (props: Props) => {
@@ -19,9 +18,8 @@ const MoveInputDownBtn = (props: Props) => {
   return (
     <>
       {isLoading && <FullscreenLoader />}
-      {!props.isLast && (
-        <Button type="button" message="v" onClickAction={runAction} />
-      )}
+
+      <Button type="button" message="v" onClickAction={runAction} />
     </>
   );
 };

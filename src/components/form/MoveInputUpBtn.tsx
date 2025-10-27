@@ -6,7 +6,6 @@ import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
-  removeBtn: number;
 };
 
 const MoveInputUpBtn = (props: Props) => {
@@ -19,9 +18,7 @@ const MoveInputUpBtn = (props: Props) => {
   return (
     <>
       {isLoading && <FullscreenLoader />}
-      {props.removeBtn > 0 && (
-        <Button type="button" message="^" onClickAction={runAction} />
-      )}{" "}
+      <Button type="button" message="^" onClickAction={runAction} />
     </>
   );
 };
