@@ -12,6 +12,7 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { az } from "zod/v4/locales";
 
 const dataSelectOptions = [
   // { label: "Ankieta pracownicza", value: "text" },
@@ -80,6 +81,10 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
+  const handle = (value: any) => {
+    console.log("", value);
+  };
+
   return (
     <FormProvider {...methods}>
       <div className="p-4">
@@ -93,13 +98,16 @@ export default function EditFormForm(props: Props) {
         </div>
 
         <form className="mt-4 space-y-2">
-          {/* <FormTypeSelect register={register} /> */}
           <div className="w-80">
             <SelectFieldControler
               name={`type`}
               control={control}
-              defaultValue="inspector"
+              defaultValue=""
+              placeholder="Wybierz kategorię formularza"
               options={dataSelectOptions}
+              onChangeAction={(value) => {
+                handle(value);
+              }}
             />
           </div>
           <div className="w-48">

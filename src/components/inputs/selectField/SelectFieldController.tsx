@@ -11,6 +11,7 @@ type Props<T extends FieldValues> = {
   options: Option[];
   placeholder?: string;
   defaultValue?: string;
+  onChangeAction?: (value: string) => void | Promise<void>;
 };
 
 export const SelectFieldControler = <T extends FieldValues>(
@@ -27,6 +28,10 @@ export const SelectFieldControler = <T extends FieldValues>(
           placeholder={props.placeholder}
           defaultValue={props.defaultValue}
           errorMsg={fieldState.error?.message}
+          onChange={(val) => {
+            field.onChange(val);
+            props.onChangeAction?.(val);
+          }}
         />
       )}
     />

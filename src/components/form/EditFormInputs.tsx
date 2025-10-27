@@ -11,6 +11,7 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
+import { az } from "zod/v4/locales";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -41,6 +42,9 @@ export default function EditFormInputs(props: Props) {
     control,
   } = useFormContext();
   const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
+  const handle = (value: any) => {
+    console.log("", value);
+  };
 
   const dataInputField = [
     {
@@ -71,6 +75,9 @@ export default function EditFormInputs(props: Props) {
             control={control}
             defaultValue="text"
             options={dataSelectOptions}
+            onChangeAction={(value) => {
+              handle(value);
+            }}
           />
         </div>
 

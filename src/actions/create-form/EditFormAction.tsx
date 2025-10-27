@@ -33,7 +33,7 @@ export async function EditFormAction(
       new ObjectId(formId),
       updateData
     );
-    // console.log("sxxx", result);
+
     if (!result) {
       return { error: "Nie udało się zaktualizować formularza" };
     }
