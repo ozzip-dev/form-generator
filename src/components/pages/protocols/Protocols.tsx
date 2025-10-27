@@ -11,8 +11,6 @@ type Props = {
   protocols: ProtocolSerialized[];
 };
 
-
-
 const Protocols = ({ protocols }: Props) => {
   const [filters, setFilters] = useState<ProtocolFilters>(filtersDefault);
 
