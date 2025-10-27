@@ -1,4 +1,4 @@
 export { MoveInputUp, MoveInputDown } from "./MoveInput";
 export { ToggleRequired } from "./ToggleRequired";
-export { EditTexts } from "./EditTexts";
+export { EditInputsTextAction } from "./EditInputsTextsAction";
 export { EditType } from "./EditType";

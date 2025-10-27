@@ -11,6 +11,7 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
+import { useEditFormInput } from "@/hooks/useEditFormInput";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -33,14 +34,19 @@ export default function EditFormInputs(props: Props) {
   const inputTypes = Object.values(InputType);
   const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
-
   const {
     register,
     formState: { errors },
     trigger,
     control,
   } = useFormContext();
-  const { handleEditFormDraft, isLoading } = useEditFormDraft(formId, trigger);
+
+  const { handleEditFormDraft, isLoading } = useEditFormInput(
+    formId,
+    id,
+    trigger
+  );
+
   const handle = (value: any) => {
     console.log("", value);
   };
@@ -49,6 +55,13 @@ export default function EditFormInputs(props: Props) {
     {
       type: "text",
       name: `inputs.${props.inputIdx}.header`,
+      placeholder: "Nazwa pola",
+    },
+  ];
+  const dataInputFieldx = [
+    {
+      type: "text",
+      name: `inputs.${props.inputIdx}.description`,
       placeholder: "Nazwa pola",
     },
   ];
@@ -66,6 +79,14 @@ export default function EditFormInputs(props: Props) {
               onChange={handleEditFormDraft}
               isLoading={isLoading}
             />
+            <InputFields
+              inputsData={dataInputFieldx}
+              register={register}
+              errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
+              onChange={handleEditFormDraft}
+              isLoading={isLoading}
+            />
+
             {required && "Required"}
           </div>
 
@@ -90,9 +111,6 @@ export default function EditFormInputs(props: Props) {
         <div>
           <RemoveInputBtn inputId={id as string} />
         </div>
-      </div>
-      <div>
-        {header} {type}
       </div>
     </>
   );

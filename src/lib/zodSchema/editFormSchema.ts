@@ -5,6 +5,11 @@ export const inputItemSchema = z.object({
     .min(2, { message: "Min. 2 litery" })
     .max(20, { message: "Max. 20 liter" })
     .optional(),
+  description: z
+    .string()
+    .min(2, { message: "Min. 2 litery" })
+    .max(20, { message: "Max. 20 liter" })
+    .optional(),
   type: z.string().nonempty({ message: "Wymagane" }),
   required: z.boolean().optional(),
 });

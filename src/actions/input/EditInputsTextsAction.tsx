@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../utils";
 import { updateFormInputTexts } from "@/services/input-service";
 
-export async function EditTexts(
+export async function EditInputsTextAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }

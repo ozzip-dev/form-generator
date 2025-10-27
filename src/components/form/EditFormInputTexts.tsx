@@ -1,4 +1,4 @@
-import { EditTexts } from "@/actions/input";
+import { EditInputsTextAction } from "@/actions/input";
 import { FormInput } from "@/types/input";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
@@ -25,7 +25,7 @@ export default function EditFormInputTexts(props: Props) {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      EditTexts(formId, inputId!, {
+      EditInputsTextAction(formId, inputId!, {
         header: watchedHeader,
         description: watchedDescription,
       });
