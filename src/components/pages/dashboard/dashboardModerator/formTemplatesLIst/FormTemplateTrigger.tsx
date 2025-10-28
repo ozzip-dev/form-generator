@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
+import Button from "@/components/ui/buttons/Button";
 import UseCreateForm from "@/hooks/useCreateForm";
 
 type Props = {
@@ -11,7 +11,7 @@ const FormTemplateTrigger = (props: Props) => {
   const { handleCreateForm, isloading } = UseCreateForm(props.templateName);
 
   return (
-    <ButtonClick
+    <Button
       message={props.templateName}
       onClickAction={handleCreateForm}
       isLoading={isloading}

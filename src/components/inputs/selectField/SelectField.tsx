@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import InputError from "./InputError";
 import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
+import InputError from "../InputError";
 
 export type Option = {
   label: string;
@@ -15,7 +15,7 @@ export type Props = {
   options: Option[];
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string) => void | Promise<void>;
   label?: string;
   placeholder?: string;
   disabled?: boolean;
@@ -24,28 +24,17 @@ export type Props = {
   optionClassName?: string;
 };
 
-const Select = (props: Props) => {
+const SelectField = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const [internalValue, setInternalValue] = useState(props.defaultValue || "");
   const ref = useRef<HTMLDivElement>(null);
 
-  const isControlled = props.value !== undefined;
-  const selectedValue = isControlled ? props.value : internalValue;
-
+  const selectedValue = props.value ?? props.defaultValue ?? "";
   const selectedOption = props.options.find((o) => o.value === selectedValue);
 
   const handleSelect = (val: string) => {
-    if (!isControlled) setInternalValue(val);
     props.onChange?.(val);
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (!isControlled && props.defaultValue) {
-      setInternalValue(props.defaultValue);
-      props.onChange?.(props.defaultValue);
-    }
-  }, [props, isControlled]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -75,7 +64,7 @@ const Select = (props: Props) => {
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => !props.disabled && setOpen((o) => !o)}
-        className={`w-full flex justify-between items-center border rounded-lg p-1 text-left 
+        className={`w-full flex justify-between items-center border rounded-lg p-1 text-left
           focus:outline-none focus:ring-2 focus:ring-sky-500 transition
           ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           ${props.errorMsg ? "border-red-500" : "border-gray-300"}`}
@@ -90,24 +79,24 @@ const Select = (props: Props) => {
         <ul
           role="listbox"
           tabIndex={-1}
-          className=" relative -top-[50%]  translate-y-[-50%] z-10 mb-4 max-fit  overflow-auto rounded-lg border border-gray-200 bg-white shadow-md"
+          className="relative -top-[50%]  translate-y-[-50%] z-10 mb-4 max-fit  overflow-auto rounded-lg border border-gray-200 bg-white shadow-md"
         >
-          {props.options.map((opt) => (
+          {props.options.map((option) => (
             <li
-              key={opt.value}
+              key={option.value}
               role="option"
-              aria-selected={opt.value === selectedValue}
-              onClick={() => !opt.disabled && handleSelect(opt.value)}
-              className={`px-3 py-2 text-sm hover:bg-sky-50 transition 
+              aria-selected={option.value === selectedValue}
+              onClick={() => !option.disabled && handleSelect(option.value)}
+              className={`px-3 py-2 text-sm hover:bg-sky-50 transition
                 ${
-                  opt.disabled
+                  option.disabled
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
                 }
-                ${opt.value === selectedValue ? "bg-sky-100" : ""}
+                ${option.value === selectedValue ? "bg-sky-100" : ""}
                 ${props.optionClassName}`}
             >
-              {opt.label}
+              {option.label}
             </li>
           ))}
         </ul>
@@ -117,5 +106,4 @@ const Select = (props: Props) => {
     </div>
   );
 };
-
-export default Select;
+export default SelectField;

@@ -1,17 +1,27 @@
 "use client";
 
-import { EditFormAction } from "@/actions/create-form/EditFormAction";
+import { EditFormHeaderAction } from "@/actions/edit-form/EditFormHeaderAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
-import FormTypeSelect from "@/components/form/FormTypeSelect";
 import InputFields from "@/components/inputs/InputFields";
+import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
+import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
+import FullscreenLoader from "@/components/ui/loaders/FullscreenLoader";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
-import { FormType } from "@/enums/form";
+import { useEditForm } from "@/hooks/useEditForm";
+import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
-import { FormInput } from "@/types/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
-const dataInputsTitle = [
+const dataSelectOptions = [
+  { label: "Ankieta pracownicza", value: "text" },
+  { label: "Wybory społecznego inspektora pracy", value: "inspector" },
+  { label: "Referedum strajkowe", value: "strike" },
+  { label: "Inne", value: "other" },
+];
+
+const dataInputsFormTitle = [
   {
     label: "Tytuł",
     name: "title",
@@ -40,28 +50,32 @@ export default function EditFormForm(props: Props) {
     inputs,
     type,
   } = props.form;
-  const created = formatDateAndHour(createdAt);
-  const updated = formatDateAndHour(updatedAt);
 
-  const methods = useForm();
+  const methods = useForm<EditFormSchema>({
+    resolver: zodResolver(editFormSchema),
+    defaultValues: {
+      title,
+      description,
+      type,
+      inputs,
+    },
+    mode: "all",
+  });
 
   const {
-    watch,
-    control,
     register,
-    setValue,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
+    trigger,
+    control,
   } = methods;
 
-  const watched = watch();
-
-  const handleUpdateInput = async (id: string, data: Partial<FormInput>) => {
-    // if (props.updateInput) {
-    //   await props.updateInput(id, data);
-    // }
-    console.log("update input", id, data);
-  };
+  const { handleEdit, isLoading } = useEditForm({
+    formId,
+    trigger,
+    action: EditFormHeaderAction,
+    mode: "formHeader",
+  });
 
   useEffect(() => {
     reset({
@@ -72,42 +86,41 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
-  const { _id } = props.form;
-
-  useEffect(() => {
-    if (!watched.type) return;
-    const timeout = setTimeout(async () => {
-      await EditFormAction(_id!, {
-        title: watched.title,
-        description: watched.description,
-        type: watched.type as FormType,
-      });
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [watched.title, watched.description, watched.type, _id]);
-
-  useEffect(() => {
-    setValue("title", title);
-    setValue("description", description);
-    setValue("type", type);
-  }, [title, description, type, setValue]);
+  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
     <FormProvider {...methods}>
+      {loadingForm && <FullscreenLoader />}
       <div className="p-4">
         <div className="flex justify-between">
-          <div className="text-xs text-gray-400 mt-1">Utworzono: {created}</div>
-          <div className="text-xs text-gray-400 mt-1">Edytowano: {updated}</div>
+          <div className="text-xs text-gray-400 mt-1">
+            Edytowano: {formatDateAndHour(updatedAt)}
+          </div>
+          <div className="text-xs text-gray-400 mt-1">
+            Utworzono: {formatDateAndHour(createdAt)}
+          </div>
         </div>
 
         <form className="mt-4 space-y-2">
-          <FormTypeSelect register={register} />
-
+          <div className="w-80">
+            <SelectFieldControler
+              name={`type`}
+              control={control}
+              defaultValue=""
+              placeholder="Wybierz kategorię formularza"
+              options={dataSelectOptions}
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
+              }}
+            />
+          </div>
           <div className="w-48">
             <InputFields
-              inputsData={dataInputsTitle}
+              inputsData={dataInputsFormTitle}
               register={register}
               errorMsg={errors}
+              onChange={handleEdit}
+              isLoading={isLoading}
             />
           </div>
 
@@ -115,16 +128,23 @@ export default function EditFormForm(props: Props) {
             <div className="w-48"></div>
             {inputs
               .sort((a, b) => a.order - b.order)
-              .map((el, index) => (
-                <EditFormInputs
-                  key={el.id}
-                  input={el}
-                  index={index}
-                  formId={formId!}
-                  totalInputs={inputs.length}
-                  updateInput={handleUpdateInput}
-                />
-              ))}
+
+              .map((el, idx) => {
+                return (
+                  <SuspenseErrorBoundary
+                    key={el.id}
+                    size="sm"
+                    errorMessage="Błąd przesyłu danych formularza"
+                  >
+                    <EditFormInputs
+                      key={el.id}
+                      input={el}
+                      inputIdx={idx}
+                      inputsLength={inputs.length}
+                    />
+                  </SuspenseErrorBoundary>
+                );
+              })}
           </div>
         </form>
       </div>

@@ -1,22 +1,28 @@
 "use client";
 
-import { ToggleRequired } from "@/actions/input";
+import { ToggleRequired } from "@/actions/input/ToggleRequired";
 import { FormInput } from "@/types/input";
+import { useParams } from "next/navigation";
 
 interface Props {
-  formId: string;
   input: FormInput;
 }
 
-export default function RequiredToggleSwitch({ formId, input }: Props) {
+export default function RequiredToggleSwitch(props: Props) {
+  const { formId } = useParams();
+
   const handleToggle = async () => {
-    await ToggleRequired(formId, input.id!);
+    await ToggleRequired(formId as string, props.input.id!);
   };
 
   return (
     <div className="flex gap-2 items-center">
       <div>Required</div>
-      <input type="checkbox" checked={input.required} onChange={handleToggle} />
+      <input
+        type="checkbox"
+        checked={props.input.required}
+        onChange={handleToggle}
+      />
     </div>
   );
 }

@@ -1,26 +1,33 @@
 "use client";
 
 import { RemoveInputFromDraft } from "@/actions/create-form";
-import ButtonClick from "../ui/buttons/ButtonClick";
-import { useParams } from "next/navigation";
+import { useAsyncAction } from "@/hooks/useAsyncAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
+import { useParams } from "next/navigation";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import Button from "../ui/buttons/Button";
 
 type Props = {
-  id: string;
+  inputId: string;
 };
 
 function RemoveInputBtn(props: Props) {
   const { formId } = useParams();
 
-  async function handleRemoveInput(): Promise<void> {
-    await RemoveInputFromDraft(formId as string, props.id);
-  }
+  const { runAction, isLoading } = useAsyncAction(async () => {
+    await RemoveInputFromDraft(formId as string, props.inputId);
+  });
 
   return (
-    <ButtonClick
-      icon={<IconTrash style="h-5 w-5 bg-white" />}
-      onClickAction={handleRemoveInput}
-    />
+    <>
+      {isLoading && <FullscreenLoader />}
+
+      <Button
+        type="button"
+        icon={<IconTrash style="h-5 w-5 bg-white" />}
+        onClickAction={runAction}
+      />
+    </>
   );
 }
 

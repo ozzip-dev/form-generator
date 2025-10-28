@@ -5,14 +5,14 @@ import { useToast } from "@/hooks/useToast";
 import {
   TResetPasswordShema,
   resetPasswordSchema,
-} from "@/lib/zodShema/zodAuthShema/resetPasswordSchema";
+} from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 import { ActionResetPassword } from "@/actions/auth/ActionResetPassword";
+import Button from "../ui/buttons/Button";
 
 const dataInputsResetPassword = [
   {
@@ -75,7 +75,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             register={register}
             errorMsg={errors}
           />
-          <ButtonSubmit isSubmitting={isSubmitting} message="Zmień hasło" />
+          <Button isLoading={isSubmitting} message="Zmień hasło" />
         </form>
 
         <FormAuthFooter

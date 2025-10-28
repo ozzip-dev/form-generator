@@ -4,7 +4,7 @@ import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db, findById, updateById } from "@/lib/mongo";
-import { addFormFieldSchema } from "@/lib/zodShema/addFormFieldShema";
+import { addFormFieldSchema } from "@/lib/zodSchema/addFormFieldShema";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
@@ -12,7 +12,7 @@ import { revalidateTag } from "next/cache";
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
-  const orderValues: number[] = form.inputs.map( ({ order }) => order);
+  const orderValues: number[] = form.inputs.map(({ order }) => order);
   if (!orderValues.length) return 0;
   const maxOrder = Math.max(...orderValues);
   return maxOrder + 1;
@@ -80,7 +80,7 @@ export async function AddFormFieldAction(
 
     return serializeForm(result as Form);
   } catch (err: any) {
-    console.error("Błąd AddInputToDraft:", err);
+    console.error("Błąd AddFormFieldAction:", err);
     throw new Error(`Błąd: ${err}`);
   }
 }

@@ -7,11 +7,13 @@ import { serializeForm } from "@/lib/form-utils";
 import { revalidateTag } from "next/cache";
 import { removeInputFromDraft } from "@/services/input-service";
 import { checkFormHasInputWithId } from "../utils";
+import { requireUser } from "@/dataAccessLayer/queries";
 
 export async function RemoveInputFromDraft(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {
+  requireUser();
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;

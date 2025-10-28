@@ -6,12 +6,12 @@ import { useToast } from "@/hooks/useToast";
 import {
   TSignUpShema,
   signUpSchema,
-} from "@/lib/zodShema/zodAuthShema/signupSchema";
+} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import ButtonSubmit from "../ui/buttons/ButtonSubmit";
 import InputFields from "../inputs/InputFields";
+import Button from "../ui/buttons/Button";
 
 const dataInputsSignUp = [
   {
@@ -100,8 +100,7 @@ const SignUp = () => {
             register={register}
             errorMsg={errors}
           />
-
-          <ButtonSubmit isSubmitting={isSubmitting} message="Załóż konto" />
+          <Button isLoading={isSubmitting} message="Załóż konto" />
         </form>
 
         <div className="flex flex-col space-y-4">

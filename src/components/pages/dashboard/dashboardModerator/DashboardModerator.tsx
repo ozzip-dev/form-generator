@@ -13,6 +13,7 @@ const DashboardModerator = async () => {
       <SuspenseErrorBoundary
         errorMessage="Błąd ładowania listy formularzy"
         loadingMessage="Ładowanie listy formularzy"
+        size="lg"
       >
         <FormsLIst />
       </SuspenseErrorBoundary>

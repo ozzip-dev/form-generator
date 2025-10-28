@@ -1,5 +1,5 @@
-import DataLoading from "@/components/ui/loaders/DataLoading";
+import DataLoader from "@/components/ui/loaders/DataLoader";
 
 export default function LoadingPageDashboardModerator() {
-  return <DataLoading className="min-h-[400px]" message="Ładowanie panelu" />;
+  return <DataLoader className="min-h-[400px]" message="Ładowanie panelu" />;
 }

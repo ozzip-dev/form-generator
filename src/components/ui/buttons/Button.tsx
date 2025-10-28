@@ -1,20 +1,18 @@
 import Loader from "../loaders/Loader";
 
-// TODO Krzysztof: zmieńmy nazwę na Button i dodajmy props typu 'type': 'submit' | 'button'
-// wtedy będziemy mieli jeden uniwersalny komponent do przycisków z którego będą korzystać pozostałe
-// Nazwy pozostałych przycisków zmieńmy na SubmitButton, LinkButton itd.
-
 type Props = {
   isLoading?: boolean;
   message?: string;
-  onClickAction: (...args: any[]) => void | Promise<void>;
   icon?: React.ReactNode;
+  onClickAction?: (...args: any[]) => void | Promise<void>;
+  type?: "button" | "submit";
+  className?: string;
 };
 
-const ButtonClick = (props: Props) => {
+const Button = (props: Props) => {
   return (
     <button
-      type="button"
+      type={props.type}
       onClick={props.onClickAction}
       disabled={props.isLoading}
       className={`
@@ -26,15 +24,12 @@ const ButtonClick = (props: Props) => {
       transition-colors duration-200
       shadow-sm 
       h-10  
+      ${props.className}
     `}
     >
-      {
-        props.isLoading ? (
-          <Loader />
-        ) : props.message || props.icon
-      }
+      {props.isLoading ? <Loader /> : props.message || props.icon}
     </button>
   );
 };
 
-export default ButtonClick;
+export default Button;

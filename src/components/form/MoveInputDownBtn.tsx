@@ -1,24 +1,25 @@
-import { MoveInputDown } from "@/actions/input";
-import ButtonClick from "../ui/buttons/ButtonClick";
+import { MoveInputDown } from "@/actions/edit-form/MoveInput";
 import { useParams } from "next/navigation";
+import { useAsyncAction } from "@/hooks/useAsyncAction";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import Button from "../ui/buttons/Button";
 
 type Props = {
   inputId: string;
-  isLast: boolean;
 };
 
 const MoveInputDownBtn = (props: Props) => {
   const { formId } = useParams();
 
-  async function handleRemoveInput(): Promise<void> {
+  const { runAction, isLoading } = useAsyncAction(async () => {
     await MoveInputDown(formId as string, props.inputId);
-  }
+  });
 
   return (
     <>
-      {!props.isLast && (
-        <ButtonClick message="v" onClickAction={handleRemoveInput} />
-      )}
+      {isLoading && <FullscreenLoader />}
+
+      <Button type="button" message="v" onClickAction={runAction} />
     </>
   );
 };

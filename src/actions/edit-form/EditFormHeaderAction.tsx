@@ -4,15 +4,15 @@ import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db } from "@/lib/mongo";
-import { editFormSchema, EditFormSchema } from "@/lib/zodShema/editFormSchema";
+import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { updateForm } from "@/services/form-service";
 import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-export async function EditFormAction(
+export async function EditFormHeaderAction(
   formId: string,
-  updateData: EditFormSchema
+  updateData: any
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
 
@@ -23,10 +23,9 @@ export async function EditFormAction(
     type,
   });
 
-  if (!validationResult.success) {
-    console.log("");
-    return { error: handleServerErrors(validationResult.error) };
-  }
+  // if (!validationResult.success) {
+  //   return { error: handleServerErrors(validationResult.error) };
+  // }
 
   try {
     const result: WithId<Form> = await updateForm(

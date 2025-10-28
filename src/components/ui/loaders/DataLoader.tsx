@@ -6,7 +6,7 @@ type Props = {
   className?: string;
 };
 
-export default function DataLoading(props: Props) {
+export default function DataLoader(props: Props) {
   return (
     <div className={`flex items-center justify-center ${props.className}`}>
       <div className="text-center flex items-center flex-col">

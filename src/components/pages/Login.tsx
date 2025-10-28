@@ -9,11 +9,11 @@ import { useToast } from "@/hooks/useToast";
 import {
   loginSchema,
   TLoginSchema,
-} from "@/lib/zodShema/zodAuthShema/loginSchema";
+} from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import ButtonSubmit from "../ui/buttons/ButtonSubmit";
+import Button from "../ui/buttons/Button";
 
 const ToastsData: ModelToast[] = [
   {
@@ -116,7 +116,7 @@ const Login = () => {
               Nie pamiętasz hasła?
             </Link>
           </div>
-          <ButtonSubmit isSubmitting={isSubmitting} message="Zaloguj" />
+          <Button isLoading={isSubmitting} message="Zaloguj" />
         </form>
       </div>
     </div>
