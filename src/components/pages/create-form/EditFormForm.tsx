@@ -5,6 +5,7 @@ import EditFormInputs from "@/components/form/EditFormInputs";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
+import FullscreenLoader from "@/components/ui/loaders/FullscreenLoader";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 import { useEditForm } from "@/hooks/useEditForm";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
@@ -14,7 +15,7 @@ import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 const dataSelectOptions = [
-  // { label: "Ankieta pracownicza", value: "text" },
+  { label: "Ankieta pracownicza", value: "text" },
   { label: "Wybory społecznego inspektora pracy", value: "inspector" },
   { label: "Referedum strajkowe", value: "strike" },
   { label: "Inne", value: "other" },
@@ -85,8 +86,11 @@ export default function EditFormForm(props: Props) {
     });
   }, [inputs, title, description, type, reset]);
 
+  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+
   return (
     <FormProvider {...methods}>
+      {loadingForm && <FullscreenLoader />}
       <div className="p-4">
         <div className="flex justify-between">
           <div className="text-xs text-gray-400 mt-1">

@@ -7,7 +7,7 @@ import { checkFormHasInputWithId } from "../utils";
 import { updateFormInputTexts } from "@/services/input-service";
 import { requireUser } from "@/dataAccessLayer/queries";
 
-export async function EditInputsTextAction(
+export async function EditInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }

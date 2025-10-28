@@ -26,26 +26,15 @@ export type Props = {
 
 const SelectField = (props: Props) => {
   const [open, setOpen] = useState(false);
-  const [internalValue, setInternalValue] = useState(props.defaultValue || "");
   const ref = useRef<HTMLDivElement>(null);
 
-  const isControlled = props.value !== undefined;
-  const selectedValue = isControlled ? props.value : internalValue;
-
+  const selectedValue = props.value ?? props.defaultValue ?? "";
   const selectedOption = props.options.find((o) => o.value === selectedValue);
 
   const handleSelect = (val: string) => {
-    if (!isControlled) setInternalValue(val);
     props.onChange?.(val);
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (!isControlled && props.defaultValue) {
-      setInternalValue(props.defaultValue);
-      props.onChange?.(props.defaultValue);
-    }
-  }, [props, isControlled]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -75,7 +64,7 @@ const SelectField = (props: Props) => {
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => !props.disabled && setOpen((o) => !o)}
-        className={`w-full flex justify-between items-center border rounded-lg p-1 text-left 
+        className={`w-full flex justify-between items-center border rounded-lg p-1 text-left
           focus:outline-none focus:ring-2 focus:ring-sky-500 transition
           ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           ${props.errorMsg ? "border-red-500" : "border-gray-300"}`}
@@ -98,7 +87,7 @@ const SelectField = (props: Props) => {
               role="option"
               aria-selected={option.value === selectedValue}
               onClick={() => !option.disabled && handleSelect(option.value)}
-              className={`px-3 py-2 text-sm hover:bg-sky-50 transition 
+              className={`px-3 py-2 text-sm hover:bg-sky-50 transition
                 ${
                   option.disabled
                     ? "opacity-50 cursor-not-allowed"
@@ -117,5 +106,4 @@ const SelectField = (props: Props) => {
     </div>
   );
 };
-
 export default SelectField;

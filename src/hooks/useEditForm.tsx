@@ -7,7 +7,7 @@ import { useErrorBoundary } from "react-error-boundary";
 type UseEditOptions = {
   formId?: string;
   inputId?: string;
-  trigger?: UseFormTrigger<any>;
+  trigger: UseFormTrigger<any>;
   action: (formId: string, ...args: any[]) => Promise<any>;
   mode: "formHeader" | "inputLabel" | "inputType";
 };

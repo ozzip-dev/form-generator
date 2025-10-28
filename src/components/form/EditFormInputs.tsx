@@ -10,8 +10,9 @@ import { SelectFieldControler } from "../inputs/selectField/SelectFieldControlle
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
-import { EditInputsTextAction } from "@/actions/edit-form/EditInputsTextsAction";
+import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
 import { EditInputTypeAction } from "@/actions/edit-form/EditInputTypeAction";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -40,15 +41,15 @@ export default function EditFormInputs(props: Props) {
     control,
   } = useFormContext();
 
-  const { handleEdit, isLoading } = useEditForm({
+  const { handleEdit, isLoading: isLoadingLabel } = useEditForm({
     formId,
     inputId,
     trigger,
-    action: EditInputsTextAction,
+    action: EditInputLabelAction,
     mode: "inputLabel",
   });
 
-  const { handleEdit: handleEditType, isLoading: isLOadingType } = useEditForm({
+  const { handleEdit: handleEditType, isLoading: isLoadingType } = useEditForm({
     formId,
     inputId,
     trigger,
@@ -56,14 +57,19 @@ export default function EditFormInputs(props: Props) {
     mode: "inputType",
   });
 
-  const dataInputField = [
+  const isAnyLoading = [
+    ...Object.values(isLoadingLabel ?? {}),
+    ...Object.values(isLoadingType ?? {}),
+  ].some(Boolean);
+
+  const dataInputLabel = [
     {
       type: "text",
       name: `inputs.${props.inputIdx}.header`,
       placeholder: "Nazwa pola",
     },
   ];
-  const dataInputFieldx = [
+  const dataInputDescription = [
     {
       type: "text",
       name: `inputs.${props.inputIdx}.description`,
@@ -72,51 +78,47 @@ export default function EditFormInputs(props: Props) {
   ];
 
   return (
-    <>
-      {" "}
-      <div className="flex gap-2 items-center p-2 bg-slate-200">
-        <div className="w-96 flex">
-          <div className="mr-4">
-            <InputFields
-              inputsData={dataInputField}
-              register={register}
-              errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-              onChange={handleEdit}
-              isLoading={isLoading}
-            />
-            <InputFields
-              inputsData={dataInputFieldx}
-              register={register}
-              errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
-              onChange={handleEdit}
-              isLoading={isLoading}
-            />
-
-            {required && "Required"}
-          </div>
-
-          <SelectFieldControler
-            name={`inputs.${props.inputIdx}.type`}
-            control={control}
-            // defaultValue={type}
-            options={dataSelectOptions}
-            onChangeAction={(name, value) => {
-              handleEditType(name, value);
-            }}
+    <div className="flex gap-2 items-center p-2 bg-slate-200">
+      {isAnyLoading && <FullscreenLoader />}
+      <div className="w-96 flex">
+        <div className="mr-4">
+          <InputFields
+            inputsData={dataInputLabel}
+            register={register}
+            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
+            onChange={handleEdit}
           />
+          <InputFields
+            inputsData={dataInputDescription}
+            register={register}
+            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
+            onChange={handleEdit}
+          />
+
+          {required && "Required"}
         </div>
 
-        <div className="flex flex-col justify-center gap-2">
-          {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
-          {!isLastInput && <MoveInputDownBtn inputId={inputId as string} />}
-        </div>
-
-        <RequiredToggleSwitch input={props.input} />
-
-        <div>
-          <RemoveInputBtn inputId={inputId as string} />
-        </div>
+        <SelectFieldControler
+          name={`inputs.${props.inputIdx}.type`}
+          control={control}
+          defaultValue={type}
+          options={dataSelectOptions}
+          onChangeAction={(name, value) => {
+            handleEditType(name, value);
+          }}
+        />
       </div>
-    </>
+
+      <div className="flex flex-col justify-center gap-2">
+        {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
+        {!isLastInput && <MoveInputDownBtn inputId={inputId as string} />}
+      </div>
+
+      <RequiredToggleSwitch input={props.input} />
+
+      <div>
+        <RemoveInputBtn inputId={inputId as string} />
+      </div>
+    </div>
   );
 }

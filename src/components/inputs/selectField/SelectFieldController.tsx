@@ -23,10 +23,11 @@ export const SelectFieldControler = <T extends FieldValues>(
       control={props.control}
       render={({ field, fieldState }) => (
         <SelectField
-          {...field}
+          name={props.name}
+          value={field.value}
+          defaultValue={props.defaultValue}
           options={props.options}
           placeholder={props.placeholder}
-          defaultValue={props.defaultValue}
           errorMsg={fieldState.error?.message}
           onChange={(val: any) => {
             field.onChange(val);
