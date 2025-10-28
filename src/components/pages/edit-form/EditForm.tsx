@@ -1,5 +1,5 @@
 import { GetForm } from "@/actions/create-form/GetForm";
-import { serializeForm } from "@/lib/form-utils";
+import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import EditFormForm from "../create-form/EditFormForm";
 
