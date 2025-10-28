@@ -1,3 +1,3 @@
 export { CreateFormDraft } from "./CreateFormDraft";
-export { AddFormFieldAction } from "./AddFormFieldAction";
-export { RemoveInputFromDraft } from "./RemoveInputFromDraft";
+export { AddFormFieldAction } from "../edit-form/AddFormFieldAction";
+export { RemoveInputFromDraft } from "../edit-form/RemoveInputFromDraft";

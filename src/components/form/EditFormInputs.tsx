@@ -1,8 +1,6 @@
 "use client";
 
-import { EditInputsTextAction } from "@/actions/input";
-import { InputType } from "@/enums";
-import { useEditFormDraftXX } from "@/hooks/useEditFormDraftXX";
+import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
@@ -12,6 +10,8 @@ import { SelectFieldControler } from "../inputs/selectField/SelectFieldControlle
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
+import { EditInputsTextAction } from "@/actions/edit-form/EditInputsTextsAction";
+import { EditInputTypeAction } from "@/actions/edit-form/EditInputTypeAction";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -31,7 +31,6 @@ type Props = {
 
 export default function EditFormInputs(props: Props) {
   const { id: inputId, required, order, type, header } = props.input;
-  const inputTypes = Object.values(InputType);
   const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
   const {
@@ -41,14 +40,20 @@ export default function EditFormInputs(props: Props) {
     control,
   } = useFormContext();
 
-  console.log("", props.input);
-
-  const { handleEdit, isLoading } = useEditFormDraftXX({
+  const { handleEdit, isLoading } = useEditForm({
     formId,
     inputId,
     trigger,
     action: EditInputsTextAction,
-    mode: "input",
+    mode: "inputLabel",
+  });
+
+  const { handleEdit: handleEditType, isLoading: isLOadingType } = useEditForm({
+    formId,
+    inputId,
+    trigger,
+    action: EditInputTypeAction,
+    mode: "inputType",
   });
 
   const dataInputField = [
@@ -96,7 +101,7 @@ export default function EditFormInputs(props: Props) {
             // defaultValue={type}
             options={dataSelectOptions}
             onChangeAction={(name, value) => {
-              handleEdit(name, value);
+              handleEditType(name, value);
             }}
           />
         </div>

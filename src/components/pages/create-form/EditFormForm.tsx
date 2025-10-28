@@ -1,13 +1,12 @@
 "use client";
 
-import { EditFormAction } from "@/actions/create-form/EditFormAction";
+import { EditFormHeaderAction } from "@/actions/edit-form/EditFormHeaderAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
-import { useEditFormDraft } from "@/hooks/useEditFormDraft";
-import { useEditFormDraftXX } from "@/hooks/useEditFormDraftXX";
+import { useEditForm } from "@/hooks/useEditForm";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,7 +20,7 @@ const dataSelectOptions = [
   { label: "Inne", value: "other" },
 ];
 
-const dataInputsTitle = [
+const dataInputsFormTitle = [
   {
     label: "Tytuł",
     name: "title",
@@ -70,11 +69,11 @@ export default function EditFormForm(props: Props) {
     control,
   } = methods;
 
-  const { handleEdit, isLoading } = useEditFormDraftXX({
+  const { handleEdit, isLoading } = useEditForm({
     formId,
     trigger,
-    action: EditFormAction,
-    mode: "form",
+    action: EditFormHeaderAction,
+    mode: "formHeader",
   });
 
   useEffect(() => {
@@ -85,10 +84,6 @@ export default function EditFormForm(props: Props) {
       type,
     });
   }, [inputs, title, description, type, reset]);
-
-  const handle = (value: any) => {
-    console.log("", value);
-  };
 
   return (
     <FormProvider {...methods}>
@@ -117,7 +112,7 @@ export default function EditFormForm(props: Props) {
           </div>
           <div className="w-48">
             <InputFields
-              inputsData={dataInputsTitle}
+              inputsData={dataInputsFormTitle}
               register={register}
               errorMsg={errors}
               onChange={handleEdit}

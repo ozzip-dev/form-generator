@@ -1,22 +1,31 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { EditFormAction } from "@/actions/create-form/EditFormAction";
 import { UseFormTrigger } from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
 
-export function useEditFormDraft(
-  formId?: string,
-  trigger?: UseFormTrigger<any>
-) {
+type UseEditOptions = {
+  formId?: string;
+  inputId?: string;
+  trigger?: UseFormTrigger<any>;
+  action: (formId: string, ...args: any[]) => Promise<any>;
+  mode: "formHeader" | "inputLabel" | "inputType";
+};
+
+export function useEditForm({
+  formId,
+  inputId,
+  trigger,
+  action,
+  mode,
+}: UseEditOptions) {
   const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
   const debounceMap = useRef<Map<string, NodeJS.Timeout>>(new Map());
 
-  const handleEditFormDraft = useCallback(
+  const handleEdit = useCallback(
     (name: string, value: string) => {
       if (!formId) return;
-
       const key = `${formId}-${name}`;
 
       if (debounceMap.current.has(key)) {
@@ -34,7 +43,24 @@ export function useEditFormDraft(
 
         try {
           setLoading((prev) => ({ ...prev, [name]: true }));
-          await EditFormAction(formId, { [name]: value.trim() });
+
+          switch (mode) {
+            case "formHeader": {
+              await action(formId, { [name]: value.trim() });
+              break;
+            }
+            case "inputLabel": {
+              const bodyKeyName = name.split(".").pop();
+              await action(formId, inputId!, {
+                [bodyKeyName as string]: value.trim(),
+              });
+              break;
+            }
+            case "inputType": {
+              await action(formId, inputId!, value.trim());
+              break;
+            }
+          }
         } catch (err) {
           showBoundary(err);
         } finally {
@@ -45,7 +71,7 @@ export function useEditFormDraft(
 
       debounceMap.current.set(key, timeout);
     },
-    [formId, trigger]
+    [formId, inputId, trigger, action, mode]
   );
 
   useEffect(() => {
@@ -55,5 +81,5 @@ export function useEditFormDraft(
     };
   }, []);
 
-  return { handleEditFormDraft, isLoading };
+  return { handleEdit, isLoading };
 }

@@ -1,4 +1,4 @@
-import { MoveInputDown } from "@/actions/input";
+import { MoveInputDown } from "@/actions/edit-form/MoveInput";
 import { useParams } from "next/navigation";
 import { useAsyncAction } from "@/hooks/useAsyncAction";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";

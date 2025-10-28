@@ -1,6 +1,6 @@
 "use client";
 
-import { ToggleRequired } from "@/actions/input";
+import { ToggleRequired } from "@/actions/input/ToggleRequired";
 import { FormInput } from "@/types/input";
 import { useParams } from "next/navigation";
 

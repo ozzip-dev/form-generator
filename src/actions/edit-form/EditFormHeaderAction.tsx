@@ -10,12 +10,12 @@ import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-export async function EditFormAction(
+export async function EditFormHeaderAction(
   formId: string,
   updateData: any
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
-  console.log("EditFormAction", updateData);
+
   const { title, description, type } = updateData;
   const validationResult = editFormSchema.safeParse({
     title,
