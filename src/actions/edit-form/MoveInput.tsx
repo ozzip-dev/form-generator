@@ -15,16 +15,23 @@ export async function MoveInputUp(
 ): Promise<FormSerialized | undefined> {
   requireUser();
 
+  if (!ObjectId.isValid(formIdString)) {
+    throw new Error("Invalid formId");
+  }
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
-  const result = await moveInputUp(db, new ObjectId(formId), inputId);
+  try {
+    const result = await moveInputUp(db, formId, inputId);
 
-  if (!result) return;
-  revalidateTag(`form-${formId}`);
-
-  return serializeForm(result);
+    if (!result) return;
+    revalidateTag(`form-${formId}`);
+    return serializeForm(result);
+  } catch (err) {
+    console.error("MoveInputUp:", err);
+    throw new Error(`Błąd: ${String(err)}`);
+  }
 }
 
 export async function MoveInputDown(
@@ -32,14 +39,23 @@ export async function MoveInputDown(
   inputId: string
 ): Promise<FormSerialized | undefined> {
   requireUser();
+
+  if (!ObjectId.isValid(formIdString)) {
+    throw new Error("Invalid formId");
+  }
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
-  const result = await moveInputDown(db, new ObjectId(formId), inputId);
+  try {
+    const result = await moveInputDown(db, formId, inputId);
 
-  if (!result) return;
-  revalidateTag(`form-${formId}`);
+    if (!result) return;
+    revalidateTag(`form-${formId}`);
 
-  return serializeForm(result);
+    return serializeForm(result);
+  } catch (err) {
+    console.error("MoveInputDown:", err);
+    throw new Error(`Błąd: ${String(err)}`);
+  }
 }
