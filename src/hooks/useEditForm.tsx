@@ -9,7 +9,7 @@ type UseEditOptions = {
   inputId?: string;
   trigger: UseFormTrigger<any>;
   action: (formId: string, ...args: any[]) => Promise<any>;
-  mode: "formHeader" | "inputLabel" | "inputType";
+  mode: "formHeader" | "inputLabel" | "inputType" | "inputReqired";
 };
 
 export function useEditForm({
@@ -58,6 +58,10 @@ export function useEditForm({
             }
             case "inputType": {
               await action(formId, inputId!, value.trim());
+              break;
+            }
+            case "inputReqired": {
+              await action(formId, inputId!);
               break;
             }
           }

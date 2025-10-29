@@ -5,6 +5,9 @@ import { useEditForm } from "@/hooks/useEditForm";
 import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import IconTrash from "@/icons/iconTrash/IconTrash";
+import Button from "../ui/buttons/Button";
+import { az } from "zod/v4/locales";
 
 type Props = {
   inputId: string;
@@ -32,8 +35,16 @@ const EditFormDescriptionInput = (props: Props) => {
     mode: "inputLabel",
   });
 
-  const handleDescriptionInput = () => {
+  const printDescriptionInput = () => {
     setDescriptionInput((prev) => !prev);
+  };
+
+  const handleDescriptionInput = async () => {
+    setDescriptionInput((prev) => !prev);
+
+    if (!props.description) return;
+
+    handleEditLabel("description", "");
   };
 
   const dataInputDescription = [
@@ -46,7 +57,6 @@ const EditFormDescriptionInput = (props: Props) => {
 
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
-  console.log("", isLoading);
   return (
     <>
       {loadingForm && <FullscreenLoader />}
@@ -59,27 +69,18 @@ const EditFormDescriptionInput = (props: Props) => {
             onChange={handleEditLabel}
           />
 
-          <button
+          <Button
             type="button"
-            onClick={async () => {
-              setDescriptionInput((prev) => !prev);
-
-              if (!props.description) return;
-
-              handleEditLabel("description", "");
-            }}
-          >
-            X
-          </button>
+            icon={<IconTrash style="h-5 w-5 bg-white" />}
+            onClickAction={handleDescriptionInput}
+          />
         </div>
       ) : (
-        <button
+        <Button
           type="button"
-          className="text-sm"
-          onClick={handleDescriptionInput}
-        >
-          Dodaj opis pola
-        </button>
+          message="Dodaj opis pola"
+          onClickAction={printDescriptionInput}
+        />
       )}
     </>
   );

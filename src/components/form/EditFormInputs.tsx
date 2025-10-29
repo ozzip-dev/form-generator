@@ -33,7 +33,21 @@ type Props = {
 };
 
 export default function EditFormInputs(props: Props) {
-  const [isDescriptionInput, setDescriptionInput] = useState(false);
+  const dataInputLabel = [
+    {
+      type: "text",
+      name: `inputs.${props.inputIdx}.header`,
+      placeholder: "Nazwa pola",
+    },
+  ];
+  const dataInputDescription = [
+    {
+      type: "text",
+      name: `inputs.${props.inputIdx}.description`,
+      placeholder: "Nazwa pola",
+    },
+  ];
+
   const {
     id: inputId,
     required,
@@ -44,6 +58,7 @@ export default function EditFormInputs(props: Props) {
   } = props.input;
   const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
+
   const {
     register,
     formState: { errors },
@@ -73,21 +88,6 @@ export default function EditFormInputs(props: Props) {
     ...Object.values(isLoadingType ?? {}),
   ].some(Boolean);
 
-  const dataInputLabel = [
-    {
-      type: "text",
-      name: `inputs.${props.inputIdx}.header`,
-      placeholder: "Nazwa pola",
-    },
-  ];
-  const dataInputDescription = [
-    {
-      type: "text",
-      name: `inputs.${props.inputIdx}.description`,
-      placeholder: "Nazwa pola",
-    },
-  ];
-
   return (
     <div className="flex gap-2 items-center p-2 bg-slate-200">
       {isAnyLoading && <FullscreenLoader />}
@@ -105,35 +105,6 @@ export default function EditFormInputs(props: Props) {
             inputIdx={props.inputIdx}
             description={description ?? ""}
           />
-          {/* {description || isDescriptionInput ? (
-            <div className="flex gap-2">
-              <InputFields
-                inputsData={dataInputDescription}
-                register={register}
-                errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
-                onChange={handleEditLabel}
-              />
-              <button
-                type="button"
-                onClick={() => {
-                  setDescriptionInput((prev) => !prev);
-
-                  if (!description) return;
-                  EditInputLabelAction(formId as string, inputId as string, {
-                    description: "",
-                  });
-                }}
-              >
-                X
-              </button>
-            </div>
-          ) : (
-            <button type="button" onClick={handleDescriptionInput}>
-              Dodaj opis pola
-            </button>
-          )} */}
-
-          {required && "Required"}
         </div>
 
         <SelectFieldControler

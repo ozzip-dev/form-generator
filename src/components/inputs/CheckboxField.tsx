@@ -4,6 +4,8 @@ import { useController, Control, FieldValues, Path } from "react-hook-form";
 
 type CheckboxOption = {
   label: string;
+  name: string;
+  value: boolean;
 };
 
 type Props<T extends FieldValues> = {
@@ -11,35 +13,46 @@ type Props<T extends FieldValues> = {
   control: Control<T>;
   options: CheckboxOption[];
   className?: string;
-  onChangeAction?: (values: boolean[]) => void;
+  onChangeAction?: (values: { name: string; value: boolean }[]) => void;
 };
 
 export const CheckboxField = <T extends FieldValues>(props: Props<T>) => {
   const {
-    field: { value = [], onChange },
+    field: { value = {}, onChange },
   } = useController({
     name: props.name,
     control: props.control,
   });
 
-  const selectedValues = (value as boolean[]) || [];
+  const selectedValues = value as Record<string, boolean>;
 
-  const handleToggle = (index: number) => {
-    const updated = [...selectedValues];
-    updated[index] = !updated[index];
-    onChange(updated);
-    props.onChangeAction?.(updated);
+  const handleToggle = (name: string) => {
+    const newValue = {
+      ...selectedValues,
+      [name]: !selectedValues[name],
+    };
+
+    const arrayValues = Object.entries(newValue).map(([name, val]) => ({
+      name,
+      value: val,
+    }));
+
+    props.onChangeAction?.(arrayValues);
+    onChange(newValue);
   };
 
   return (
     <div className={`flex flex-col gap-3 ${props.className ?? ""}`}>
-      {props.options.map((option, index) => (
-        <label key={index} className="flex items-center gap-3 cursor-pointer">
+      {props.options.map((option) => (
+        <label
+          key={option.name}
+          className="flex items-center gap-3 cursor-pointer"
+        >
           <div className="relative inline-block w-12 h-6">
             <input
               type="checkbox"
-              checked={selectedValues[index] || false}
-              onChange={() => handleToggle(index)}
+              checked={selectedValues[option.name] ?? option.value}
+              onChange={() => handleToggle(option.name)}
               className="peer sr-only"
             />
             <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full peer-checked:bg-sky-500 transition-colors" />

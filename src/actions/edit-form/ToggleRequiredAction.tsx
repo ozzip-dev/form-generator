@@ -7,7 +7,7 @@ import { checkFormHasInputWithId } from "../utils";
 import { toggleRequired } from "@/services/input-service";
 import { requireUser } from "@/dataAccessLayer/queries";
 
-export async function ToggleRequired(
+export async function ToggleRequiredAction(
   formIdString: string,
   inputId: string
 ): Promise<void> {

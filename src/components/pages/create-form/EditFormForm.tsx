@@ -23,7 +23,7 @@ const dataSelectOptions = [
 
 const dataInputsFormTitle = [
   {
-    label: "Tytuł",
+    label: "Tytuł f",
     name: "title",
     placeholder: "Tytuł formularza",
     type: "text",

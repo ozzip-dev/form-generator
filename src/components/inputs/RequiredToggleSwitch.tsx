@@ -1,59 +1,56 @@
 "use client";
 
-import { ToggleRequired } from "@/actions/input/ToggleRequired";
+import { ToggleRequiredAction } from "@/actions/edit-form/ToggleRequiredAction";
+import { useEditForm } from "@/hooks/useEditForm";
+import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
-import { useParams } from "next/navigation";
-import { CheckboxField } from "./CheckboxField";
 import { useFormContext } from "react-hook-form";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import { CheckboxField } from "./CheckboxField";
 
 interface Props {
   input: FormInput;
 }
 
 export default function RequiredToggleSwitch(props: Props) {
-  const { formId } = useParams();
-  const { control, watch } = useFormContext();
+  const formId = useSafeURLParam("formId");
+  const { control, trigger } = useFormContext();
 
-  const selectedValues = watch("inputSettings");
-  // console.log("", props.input);
-
-  const dataChecboxOption = [
+  const dataCheckboxOption = [
     {
       label: "Odpowiedż wymagana?",
       value: props.input.required,
-      name: "required",
+      name: "inputReqired",
     },
   ];
 
+  const { handleEdit, isLoading } = useEditForm({
+    formId,
+    inputId: props.input.id!,
+    trigger,
+    action: ToggleRequiredAction,
+    mode: "inputReqired",
+  });
+
+  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+
   return (
     <div className="flex gap-2 items-center">
+      {loadingForm && <FullscreenLoader />}
       <CheckboxField
-        name={props.input.id!}
+        name={`inputSettings.${props.input.id}.required`}
         control={control}
-        options={[{ label: "Odpowiedż wymagana" }]}
-        onChangeAction={async (vals) => {
-          console.log("", props.input);
-          console.log("Zmieniono:", vals);
-          await ToggleRequired(formId as string, props.input.id!);
+        options={dataCheckboxOption}
+        onChangeAction={async (values) => {
+          const requiredState = values.find(
+            (value) => value.name === "inputReqired"
+          )?.value;
+
+          if (requiredState !== undefined) {
+            handleEdit("required", "true");
+          }
         }}
       />
-
-      {/* <CheckboxField
-        name={props.input.id!}
-        control={control}
-        options={dataChecboxOption}
-        onChangeAction={(values) => {
-          console.log("", props.input);
-          console.log("Nowe:", values);
-        }}
-      /> */}
-
-      {/* <div>Required</div>
-      <input
-        type="checkbox"
-        checked={props.input.required}
-        onChange={handleToggle}
-      /> */}
     </div>
   );
 }
