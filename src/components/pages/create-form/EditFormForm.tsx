@@ -52,7 +52,7 @@ export default function EditFormForm(props: Props) {
   } = props.form;
 
   const methods = useForm<EditFormSchema>({
-    resolver: zodResolver(editFormSchema),
+    // resolver: zodResolver(editFormSchema),
     defaultValues: {
       title,
       description,
@@ -89,7 +89,7 @@ export default function EditFormForm(props: Props) {
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
-    <FormProvider {...methods}>
+    <>
       {loadingForm && <FullscreenLoader />}
       <div className="p-4">
         <div className="flex justify-between">
@@ -101,53 +101,55 @@ export default function EditFormForm(props: Props) {
           </div>
         </div>
 
-        <form className="mt-4 space-y-2">
-          <div className="w-80">
-            <SelectFieldControler
-              name={`type`}
-              control={control}
-              defaultValue=""
-              placeholder="Wybierz kategorię formularza"
-              options={dataSelectOptions}
-              onChangeAction={(name, value) => {
-                handleEdit(name, value);
-              }}
-            />
-          </div>
-          <div className="w-48">
-            <InputFields
-              inputsData={dataInputsFormTitle}
-              register={register}
-              errorMsg={errors}
-              onChange={handleEdit}
-              isLoading={isLoading}
-            />
-          </div>
+        <FormProvider {...methods}>
+          <form className="mt-4 space-y-2">
+            <div className="w-80">
+              <SelectFieldControler
+                name={`type`}
+                control={control}
+                defaultValue=""
+                placeholder="Wybierz kategorię formularza"
+                options={dataSelectOptions}
+                onChangeAction={(name, value) => {
+                  handleEdit(name, value);
+                }}
+              />
+            </div>
+            <div className="w-48">
+              <InputFields
+                inputsData={dataInputsFormTitle}
+                register={register}
+                errorMsg={errors}
+                onChange={handleEdit}
+                isLoading={isLoading}
+              />
+            </div>
 
-          <div className="my-6 flex flex-col gap-4">
-            <div className="w-48"></div>
-            {inputs
-              .sort((a, b) => a.order - b.order)
+            <div className="my-6 flex flex-col gap-4">
+              <div className="w-48"></div>
+              {inputs
+                .sort((a, b) => a.order - b.order)
 
-              .map((el, idx) => {
-                return (
-                  <SuspenseErrorBoundary
-                    key={el.id}
-                    size="sm"
-                    errorMessage="Błąd przesyłu danych formularza"
-                  >
-                    <EditFormInputs
+                .map((el, idx) => {
+                  return (
+                    <SuspenseErrorBoundary
                       key={el.id}
-                      input={el}
-                      inputIdx={idx}
-                      inputsLength={inputs.length}
-                    />
-                  </SuspenseErrorBoundary>
-                );
-              })}
-          </div>
-        </form>
+                      size="sm"
+                      errorMessage="Błąd przesyłu danych formularza"
+                    >
+                      <EditFormInputs
+                        key={el.id}
+                        input={el}
+                        inputIdx={idx}
+                        inputsLength={inputs.length}
+                      />
+                    </SuspenseErrorBoundary>
+                  );
+                })}
+            </div>
+          </form>
+        </FormProvider>
       </div>
-    </FormProvider>
+    </>
   );
 }

@@ -23,9 +23,9 @@ export async function EditFormHeaderAction(
     type,
   });
 
-  // if (!validationResult.success) {
-  //   return { error: handleServerErrors(validationResult.error) };
-  // }
+  if (!validationResult.success) {
+    return { error: handleServerErrors(validationResult.error) };
+  }
 
   try {
     const result: WithId<Form> = await updateForm(

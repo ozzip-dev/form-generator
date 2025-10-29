@@ -44,7 +44,6 @@ export async function AddFormFieldAction(
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
   if (!validationResult.success) {
-    console.log("");
     return { error: handleServerErrors(validationResult.error) };
   }
 
