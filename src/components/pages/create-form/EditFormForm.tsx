@@ -68,6 +68,7 @@ export default function EditFormForm(props: Props) {
     formState: { errors },
     trigger,
     control,
+    setError,
   } = methods;
 
   const { handleEdit, isLoading } = useEditForm({
@@ -75,6 +76,7 @@ export default function EditFormForm(props: Props) {
     trigger,
     action: EditFormHeaderAction,
     mode: "formHeader",
+    setError,
   });
 
   useEffect(() => {

@@ -16,12 +16,7 @@ export async function EditFormHeaderAction(
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
 
-  const { title, description, type } = updateData;
-  const validationResult = editFormSchema.safeParse({
-    title,
-    description,
-    type,
-  });
+  const validationResult = editFormSchema.partial().safeParse(updateData);
 
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };

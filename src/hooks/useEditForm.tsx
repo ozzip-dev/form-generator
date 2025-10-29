@@ -1,8 +1,14 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { UseFormTrigger } from "react-hook-form";
+import {
+  useFormContext,
+  UseFormTrigger,
+  UseFormSetError,
+} from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { AddFormFieldSchema } from "@/lib/zodSchema/addFormFieldShema";
 
 type UseEditOptions = {
   formId?: string;
@@ -10,6 +16,7 @@ type UseEditOptions = {
   trigger: UseFormTrigger<any>;
   action: (formId: string, ...args: any[]) => Promise<any>;
   mode: "formHeader" | "inputLabel" | "inputType" | "inputReqired";
+  setError?: UseFormSetError<any>;
 };
 
 export function useEditForm({
@@ -18,6 +25,7 @@ export function useEditForm({
   trigger,
   action,
   mode,
+  setError,
 }: UseEditOptions) {
   const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
@@ -46,22 +54,26 @@ export function useEditForm({
 
           switch (mode) {
             case "formHeader": {
-              await action(formId, { [name]: value.trim() });
+              const resp = await action(formId, { [name]: value.trim() });
+              if (resp?.error && setError) {
+                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+                return;
+              }
               break;
             }
             case "inputLabel": {
               const bodyKeyName = name.split(".").pop();
-              await action(formId, inputId!, {
+              const resp = await action(formId, inputId!, {
                 [bodyKeyName as string]: value.trim(),
               });
               break;
             }
             case "inputType": {
-              await action(formId, inputId!, value.trim());
+              const resp = await action(formId, inputId!, value.trim());
               break;
             }
             case "inputReqired": {
-              await action(formId, inputId!);
+              const resp = await action(formId, inputId!);
               break;
             }
           }
