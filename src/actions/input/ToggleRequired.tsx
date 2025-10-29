@@ -12,6 +12,7 @@ export async function ToggleRequired(
   inputId: string
 ): Promise<void> {
   requireUser();
+
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;

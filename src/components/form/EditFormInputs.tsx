@@ -1,18 +1,20 @@
 "use client";
 
+import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
+import { EditInputTypeAction } from "@/actions/edit-form/EditInputTypeAction";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
 import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
+import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
-import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
-import { EditInputTypeAction } from "@/actions/edit-form/EditInputTypeAction";
-import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -31,7 +33,15 @@ type Props = {
 };
 
 export default function EditFormInputs(props: Props) {
-  const { id: inputId, required, order, type, header } = props.input;
+  const [isDescriptionInput, setDescriptionInput] = useState(false);
+  const {
+    id: inputId,
+    required,
+    order,
+    type,
+    header,
+    description,
+  } = props.input;
   const isLastInput = props.inputIdx === props.inputsLength - 1;
   const formId = useSafeURLParam("formId");
   const {
@@ -41,13 +51,14 @@ export default function EditFormInputs(props: Props) {
     control,
   } = useFormContext();
 
-  const { handleEdit, isLoading: isLoadingLabel } = useEditForm({
-    formId,
-    inputId,
-    trigger,
-    action: EditInputLabelAction,
-    mode: "inputLabel",
-  });
+  const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
+    useEditForm({
+      formId,
+      inputId,
+      trigger,
+      action: EditInputLabelAction,
+      mode: "inputLabel",
+    });
 
   const { handleEdit: handleEditType, isLoading: isLoadingType } = useEditForm({
     formId,
@@ -86,14 +97,41 @@ export default function EditFormInputs(props: Props) {
             inputsData={dataInputLabel}
             register={register}
             errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-            onChange={handleEdit}
+            onChange={handleEditLabel}
           />
-          <InputFields
-            inputsData={dataInputDescription}
-            register={register}
-            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
-            onChange={handleEdit}
+
+          <EditFormDescriptionInput
+            inputId={inputId as string}
+            inputIdx={props.inputIdx}
+            description={description ?? ""}
           />
+          {/* {description || isDescriptionInput ? (
+            <div className="flex gap-2">
+              <InputFields
+                inputsData={dataInputDescription}
+                register={register}
+                errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
+                onChange={handleEditLabel}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setDescriptionInput((prev) => !prev);
+
+                  if (!description) return;
+                  EditInputLabelAction(formId as string, inputId as string, {
+                    description: "",
+                  });
+                }}
+              >
+                X
+              </button>
+            </div>
+          ) : (
+            <button type="button" onClick={handleDescriptionInput}>
+              Dodaj opis pola
+            </button>
+          )} */}
 
           {required && "Required"}
         </div>
@@ -108,13 +146,12 @@ export default function EditFormInputs(props: Props) {
           }}
         />
       </div>
+      <RequiredToggleSwitch input={props.input} />
 
       <div className="flex flex-col justify-center gap-2">
         {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
         {!isLastInput && <MoveInputDownBtn inputId={inputId as string} />}
       </div>
-
-      <RequiredToggleSwitch input={props.input} />
 
       <div>
         <RemoveInputBtn inputId={inputId as string} />
