@@ -20,16 +20,21 @@ export async function EditInputLabelAction(
 ): Promise<void | any> {
   requireUser();
   const validationResult = conditionalInputSchema.safeParse(data);
-  console.log("validationResult", validationResult);
+
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  const formId = new ObjectId(formIdString);
+  try {
+    const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) return;
+    if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
-  await updateFormInputTexts(db, formId, inputId, data);
+    await updateFormInputTexts(db, formId, inputId, data);
 
-  revalidateTag(`form-${formId}`);
+    revalidateTag(`form-${formId}`);
+  } catch (err) {
+    console.error("Błąd EditInputLabelAction:", err);
+    throw new Error(`Błąd: ${err}`);
+  }
 }
