@@ -47,6 +47,9 @@ const AddFormField = () => {
     reset,
   } = useForm<AddFormFieldSchema>({
     resolver: zodResolver(addFormFieldSchema),
+    defaultValues: {
+      type: "text",
+    },
   });
   const { showBoundary } = useErrorBoundary();
 

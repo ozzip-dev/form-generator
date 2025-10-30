@@ -35,7 +35,6 @@ const EditFormDescriptionInput = (props: Props) => {
     trigger,
     action: EditInputLabelAction,
     mode: "inputLabel",
-    setError,
   });
 
   const printDescriptionInput = () => {

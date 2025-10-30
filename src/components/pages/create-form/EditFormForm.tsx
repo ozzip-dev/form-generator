@@ -52,7 +52,7 @@ export default function EditFormForm(props: Props) {
   } = props.form;
 
   const methods = useForm<EditFormSchema>({
-    // resolver: zodResolver(editFormSchema),
+    resolver: zodResolver(editFormSchema),
     defaultValues: {
       title,
       description,

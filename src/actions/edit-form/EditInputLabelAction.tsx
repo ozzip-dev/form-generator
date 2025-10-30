@@ -1,17 +1,13 @@
 "use server";
 
+import { requireUser } from "@/dataAccessLayer/queries";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db } from "@/lib/mongo";
+import { conditionalInputSchema } from "@/lib/zodSchema/editFormSchema";
+import { updateFormInputTexts } from "@/services/input-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../utils";
-import { updateFormInputTexts } from "@/services/input-service";
-import { requireUser } from "@/dataAccessLayer/queries";
-import {
-  editFormSchema,
-  conditionalInputSchema,
-  inputItemSchema,
-} from "@/lib/zodSchema/editFormSchema";
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 export async function EditInputLabelAction(
   formIdString: string,
@@ -19,10 +15,13 @@ export async function EditInputLabelAction(
   data: { header?: string; description?: string }
 ): Promise<void | any> {
   requireUser();
-  const validationResult = conditionalInputSchema.safeParse(data);
 
-  if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+  if (data.header) {
+    const validationResult = conditionalInputSchema.safeParse(data);
+
+    if (!validationResult.success) {
+      return { error: handleServerErrors(validationResult.error) };
+    }
   }
 
   try {

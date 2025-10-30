@@ -18,7 +18,7 @@ export default function RequiredToggleSwitch(props: Props) {
 
   const dataCheckboxOption = [
     {
-      label: "Odpowiedż wymagana?",
+      label: "Odpowiedż wymagana",
       value: props.input.required,
       name: "inputReqired",
     },

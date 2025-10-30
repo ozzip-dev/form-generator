@@ -86,8 +86,6 @@ export default function EditFormInputs(props: Props) {
     mode: "inputType",
   });
 
-  console.log("errors.inputs", errors);
-
   const isAnyLoading = [
     ...Object.values(isLoadingLabel ?? {}),
     ...Object.values(isLoadingType ?? {}),
