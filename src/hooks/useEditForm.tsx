@@ -90,11 +90,11 @@ export function useEditForm({
               break;
             }
             case "inputType": {
-              const resp = await action(formId, inputId!, value.trim());
+              await action(formId, inputId!, value.trim());
               break;
             }
             case "inputReqired": {
-              const resp = await action(formId, inputId!);
+              await action(formId, inputId!);
               break;
             }
           }

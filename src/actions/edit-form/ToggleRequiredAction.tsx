@@ -17,7 +17,11 @@ export async function ToggleRequiredAction(
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;
 
-  await toggleRequired(db, formId, inputId);
-
-  revalidateTag(`form-${formId}`);
+  try {
+    await toggleRequired(db, formId, inputId);
+    revalidateTag(`form-${formId}`);
+  } catch (err) {
+    console.error("Błąd ToggleRequiredAction:", err);
+    throw new Error(`Błąd: ${err}`);
+  }
 }
