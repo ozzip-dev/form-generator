@@ -60,3 +60,20 @@ export async function updateForm(
     }
   )) as WithId<Form>
 }
+
+export async function publishForm(
+  db: Db,
+  formId: string
+): Promise<void> {
+    await updateById(
+    db,
+    'form',
+    new ObjectId(formId),
+    {
+      $set: {
+        state: 'active',
+        updatedAt: new Date(),
+      },
+    }
+  )
+}
