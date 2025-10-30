@@ -131,7 +131,6 @@ export default function EditFormForm(props: Props) {
               <div className="w-48"></div>
               {inputs
                 .sort((a, b) => a.order - b.order)
-
                 .map((el, idx) => {
                   return (
                     <SuspenseErrorBoundary

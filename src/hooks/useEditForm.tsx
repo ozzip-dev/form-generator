@@ -13,6 +13,7 @@ import { AddFormFieldSchema } from "@/lib/zodSchema/addFormFieldShema";
 type UseEditOptions = {
   formId?: string;
   inputId?: string;
+  inputIdx?: number;
   trigger: UseFormTrigger<any>;
   action: (formId: string, ...args: any[]) => Promise<any>;
   mode: "formHeader" | "inputLabel" | "inputType" | "inputReqired";
@@ -22,6 +23,7 @@ type UseEditOptions = {
 export function useEditForm({
   formId,
   inputId,
+  inputIdx,
   trigger,
   action,
   mode,
@@ -66,6 +68,25 @@ export function useEditForm({
               const resp = await action(formId, inputId!, {
                 [bodyKeyName as string]: value.trim(),
               });
+
+              if (resp?.error && setError) {
+                const fieldErrors = Object.entries(resp.error).reduce(
+                  (acc, [key, val]) => {
+                    console.log("acc", acc);
+
+                    acc[`inputs.${inputIdx}.${key}`] = val;
+                    return acc;
+                  },
+                  {} as Record<string, any>
+                );
+
+                handleClientErrors<AddFormFieldSchema>(
+                  { error: fieldErrors },
+                  setError
+                );
+                return;
+              }
+
               break;
             }
             case "inputType": {

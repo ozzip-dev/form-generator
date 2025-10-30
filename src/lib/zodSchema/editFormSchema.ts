@@ -14,7 +14,7 @@ export const inputItemSchema = z.object({
   required: z.boolean().optional(),
 });
 
-const conditionalInputSchema = inputItemSchema.refine(
+export const conditionalInputSchema = inputItemSchema.partial().refine(
   (data) => {
     if (data.type === "text") {
       return data.header && data.header.length >= 2 && data.header.length <= 20;
@@ -34,7 +34,7 @@ export const editFormSchema = z.object({
     .max(20, { message: "Max. 20 liter" }),
   description: z.string().max(60, { message: "Max. 60 liter" }),
   type: z.string().nonempty({ message: "Wymagane" }),
-  inputs: z.array(conditionalInputSchema).optional(),
+  inputs: z.array(conditionalInputSchema),
 });
 
 export type EditFormSchema = z.infer<typeof editFormSchema>;

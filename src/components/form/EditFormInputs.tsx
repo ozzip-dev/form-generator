@@ -64,15 +64,18 @@ export default function EditFormInputs(props: Props) {
     formState: { errors },
     trigger,
     control,
+    setError,
   } = useFormContext();
 
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId,
       inputId,
+      inputIdx: props.inputIdx,
       trigger,
       action: EditInputLabelAction,
       mode: "inputLabel",
+      setError,
     });
 
   const { handleEdit: handleEditType, isLoading: isLoadingType } = useEditForm({
@@ -82,6 +85,8 @@ export default function EditFormInputs(props: Props) {
     action: EditInputTypeAction,
     mode: "inputType",
   });
+
+  console.log("errors.inputs", errors);
 
   const isAnyLoading = [
     ...Object.values(isLoadingLabel ?? {}),

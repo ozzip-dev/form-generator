@@ -25,14 +25,17 @@ const EditFormDescriptionInput = (props: Props) => {
     register,
     formState: { errors },
     trigger,
+    setError,
   } = useFormContext();
 
   const { handleEdit: handleEditLabel, isLoading } = useEditForm({
     formId,
     inputId: props.inputId,
+    inputIdx: props.inputIdx,
     trigger,
     action: EditInputLabelAction,
     mode: "inputLabel",
+    setError,
   });
 
   const printDescriptionInput = () => {

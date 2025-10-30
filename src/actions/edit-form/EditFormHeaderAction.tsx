@@ -4,7 +4,7 @@ import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/form-utils";
 import { db } from "@/lib/mongo";
-import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
+import { editFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { updateForm } from "@/services/form-service";
 import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
@@ -15,6 +15,8 @@ export async function EditFormHeaderAction(
   updateData: any
 ): Promise<FormSerialized | { error: string } | { error: any }> {
   requireUser();
+
+  console.log("updateData", updateData);
 
   const validationResult = editFormSchema.partial().safeParse(updateData);
 

@@ -57,6 +57,8 @@ const InputFields = (props: Props) => {
                 {props.isLoading?.[name] && <DataLoader size="sm" />}
               </div>
 
+              {/* {JSON.stringify(props.errorMsg)} */}
+
               <InputError
                 errorMsg={
                   (props.errorMsg?.[name]?.message as string) ||
