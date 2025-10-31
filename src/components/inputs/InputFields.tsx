@@ -12,6 +12,7 @@ type Props = {
     type: string;
     defaultValue?: string;
     description?: string;
+    required?: string;
   }[];
   errorMsg?: FieldErrors<any> & {
     server?: Record<string, { message: string }>;
@@ -25,7 +26,15 @@ const InputFields = (props: Props) => {
   return (
     <>
       {props.inputsData.map(
-        ({ label, name, placeholder, type, defaultValue, description }) => {
+        ({
+          label,
+          name,
+          placeholder,
+          type,
+          defaultValue,
+          description,
+          required,
+        }) => {
           return (
             // TODO: make a separate component for input field
             <div key={name}>
@@ -34,7 +43,7 @@ const InputFields = (props: Props) => {
                   htmlFor={name}
                   className="text-lg block text-xl !important"
                 >
-                  {label}
+                  {label} {required && <span className="text-red-600">*</span>}
                 </label>
               )}
 

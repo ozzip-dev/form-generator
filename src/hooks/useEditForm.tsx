@@ -74,8 +74,6 @@ export function useEditForm({
               if (resp?.error && setError) {
                 const fieldErrors = Object.entries(resp.error).reduce(
                   (acc, [key, val]) => {
-                    console.log("acc", acc);
-
                     acc[`inputs.${inputIdx}.${key}`] = val;
                     return acc;
                   },
