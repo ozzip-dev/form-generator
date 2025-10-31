@@ -15,6 +15,7 @@ import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
+import AddOption from "./AddOption";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -94,8 +95,8 @@ export default function EditFormInputs(props: Props) {
   return (
     <div className="flex gap-2 items-center p-2 bg-slate-200">
       {isAnyLoading && <FullscreenLoader />}
-      <div className="w-96 flex">
-        <div className="mr-4">
+      <div className="w-3/5 flex">
+        <div className="flex flex-col gap-2 mr-4 w-3/5">
           <InputFields
             inputsData={dataInputLabel}
             register={register}
@@ -108,18 +109,22 @@ export default function EditFormInputs(props: Props) {
             inputIdx={props.inputIdx}
             description={description ?? ""}
           />
+          {type === "checkbox" && <AddOption header={header} />}
         </div>
 
-        <SelectFieldControler
-          name={`inputs.${props.inputIdx}.type`}
-          control={control}
-          defaultValue={type}
-          options={dataSelectOptions}
-          onChangeAction={(name, value) => {
-            handleEditType(name, value);
-          }}
-        />
+        <div>
+          <SelectFieldControler
+            name={`inputs.${props.inputIdx}.type`}
+            control={control}
+            defaultValue={type}
+            options={dataSelectOptions}
+            onChangeAction={(name, value) => {
+              handleEditType(name, value);
+            }}
+          />
+        </div>
       </div>
+
       <RequiredToggleSwitch input={props.input} />
 
       <div className="flex flex-col justify-center gap-2">

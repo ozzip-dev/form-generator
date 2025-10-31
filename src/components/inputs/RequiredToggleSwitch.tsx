@@ -35,7 +35,7 @@ export default function RequiredToggleSwitch(props: Props) {
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center mb-auto">
       {loadingForm && <FullscreenLoader />}
       <CheckboxField
         name={`inputSettings.${props.input.id}.required`}
