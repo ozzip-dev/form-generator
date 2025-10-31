@@ -10,10 +10,12 @@ import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
+type FormActionError = { error: Record<string, { message: string }> | string };
+
 export async function EditFormHeaderAction(
   formId: string,
-  updateData: any
-): Promise<FormSerialized | { error: string } | { error: any }> {
+  updateData: Record<string, string>
+): Promise<FormSerialized | FormActionError> {
   requireUser();
 
   const validationResult = editFormSchema.partial().safeParse(updateData);

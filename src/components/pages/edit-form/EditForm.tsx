@@ -1,4 +1,4 @@
-import { GetForm } from "@/actions/create-form/GetForm";
+import { GetFormAction } from "@/actions/create-form/GetFormAction";
 import { serializeForm } from "@/lib/form-utils";
 import { Form } from "@/types/form";
 import EditFormForm from "../create-form/EditFormForm";
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const EditForm = async (props: Props) => {
-  const { form, templateInputs } = await GetForm(props.formId);
+  const { form, templateInputs } = await GetFormAction(props.formId);
   return (
     <>
       <SuspenseErrorBoundary size="lg" errorMessage="Błąd edycji formularza">

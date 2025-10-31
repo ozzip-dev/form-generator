@@ -17,6 +17,7 @@ const CreateFormMenu = (props: Props) => {
       text: "Kontakty organizacji",
       link: `/create-form/${props.formId}/contacts`,
     },
+    { text: "Podgląd", link: `/create-form/${props.formId}/preview` },
   ];
 
   return (

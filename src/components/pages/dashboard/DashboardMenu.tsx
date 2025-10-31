@@ -4,7 +4,7 @@ import ButtonLink from "@/components/ui/buttons/ButtonLink";
 import { usePathname } from "next/navigation";
 
 const dataNavLinks = [
-  { text: "Panel", link: "/dashboard-moderator" },
+  { text: "Formularze", link: "/dashboard-moderator" },
   { text: "Protokoły", link: "/protocols" },
   { text: "Forum", link: "/forum" },
   { text: "Ustawienia", link: "/user-settings" },

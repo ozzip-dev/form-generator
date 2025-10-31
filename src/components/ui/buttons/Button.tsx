@@ -7,6 +7,7 @@ type Props = {
   onClickAction?: (...args: any[]) => void | Promise<void>;
   type?: "button" | "submit";
   className?: string;
+  disabled?: boolean;
 };
 
 const Button = (props: Props) => {
@@ -14,7 +15,7 @@ const Button = (props: Props) => {
     <button
       type={props.type}
       onClick={props.onClickAction}
-      disabled={props.isLoading}
+      disabled={props.disabled ? props.disabled : props.isLoading}
       className={`
       flex items-center justify-center
       w-full rounded-lg px-4 py-2

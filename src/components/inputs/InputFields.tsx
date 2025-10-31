@@ -1,6 +1,6 @@
 "use client";
 
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
 import DataLoader from "../ui/loaders/DataLoader";
 import InputError from "./InputError";
 
@@ -11,12 +11,13 @@ type Props = {
     placeholder?: string;
     type: string;
     defaultValue?: string;
+    description?: string;
   }[];
   errorMsg?: FieldErrors<any> & {
     server?: Record<string, { message: string }>;
   };
-  register: UseFormRegister<any>;
-  onChange?: any;
+  register?: UseFormRegister<any>;
+  onChange?: (name: string, value: string) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
 };
 
@@ -24,15 +25,20 @@ const InputFields = (props: Props) => {
   return (
     <>
       {props.inputsData.map(
-        ({ label, name, placeholder, type, defaultValue }) => {
+        ({ label, name, placeholder, type, defaultValue, description }) => {
           return (
             // TODO: make a separate component for input field
             <div key={name}>
               {label && (
-                <label htmlFor={name} className="text-lg  block">
+                <label
+                  htmlFor={name}
+                  className="text-lg block text-xl !important"
+                >
                   {label}
                 </label>
               )}
+
+              {description && <div className="text-sm">{description}</div>}
               <div className="flex">
                 <input
                   type={type}
@@ -46,18 +52,15 @@ const InputFields = (props: Props) => {
                     }
                   `}
                   placeholder={placeholder}
-                  {...props.register(
-                    name,
-                    props.onChange && {
-                      onChange: (e) => props.onChange(name, e.target.value),
-                    }
-                  )}
+                  {...(props.register
+                    ? props.register(name, {
+                        onChange: (e) => props.onChange?.(name, e.target.value),
+                      })
+                    : {})}
                 />
 
                 {props.isLoading?.[name] && <DataLoader size="sm" />}
               </div>
-
-              {/* {JSON.stringify(props.errorMsg)} */}
 
               <InputError
                 errorMsg={

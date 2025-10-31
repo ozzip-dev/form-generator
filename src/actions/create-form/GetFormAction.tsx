@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 
-export const GetForm = cache(async (formId: string) => {
+export const GetFormAction = cache(async (formId: string) => {
   await requireUser();
 
   try {

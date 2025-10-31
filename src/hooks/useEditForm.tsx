@@ -31,7 +31,9 @@ export function useEditForm({
 }: UseEditOptions) {
   const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
-  const debounceMap = useRef<Map<string, NodeJS.Timeout>>(new Map());
+  const debounceMap = useRef<Map<string, ReturnType<typeof setTimeout>>>(
+    new Map()
+  );
 
   const handleEdit = useCallback(
     (name: string, value: string) => {
@@ -108,7 +110,7 @@ export function useEditForm({
 
       debounceMap.current.set(key, timeout);
     },
-    [formId, inputId, trigger, action, mode]
+    [formId, inputId, inputIdx, trigger, action, mode, setError, showBoundary]
   );
 
   useEffect(() => {
