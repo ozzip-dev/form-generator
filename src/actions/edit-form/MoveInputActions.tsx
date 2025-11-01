@@ -1,6 +1,6 @@
 "use server";
 
-import { serializeForm } from "@/lib/form-utils";
+import { serializeForm } from "@/lib/serialize-utils";
 import { db } from "@/lib/mongo";
 import { moveInputDown, moveInputUp } from "@/services/input-service";
 import { FormSerialized } from "@/types/form";

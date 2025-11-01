@@ -2,7 +2,7 @@
 
 import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { serializeForm } from "@/lib/form-utils";
+import { serializeForm } from "@/lib/serialize-utils";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/addFormFieldShema";
 import { Form, FormSerialized } from "@/types/form";

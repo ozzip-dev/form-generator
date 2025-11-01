@@ -1,5 +1,5 @@
 import { FormType } from "@/enums/form";
-import { find, findById, insert, updateById } from "@/lib/mongo";
+import { find, findById, findOne, insert, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
@@ -59,4 +59,66 @@ export async function updateForm(
       },
     }
   )) as WithId<Form>
+}
+
+export async function publishForm(
+  db: Db,
+  formId: string
+): Promise<void> {
+    await updateById(
+    db,
+    'form',
+    new ObjectId(formId),
+    {
+      $set: {
+        state: 'active',
+        updatedAt: new Date(),
+      },
+    }
+  )
+}
+
+export async function getFormBySlug(
+  db: Db,
+  slug: string
+): Promise<Form | null> {
+  /* first look for form with url as slug */
+  const formByUrl = await findOne(
+    db,
+    'form',
+    {
+      url: slug
+    }
+  )
+  if (formByUrl) return formByUrl as Form
+
+  /* if no form is found, query by id */
+  try {
+    const formById = await findById(db, 'form', new ObjectId(slug))
+    return formById as Form
+  } catch(e) {
+    return null
+  }
+}
+
+export async function setAliasUrl(
+  db: Db,
+  formId: string,
+  url: string
+): Promise<void> {
+    const form = await getFormBySlug(db, url)
+    if (form)
+      throw new Error(`Formularz o ID lub aliasie ${url} już istnieje.`)
+
+    await updateById(
+    db,
+    'form',
+    new ObjectId(formId),
+    {
+      $set: {
+        url,
+        updatedAt: new Date(),
+      },
+    }
+  )
 }
