@@ -12,6 +12,7 @@ type Props = {
   loadingMessage?: string;
   size: "sm" | "lg";
 };
+ 
 
 const SuspenseErrorBoundary = (props: Props) => {
   const router = useRouter();

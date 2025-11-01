@@ -30,7 +30,7 @@ const AddOption = (props: Props) => {
 
   useEffect(() => {
     const subscription = watch((values) => {
-      // console.log("Aktualne wartości:", values);
+      console.log("Aktualne wartości:", values);
     });
     return () => subscription.unsubscribe();
   }, [watch]);
