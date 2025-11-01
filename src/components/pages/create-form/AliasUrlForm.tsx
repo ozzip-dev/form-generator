@@ -38,7 +38,11 @@ export default function AliasUrlForm(form: FormSerialized) {
         className="flex items-center gap-4"
       >
         <label htmlFor="file">
-          <input {...register('url')} type="text" name="url" />
+          <input 
+            type="text"
+            className="p-1 border"
+            {...register('url')}
+          />
         </label>
         {/* TODO: add remove alias */}
         <div>

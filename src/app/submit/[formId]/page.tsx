@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import Form from "@/components/pages/form/Form";
 import { getFormBySlug } from "@/services/form-service";
 
+// Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
+
 type Props = { params: Promise<{ formId: string, url: string }> };
 
 const FormPage = async (props: Props) => {
