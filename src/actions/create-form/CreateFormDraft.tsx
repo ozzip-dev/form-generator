@@ -7,20 +7,33 @@ import { Form } from "@/types/form";
 import { Document, ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 
+const MAX_FORMS_PER_USER = 10;
+
 const isEmpty = (templateId: string) => templateId === "empty";
+
+const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
+  const formsCount = await db.collection("form").countDocuments({
+    createdBy: userId,
+  });
+
+  return formsCount >= MAX_FORMS_PER_USER;
+};
+
+const checkFormLimitError = async (userId: ObjectId): Promise<boolean> => {
+  if (await hasReachedFormLimit(userId)) {
+    throw new Error(
+      `Osiągnięto limit, maksymalnie ${MAX_FORMS_PER_USER} formularzy.`
+    );
+  }
+  return false;
+};
 
 export async function CreateFormDraft(templateId: string) {
   const user = await requireUser();
 
   const userId = new ObjectId(user.id);
 
-  const formsCount = await db.collection("form").countDocuments({
-    createdBy: userId,
-  });
-
-  if (formsCount >= 10) {
-    throw new Error("Osiągnięto limit, maksymalnie 10 formularzy.");
-  }
+  await checkFormLimitError(userId);
 
   const empty = isEmpty(templateId);
 
