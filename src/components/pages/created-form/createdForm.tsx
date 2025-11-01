@@ -1,6 +1,7 @@
 "use client";
 import { CheckboxField } from "@/components/inputs/CheckboxField";
 import InputFields from "@/components/inputs/InputFields";
+import TextareaFields from "@/components/inputs/TextareaFields";
 import Button from "@/components/ui/buttons/Button";
 import { FormSerialized } from "@/types/form";
 import { useForm } from "react-hook-form";
@@ -18,8 +19,11 @@ const CreatedForm = (props: Props) => {
 
   const { title, description, inputs } = props.form;
 
-  const dataFormInputs = inputs.map(
-    ({ type, header, description, required }: any, idx: number) => {
+  console.log("", props.form);
+
+  const formFields = inputs
+    .sort((a, b) => a.order - b.order)
+    .map(({ type, header, description, required }: any, idx: number) => {
       if (type === "checkbox") {
         const dataCheckboxOptions = [
           { label: "label", name: "name", value: false },
@@ -34,6 +38,24 @@ const CreatedForm = (props: Props) => {
             name={header}
             options={dataCheckboxOptions}
             control={control}
+          />
+        );
+      } else if (type === "superText") {
+        const dataInputTextarea = [
+          {
+            label: header,
+            name: header,
+            placeholder: "Odpowiedź",
+            description,
+            required,
+          },
+        ];
+
+        return (
+          <TextareaFields
+            key={idx}
+            inputsData={dataInputTextarea}
+            register={register}
           />
         );
       } else {
@@ -54,7 +76,7 @@ const CreatedForm = (props: Props) => {
           }
         }
 
-        const inputText = [
+        const dataInputText = [
           {
             label: header,
             name: header,
@@ -66,11 +88,14 @@ const CreatedForm = (props: Props) => {
         ];
 
         return (
-          <InputFields key={idx} inputsData={inputText} register={register} />
+          <InputFields
+            key={idx}
+            inputsData={dataInputText}
+            register={register}
+          />
         );
       }
-    }
-  );
+    });
 
   return (
     <div className="flex justify-center ">
@@ -82,7 +107,7 @@ const CreatedForm = (props: Props) => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-4/5 bg-zinc-100 p-4"
         >
-          {dataFormInputs}
+          {formFields}
 
           <Button message="Zatwierdź" disabled={false} />
         </form>{" "}
