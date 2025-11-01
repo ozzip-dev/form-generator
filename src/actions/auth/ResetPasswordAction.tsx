@@ -10,7 +10,7 @@ type FormData = {
   token: string;
 };
 
-export async function ActionResetPassword(data: FormData) {
+export async function ResetPasswordAction(data: FormData) {
   const validationResult = resetPasswordSchema.safeParse(data);
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };

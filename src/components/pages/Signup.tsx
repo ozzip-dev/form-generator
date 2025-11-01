@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionSignUp } from "@/actions/auth/ActionSignUp";
+import { SignUpAction } from "@/actions/auth/SignUpAction";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -62,7 +62,7 @@ const SignUp = () => {
     };
 
     try {
-      const resp = await ActionSignUp(trimmedData);
+      const resp = await SignUpAction(trimmedData);
       if (resp?.error) {
         handleClientErrors<TSignUpShema>(resp.error, setError);
         return;

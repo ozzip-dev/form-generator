@@ -9,6 +9,9 @@ type Props = {
 
 export default function ErrorPagePrevievError(props: Props) {
   return (
-    <LoadingPageError {...props} message="Błąd ładowania danych formularza" />
+    <LoadingPageError
+      {...props}
+      message="Błąd ładowania danych podglądu formularza"
+    />
   );
 }

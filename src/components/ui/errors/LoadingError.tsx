@@ -18,7 +18,7 @@ export const LoadingError = (props: Props) => {
 
   if (props.size === "lg")
     return (
-      <div className="flex flex-col items-center justify-center text-center p-4">
+      <div className="flex flex-col items-center justify-center text-center p-4 h-[400px]">
         <h2 className="font-semibold text-red-600 text-lg mb-2">
           {props.message || "Błąd ładowania danych"}
         </h2>

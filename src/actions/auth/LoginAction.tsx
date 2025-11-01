@@ -10,7 +10,7 @@ type FormData = {
   password: string;
 };
 
-export async function ActionLogin(data: FormData) {
+export async function LoginAction(data: FormData) {
   const validationResult = loginSchema.safeParse(data);
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };

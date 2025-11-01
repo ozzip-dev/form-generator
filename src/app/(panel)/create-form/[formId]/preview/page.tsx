@@ -1,4 +1,4 @@
-import { GetFormAction } from "@/actions/create-form/GetFormAction";
+import { GetFormAction } from "@/actions/edit-form/GetFormAction";
 import CreatedForm from "@/components/pages/created-form/createdForm";
 import { serializeForm } from "@/lib/form-utils";
 import { Form } from "@/types/form";

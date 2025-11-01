@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionLogin } from "@/actions/auth/ActionLogin";
+import { LoginAction } from "@/actions/auth/LoginAction";
 import InputFields from "@/components/inputs/InputFields";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
@@ -70,7 +70,7 @@ const Login = () => {
     };
 
     try {
-      const resp = await ActionLogin(trimmedData);
+      const resp = await LoginAction(trimmedData);
 
       if (resp?.error) {
         handleClientErrors<TLoginSchema>(resp.error, setError);

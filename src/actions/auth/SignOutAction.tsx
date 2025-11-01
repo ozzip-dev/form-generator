@@ -4,7 +4,7 @@ import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function ActionSignOut() {
+export async function SignOutAction() {
   try {
     await auth.api.signOut({ headers: await headers() });
   } catch (err: any) {

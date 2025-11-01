@@ -9,6 +9,9 @@ type Props = {
 
 export default function ErrorPageEditError(props: Props) {
   return (
-    <LoadingPageError {...props} message="Błąd ładowania danych formularza" />
+    <LoadingPageError
+      {...props}
+      message="Błąd ładowania danych edycji formularza"
+    />
   );
 }

@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
 import FormAuthFooter from "../Auth/FormAuthFooter";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { ActionResetPassword } from "@/actions/auth/ActionResetPassword";
+import { ResetPasswordAction } from "@/actions/auth/ResetPasswordAction";
 import Button from "../ui/buttons/Button";
 
 const dataInputsResetPassword = [
@@ -48,7 +48,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     };
 
     try {
-      const resp = await ActionResetPassword({ ...trimmedData, token });
+      const resp = await ResetPasswordAction({ ...trimmedData, token });
       if (resp?.error) {
         handleClientErrors<TResetPasswordShema>(resp.error, setError);
         return;

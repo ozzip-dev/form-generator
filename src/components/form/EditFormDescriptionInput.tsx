@@ -53,7 +53,8 @@ const EditFormDescriptionInput = (props: Props) => {
     {
       type: "text",
       name: `inputs.${props.inputIdx}.description`,
-      placeholder: "Nazwa pola",
+      placeholder: "Pytanie",
+      label: "Edytuj opis pytania",
     },
   ];
 
@@ -70,17 +71,18 @@ const EditFormDescriptionInput = (props: Props) => {
             errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
             onChange={handleEditLabel}
           />
-
-          <Button
-            type="button"
-            icon={<IconTrash style="h-5 w-5 bg-white" />}
-            onClickAction={handleDescriptionInput}
-          />
+          <div className="w-fit flex items-center">
+            <Button
+              type="button"
+              icon={<IconTrash style="h-5 w-5 bg-white" />}
+              onClickAction={handleDescriptionInput}
+            />
+          </div>
         </div>
       ) : (
         <Button
           type="button"
-          message="Dodaj opis pola"
+          message="Dodaj opis pytania"
           onClickAction={printDescriptionInput}
         />
       )}

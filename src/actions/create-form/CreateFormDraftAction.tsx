@@ -28,7 +28,7 @@ const checkFormLimitError = async (userId: ObjectId): Promise<boolean> => {
   return false;
 };
 
-export async function CreateFormDraft(templateId: string) {
+export async function CreateFormDraftAction(templateId: string) {
   const user = await requireUser();
 
   const userId = new ObjectId(user.id);

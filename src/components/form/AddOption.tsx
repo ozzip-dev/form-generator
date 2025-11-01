@@ -2,8 +2,9 @@ import { useFormContext } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
 import Button from "../ui/buttons/Button";
 import { az } from "zod/v4/locales";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconTrash from "@/icons/iconTrash/IconTrash";
+import { watch } from "fs";
 
 type Props = {
   header: string;
@@ -16,6 +17,7 @@ const AddOption = (props: Props) => {
     trigger,
     control,
     setError,
+    watch,
   } = useFormContext();
 
   const [options, setOptions] = useState([
@@ -25,6 +27,13 @@ const AddOption = (props: Props) => {
       placeholder: "Opcja 1",
     },
   ]);
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      // console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const handleAddOption = () => {
     const nextIndex = options.length;
@@ -49,9 +58,13 @@ const AddOption = (props: Props) => {
     });
   };
 
+  const handleEditOption = () => {
+    console.log("yyy");
+  };
+
   return (
-    <div className="">
-      <div className="flex flex-col gap-3">
+    <div className="ml-8  pt-4 border-t-2 border-zinc-400">
+      <div className="flex flex-col gap-2">
         {options.map((option) => {
           return (
             <div key={option.name} className="flex">
@@ -59,7 +72,7 @@ const AddOption = (props: Props) => {
                 inputsData={[option]}
                 register={register}
                 //   errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-                //   onChange={handleEditLabel}
+                onChange={handleEditOption}
               />
               <div className="w-fit ml-2">
                 <Button
@@ -85,3 +98,58 @@ const AddOption = (props: Props) => {
 };
 
 export default AddOption;
+
+// "use client";
+
+// import { useFormContext, useFieldArray } from "react-hook-form";
+// import InputFields from "../inputs/InputFields";
+// import Button from "../ui/buttons/Button";
+// import IconTrash from "@/icons/iconTrash/IconTrash";
+
+// type Props = {
+//   header: string;
+// };
+
+// const AddOption = ({ header }: Props) => {
+//   const { control, register } = useFormContext();
+
+//   const { fields, append, remove } = useFieldArray({
+//     control,
+//     name: `option.${header}`, // np. option.myHeader
+//   });
+
+//   const handleAddOption = () => {
+//     append({ value: "" });
+//   };
+
+//   return (
+//     <div className="flex flex-col gap-3">
+//       {fields.map((field, index) => (
+//         <div key={field.id} className="flex items-center">
+//           <input
+//             {...register(`option.${header}.${index}.value`)}
+//             placeholder={`Opcja ${index + 1}`}
+//             className="border rounded-lg px-3 py-2 w-full"
+//             type="text"
+//           />
+//           <Button
+//             type="button"
+//             icon={<IconTrash style="h-5 w-5 bg-white" />}
+//             onClickAction={() => remove(index)}
+//             className="ml-2"
+//           />
+//         </div>
+//       ))}
+
+//       <div className="w-fit mt-3">
+//         <Button
+//           message="Dodaj opcję"
+//           type="button"
+//           onClickAction={handleAddOption}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddOption;

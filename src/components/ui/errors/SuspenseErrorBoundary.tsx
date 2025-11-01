@@ -33,7 +33,11 @@ const SuspenseErrorBoundary = (props: Props) => {
         />
       )}
     >
-      <Suspense fallback={<DataLoader message={props.loadingMessage} />}>
+      <Suspense
+        fallback={
+          <DataLoader message={props.loadingMessage} size={props.size} />
+        }
+      >
         <div key={refreshKey}>{props.children}</div>
       </Suspense>
     </ErrorBoundary>

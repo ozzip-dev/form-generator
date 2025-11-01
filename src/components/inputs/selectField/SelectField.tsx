@@ -51,7 +51,7 @@ const SelectField = (props: Props) => {
       {props.label && (
         <label
           htmlFor={props.name}
-          className="block mb-1 text-sm font-medium text-gray-700"
+          className="block mb-1 text-xl text-gray-700"
         >
           {props.label}
         </label>

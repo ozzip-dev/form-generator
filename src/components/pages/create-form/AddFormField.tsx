@@ -29,8 +29,9 @@ const dataSelectOptions = [
 const dataInputsheader = [
   {
     name: "header",
-    placeholder: "Nazwa pola",
+    placeholder: "Pytanie",
     type: "text",
+    label: "Podaj pytanie",
   },
 ];
 

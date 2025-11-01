@@ -1,8 +1,8 @@
-import { GetFormsLst } from "@/actions/create-form/GetFormsList";
+import { GetFormsLstAction } from "@/actions/create-form/GetFormsListAction";
 import FormLink from "./FormLink";
 
 const FormsLIst = async () => {
-  const forms = await GetFormsLst();
+  const forms = await GetFormsLstAction();
 
   if (!forms || forms.length === 0) {
     return <div>Brak zapisanych formularzy</div>;

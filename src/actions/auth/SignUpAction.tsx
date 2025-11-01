@@ -10,7 +10,7 @@ type FormData = {
   name: string;
 };
 
-export async function ActionSignUp(data: FormData) {
+export async function SignUpAction(data: FormData) {
   const validationResult = signUpSchema.safeParse(data);
 
   if (!validationResult.success) {

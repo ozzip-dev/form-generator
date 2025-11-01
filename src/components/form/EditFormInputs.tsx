@@ -38,14 +38,8 @@ export default function EditFormInputs(props: Props) {
     {
       type: "text",
       name: `inputs.${props.inputIdx}.header`,
-      placeholder: "Nazwa pola",
-    },
-  ];
-  const dataInputDescription = [
-    {
-      type: "text",
-      name: `inputs.${props.inputIdx}.description`,
-      placeholder: "Nazwa pola",
+      placeholder: "Pytanie",
+      label: "Edytuj pytanie",
     },
   ];
 
@@ -127,12 +121,14 @@ export default function EditFormInputs(props: Props) {
 
       <RequiredToggleSwitch input={props.input} />
 
-      <div className="flex flex-col justify-center gap-2">
-        {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
-        {!isLastInput && <MoveInputDownBtn inputId={inputId as string} />}
+      <div className="flex flex-col justify-center gap-2 mb-auto">
+        <div className="">
+          {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
+          {!isLastInput && <MoveInputDownBtn inputId={inputId as string} />}
+        </div>
       </div>
 
-      <div>
+      <div className="mb-auto">
         <RemoveInputBtn inputId={inputId as string} />
       </div>
     </div>

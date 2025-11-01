@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FormType } from "@/actions/create-form/GetFormsList";
+import { FormType } from "@/actions/create-form/GetFormsListAction";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
 
 type Props = { form: FormType };

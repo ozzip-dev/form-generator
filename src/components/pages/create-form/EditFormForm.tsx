@@ -23,15 +23,15 @@ const dataSelectOptions = [
 
 const dataInputsFormTitle = [
   {
-    label: "Tytuł formularza",
+    label: "Edytuj tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
     type: "text",
   },
   {
-    label: "Opis",
+    label: "Edytuj opis formularza",
     name: "description",
-    placeholder: "Opis formularza",
+    placeholder: "Edytuj opis formularza",
     type: "text",
   },
 ];
@@ -105,11 +105,12 @@ export default function EditFormForm(props: Props) {
 
         <FormProvider {...methods}>
           <form className="mt-4 space-y-2">
-            <div className="w-80">
+            <div className="w-80 mb-10">
               <SelectFieldControler
                 name={`type`}
                 control={control}
                 defaultValue=""
+                label="Wybierz kategorię formularza"
                 placeholder="Wybierz kategorię formularza"
                 options={dataSelectOptions}
                 onChangeAction={(name, value) => {
@@ -117,7 +118,7 @@ export default function EditFormForm(props: Props) {
                 }}
               />
             </div>
-            <div className="w-48">
+            <div className="w-80">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}

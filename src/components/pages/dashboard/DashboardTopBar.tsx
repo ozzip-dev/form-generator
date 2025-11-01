@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionSignOut } from "@/actions/auth/ActionSignOut";
+import { SignOutAction } from "@/actions/auth/SignOutAction";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
@@ -30,7 +30,7 @@ export default function DashboardTopBar({ user }: Props) {
   const handleSignOut = async () => {
     setIsSigningOut(true);
     try {
-      await ActionSignOut();
+      await SignOutAction();
     } catch (err: any) {
       handleNextRedirectError(err);
       toast({

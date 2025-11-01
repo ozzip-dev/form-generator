@@ -20,7 +20,7 @@ export type FormType = {
   _id: string;
 };
 
-export async function GetFormsLst() {
+export async function GetFormsLstAction() {
   const user = await requireUser();
 
   try {

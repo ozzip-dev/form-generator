@@ -1,8 +1,6 @@
 import AddFormField from "@/components/pages/create-form/AddFormField";
 import EditForm from "@/components/pages/edit-form/EditForm";
-import DataLoader from "@/components/ui/loaders/DataLoader";
 import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
-import { Suspense } from "react";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -11,16 +9,13 @@ const PageEditForm = async (props: Props) => {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <DataLoader
-            message="Ładowanie formularza"
-            className="min-h-[400px]"
-          />
-        }
+      <SuspenseErrorBoundary
+        size="lg"
+        errorMessage="Błąd edycji formularza"
+        loadingMessage="Ładowanie danych formularza"
       >
         <EditForm formId={formId} />
-      </Suspense>
+      </SuspenseErrorBoundary>
 
       <SuspenseErrorBoundary
         errorMessage="Błąd przesyłu danych formularza"

@@ -10,6 +10,7 @@ type Props<T extends FieldValues> = {
   control: Control<T>;
   options: Option[];
   placeholder?: string;
+  label?: string;
   defaultValue?: string;
   onChangeAction?: (name: string, value: string) => void | Promise<void>;
 };
@@ -26,6 +27,7 @@ export const SelectFieldControler = <T extends FieldValues>(
           name={props.name}
           value={field.value}
           defaultValue={props.defaultValue}
+          label={props.label}
           options={props.options}
           placeholder={props.placeholder}
           errorMsg={fieldState.error?.message}
