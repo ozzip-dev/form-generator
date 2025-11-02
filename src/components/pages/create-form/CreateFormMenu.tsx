@@ -12,12 +12,12 @@ const CreateFormMenu = (props: Props) => {
 
   const dataNavLinks = [
     { text: "Formularz", link: `/create-form/${props.formId}/edit` },
+    { text: "Podgląd", link: `/create-form/${props.formId}/preview` },
     { text: "Wyniki", link: `/create-form/${props.formId}/results` },
     {
       text: "Kontakty organizacji",
       link: `/create-form/${props.formId}/contacts`,
     },
-    { text: "Podgląd", link: `/create-form/${props.formId}/preview` },
   ];
 
   return (
@@ -35,7 +35,12 @@ const CreateFormMenu = (props: Props) => {
                   : "border-b-2 border-transparent"
               }`}
             >
-              <ButtonLink message={text} link={link} />
+              <ButtonLink
+                message={text}
+                link={link}
+                target={text === "Podgląd" ? "_blank" : "_self"}
+                rel={text === "Pdgląd" ? "noopener noreferrer" : undefined}
+              />
             </li>
           );
         })}

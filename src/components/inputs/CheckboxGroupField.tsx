@@ -193,7 +193,7 @@ type Props<T extends FieldValues> = {
   onChangeAction?: (values: { name: string; value: boolean }[]) => void;
 };
 
-export const CheckboxField = <T extends FieldValues>(props: Props<T>) => {
+export const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
   const defaultValues = useMemo(
     () =>
       Object.fromEntries(
