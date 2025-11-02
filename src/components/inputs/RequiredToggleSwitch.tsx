@@ -6,7 +6,7 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
-import { CheckboxField } from "./CheckboxGroupField";
+import { CheckboxGroupField } from "./CheckboxGroupField";
 
 interface Props {
   input: FormInput;
@@ -37,7 +37,7 @@ export default function RequiredToggleSwitch(props: Props) {
   return (
     <div className="flex gap-2 items-center mb-auto">
       {loadingForm && <FullscreenLoader />}
-      <CheckboxField
+      <CheckboxGroupField
         name={`inputSettings.${props.input.id}.required`}
         control={control}
         options={dataCheckboxOption}

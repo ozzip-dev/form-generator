@@ -4,7 +4,10 @@ import InputFields from "@/components/inputs/InputFields";
 import RadioGroupField from "@/components/inputs/RadioGroupField";
 import TextareaFields from "@/components/inputs/TextareaFields";
 import Button from "@/components/ui/buttons/Button";
+import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 type Props = {
@@ -12,9 +15,11 @@ type Props = {
 };
 
 const CreatedForm = (props: Props) => {
-  // const { register, handleSubmit, control } = useForm();
+  const schema = createdFormSchema(props.form.inputs);
 
-  const methods = useForm();
+  // console.log("(form", props.form);
+
+  const methods = useForm({ resolver: zodResolver(schema), mode: "all" });
 
   const {
     register,
@@ -23,8 +28,17 @@ const CreatedForm = (props: Props) => {
     trigger,
     control,
     setError,
+    watch,
     handleSubmit,
   } = methods;
+  console.log("er", errors);
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = (data: any) => {
     console.log("sss", data);
@@ -57,6 +71,7 @@ const CreatedForm = (props: Props) => {
             name={header}
             options={dataCheckboxOptions}
             control={control}
+            errorMsg={errors}
           />
         );
       } else if (type === "singleSelect") {
@@ -68,6 +83,7 @@ const CreatedForm = (props: Props) => {
             description={description}
             required={required}
             options={options}
+            errorMsg={errors}
             optionClass="flex w-fit px-4 mb-2 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
           />
         );
@@ -87,6 +103,7 @@ const CreatedForm = (props: Props) => {
             key={idx}
             inputsData={dataInputTextarea}
             register={register}
+            errorMsg={errors}
           />
         );
       } else {
@@ -123,6 +140,7 @@ const CreatedForm = (props: Props) => {
             key={idx}
             inputsData={dataInputText}
             register={register}
+            errorMsg={errors}
           />
         );
       }

@@ -2,6 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import React from "react";
+import InputError from "./InputError";
 
 type Option = {
   label: string;
@@ -16,6 +17,7 @@ type Props = {
   options: Option[];
   className?: string;
   optionClass?: string;
+  errorMsg?: any;
 };
 
 const RadioGroupField = (props: Props) => {
@@ -65,7 +67,12 @@ const RadioGroupField = (props: Props) => {
         })}
       </div>
 
-      {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
+      <InputError
+        errorMsg={
+          (props.errorMsg?.[props.name]?.message as string) ||
+          (props.errorMsg as any)?.message
+        }
+      />
     </div>
   );
 };
