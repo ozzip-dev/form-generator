@@ -1,5 +1,13 @@
+"use client";
+
+import SettingsForm from "@/components/settingsForm/SettingsForm";
+
 const UserSettings = () => {
-  return <div>settings</div>;
+  return (
+    <>
+      <SettingsForm />
+    </>
+  );
 };
 
 export default UserSettings;

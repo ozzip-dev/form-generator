@@ -11,7 +11,7 @@ export async function ToggleRequiredAction(
   formIdString: string,
   inputId: string
 ): Promise<void> {
-  requireUser();
+  await requireUser();
 
   const formId = new ObjectId(formIdString);
 

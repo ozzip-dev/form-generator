@@ -38,7 +38,7 @@ export async function AddFormFieldAction(
   formId: string,
   input: Input
 ): Promise<FormSerialized | { error: string } | { error: any }> {
-  requireUser();
+  await requireUser();
 
   const { header, type } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });

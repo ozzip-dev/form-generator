@@ -13,7 +13,7 @@ export async function MoveInputUp(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {
-  requireUser();
+  await requireUser();
 
   if (!ObjectId.isValid(formIdString)) {
     throw new Error("Invalid formId");

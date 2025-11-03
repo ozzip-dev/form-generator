@@ -16,7 +16,7 @@ export async function EditFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
 ): Promise<FormSerialized | FormActionError> {
-  requireUser();
+  await requireUser();
 
   const validationResult = editFormSchema.partial().safeParse(updateData);
 

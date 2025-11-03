@@ -10,10 +10,8 @@ const Home = () => {
       >
         zaloguj
       </Link>
-      <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        home
-      </div>
-      <footer className="flex justify-center items-center gap-2 p-4">
+      <div className="flex items-center justify-items-center p-8 ">home</div>
+      <footer className="flex justify-center items-center p-2">
         <Image
           src="/images/UELogos.webp"
           alt="Loga"
@@ -28,7 +26,7 @@ const Home = () => {
           alt="TransferHub logo"
           width={100}
           height={25}
-          className="h-[25px] w-auto"
+          className="h-[25px] w-auto pl-2 border-l-2 border-zinc-400"
           placeholder="blur"
           blurDataURL="/images/placeholder.jpg"
           loading="lazy"

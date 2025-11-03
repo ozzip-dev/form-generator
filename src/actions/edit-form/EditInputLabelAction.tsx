@@ -14,7 +14,7 @@ export async function EditInputLabelAction(
   inputId: string,
   data: { header?: string; description?: string }
 ): Promise<void | any> {
-  requireUser();
+  await requireUser();
 
   if (data.header) {
     const validationResult = conditionalInputSchema.safeParse(data);

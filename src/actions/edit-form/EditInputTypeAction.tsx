@@ -13,7 +13,7 @@ export async function EditInputTypeAction(
   inputId: string,
   type: InputType
 ): Promise<void> {
-  requireUser();
+  await requireUser();
   const formId = new ObjectId(formIdString);
 
   if (!checkFormHasInputWithId(db, formId, inputId)) return;
