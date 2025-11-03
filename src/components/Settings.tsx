@@ -16,7 +16,6 @@ const Settings = (props: Props) => {
     setFormPrinted((prev) => !prev);
   };
 
-  // if (true) {
   if (!props.contactDetails.committeeUnion) {
     return (
       <>
@@ -29,7 +28,8 @@ const Settings = (props: Props) => {
 
   return (
     <>
-      <div> {props.contactDetails.committeeUnion}</div>
+      {!isFormPrinted && <div> {props.contactDetails.committeeUnion}</div>}
+      {isFormPrinted && <SettingsForm />}{" "}
       <div className="w-fit ml-auto">
         <Button
           message="Edytuj dane kontaktowe"
@@ -37,8 +37,6 @@ const Settings = (props: Props) => {
           onClickAction={handlePrintForm}
         />{" "}
       </div>
-
-      {isFormPrinted && <SettingsForm />}
     </>
   );
 };
