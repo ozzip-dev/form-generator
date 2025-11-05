@@ -14,14 +14,15 @@ type Props = {
 // TODO: Tymczasowy komponent, na bank to będzie inaczej
 const FormStateData = ({ form }: Props) => {
   const isStateDraft: boolean = isDraft(form)
-  const formUrl = `/${form.url || `submit/${form._id}`}`
+  const { _id, url } = form
+  const formUrl = `/submit/${url || _id}`
 
   const { toast } = useToast();
   
   const copyUrl = () => {
-    const url = `${window.location.origin}/submit${formUrl}`
+    const urlToCopy = `${window.location.origin}${formUrl}`
 
-    navigator.clipboard.writeText(url)
+    navigator.clipboard.writeText(urlToCopy)
 
     toast({
       title: 'Skopiowano URL',
