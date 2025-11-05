@@ -8,7 +8,7 @@ const dataInputscommittee = [
   {
     label: "Nazwa związku zawodowego do którego należy komisja",
     name: "committeeUnion",
-    placeholder: "OZZ",
+    placeholder: "Związek",
     type: "text",
   },
   {
