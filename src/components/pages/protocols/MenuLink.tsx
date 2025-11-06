@@ -1,0 +1,33 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+import ButtonLink from "@/components/ui/buttons/ButtonLink";
+
+type Props = {
+  text: string;
+  link: string;
+};
+
+const MenuLink = ({ text, link }: Props) => {
+  const pathname = usePathname();
+  const isActive = pathname === link;
+
+  return (
+    <li
+      className={`me-1 pb-1 ${
+        isActive
+          ? "border-b-2 border-blue-500"
+          : "border-b-2 border-transparent"
+      }`}
+    >
+      <ButtonLink
+        message={text}
+        link={link}
+        target={text === "Podgląd" ? "_blank" : "_self"}
+        rel={text === "Podgląd" ? "noopener noreferrer" : undefined}
+      />
+    </li>
+  );
+};
+
+export default MenuLink;

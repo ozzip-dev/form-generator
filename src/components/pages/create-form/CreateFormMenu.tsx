@@ -1,49 +1,23 @@
-"use client";
-
-import ButtonLink from "@/components/ui/buttons/ButtonLink";
-import { usePathname } from "next/navigation";
+import MenuLink from "../protocols/MenuLink";
 
 type Props = {
   formId: string;
 };
 
-const CreateFormMenu = (props: Props) => {
-  const pathname = usePathname();
-
+const CreateFormMenu = ({ formId }: Props) => {
   const dataNavLinks = [
-    { text: "Formularz", link: `/create-form/${props.formId}/edit` },
-    { text: "Podgląd", link: `/create-form/${props.formId}/preview` },
-    { text: "Wyniki", link: `/create-form/${props.formId}/results` },
-    {
-      text: "Kontakty organizacji",
-      link: `/create-form/${props.formId}/contacts`,
-    },
+    { text: "Formularz", link: `/create-form/${formId}/edit` },
+    { text: "Podgląd", link: `/create-form/${formId}/preview` },
+    { text: "Wyniki", link: `/create-form/${formId}/results` },
+    { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
   ];
 
   return (
     <div>
       <ul className="flex items-center justify-center">
-        {dataNavLinks.map(({ text, link }) => {
-          const isActive = pathname === link;
-
-          return (
-            <li
-              key={text}
-              className={`me-1 pb-1 ${
-                isActive
-                  ? "border-b-2 border-blue-500"
-                  : "border-b-2 border-transparent"
-              }`}
-            >
-              <ButtonLink
-                message={text}
-                link={link}
-                target={text === "Podgląd" ? "_blank" : "_self"}
-                rel={text === "Pdgląd" ? "noopener noreferrer" : undefined}
-              />
-            </li>
-          );
-        })}
+        {dataNavLinks.map(({ text, link }) => (
+          <MenuLink key={text} text={text} link={link} />
+        ))}
       </ul>
     </div>
   );
