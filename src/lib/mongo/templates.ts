@@ -17,6 +17,7 @@ export const inputTemplates: Input[] = [
     header: 'Imię i nazwisko',
     description: 'Podaj swoje imię i nazwisko',
     validation: {},
+    options: [],
   },
   {
     id: TemplateInputId.ADDRESS,
@@ -24,6 +25,7 @@ export const inputTemplates: Input[] = [
     header: 'Adres',
     description: 'Podaj swój adres',
     validation: {},
+    options: [],
   },
   {
     id: TemplateInputId.AGE,
@@ -31,6 +33,7 @@ export const inputTemplates: Input[] = [
     header: 'Wiek',
     description: 'Podaj swój wiek',
     validation: {},
+    options: [],
   },
   {
     id: TemplateInputId.CONTRACT_TYPE,
@@ -51,7 +54,7 @@ export const inputTemplates: Input[] = [
 const getCreatedUpdatedDates = (): {
   createdAt: Date,
   updatedAt: Date
- } => {
+} => {
   const now = new Date()
 
   return {
@@ -73,6 +76,7 @@ export const formTemplates: Form[] = [
         type: InputType.TEXT,
         header: 'Imię',
         validation: {},
+        options: [],
         required: true,
         order: 0,
         unique: false
@@ -82,6 +86,7 @@ export const formTemplates: Form[] = [
         type: InputType.EMAIL,
         header: 'Email',
         validation: {},
+        options: [],
         required: true,
         order: 1,
         unique: false
@@ -91,6 +96,7 @@ export const formTemplates: Form[] = [
         type: InputType.TEXT,
         header: 'Login id',
         validation: {},
+        options: [],
         required: true,
         order: 2,
         unique: true
@@ -109,6 +115,7 @@ export const formTemplates: Form[] = [
         type: InputType.TEXT,
         header: 'Imię i nazwisko',
         validation: {},
+        options: [],
         required: true,
         order: 0,
         unique: false
@@ -118,6 +125,7 @@ export const formTemplates: Form[] = [
         type: InputType.NUMBER,
         header: 'Wiek',
         validation: {},
+        options: [],
         required: false,
         order: 1,
         unique: false

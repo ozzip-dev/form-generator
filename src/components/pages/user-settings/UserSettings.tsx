@@ -1,5 +1,7 @@
 "use client";
+
 import { useState } from "react";
+import UserCommitteeForm from "./UserCommitteeForm";
 import Button from "../../ui/buttons/Button";
 import UserForm from "./UserForm";
 import UserDetails from "./UserDetails";
@@ -32,6 +34,8 @@ const UserSettings = (props: Props) => {
       {!isFormPrinted && <UserDetails />}
       {isFormPrinted && <UserForm />}{" "}
       <div className="w-fit ml-auto">
+      <UserCommitteeForm />
+
         <Button
           message="Edytuj dane kontaktowe"
           type="button"

@@ -14,7 +14,7 @@ export interface Input extends Document {
   description?: string
   // placeholder?: string // ?
   validation: InputValidation
-  options?: string[]
+  options: string[]
   template?: boolean
 }
 

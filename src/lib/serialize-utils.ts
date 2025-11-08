@@ -1,5 +1,6 @@
 import { Form, FormSerialized } from "@/types/form";
 import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
   const {
@@ -54,4 +55,11 @@ export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
     uploadedAt: uploadedAt?.toISOString(),
     lastModifiedAt: lastModifiedAt?.toISOString(),
   };
+}
+
+export function serializeUser(user: IUser): UserSerialized {
+  return {
+    ...user,
+    _id: user._id.toString()
+  }
 }

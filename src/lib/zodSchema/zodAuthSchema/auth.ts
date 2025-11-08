@@ -15,7 +15,28 @@ export const auth = betterAuth({
         input:
           false /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */,
       },
-    },
+      // TODO: consider changing to 'committeeId' and adding a committee collection
+      committeeName: {
+        type: 'string',
+        required: false,
+        defaultValue: ''
+      },
+      committeeEmail: {
+        type: 'string',
+        required: false,
+        defaultValue: ''
+      },
+      committeePhone: {
+        type: 'string',
+        required: false,
+        defaultValue: ''
+      },
+      committeeUnion: {
+        type: 'string',
+        required: false,
+        defaultValue: ''
+      }
+    }
   },
   emailAndPassword: {
     enabled: true,
