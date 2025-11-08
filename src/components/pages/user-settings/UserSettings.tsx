@@ -1,5 +1,11 @@
+import UserCommitteeForm from "./UserCommitteeForm";
+
 const UserSettings = () => {
-  return <div>settings</div>;
+  return (
+    <>
+      <UserCommitteeForm />
+    </>
+  );
 };
 
 export default UserSettings;
