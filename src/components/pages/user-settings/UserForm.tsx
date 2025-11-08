@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 const dataInputscommittee = [
   {
-    label: "Nazwa związku zawodowego do którego należy komisja",
+    label: "Związek zawodowy do którego należy komisja",
     name: "committeeUnion",
     placeholder: "Związek",
     type: "text",
@@ -31,7 +31,7 @@ const dataInputscommittee = [
   },
 ];
 
-const SettingsForm = () => {
+const UserForm = () => {
   const {
     register,
     handleSubmit,
@@ -56,4 +56,4 @@ const SettingsForm = () => {
   );
 };
 
-export default SettingsForm;
+export default UserForm;

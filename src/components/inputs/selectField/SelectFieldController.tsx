@@ -2,6 +2,8 @@
 
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import SelectField from "./SelectField";
+import { useEffect, useState } from "react";
+import Loader from "@/components/ui/loaders/Loader";
 
 type Option = { label: string; value: string };
 
@@ -18,6 +20,16 @@ type Props<T extends FieldValues> = {
 export const SelectFieldControler = <T extends FieldValues>(
   props: Props<T>
 ) => {
+  const [isLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+  }, []);
+
+  if (!isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Controller
       name={props.name}

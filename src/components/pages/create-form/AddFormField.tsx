@@ -81,7 +81,7 @@ const AddFormField = () => {
           errorMsg={errors}
         />
 
-        <div className="w-48">
+        <div className="w-48 flex justify-center">
           <SelectFieldControler
             name="type"
             control={control}

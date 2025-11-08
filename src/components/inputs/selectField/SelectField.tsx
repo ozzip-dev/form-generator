@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
 import InputError from "../InputError";
+import Loader from "@/components/ui/loaders/Loader";
 
 export type Option = {
   label: string;

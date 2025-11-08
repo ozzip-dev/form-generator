@@ -1,11 +1,10 @@
 "use client";
 
 import { ProtocolSerialized } from "@/types/protocol";
-import AddProtocolForm from "./AddProtocolForm";
-import ProtocolListFilters from "./ProtocolListFilters";
 import { useState } from "react";
-import { filtersDefault, ProtocolFilters } from "./utils";
 import ProtocolList from "./ProtocolList";
+import ProtocolListFilters from "./ProtocolListFilters";
+import { filtersDefault, ProtocolFilters } from "./utils";
 
 type Props = {
   protocols: ProtocolSerialized[];
@@ -18,7 +17,6 @@ const Protocols = ({ protocols }: Props) => {
     <div className="p-8">
       <ProtocolListFilters filters={filters} setFilters={setFilters} />
       <ProtocolList filters={filters} protocols={protocols} />
-      <AddProtocolForm />
     </div>
   );
 };

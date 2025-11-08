@@ -108,7 +108,7 @@ export default function EditFormInputs(props: Props) {
           )}
         </div>
 
-        <div>
+        <div className="w-1/2 flex justify-center">
           <SelectFieldControler
             name={`inputs.${props.inputIdx}.type`}
             control={control}

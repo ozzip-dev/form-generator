@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { SetAliasUrl } from "@/actions/form/SetAliasUrl";
 import InputError from "@/components/inputs/InputError";
@@ -15,21 +15,20 @@ export default function AliasUrlForm(form: FormSerialized) {
     handleSubmit,
     register,
     formState: { isSubmitting },
-
   } = useForm<SetAliasSchema>({
     resolver: zodResolver(setAliasSchema),
   });
 
   const setAlias = async (data: SetAliasSchema) => {
     try {
-      await SetAliasUrl(form, data.url)
-    } catch(e: any) {
+      await SetAliasUrl(form, data.url);
+    } catch (e: any) {
       toast({
         title: e.message,
-        variant: 'error'
-      })
+        variant: "error",
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -38,17 +37,16 @@ export default function AliasUrlForm(form: FormSerialized) {
         className="flex items-center gap-4"
       >
         <label htmlFor="file">
-          <input 
-            type="text"
-            className="p-1 border"
-            {...register('url')}
-          />
+          <input type="text" className="p-1 border" {...register("url")} />
         </label>
         {/* TODO: add remove alias */}
         <div>
-          <ButtonSubmit message="Ustaw alias" isSubmitting={isSubmitting} />
+          <ButtonSubmit
+            message="Zapisz link do formularza"
+            isSubmitting={isSubmitting}
+          />
         </div>
       </form>
     </>
-  )
+  );
 }

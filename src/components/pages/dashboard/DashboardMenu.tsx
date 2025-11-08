@@ -16,7 +16,8 @@ const DashboardMenu = () => {
   return (
     <ul className="flex items-center p-4 ">
       {dataNavLinks.map(({ text, link }) => {
-        const isActive = pathname === link || pathname.startsWith(link + "/");
+        const isActive =
+          pathname === link || pathname.startsWith("create-form" + "/");
 
         return (
           <li
