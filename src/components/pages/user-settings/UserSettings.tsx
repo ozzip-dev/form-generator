@@ -31,10 +31,12 @@ const UserSettings = (props: Props) => {
 
   return (
     <>
+      {/* TODO: ten komponent ma podpietą akcję, dogramy wszystko w całość */}
+      <UserCommitteeForm />
+
       {!isFormPrinted && <UserDetails />}
       {isFormPrinted && <UserForm />}{" "}
       <div className="w-fit ml-auto">
-      <UserCommitteeForm />
 
         <Button
           message="Edytuj dane kontaktowe"
