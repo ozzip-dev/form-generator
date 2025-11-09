@@ -60,6 +60,7 @@ const AddFormField = () => {
         ...data,
         type: data.type as InputType,
         validation: {},
+        options: []
       });
 
       if (resp?.error) {

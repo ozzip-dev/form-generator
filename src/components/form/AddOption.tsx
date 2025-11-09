@@ -1,14 +1,13 @@
 import { useFormContext } from "react-hook-form";
-import InputFields from "../inputs/InputFields";
 import Button from "../ui/buttons/Button";
 import { useEffect, useState } from "react";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { watch } from "fs";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import EditInputOptionAction from "@/actions/edit-form/EditInputOptionAction";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 import RemoveInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
+import { FormInput } from "@/types/input";
 
 type Props = {
   header: string;
@@ -45,13 +44,10 @@ const AddOption = (props: Props) => {
 
   useEffect(() => {
     const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-      console.log(values.inputs.find(({ id }) => id == props.inputId).options.map((item, index) => ({
-        type: 'text',
-        name: `option.${index}.${props.header}`,
-        placeholder: `Opcja ${index + 1}`,
-      })))
-      setOptions(values.inputs.find(({ id }) => id == props.inputId).options.map((item, index) => ({
+      if (!values) return
+      const inputWithId: FormInput = values.inputs.find(({ id }: { id: string }) => id == props.inputId)
+      if (!inputWithId) return
+      setOptions(inputWithId.options.map((item, index) => ({
         type: 'text',
         name: `option.${index}.${props.header}`,
         placeholder: `Opcja ${index + 1}`,
@@ -86,7 +82,7 @@ const AddOption = (props: Props) => {
     RemoveInputOptionAction(formId!, props.inputId, optionName)
   };
 
-  const onOptionChange = (name, value) => {
+  const onOptionChange = (name: string, value: string) => {
     setOptions(options.map((item) => {
       if (item.name != name) return item
       return {
