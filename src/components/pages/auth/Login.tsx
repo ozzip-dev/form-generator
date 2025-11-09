@@ -8,7 +8,7 @@ import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import {
   loginSchema,
-  TLoginSchema,
+  LoginSchema,
 } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -56,13 +56,13 @@ const Login = () => {
     handleSubmit,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm<TLoginSchema>({
+  } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
   useOneTimeToast(ToastsData);
 
-  const onSubmit = async (data: TLoginSchema) => {
+  const onSubmit = async (data: LoginSchema) => {
     const trimmedData = {
       email: data.email.trim(),
       password: data.password.trim(),
@@ -72,7 +72,7 @@ const Login = () => {
       const resp = await LoginAction(trimmedData);
 
       if (resp?.error) {
-        handleClientErrors<TLoginSchema>(resp.error, setError);
+        handleClientErrors<LoginSchema>(resp.error, setError);
         return;
       }
 
