@@ -1,4 +1,4 @@
-import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
+import { SuspenseErrorBoundary } from "@/components/shared";
 import FormTrigger from "./FormTrigger";
 import FormsTemplatesList from "./formTemplatesLIst/FormsTemplatesList";
 import FormsLIst from "./formsList/FormsLIst";

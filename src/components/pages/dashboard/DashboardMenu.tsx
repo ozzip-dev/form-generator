@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonLink from "@/components/ui/buttons/ButtonLink";
+import { ButtonLink } from "@/components/shared";
 import { usePathname } from "next/navigation";
 
 const dataNavLinks = [

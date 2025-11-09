@@ -2,7 +2,7 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import ResetPasswordForm from "./ResetPasswordForm";
-import ButtonLink from "../ui/buttons/ButtonLink";
+import { ButtonLink } from "@/components/shared";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();

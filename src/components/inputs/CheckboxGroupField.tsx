@@ -40,7 +40,7 @@ export const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
 
   useEffect(() => {
     onChange(defaultValues);
-  }, [onChange]);
+  }, [onChange, defaultValues]);
 
   const selectedValues = value ?? defaultValues;
 

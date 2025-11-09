@@ -4,10 +4,8 @@ import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import Button from "../ui/buttons/Button";
-import { az } from "zod/v4/locales";
+import { Button, FullscreenLoader } from "../shared";
 
 type Props = {
   inputId: string;

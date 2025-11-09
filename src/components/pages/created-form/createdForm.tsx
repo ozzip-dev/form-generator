@@ -3,7 +3,7 @@ import { CheckboxGroupField } from "@/components/inputs/CheckboxGroupField";
 import InputFields from "@/components/inputs/InputFields";
 import RadioGroupField from "@/components/inputs/RadioGroupField";
 import TextareaFields from "@/components/inputs/TextareaFields";
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";

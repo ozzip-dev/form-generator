@@ -10,12 +10,12 @@ import { useFormContext } from "react-hook-form";
 import InputFields from "../inputs/InputFields";
 import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
 import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
-import FullscreenLoader from "../ui/loaders/FullscreenLoader";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import AddOption from "./AddOption";
+import { FullscreenLoader } from "../shared";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },

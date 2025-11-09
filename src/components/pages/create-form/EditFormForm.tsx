@@ -4,8 +4,6 @@ import { EditFormHeaderAction } from "@/actions/edit-form/EditFormHeaderAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
-import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
-import FullscreenLoader from "@/components/ui/loaders/FullscreenLoader";
 import { useEditForm } from "@/hooks/useEditForm";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
@@ -14,6 +12,7 @@ import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormStateData from "./FormStateData";
 import CreatedUpdatedInfo from "./CreatedUpdatedInfo";
+import { FullscreenLoader, SuspenseErrorBoundary } from "@/components/shared";
 
 const dataSelectOptions = [
   { label: "Ankieta pracownicza", value: "text" },

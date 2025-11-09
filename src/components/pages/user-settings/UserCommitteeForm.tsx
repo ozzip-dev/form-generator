@@ -1,5 +1,5 @@
 import { updateCommitteeData } from "@/actions/user/updateCommitteeData";
-import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
+import { ButtonSubmit } from "@/components/shared";
 
 const UserCommitteeForm = () => {
   return (

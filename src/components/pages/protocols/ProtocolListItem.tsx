@@ -1,11 +1,11 @@
 "use client";
 
 import { Binary } from "mongodb";
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
 import { mapFileExtensionName } from "./utils";
 import { ProtocolSerialized } from "@/types/protocol";
 import { convertBToKB } from "@/lib/utils";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { ButtonClick } from "@/components/shared";
 
 const getFileBlob = (data: Binary, type: string): Blob => {
   const binaryString = atob(data as unknown as string);

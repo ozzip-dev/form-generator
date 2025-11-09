@@ -1,8 +1,8 @@
 "use client";
 
 import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
-import DataLoader from "../ui/loaders/DataLoader";
 import InputError from "./InputError";
+import { DataLoader } from "../shared";
 
 type Props = {
   inputsData: {

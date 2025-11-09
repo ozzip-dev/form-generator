@@ -3,7 +3,7 @@
 import { ForgotPasswordAction } from "@/actions/auth/ForgotPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import InputFields from "@/components/inputs/InputFields";
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {

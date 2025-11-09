@@ -1,7 +1,7 @@
 "use client";
 
 import InputFields from "@/components/inputs/InputFields";
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import { useForm } from "react-hook-form";
 
 const dataInputscommittee = [

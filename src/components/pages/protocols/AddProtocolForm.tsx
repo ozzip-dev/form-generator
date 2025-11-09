@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/useToast";
 import { UploadFile } from "@/actions/protocol";
 import InputError from "@/components/inputs/InputError";
-import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
 import {
   uploadProtocolSchema,
   UploadProtocolSchema,
 } from "@/lib/zodShema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ButtonSubmit } from "@/components/shared";
 
 const AddProtocolForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);

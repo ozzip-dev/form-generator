@@ -2,7 +2,7 @@
 
 import { LoginAction } from "@/actions/auth/LoginAction";
 import InputFields from "@/components/inputs/InputFields";
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";

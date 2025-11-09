@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import UseCreateForm from "@/hooks/useCreateForm";
 
 type Props = {

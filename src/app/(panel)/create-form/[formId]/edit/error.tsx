@@ -1,6 +1,7 @@
 "use client";
 
-import LoadingPageError from "@/components/ui/errors/LoadingPageError";
+import { LoadingPageError } from "@/components/shared";
+
 
 type Props = {
   error: Error;
