@@ -8,6 +8,7 @@ import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import EditInputOptionAction from "@/actions/edit-form/EditInputOptionAction";
 import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import RemoveInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 
 type Props = {
   header: string;
@@ -30,6 +31,7 @@ const AddOption = (props: Props) => {
       type: "text",
       name: `option.0.${props.header}`,
       placeholder: "Opcja 1",
+      defaultValue: ''
     },
   ]);
 
@@ -41,12 +43,23 @@ const AddOption = (props: Props) => {
     mode: "inputOption",
   });
 
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+      console.log(values.inputs.find(({ id }) => id == props.inputId).options.map((item, index) => ({
+        type: 'text',
+        name: `option.${index}.${props.header}`,
+        placeholder: `Opcja ${index + 1}`,
+      })))
+      setOptions(values.inputs.find(({ id }) => id == props.inputId).options.map((item, index) => ({
+        type: 'text',
+        name: `option.${index}.${props.header}`,
+        placeholder: `Opcja ${index + 1}`,
+        defaultValue: item
+      })))
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, props.header, props.inputId]);
 
   const handleAddOption = () => {
     const nextIndex = options.length;
@@ -56,6 +69,7 @@ const AddOption = (props: Props) => {
         type: "text",
         name: `option.${nextIndex}.${props.header}`,
         placeholder: `Opcja ${nextIndex + 1}`,
+        defaultValue: ''
       },
     ]);
   };
@@ -69,22 +83,35 @@ const AddOption = (props: Props) => {
         placeholder: `Opcja ${index + 1}`,
       }));
     });
+    RemoveInputOptionAction(formId!, props.inputId, optionName)
   };
+
+  const onOptionChange = (name, value) => {
+    setOptions(options.map((item) => {
+      if (item.name != name) return item
+      return {
+        ...item,
+        defaultValue: value
+      }
+    }))
+    handleEdit(name, value)
+  }
 
   const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
   return (
     <div className="ml-8  pt-4 border-t-2 border-zinc-400">
       <div className="flex flex-col gap-2">
-        {options.map((option) => {
+        {options.map((option, i) => {
           return (
-            <div key={option.name} className="flex">
+            <div key={i} className="flex">
               {isAnyLoading && <FullscreenLoader />}
-              <InputFields
+              {/* <InputFields
                 inputsData={[option]}
                 register={register}
                 //   errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
                 onChange={handleEdit}
-              />
+              /> */}
+              <input type="text" value={option.defaultValue} onChange={(e) => onOptionChange(option.name, e.target.value)} />
               <div className="w-fit ml-2">
                 <Button
                   type="button"

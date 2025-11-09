@@ -23,6 +23,7 @@ type Props = {
 };
 
 const InputFields = (props: Props) => {
+  console.log(props.inputsData)
   return (
     <>
       {props.inputsData.map(
