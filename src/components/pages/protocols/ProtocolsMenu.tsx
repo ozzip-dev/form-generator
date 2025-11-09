@@ -1,4 +1,4 @@
-import MenuLink from "./MenuLink";
+import MenuLink from "../../shared/MenuLink";
 
 const ProtocolsMenu = () => {
   const dataNavLinks = [

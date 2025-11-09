@@ -5,7 +5,7 @@ import PublishFormButton from "./PublishFormButton";
 import { isDraft } from "@/helpers/formHelpers";
 import AliasUrlForm from "./AliasUrlForm";
 import { useToast } from "@/hooks/useToast";
-import { ButtonClick } from "@/components/shared";
+import { Button } from "@/components/shared";
 
 type Props = {
   form: FormSerialized;
@@ -13,51 +13,40 @@ type Props = {
 
 // TODO: Tymczasowy komponent, na bank to będzie inaczej
 const FormStateData = ({ form }: Props) => {
-  const isStateDraft: boolean = isDraft(form)
-  const { _id, url } = form
-  const formUrl = `/submit/${url || _id}`
+  const isStateDraft: boolean = isDraft(form);
+  const { _id, url } = form;
+  const formUrl = `/submit/${url || _id}`;
 
   const { toast } = useToast();
-  
-  const copyUrl = () => {
-    const urlToCopy = `${window.location.origin}${formUrl}`
 
-    navigator.clipboard.writeText(urlToCopy)
+  const copyUrl = () => {
+    const urlToCopy = `${window.location.origin}${formUrl}`;
+
+    navigator.clipboard.writeText(urlToCopy);
 
     toast({
-      title: 'Skopiowano URL',
-      variant: 'success'
-    })
-  }
+      title: "Skopiowano URL",
+      variant: "success",
+    });
+  };
 
   return (
-      <div className="m-4 *:flex *:items-center *:w-fit *:gap-3">
-        {
-          isStateDraft ? (
-            <div className="*:flex-shrink-0">
-              <div>
-                Formularz jest szkicem.
-              </div>
-              <PublishFormButton form={form} />
-            </div>
-          ) : (
-            <div className="mb-2">
-              <div>
-                Opublikowano:
-              </div>
-              <div className="font-bold">
-                {formUrl}
-              </div>
-              <ButtonClick
-                onClickAction={copyUrl}
-                message="Kopiuj"
-              />
-            </div>
-          )
-        }
+    <div className="m-4 *:flex *:items-center *:w-fit *:gap-3">
+      {isStateDraft ? (
+        <div className="*:flex-shrink-0">
+          <div>Formularz jest szkicem.</div>
+          <PublishFormButton form={form} />
+        </div>
+      ) : (
+        <div className="mb-2">
+          <div>Opublikowano:</div>
+          <div className="font-bold">{formUrl}</div>
+          <Button onClickAction={copyUrl} message="Kopiuj" type="button" />
+        </div>
+      )}
 
-        {!isStateDraft && <AliasUrlForm {...form} />}
-      </div>
+      {!isStateDraft && <AliasUrlForm {...form} />}
+    </div>
   );
 };
 

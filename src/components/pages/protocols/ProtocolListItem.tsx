@@ -5,7 +5,7 @@ import { mapFileExtensionName } from "./utils";
 import { ProtocolSerialized } from "@/types/protocol";
 import { convertBToKB } from "@/lib/utils";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
-import { ButtonClick } from "@/components/shared";
+import { Button } from "@/components/shared";
 
 const getFileBlob = (data: Binary, type: string): Blob => {
   const binaryString = atob(data as unknown as string);
@@ -29,8 +29,12 @@ const saveFile = (data: Binary, type: string, name: string) => {
 };
 
 const ProtocolListItem = ({
-  data, name, type, size, uploadedAt
-} : ProtocolSerialized) => {
+  data,
+  name,
+  type,
+  size,
+  uploadedAt,
+}: ProtocolSerialized) => {
   return (
     <div
       className="
@@ -44,7 +48,7 @@ const ProtocolListItem = ({
       <div>{convertBToKB(size)} KB</div>
       <div>{formatDateAndHour(uploadedAt)}</div>
       <div>
-        <ButtonClick
+        <Button
           message="Pobierz"
           onClickAction={() => saveFile(data, type, name)}
         />

@@ -1,9 +1,9 @@
 "use client";
 
 import { SetAliasUrl } from "@/actions/form/SetAliasUrl";
-import { ButtonSubmit } from "@/components/shared";
+import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
-import { setAliasSchema, SetAliasSchema } from "@/lib/zodShema/setAliasSchema";
+import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -40,9 +40,9 @@ export default function AliasUrlForm(form: FormSerialized) {
         </label>
         {/* TODO: add remove alias */}
         <div>
-          <ButtonSubmit
+          <Button
             message="Zapisz link do formularza"
-            isSubmitting={isSubmitting}
+            isLoading={isSubmitting}
           />
         </div>
       </form>

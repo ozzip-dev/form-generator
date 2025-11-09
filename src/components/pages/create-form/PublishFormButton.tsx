@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonClick } from "@/components/shared";
+import { Button } from "@/components/shared";
 import UsePublishForm from "@/hooks/usePublishForm";
 import { FormSerialized } from "@/types/form";
 
@@ -12,7 +12,7 @@ const PublishFormButton = ({ form }: Props) => {
   const { handlePublishForm, isloading } = UsePublishForm(form);
 
   return (
-    <ButtonClick
+    <Button
       message="Publikuj"
       onClickAction={handlePublishForm}
       isLoading={isloading}

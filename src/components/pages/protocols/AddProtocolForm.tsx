@@ -8,9 +8,9 @@ import InputError from "@/components/inputs/InputError";
 import {
   uploadProtocolSchema,
   UploadProtocolSchema,
-} from "@/lib/zodShema/uploadProtocolSchema";
+} from "@/lib/zodSchema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ButtonSubmit } from "@/components/shared";
+import { Button } from "@/components/shared";
 
 const AddProtocolForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +65,7 @@ const AddProtocolForm = () => {
         <input type="file" ref={fileInputRef} onChange={onChange} />
       </label>
       <div>
-        <ButtonSubmit message="Wgraj protokół" isSubmitting={isSubmitting} />
+        <Button message="Wgraj protokół" isLoading={isSubmitting} />
       </div>
 
       <InputError errorMsg={errors?.file?.message as string} />

@@ -1,4 +1,4 @@
-import MenuLink from "../protocols/MenuLink";
+import MenuLink from "../../shared/MenuLink";
 
 type Props = {
   formId: string;
