@@ -9,7 +9,7 @@ export const GetFormAction = cache(async (formId: string): Promise<Form> => {
   await requireUser();
 
   try {
-    const form = findById(db, "form", new ObjectId(formId))
+    const form = await findById(db, "form", new ObjectId(formId));
 
     if (!form) {
       console.error(`Form not found: ${formId}`);

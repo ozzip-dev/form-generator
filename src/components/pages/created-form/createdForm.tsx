@@ -18,22 +18,21 @@ type Props = {
 };
 
 const CreatedForm = (props: Props) => {
-  // const schema = createdFormSchema(props.form.inputs);
+  const { title, description, inputs } = props.form;
+  const schema = createdFormSchema(props.form.inputs);
 
-  // // console.log("(form", props.form);
+  const methods = useForm({ resolver: zodResolver(schema), mode: "all" });
 
-  // const methods = useForm({ resolver: zodResolver(schema), mode: "all" });
-
-  // const {
-  //   register,
-  //   reset,
-  //   formState: { errors },
-  //   trigger,
-  //   control,
-  //   setError,
-  //   watch,
-  //   handleSubmit,
-  // } = methods;
+  const {
+    register,
+    reset,
+    formState: { errors },
+    trigger,
+    control,
+    setError,
+    watch,
+    handleSubmit,
+  } = methods;
   // console.log("er", errors);
 
   // useEffect(() => {
@@ -43,116 +42,113 @@ const CreatedForm = (props: Props) => {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
-  // const onSubmit = (data: any) => {
-  //   console.log("sss", data);
-  // };
-
-  // const options = [
-  //   { label: "Mężczyzna", value: "male" },
-  //   { label: "Kobieta", value: "female" },
-  //   { label: "Inne", value: "other" },
-  // ];
-
-  // const { title, description, inputs } = props.form;
+  const onSubmit = (data: any) => {
+    console.log("sss", data);
+  };
 
   // console.log("", props.form);
 
-  // const formFields = inputs
-  //   .sort((a, b) => a.order - b.order)
-  //   .map(({ type, header, description, required }: any, idx: number) => {
-  //     if (type === "checkbox") {
-  //       const dataCheckboxOptions = [
-  //         { label: "label", name: "name", value: false },
-  //         { label: "label", name: "namet", value: false },
-  //       ];
-  //       return (
-  //         <CheckboxGroupField
-  //           key={idx}
-  //           label={header}
-  //           required={required}
-  //           description={description}
-  //           name={header}
-  //           options={dataCheckboxOptions}
-  //           control={control}
-  //           errorMsg={errors}
-  //         />
-  //       );
-  //     } else if (type === "singleSelect") {
-  //       return (
-  //         <RadioGroupField
-  //           key={idx}
-  //           name={header}
-  //           label={header}
-  //           description={description}
-  //           required={required}
-  //           options={options}
-  //           errorMsg={errors}
-  //           optionClass="flex w-fit px-4 mb-2 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
-  //         />
-  //       );
-  //     } else if (type === "superText") {
-  //       const dataInputTextarea = [
-  //         {
-  //           label: header,
-  //           name: header,
-  //           placeholder: "Odpowiedź",
-  //           description,
-  //           required,
-  //         },
-  //       ];
+  const formFields = inputs
+    .sort((a: any, b: any) => a.order - b.order)
+    .map(
+      ({ type, header, description, required, options }: any, idx: number) => {
+        if (type === "checkbox") {
+          const dataCheckboxOptions = options?.map((option: any) => {
+            return { label: option, name: option, value: false };
+          });
 
-  //       return (
-  //         <TextareaFields
-  //           key={idx}
-  //           inputsData={dataInputTextarea}
-  //           register={register}
-  //           errorMsg={errors}
-  //         />
-  //       );
-  //     } else {
-  //       let placeholder;
+          return (
+            <CheckboxGroupField
+              key={idx}
+              label={header}
+              required={required}
+              description={description}
+              name={header}
+              options={dataCheckboxOptions}
+              control={control}
+              errorMsg={errors}
+            />
+          );
+        } else if (type === "singleSelect") {
+          const dataRadioOoptions = options?.map((option: any) => {
+            return { label: option, value: option };
+          });
 
-  //       switch (type) {
-  //         case "text": {
-  //           placeholder = "Odpowiedź";
-  //           break;
-  //         }
-  //         case "number": {
-  //           placeholder = "Numer";
-  //           break;
-  //         }
-  //         case "email": {
-  //           placeholder = "Email";
-  //           break;
-  //         }
-  //       }
+          return (
+            <RadioGroupField
+              key={idx}
+              name={header}
+              label={header}
+              description={description}
+              required={required}
+              options={dataRadioOoptions}
+              errorMsg={errors}
+              optionClass="flex w-fit px-4 mb-2 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
+            />
+          );
+        } else if (type === "superText") {
+          const dataInputTextarea = [
+            {
+              label: header,
+              name: header,
+              placeholder: "Odpowiedź",
+              description,
+              required,
+            },
+          ];
 
-  //       const dataInputText = [
-  //         {
-  //           label: header,
-  //           name: header,
-  //           placeholder,
-  //           type,
-  //           description,
-  //           required,
-  //         },
-  //       ];
+          return (
+            <TextareaFields
+              key={idx}
+              inputsData={dataInputTextarea}
+              register={register}
+              errorMsg={errors}
+            />
+          );
+        } else {
+          let placeholder;
 
-  //       return (
-  //         <InputFields
-  //           key={idx}
-  //           inputsData={dataInputText}
-  //           register={register}
-  //           errorMsg={errors}
-  //         />
-  //       );
-  //     }
-  //   });
+          switch (type) {
+            case "text": {
+              placeholder = "Odpowiedź";
+              break;
+            }
+            case "number": {
+              placeholder = "Numer";
+              break;
+            }
+            case "email": {
+              placeholder = "Email";
+              break;
+            }
+          }
+
+          const dataInputText = [
+            {
+              label: header,
+              name: header,
+              placeholder,
+              type,
+              description,
+              required,
+            },
+          ];
+
+          return (
+            <InputFields
+              key={idx}
+              inputsData={dataInputText}
+              register={register}
+              errorMsg={errors}
+            />
+          );
+        }
+      }
+    );
 
   return (
     <div className="flex justify-center ">
-      pppppp
-      {/* <div className="w-4/5">
+      <div className="w-4/5">
         <h1 className="text-4xl">{title}</h1>
         {description && <h2 className="text-2xl">{description}</h2>}
         <div className="text-red-600 text-sm mb-6">* Odpowiedź wymagana</div>
@@ -167,10 +163,10 @@ const CreatedForm = (props: Props) => {
             <Button message="Zatwierdź" disabled={false} />
           </form>
         </FormProvider>
-        <div className="w-fit ml-auto">
+        {/* <div className="w-fit ml-auto">
           <Button message="Opublikuj" type="button" />
-        </div>
-      </div> */}
+        </div> */}
+      </div>
     </div>
   );
 };

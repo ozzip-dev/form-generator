@@ -3,9 +3,11 @@ import { db, findById } from "@/lib/mongo";
 import { isDraft } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
-import Form from "@/components/pages/form/Form";
 import { getFormBySlug } from "@/services/form-service";
 import { DataLoader } from "@/components/shared";
+import { serializeForm } from "@/lib/serialize-utils";
+import { Form } from "@/types/form";
+import CreatedForm from "@/components/pages/created-form/CreatedForm";
 
 // Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
 
@@ -29,7 +31,7 @@ const FormPage = async (props: Props) => {
           />
         }
       >
-        <Form form={form!} />
+        <CreatedForm form={serializeForm(form as Form)} />;
       </Suspense>
     </>
   );

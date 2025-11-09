@@ -3,6 +3,8 @@ import { Protocol, ProtocolSerialized } from "@/types/protocol";
 import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
+  console.log("form", form);
+
   const {
     _id,
     createdAt,
@@ -16,6 +18,7 @@ export function serializeForm(form: Form): FormSerialized {
     inputs,
     type,
   } = form;
+
   return {
     _id: _id?.toString(),
     id,
@@ -60,6 +63,6 @@ export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
 export function serializeUser(user: IUser): UserSerialized {
   return {
     ...user,
-    _id: user._id.toString()
-  }
+    _id: user._id.toString(),
+  };
 }
