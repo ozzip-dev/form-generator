@@ -1,6 +1,9 @@
 "use client";
 
 import { ForgotPasswordAction } from "@/actions/auth/ForgotPasswordAction";
+import FormAuthFooter from "@/components/Auth/FormAuthFooter";
+import InputFields from "@/components/inputs/InputFields";
+import Button from "@/components/ui/buttons/Button";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -9,9 +12,6 @@ import {
 } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import FormAuthFooter from "../Auth/FormAuthFooter";
-import InputFields from "../inputs/InputFields";
-import Button from "../ui/buttons/Button";
 
 const dataInputsForgotPassword = [
   {

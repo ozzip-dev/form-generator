@@ -1,4 +1,4 @@
-import EmailVerified from "@/components/pages/EmailVerified";
+import EmailVerified from "@/components/pages/auth/EmailVerified";
 
 const PageEmailVerified = () => {
   return <EmailVerified />;
