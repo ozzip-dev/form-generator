@@ -2,12 +2,8 @@ import { MongoClient } from "mongodb";
 import { makeDbCollection } from "./mongo-utils";
 import { FormModel, InputModel, UserModel } from "@/models";
 import { DbModel } from "@/types/mongo";
-import { TemplateInputId } from "@/models/Input";
 import { TemplateFormId } from "@/models/Form";
-import {
-  maybeAddTemplateForm,
-  maybeAddTemplateInput,
-} from "@/services/migrations/form-input-migrations";
+import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
 import { ProtocolModel } from "@/models/Protocol";
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
@@ -40,15 +36,7 @@ async function addTemplateForms() {
   }
 }
 
-// TODO Pawel: or simply iterate through inputTemplates?
-async function addTemplateInputs() {
-  for (const id of Object.values(TemplateInputId)) {
-    await maybeAddTemplateInput(db, id);
-  }
-}
-
 await initCollections();
-await addTemplateInputs();
 await addTemplateForms();
 
 /*

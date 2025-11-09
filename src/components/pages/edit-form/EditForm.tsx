@@ -1,6 +1,5 @@
 import { GetFormAction } from "@/actions/edit-form/GetFormAction";
 import { serializeForm } from "@/lib/serialize-utils";
-import { Form } from "@/types/form";
 import EditFormForm from "../create-form/EditFormForm";
 
 type Props = {
@@ -8,14 +7,11 @@ type Props = {
 };
 
 const EditForm = async (props: Props) => {
-  const { form, templateInputs } = await GetFormAction(props.formId);
+  const form = await GetFormAction(props.formId);
 
   return (
     <>
-      <EditFormForm
-        form={serializeForm(form as Form)}
-        // templateInputs={templateInputs}
-      />
+      <EditFormForm form={serializeForm(form)} />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { InputType } from "@/enums";
-import { find, findById, update, updateById } from "@/lib/mongo";
+import { findById, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
-import { FormInput, Input } from "@/types/input";
+import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 
 function getFormInputById(
@@ -15,17 +15,12 @@ function getFormInputById(
   return input
 }
 
-export async function getTemplateInputs(database: Db): Promise<Input[]> {
-  const templateInputs = await find(database, 'input', { template: true })
-  return templateInputs as Input[]
-}
-
 async function decreaseRemainingInputsOrder(
   db: Db,
   formId: ObjectId,
   inputId: string
 ) {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
   const { inputs } = form
   const startingOrder: number | undefined = getFormInputById(form.inputs, inputId!)?.order
   /* if order is undefined/null or is last element. We have no inputs to update */
@@ -87,7 +82,7 @@ export async function moveInputUp(
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form> | undefined> {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
   const { inputs } = form
   const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
   /* if order is undefined/null or 0. We can't move up input with index 0 */
@@ -126,7 +121,7 @@ export async function moveInputUp(
     }
   )
 
-  const updatedForm =  await findById(db, 'form', formId) as Form
+  const updatedForm = await findById(db, 'form', formId) as Form
   return updatedForm as WithId<Form>
 }
 
@@ -136,7 +131,7 @@ export async function moveInputDown(
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form> | undefined> {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
   const { inputs } = form
   const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
   /* if order is undefined/null or is last element. We can't move down last input */
@@ -175,12 +170,12 @@ export async function moveInputDown(
     }
   )
 
-  const updatedForm =  await findById(db, 'form', formId) as Form
+  const updatedForm = await findById(db, 'form', formId) as Form
   return updatedForm as WithId<Form>
 }
 
 export async function toggleRequired(db: Db, formId: ObjectId, inputId: string): Promise<void> {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
   const input: FormInput = getFormInputById(form.inputs, inputId)
 
   await update(
@@ -205,7 +200,7 @@ export async function updateFormInputTexts(
   inputId: string,
   data: { header?: string; description?: string }
 ): Promise<void> {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
   const { header, description } = data
 
   const updateData: any = {}
@@ -234,7 +229,7 @@ export async function updateFormInputType(
   inputId: string,
   type?: InputType
 ): Promise<void> {
-  const form =  await findById(db, 'form', formId) as Form
+  const form = await findById(db, 'form', formId) as Form
 
   await update(
     db,

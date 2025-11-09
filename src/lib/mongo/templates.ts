@@ -6,50 +6,7 @@
 */
 
 import { InputType } from "@/enums";
-import { TemplateInputId } from "@/models/Input";
 import { Form } from "@/types/form";
-import { Input } from "@/types/input";
-
-export const inputTemplates: Input[] = [
-  {
-    id: TemplateInputId.SURNAME_NAME,
-    type: InputType.TEXT,
-    header: 'Imię i nazwisko',
-    description: 'Podaj swoje imię i nazwisko',
-    validation: {},
-    options: [],
-  },
-  {
-    id: TemplateInputId.ADDRESS,
-    type: InputType.TEXT,
-    header: 'Adres',
-    description: 'Podaj swój adres',
-    validation: {},
-    options: [],
-  },
-  {
-    id: TemplateInputId.AGE,
-    type: InputType.NUMBER,
-    header: 'Wiek',
-    description: 'Podaj swój wiek',
-    validation: {},
-    options: [],
-  },
-  {
-    id: TemplateInputId.CONTRACT_TYPE,
-    type: InputType.SINGLE_SELECT,
-    header: 'Typ umowy',
-    description: 'Jaką masz umowę?',
-    validation: {},
-    options: [
-      'Umowa o pracę',
-      'Umowa o dzieło',
-      'Umowa zlecenie',
-      'B2B',
-      "Inne"
-    ],
-  }
-]
 
 const getCreatedUpdatedDates = (): {
   createdAt: Date,
