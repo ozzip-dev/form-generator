@@ -1,4 +1,4 @@
-import Results from "@/components/pages/Results";
+import Results from "@/components/pages/results/Results";
 
 const PageResults = () => {
   return <Results />;
