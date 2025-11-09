@@ -1,11 +1,10 @@
 import { useState } from "react";
-import InputFields from "../inputs/InputFields";
 import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
-import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
+import { EditInputLabelAction } from "@/actions/edit-form/editInput/EditInputLabelAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { Button, FullscreenLoader } from "../shared";
+import { Button, FullscreenLoader, InputFields } from "../shared";
 
 type Props = {
   inputId: string;

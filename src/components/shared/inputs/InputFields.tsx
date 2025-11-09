@@ -1,8 +1,7 @@
 "use client";
 
 import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
-import InputError from "./InputError";
-import { DataLoader } from "../shared";
+import { DataLoader, InputError } from "../index";
 
 type Props = {
   inputsData: {
@@ -23,7 +22,6 @@ type Props = {
 };
 
 const InputFields = (props: Props) => {
-  console.log(props.inputsData)
   return (
     <>
       {props.inputsData.map(

@@ -4,7 +4,7 @@ import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/useToast";
 import { UploadFile } from "@/actions/protocol";
-import InputError from "@/components/inputs/InputError";
+import InputError from "@/components/shared/inputs/InputError";
 import {
   uploadProtocolSchema,
   UploadProtocolSchema,

@@ -3,7 +3,7 @@
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import SelectField from "./SelectField";
 import { useEffect, useState } from "react";
-import { Loader } from "lucide-react";
+import { Loader } from "@/components/shared";
 
 type Option = { label: string; value: string };
 

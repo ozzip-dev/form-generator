@@ -1,21 +1,19 @@
 "use client";
 
-import { EditInputLabelAction } from "@/actions/edit-form/EditInputLabelAction";
-import { EditInputTypeAction } from "@/actions/edit-form/EditInputTypeAction";
+import { EditInputLabelAction } from "@/actions/edit-form/editInput/EditInputLabelAction";
+import { EditInputTypeAction } from "@/actions/edit-form/editInput/EditInputTypeAction";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import InputFields from "../inputs/InputFields";
-import RequiredToggleSwitch from "../inputs/RequiredToggleSwitch";
-import { SelectFieldControler } from "../inputs/selectField/SelectFieldController";
+import { SelectFieldControler } from "../shared/inputs/selectField/SelectFieldController";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import AddOption from "./AddOption";
-import { FullscreenLoader } from "../shared";
+import { FullscreenLoader, InputFields, RequiredToggleSwitch } from "../shared";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -103,7 +101,7 @@ export default function EditFormInputs(props: Props) {
             inputIdx={props.inputIdx}
             description={description ?? ""}
           />
-          {type === "checkbox" && (
+          {(type === "checkbox" || type === "singleSelect") && (
             <AddOption header={header} inputId={inputId as string} />
           )}
         </div>

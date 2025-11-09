@@ -1,9 +1,8 @@
 "use client";
 
 import { AddFormFieldAction } from "@/actions/create-form";
-import InputFields from "@/components/inputs/InputFields";
-import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
-import { Button } from "@/components/shared";
+import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { Button, InputFields } from "@/components/shared";
 import { InputType } from "@/enums";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";
@@ -60,7 +59,7 @@ const AddFormField = () => {
         ...data,
         type: data.type as InputType,
         validation: {},
-        options: []
+        options: [],
       });
 
       if (resp?.error) {

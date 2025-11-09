@@ -5,8 +5,7 @@ import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
-import { CheckboxGroupField } from "./CheckboxGroupField";
-import { FullscreenLoader } from "../shared";
+import { CheckboxGroupField, FullscreenLoader } from "../index";
 
 interface Props {
   input: FormInput;

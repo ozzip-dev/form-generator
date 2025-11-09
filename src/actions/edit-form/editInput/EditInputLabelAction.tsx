@@ -7,7 +7,7 @@ import { conditionalInputSchema } from "@/lib/zodSchema/editFormSchema";
 import { updateFormInputTexts } from "@/services/input-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { checkFormHasInputWithId } from "../utils";
+import { checkFormHasInputWithId } from "../../utils";
 
 export async function EditInputLabelAction(
   formIdString: string,

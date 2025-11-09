@@ -3,7 +3,7 @@
 import { db } from "@/lib/mongo";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { checkFormHasInputWithId } from "../utils";
+import { checkFormHasInputWithId } from "../../utils";
 import { updateFormInputType } from "@/services/input-service";
 import { InputType } from "@/enums/input";
 import { requireUser } from "@/dataAccessLayer/queries";

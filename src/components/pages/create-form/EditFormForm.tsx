@@ -1,9 +1,8 @@
 "use client";
 
-import { EditFormHeaderAction } from "@/actions/edit-form/EditFormHeaderAction";
+import { EditFormHeaderAction } from "@/actions/edit-form/editInput/EditFormHeaderAction";
 import EditFormInputs from "@/components/form/EditFormInputs";
-import InputFields from "@/components/inputs/InputFields";
-import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
+import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
 import { FormSerialized } from "@/types/form";
@@ -12,7 +11,11 @@ import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormStateData from "./FormStateData";
 import CreatedUpdatedInfo from "./CreatedUpdatedInfo";
-import { FullscreenLoader, SuspenseErrorBoundary } from "@/components/shared";
+import {
+  FullscreenLoader,
+  SuspenseErrorBoundary,
+  InputFields,
+} from "@/components/shared";
 
 const dataSelectOptions = [
   { label: "Ankieta pracownicza", value: "text" },
@@ -95,7 +98,7 @@ export default function EditFormForm(props: Props) {
       {loadingForm && <FullscreenLoader />}
 
       {formId && <FormStateData form={props.form} />}
-      
+
       <div className="p-4">
         <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
 

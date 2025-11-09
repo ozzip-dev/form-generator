@@ -2,7 +2,7 @@
 
 import { useController, Control, FieldValues, Path } from "react-hook-form";
 import { useMemo, useEffect } from "react";
-import InputError from "./InputError";
+import { InputError } from "../index";
 
 type CheckboxOption = {
   label: string;
@@ -22,7 +22,7 @@ type Props<T extends FieldValues> = {
   onChangeAction?: (values: { name: string; value: boolean }[]) => void;
 };
 
-export const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
+const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
   const defaultValues = useMemo(
     () =>
       Object.fromEntries(
@@ -95,3 +95,4 @@ export const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
     </div>
   );
 };
+export default CheckboxGroupField;

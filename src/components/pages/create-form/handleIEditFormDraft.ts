@@ -1,4 +1,4 @@
-import { EditFormHeaderAction } from "@/actions/edit-form/EditFormHeaderAction";
+import { EditFormHeaderAction } from "@/actions/edit-form/editInput/EditFormHeaderAction";
 
 const debounceMap = new Map<string, NodeJS.Timeout>();
 

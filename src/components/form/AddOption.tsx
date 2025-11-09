@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import EditInputOptionAction from "@/actions/edit-form/EditInputOptionAction";
 import { FullscreenLoader, Button } from "@/components/shared";
 import RemoveInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 import { FormInput } from "@/types/input";
+import editInputOptionAction from "@/actions/edit-form/editInput/editInputOptionAction";
 
 type Props = {
   header: string;
@@ -29,7 +29,7 @@ const AddOption = (props: Props) => {
       type: "text",
       name: `option.0.${props.header}`,
       placeholder: "Opcja 1",
-      defaultValue: ''
+      defaultValue: "",
     },
   ]);
 
@@ -37,34 +37,40 @@ const AddOption = (props: Props) => {
     formId,
     inputId: props.inputId,
     trigger,
-    action: EditInputOptionAction,
+    action: editInputOptionAction,
     mode: "inputOption",
   });
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      if (!values) return
-      const inputWithId: FormInput = values.inputs.find(({ id }: { id: string }) => id == props.inputId)
-      if (!inputWithId) return
-      setOptions(inputWithId.options.map((item, index) => ({
-        type: 'text',
-        name: `option.${index}.${props.header}`,
-        placeholder: `Opcja ${index + 1}`,
-        defaultValue: item
-      })))
-    });
-    return () => subscription.unsubscribe();
-  }, [watch, props.header, props.inputId]);
+  // useEffect(() => {
+  //   const subscription = watch((values) => {
+  //     if (!values) return;
+  //     const inputWithId: FormInput = values.inputs.find(
+  //       ({ id }: { id: string }) => id == props.inputId
+  //     );
+  //     if (!inputWithId) return;
+  //     setOptions(
+  //       inputWithId.options?.map((item, index) => ({
+  //         type: "text",
+  //         name: `option.${index}.${props.header}`,
+  //         placeholder: `Opcja ${index + 1}`,
+  //         defaultValue: item,
+  //       }))
+  //     );
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch, props.header, props.inputId]);
 
   const handleAddOption = () => {
-    const nextIndex = options.length;
+    const nextIndex = options?.length;
+    console.log("options", options);
+
     setOptions([
       ...options,
       {
         type: "text",
         name: `option.${nextIndex}.${props.header}`,
         placeholder: `Opcja ${nextIndex + 1}`,
-        defaultValue: ''
+        defaultValue: "",
       },
     ]);
   };
@@ -78,25 +84,27 @@ const AddOption = (props: Props) => {
         placeholder: `Opcja ${index + 1}`,
       }));
     });
-    RemoveInputOptionAction(formId!, props.inputId, optionName)
+    RemoveInputOptionAction(formId!, props.inputId, optionName);
   };
 
   const onOptionChange = (name: string, value: string) => {
-    setOptions(options.map((item) => {
-      if (item.name != name) return item
-      return {
-        ...item,
-        defaultValue: value
-      }
-    }))
-    handleEdit(name, value)
-  }
+    setOptions(
+      options?.map((item) => {
+        if (item.name != name) return item;
+        return {
+          ...item,
+          defaultValue: value,
+        };
+      })
+    );
+    handleEdit(name, value);
+  };
 
   const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
   return (
     <div className="ml-8  pt-4 border-t-2 border-zinc-400">
       <div className="flex flex-col gap-2">
-        {options.map((option, i) => {
+        {options?.map((option, i) => {
           return (
             <div key={i} className="flex">
               {isAnyLoading && <FullscreenLoader />}
@@ -106,7 +114,12 @@ const AddOption = (props: Props) => {
                 //   errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
                 onChange={handleEdit}
               /> */}
-              <input type="text" value={option.defaultValue} onChange={(e) => onOptionChange(option.name, e.target.value)} />
+              <input
+                type="text"
+                value={option.defaultValue}
+                placeholder={option.placeholder}
+                onChange={(e) => onOptionChange(option.name, e.target.value)}
+              />
               <div className="w-fit ml-2">
                 <Button
                   type="button"
