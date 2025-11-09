@@ -3,9 +3,8 @@
 import { useAsyncAction } from "@/hooks/useAsyncAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useParams } from "next/navigation";
-import FullscreenLoader from "../ui/loaders/FullscreenLoader";
-import Button from "../ui/buttons/Button";
 import { RemoveInputFromDraftAction } from "@/actions/edit-form/RemoveInputFromDraftAction";
+import { Button, FullscreenLoader } from "../shared";
 
 type Props = {
   inputId: string;

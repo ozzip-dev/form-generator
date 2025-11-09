@@ -1,14 +1,6 @@
 import { FieldType } from "@/enums"
 import { DbModel, Properties } from "@/types/mongo"
 
-export enum TemplateInputId {
-  SURNAME_NAME = 'surname_name',
-  ADDRESS = 'address',
-  AGE = 'age',
-  CONTRACT_TYPE = 'contract_type'
-  // TODO Pawel: add many more
-}
-
 /* Leave commented out code for now */
 enum InputField {
   ID = 'id',

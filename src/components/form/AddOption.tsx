@@ -1,11 +1,10 @@
 import { useFormContext } from "react-hook-form";
-import Button from "../ui/buttons/Button";
 import { useEffect, useState } from "react";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import EditInputOptionAction from "@/actions/edit-form/EditInputOptionAction";
-import FullscreenLoader from "../ui/loaders/FullscreenLoader";
+import { FullscreenLoader, Button } from "@/components/shared";
 import RemoveInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 import { FormInput } from "@/types/input";
 

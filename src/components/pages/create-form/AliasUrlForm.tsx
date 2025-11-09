@@ -1,13 +1,12 @@
 "use client";
 
 import { SetAliasUrl } from "@/actions/form/SetAliasUrl";
-import InputError from "@/components/inputs/InputError";
-import ButtonSubmit from "@/components/ui/buttons/ButtonSubmit";
+import { ButtonSubmit } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodShema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorOption, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 export default function AliasUrlForm(form: FormSerialized) {
   const { toast } = useToast();

@@ -2,6 +2,7 @@
 
 import { LoginAction } from "@/actions/auth/LoginAction";
 import InputFields from "@/components/inputs/InputFields";
+import { Button } from "@/components/shared";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
@@ -13,7 +14,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import Button from "../ui/buttons/Button";
 
 const ToastsData: ModelToast[] = [
   {

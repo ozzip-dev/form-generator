@@ -19,7 +19,7 @@ export function useAsyncAction<T extends (...args: any[]) => Promise<void>>(
         setLoading(false);
       }
     },
-    [asyncFn]
+    [asyncFn, showBoundary]
   );
 
   return { runAction, isLoading };

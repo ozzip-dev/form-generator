@@ -1,4 +1,4 @@
-import DataLoader from "@/components/ui/loaders/DataLoader";
+import { DataLoader } from "@/components/shared";
 
 export default function LoadingPagePreview() {
   return (

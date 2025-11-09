@@ -8,7 +8,7 @@ type Props = {
   onRefresh?: () => void;
 };
 
-export const LoadingError = (props: Props) => {
+const LoadingError = (props: Props) => {
   const router = useRouter();
 
   const handleClick = () => {
@@ -50,3 +50,5 @@ export const LoadingError = (props: Props) => {
       </div>
     );
 };
+
+export default LoadingError;

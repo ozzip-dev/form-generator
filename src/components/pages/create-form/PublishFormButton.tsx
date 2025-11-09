@@ -1,6 +1,6 @@
 "use client";
 
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
+import { ButtonClick } from "@/components/shared";
 import UsePublishForm from "@/hooks/usePublishForm";
 import { FormSerialized } from "@/types/form";
 

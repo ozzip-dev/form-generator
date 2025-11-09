@@ -1,8 +1,8 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
 import { fileExtensionMap, filtersDefault, ProtocolFilters } from "./utils";
+import { ButtonClick } from "@/components/shared";
 
 type Props = {
   filters: ProtocolFilters,

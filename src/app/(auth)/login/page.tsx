@@ -1,5 +1,5 @@
+import Login from "@/components/pages/auth/Login";
 import { Suspense } from "react";
-import Login from "@/components/pages/Login";
 
 const PageLogin = () => {
   return (

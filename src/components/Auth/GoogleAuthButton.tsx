@@ -1,10 +1,10 @@
 "use client";
 
-import { GoogleIcon } from "@/components/ui/google-icon";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { authClient } from "@/lib/zodSchema/zodAuthSchema/auth-client";
+import { GoogleIcon } from "../shared/google-icon";
 
 interface GoogleAuthButtonProps {
   action: "login" | "signup";

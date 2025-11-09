@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { FormType } from "@/actions/create-form/GetFormsListAction";
 import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { FormSerialized } from "@/types/form";
 
-type Props = { form: FormType };
+type Props = { form: Partial<FormSerialized> };
 
 export default function FormLink(props: Props) {
   const formatted = formatDateAndHour(props.form.updatedAt);

@@ -8,11 +8,11 @@ import {
 } from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import InputFields from "../inputs/InputFields";
-import FormAuthFooter from "../Auth/FormAuthFooter";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { ResetPasswordAction } from "@/actions/auth/ResetPasswordAction";
-import Button from "../ui/buttons/Button";
+import FormAuthFooter from "@/components/Auth/FormAuthFooter";
+import { Button } from "@/components/shared";
+import InputFields from "@/components/inputs/InputFields";
 
 const dataInputsResetPassword = [
   {

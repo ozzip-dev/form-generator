@@ -3,7 +3,7 @@
 import { AddFormFieldAction } from "@/actions/create-form";
 import InputFields from "@/components/inputs/InputFields";
 import { SelectFieldControler } from "@/components/inputs/selectField/SelectFieldController";
-import Button from "@/components/ui/buttons/Button";
+import { Button } from "@/components/shared";
 import { InputType } from "@/enums";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";

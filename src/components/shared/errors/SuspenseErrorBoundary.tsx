@@ -3,8 +3,8 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
-import DataLoader from "@/components/ui/loaders/DataLoader";
-import { LoadingError } from "./LoadingError";
+import LoadingError from "./LoadingError";
+import DataLoader from "../loaders/DataLoader";
 
 type Props = {
   children: React.ReactNode;
@@ -44,4 +44,5 @@ const SuspenseErrorBoundary = (props: Props) => {
     </ErrorBoundary>
   );
 };
+
 export default SuspenseErrorBoundary;

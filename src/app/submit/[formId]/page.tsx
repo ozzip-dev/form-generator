@@ -5,7 +5,7 @@ import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import Form from "@/components/pages/form/Form";
 import { getFormBySlug } from "@/services/form-service";
-import DataLoader from "@/components/ui/loaders/DataLoader";
+import { DataLoader } from "@/components/shared";
 
 // Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
 

@@ -1,5 +1,5 @@
+import { ButtonLink } from "@/components/shared";
 import { CheckCircle2 } from "lucide-react";
-import ButtonLink from "../ui/buttons/ButtonLink";
 
 const EmailVerified = () => {
   return (

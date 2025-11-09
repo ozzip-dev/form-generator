@@ -4,8 +4,8 @@ import { FormSerialized } from "@/types/form";
 import PublishFormButton from "./PublishFormButton";
 import { isDraft } from "@/helpers/formHelpers";
 import AliasUrlForm from "./AliasUrlForm";
-import ButtonClick from "@/components/ui/buttons/ButtonClick";
 import { useToast } from "@/hooks/useToast";
+import { ButtonClick } from "@/components/shared";
 
 type Props = {
   form: FormSerialized;
@@ -48,7 +48,7 @@ const FormStateData = ({ form }: Props) => {
               <div className="font-bold">
                 {formUrl}
               </div>
-              <ButtonClick 
+              <ButtonClick
                 onClickAction={copyUrl}
                 message="Kopiuj"
               />

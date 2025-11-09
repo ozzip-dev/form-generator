@@ -1,4 +1,4 @@
-import ButtonLink from "@/components/ui/buttons/ButtonLink";
+import { ButtonLink } from "@/components/shared";
 
 export default function Layout({
   children,

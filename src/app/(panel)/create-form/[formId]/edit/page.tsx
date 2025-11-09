@@ -1,6 +1,6 @@
 import AddFormField from "@/components/pages/create-form/AddFormField";
 import EditForm from "@/components/pages/edit-form/EditForm";
-import SuspenseErrorBoundary from "@/components/ui/errors/SuspenseErrorBoundary";
+import { SuspenseErrorBoundary } from "@/components/shared";
 
 type Props = { params: Promise<{ formId: string }> };
 

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import UserCommitteeForm from "./UserCommitteeForm";
-import Button from "../../ui/buttons/Button";
 import UserForm from "./UserForm";
 import UserDetails from "./UserDetails";
+import { Button } from "@/components/shared";
 
 type Props = {
   contactDetails: {
