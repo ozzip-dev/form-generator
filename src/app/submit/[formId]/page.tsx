@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { db, findById } from "@/lib/mongo";
+import { db } from "@/lib/mongo";
 import { isDraft } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
