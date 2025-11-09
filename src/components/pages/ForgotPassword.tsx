@@ -4,7 +4,7 @@ import { ForgotPasswordAction } from "@/actions/auth/ForgotPasswordAction";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
-  TForgotPasswordShema,
+  ForgotPasswordSchema,
   forgotPasswordSchema,
 } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,13 +29,13 @@ const ForgotPassword = () => {
     formState: { errors, isSubmitting },
     setError,
     reset,
-  } = useForm<TForgotPasswordShema>({
+  } = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
   });
 
   const { toast } = useToast();
 
-  const onSubmit = async (data: TForgotPasswordShema) => {
+  const onSubmit = async (data: ForgotPasswordSchema) => {
     const trimmedData = {
       email: data.email.trim(),
     };
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
       const resp = await ForgotPasswordAction(trimmedData);
 
       if (resp?.error) {
-        handleClientErrors<TForgotPasswordShema>(resp.error, setError);
+        handleClientErrors<ForgotPasswordSchema>(resp.error, setError);
         return;
       }
 

@@ -3,7 +3,7 @@
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
-  TResetPasswordShema,
+  ResetPasswordSchema,
   resetPasswordSchema,
 } from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,13 +35,13 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-  } = useForm<TResetPasswordShema>({
+  } = useForm<ResetPasswordSchema>({
     resolver: zodResolver(resetPasswordSchema),
   });
 
   const { toast } = useToast();
 
-  const onSubmit = async (data: TResetPasswordShema) => {
+  const onSubmit = async (data: ResetPasswordSchema) => {
     const trimmedData = {
       password: data.password.trim(),
       confirmPassword: data.confirmPassword.trim(),
@@ -50,7 +50,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     try {
       const resp = await ResetPasswordAction({ ...trimmedData, token });
       if (resp?.error) {
-        handleClientErrors<TResetPasswordShema>(resp.error, setError);
+        handleClientErrors<ResetPasswordSchema>(resp.error, setError);
         return;
       }
     } catch (err: any) {

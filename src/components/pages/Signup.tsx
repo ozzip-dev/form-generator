@@ -4,7 +4,7 @@ import { SignUpAction } from "@/actions/auth/SignUpAction";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
-  TSignUpShema,
+  SignUpSchema,
   signUpSchema,
 } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,13 +47,13 @@ const SignUp = () => {
     formState: { errors, isSubmitting },
     setError,
     reset,
-  } = useForm<TSignUpShema>({
+  } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
 
   const { toast } = useToast();
 
-  const onSubmit = async (data: TSignUpShema) => {
+  const onSubmit = async (data: SignUpSchema) => {
     const trimmedData = {
       name: data.name.trim(),
       email: data.email.trim(),
@@ -64,7 +64,7 @@ const SignUp = () => {
     try {
       const resp = await SignUpAction(trimmedData);
       if (resp?.error) {
-        handleClientErrors<TSignUpShema>(resp.error, setError);
+        handleClientErrors<SignUpSchema>(resp.error, setError);
         return;
       }
 
