@@ -54,14 +54,18 @@ export default function EditFormForm(props: Props) {
     type,
   } = props.form;
 
-  console.log("props.form", props.form);
+  const inputsWithObjectOptions = inputs.map((input) => ({
+    ...input,
+    options: input.options?.map((opt: string) => ({ value: opt })) || [],
+  }));
+  // console.log("props.form", props.form);
   const methods = useForm<EditFormSchema>({
     resolver: zodResolver(editFormSchema),
     defaultValues: {
       title,
       description,
       type,
-      inputs,
+      inputs: inputsWithObjectOptions,
     },
 
     mode: "all",
@@ -82,7 +86,6 @@ export default function EditFormForm(props: Props) {
     console.log("val", values);
   }, [props.form]);
 
-  // console.log(values);
   const { handleEdit, isLoading } = useEditForm({
     formId,
     trigger,
@@ -95,7 +98,7 @@ export default function EditFormForm(props: Props) {
     reset({
       title,
       description,
-      inputs,
+      inputs: inputsWithObjectOptions,
       type,
     });
   }, [inputs, title, description, type, reset]);
