@@ -2,6 +2,7 @@
 
 import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
 import { DataLoader, InputError } from "../index";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
   inputsData: {
@@ -65,6 +66,12 @@ const InputFields = (props: Props) => {
                         onChange: (e) => props.onChange?.(name, e.target.value),
                       })
                     : {})}
+
+                  // {...(registerXX
+                  //   ? registerXX(name, {
+                  //       onChange: (e) => props.onChange?.(name, e.target.value),
+                  //     })
+                  //   : {})}
                 />
 
                 {props.isLoading?.[name] && <DataLoader size="sm" />}

@@ -21,7 +21,11 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
 
-  const methods = useForm({ resolver: zodResolver(schema), mode: "all" });
+  const methods = useForm({
+    defaultValues: {},
+    resolver: zodResolver(schema),
+    mode: "all",
+  });
 
   const {
     register,
@@ -33,7 +37,8 @@ const CreatedForm = (props: Props) => {
     watch,
     handleSubmit,
   } = methods;
-  // console.log("er", errors);
+
+  console.log("er", errors);
 
   // useEffect(() => {
   //   const subscription = watch((values) => {
@@ -83,7 +88,7 @@ const CreatedForm = (props: Props) => {
               required={required}
               options={dataRadioOoptions}
               errorMsg={errors}
-              optionClass="flex w-fit px-4 mb-2 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
+              optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
             />
           );
         } else if (type === "superText") {
@@ -160,7 +165,7 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
-            <Button message="Zatwierdź" disabled={false} />
+            <Button message="Zatwierdź" disabled={false} type="submit" />
           </form>
         </FormProvider>
         {/* <div className="w-fit ml-auto">

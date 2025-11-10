@@ -42,7 +42,6 @@ const AddOption = (props: Props) => {
     }
   };
 
-  console.log("", fields);
   const isAnyLoading =
     globalLoading || [...Object.values(isLoading ?? {})].some(Boolean);
 

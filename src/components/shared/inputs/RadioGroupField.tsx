@@ -32,7 +32,7 @@ const RadioGroupField = (props: Props) => {
   const errorMsg = (errors[props.name]?.message as string) || "";
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col py-5">
       {props.label && (
         <label className="font-semibold">
           {props.label}{" "}
@@ -50,16 +50,12 @@ const RadioGroupField = (props: Props) => {
               key={option.value}
               className={props.optionClass}
               data-checked={isChecked}
-              // onClick={() =>
-              //   setValue(name, opt.value, { shouldValidate: true })
-              // }
             >
               <input
                 {...register(props.name)}
                 type="radio"
                 value={option.value}
                 className="hidden"
-                // readOnly
               />
               <span>{option.label}</span>
             </label>
