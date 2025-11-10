@@ -1,7 +1,7 @@
 import UserSettings from "@/components/pages/user-settings/UserSettings";
 import { requireUser } from "@/dataAccessLayer/queries";
 
-const PageUserSettings = async () => {
+const UserSettingsPage = async () => {
   const user = await requireUser();
 
   console.log("", user.name);
@@ -15,4 +15,4 @@ const PageUserSettings = async () => {
   // }
 };
 
-export default PageUserSettings;
+export default UserSettingsPage;

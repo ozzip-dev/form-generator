@@ -54,6 +54,7 @@ export default function EditFormForm(props: Props) {
     type,
   } = props.form;
 
+  console.log("props.form", props.form);
   const methods = useForm<EditFormSchema>({
     resolver: zodResolver(editFormSchema),
     defaultValues: {
@@ -62,6 +63,7 @@ export default function EditFormForm(props: Props) {
       type,
       inputs,
     },
+
     mode: "all",
   });
 
@@ -72,8 +74,15 @@ export default function EditFormForm(props: Props) {
     trigger,
     control,
     setError,
+    watch,
   } = methods;
 
+  useEffect(() => {
+    const values = watch();
+    console.log("val", values);
+  }, [props.form]);
+
+  // console.log(values);
   const { handleEdit, isLoading } = useEditForm({
     formId,
     trigger,

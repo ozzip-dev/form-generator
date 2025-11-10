@@ -1,6 +1,6 @@
 import { ButtonLink } from "@/components/shared";
 
-export default function Layout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

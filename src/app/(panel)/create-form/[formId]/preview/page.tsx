@@ -6,11 +6,11 @@ import { Form } from "@/types/form";
 
 type Props = { params: Promise<{ formId: string }> };
 
-const PageFormPreview = async (props: Props) => {
+const FormPreviewPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await GetFormAction(formId);
 
   return <CreatedForm form={serializeForm(form as Form)} />;
 };
 
-export default PageFormPreview;
+export default FormPreviewPage;

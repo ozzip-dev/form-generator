@@ -1,11 +1,11 @@
 import ResetPassword from "@/components/pages/auth/ResetPassword";
 import { Suspense } from "react";
 
-const PageResetPassword = () => {
+const ResetPasswordPage = () => {
   return (
     <Suspense>
       <ResetPassword />
     </Suspense>
   );
 };
-export default PageResetPassword;
+export default ResetPasswordPage;

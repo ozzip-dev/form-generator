@@ -1,7 +1,7 @@
 import Forum from "@/components/pages/forum/Forum";
 
-const PageForum = () => {
+const ForumPage = () => {
   return <Forum />;
 };
 
-export default PageForum;
+export default ForumPage;

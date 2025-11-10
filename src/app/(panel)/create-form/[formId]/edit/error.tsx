@@ -2,13 +2,12 @@
 
 import { LoadingPageError } from "@/components/shared";
 
-
 type Props = {
   error: Error;
   reset: () => void;
 };
 
-export default function ErrorPageEditError(props: Props) {
+export default function EditFormErrorPage(props: Props) {
   return (
     <LoadingPageError
       {...props}

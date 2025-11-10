@@ -103,7 +103,6 @@ export function useEditForm({
               break;
             }
             case "inputOption": {
-              console.log("uuuuu");
               await action(formId, inputId!, value.trim(), name);
               break;
             }

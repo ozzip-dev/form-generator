@@ -1,7 +1,7 @@
 import DashboardAdmin from "@/components/pages/dashboard/DashboardAdmin";
 
-const PageDashboardAdmin = () => {
+const DashboardAdminPage = () => {
   return <DashboardAdmin />;
 };
 
-export default PageDashboardAdmin;
+export default DashboardAdminPage;

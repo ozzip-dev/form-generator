@@ -1,7 +1,7 @@
 import DashboardModerator from "@/components/pages/dashboard/dashboardModerator/DashboardModerator";
 
-const PageDashboardModerator = async () => {
+const DashboardModeratorPage = async () => {
   return <DashboardModerator />;
 };
 
-export default PageDashboardModerator;
+export default DashboardModeratorPage;

@@ -1,11 +1,11 @@
 import Login from "@/components/pages/auth/Login";
 import { Suspense } from "react";
 
-const PageLogin = () => {
+const LoginPage = () => {
   return (
     <Suspense>
       <Login />
     </Suspense>
   );
 };
-export default PageLogin;
+export default LoginPage;

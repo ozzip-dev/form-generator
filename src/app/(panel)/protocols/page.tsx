@@ -1,7 +1,7 @@
 import AddProtocolForm from "@/components/pages/protocols/AddProtocolForm";
 
-const PageProtocols = async () => {
+const ProtocolsPage = async () => {
   return <AddProtocolForm />;
 };
 
-export default PageProtocols;
+export default ProtocolsPage;

@@ -4,7 +4,7 @@ import { isDraft } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import { getFormBySlug } from "@/services/form-service";
-import { DataLoader } from "@/components/shared";
+import { DataLoader, SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/created-form/CreatedForm";
@@ -22,18 +22,13 @@ const FormPage = async (props: Props) => {
   if (isDraft(form)) redirect(`/create-form/${formId}/edit`);
 
   return (
-    <>
-      <Suspense
-        fallback={
-          <DataLoader
-            message="Ładowanie formularza"
-            className="min-h-[400px]"
-          />
-        }
-      >
-        <CreatedForm form={serializeForm(form as Form)} />;
-      </Suspense>
-    </>
+    <SuspenseErrorBoundary
+      size="lg"
+      errorMessage="Błąd ładowania formularza"
+      loadingMessage="Ładowanie formularza"
+    >
+      <CreatedForm form={serializeForm(form as Form)} />
+    </SuspenseErrorBoundary>
   );
 };
 

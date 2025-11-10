@@ -4,7 +4,7 @@ import { SuspenseErrorBoundary } from "@/components/shared";
 
 type Props = { params: Promise<{ formId: string }> };
 
-const PageEditForm = async (props: Props) => {
+const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
 
   return (
@@ -27,4 +27,4 @@ const PageEditForm = async (props: Props) => {
   );
 };
 
-export default PageEditForm;
+export default EditFormPage;

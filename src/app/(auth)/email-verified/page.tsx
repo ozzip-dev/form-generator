@@ -1,6 +1,6 @@
 import EmailVerified from "@/components/pages/auth/EmailVerified";
 
-const PageEmailVerified = () => {
+const EmailVerifiedPage = () => {
   return <EmailVerified />;
 };
-export default PageEmailVerified;
+export default EmailVerifiedPage;

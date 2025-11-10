@@ -3,8 +3,6 @@ import { Protocol, ProtocolSerialized } from "@/types/protocol";
 import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
-  console.log("form", form);
-
   const {
     _id,
     createdAt,

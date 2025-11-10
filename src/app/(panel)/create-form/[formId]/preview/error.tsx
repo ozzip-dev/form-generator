@@ -7,7 +7,7 @@ type Props = {
   reset: () => void;
 };
 
-export default function ErrorPagePrevievError(props: Props) {
+export default function PrevievErrorPage(props: Props) {
   return (
     <LoadingPageError
       {...props}

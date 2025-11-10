@@ -102,7 +102,12 @@ export default function EditFormInputs(props: Props) {
             description={description ?? ""}
           />
           {(type === "checkbox" || type === "singleSelect") && (
-            <AddOption header={header} inputId={inputId as string} />
+            // <AddOption header={header} inputId={inputId as string} />
+            <AddOption
+              inputIdx={props.inputIdx}
+              inputId={inputId as string}
+              header={header}
+            />
           )}
         </div>
 

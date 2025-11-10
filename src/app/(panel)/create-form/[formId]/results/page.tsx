@@ -1,7 +1,7 @@
 import Results from "@/components/pages/results/Results";
 
-const PageResults = () => {
+const FormResultsPage = () => {
   return <Results />;
 };
 
-export default PageResults;
+export default FormResultsPage;
