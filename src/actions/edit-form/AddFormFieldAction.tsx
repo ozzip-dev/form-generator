@@ -48,7 +48,7 @@ export async function AddFormFieldAction(
   }
 
   try {
-    const draft = await findById(db, "form", new ObjectId(formId));
+    const draft = await findById<Form>(db, "form", new ObjectId(formId));
     if (!draft) {
       return { error: "Nie znaleziono formularza" };
     }

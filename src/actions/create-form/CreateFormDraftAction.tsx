@@ -37,7 +37,7 @@ export async function CreateFormDraftAction(templateId: string) {
 
   const empty = isEmpty(templateId);
 
-  const template: Document | null = await findOne(db, "form", {
+  const template = await findOne<Form>(db, "form", {
     id: templateId,
   });
 

@@ -3,12 +3,12 @@
 import { db, updateById } from "@/lib/mongo";
 import { ObjectId } from "mongodb";
 import { isModerator } from "@/lib/utils";
-import { CommitteeInfoKey, IUser } from "@/types/user";
+import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { requireUser } from "@/dataAccessLayer/queries";
 
 export async function updateCommitteeData(data: FormData): Promise<void> {
 
-  const updateData: Partial<Record<CommitteeInfoKey, string>> = {}
+  const updateData: Partial<UserCommitteeInfo> = {}
 
   Array.from(data.entries())
     .filter(([_, value]) => value)
@@ -25,9 +25,9 @@ export async function updateCommitteeData(data: FormData): Promise<void> {
     throw new Error('Invalid data: User does not exist or is not a moderator')
   }
 
-  await updateById(db, 'user', userId, {
+  await updateById<IUser>(db, 'user', userId, {
     $set: {
       ...updateData
     }
-  }) as IUser
+  })
 }
