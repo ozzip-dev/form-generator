@@ -1,5 +1,6 @@
 import { UserRole } from "@/models/User";
 import { User } from "better-auth";
+import { Document } from "mongodb";
 
 export type CommitteeInfoKey = 'committeeName' | 'committeeEmail' | 'committeePhone' | 'committeeUnion'
 
@@ -7,8 +8,7 @@ export type UserCommitteeInfo = Record<CommitteeInfoKey, string>
 
 type UserWithCommittee = User & UserCommitteeInfo
 
-export interface IUser extends UserWithCommittee {
-  _id: ObjectId
+export interface IUser extends Document, UserWithCommittee {
   role: UserRole;
 }
 
