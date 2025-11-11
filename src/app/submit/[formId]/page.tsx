@@ -7,7 +7,7 @@ import { getFormBySlug } from "@/services/form-service";
 import { DataLoader, SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
-import CreatedForm from "@/components/pages/created-form/CreatedForm";
+import CreatedForm from "@/components/pages/view/CreatedForm";
 
 // Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
 
