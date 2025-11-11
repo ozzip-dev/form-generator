@@ -60,6 +60,8 @@ export default function EditFormInputs(props: Props) {
     setError,
   } = useFormContext();
 
+  // console.log("props.input", props.input);
+
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId,
@@ -94,6 +96,7 @@ export default function EditFormInputs(props: Props) {
             register={register}
             errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
             onChange={handleEditLabel}
+            isLoading={isLoadingLabel}
           />
 
           <EditFormDescriptionInput
@@ -102,7 +105,6 @@ export default function EditFormInputs(props: Props) {
             description={description ?? ""}
           />
           {(type === "checkbox" || type === "singleSelect") && (
-            // <AddOption header={header} inputId={inputId as string} />
             <AddOption
               inputIdx={props.inputIdx}
               inputId={inputId as string}

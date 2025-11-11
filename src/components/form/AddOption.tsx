@@ -59,8 +59,7 @@ const AddOption = (props: Props) => {
               },
             ]}
             register={register}
-            //   errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-            // onChange={handleEdit}
+            // errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
             onChange={(_, value) =>
               handleEdit(`option.${idx}.${props.header}`, value)
             }
