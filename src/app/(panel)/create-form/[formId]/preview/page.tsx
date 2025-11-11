@@ -1,5 +1,5 @@
 import { GetFormAction } from "@/actions/edit-form/GetFormAction";
-import CreatedForm from "@/components/pages/created-form/CreatedForm";
+import CreatedForm from "@/components/pages/view/CreatedForm";
 
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";

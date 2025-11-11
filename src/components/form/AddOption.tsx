@@ -1,4 +1,4 @@
-import removeInputOptionAction from "@/actions/edit-form/removeInputOptionAction";
+import removeInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
