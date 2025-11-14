@@ -1,5 +1,5 @@
 import { db, findOne, insert, update } from "@/lib/mongo";
-import { Answer, Result, Submission } from "@/types/result";
+import { Answers, Result, Submission } from "@/types/result";
 import { ObjectId } from "mongodb";
 
 async function formResultExists(formId: string): Promise<boolean> {
@@ -8,7 +8,7 @@ async function formResultExists(formId: string): Promise<boolean> {
 
 async function addSubmission(
   formId: string,
-  answers: Answer[]
+  answers: Answers
 ): Promise<Result | null> {
   const submission = await update<Result>(
     db,
@@ -31,7 +31,7 @@ async function addSubmission(
 
 async function createResult(
   formId: string,
-  answers: Answer[]
+  answers: Answers
 ): Promise<ObjectId> {
   const result = await insert<Result>(
     db,
@@ -52,7 +52,7 @@ async function createResult(
 
 export async function addFormSubmission(
   formId: string,
-  answers: Answer[]
+  answers: Answers
 ): Promise<void> {
   const resultExists = await formResultExists(formId)
   resultExists

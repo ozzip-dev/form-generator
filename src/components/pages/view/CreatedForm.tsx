@@ -1,5 +1,6 @@
 "use client";
 
+import { SubmitForm } from "@/actions/form/SubmitForm";
 import {
   Button,
   CheckboxGroupField,
@@ -47,8 +48,8 @@ const CreatedForm = (props: Props) => {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
-  const onSubmit = (data: any) => {
-    console.log("sss", data);
+  const onSubmit = async (data: any) => {
+    await SubmitForm(props.form._id, data)
   };
 
   // console.log("", props.form);

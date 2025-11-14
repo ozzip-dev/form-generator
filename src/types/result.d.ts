@@ -1,13 +1,13 @@
-type Answer = Record<string, unknown /* string? */>
+export type Answers = Record<string, unknown /* string? */>
 
 export type Submission = {
   submittedAt: Date;
-  answers: Answer[];
+  answers: Answers;
 }
 
 export type SubmissionSerialized = {
   submittedAt: string;
-  answers: Answer[];
+  answers: Answers;
 }
 
 export interface Result extends Document {
