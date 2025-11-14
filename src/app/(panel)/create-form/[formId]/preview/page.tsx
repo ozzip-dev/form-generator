@@ -10,7 +10,7 @@ const FormPreviewPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await GetFormAction(formId);
 
-  return <CreatedForm form={serializeForm(form as Form)} />;
+  return <CreatedForm form={serializeForm(form as Form)} isPreview={true} />;
 };
 
 export default FormPreviewPage;

@@ -1,9 +1,21 @@
-import { db, findOne, insert, update } from "@/lib/mongo";
+import { db, findById, findOne, insert, update } from "@/lib/mongo";
+import { Form } from "@/types/form";
 import { Answers, Result, Submission } from "@/types/result";
 import { ObjectId } from "mongodb";
 
 async function formResultExists(formId: string): Promise<boolean> {
   return !!(await findOne<Result>(db, 'result', { formId }))
+}
+
+async function checkUniqueFields(
+  formId: string,
+  answers: Answers
+): Promise<boolean> /* return value? eg. date? */ {
+  const form = await findById<Form>(db, 'form', new ObjectId(formId))
+  const uniqueInputs = form?.inputs.filter(({ unique }) => unique)
+  const submissions = await getAllSubmissions(formId)
+
+  return true
 }
 
 async function addSubmission(
@@ -55,6 +67,7 @@ export async function addFormSubmission(
   answers: Answers
 ): Promise<void> {
   const resultExists = await formResultExists(formId)
+  if (resultExists) await checkUniqueFields(formId, answers)
   resultExists
     ? await addSubmission(formId, answers)
     : await createResult(formId, answers)

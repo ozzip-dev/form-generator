@@ -190,24 +190,27 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import { useToast } from "@/hooks/useToast";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormInput } from "lucide-react";
+import { ObjectId } from "mongodb";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 type Props = {
-  form: any;
+  form: FormSerialized;
+  isPreview?: boolean
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs } = props.form;
+  const { form: { title, description, inputs }, isPreview = false } = props;
   const schema = createdFormSchema(props.form.inputs);
+  const { toast } = useToast();
 
-  // console.log("", inputs);
-
-  const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { header, type, options } = input;
+  const defaultValues = inputs.reduce((acu: any, input) => {
+    const { header, type, options, id } = input;
     const inputLabel = header;
 
     const inputOptions = options.reduce(
@@ -221,7 +224,7 @@ const CreatedForm = (props: Props) => {
 
     const checkboxOptions = (acu[inputLabel] =
       type === "checkbox" ? inputOptions : "");
-
+      console.log(acu)
     return acu;
   }, {});
 
@@ -252,7 +255,17 @@ const CreatedForm = (props: Props) => {
   // }, [watch]);
 
   const onSubmit = async (data: any) => {
-    await SubmitForm(props.form._id, data)
+    try {
+      const _id = props.form._id?.toString()
+      if (!_id) return // ?
+      await SubmitForm(_id, data)
+      toast({
+        title: "Odpowiedzi wysłane",
+        variant: "success",
+      });
+    } catch(e) {
+
+    }
   };
 
   // console.log("", props.form);
@@ -260,7 +273,7 @@ const CreatedForm = (props: Props) => {
   const formFields = inputs
     .sort((a: any, b: any) => a.order - b.order)
     .map(
-      ({ type, header, description, required, options }: any, idx: number) => {
+      ({ type, header, description, required, options, id }, idx: number) => {
         if (type === "checkbox") {
           const dataCheckboxOptions = options?.map((option: any) => {
             return { label: option, name: option, value: false };
@@ -279,7 +292,7 @@ const CreatedForm = (props: Props) => {
             />
           );
         } else if (type === "singleSelect") {
-          const dataRadioOoptions = options?.map((option: any) => {
+          const dataRadioOoptions = options?.map((option: string) => {
             return { label: option, value: option };
           });
 
@@ -369,7 +382,7 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
-            <Button message="Zatwierdź" disabled={false} type="submit" />
+            {!isPreview && <Button message="Zatwierdź" disabled={false} type="submit" />}
           </form>
         </FormProvider>
         {/* <div className="w-fit ml-auto">
