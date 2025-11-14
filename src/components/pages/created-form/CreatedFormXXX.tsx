@@ -203,29 +203,15 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
 
-  // console.log("", inputs);
-
-  const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { header, type, options } = input;
-    const inputLabel = header;
-
-    const inputOptions = options.reduce(
-      (acu: Record<string, boolean>, option: string) => {
-        acu[option] = false;
-
-        return acu;
-      },
-      {}
-    );
-
-    const checkboxOptions = (acu[inputLabel] =
-      type === "checkbox" ? inputOptions : "");
-
-    return acu;
+  const defaultValues = inputs.reduce((acu: any, curr: any) => {
+    acu.curr.header = "";
   }, {});
 
+  console.log("xxx", defaultValues);
+
+  console.log("", inputs);
   const methods = useForm({
-    defaultValues,
+    defaultValues: { www: {} },
     resolver: zodResolver(schema),
     mode: "all",
   });
@@ -243,12 +229,12 @@ const CreatedForm = (props: Props) => {
 
   // console.log("er", errors);
 
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = (data: any) => {
     console.log("sss", data);

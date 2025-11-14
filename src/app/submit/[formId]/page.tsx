@@ -8,7 +8,6 @@ import { DataLoader, SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/view/CreatedForm";
-
 // Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
 
 type Props = { params: Promise<{ formId: string; url: string }> };

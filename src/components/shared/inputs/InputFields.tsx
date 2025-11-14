@@ -51,6 +51,7 @@ const InputFields = (props: Props) => {
                 <input
                   type={type}
                   id={name}
+                  defaultValue={defaultValue ? defaultValue : ""}
                   disabled={props.isLoading?.[name]}
                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
                     ${
