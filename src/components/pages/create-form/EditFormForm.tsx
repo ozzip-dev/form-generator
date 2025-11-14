@@ -56,7 +56,7 @@ export default function EditFormForm(props: Props) {
 
   const inputsWithObjectOptions = inputs.map((input) => ({
     ...input,
-    options: input.options?.map((opt: string) => ({ value: opt })) || [],
+    options: input.options?.map((option: string) => ({ value: option })) || [],
   }));
   // console.log("props.form", props.form);
   const methods = useForm<EditFormSchema>({
@@ -80,6 +80,13 @@ export default function EditFormForm(props: Props) {
     setError,
     watch,
   } = methods;
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   useEffect(() => {
     const values = watch();

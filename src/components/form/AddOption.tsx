@@ -1,4 +1,3 @@
-import removeInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
@@ -6,6 +5,7 @@ import { useEditForm } from "@/hooks/useEditForm";
 import editInputOptionAction from "@/actions/edit-form/editInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { useState } from "react";
+import removeInputOptionAction from "@/actions/edit-form/removeInputOptionAction";
 
 type Props = {
   inputIdx: number;
@@ -59,8 +59,7 @@ const AddOption = (props: Props) => {
               },
             ]}
             register={register}
-            //   errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-            // onChange={handleEdit}
+            // errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
             onChange={(_, value) =>
               handleEdit(`option.${idx}.${props.header}`, value)
             }

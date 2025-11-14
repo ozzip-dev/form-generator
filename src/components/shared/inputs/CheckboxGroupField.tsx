@@ -131,12 +131,20 @@ const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
     [props.options]
   );
 
+  // console.log("defaultValues", defaultValues);
+  // const {
+  //   field: { value = defaultValues, onChange },
+  // } = useController({
+  //   name: props.name,
+  //   control: props.control,
+  //   defaultValue: defaultValues as any,
+  // });
+
   const {
-    field: { value = defaultValues, onChange },
+    field: { value = null, onChange },
   } = useController({
     name: props.name,
     control: props.control,
-    defaultValue: defaultValues as any,
   });
 
   const selectedValues = value ?? defaultValues;

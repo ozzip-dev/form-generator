@@ -25,7 +25,6 @@ const RadioGroupField = (props: Props) => {
     register,
     watch,
     formState: { errors },
-    setValue,
   } = useFormContext();
 
   const selected = watch(props.name);
@@ -34,7 +33,7 @@ const RadioGroupField = (props: Props) => {
   return (
     <div className="flex flex-col py-5">
       {props.label && (
-        <label className="font-semibold">
+        <label className="text-xl">
           {props.label}{" "}
           {props.required && <span className="text-red-600">*</span>}
         </label>
