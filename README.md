@@ -61,7 +61,7 @@ The application was developed with grant support received in the grant competiti
 * Dynamic routing
 * Validations - client side, server side
 * Debouncing
-* HTTP requests state messages for user
+* HTTP requests state messages / error boundaries
 * RWD
 
 
