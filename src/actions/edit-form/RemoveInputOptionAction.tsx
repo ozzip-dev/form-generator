@@ -17,13 +17,13 @@ const RemoveInputOptionAction = async (
   await requireUser();
 
   // TODO Pawel: zrob to dobrze!!!
-  const form = await findById(db, "form", formId);
+  const form = await findById<Form>(db, "form", formId);
   if (!form) return;
 
-  const { inputs } = form as Form;
+  const { inputs } = form;
   const { options } = inputs.find(({ id }) => id == inputId)!;
 
-  const filteredOptions = options.filter((option, i) => {
+  const filteredOptions = options.filter((_, i) => {
     return i != index;
   });
 

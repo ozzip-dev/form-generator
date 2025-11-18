@@ -113,7 +113,7 @@ type CheckboxOption = {
 type Props<T extends FieldValues> = {
   label?: string;
   description?: string;
-  required?: string;
+  required?: boolean;
   name: Path<T>;
   control: Control<T>;
   options: CheckboxOption[];

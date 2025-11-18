@@ -25,7 +25,7 @@ export async function EditFormHeaderAction(
   }
 
   try {
-    const result: WithId<Form> = await updateForm(
+    const result: WithId<Form>| null = await updateForm(
       db,
       new ObjectId(formId),
       updateData

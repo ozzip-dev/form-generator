@@ -14,6 +14,7 @@ import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import AddOption from "./AddOption";
 import { FullscreenLoader, InputFields, RequiredToggleSwitch } from "../shared";
+import UniqueToggleSwitch from "../shared/inputs/UniqueToggleSwitch";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -126,7 +127,10 @@ export default function EditFormInputs(props: Props) {
         </div>
       </div>
 
-      <RequiredToggleSwitch input={props.input} />
+      <div>
+        <RequiredToggleSwitch input={props.input} />
+        <UniqueToggleSwitch input={props.input} />
+      </div>
 
       <div className="flex flex-col justify-center gap-2 mb-auto">
         <div className="">

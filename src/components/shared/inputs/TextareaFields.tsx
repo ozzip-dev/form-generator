@@ -10,7 +10,7 @@ type Props = {
     placeholder?: string;
     defaultValue?: string;
     description?: string;
-    required?: string;
+    required?: boolean;
   }[];
   errorMsg?: FieldErrors<any> & {
     server?: Record<string, { message: string }>;

@@ -4,9 +4,11 @@ import {
   Db,
   DeleteResult,
   Document,
+  Filter,
   InsertManyResult,
   InsertOneResult,
   ObjectId,
+  OptionalUnlessRequiredId,
   UpdateResult,
   WithId,
 } from "mongodb";
@@ -36,81 +38,82 @@ export const makeDbCollection = async (db: Db, model: DbModel) => {
 };
 
 /* queries */
-export const getCollection = (db: Db, collectionName: string): Collection<Document> =>
-  db.collection(collectionName);
+export const getCollection = <T extends Document>(db: Db, collectionName: string): Collection<T> =>
+  db.collection<T>(collectionName);
 
-export async function find(
+export async function find<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Document
-): Promise<Document[]> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const docs: Document[] = await collection.find(query).toArray();
+  query: Filter<T>
+): Promise<WithId<T>[]> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const docs: WithId<T>[] = await collection.find(query).toArray();
   return docs;
 }
 
-export async function findOne(
+export async function findOne<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Document
-): Promise<Document | null> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const doc: Document | null = await collection.findOne(query);
+  query: Filter<T>
+): Promise<WithId<T> | null> {
+  const collection: Collection<T> = getCollection<T>(db, collectionName);
+  const doc: WithId<T> | null = await collection.findOne(query);
   return doc;
 }
 
-export async function findById(
+export async function findById<T extends Document>(
   db: Db,
   collectionName: string,
   _id: ObjectId
-): Promise<Document | null> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const doc: Document | null = await collection.findOne({ _id });
+): Promise<WithId<T> | null> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const query: Filter<T> = { _id } as Filter<T>;
+  const doc: WithId<T> | null = await collection.findOne(query);
   return doc;
 }
 
-export async function findAll(
+export async function findAll<T extends Document>(
   db: Db,
   collectionName: string
-): Promise<Document[]> {
-  return find(db, collectionName, {});
+): Promise<WithId<T>[]> {
+  return find<T>(db, collectionName, {});
 }
 
-export async function insert(
+export async function insert<T extends Document>(
   db: Db,
   collectionName: string,
-  doc: Document | Partial<Document>
-): Promise<InsertOneResult<Document>> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const result: InsertOneResult<Document> = await collection.insertOne(doc);
+  doc: Partial<T>
+): Promise<InsertOneResult<T>> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const result: InsertOneResult<T> = await collection.insertOne(doc as OptionalUnlessRequiredId<T>);
   return result;
 }
 
-export async function insertMany(
+export async function insertMany<T extends Document>(
   db: Db,
   collectionName: string,
-  docs: Document[]
-): Promise<InsertManyResult<Document>> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const result: InsertManyResult<Document> = await collection.insertMany(docs);
+  docs: T[]
+): Promise<InsertManyResult<T>> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const result: InsertManyResult<T> = await collection.insertMany(docs as OptionalUnlessRequiredId<T>[]);
   return result;
 }
 
-export async function updateMany(
+export async function updateMany<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Document,
-  updateData: Document
-): Promise<UpdateResult<Document>> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const result: UpdateResult<Document> = await collection.updateMany(
+  query: Filter<T>,
+  updateData: Partial<T>
+): Promise<UpdateResult<T>> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const result: UpdateResult<T> = await collection.updateMany(
     query,
     updateData
   );
   return result;
 }
 
-export async function update(
+export async function update<T extends Document>(
   db: Db,
   collectionName: string,
   query: Document,
@@ -121,37 +124,37 @@ export async function update(
   return result;
 }
 
-export async function updateById(
+export async function updateById<T extends Document>(
   db: Db,
   collectionName: string,
   _id: ObjectId,
-  updateData: Document
-): Promise<WithId<Document> | null> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-
-  const result = await collection.findOneAndUpdate({ _id }, updateData, {
+  updateData: Partial<T>
+): Promise<WithId<T> | null> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const query: Filter<T> = { _id } as Filter<T>;
+  const result = await collection.findOneAndUpdate(query, updateData, {
     returnDocument: "after",
   });
-
   return result;
 }
 
-export async function deleteMany(
+export async function deleteMany<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Document
+  query: Filter<T>
 ): Promise<DeleteResult> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
+  const collection: Collection<T> = getCollection(db, collectionName);
   const result: DeleteResult = await collection.deleteMany(query);
   return result;
 }
 
-export async function deleteById(
+export async function deleteById<T extends Document>(
   db: Db,
   collectionName: string,
   _id: ObjectId
 ): Promise<DeleteResult> {
-  const collection: Collection<Document> = getCollection(db, collectionName);
-  const result: DeleteResult = await collection.deleteOne({ _id });
+  const collection: Collection<T> = getCollection(db, collectionName);
+  const query: Filter<T> = { _id } as Filter<T>;
+  const result: DeleteResult = await collection.deleteOne(query);
   return result;
 }

@@ -9,14 +9,14 @@ export const GetFormAction = cache(async (formId: string): Promise<Form> => {
   await requireUser();
 
   try {
-    const form = await findById(db, "form", new ObjectId(formId));
+    const form = await findById<Form>(db, "form", new ObjectId(formId));
 
     if (!form) {
       console.error(`Form not found: ${formId}`);
       redirect("/dashboard-moderator");
     }
 
-    return form as Promise<Form>;
+    return form;
   } catch (err: any) {
     throw new Error(`Błąd pobierania danych: ${err}`);
   }

@@ -13,7 +13,7 @@ type Props = {
   name: string;
   label?: string;
   description?: string;
-  required?: string;
+  required?: boolean;
   options: Option[];
   className?: string;
   optionClass?: string;

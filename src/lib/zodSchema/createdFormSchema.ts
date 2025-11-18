@@ -4,29 +4,29 @@ export const createdFormSchema = (inputs: any[]) => {
   const shape: Record<string, any> = {};
 
   inputs.forEach((input) => {
-    const fieldName = input.header;
+    const fieldName = input.id;
 
     switch (input.type) {
       case "checkbox":
         shape[fieldName] = input.required
           ? z
-              .record(z.boolean())
-              .refine(
-                (obj) => obj && Object.values(obj).some((v) => v),
-                "Wybierz co najmniej jedną opcję"
-              )
+            .record(z.boolean())
+            .refine(
+              (obj) => obj && Object.values(obj).some((v) => v),
+              "Wybierz co najmniej jedną opcję"
+            )
           : z.record(z.boolean()).optional();
         break;
 
       case "singleSelect":
         shape[fieldName] = input.required
           ? z
-              .string()
-              .nullable()
-              .refine(
-                (val) => val !== null && val !== "",
-                "Wybierz jedną opcję"
-              )
+            .string()
+            .nullable()
+            .refine(
+              (val) => val !== null && val !== "",
+              "Wybierz jedną opcję"
+            )
           : z.string().nullable().optional();
         break;
 

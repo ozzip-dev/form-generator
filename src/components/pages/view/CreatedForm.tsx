@@ -1,187 +1,6 @@
-// "use client";
-
-// import {
-//   Button,
-//   CheckboxGroupField,
-//   InputFields,
-//   RadioGroupField,
-//   TextareaFields,
-// } from "@/components/shared";
-// import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
-// import { FormSerialized } from "@/types/form";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useEffect } from "react";
-// import { FormProvider, useForm } from "react-hook-form";
-// import { z } from "zod";
-
-// type Props = {
-//   form: any;
-// };
-
-// const CreatedForm = (props: Props) => {
-//   const { title, description, inputs } = props.form;
-//   const schema = createdFormSchema(props.form.inputs);
-//   type FormValues = z.infer<typeof schema>;
-
-//   const methods = useForm({
-//     defaultValues: {},
-//     resolver: zodResolver(schema),
-//     mode: "all",
-//   });
-
-//   const {
-//     register,
-//     reset,
-//     formState: { errors },
-//     trigger,
-//     control,
-//     setError,
-//     watch,
-//     handleSubmit,
-//   } = methods;
-
-//   // console.log("er", errors);
-
-//   useEffect(() => {
-//     const subscription = watch((values) => {
-//       console.log("Aktualne wartości:", values);
-//     });
-//     return () => subscription.unsubscribe();
-//   }, [watch]);
-
-//   const onSubmit = (data: any) => {
-//     console.log("sss", data);
-//   };
-
-//   // console.log("", props.form);
-
-//   const formFields = inputs
-//     .sort((a: any, b: any) => a.order - b.order)
-//     .map(
-//       ({ type, header, description, required, options }: any, idx: number) => {
-//         if (type === "checkbox") {
-//           const dataCheckboxOptions = options?.map((option: any) => {
-//             return { label: option, name: option, value: false };
-//           });
-
-//           return (
-//             <CheckboxGroupField
-//               key={idx}
-//               label={header}
-//               required={required}
-//               description={description}
-//               name={header}
-//               options={dataCheckboxOptions}
-//               control={control}
-//               errorMsg={errors}
-//             />
-//           );
-//         } else if (type === "singleSelect") {
-//           const dataRadioOoptions = options?.map((option: any) => {
-//             return { label: option, value: option };
-//           });
-
-//           return (
-//             <RadioGroupField
-//               key={idx}
-//               name={header}
-//               label={header}
-//               description={description}
-//               required={required}
-//               options={dataRadioOoptions}
-//               errorMsg={errors}
-//               optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
-//             />
-//           );
-//         } else if (type === "superText") {
-//           const dataInputTextarea = [
-//             {
-//               label: header,
-//               name: header,
-//               placeholder: "Odpowiedź",
-//               description,
-//               required,
-//             },
-//           ];
-
-//           return (
-//             <TextareaFields
-//               key={idx}
-//               inputsData={dataInputTextarea}
-//               register={register}
-//               errorMsg={errors}
-//             />
-//           );
-//         } else {
-//           let placeholder;
-
-//           switch (type) {
-//             case "text": {
-//               placeholder = "Odpowiedź";
-//               break;
-//             }
-//             case "number": {
-//               placeholder = "Numer";
-//               break;
-//             }
-//             case "email": {
-//               placeholder = "Email";
-//               break;
-//             }
-//           }
-
-//           const dataInputText = [
-//             {
-//               label: header,
-//               name: header,
-//               placeholder,
-//               type,
-//               description,
-//               required,
-//             },
-//           ];
-
-//           return (
-//             <InputFields
-//               key={idx}
-//               inputsData={dataInputText}
-//               register={register}
-//               errorMsg={errors}
-//             />
-//           );
-//         }
-//       }
-//     );
-
-//   return (
-//     <div className="flex justify-center ">
-//       <div className="w-4/5">
-//         <h1 className="text-4xl">{title}</h1>
-//         {description && <h2 className="text-lg">{description}</h2>}
-//         <div className="text-red-600 text-xs mb-6">* Odpowiedź wymagana</div>
-
-//         <FormProvider {...methods}>
-//           <form
-//             onSubmit={handleSubmit(onSubmit)}
-//             className="w-4/5 bg-zinc-100 p-4"
-//           >
-//             {formFields}
-
-//             <Button message="Zatwierdź" disabled={false} type="submit" />
-//           </form>
-//         </FormProvider>
-//         {/* <div className="w-fit ml-auto">
-//           <Button message="Opublikuj" type="button" />
-//         </div> */}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default CreatedForm;
-
 "use client";
 
+import { SubmitForm } from "@/actions/form/SubmitForm";
 import {
   Button,
   CheckboxGroupField,
@@ -189,24 +8,28 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import { useToast } from "@/hooks/useToast";
+import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormInput } from "lucide-react";
+import { ObjectId } from "mongodb";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 type Props = {
-  form: any;
+  form: FormSerialized;
+  isPreview?: boolean
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs } = props.form;
+  const { form: { title, description, inputs }, isPreview = false } = props;
   const schema = createdFormSchema(props.form.inputs);
+  const { toast } = useToast();
 
-  // console.log("", inputs);
-
-  const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { header, type, options } = input;
+  const defaultValues = inputs.reduce((acu: any, input) => {
+    const { header, type, options, id } = input;
     const inputLabel = header;
 
     const inputOptions = options.reduce(
@@ -220,7 +43,6 @@ const CreatedForm = (props: Props) => {
 
     const checkboxOptions = (acu[inputLabel] =
       type === "checkbox" ? inputOptions : "");
-
     return acu;
   }, {});
 
@@ -241,8 +63,6 @@ const CreatedForm = (props: Props) => {
     handleSubmit,
   } = methods;
 
-  // console.log("er", errors);
-
   // useEffect(() => {
   //   const subscription = watch((values) => {
   //     console.log("Aktualne wartości:", values);
@@ -250,16 +70,40 @@ const CreatedForm = (props: Props) => {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
-  const onSubmit = (data: any) => {
-    console.log("sss", data);
-  };
+  const onSubmit = async (data: any) => {
+    const _id = props.form._id?.toString()
+    if (!_id) return // ?
 
-  // console.log("", props.form);
+    // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
+    const keys = Object.keys(data)
+    const inputIds = inputs.map(({ id }) => id)
+    keys.forEach((key) => {
+      if (!inputIds.includes(key)) delete data[key]
+    })
+
+    try {
+      await SubmitForm(_id, data)
+      toast({
+        title: 'Sukces! Dzieki',
+        variant: "success",
+      });
+    } catch(e) {
+      console.log('blad ', e)
+      const err = e as Error
+      const title = err.message == uniqueErrorMessage
+        ? 'Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem.'
+        : 'Blad. Sprobuj ponownie.'
+      toast({
+        title,
+        variant: "error",
+      });
+    }
+  }
 
   const formFields = inputs
-    .sort((a: any, b: any) => a.order - b.order)
+    .sort((a, b) => a.order - b.order)
     .map(
-      ({ type, header, description, required, options }: any, idx: number) => {
+      ({ type, header, description, required, options, id }, idx: number) => {
         if (type === "checkbox") {
           const dataCheckboxOptions = options?.map((option: any) => {
             return { label: option, name: option, value: false };
@@ -271,21 +115,21 @@ const CreatedForm = (props: Props) => {
               label={header}
               required={required}
               description={description}
-              name={header}
+              name={id!}
               options={dataCheckboxOptions}
               control={control}
               errorMsg={errors}
             />
           );
         } else if (type === "singleSelect") {
-          const dataRadioOoptions = options?.map((option: any) => {
+          const dataRadioOoptions = options?.map((option: string) => {
             return { label: option, value: option };
           });
 
           return (
             <RadioGroupField
               key={idx}
-              name={header}
+              name={id!}
               label={header}
               description={description}
               required={required}
@@ -298,7 +142,7 @@ const CreatedForm = (props: Props) => {
           const dataInputTextarea = [
             {
               label: header,
-              name: header,
+              name: id!,
               placeholder: "Odpowiedź",
               description,
               required,
@@ -334,7 +178,7 @@ const CreatedForm = (props: Props) => {
           const dataInputText = [
             {
               label: header,
-              name: header,
+              name: id!,
               placeholder,
               type,
               description,
@@ -348,6 +192,7 @@ const CreatedForm = (props: Props) => {
               inputsData={dataInputText}
               register={register}
               errorMsg={errors}
+              onChange={(name, v) => { console.log(name, v) }}
             />
           );
         }
@@ -368,7 +213,7 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
-            <Button message="Zatwierdź" disabled={false} type="submit" />
+            {!isPreview && <Button message="Zatwierdź" disabled={false} type="submit" />}
           </form>
         </FormProvider>
         {/* <div className="w-fit ml-auto">

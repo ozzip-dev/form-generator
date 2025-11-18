@@ -21,6 +21,7 @@ type UseEditOptions = {
     | "inputLabel"
     | "inputType"
     | "inputReqired"
+    | "inputUnique"
     | "inputOption";
   setError?: UseFormSetError<any>;
 };
@@ -99,6 +100,10 @@ export function useEditForm({
               break;
             }
             case "inputReqired": {
+              await action(formId, inputId!);
+              break;
+            }
+            case "inputUnique": {
               await action(formId, inputId!);
               break;
             }
