@@ -10,6 +10,10 @@ import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
+function makeId(header: string): string {
+  return `${header.trim().toLowerCase()}-${Math.round(Math.random() * 100000).toString()}`
+}
+
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
 function getNextOrder(form: Form): number {
   const orderValues: number[] = form.inputs.map(({ order }) => order);
@@ -22,7 +26,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const { type, header, description, validation, options = [] } = input;
   return {
     /* id: create from input's id + some number if ids are duplicated? or simply uuid? */
-    id: Math.random().toString(),
+    id: makeId(header),
     type,
     header,
     description,

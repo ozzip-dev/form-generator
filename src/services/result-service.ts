@@ -1,24 +1,40 @@
+import { uniqueErrorMessage } from "@/lib/error";
 import { db, findById, findOne, insert, update } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { Answers, Result, Submission } from "@/types/result";
 import { ObjectId } from "mongodb";
 
-async function formResultExists(formId: string): Promise<boolean> {
+export async function formResultExists(formId: string): Promise<boolean> {
   return !!(await findOne<Result>(db, 'result', { formId }))
 }
 
-async function checkUniqueFields(
+export async function checkUniqueFieldsValid(
   formId: string,
   answers: Answers
-): Promise<boolean> /* return value? eg. date? */ {
+): Promise<void> /* return value? eg. date? */ {
   const form = await findById<Form>(db, 'form', new ObjectId(formId))
-  const uniqueInputs = form?.inputs.filter(({ unique }) => unique)
+  if (!form) throw new Error('Invalid form id')
+
+  const uniqueInputIds: string[] = form.inputs
+    .filter(({ unique }) => unique)
+    .map(({ id }) => id!)
   const submissions = await getAllSubmissions(formId)
 
-  return true
+  for (const submission of submissions) {
+    const uniqueSubmissionIds = Object
+      .keys(submission.answers)
+      .filter((key) => uniqueInputIds.includes(key))
+
+    for (const answerId of uniqueSubmissionIds) {
+      if (submission.answers[answerId] == answers[answerId]) {
+        const error = new Error(uniqueErrorMessage)
+        throw error
+      }
+    }
+  }
 }
 
-async function addSubmission(
+export async function addSubmission(
   formId: string,
   answers: Answers
 ): Promise<Result | null> {
@@ -41,7 +57,7 @@ async function addSubmission(
   return submission as Result | null
 }
 
-async function createResult(
+export async function createResult(
   formId: string,
   answers: Answers
 ): Promise<ObjectId> {
@@ -60,17 +76,6 @@ async function createResult(
   )
 
   return result.insertedId as ObjectId
-}
-
-export async function addFormSubmission(
-  formId: string,
-  answers: Answers
-): Promise<void> {
-  const resultExists = await formResultExists(formId)
-  if (resultExists) await checkUniqueFields(formId, answers)
-  resultExists
-    ? await addSubmission(formId, answers)
-    : await createResult(formId, answers)
 }
 
 export async function getAllSubmissions(

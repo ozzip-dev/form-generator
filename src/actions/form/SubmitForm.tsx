@@ -1,20 +1,18 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { requireUser } from "@/dataAccessLayer/queries";
 import { Answers } from "@/types/result";
-import { addFormSubmission } from "@/services/result-service";
+import { addSubmission, checkUniqueFieldsValid, createResult, formResultExists } from "@/services/result-service";
 
 export async function SubmitForm(formId: string, answers: Answers) {
-  await requireUser();
+  // await requireUser();
+  // TODO: check user is not logged in? moderator can't submit?
 
-  // TODO: check user is not logged in? as moderator?
+  const resultExists = await formResultExists(formId)
+  if (resultExists)
+    await checkUniqueFieldsValid(formId, answers)
 
-  try {
-    await addFormSubmission(formId, answers)
-  } catch (err: any) {
-    console.error(err)
-    // TODO: what should happen? Redirect + error/warning message?
-    redirect('/dashboard')
-  }
+  resultExists
+    ? await addSubmission(formId, answers)
+    : await createResult(formId, answers)
 }

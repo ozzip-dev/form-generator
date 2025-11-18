@@ -183,7 +183,9 @@ export async function moveInputDown(
   return updatedForm! /* we check earlier if form exists */
 }
 
-export async function toggleRequired(db: Db, formId: ObjectId, inputId: string): Promise<void> {
+export async function toggleRequired(
+  db: Db, formId: ObjectId, inputId: string
+): Promise<void> {
   const form = await findById(db, 'form', formId) as Form
   const input: FormInput = getFormInputById(form.inputs, inputId)
 
@@ -197,6 +199,28 @@ export async function toggleRequired(db: Db, formId: ObjectId, inputId: string):
     {
       $set: {
         "inputs.$.required": !input.required,
+        updatedAt: new Date(),
+      },
+    }
+  )
+}
+
+export async function toggleUnique(
+  db: Db, formId: ObjectId, inputId: string
+): Promise<void> {
+  const form = await findById(db, 'form', formId) as Form
+  const input: FormInput = getFormInputById(form.inputs, inputId)
+
+  await update<Form>(
+    db,
+    'form',
+    {
+      _id: form._id,
+      "inputs.id": inputId
+    },
+    {
+      $set: {
+        "inputs.$.unique": !input.unique,
         updatedAt: new Date(),
       },
     }
