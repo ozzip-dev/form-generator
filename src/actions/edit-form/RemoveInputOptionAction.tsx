@@ -6,7 +6,7 @@ import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-const removeInputOptionAction = async (
+const RemoveInputOptionAction = async (
   formIdString: string,
   inputId: string,
   optionName: string
@@ -44,4 +44,4 @@ const removeInputOptionAction = async (
   revalidateTag(`form-${formId}`);
 };
 
-export default removeInputOptionAction;
+export default RemoveInputOptionAction;

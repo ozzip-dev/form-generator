@@ -5,7 +5,7 @@ import { useEditForm } from "@/hooks/useEditForm";
 import editInputOptionAction from "@/actions/edit-form/editInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { useState } from "react";
-import removeInputOptionAction from "@/actions/edit-form/removeInputOptionAction";
+import RemoveInputOptionAction from "@/actions/edit-form/RemoveInputOptionAction";
 
 type Props = {
   inputIdx: number;
@@ -33,7 +33,7 @@ const AddOption = (props: Props) => {
   const handleDeleteOption = async (optionName: string, idx: number) => {
     setGlobalLoading(true);
     try {
-      await removeInputOptionAction(formId!, props.inputId, optionName);
+      await RemoveInputOptionAction(formId!, props.inputId, optionName);
       remove(idx);
     } catch (err) {
       console.error(err);
