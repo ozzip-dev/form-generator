@@ -2,14 +2,12 @@
 
 import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function SignOutAction() {
   try {
     await auth.api.signOut({ headers: await headers() });
+    return { success: true };
   } catch (err: any) {
-    throw new Error(err?.message ?? "Nie można się wylogować");
+    return { success: false, error: err?.message ?? "Nie można się wylogować" };
   }
-
-  redirect("/login?logout=success");
 }
