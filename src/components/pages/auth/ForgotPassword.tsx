@@ -1,6 +1,6 @@
 "use client";
 
-import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
+import { forgotPasswordAction } from "@/actions/auth/forgotPasswordActionXX";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
