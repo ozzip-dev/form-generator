@@ -1,4 +1,4 @@
-import { EditFormHeaderAction } from "@/actions/edit-form/editInput/EditFormHeaderAction";
+import { editFormHeaderAction } from "@/actions/edit-form/editInput/editFormHeaderAction";
 
 const debounceMap = new Map<string, NodeJS.Timeout>();
 
@@ -14,7 +14,7 @@ export const handleEditFormDraft = (
   }
 
   const timeout = setTimeout(async () => {
-    await EditFormHeaderAction(formId!, { [name]: value });
+    await editFormHeaderAction(formId!, { [name]: value });
     debounceMap.delete(key);
   }, 2000);
 

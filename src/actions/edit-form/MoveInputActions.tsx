@@ -7,9 +7,9 @@ import { FormSerialized } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../utils";
-import { requireUser } from "@/dataAccessLayer/queries";
+import { requireUser } from "@/services/queries/requireUser";
 
-export async function MoveInputUp(
+export async function moveInputUpAction(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {
@@ -34,7 +34,7 @@ export async function MoveInputUp(
   }
 }
 
-export async function MoveInputDown(
+export async function moveInputDownAction(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {

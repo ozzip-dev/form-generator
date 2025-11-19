@@ -1,7 +1,5 @@
 "use client";
 
-import { EditFormHeaderAction } from "@/actions/edit-form/editInput/EditFormHeaderAction";
-import EditFormInputs from "@/components/form/EditFormInputs";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
@@ -16,6 +14,8 @@ import {
   SuspenseErrorBoundary,
   InputFields,
 } from "@/components/shared";
+import { editFormHeaderAction } from "@/actions/edit-form/editInput/editFormHeaderAction";
+import EditFormInputs from "./EditFormInputs";
 
 const dataSelectOptions = [
   { label: "Ankieta pracownicza", value: "text" },
@@ -96,7 +96,7 @@ export default function EditFormForm(props: Props) {
   const { handleEdit, isLoading } = useEditForm({
     formId,
     trigger,
-    action: EditFormHeaderAction,
+    action: editFormHeaderAction,
     mode: "formHeader",
     setError,
   });

@@ -7,9 +7,9 @@ import { serializeForm } from "@/lib/serialize-utils";
 import { revalidateTag } from "next/cache";
 import { removeInputFromDraft } from "@/services/input-service";
 import { checkFormHasInputWithId } from "../utils";
-import { requireUser } from "@/dataAccessLayer/queries";
+import { requireUser } from "@/services/queries/requireUser";
 
-export async function RemoveInputFromDraftAction(
+export async function removeInputFromDraftAction(
   formIdString: string,
   inputId: string
 ): Promise<FormSerialized | undefined> {

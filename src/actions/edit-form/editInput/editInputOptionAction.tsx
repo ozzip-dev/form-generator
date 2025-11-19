@@ -1,7 +1,7 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { db, findById, updateById } from "@/lib/mongo";
+import { requireUser } from "@/services/queries/requireUser";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";

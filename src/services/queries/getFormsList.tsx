@@ -1,11 +1,11 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { db } from "@/lib/mongo";
 import { FormSerialized } from "@/types/form";
 import { ObjectId } from "mongodb";
+import { requireUser } from "./requireUser";
 
-export async function GetFormsLstAction() {
+export async function getFormsLst() {
   const user = await requireUser();
 
   try {

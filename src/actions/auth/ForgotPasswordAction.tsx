@@ -8,7 +8,7 @@ type FormData = {
   email: string;
 };
 
-export async function ForgotPasswordAction(data: FormData) {
+export async function forgotPasswordAction(data: FormData) {
   const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {

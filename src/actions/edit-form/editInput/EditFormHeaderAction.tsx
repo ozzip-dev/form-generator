@@ -1,6 +1,5 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/serialize-utils";
 import { db } from "@/lib/mongo";
@@ -9,10 +8,11 @@ import { updateForm } from "@/services/form-service";
 import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
+import { requireUser } from "@/services/queries/requireUser";
 
 type FormActionError = { error: Record<string, { message: string }> | string };
 
-export async function EditFormHeaderAction(
+export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
 ): Promise<FormSerialized | FormActionError> {
@@ -25,7 +25,7 @@ export async function EditFormHeaderAction(
   }
 
   try {
-    const result: WithId<Form>| null = await updateForm(
+    const result: WithId<Form> | null = await updateForm(
       db,
       new ObjectId(formId),
       updateData

@@ -3,7 +3,7 @@
 import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
 import { headers } from "next/headers";
 
-export async function SignOutAction() {
+export async function signOutAction() {
   try {
     await auth.api.signOut({ headers: await headers() });
     return { success: true };

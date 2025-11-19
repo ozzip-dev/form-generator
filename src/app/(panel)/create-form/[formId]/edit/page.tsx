@@ -1,4 +1,4 @@
-import AddFormField from "@/components/pages/create-form/AddFormField";
+import AddFormField from "@/components/pages/edit-form/AddFormField";
 import EditForm from "@/components/pages/edit-form/EditForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
 

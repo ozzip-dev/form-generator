@@ -1,11 +1,11 @@
-import { requireUser } from "@/dataAccessLayer/queries";
 import { db, findById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { cache } from "react";
+import { requireUser } from "./requireUser";
 
-export const GetFormAction = cache(async (formId: string): Promise<Form> => {
+export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
 
   try {

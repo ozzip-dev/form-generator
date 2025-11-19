@@ -2,7 +2,7 @@
 
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
-import { signUpSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+import { signupSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 
 type FormData = {
   email: string;
@@ -10,8 +10,8 @@ type FormData = {
   name: string;
 };
 
-export async function SignUpAction(data: FormData) {
-  const validationResult = signUpSchema.safeParse(data);
+export async function signupAction(data: FormData) {
+  const validationResult = signupSchema.safeParse(data);
 
   if (!validationResult.success) {
     const fieldErrors = handleServerErrors(validationResult.error);

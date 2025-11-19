@@ -1,6 +1,5 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db } from "@/lib/mongo";
 import { conditionalInputSchema } from "@/lib/zodSchema/editFormSchema";
@@ -8,8 +7,9 @@ import { updateFormInputTexts } from "@/services/input-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
+import { requireUser } from "@/services/queries/requireUser";
 
-export async function EditInputLabelAction(
+export async function editInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }

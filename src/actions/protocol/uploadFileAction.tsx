@@ -5,7 +5,7 @@ import { addProtocol } from "@/services/protocol-service";
 import { Binary } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-export async function UploadFile(file: File): Promise<void> {
+export async function uploadFileAction(file: File): Promise<void> {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 

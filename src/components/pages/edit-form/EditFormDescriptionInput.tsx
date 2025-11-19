@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
-import { EditInputLabelAction } from "@/actions/edit-form/editInput/EditInputLabelAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { Button, FullscreenLoader, InputFields } from "../shared";
+import { Button, FullscreenLoader, InputFields } from "../../shared";
+import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
 
 type Props = {
   inputId: string;
@@ -30,7 +30,7 @@ const EditFormDescriptionInput = (props: Props) => {
     inputId: props.inputId,
     inputIdx: props.inputIdx,
     trigger,
-    action: EditInputLabelAction,
+    action: editInputLabelAction,
     mode: "inputLabel",
   });
 

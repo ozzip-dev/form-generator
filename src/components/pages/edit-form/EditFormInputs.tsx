@@ -1,20 +1,23 @@
 "use client";
 
-import { EditInputLabelAction } from "@/actions/edit-form/editInput/EditInputLabelAction";
-import { EditInputTypeAction } from "@/actions/edit-form/editInput/EditInputTypeAction";
+import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
+import { editInputTypeAction } from "@/actions/edit-form/editInput/editInputTypeAction";
+import {
+  FullscreenLoader,
+  InputFields,
+  RequiredToggleSwitch,
+} from "@/components/shared";
+import UniqueToggleSwitch from "@/components/shared/inputs/UniqueToggleSwitch";
+import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
-import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { SelectFieldControler } from "../shared/inputs/selectField/SelectFieldController";
+import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
-import AddOption from "./AddOption";
-import { FullscreenLoader, InputFields, RequiredToggleSwitch } from "../shared";
-import UniqueToggleSwitch from "../shared/inputs/UniqueToggleSwitch";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -69,7 +72,7 @@ export default function EditFormInputs(props: Props) {
       inputId,
       inputIdx: props.inputIdx,
       trigger,
-      action: EditInputLabelAction,
+      action: editInputLabelAction,
       mode: "inputLabel",
       setError,
     });
@@ -78,7 +81,7 @@ export default function EditFormInputs(props: Props) {
     formId,
     inputId,
     trigger,
-    action: EditInputTypeAction,
+    action: editInputTypeAction,
     mode: "inputType",
   });
 

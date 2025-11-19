@@ -5,7 +5,7 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
 import { CheckboxGroupField, FullscreenLoader } from "../index";
-import { ToggleUniqueAction } from "@/actions/edit-form/ToggleUniqueAction";
+import { toggleUniqueAction } from "@/actions/edit-form/editInput/toggleUniqueAction";
 
 // TODO: zrobic wspolny komponent z RequiredToggleSwitch
 
@@ -31,7 +31,7 @@ export default function UniqueToggleSwitch(props: Props) {
     formId,
     inputId: props.input.id!,
     trigger,
-    action: ToggleUniqueAction,
+    action: toggleUniqueAction,
     mode: "inputUnique",
   });
 

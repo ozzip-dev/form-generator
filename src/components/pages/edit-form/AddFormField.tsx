@@ -1,8 +1,7 @@
 "use client";
 
-import { AddFormFieldAction } from "@/actions/create-form";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
-import { Button, InputFields } from "@/components/shared";
+import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { InputType } from "@/enums";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";
@@ -14,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
+import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -55,7 +55,7 @@ const AddFormField = () => {
 
   const onSubmit = async (data: AddFormFieldSchema) => {
     try {
-      const resp = await AddFormFieldAction(formId as string, {
+      const resp = await addFormFieldAction(formId as string, {
         ...data,
         type: data.type as InputType,
         validation: {},
@@ -74,6 +74,7 @@ const AddFormField = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex mb-6 px-4">
+      {isSubmitting && <FullscreenLoader />}
       <div className="flex mb-6">
         <InputFields
           inputsData={dataInputsheader}
@@ -92,10 +93,7 @@ const AddFormField = () => {
         </div>
 
         <div className="w-fit">
-          <Button
-            isLoading={isSubmitting}
-            icon={<IconPlus style="h-7 w-7 bg-white" />}
-          />
+          <Button icon={<IconPlus style="h-7 w-7 bg-white" />} />
         </div>
       </div>
     </form>

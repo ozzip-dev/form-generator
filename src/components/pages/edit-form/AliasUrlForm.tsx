@@ -1,6 +1,6 @@
 "use client";
 
-import { SetAliasUrl } from "@/actions/form/SetAliasUrl";
+import { setAliasUrlAction } from "@/actions/form/setAliasUrlAction";
 import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
@@ -20,7 +20,7 @@ export default function AliasUrlForm(form: FormSerialized) {
 
   const setAlias = async (data: SetAliasSchema) => {
     try {
-      await SetAliasUrl(form, data.url);
+      await setAliasUrlAction(form, data.url);
     } catch (e: any) {
       toast({
         title: e.message,

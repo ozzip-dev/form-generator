@@ -1,6 +1,5 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/serialize-utils";
 import { db, findById, updateById } from "@/lib/mongo";
@@ -9,9 +8,12 @@ import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
+import { requireUser } from "@/services/queries/requireUser";
 
 function makeId(header: string): string {
-  return `${header.trim().toLowerCase()}-${Math.round(Math.random() * 100000).toString()}`
+  return `${header.trim().toLowerCase()}-${Math.round(
+    Math.random() * 100000
+  ).toString()}`;
 }
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
@@ -38,7 +40,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   };
 }
 
-export async function AddFormFieldAction(
+export async function addFormFieldAction(
   formId: string,
   input: Input
 ): Promise<FormSerialized | { error: string } | { error: any }> {

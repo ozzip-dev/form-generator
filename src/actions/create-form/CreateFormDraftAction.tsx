@@ -1,10 +1,10 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { db, findOne } from "@/lib/mongo";
 import { createDraft } from "@/services/form-service";
+import { requireUser } from "@/services/queries/requireUser";
 import { Form } from "@/types/form";
-import { Document, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 
 const MAX_FORMS_PER_USER = 10;
@@ -28,7 +28,7 @@ const checkFormLimitError = async (userId: ObjectId): Promise<boolean> => {
   return false;
 };
 
-export async function CreateFormDraftAction(templateId: string) {
+export async function createFormDraftAction(templateId: string) {
   const user = await requireUser();
 
   const userId = new ObjectId(user.id);

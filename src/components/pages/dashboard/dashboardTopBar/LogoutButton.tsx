@@ -1,13 +1,11 @@
 "use client";
 
-import { SignOutAction } from "@/actions/auth/SignOutAction";
-import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
 import { LogOut } from "lucide-react";
-import React, { useActionState, useEffect } from "react";
-import DashboardMenu from "../DashboardMenu";
+import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { signOutAction } from "@/actions/auth/signOutAction";
 
 const ToastsData: ModelToast[] = [
   {
@@ -24,7 +22,7 @@ const LogoutButton = () => {
   useOneTimeToast(ToastsData);
   const { toast } = useToast();
 
-  const [state, signOut, pending] = useActionState(SignOutAction, {
+  const [state, signOut, pending] = useActionState(signOutAction, {
     error: null,
     success: false,
   });
@@ -41,24 +39,28 @@ const LogoutButton = () => {
     if (state?.success) {
       router.push("/login?logout=success");
     }
-  }, [state.error, state.success]);
+  }, [state, toast, router]);
+
+  const handleSignOut = () => {
+    startTransition(() => {
+      signOut();
+    });
+  };
 
   return (
-    <form action={signOut}>
-      <button disabled={pending}>
-        {pending ? (
-          <div className="flex items-center">
-            <LogOut className="mr-2 h-4 w-4 animate-spin" />
-            Signing out...
-          </div>
-        ) : (
-          <div className="flex items-center">
-            <LogOut className="mr-2 h-4 w-4" />
-            Wyloguj
-          </div>
-        )}
-      </button>
-    </form>
+    <button onClick={handleSignOut} disabled={pending}>
+      {pending ? (
+        <div className="flex items-center">
+          <LogOut className="mr-2 h-4 w-4 animate-spin" />
+          Signing out...
+        </div>
+      ) : (
+        <div className="flex items-center">
+          <LogOut className="mr-2 h-4 w-4" />
+          Wyloguj
+        </div>
+      )}
+    </button>
   );
 };
 

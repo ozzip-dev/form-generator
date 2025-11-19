@@ -1,12 +1,12 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { db, findById, updateById } from "@/lib/mongo";
+import { requireUser } from "@/services/queries/requireUser";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-const RemoveInputOptionAction = async (
+const removeInputOptionAction = async (
   formIdString: string,
   inputId: string,
   optionName: string
@@ -44,4 +44,4 @@ const RemoveInputOptionAction = async (
   revalidateTag(`form-${formId}`);
 };
 
-export default RemoveInputOptionAction;
+export default removeInputOptionAction;

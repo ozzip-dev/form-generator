@@ -9,9 +9,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { ResetPasswordAction } from "@/actions/auth/ResetPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
+import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
 
 const dataInputsResetPassword = [
   {
@@ -47,7 +47,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
     };
 
     try {
-      const resp = await ResetPasswordAction({ ...trimmedData, token });
+      const resp = await resetPasswordAction({ ...trimmedData, token });
       if (resp?.error) {
         handleClientErrors<ResetPasswordSchema>(resp.error, setError);
         return;

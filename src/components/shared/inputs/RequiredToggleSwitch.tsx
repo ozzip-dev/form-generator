@@ -1,11 +1,11 @@
 "use client";
 
-import { ToggleRequiredAction } from "@/actions/edit-form/ToggleRequiredAction";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
 import { CheckboxGroupField, FullscreenLoader } from "../index";
+import { toggleRequiredAction } from "@/actions/edit-form/editInput/toggleRequiredAction";
 
 interface Props {
   input: FormInput;
@@ -29,7 +29,7 @@ export default function RequiredToggleSwitch(props: Props) {
     formId,
     inputId: props.input.id!,
     trigger,
-    action: ToggleRequiredAction,
+    action: toggleRequiredAction,
     mode: "inputReqired",
   });
 
