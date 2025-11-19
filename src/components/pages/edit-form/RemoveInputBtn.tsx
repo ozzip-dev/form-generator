@@ -4,7 +4,7 @@ import { useAsyncAction } from "@/hooks/useAsyncAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useParams } from "next/navigation";
 import { Button, FullscreenLoader } from "../../shared";
-import { removeInputFromDraftAction } from "@/actions/edit-form/removeInputFromDraftAction";
+import { removeInputFromDraftAction } from "@/actions/edit-form/removeInputFromDraftActionXX";
 
 type Props = {
   inputId: string;

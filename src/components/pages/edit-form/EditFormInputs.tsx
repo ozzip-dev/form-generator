@@ -1,7 +1,7 @@
 "use client";
 
-import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
-import { editInputTypeAction } from "@/actions/edit-form/editInput/editInputTypeAction";
+import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelActionXX";
+import { editInputTypeAction } from "@/actions/edit-form/editInput/editInputTypeActionXX";
 import {
   FullscreenLoader,
   InputFields,

@@ -1,11 +1,11 @@
-import { updateCommitteeData } from "@/actions/user/updateCommitteeData";
+import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button } from "@/components/shared";
 
 const UserCommitteeForm = () => {
   return (
     <form
       className="*:block *:my-1 w-fit bg-slate-100 p-4"
-      action={updateCommitteeData}
+      action={updateCommitteeDataAction}
     >
       <label>
         name

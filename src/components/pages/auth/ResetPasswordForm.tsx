@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
-import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
+import { resetPasswordAction } from "@/actions/auth/resetPasswordActionXX";
 
 const dataInputsResetPassword = [
   {
