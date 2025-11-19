@@ -109,9 +109,9 @@ const CreatedForm = (props: Props) => {
   const formFields = inputs
     .sort((a: any, b: any) => a.order - b.order)
     .map(
-      ({ type, header, description, required, options }: any, idx: number) => {
+      ({ type, header, description, required, options, id }: any, idx: number) => {
         if (type === "checkbox") {
-          const dataCheckboxOptions = options?.map((option: any) => {
+          const dataCheckboxOptions = options?.map((option: string) => {
             return { label: option, name: option, value: false };
           });
 
@@ -121,7 +121,7 @@ const CreatedForm = (props: Props) => {
               label={header}
               required={required}
               description={description}
-              name={header}
+              name={id}
               options={dataCheckboxOptions}
               control={control}
               errorMsg={errors}
@@ -135,7 +135,7 @@ const CreatedForm = (props: Props) => {
           return (
             <RadioGroupField
               key={idx}
-              name={header}
+              name={id}
               label={header}
               description={description}
               required={required}
@@ -184,7 +184,7 @@ const CreatedForm = (props: Props) => {
           const dataInputText = [
             {
               label: header,
-              name: header,
+              name: id,
               placeholder,
               type,
               description,
