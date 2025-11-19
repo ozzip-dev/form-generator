@@ -14,7 +14,7 @@ import {
   SuspenseErrorBoundary,
   InputFields,
 } from "@/components/shared";
-import { editFormHeaderAction } from "@/actions/edit-form/editInput/editFormHeaderActionXX";
+import { editFormHeaderAction } from "@/actions/edit-form/editInput/editFormHeaderAction";
 import EditFormInputs from "./EditFormInputs";
 
 const dataSelectOptions = [

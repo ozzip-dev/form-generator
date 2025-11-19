@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
 import { useForm } from "react-hook-form";
-import { addFormFieldAction } from "@/actions/edit-form/addFormFieldActionXX";
+import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },

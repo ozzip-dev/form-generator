@@ -2,7 +2,7 @@ import { useToast } from "./useToast";
 import { useState } from "react";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { FormSerialized } from "@/types/form";
-import { publishFormAction } from "@/actions/form/publishFormActionXX";
+import { publishFormAction } from "@/actions/form/publishFormAction";
 
 const UsePublishForm = (form: FormSerialized) => {
   const [isloading, setLoading] = useState(false);

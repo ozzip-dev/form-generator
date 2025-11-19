@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/useToast";
 import { LogOut } from "lucide-react";
 import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signOutAction } from "@/actions/auth/signOutActionXX";
+import { signOutAction } from "@/actions/auth/signOutAction";
 
 const ToastsData: ModelToast[] = [
   {

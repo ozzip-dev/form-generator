@@ -10,7 +10,7 @@ import {
 } from "@/lib/zodSchema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/shared";
-import { uploadFileAction } from "@/actions/protocol/uploadFileActionXX";
+import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
 
 const AddProtocolForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);

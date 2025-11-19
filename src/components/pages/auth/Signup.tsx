@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { Button, InputFields } from "@/components/shared";
-import { signupAction } from "@/actions/auth/signupActionXX";
+import { signupAction } from "@/actions/auth/signupAction";
 
 const dataInputsSignup = [
   {

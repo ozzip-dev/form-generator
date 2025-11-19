@@ -1,1 +1,1 @@
-import { uploadFileAction } from "./uploadFileActionXX";
+import { uploadFileAction } from "./uploadFileAction";

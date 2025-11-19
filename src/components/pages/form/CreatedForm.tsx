@@ -1,6 +1,6 @@
 "use client";
 
-import { submitFormAction } from "@/actions/form/submitFormActionXX";
+import { submitFormAction } from "@/actions/form/submitFormAction";
 import {
   Button,
   CheckboxGroupField,
