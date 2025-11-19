@@ -23,8 +23,6 @@ export default function RequiredToggleSwitch(props: Props) {
     },
   ];
 
-  console.log("props.input.required", props.input.required);
-
   const { handleEdit, isLoading } = useEditForm({
     formId,
     inputId: props.input.id!,
