@@ -15,6 +15,7 @@ type Props = {
 
 const AddOption = (props: Props) => {
   const [globalLoading, setGlobalLoading] = useState(false);
+
   const {
     register,
     control,
@@ -26,9 +27,6 @@ const AddOption = (props: Props) => {
     control,
     name: `options`,
   });
-
-  // console.log("fields", fields);
-  // console.log("", props.inputIdx);
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -56,39 +54,45 @@ const AddOption = (props: Props) => {
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
       {isAnyLoading && <FullscreenLoader />}
-      {fields.map((field, idx) => (
-        <div key={field.id} className="flex gap-2 items-center">
-          <InputFields
-            inputsData={[
-              {
-                type: "text",
-                name: `options.${idx}.value`,
-                placeholder: `Opcja ${idx + 1}`,
-              },
-            ]}
-            register={register}
-            errorMsg={(errors.options as any)?.[idx]?.value}
-            onChange={(_, value) => handleEdit(`options.${idx}.value`, value)}
-          />
-
-          <div className="w-fit ml-2">
-            <Button
-              type="button"
-              icon={<IconTrash style="h-5 w-5 bg-white" />}
-              onClickAction={() =>
-                handleDeleteOption(`option.${idx}.${props.header}`, idx)
-              }
+      {fields.map((field, idx) => {
+        return (
+          <div key={field.id} className="flex gap-2 items-center">
+            <InputFields
+              inputsData={[
+                {
+                  type: "text",
+                  name: `options.${idx}.value`,
+                  placeholder: `Opcja ${idx + 1}`,
+                },
+              ]}
+              register={register}
+              errorMsg={(errors.options as any)?.[idx]?.value}
+              onChange={(_, value) => handleEdit(`options.${idx}.value`, value)}
             />
+
+            <div className="w-fit ml-2">
+              <Button
+                type="button"
+                icon={<IconTrash style="h-5 w-5 bg-white" />}
+                onClickAction={() =>
+                  handleDeleteOption(`option.${idx}.${props.header}`, idx)
+                }
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
 
       <div className="flex gap-2">
         <div className="w-fit">
           <Button
-            message="Dodaj opcję"
+            message={"Dodaj opcję"}
             type="button"
-            onClickAction={() => append("")}
+            disabled={!!errors.options}
+            onClickAction={() => {
+              if (errors.options) return;
+              append({ value: "" });
+            }}
           />
         </div>
         <div className="w-fit">

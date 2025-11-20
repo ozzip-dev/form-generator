@@ -111,12 +111,12 @@ const EditInputForm = (props: Props) => {
     reset({ header, description });
   }, [header, description, reset]);
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  // useEffect(() => {
+  //   const subscription = watch((values) => {
+  //     console.log("Aktualne wartości:", values);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   const isAnyLoading = [
     ...Object.values(isLoadingLabel ?? {}),
