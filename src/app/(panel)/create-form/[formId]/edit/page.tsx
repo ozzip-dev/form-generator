@@ -1,47 +1,52 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
-import EditForm from "@/components/pages/edit-form/EditForm";
-import EditInputForm from "@/components/pages/edit-form/EditInputForm";
+import CreatedUpdatedInfo from "@/components/pages/edit-form/editFormUrl/CreatedUpdatedInfo";
+import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import { getForm } from "@/services/queries/getForm";
 import { serializeForm } from "@/lib/serialize-utils";
+import { getForm } from "@/services/queries/getForm";
+import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
 
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
-  const { inputs } = await getForm(formId);
+  const form = await getForm(formId);
+  const { inputs, createdAt, updatedAt } = form;
 
   return (
     <>
+      <CreatedUpdatedInfo
+        createdAt={createdAt.toDateString()}
+        updatedAt={updatedAt.toDateString()}
+      />
       <SuspenseErrorBoundary
         size="lg"
-        errorMessage="Błąd edycji formularza"
+        errorMessage="Błąd edycji nagłówka formularza"
         loadingMessage="Ładowanie danych formularza"
       >
-        <EditForm formId={formId} />
+        <EditFormHeader form={serializeForm(form)} />
       </SuspenseErrorBoundary>
 
       {inputs
         .sort((a, b) => a.order - b.order)
-        .map((el, idx) => {
+        .map((input, idx) => {
           return (
             <SuspenseErrorBoundary
-              key={el.id}
+              key={input.id}
               size="sm"
-              errorMessage="Błąd przesyłu danych pól formularza"
+              errorMessage="Błąd edycji pól formularza"
             >
-              <EditInputForm
-                key={el.id}
-                input={el}
+              <EditFormInput
+                input={input}
                 inputIdx={idx}
-                inputsLength={inputs.length}
+                isLastInput={inputs.length === idx + 1}
               />
             </SuspenseErrorBoundary>
           );
         })}
 
       <SuspenseErrorBoundary
-        errorMessage="Błąd przesyłu danych formularza"
+        errorMessage="Błąd tworzenia pól formularza"
         size="sm"
       >
         <AddFormField />

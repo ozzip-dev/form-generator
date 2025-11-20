@@ -37,7 +37,7 @@ export default function RequiredToggleSwitch(props: Props) {
     <div className="flex gap-2 items-center mb-auto">
       {loadingForm && <FullscreenLoader />}
       <CheckboxGroupField
-        name={`inputSettings.${props.input.id}.required`}
+        name={`required`}
         control={control}
         options={dataCheckboxOption}
         onChangeAction={async (values) => {

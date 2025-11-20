@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 import { useAsyncAction } from "@/hooks/useAsyncAction";
-import { Button, FullscreenLoader } from "../../shared";
 import { moveInputDownAction } from "@/actions/edit-form/moveInputActions";
+import { Button, FullscreenLoader } from "@/components/shared";
 
 type Props = {
   inputId: string;

@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { Button, FullscreenLoader, InputFields } from "../../shared";
+import { Button, FullscreenLoader, InputFields } from "../../../shared";
 import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
 
 type Props = {
@@ -22,8 +22,6 @@ const EditFormDescriptionInput = (props: Props) => {
     register,
     formState: { errors },
     trigger,
-    setError,
-    setValue,
   } = useFormContext();
 
   const { handleEdit: handleEditLabel, isLoading } = useEditForm({

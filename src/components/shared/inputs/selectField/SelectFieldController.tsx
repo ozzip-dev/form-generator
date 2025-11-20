@@ -1,6 +1,12 @@
 "use client";
 
-import { Controller, Control, FieldValues, Path } from "react-hook-form";
+import {
+  Controller,
+  Control,
+  FieldValues,
+  Path,
+  useFormContext,
+} from "react-hook-form";
 import SelectField from "./SelectField";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/shared";
@@ -9,7 +15,6 @@ type Option = { label: string; value: string };
 
 type Props<T extends FieldValues> = {
   name: Path<T>;
-  control: Control<T>;
   options: Option[];
   placeholder?: string;
   label?: string;
@@ -20,6 +25,8 @@ type Props<T extends FieldValues> = {
 export const SelectFieldControler = <T extends FieldValues>(
   props: Props<T>
 ) => {
+  const { control } = useFormContext();
+
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -33,7 +40,7 @@ export const SelectFieldControler = <T extends FieldValues>(
   return (
     <Controller
       name={props.name}
-      control={props.control}
+      control={control}
       render={({ field, fieldState }) => (
         <SelectField
           name={props.name}

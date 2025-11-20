@@ -39,7 +39,7 @@ export default function UniqueToggleSwitch(props: Props) {
     <div className="flex gap-2 items-center mb-auto">
       {loadingForm && <FullscreenLoader />}
       <CheckboxGroupField
-        name={`inputSettings.${props.input.id}.unique`}
+        name={`unique`}
         control={control}
         options={dataCheckboxOption}
         onChangeAction={async (values) => {
