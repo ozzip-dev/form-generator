@@ -53,7 +53,7 @@ type Props = {
 };
 
 const EditInputForm = (props: Props) => {
-  console.log("cc", props.input);
+  // console.log("cc", props.input);
 
   const formId = useSafeURLParam("formId");
   const isLastInput = props.inputIdx === props.inputsLength - 1;
@@ -65,13 +65,15 @@ const EditInputForm = (props: Props) => {
     type,
     header,
     description,
+    options,
   } = props.input;
 
-  const methods = useForm<EditInputFormSchema>({
+  const methods = useForm({
     resolver: zodResolver(editInputFormSchema),
     defaultValues: {
       header,
       description,
+      options: options.map((option: string) => ({ value: option })) || [],
     },
     mode: "all",
   });
@@ -104,6 +106,10 @@ const EditInputForm = (props: Props) => {
     action: editInputTypeAction,
     mode: "inputType",
   });
+
+  useEffect(() => {
+    reset({ header, description });
+  }, [header, description, reset]);
 
   useEffect(() => {
     const subscription = watch((values) => {

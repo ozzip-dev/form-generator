@@ -15,12 +15,20 @@ type Props = {
 
 const AddOption = (props: Props) => {
   const [globalLoading, setGlobalLoading] = useState(false);
-  const { register, control, trigger } = useFormContext();
+  const {
+    register,
+    control,
+    trigger,
+    formState: { errors },
+  } = useFormContext();
   const formId = useSafeURLParam("formId");
   const { fields, append, remove } = useFieldArray({
     control,
-    name: `inputs.${props.inputIdx}.options`,
+    name: `options`,
   });
+
+  // console.log("fields", fields);
+  // console.log("", props.inputIdx);
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -54,15 +62,13 @@ const AddOption = (props: Props) => {
             inputsData={[
               {
                 type: "text",
-                name: `inputs.${props.inputIdx}.options.${idx}.value`,
+                name: `options.${idx}.value`,
                 placeholder: `Opcja ${idx + 1}`,
               },
             ]}
             register={register}
-            // errorMsg={(errors.inputs as any)?.[props.inputIdx]?.header}
-            onChange={(_, value) =>
-              handleEdit(`option.${idx}.${props.header}`, value)
-            }
+            errorMsg={(errors.options as any)?.[idx]?.value}
+            onChange={(_, value) => handleEdit(`options.${idx}.value`, value)}
           />
 
           <div className="w-fit ml-2">

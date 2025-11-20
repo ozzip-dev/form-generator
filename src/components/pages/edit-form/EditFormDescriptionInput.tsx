@@ -23,6 +23,7 @@ const EditFormDescriptionInput = (props: Props) => {
     formState: { errors },
     trigger,
     setError,
+    setValue,
   } = useFormContext();
 
   const { handleEdit: handleEditLabel, isLoading } = useEditForm({
@@ -38,12 +39,12 @@ const EditFormDescriptionInput = (props: Props) => {
     setDescriptionInput((prev) => !prev);
   };
 
-  const handleDescriptionInput = async () => {
+  const handleRemoveDescriptionInput = async () => {
     setDescriptionInput((prev) => !prev);
 
     if (!props.description) return;
 
-    handleEditLabel("description", "");
+    await handleEditLabel("description", "");
   };
 
   const dataInputDescription = [
@@ -72,7 +73,7 @@ const EditFormDescriptionInput = (props: Props) => {
             <Button
               type="button"
               icon={<IconTrash style="h-5 w-5 bg-white" />}
-              onClickAction={handleDescriptionInput}
+              onClickAction={handleRemoveDescriptionInput}
             />
           </div>
         </div>
