@@ -49,7 +49,7 @@ const EditFormDescriptionInput = (props: Props) => {
   const dataInputDescription = [
     {
       type: "text",
-      name: `inputs.${props.inputIdx}.description`,
+      name: `description`,
       placeholder: "Pytanie",
       label: "Edytuj opis pytania",
     },
@@ -65,7 +65,7 @@ const EditFormDescriptionInput = (props: Props) => {
           <InputFields
             inputsData={dataInputDescription}
             register={register}
-            errorMsg={(errors.inputs as any)?.[props.inputIdx]?.description}
+            errorMsg={errors?.description as any}
             onChange={handleEditLabel}
           />
           <div className="w-fit flex items-center">

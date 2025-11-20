@@ -9,7 +9,11 @@ type Props = {
 const EditForm = async (props: Props) => {
   const form = await getForm(props.formId);
 
-  return <EditFormForm form={serializeForm(form)} />;
+  return (
+    <>
+      <EditFormForm form={serializeForm(form)} />;
+    </>
+  );
 };
 
 export default EditForm;

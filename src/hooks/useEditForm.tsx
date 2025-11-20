@@ -8,7 +8,7 @@ import {
 } from "react-hook-form";
 import { useErrorBoundary } from "react-error-boundary";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { AddFormFieldSchema } from "@/lib/zodSchema/addFormFieldSchema";
+import { AddFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
 
 type UseEditOptions = {
   formId?: string;

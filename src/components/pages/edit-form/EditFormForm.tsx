@@ -2,7 +2,10 @@
 
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
-import { editFormSchema, EditFormSchema } from "@/lib/zodSchema/editFormSchema";
+import {
+  editFormSchema,
+  EditFormSchema,
+} from "@/lib/zodSchema/editFormSchemas/editFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -81,17 +84,12 @@ export default function EditFormForm(props: Props) {
     watch,
   } = methods;
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
-  useEffect(() => {
-    const values = watch();
-    console.log("val", values);
-  }, [props.form]);
+  // useEffect(() => {
+  //   const subscription = watch((values) => {
+  //     console.log("Aktualne wartości:", values);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -146,7 +144,7 @@ export default function EditFormForm(props: Props) {
               />
             </div>
 
-            <div className="my-6 flex flex-col gap-4">
+            {/* <div className="my-6 flex flex-col gap-4">
               <div className="w-48"></div>
               {inputs
                 .sort((a, b) => a.order - b.order)
@@ -166,7 +164,7 @@ export default function EditFormForm(props: Props) {
                     </SuspenseErrorBoundary>
                   );
                 })}
-            </div>
+            </div> */}
           </form>
         </FormProvider>
       </div>

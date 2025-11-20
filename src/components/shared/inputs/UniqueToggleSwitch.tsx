@@ -25,8 +25,6 @@ export default function UniqueToggleSwitch(props: Props) {
     },
   ];
 
-  console.log("props.input.unique", props.input.unique);
-
   const { handleEdit, isLoading } = useEditForm({
     formId,
     inputId: props.input.id!,

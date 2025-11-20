@@ -3,7 +3,7 @@
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/serialize-utils";
 import { db } from "@/lib/mongo";
-import { editFormSchema } from "@/lib/zodSchema/editFormSchema";
+import { editFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormSchema";
 import { updateForm } from "@/services/form-service";
 import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";

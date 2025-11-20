@@ -8,7 +8,7 @@ import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
   AddFormFieldSchema,
-} from "@/lib/zodSchema/addFormFieldSchema";
+} from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";

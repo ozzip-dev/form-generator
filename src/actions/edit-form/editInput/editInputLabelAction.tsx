@@ -2,7 +2,7 @@
 
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db } from "@/lib/mongo";
-import { conditionalInputSchema } from "@/lib/zodSchema/editFormSchema";
+import { conditionalInputSchema } from "@/lib/zodSchema/editFormSchemas/editFormSchema";
 import { updateFormInputTexts } from "@/services/input-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
