@@ -12,7 +12,7 @@ type Props = {
 };
 
 // TODO: Tymczasowy komponent, na bank to będzie inaczej
-const FormStateData = ({ form }: Props) => {
+const PublishForm = ({ form }: Props) => {
   const isStateDraft: boolean = isDraft(form);
   const { _id, url } = form;
   const formUrl = `/submit/${url || _id}`;
@@ -50,4 +50,4 @@ const FormStateData = ({ form }: Props) => {
   );
 };
 
-export default FormStateData;
+export default PublishForm;

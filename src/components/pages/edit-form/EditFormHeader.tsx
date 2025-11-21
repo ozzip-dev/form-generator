@@ -11,7 +11,7 @@ import {
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import FormStateData from "./editFormUrl/FormStateData";
+import FormStateData from "./PublishForm/PublishForm";
 
 const dataSelectOptions = [
   { label: "Ankieta pracownicza", value: "text" },
@@ -72,8 +72,6 @@ export default function EditFormHeader(props: Props) {
   return (
     <>
       {loadingForm && <FullscreenLoader />}
-
-      {formId && <FormStateData form={props.form} />}
 
       <div className="p-4">
         <FormProvider {...methods}>

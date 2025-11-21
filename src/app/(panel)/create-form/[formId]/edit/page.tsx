@@ -1,10 +1,11 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
-import CreatedUpdatedInfo from "@/components/pages/edit-form/editFormUrl/CreatedUpdatedInfo";
+import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo";
 import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { getForm } from "@/services/queries/getForm";
 import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
+import PublishForm from "@/components/pages/edit-form/PublishForm/PublishForm";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -19,6 +20,10 @@ const EditFormPage = async (props: Props) => {
         createdAt={createdAt.toDateString()}
         updatedAt={updatedAt.toDateString()}
       />
+      <SuspenseErrorBoundary size="sm" errorMessage="Błąd pubilacji formularza">
+        <PublishForm form={serializeForm(form)} />
+      </SuspenseErrorBoundary>
+
       <SuspenseErrorBoundary
         size="lg"
         errorMessage="Błąd edycji nagłówka formularza"

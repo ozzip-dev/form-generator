@@ -2,10 +2,10 @@
 
 import { Button } from "@/components/shared";
 import ModalWrapper from "@/components/shared/ModalWrapper";
-import UsePublishForm from "@/hooks/usePublishForm";
 import { FormSerialized } from "@/types/form";
-import { useState } from "react";
+import { startTransition, useActionState, useState } from "react";
 import Link from "next/link";
+import { publishFormAction } from "@/actions/edit-form/publishForm/publishFormAction";
 
 type Props = {
   form: FormSerialized;
@@ -13,10 +13,16 @@ type Props = {
 
 const PublishFormButton = ({ form }: Props) => {
   const [isOpen, setOpen] = useState(false);
-  const { handlePublishForm, isloading } = UsePublishForm(form);
+  const [state, publishForm, isPending] = useActionState(async () => {
+    await publishFormAction(form);
+  }, null);
 
   const handlePrintModal = () => {
     setOpen((prev) => !prev);
+  };
+
+  const handlePublishForm = () => {
+    startTransition(publishForm);
   };
 
   return (
@@ -31,7 +37,7 @@ const PublishFormButton = ({ form }: Props) => {
       <Button
         message="Publikuj"
         onClickAction={handlePublishForm}
-        isLoading={isloading}
+        isLoading={isPending}
       />
       <button onClick={handlePrintModal}>eee</button>
     </>

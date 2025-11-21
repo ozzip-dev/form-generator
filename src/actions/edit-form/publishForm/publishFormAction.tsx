@@ -6,6 +6,7 @@ import { publishForm } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 export async function publishFormAction(form: FormSerialized) {
   const user = await requireUser();
@@ -15,13 +16,9 @@ export async function publishFormAction(form: FormSerialized) {
 
   const formId: string = form._id!;
 
-  try {
+  await runAsyncAction(async () => {
     await publishForm(db, formId);
-  } catch (err: any) {
-    console.error(err);
-    // TODO: what should happen? Redirect + error/warning message?
-    redirect("/dashboard");
-  }
+  });
 
   redirect(`/submit/${formId}`);
 }
