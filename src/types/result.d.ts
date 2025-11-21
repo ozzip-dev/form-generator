@@ -1,4 +1,4 @@
-export type Answers = Record<string, unknown /* string? */>
+export type Answers = Record<string, string /* string? */>
 
 export type Submission = {
   submittedAt: Date;
@@ -18,4 +18,15 @@ export interface Result extends Document {
 export interface ResultSerialized extends Document {
   formId: string;
   submissions: SubmissionSerialized[];
+}
+
+export interface ResultAnswer {
+  answer: string;
+  count: any;
+}
+
+export interface GroupedAnswer {
+  answers: ResultAnswer[];
+  id: string;
+  header: string;
 }

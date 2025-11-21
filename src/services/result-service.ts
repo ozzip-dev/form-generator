@@ -86,3 +86,16 @@ export async function getAllSubmissions(
     throw new Error('No submissions')
   return result.submissions
 }
+
+// export function getAnonymousAnswers(
+//   submissions: Submission[],
+//   excludeIds: string[] = []
+// ): Answers[] {
+//   const formAnswers: Answers[] = submissions.map(({ answers }) => answers)
+
+//   for (const answer of formAnswers) {
+//     for (const id of excludeIds) delete answer[id]
+//   }
+
+//   return formAnswers
+// }

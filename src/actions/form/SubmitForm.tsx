@@ -1,8 +1,8 @@
 "use server";
 
-import { requireUser } from "@/dataAccessLayer/queries";
 import { Answers } from "@/types/result";
 import { addSubmission, checkUniqueFieldsValid, createResult, formResultExists } from "@/services/result-service";
+import { revalidateTag } from "next/cache";
 
 export async function SubmitForm(formId: string, answers: Answers) {
   // await requireUser();
@@ -15,4 +15,6 @@ export async function SubmitForm(formId: string, answers: Answers) {
   resultExists
     ? await addSubmission(formId, answers)
     : await createResult(formId, answers)
+    
+    revalidateTag(`form-${formId}`);
 }

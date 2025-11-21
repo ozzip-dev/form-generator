@@ -11,7 +11,7 @@ import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
 function makeId(header: string): string {
-  return `${header.trim().toLowerCase()}-${Math.round(Math.random() * 100000).toString()}`
+  return `${header.replace(' ', '_').trim().toLowerCase()}-${Math.round(Math.random() * 100000).toString()}`
 }
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */

@@ -1,5 +1,5 @@
 import { FormType } from "@/enums/form";
-import { find, findById, findOne, insert, updateById } from "@/lib/mongo";
+import { db, find, findById, findOne, insert, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
@@ -120,4 +120,10 @@ export async function setAliasUrl(
       },
     }
   )
+}
+
+export async function getFormInputs(formId: string): Promise<FormInput[]> {
+  const form = await findById<Form>(db, 'form', new ObjectId(formId))
+  if (!form) throw new Error('Invalid form id')
+  return form.inputs
 }
