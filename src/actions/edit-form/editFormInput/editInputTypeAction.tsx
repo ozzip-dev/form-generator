@@ -7,6 +7,7 @@ import { checkFormHasInputWithId } from "../../utils";
 import { updateFormInputType } from "@/services/input-service";
 import { InputType } from "@/enums/input";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 export async function editInputTypeAction(
   formIdString: string,
@@ -16,13 +17,14 @@ export async function editInputTypeAction(
   await requireUser();
   const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) return;
-  try {
-    await updateFormInputType(db, formId, inputId, type);
-
-    revalidateTag(`form-${formId}`);
-  } catch (err) {
-    console.error("Błąd EditInputTypeAction:", err);
-    throw new Error(`Błąd: ${err}`);
+  if (!checkFormHasInputWithId(db, formId, inputId)) {
+    throw new Error("Input not found in form");
   }
+
+  const performEditInputType = async () => {
+    await updateFormInputType(db, formId, inputId, type);
+    revalidateTag(`form-${formId}`);
+  };
+
+  await runAsyncAction(performEditInputType);
 }

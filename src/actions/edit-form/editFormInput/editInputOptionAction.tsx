@@ -17,7 +17,6 @@ const editInputOptionAction = async (
 
   await requireUser();
 
-  // TODO Pawel: zrob to dobrze!!!
   const form = await findById<Form>(db, "form", formId);
   if (!form) return;
 
