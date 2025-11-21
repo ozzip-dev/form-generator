@@ -1,26 +1,41 @@
 "use client";
 
 import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
-import { Button } from "@/components/shared";
+import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+const dataInputUrl = [
+  {
+    name: "url",
+    placeholder: "www:formularz",
+    type: "text",
+  },
+];
+
 export default function AliasUrlForm(form: FormSerialized) {
   const { toast } = useToast();
   const {
     handleSubmit,
     register,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = useForm<SetAliasSchema>({
     resolver: zodResolver(setAliasSchema),
+    mode: "all",
   });
 
   const setAlias = async (data: SetAliasSchema) => {
     try {
-      await setAliasUrlAction(form, data.url);
+      const newAlias = await setAliasUrlAction(form, data.url);
+      if (!newAlias) {
+        console.log("wwaaaaaaaaa");
+        throw new Error("sssss");
+      }
+
+      console.log("ww", newAlias);
     } catch (e: any) {
       toast({
         title: e.message,
@@ -35,9 +50,11 @@ export default function AliasUrlForm(form: FormSerialized) {
         onSubmit={handleSubmit(setAlias)}
         className="flex items-center gap-4"
       >
-        <label htmlFor="file">
-          <input type="text" className="p-1 border" {...register("url")} />
-        </label>
+        <InputFields
+          inputsData={dataInputUrl}
+          register={register}
+          errorMsg={errors}
+        />
         {/* TODO: add remove alias */}
         <div>
           <Button

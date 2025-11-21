@@ -6,6 +6,8 @@ import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { success } from "better-auth/*";
 
 export async function setAliasUrlAction(form: FormSerialized, alias: string) {
   const user = await requireUser();
@@ -15,12 +17,9 @@ export async function setAliasUrlAction(form: FormSerialized, alias: string) {
 
   const formId: string = form._id!;
 
-  try {
+  return await runAsyncAction(async () => {
     await setAliasUrl(db, formId, alias);
-
     revalidateTag(`form-${formId}`);
-  } catch (err: any) {
-    // // TODO: what should happen? Redirect + error/warning message?
-    throw new Error(err.message);
-  }
+    return "succes";
+  });
 }

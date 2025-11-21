@@ -14,7 +14,8 @@ type Props = {
 const PublishFormButton = ({ form }: Props) => {
   const [isOpen, setOpen] = useState(false);
   const [state, publishForm, isPending] = useActionState(async () => {
-    await publishFormAction(form);
+    const url = await publishFormAction(form);
+    window.open(url, "_blank");
   }, null);
 
   const handlePrintModal = () => {

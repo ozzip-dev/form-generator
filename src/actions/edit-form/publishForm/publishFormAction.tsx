@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { db } from "@/lib/mongo";
 import { publishForm } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
@@ -16,9 +15,8 @@ export async function publishFormAction(form: FormSerialized) {
 
   const formId: string = form._id!;
 
-  await runAsyncAction(async () => {
+  return await runAsyncAction(async () => {
     await publishForm(db, formId);
+    return `/submit/${formId}`;
   });
-
-  redirect(`/submit/${formId}`);
 }
