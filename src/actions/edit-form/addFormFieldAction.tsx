@@ -9,6 +9,7 @@ import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 function makeId(header: string): string {
   return `${header.trim().toLowerCase()}-${Math.round(
@@ -53,10 +54,10 @@ export async function addFormFieldAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  try {
+  return await runAsyncAction(async () => {
     const draft = await findById<Form>(db, "form", new ObjectId(formId));
     if (!draft) {
-      return { error: "Nie znaleziono formularza" };
+      throw new Error("Nie znaleziono formularza");
     }
 
     const order = getNextOrder(draft as Form);
@@ -84,8 +85,5 @@ export async function addFormFieldAction(
     revalidateTag(`form-${formId}`);
 
     return serializeForm(result as Form);
-  } catch (err: any) {
-    console.error("Błąd AddFormFieldAction:", err);
-    throw new Error(`Błąd: ${err}`);
-  }
+  });
 }
