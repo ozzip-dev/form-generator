@@ -22,7 +22,7 @@ export interface ResultSerialized extends Document {
 
 export interface ResultAnswer {
   answer: string;
-  count: any;
+  count: number;
 }
 
 export interface GroupedAnswer {
