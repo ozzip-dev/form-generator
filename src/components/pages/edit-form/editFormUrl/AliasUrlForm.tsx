@@ -1,6 +1,6 @@
 "use client";
 
-import { setAliasUrlAction } from "@/actions/form/setAliasUrlAction";
+import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
 import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";

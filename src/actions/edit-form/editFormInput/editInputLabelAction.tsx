@@ -8,6 +8,7 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 export async function editInputLabelAction(
   formIdString: string,
@@ -24,7 +25,7 @@ export async function editInputLabelAction(
     }
   }
 
-  try {
+  const performEditInputLabel = async () => {
     const formId = new ObjectId(formIdString);
 
     if (!checkFormHasInputWithId(db, formId, inputId)) return;
@@ -32,8 +33,7 @@ export async function editInputLabelAction(
     await updateFormInputTexts(db, formId, inputId, data);
 
     revalidateTag(`form-${formId}`);
-  } catch (err) {
-    console.error("Błąd EditInputLabelAction:", err);
-    throw new Error(`Błąd: ${err}`);
-  }
+  };
+
+  await runAsyncAction(performEditInputLabel);
 }

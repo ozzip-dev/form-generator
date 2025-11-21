@@ -54,7 +54,7 @@ export async function addFormFieldAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  return await runAsyncAction(async () => {
+  const addNewField = async () => {
     const draft = await findById<Form>(db, "form", new ObjectId(formId));
     if (!draft) {
       throw new Error("Nie znaleziono formularza");
@@ -80,10 +80,12 @@ export async function addFormFieldAction(
     );
 
     if (!result) {
-      return { error: "Nie udało się zaktualizować formularza" };
+      throw new Error("Nie udało się dodać pola formularza");
     }
     revalidateTag(`form-${formId}`);
 
     return serializeForm(result as Form);
-  });
+  };
+
+  return await runAsyncAction(addNewField);
 }

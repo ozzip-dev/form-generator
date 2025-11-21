@@ -9,6 +9,7 @@ import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 type FormActionError = { error: Record<string, { message: string }> | string };
 
@@ -24,7 +25,7 @@ export async function editFormHeaderAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  try {
+  const performUpdate = async () => {
     const result: WithId<Form> | null = await updateForm(
       db,
       new ObjectId(formId),
@@ -32,13 +33,12 @@ export async function editFormHeaderAction(
     );
 
     if (!result) {
-      return { error: "Nie udało się zaktualizować formularza" };
+      throw new Error("Nie udało się zaktualizować formularza");
     }
     revalidateTag(`form-${formId}`);
 
     return serializeForm(result as Form);
-  } catch (err: any) {
-    console.error("Błąd EditFormAction:", err);
-    throw new Error(`Błąd: ${err}`);
-  }
+  };
+
+  return await runAsyncAction(performUpdate);
 }
