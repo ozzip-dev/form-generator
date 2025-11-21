@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
-import { useAsyncAction } from "@/hooks/useAsyncAction";
-import { moveInputDownAction } from "@/actions/edit-form/moveInputActions";
 import { Button, FullscreenLoader } from "@/components/shared";
+import { moveInputDownAction } from "@/actions/edit-form/editFormInput/moveInputActions";
+import { startTransition, useActionState } from "react";
 
 type Props = {
   inputId: string;
@@ -10,15 +10,19 @@ type Props = {
 const MoveInputDownBtn = (props: Props) => {
   const { formId } = useParams();
 
-  const { runAction, isLoading } = useAsyncAction(async () => {
+  const [state, moveDown, isPending] = useActionState(async () => {
     await moveInputDownAction(formId as string, props.inputId);
-  });
+  }, null);
+
+  const handleMoveDown = () => {
+    startTransition(moveDown);
+  };
 
   return (
     <>
-      {isLoading && <FullscreenLoader />}
+      {isPending && <FullscreenLoader />}
 
-      <Button type="button" message="v" onClickAction={runAction} />
+      <Button type="button" message="v" onClickAction={handleMoveDown} />
     </>
   );
 };

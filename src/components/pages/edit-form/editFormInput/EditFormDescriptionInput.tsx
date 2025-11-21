@@ -4,7 +4,7 @@ import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { Button, FullscreenLoader, InputFields } from "../../../shared";
-import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
+import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 
 type Props = {
   inputId: string;

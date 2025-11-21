@@ -1,25 +1,28 @@
 import { useParams } from "next/navigation";
-import { useAsyncAction } from "@/hooks/useAsyncAction";
 import { Button, FullscreenLoader } from "../../../shared";
-import { moveInputUpAction } from "@/actions/edit-form/moveInputActions";
+import { moveInputUpAction } from "@/actions/edit-form/editFormInput/moveInputActions";
+import { startTransition, useActionState } from "react";
 
 type Props = {
   inputId: string;
 };
 
-const MoveInputUpBtn = (props: Props) => {
+const MoveInputUpBtn = ({ inputId }: Props) => {
   const { formId } = useParams();
 
-  const { runAction, isLoading } = useAsyncAction(async () => {
-    await moveInputUpAction(formId as string, props.inputId);
-  });
+  const [state, moveUp, isPending] = useActionState(async () => {
+    return await moveInputUpAction(formId as string, inputId);
+  }, null);
+
+  const handleMoveUp = () => {
+    startTransition(moveUp);
+  };
 
   return (
     <>
-      {isLoading && <FullscreenLoader />}
-      <Button type="button" message="^" onClickAction={runAction} />
+      {isPending && <FullscreenLoader />}
+      <Button type="button" message="^" onClickAction={handleMoveUp} />
     </>
   );
 };
-
 export default MoveInputUpBtn;

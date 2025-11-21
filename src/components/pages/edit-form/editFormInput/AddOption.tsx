@@ -1,10 +1,10 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
-import editInputOptionAction from "@/actions/edit-form/editInput/editInputOptionAction";
+import editInputOptionAction from "@/actions/edit-form/editFormInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { useState } from "react";
-import removeInputOptionAction from "@/actions/edit-form/removeInputOptionAction";
+import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 
 type Props = {

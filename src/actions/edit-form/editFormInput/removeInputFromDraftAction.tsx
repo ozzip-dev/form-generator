@@ -6,8 +6,8 @@ import { ObjectId, WithId } from "mongodb";
 import { serializeForm } from "@/lib/serialize-utils";
 import { revalidateTag } from "next/cache";
 import { removeInputFromDraft } from "@/services/input-service";
-import { checkFormHasInputWithId } from "../utils";
 import { requireUser } from "@/services/queries/requireUser";
+import { checkFormHasInputWithId } from "@/actions/utils";
 
 export async function removeInputFromDraftAction(
   formIdString: string,

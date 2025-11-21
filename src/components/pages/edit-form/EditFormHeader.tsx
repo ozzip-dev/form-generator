@@ -1,6 +1,6 @@
 "use client";
 
-import { editFormHeaderAction } from "@/actions/edit-form/editInput/editFormHeaderAction";
+import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { FullscreenLoader, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";

@@ -3,8 +3,8 @@
 import { FormInput } from "@/types/input";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { editInputLabelAction } from "@/actions/edit-form/editInput/editInputLabelAction";
-import { editInputTypeAction } from "@/actions/edit-form/editInput/editInputTypeAction";
+import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
 import {
   FullscreenLoader,
   InputFields,
@@ -73,8 +73,6 @@ const EditFormInput = (props: Props) => {
     unique: { inputUnique: unique },
     type,
   };
-
-  console.log("", props.input);
 
   const methods = useForm<EditInputFormSchema>({
     resolver: zodResolver(editInputFormSchema),

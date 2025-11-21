@@ -5,7 +5,7 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
 import { CheckboxGroupField, FullscreenLoader } from "../index";
-import { toggleRequiredAction } from "@/actions/edit-form/editInput/toggleRequiredAction";
+import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 
 interface Props {
   input: FormInput;
