@@ -42,9 +42,7 @@ const LogoutButton = () => {
   }, [state, toast, router]);
 
   const handleSignOut = () => {
-    startTransition(() => {
-      signOut();
-    });
+    startTransition(signOut);
   };
 
   return (

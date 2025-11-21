@@ -21,7 +21,6 @@ const MoveInputDownBtn = (props: Props) => {
   return (
     <>
       {isPending && <FullscreenLoader />}
-
       <Button type="button" message="v" onClickAction={handleMoveDown} />
     </>
   );

@@ -1,13 +1,10 @@
 "use client";
 
-import { useAsyncAction } from "@/hooks/useAsyncAction";
+import { removeInputFromDraftAction } from "@/actions/edit-form/editFormInput/removeInputFromDraftAction";
+import { Button, FullscreenLoader } from "@/components/shared";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useParams } from "next/navigation";
-import { Button, FullscreenLoader } from "@/components/shared";
-import { removeInputFromDraftAction } from "@/actions/edit-form/editFormInput/removeInputFromDraftAction";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { startTransition, useActionState } from "react";
-import { az } from "zod/v4/locales";
 
 type Props = {
   inputId: string;
