@@ -5,6 +5,9 @@ import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useParams } from "next/navigation";
 import { Button, FullscreenLoader } from "@/components/shared";
 import { removeInputFromDraftAction } from "@/actions/edit-form/editFormInput/removeInputFromDraftAction";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { startTransition, useActionState } from "react";
+import { az } from "zod/v4/locales";
 
 type Props = {
   inputId: string;
@@ -12,19 +15,22 @@ type Props = {
 
 function RemoveInputBtn(props: Props) {
   const { formId } = useParams();
-
-  const { runAction, isLoading } = useAsyncAction(async () => {
+  const [state, deleteInput, isPending] = useActionState(async () => {
     await removeInputFromDraftAction(formId as string, props.inputId);
-  });
+  }, null);
+
+  const handleDeleteInput = () => {
+    startTransition(deleteInput);
+  };
 
   return (
     <>
-      {isLoading && <FullscreenLoader />}
+      {isPending && <FullscreenLoader />}
 
       <Button
         type="button"
         icon={<IconTrash style="h-5 w-5 bg-white" />}
-        onClickAction={runAction}
+        onClickAction={handleDeleteInput}
       />
     </>
   );

@@ -1,18 +1,18 @@
 "use server";
 
-import { Form, FormSerialized } from "@/types/form";
+import { checkFormHasInputWithId } from "@/actions/utils";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db } from "@/lib/mongo";
-import { ObjectId, WithId } from "mongodb";
-import { serializeForm } from "@/lib/serialize-utils";
-import { revalidateTag } from "next/cache";
 import { removeInputFromDraft } from "@/services/input-service";
 import { requireUser } from "@/services/queries/requireUser";
-import { checkFormHasInputWithId } from "@/actions/utils";
+import { Form } from "@/types/form";
+import { ObjectId, WithId } from "mongodb";
+import { revalidateTag } from "next/cache";
 
 export async function removeInputFromDraftAction(
   formIdString: string,
   inputId: string
-): Promise<FormSerialized | undefined> {
+): Promise<void> {
   await requireUser();
 
   if (!ObjectId.isValid(formIdString)) {
@@ -21,9 +21,11 @@ export async function removeInputFromDraftAction(
 
   const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) return;
+  if (!checkFormHasInputWithId(db, formId, inputId)) {
+    throw new Error("Input not found in form");
+  }
 
-  try {
+  await runAsyncAction(async () => {
     const result: WithId<Form> | null = await removeInputFromDraft(
       db,
       formId,
@@ -32,9 +34,5 @@ export async function removeInputFromDraftAction(
 
     if (!result) return;
     revalidateTag(`form-${formId}`);
-    return serializeForm(result);
-  } catch (err) {
-    console.error("RemoveInputFromDraftAction:", err);
-    throw new Error(`Błąd: ${String(err)}`);
-  }
+  });
 }
