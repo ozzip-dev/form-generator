@@ -75,7 +75,7 @@ const EditFormInput = (props: Props) => {
   };
 
   const methods = useForm<EditInputFormSchema>({
-    resolver: zodResolver(editInputFormSchema),
+    // resolver: zodResolver(editInputFormSchema),
     defaultValues,
     mode: "all",
   });
@@ -117,6 +117,7 @@ const EditFormInput = (props: Props) => {
     ...Object.values(isLoadingType ?? {}),
   ].some(Boolean);
 
+  console.log("errors", errors);
   return (
     <FormProvider {...methods}>
       <form className="mb-3">

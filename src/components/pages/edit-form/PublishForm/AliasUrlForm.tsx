@@ -37,8 +37,6 @@ export default function AliasUrlForm(form: FormSerialized) {
         handleClientErrors<SetAliasSchema>(resp.error, setError);
         return;
       }
-
-      console.log("ww");
     } catch (e: any) {
       toast({
         title: e.message,

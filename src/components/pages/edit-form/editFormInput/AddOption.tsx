@@ -21,6 +21,7 @@ const AddOption = (props: Props) => {
     control,
     trigger,
     formState: { errors },
+    setError,
   } = useFormContext();
   const formId = useSafeURLParam("formId");
   const { fields, append, remove } = useFieldArray({
@@ -34,7 +35,10 @@ const AddOption = (props: Props) => {
     trigger,
     action: editInputOptionAction,
     mode: "inputOption",
+    setError,
   });
+
+  console.log("err", errors);
 
   const handleDeleteOption = async (optionName: string, idx: number) => {
     setGlobalLoading(true);

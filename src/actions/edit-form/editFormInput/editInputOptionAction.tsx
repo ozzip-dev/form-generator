@@ -1,6 +1,8 @@
 "use server";
 
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
+import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { requireUser } from "@/services/queries/requireUser";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
@@ -12,16 +14,28 @@ const editInputOptionAction = async (
   optionValue: string,
   name: string
 ) => {
+  await requireUser();
+
   const index: number = Number(name.split(".")[1]);
   const formId = new ObjectId(formIdString);
-
-  await requireUser();
 
   const form = await findById<Form>(db, "form", formId);
   if (!form) return;
 
   const { inputs } = form;
   const { options } = inputs.find(({ id }) => id == inputId)!;
+
+  console.log("options", options);
+
+  const validationResult = editInputFormSchema.partial().safeParse({
+    options: options.map((opt, idx) =>
+      idx === index ? { value: optionValue } : { value: opt }
+    ),
+  });
+
+  if (!validationResult.success) {
+    return { error: handleServerErrors(validationResult.error) };
+  }
 
   let mappedOptions = options;
 

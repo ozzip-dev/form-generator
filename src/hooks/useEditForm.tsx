@@ -82,6 +82,8 @@ export function useEditForm({
                   {} as Record<string, any>
                 );
 
+                console.log("", fieldErrors);
+
                 handleClientErrors<AddFormFieldSchema>(
                   { error: fieldErrors },
                   setError
@@ -104,7 +106,12 @@ export function useEditForm({
               break;
             }
             case "inputOption": {
-              await action(formId, inputId!, value.trim(), name);
+              const resp = await action(formId, inputId!, value.trim(), name);
+
+              if (resp?.error && setError) {
+                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+                return;
+              }
               break;
             }
           }
