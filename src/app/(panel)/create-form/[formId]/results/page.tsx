@@ -9,18 +9,20 @@ type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
+  const inputs = await getFormInputs(formId)
   
-  const displayResults = async () => {
+  const displayResults = async (selectedInputIds: string[]) => {
     "use server"
     const submissions: Submission[] = await getAllSubmissions(formId)
     const inputs: FormInput[] = await getFormInputs(formId)
-    const answers: Answers[] = getAnonymousAnswers(submissions)
-    const groupedResults: GroupedAnswer[] = getGroupedAnswersResults(inputs, answers)
+    const filteredInputs = inputs.filter(({ id }) => selectedInputIds.includes(id!))
+    const answers: Answers[] = getAnonymousAnswers(submissions, selectedInputIds)
+    const groupedResults: GroupedAnswer[] = getGroupedAnswersResults(filteredInputs, answers)
     return groupedResults
   }
   
   return <Results
-    displayResults={displayResults}
+    {...{inputs, displayResults}}
   />
 };
 

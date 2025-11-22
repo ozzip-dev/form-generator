@@ -3,12 +3,14 @@ import { Answers, GroupedAnswer, Submission } from "@/types/result"
 
 export function getAnonymousAnswers(
   submissions: Submission[],
-  excludeIds: string[] = []
+  includeFieldIds: string[] = []
 ): Answers[] {
   const formAnswers: Answers[] = submissions.map(({ answers }) => answers)
 
   for (const answer of formAnswers) {
-    for (const id of excludeIds) delete answer[id]
+    for (const id of Object.keys(answer)) {
+      if (!includeFieldIds.includes(id)) delete answer[id]
+    }
   }
 
   return formAnswers
