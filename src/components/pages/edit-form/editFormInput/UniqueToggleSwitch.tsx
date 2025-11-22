@@ -1,11 +1,11 @@
 "use client";
 
-import { useEditForm } from "@/hooks/useEditForm";
+import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
+import { startTransition, useActionState } from "react";
 import { useFormContext } from "react-hook-form";
-import { CheckboxGroupField, FullscreenLoader } from "../index";
-import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
+import { CheckboxGroupField, FullscreenLoader } from "../../../shared/index";
 
 // TODO: zrobic wspolny komponent z RequiredToggleSwitch
 
@@ -15,7 +15,7 @@ interface Props {
 
 export default function UniqueToggleSwitch(props: Props) {
   const formId = useSafeURLParam("formId");
-  const { control, trigger } = useFormContext();
+  const { control } = useFormContext();
 
   const dataCheckboxOption = [
     {
@@ -25,19 +25,18 @@ export default function UniqueToggleSwitch(props: Props) {
     },
   ];
 
-  const { handleEdit, isLoading } = useEditForm({
-    formId,
-    inputId: props.input.id!,
-    trigger,
-    action: toggleUniqueAction,
-    mode: "inputUnique",
-  });
+  const [state, switchToggle, isPending] = useActionState(async () => {
+    if (!formId || !props.input.id) return;
+    await toggleUniqueAction(formId, props.input.id);
+  }, null);
 
-  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+  const handleSwitch = () => {
+    startTransition(switchToggle);
+  };
 
   return (
     <div className="flex gap-2 items-center mb-auto">
-      {loadingForm && <FullscreenLoader />}
+      {isPending && <FullscreenLoader />}
       <CheckboxGroupField
         name={`unique`}
         control={control}
@@ -48,7 +47,7 @@ export default function UniqueToggleSwitch(props: Props) {
           )?.value;
 
           if (uniqueState !== undefined) {
-            handleEdit("unique", "true");
+            handleSwitch();
           }
         }}
       />

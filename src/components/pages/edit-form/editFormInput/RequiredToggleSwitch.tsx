@@ -1,11 +1,11 @@
 "use client";
 
-import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useFormContext } from "react-hook-form";
-import { CheckboxGroupField, FullscreenLoader } from "../index";
 import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
+import { CheckboxGroupField, FullscreenLoader } from "@/components/shared";
+import { startTransition, useActionState } from "react";
 
 interface Props {
   input: FormInput;
@@ -13,7 +13,7 @@ interface Props {
 
 export default function RequiredToggleSwitch(props: Props) {
   const formId = useSafeURLParam("formId");
-  const { control, trigger } = useFormContext();
+  const { control } = useFormContext();
 
   const dataCheckboxOption = [
     {
@@ -23,19 +23,18 @@ export default function RequiredToggleSwitch(props: Props) {
     },
   ];
 
-  const { handleEdit, isLoading } = useEditForm({
-    formId,
-    inputId: props.input.id!,
-    trigger,
-    action: toggleRequiredAction,
-    mode: "inputReqired",
-  });
+  const [state, switchToggle, isPending] = useActionState(async () => {
+    if (!formId || !props.input.id) return;
+    await toggleRequiredAction(formId, props.input.id);
+  }, null);
 
-  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+  const handleSwitch = () => {
+    startTransition(switchToggle);
+  };
 
   return (
     <div className="flex gap-2 items-center mb-auto">
-      {loadingForm && <FullscreenLoader />}
+      {isPending && <FullscreenLoader />}
       <CheckboxGroupField
         name={`required`}
         control={control}
@@ -46,7 +45,7 @@ export default function RequiredToggleSwitch(props: Props) {
           )?.value;
 
           if (requiredState !== undefined) {
-            handleEdit("required", "true");
+            handleSwitch();
           }
         }}
       />

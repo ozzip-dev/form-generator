@@ -8,9 +8,9 @@ import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInput
 import {
   FullscreenLoader,
   InputFields,
-  RequiredToggleSwitch,
+  // RequiredToggleSwitch,
 } from "@/components/shared";
-import UniqueToggleSwitch from "@/components/shared/inputs/UniqueToggleSwitch";
+import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
@@ -25,6 +25,7 @@ import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
+import RequiredToggleSwitch from "./RequiredToggleSwitch";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },

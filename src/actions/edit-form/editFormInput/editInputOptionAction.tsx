@@ -25,8 +25,6 @@ const editInputOptionAction = async (
   const { inputs } = form;
   const { options } = inputs.find(({ id }) => id == inputId)!;
 
-  console.log("options", options);
-
   const validationResult = editInputFormSchema.partial().safeParse({
     options: options.map((opt, idx) =>
       idx === index ? { value: optionValue } : { value: opt }

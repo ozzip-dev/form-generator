@@ -14,5 +14,3 @@ export { default as CheckboxGroupField } from "./inputs/CheckboxGroupField";
 export { default as InputError } from "./inputs/InputError";
 export { default as RadioGroupField } from "./inputs/RadioGroupField";
 export { default as InputFields } from "./inputs/InputFields";
-
-export { default as RequiredToggleSwitch } from "./inputs/RequiredToggleSwitch";
