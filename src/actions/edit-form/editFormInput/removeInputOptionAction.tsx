@@ -1,5 +1,6 @@
 "use server";
 
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findById, updateById } from "@/lib/mongo";
 import { requireUser } from "@/services/queries/requireUser";
 import { Form } from "@/types/form";
@@ -35,13 +36,17 @@ const removeInputOptionAction = async (
     };
   });
 
-  await updateById(db, "form", formId, {
-    $set: {
-      inputs: [...mappedInputs],
-    },
-  });
+  const performRemoveInputOption = async () => {
+    await updateById(db, "form", formId, {
+      $set: {
+        inputs: [...mappedInputs],
+      },
+    });
 
-  revalidateTag(`form-${formId}`);
+    revalidateTag(`form-${formId}`);
+  };
+
+  await runAsyncAction(performRemoveInputOption);
 };
 
 export default removeInputOptionAction;

@@ -3,7 +3,7 @@ import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
 import editInputOptionAction from "@/actions/edit-form/editFormInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { useState } from "react";
+import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 
@@ -14,7 +14,14 @@ type Props = {
 };
 
 const AddOption = (props: Props) => {
-  const [globalLoading, setGlobalLoading] = useState(false);
+  const formId = useSafeURLParam("formId");
+  const [state, removeOption, isPending] = useActionState<null, string>(
+    async (_state, optionName) => {
+      await removeInputOptionAction(formId!, props.inputId, optionName);
+      return null;
+    },
+    null
+  );
 
   const {
     register,
@@ -23,7 +30,7 @@ const AddOption = (props: Props) => {
     formState: { errors },
     setError,
   } = useFormContext();
-  const formId = useSafeURLParam("formId");
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: `options`,
@@ -38,26 +45,18 @@ const AddOption = (props: Props) => {
     setError,
   });
 
-  console.log("err", errors);
-
-  const handleDeleteOption = async (optionName: string, idx: number) => {
-    setGlobalLoading(true);
-    try {
-      await removeInputOptionAction(formId!, props.inputId, optionName);
+  const handleDeleteOption = (optionName: string, idx: number) => {
+    startTransition(() => {
+      removeOption(optionName);
       remove(idx);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setGlobalLoading(false);
-    }
+    });
   };
 
-  const isAnyLoading =
-    globalLoading || [...Object.values(isLoading ?? {})].some(Boolean);
+  const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
-      {isAnyLoading && <FullscreenLoader />}
+      {(isPending || isAnyLoading) && <FullscreenLoader />}
       {fields.map((field, idx) => {
         return (
           <div key={field.id} className="flex gap-2 items-center">
