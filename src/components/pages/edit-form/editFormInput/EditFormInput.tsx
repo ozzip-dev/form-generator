@@ -26,6 +26,8 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
+import { startTransition, useActionState } from "react";
+import { InputType } from "@/enums";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
@@ -101,28 +103,32 @@ const EditFormInput = (props: Props) => {
       setError,
     });
 
-  const { handleEdit: handleEditType, isLoading: isLoadingType } = useEditForm({
-    formId,
-    inputId,
-    trigger,
-    action: editInputTypeAction,
-    mode: "inputType",
-  });
+  const [state, editType, isPending] = useActionState<null, InputType>(
+    async (_state, type) => {
+      if (!formId || !props.input.id) return null;
+      await editInputTypeAction(formId, props.input.id, type);
+      return null;
+    },
+    null
+  );
+
+  const handleEditType = (type: InputType) => {
+    startTransition(() => {
+      editType(type);
+    });
+  };
 
   useEffect(() => {
     reset(defaultValues);
   }, [header, description, options, required, unique, type, reset]);
 
-  const isAnyLoading = [
-    ...Object.values(isLoadingLabel ?? {}),
-    ...Object.values(isLoadingType ?? {}),
-  ].some(Boolean);
+  const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
 
   return (
     <FormProvider {...methods}>
       <form className="mb-3">
         <div className="flex gap-2 items-center p-2 bg-slate-200">
-          {isAnyLoading && <FullscreenLoader />}
+          {(isAnyLoading || isPending) && <FullscreenLoader />}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
               <InputFields
@@ -153,7 +159,7 @@ const EditFormInput = (props: Props) => {
                 defaultValue={type}
                 options={dataSelectOptions}
                 onChangeAction={(name, value) => {
-                  handleEditType(name, value);
+                  handleEditType(value as InputType);
                 }}
               />
             </div>

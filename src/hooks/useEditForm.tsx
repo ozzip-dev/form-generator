@@ -97,14 +97,7 @@ export function useEditForm({
               await action(formId, inputId!, value.trim());
               break;
             }
-            case "inputReqired": {
-              await action(formId, inputId!);
-              break;
-            }
-            case "inputUnique": {
-              await action(formId, inputId!);
-              break;
-            }
+
             case "inputOption": {
               const resp = await action(formId, inputId!, value.trim(), name);
 
