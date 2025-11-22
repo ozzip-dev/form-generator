@@ -18,7 +18,7 @@ const ResultFieldSelect = (props: Props) => {
   }
 
   return (
-    <div className="my-4">
+    <div>
       <div><b>Wybierz pola do wyników</b></div>
       {formInputs.map((input) => (
         <div

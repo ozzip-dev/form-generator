@@ -31,18 +31,18 @@ const Results = (props: Props) => {
   }
 
   return (
-    <>
+    <div className="p-8">
       <ResultFieldSelect
         {...{inputs, setSelectedInputs}}
       />
 
       <Button
         onClickAction={onDisplayAnswers}
-        message="Odswiez wyniki"
-        className="!w-auto"
+        message="Pokaz wyniki"
+        className="!w-auto my-4"
       />
       
-      <div className="p-8">
+      <div>
         {results.map((result, i) => (
           <AnswerResults
             {...result}
@@ -50,7 +50,7 @@ const Results = (props: Props) => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

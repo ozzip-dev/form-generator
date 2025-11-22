@@ -1,4 +1,5 @@
 import { GroupedAnswer, ResultAnswer } from "@/types/result";
+import PieChart from "./charts/PieChart";
 
 const AnswerResults = (result: GroupedAnswer) => {
   const { answers, header, id } = result
@@ -15,17 +16,24 @@ const AnswerResults = (result: GroupedAnswer) => {
     count: number
   ) => `${answer} (${count}) - ${getAnswerPercentage(answer, answers)}`
 
+  const mappedAnswers = answers.map(({ answer, count }) => ({ value: count, label: answer }))
+
   return (
-    <div className="mb-4">
-      <div className="font-black">{header}</div>
-      {answers
-        .sort((a, b) => b.count - a.count)
-        .map(({ answer, count }, index) => (
-          <div key={index}>
-            {getAnswerDisplay(answers, answer, count)}
-          </div>
-        )
-      )}
+    <div className=" flex gap-8 mb-4">
+      <div>
+        <div className="font-black">{header}</div>
+        {answers
+          .sort((a, b) => b.count - a.count)
+          .map(({ answer, count }, index) => (
+            <div key={index}>
+              {getAnswerDisplay(answers, answer, count)}
+            </div>
+          )
+        )}
+      </div>
+      <PieChart
+       data={mappedAnswers}
+      />
     </div>
   );
 };
