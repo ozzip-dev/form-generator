@@ -5,7 +5,7 @@ import PublishFormButton from "./PublishFormButton";
 import { isDraft } from "@/helpers/formHelpers";
 import AliasUrlForm from "./AliasUrlForm";
 import { useToast } from "@/hooks/useToast";
-import { Button } from "@/components/shared";
+import { Button, ButtonLink } from "@/components/shared";
 
 type Props = {
   form: FormSerialized;
@@ -18,10 +18,8 @@ const PublishForm = ({ form }: Props) => {
   const formUrl = `/submit/${url || _id}`;
 
   const { toast } = useToast();
-
+  const urlToCopy = `${window.location.origin}${formUrl}`;
   const copyUrl = () => {
-    const urlToCopy = `${window.location.origin}${formUrl}`;
-
     navigator.clipboard.writeText(urlToCopy);
 
     toast({
@@ -41,7 +39,13 @@ const PublishForm = ({ form }: Props) => {
         <div className="mb-2">
           <div>Opublikowano:</div>
           <div className="font-bold">{formUrl}</div>
+
           <Button onClickAction={copyUrl} message="Kopiuj" type="button" />
+          <ButtonLink
+            message={"Przejdź do formularza"}
+            link={urlToCopy}
+            target={"_blank"}
+          />
         </div>
       )}
 

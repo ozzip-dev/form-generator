@@ -7,10 +7,19 @@ import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
 import { runAsyncAction } from "@/helpers/runAsyncFunction";
-import { success } from "better-auth/*";
+import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
+import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
-export async function setAliasUrlAction(form: FormSerialized, alias: string) {
+export async function setAliasUrlAction(
+  form: FormSerialized,
+  alias: SetAliasSchema
+): Promise<{ success: true } | { error: any }> {
   const user = await requireUser();
+
+  const validationResult = setAliasSchema.safeParse(alias);
+  if (!validationResult.success) {
+    return { error: handleServerErrors(validationResult.error) };
+  }
 
   if (!isUserAuthor(form, user.id))
     throw new Error("Jedynie autor/-ka może opublikować swój formularz");
@@ -18,8 +27,8 @@ export async function setAliasUrlAction(form: FormSerialized, alias: string) {
   const formId: string = form._id!;
 
   return await runAsyncAction(async () => {
-    await setAliasUrl(db, formId, alias);
+    await setAliasUrl(db, formId, alias.url);
     revalidateTag(`form-${formId}`);
-    return "succes";
+    return { success: true };
   });
 }

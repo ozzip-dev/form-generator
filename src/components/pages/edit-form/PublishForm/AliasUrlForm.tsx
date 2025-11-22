@@ -2,6 +2,7 @@
 
 import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
 import { Button, InputFields } from "@/components/shared";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
@@ -22,6 +23,7 @@ export default function AliasUrlForm(form: FormSerialized) {
     handleSubmit,
     register,
     formState: { isSubmitting, errors },
+    setError,
   } = useForm<SetAliasSchema>({
     resolver: zodResolver(setAliasSchema),
     mode: "all",
@@ -29,13 +31,14 @@ export default function AliasUrlForm(form: FormSerialized) {
 
   const setAlias = async (data: SetAliasSchema) => {
     try {
-      const newAlias = await setAliasUrlAction(form, data.url);
-      if (!newAlias) {
-        console.log("wwaaaaaaaaa");
-        throw new Error("sssss");
+      const resp = await setAliasUrlAction(form, data);
+
+      if ("error" in resp) {
+        handleClientErrors<SetAliasSchema>(resp.error, setError);
+        return;
       }
 
-      console.log("ww", newAlias);
+      console.log("ww");
     } catch (e: any) {
       toast({
         title: e.message,
