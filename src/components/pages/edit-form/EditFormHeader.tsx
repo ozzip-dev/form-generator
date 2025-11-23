@@ -1,7 +1,11 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { FullscreenLoader, InputFields } from "@/components/shared";
+import {
+  FullscreenLoader,
+  InputFields,
+  TextareaFields,
+} from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import {
@@ -26,6 +30,9 @@ const dataInputsFormTitle = [
     placeholder: "Tytuł formularza",
     type: "text",
   },
+];
+
+const dataInputsFormDescription = [
   {
     label: "Edytuj opis formularza",
     name: "description",
@@ -90,6 +97,14 @@ export default function EditFormHeader(props: Props) {
             <div className="w-80">
               <InputFields
                 inputsData={dataInputsFormTitle}
+                register={register}
+                errorMsg={errors}
+                onChange={handleEdit}
+                isLoading={isLoading}
+              />
+
+              <TextareaFields
+                inputsData={dataInputsFormDescription}
                 register={register}
                 errorMsg={errors}
                 onChange={handleEdit}

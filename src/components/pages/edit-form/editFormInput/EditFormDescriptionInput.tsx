@@ -3,8 +3,22 @@ import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import { Button, FullscreenLoader, InputFields } from "../../../shared";
+import {
+  Button,
+  FullscreenLoader,
+  InputFields,
+  TextareaFields,
+} from "../../../shared";
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+
+const dataInputDescription = [
+  {
+    type: "text",
+    name: `description`,
+    placeholder: "Opis",
+    label: "Edytuj opis pytania",
+  },
+];
 
 type Props = {
   inputId: string;
@@ -47,15 +61,6 @@ const EditFormDescriptionInput = (props: Props) => {
     await handleEditLabel("description", "");
   };
 
-  const dataInputDescription = [
-    {
-      type: "text",
-      name: `description`,
-      placeholder: "Pytanie",
-      label: "Edytuj opis pytania",
-    },
-  ];
-
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
@@ -63,7 +68,7 @@ const EditFormDescriptionInput = (props: Props) => {
       {loadingForm && <FullscreenLoader />}
       {props.description || isDescriptionInput ? (
         <div className="flex gap-2">
-          <InputFields
+          <TextareaFields
             inputsData={dataInputDescription}
             register={register}
             errorMsg={errors?.description as any}
