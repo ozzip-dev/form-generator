@@ -1,19 +1,15 @@
 "use client";
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
-import {
-  Button,
-  CheckboxGroupField,
-  InputFields,
-  RadioGroupField,
-  TextareaFields,
-} from "@/components/shared";
+import { Button, CheckboxGroupField } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { JSX, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { renderInput, renderRadio, renderTextarea } from "./CreatedFormFields";
 
 type Props = {
   form: FormSerialized;
@@ -24,23 +20,18 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
-  // console.log("", inputs);
 
   const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { header, type, options } = input;
-    const inputLabel = header;
+    const { id, type, options } = input;
 
-    const inputOptions = options.reduce(
-      (acu: Record<string, boolean>, option: string) => {
-        acu[option] = false;
-
-        return acu;
-      },
-      {}
-    );
-
-    const checkboxOptions = (acu[inputLabel] =
-      type === "checkbox" ? inputOptions : "");
+    if (type === "checkbox") {
+      acu[id] =
+        options && Array.isArray(options) && options.length > 0
+          ? Object.fromEntries(options.map((op: string) => [op, false]))
+          : {};
+    } else {
+      acu[id] = "";
+    }
 
     return acu;
   }, {});
@@ -53,23 +44,18 @@ const CreatedForm = (props: Props) => {
 
   const {
     register,
-    reset,
     formState: { errors },
-    trigger,
     control,
-    setError,
     watch,
     handleSubmit,
   } = methods;
 
-  // console.log("er", errors);
-
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = async (data: any) => {
     console.log("sss", data);
@@ -104,105 +90,47 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  // console.log("", props.form);
+  const fieldRenderers: Record<
+    string,
+    (input: any, errors: any, register: any, control: any) => JSX.Element
+  > = {
+    text: renderInput,
+    superText: renderTextarea,
+    number: renderInput,
+    email: renderInput,
+    date: renderInput,
+    singleSelect: renderRadio,
+  };
 
   const formFields = inputs
-    .sort((a: any, b: any) => a.order - b.order)
-    .map(
-      ({ type, header, description, required, options, id }: any, idx: number) => {
-        if (type === "checkbox") {
-          const dataCheckboxOptions = options?.map((option: string) => {
-            return { label: option, name: option, value: false };
-          });
+    .sort((a, b) => a.order - b.order)
+    .map((input, idx) => {
+      const { type, id, header, required, options } = input;
+      if (type === "checkbox") {
+        const dataCheckboxOptions =
+          options.map((option: string) => ({
+            label: option,
+            name: option,
+            value: false,
+          })) ?? [];
 
-          return (
-            <CheckboxGroupField
-              key={idx}
-              label={header}
-              required={required}
-              description={description}
-              name={id}
-              options={dataCheckboxOptions}
-              control={control}
-              errorMsg={errors}
-            />
-          );
-        } else if (type === "singleSelect") {
-          const dataRadioOoptions = options?.map((option: any) => {
-            return { label: option, value: option };
-          });
-
-          return (
-            <RadioGroupField
-              key={idx}
-              name={id}
-              label={header}
-              description={description}
-              required={required}
-              options={dataRadioOoptions}
-              errorMsg={errors}
-              optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
-            />
-          );
-        } else if (type === "superText") {
-          const dataInputTextarea = [
-            {
-              label: header,
-              name: header,
-              placeholder: "Odpowiedź",
-              description,
-              required,
-            },
-          ];
-
-          return (
-            <TextareaFields
-              key={idx}
-              inputsData={dataInputTextarea}
-              register={register}
-              errorMsg={errors}
-            />
-          );
-        } else {
-          let placeholder;
-
-          switch (type) {
-            case "text": {
-              placeholder = "Odpowiedź";
-              break;
-            }
-            case "number": {
-              placeholder = "Numer";
-              break;
-            }
-            case "email": {
-              placeholder = "Email";
-              break;
-            }
-          }
-
-          const dataInputText = [
-            {
-              label: header,
-              name: id,
-              placeholder,
-              type,
-              description,
-              required,
-            },
-          ];
-
-          return (
-            <InputFields
-              key={idx}
-              inputsData={dataInputText}
-              register={register}
-              errorMsg={errors}
-            />
-          );
-        }
+        return (
+          <CheckboxGroupField
+            key={idx}
+            label={header}
+            required={required}
+            description={description}
+            name={id!}
+            options={dataCheckboxOptions}
+            control={control}
+            errorMsg={errors}
+          />
+        );
+      } else {
+        const renderer = fieldRenderers[input.type];
+        return renderer(input, errors, register, control);
       }
-    );
+    });
 
   return (
     <div className="flex justify-center ">
@@ -210,7 +138,6 @@ const CreatedForm = (props: Props) => {
         <h1 className="text-4xl">{title}</h1>
         {description && <h2 className="text-2xl">{description}</h2>}
         <div className="text-red-600 text-sm mb-6">* Odpowiedź wymagana</div>
-
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
