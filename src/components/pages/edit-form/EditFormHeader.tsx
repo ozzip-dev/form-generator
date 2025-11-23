@@ -5,13 +5,12 @@ import { FullscreenLoader, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
 import {
-  editFormSchema,
-  EditFormSchema,
-} from "@/lib/zodSchema/editFormSchemas/editFormSchema";
+  editFormHeaderSchema,
+  EditFormHeaderSchema,
+} from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import FormStateData from "./PublishForm/PublishForm";
 
 const dataSelectOptions = [
   { label: "Ankieta pracownicza", value: "text" },
@@ -42,8 +41,8 @@ type Props = {
 export default function EditFormHeader(props: Props) {
   const { _id: formId, title, description, type } = props.form;
 
-  const methods = useForm<EditFormSchema>({
-    resolver: zodResolver(editFormSchema),
+  const methods = useForm<EditFormHeaderSchema>({
+    resolver: zodResolver(editFormHeaderSchema),
     defaultValues: {
       title,
       description,

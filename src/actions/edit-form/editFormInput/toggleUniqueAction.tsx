@@ -16,7 +16,7 @@ export async function toggleUniqueAction(
 
   const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) return;
+  checkFormHasInputWithId(db, formId, inputId);
 
   await runAsyncAction(async () => {
     await toggleUnique(db, formId, inputId);

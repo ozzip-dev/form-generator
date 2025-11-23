@@ -21,9 +21,7 @@ export async function removeInputFromDraftAction(
 
   const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) {
-    throw new Error("Input not found in form");
-  }
+  checkFormHasInputWithId(db, formId, inputId);
 
   await runAsyncAction(async () => {
     const result: WithId<Form> | null = await removeInputFromDraft(

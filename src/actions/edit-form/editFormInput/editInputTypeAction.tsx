@@ -16,10 +16,7 @@ export async function editInputTypeAction(
 ): Promise<void> {
   await requireUser();
   const formId = new ObjectId(formIdString);
-
-  if (!checkFormHasInputWithId(db, formId, inputId)) {
-    throw new Error("Input not found in form");
-  }
+  checkFormHasInputWithId(db, formId, inputId)
 
   const performEditInputType = async () => {
     await updateFormInputType(db, formId, inputId, type);

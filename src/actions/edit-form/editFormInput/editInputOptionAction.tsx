@@ -1,6 +1,9 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import {
+  handleServerErrors,
+  MoledFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { requireUser } from "@/services/queries/requireUser";
@@ -13,7 +16,7 @@ const editInputOptionAction = async (
   inputId: string,
   optionValue: string,
   name: string
-) => {
+): Promise<void | { error: MoledFieldErrors }> => {
   await requireUser();
 
   const index: number = Number(name.split(".")[1]);

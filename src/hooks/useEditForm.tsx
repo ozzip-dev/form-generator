@@ -68,33 +68,15 @@ export function useEditForm({
               break;
             }
             case "inputLabel": {
-              const bodyKeyName = name.split(".").pop();
               const resp = await action(formId, inputId!, {
-                [bodyKeyName as string]: value.trim(),
+                [name]: value.trim(),
               });
 
               if (resp?.error && setError) {
-                const fieldErrors = Object.entries(resp.error).reduce(
-                  (acc, [key, val]) => {
-                    acc[`inputs.${inputIdx}.${key}`] = val;
-                    return acc;
-                  },
-                  {} as Record<string, any>
-                );
-
-                console.log("", fieldErrors);
-
-                handleClientErrors<AddFormFieldSchema>(
-                  { error: fieldErrors },
-                  setError
-                );
+                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
                 return;
               }
 
-              break;
-            }
-            case "inputType": {
-              await action(formId, inputId!, value.trim());
               break;
             }
 

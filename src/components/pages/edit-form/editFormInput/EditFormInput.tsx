@@ -5,11 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-import {
-  FullscreenLoader,
-  InputFields,
-  // RequiredToggleSwitch,
-} from "@/components/shared";
+import { FullscreenLoader, InputFields } from "@/components/shared";
 import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";

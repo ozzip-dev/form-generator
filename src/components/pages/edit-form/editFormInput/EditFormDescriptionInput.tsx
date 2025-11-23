@@ -22,6 +22,7 @@ const EditFormDescriptionInput = (props: Props) => {
     register,
     formState: { errors },
     trigger,
+    setError,
   } = useFormContext();
 
   const { handleEdit: handleEditLabel, isLoading } = useEditForm({
@@ -31,6 +32,7 @@ const EditFormDescriptionInput = (props: Props) => {
     trigger,
     action: editInputLabelAction,
     mode: "inputLabel",
+    setError,
   });
 
   const printDescriptionInput = () => {

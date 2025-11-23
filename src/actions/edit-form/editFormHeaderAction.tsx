@@ -1,25 +1,26 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import {
+  handleServerErrors,
+  MoledFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/serialize-utils";
 import { db } from "@/lib/mongo";
-import { editFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormSchema";
 import { updateForm } from "@/services/form-service";
 import { Form, FormSerialized } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
 import { runAsyncAction } from "@/helpers/runAsyncFunction";
-
-type FormActionError = { error: Record<string, { message: string }> | string };
+import { editFormHeaderSchema } from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
 
 export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
-): Promise<FormSerialized | FormActionError> {
+): Promise<FormSerialized | { error: MoledFieldErrors }> {
   await requireUser();
 
-  const validationResult = editFormSchema.partial().safeParse(updateData);
+  const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
 
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };

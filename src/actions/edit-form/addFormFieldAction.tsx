@@ -1,6 +1,9 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import {
+  handleServerErrors,
+  MoledFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 import { serializeForm } from "@/lib/serialize-utils";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
@@ -44,7 +47,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<FormSerialized | { error: string } | { error: any }> {
+): Promise<FormSerialized | { error: MoledFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;

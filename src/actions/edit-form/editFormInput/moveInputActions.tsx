@@ -20,9 +20,7 @@ export async function moveInputUpAction(
     throw new Error("Invalid formId");
   }
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) {
-    throw new Error("Input not found in form");
-  }
+  checkFormHasInputWithId(db, formId, inputId);
 
   await runAsyncAction(async () => {
     const result = await moveInputUp(db, formId, inputId);
@@ -45,9 +43,7 @@ export async function moveInputDownAction(
   }
   const formId = new ObjectId(formIdString);
 
-  if (!checkFormHasInputWithId(db, formId, inputId)) {
-    throw new Error("Input not found in form");
-  }
+  checkFormHasInputWithId(db, formId, inputId);
 
   await runAsyncAction(async () => {
     const result = await moveInputDown(db, formId, inputId);

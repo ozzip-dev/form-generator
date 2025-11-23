@@ -2,25 +2,25 @@ import { z } from "zod";
 
 export const editInputFormSchema = z
   .object({
-    header: z.string().trim().min(2, "Min. 2 znaki").max(60, "Maks. 60 znaków"),
+    header: z
+      .string()
+      .trim()
+      .min(2, "Min. 2 znaki")
+      .max(200, "Max. 200 znaków"),
     description: z
       .string()
       .trim()
       .min(2, "Min. 2 znaki")
-      .max(500, "Maks. 500 znaków")
-      .optional()
-      .nullable(),
-    options: z
-      .array(
-        z.object({
-          value: z
-            .string()
-            .trim()
-            .min(2, "Min. 2 znaki w opcji")
-            .max(60, "Maks. 60 znaków w opcji"),
-        })
-      )
-      .optional(),
+      .max(1000, "Max. 1000 znaków"),
+    options: z.array(
+      z.object({
+        value: z
+          .string()
+          .trim()
+          .min(2, "Min. 2 znaki w opcji")
+          .max(200, "Maks. 200 znaków w opcji"),
+      })
+    ),
   })
   .passthrough();
 
