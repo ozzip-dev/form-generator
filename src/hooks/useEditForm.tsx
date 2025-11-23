@@ -12,20 +12,13 @@ type UseEditOptions = {
   inputIdx?: number;
   trigger: UseFormTrigger<any>;
   action: (formId: string, ...args: any[]) => Promise<any>;
-  mode:
-    | "formHeader"
-    | "inputLabel"
-    | "inputType"
-    | "inputReqired"
-    | "inputUnique"
-    | "inputOption";
+  mode: "formHeader" | "inputLabel" | "inputOption";
   setError?: UseFormSetError<any>;
 };
 
 export function useEditForm({
   formId,
   inputId,
-  inputIdx,
   trigger,
   action,
   mode,
@@ -33,62 +26,44 @@ export function useEditForm({
 }: UseEditOptions) {
   const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
-  const debounceMap = useRef<Map<string, ReturnType<typeof setTimeout>>>(
-    new Map()
-  );
+  const debounceMap = useRef(new Map<string, NodeJS.Timeout>());
+
+  const modeHandlers = {
+    formHeader: (name: string, value: string) => [{ [name]: value.trim() }],
+    inputLabel: (name: string, value: string) => [
+      inputId!,
+      { [name]: value.trim() },
+    ],
+    inputOption: (name: string, value: string) => [
+      inputId!,
+      value.trim(),
+      name,
+    ],
+  } as const;
 
   const handleEdit = useCallback(
     (name: string, value: string) => {
       if (!formId) return;
-      const key = `${formId}-${name}`;
 
-      if (debounceMap.current.has(key)) {
-        clearTimeout(debounceMap.current.get(key)!);
-      }
+      const key = `${formId}-${name}`;
+      clearTimeout(debounceMap.current.get(key)!);
 
       const timeout = setTimeout(async () => {
-        if (trigger) {
-          const isValid = await trigger(name);
-          if (!isValid) {
-            debounceMap.current.delete(key);
-            return;
-          }
+        if (trigger && !(await trigger(name))) {
+          debounceMap.current.delete(key);
+          return;
         }
 
         try {
           setLoading((prev) => ({ ...prev, [name]: true }));
 
-          switch (mode) {
-            case "formHeader": {
-              const resp = await action(formId, { [name]: value.trim() });
-              if (resp?.error && setError) {
-                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
-                return;
-              }
-              break;
-            }
-            case "inputLabel": {
-              const resp = await action(formId, inputId!, {
-                [name]: value.trim(),
-              });
+          const args = modeHandlers[mode](name, value);
 
-              if (resp?.error && setError) {
-                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
-                return;
-              }
+          const resp = await action(formId, ...args);
 
-              break;
-            }
-
-            case "inputOption": {
-              const resp = await action(formId, inputId!, value.trim(), name);
-
-              if (resp?.error && setError) {
-                handleClientErrors<AddFormFieldSchema>(resp.error, setError);
-                return;
-              }
-              break;
-            }
+          if (resp?.error && setError) {
+            handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+            return;
           }
         } catch (err) {
           showBoundary(err);
@@ -100,12 +75,12 @@ export function useEditForm({
 
       debounceMap.current.set(key, timeout);
     },
-    [formId, inputId, inputIdx, trigger, action, mode, setError, showBoundary]
+    [formId, inputId, trigger, action, mode, setError, showBoundary]
   );
 
   useEffect(() => {
     return () => {
-      debounceMap.current.forEach((timeout) => clearTimeout(timeout));
+      debounceMap.current.forEach(clearTimeout);
       debounceMap.current.clear();
     };
   }, []);
