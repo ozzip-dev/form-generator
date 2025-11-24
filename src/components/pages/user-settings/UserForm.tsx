@@ -3,6 +3,12 @@
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  UserDetailsSchema,
+  userDetailsSchema,
+} from "@/lib/zodSchema/userDetailsShema";
+import { useEffect } from "react";
 
 const dataInputscommittee = [
   {
@@ -39,7 +45,10 @@ const UserForm = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm();
+    watch,
+  } = useForm<UserDetailsSchema>({
+    resolver: zodResolver(userDetailsSchema),
+  });
 
   const onSubmit = async (data: any) => {
     console.log(data);
@@ -47,8 +56,19 @@ const UserForm = (props: Props) => {
     props.handlePrintForm();
   };
 
+  const handleCancel = () => {
+    props.handlePrintForm();
+  };
+
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
+
   return (
-    <div className="flex justify-center ">
+    <div className="flex flex-col items-center justify-center ">
       <form onSubmit={handleSubmit(onSubmit)} className="w-4/5">
         <InputFields
           register={register}
@@ -57,6 +77,13 @@ const UserForm = (props: Props) => {
         />
         <Button isLoading={isSubmitting} message="Zapisz" type="submit" />
       </form>
+      <div className="w-4/5 mt-4">
+        <Button
+          isLoading={isSubmitting}
+          message="Anuluj"
+          onClickAction={handleCancel}
+        />
+      </div>
     </div>
   );
 };
