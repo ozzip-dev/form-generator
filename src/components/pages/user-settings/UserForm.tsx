@@ -9,6 +9,7 @@ import {
   userDetailsSchema,
 } from "@/lib/zodSchema/userDetailsShema";
 import { useEffect } from "react";
+import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 const dataInputscommittee = [
   {
@@ -39,33 +40,43 @@ const dataInputscommittee = [
 
 type Props = {
   handlePrintForm: () => void;
+  contactDetails: any;
 };
+
 const UserForm = (props: Props) => {
+  const { committeeUnion, committeeName, committeePhone, committeeEmail } =
+    props.contactDetails;
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
+
+    setError,
   } = useForm<UserDetailsSchema>({
-    resolver: zodResolver(userDetailsSchema),
+    // resolver: zodResolver(userDetailsSchema),
+    defaultValues: {
+      committeeUnion,
+      committeeName,
+      committeePhone,
+      committeeEmail,
+    },
+    mode: "all",
   });
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
-    await updateCommitteeDataAction(data);
+  const onSubmit = async (data: UserDetailsSchema) => {
+    const resp = await updateCommitteeDataAction(data);
+    if (resp?.error) {
+      handleClientErrors<UserDetailsSchema>(resp.error, setError);
+      return;
+    }
+
     props.handlePrintForm();
   };
 
   const handleCancel = () => {
     props.handlePrintForm();
   };
-
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
 
   return (
     <div className="flex flex-col items-center justify-center ">
@@ -78,11 +89,7 @@ const UserForm = (props: Props) => {
         <Button isLoading={isSubmitting} message="Zapisz" type="submit" />
       </form>
       <div className="w-4/5 mt-4">
-        <Button
-          isLoading={isSubmitting}
-          message="Anuluj"
-          onClickAction={handleCancel}
-        />
+        <Button message="Anuluj" onClickAction={handleCancel} />
       </div>
     </div>
   );

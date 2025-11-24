@@ -5,9 +5,7 @@ import UserDetails from "./UserDetails";
 import UserForm from "./UserForm";
 
 type Props = {
-  contactDetails: {
-    committeeUnion: string;
-  };
+  userDetails: any;
 };
 
 const UserSettings = (props: Props) => {
@@ -17,21 +15,20 @@ const UserSettings = (props: Props) => {
     setFormPrinted((prev) => !prev);
   };
 
-  if (!props.contactDetails.committeeUnion) {
-    return (
-      <>
-        <div>Brak danych kontaktowych</div>
-
-        <UserForm handlePrintForm={handlePrintForm} />
-      </>
-    );
-  }
-
   return (
     <>
-      <div>Dane kontaktowe</div>
-      {!isFormPrinted && <UserDetails handlePrintForm={handlePrintForm} />}
-      {isFormPrinted && <UserForm handlePrintForm={handlePrintForm} />}{" "}
+      {!isFormPrinted && (
+        <UserDetails
+          handlePrintForm={handlePrintForm}
+          contactDetails={props.userDetails}
+        />
+      )}
+      {isFormPrinted && (
+        <UserForm
+          handlePrintForm={handlePrintForm}
+          contactDetails={props.userDetails}
+        />
+      )}{" "}
       <div className="w-fit ml-auto"></div>
     </>
   );

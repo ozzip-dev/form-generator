@@ -18,6 +18,7 @@ const editInputOptionAction = async (
   name: string
 ): Promise<void | { error: MoledFieldErrors }> => {
   await requireUser();
+  throw new Error("Invalid datr");
 
   const index: number = Number(name.split(".")[1]);
   const formId = new ObjectId(formIdString);

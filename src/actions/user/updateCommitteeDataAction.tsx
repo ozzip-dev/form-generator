@@ -5,11 +5,25 @@ import { ObjectId } from "mongodb";
 import { isModerator } from "@/lib/utils";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { requireUser } from "@/services/queries/requireUser";
+import { revalidatePath } from "next/cache";
+import { userDetailsSchema } from "@/lib/zodSchema/userDetailsShema";
+import {
+  handleServerErrors,
+  MoledFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 
-export async function updateCommitteeDataAction(data: any): Promise<void> {
+export async function updateCommitteeDataAction(
+  data: any
+): Promise<void | { error: MoledFieldErrors }> {
+  requireUser();
+  throw new Error("Invalid datr");
+
+  const validationResult = userDetailsSchema.safeParse(data);
+  if (!validationResult.success) {
+    return { error: handleServerErrors(validationResult.error) };
+  }
+
   const updateData: Partial<UserCommitteeInfo> = {};
-
-  console.log("wwwwwwwww");
 
   Object.entries(data)
     .filter(([_, value]) => value)
@@ -31,4 +45,5 @@ export async function updateCommitteeDataAction(data: any): Promise<void> {
       ...updateData,
     },
   });
+  revalidatePath(`user-settings`);
 }
