@@ -8,8 +8,8 @@ import {
   UserDetailsSchema,
   userDetailsSchema,
 } from "@/lib/zodSchema/userDetailsShema";
-import { useEffect } from "react";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useErrorBoundary } from "react-error-boundary";
 
 const dataInputscommittee = [
   {
@@ -44,6 +44,7 @@ type Props = {
 };
 
 const UserForm = (props: Props) => {
+  const { showBoundary } = useErrorBoundary();
   const { committeeUnion, committeeName, committeePhone, committeeEmail } =
     props.contactDetails;
 
@@ -54,7 +55,7 @@ const UserForm = (props: Props) => {
 
     setError,
   } = useForm<UserDetailsSchema>({
-    // resolver: zodResolver(userDetailsSchema),
+    resolver: zodResolver(userDetailsSchema),
     defaultValues: {
       committeeUnion,
       committeeName,
@@ -65,9 +66,14 @@ const UserForm = (props: Props) => {
   });
 
   const onSubmit = async (data: UserDetailsSchema) => {
-    const resp = await updateCommitteeDataAction(data);
-    if (resp?.error) {
-      handleClientErrors<UserDetailsSchema>(resp.error, setError);
+    try {
+      const resp = await updateCommitteeDataAction(data);
+      if (resp?.error) {
+        handleClientErrors<UserDetailsSchema>(resp.error, setError);
+        return;
+      }
+    } catch (err) {
+      showBoundary(err);
       return;
     }
 

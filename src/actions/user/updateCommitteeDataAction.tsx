@@ -16,7 +16,6 @@ export async function updateCommitteeDataAction(
   data: any
 ): Promise<void | { error: MoledFieldErrors }> {
   requireUser();
-  throw new Error("Invalid datr");
 
   const validationResult = userDetailsSchema.safeParse(data);
   if (!validationResult.success) {
