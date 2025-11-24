@@ -6,10 +6,12 @@ import { isModerator } from "@/lib/utils";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { requireUser } from "@/services/queries/requireUser";
 
-export async function updateCommitteeDataAction(data: FormData): Promise<void> {
+export async function updateCommitteeDataAction(data: any): Promise<void> {
   const updateData: Partial<UserCommitteeInfo> = {};
 
-  Array.from(data.entries())
+  console.log("wwwwwwwww");
+
+  Object.entries(data)
     .filter(([_, value]) => value)
     .forEach(([key, value]) => {
       if (typeof value === "string") {

@@ -24,26 +24,17 @@ const UserSettings = (props: Props) => {
       <>
         <div>Brak danych kontaktowych</div>
 
-        <UserForm />
+        <UserForm handlePrintForm={handlePrintForm} />
       </>
     );
   }
 
   return (
     <>
-      {/* TODO: ten komponent ma podpietą akcję, dogramy wszystko w całość */}
-      <UserCommitteeForm />
-
-      {!isFormPrinted && <UserDetails />}
-      {isFormPrinted && <UserForm />}{" "}
-      <div className="w-fit ml-auto">
-
-        <Button
-          message="Edytuj dane kontaktowe"
-          type="button"
-          onClickAction={handlePrintForm}
-        />{" "}
-      </div>
+      <div>Dane kontaktowe</div>
+      {!isFormPrinted && <UserDetails handlePrintForm={handlePrintForm} />}
+      {isFormPrinted && <UserForm handlePrintForm={handlePrintForm} />}{" "}
+      <div className="w-fit ml-auto"></div>
     </>
   );
 };

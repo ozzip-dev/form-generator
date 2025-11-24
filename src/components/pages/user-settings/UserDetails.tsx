@@ -1,6 +1,11 @@
+import { Button } from "@/components/shared";
 import React from "react";
 
-const UserDetails = () => {
+type Props = {
+  handlePrintForm: () => void;
+};
+
+const UserDetails = (props: Props) => {
   const dataUserDetails: { header: string; detail: string }[] = [
     { header: "Związek zawodowy do którego należy komisja", detail: "eee" },
     { header: "Nazwa komisji", detail: "eee" },
@@ -22,6 +27,11 @@ const UserDetails = () => {
               </React.Fragment>
             );
           })}
+          <Button
+            message="Edytuj dane kontaktowe"
+            type="button"
+            onClickAction={props.handlePrintForm}
+          />{" "}
         </div>
       </div>
     </>

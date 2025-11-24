@@ -1,5 +1,6 @@
 "use client";
 
+import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
 import { useForm } from "react-hook-form";
 
@@ -30,15 +31,20 @@ const dataInputscommittee = [
   },
 ];
 
-const UserForm = () => {
+type Props = {
+  handlePrintForm: () => void;
+};
+const UserForm = (props: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
+    await updateCommitteeDataAction(data);
+    props.handlePrintForm();
   };
 
   return (
