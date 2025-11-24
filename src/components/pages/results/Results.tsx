@@ -36,12 +36,11 @@ const Results = (props: Props) => {
   }
 
   const exportPdf = () => {
-
      html2canvas(document.querySelector("#results")!).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         const width = pdf.internal.pageSize.getWidth();
-        const height = pdf.internal.pageSize.getHeight();
+        // const height = pdf.internal.pageSize.getHeight();
         pdf.addImage(imgData, 'PNG', 0, 0, width, 0, 'SLOW');
         pdf.save("download.pdf"); 
     });

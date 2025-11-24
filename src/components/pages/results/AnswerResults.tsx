@@ -1,5 +1,6 @@
 import { GroupedAnswer, ResultAnswer } from "@/types/result";
 import PieChart from "./charts/PieChart";
+import BarChart from "./charts/BarChart";
 
 const AnswerResults = (result: GroupedAnswer) => {
   const { answers, header, id } = result
@@ -32,7 +33,10 @@ const AnswerResults = (result: GroupedAnswer) => {
         )}
       </div>
       <PieChart
-       data={mappedAnswers}
+        data={mappedAnswers}
+      />
+      <BarChart
+        data={mappedAnswers}
       />
     </div>
   );
