@@ -30,3 +30,9 @@ export interface GroupedAnswer {
   id: string;
   header: string;
 }
+
+export type DiagramType = {
+  value: string;
+  label: string
+  selected: boolean
+}

@@ -2,14 +2,14 @@ import { FormInputSelectable } from "@/types/input";
 
 type Props = {
   inputs: FormInputSelectable[]
-  setSelectedInputs: (inputs: FormInputSelectable[]) => void;
+  setInputs: (inputs: FormInputSelectable[]) => void;
 }
 
 const ResultFieldSelect = (props: Props) => {
   const formInputs: FormInputSelectable[] = props.inputs
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.setSelectedInputs([
+    props.setInputs([
       ...formInputs.map((input) => (input.id == e.target.value ? {
         ...input,
         selected: !input.selected
@@ -20,22 +20,22 @@ const ResultFieldSelect = (props: Props) => {
   return (
     <div>
       <div><b>Wybierz pola do wyników</b></div>
-      {formInputs.map((input) => (
+      {formInputs.map(({ id, header }) => (
         <div
-          key={input.id}
+          key={id}
           className="flex gap-2"  
         >
-          <label className="block" htmlFor={input.id}>
-            {input.header}
+          <label className="block" htmlFor={id}>
+            {header}
           </label>
 
           <input 
             type="checkbox"
-            id={input.id}
+            id={id}
             className="pl-2"
             onChange={onChange}
-            checked={formInputs.find((el) => el.id == input.id)?.selected}
-            value={input.id}
+            checked={formInputs.find((el) => el.id == id)?.selected}
+            value={id}
           />
         </div>
       ))}

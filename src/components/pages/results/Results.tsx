@@ -4,10 +4,11 @@ import { useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Button } from "@/components/shared";
-import { GroupedAnswer } from "@/types/result";
+import { DiagramType, GroupedAnswer } from "@/types/result";
 import AnswerResults from "./AnswerResults";
 import { FormInput, FormInputSelectable } from "@/types/input";
 import ResultFieldSelect from "./ResultFieldSelect";
+import ResultDiagramSelect from "./ResultDiagramSelect";
 
 type Props = {
   inputs: FormInput[]
@@ -15,8 +16,22 @@ type Props = {
   formData: { title: string, description: string }
 }
 
+export const diagramTypes: DiagramType[] = [
+  {
+    value: 'pieChart',
+    label: 'Diagram kołowy',
+    selected: true
+  },
+  {
+    value: 'barChart',
+    label: 'Diagram słupkowy',
+    selected: true
+  },
+]
+
 const Results = (props: Props) => {
   const [results, setResults] = useState<GroupedAnswer[]>([])
+  const [diagrams, setDiagrams] = useState<DiagramType[]>(diagramTypes)
   const [inputs, setInputs] = useState<FormInputSelectable[]>(
     props.inputs.map((el) => ({...el, selected: true}))
   )
@@ -31,25 +46,24 @@ const Results = (props: Props) => {
     setResults(groupedResults)
   }
 
-  const setSelectedInputs = (inputData: FormInputSelectable[]) => {
-    setInputs(inputData)
-  }
-
   const exportPdf = () => {
      html2canvas(document.querySelector("#results")!).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         const width = pdf.internal.pageSize.getWidth();
-        // const height = pdf.internal.pageSize.getHeight();
         pdf.addImage(imgData, 'PNG', 0, 0, width, 0, 'SLOW');
         pdf.save("download.pdf"); 
     });
- }
+  }
 
   return (
     <div className="p-8">
       <ResultFieldSelect
-        {...{inputs, setSelectedInputs}}
+        {...{inputs, setInputs}}
+      />
+
+      <ResultDiagramSelect
+        {...{diagrams, setDiagrams}}
       />
 
       <Button
@@ -69,7 +83,7 @@ const Results = (props: Props) => {
         <div className="text-2xl mb-4">{description}</div></div>}
         {results.map((result, i) => (
           <AnswerResults
-            {...result}
+            {...{result, diagrams}}
             key={i}
           />
         ))}
