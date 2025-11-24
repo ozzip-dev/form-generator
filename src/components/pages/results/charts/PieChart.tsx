@@ -10,9 +10,9 @@ type Props = {
 
 const PieChart = ({
   data = [],
-  width = 400,
-  height = 400,
-  innerRadius = 100
+  width = 250,
+  height = 250,
+  innerRadius = 50
 }: Props) => {
   const radius = Math.min(width, height) / 2;
   const pie = d3.pie<DataObject>().value((d) => d.value)

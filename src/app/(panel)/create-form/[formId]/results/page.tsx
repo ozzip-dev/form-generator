@@ -1,6 +1,6 @@
 import Results from "@/components/pages/results/Results";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
-import { getFormInputs } from "@/services/form-service";
+import { getFormById, getFormInputs } from "@/services/form-service";
 import { getAllSubmissions } from "@/services/result-service";
 import { FormInput } from "@/types/input";
 import { Answers, GroupedAnswer, Submission } from "@/types/result";
@@ -9,7 +9,7 @@ type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
-  const inputs = await getFormInputs(formId)
+  const { inputs, title = '', description = '' } = await getFormById(formId)
   
   const displayResults = async (selectedInputIds: string[]) => {
     "use server"
@@ -22,7 +22,11 @@ const FormResultsPage = async (props: Props) => {
   }
   
   return <Results
-    {...{inputs, displayResults}}
+    {...{
+      inputs,
+      displayResults, 
+      formData: { title, description }
+    }}
   />
 };
 

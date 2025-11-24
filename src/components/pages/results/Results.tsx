@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { Button } from "@/components/shared";
 import { GroupedAnswer } from "@/types/result";
 import AnswerResults from "./AnswerResults";
@@ -10,6 +12,7 @@ import ResultFieldSelect from "./ResultFieldSelect";
 type Props = {
   inputs: FormInput[]
   displayResults: (selectedInputIds: string[]) => Promise<GroupedAnswer[]>
+  formData: { title: string, description: string }
 }
 
 const Results = (props: Props) => {
@@ -17,6 +20,8 @@ const Results = (props: Props) => {
   const [inputs, setInputs] = useState<FormInputSelectable[]>(
     props.inputs.map((el) => ({...el, selected: true}))
   )
+
+  const { title, description } = props.formData
 
   const onDisplayAnswers = async () => {
     const inputIds = inputs
@@ -30,6 +35,18 @@ const Results = (props: Props) => {
     setInputs(inputData)
   }
 
+  const exportPdf = () => {
+
+     html2canvas(document.querySelector("#results")!).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        const width = pdf.internal.pageSize.getWidth();
+        const height = pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, 'PNG', 0, 0, width, 0, 'SLOW');
+        pdf.save("download.pdf"); 
+    });
+ }
+
   return (
     <div className="p-8">
       <ResultFieldSelect
@@ -41,8 +58,16 @@ const Results = (props: Props) => {
         message="Pokaz wyniki"
         className="!w-auto my-4"
       />
+
+      <Button
+        onClickAction={exportPdf}
+        message="Pobierz"
+        className="!w-auto my-4"
+      />
       
-      <div>
+      <div id="results" className="w-fit">
+        {!!results.length && <div><div className="text-3xl">{title}</div>
+        <div className="text-2xl mb-4">{description}</div></div>}
         {results.map((result, i) => (
           <AnswerResults
             {...result}
