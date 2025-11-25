@@ -38,8 +38,10 @@ export const makeDbCollection = async (db: Db, model: DbModel) => {
 };
 
 /* queries */
-export const getCollection = <T extends Document>(db: Db, collectionName: string): Collection<T> =>
-  db.collection<T>(collectionName);
+export const getCollection = <T extends Document>(
+  db: Db,
+  collectionName: string
+): Collection<T> => db.collection<T>(collectionName);
 
 export async function find<T extends Document>(
   db: Db,
@@ -85,7 +87,9 @@ export async function insert<T extends Document>(
   doc: Partial<T>
 ): Promise<InsertOneResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
-  const result: InsertOneResult<T> = await collection.insertOne(doc as OptionalUnlessRequiredId<T>);
+  const result: InsertOneResult<T> = await collection.insertOne(
+    doc as OptionalUnlessRequiredId<T>
+  );
   return result;
 }
 
@@ -95,7 +99,9 @@ export async function insertMany<T extends Document>(
   docs: T[]
 ): Promise<InsertManyResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
-  const result: InsertManyResult<T> = await collection.insertMany(docs as OptionalUnlessRequiredId<T>[]);
+  const result: InsertManyResult<T> = await collection.insertMany(
+    docs as OptionalUnlessRequiredId<T>[]
+  );
   return result;
 }
 

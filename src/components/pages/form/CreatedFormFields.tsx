@@ -4,7 +4,7 @@ import {
   TextareaFields,
 } from "@/components/shared";
 
-export const renderRadio = (
+export const RenderRadio = (
   { id, header, description, required, options }: any,
   errors: any
 ) => {
@@ -27,7 +27,7 @@ export const renderRadio = (
   );
 };
 
-export const renderTextarea = (
+export const RenderTextarea = (
   { id, header, description, required }: any,
   errors: any,
   register: any
@@ -50,12 +50,11 @@ export const renderTextarea = (
   );
 };
 
-export const renderInput = (
+export const RenderInput = (
   { id, header, description, required, type }: any,
   errors: any,
   register: any
 ) => {
-  // console.log("type", type);
   const placeholder =
     type === "number"
       ? "Numer"

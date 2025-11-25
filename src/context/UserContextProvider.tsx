@@ -8,22 +8,22 @@ type User = {
 };
 
 type UserContextType = {
-  user: User;
+  userPromise: Promise<User>;
 };
 
-export const UserContext = createContext<UserContextType | undefined>(
-  undefined
-);
+export const UserContext = createContext<UserContextType | null>(null);
 
-export function UserProvider({
-  user,
+export function UserContextProvider({
+  userPromise,
   children,
 }: {
-  user: User;
+  userPromise: Promise<User>;
   children: React.ReactNode;
 }) {
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userPromise }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 

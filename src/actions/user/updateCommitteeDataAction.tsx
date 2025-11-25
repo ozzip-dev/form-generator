@@ -15,6 +15,7 @@ import {
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { az } from "zod/v4/locales";
 
 export async function updateCommitteeDataAction(
   data: UserDetailsSchema
@@ -42,12 +43,16 @@ export async function updateCommitteeDataAction(
     throw new Error("Invalid data: User does not exist or is not a moderator");
   }
 
-  await runAsyncAction(async () => {
+  const performUpdateCommitteeData = async () => {
     await updateById<IUser>(db, "user", userId, {
       $set: {
         ...updateData,
       },
     });
+
     revalidatePath(`user-settings`);
-  });
+    revalidatePath(`create-form`);
+  };
+
+  await runAsyncAction(performUpdateCommitteeData);
 }

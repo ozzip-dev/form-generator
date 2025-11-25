@@ -9,7 +9,7 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { JSX, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { renderInput, renderRadio, renderTextarea } from "./CreatedFormFields";
+import { RenderInput, RenderRadio, RenderTextarea } from "./CreatedFormFields";
 
 type Props = {
   form: FormSerialized;
@@ -94,12 +94,12 @@ const CreatedForm = (props: Props) => {
     string,
     (input: any, errors: any, register: any, control: any) => JSX.Element
   > = {
-    text: renderInput,
-    superText: renderTextarea,
-    number: renderInput,
-    email: renderInput,
-    date: renderInput,
-    singleSelect: renderRadio,
+    text: RenderInput,
+    superText: RenderTextarea,
+    number: RenderInput,
+    email: RenderInput,
+    date: RenderInput,
+    singleSelect: RenderRadio,
   };
 
   const formFields = inputs
