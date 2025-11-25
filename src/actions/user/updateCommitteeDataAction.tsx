@@ -6,16 +6,20 @@ import { isModerator } from "@/lib/utils";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { requireUser } from "@/services/queries/requireUser";
 import { revalidatePath } from "next/cache";
-import { userDetailsSchema } from "@/lib/zodSchema/userDetailsShema";
+import {
+  UserDetailsSchema,
+  userDetailsSchema,
+} from "@/lib/zodSchema/userDetailsShema";
 import {
   handleServerErrors,
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 export async function updateCommitteeDataAction(
-  data: any
+  data: UserDetailsSchema
 ): Promise<void | { error: MoledFieldErrors }> {
-  requireUser();
+  const user = await requireUser();
 
   const validationResult = userDetailsSchema.safeParse(data);
   if (!validationResult.success) {
@@ -32,17 +36,18 @@ export async function updateCommitteeDataAction(
       }
     });
 
-  const user = await requireUser();
   const userId = new ObjectId(user.id);
 
   if (!user || !isModerator(user as IUser)) {
     throw new Error("Invalid data: User does not exist or is not a moderator");
   }
 
-  await updateById<IUser>(db, "user", userId, {
-    $set: {
-      ...updateData,
-    },
+  await runAsyncAction(async () => {
+    await updateById<IUser>(db, "user", userId, {
+      $set: {
+        ...updateData,
+      },
+    });
+    revalidatePath(`user-settings`);
   });
-  revalidatePath(`user-settings`);
 }

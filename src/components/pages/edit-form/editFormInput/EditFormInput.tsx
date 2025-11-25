@@ -88,13 +88,6 @@ const EditFormInput = (props: Props) => {
     watch,
   } = methods;
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId,

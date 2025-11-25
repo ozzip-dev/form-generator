@@ -13,25 +13,25 @@ import { useErrorBoundary } from "react-error-boundary";
 
 const dataInputscommittee = [
   {
-    label: "Związek zawodowy do którego należy komisja",
+    label: "Nazwa związku zawodowego",
     name: "committeeUnion",
     placeholder: "Związek",
     type: "text",
   },
   {
-    label: "Nazwa komisji",
+    label: "Nazwa struktury związku",
     name: "committeeName",
     placeholder: "Komisja",
     type: "text",
   },
   {
-    label: "Telefon kontaktowy komisji",
+    label: "Telefon kontaktowy struktury",
     name: "committeePhone",
     placeholder: "+48 123 456 789",
     type: "text",
   },
   {
-    label: "Email kontaktowy komisji",
+    label: "Email kontaktowy struktury",
     name: "committeeEmail",
     placeholder: "kamil@ip.com",
     type: "email",
@@ -52,7 +52,6 @@ const UserForm = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-
     setError,
   } = useForm<UserDetailsSchema>({
     resolver: zodResolver(userDetailsSchema),

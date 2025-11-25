@@ -18,6 +18,7 @@ const UserSettings = (props: Props) => {
 
   return (
     <>
+      <div>Dane kontaktowe</div>
       {!isFormPrinted && (
         <UserDetails
           handlePrintForm={handlePrintForm}

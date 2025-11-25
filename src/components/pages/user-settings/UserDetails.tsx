@@ -12,12 +12,12 @@ const UserDetails = (props: Props) => {
 
   const dataUserDetails: { header: string; detail: string }[] = [
     {
-      header: "Związek zawodowy do którego należy komisja",
+      header: "Nazwa związku zawodowego",
       detail: committeeUnion,
     },
-    { header: "Nazwa komisji", detail: committeeName },
-    { header: "Telefon kontaktowy komisji", detail: committeePhone },
-    { header: "Email kontaktowy komisji", detail: committeeEmail },
+    { header: "Nazwa struktury związku", detail: committeeName },
+    { header: "Telefon kontaktowy struktury", detail: committeePhone },
+    { header: "Email kontaktowy struktury", detail: committeeEmail },
   ];
 
   return (
