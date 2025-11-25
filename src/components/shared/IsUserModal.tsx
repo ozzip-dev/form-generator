@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react";
 import ModalWrapper from "./ModalWrapper";
 import Link from "next/link";
 import { useUser } from "@/context/UserContextProvider";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const requredCommitteeKeys = [
   "committeeEmail",
@@ -32,15 +32,14 @@ const IsUserModal = () => {
   const areUserDetails = hasCompleteCommitteeData(user);
   const [areDetails, setAreDetails] = useState(areUserDetails);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get("lackUserDetails");
 
   useEffect(() => {
     if (pathname === "/user-settings") {
       setAreDetails(true);
     } else if (!areUserDetails && areDetails) setAreDetails(false);
-  }, [pathname]);
-
-  console.log("www", pathname);
-  console.log("areDetails", areDetails);
+  }, [pathname, tabParam]);
 
   const handlePrintModal = () => {
     setAreDetails((prev) => !prev);

@@ -1,46 +1,43 @@
 "use client";
 
-import { Button } from "@/components/shared";
-import ModalWrapper from "@/components/shared/ModalWrapper";
-import { FormSerialized } from "@/types/form";
-import { startTransition, useActionState, useState } from "react";
-import Link from "next/link";
 import { publishFormAction } from "@/actions/edit-form/publishForm/publishFormAction";
+import { Button } from "@/components/shared";
+import { hasCompleteCommitteeData } from "@/components/shared/IsUserModal";
+import { useUser } from "@/context/UserContextProvider";
+import { FormSerialized } from "@/types/form";
+import { startTransition, use, useActionState } from "react";
 
 type Props = {
   form: FormSerialized;
 };
 
 const PublishFormButton = ({ form }: Props) => {
-  const [isOpen, setOpen] = useState(false);
+  const { userPromise } = useUser();
+  const user = use(userPromise);
+
+  const areUserDetails = hasCompleteCommitteeData(user);
+
   const [state, publishForm, isPending] = useActionState(async () => {
     const url = await publishFormAction(form);
     window.open(url, "_blank");
   }, null);
 
-  const handlePrintModal = () => {
-    setOpen((prev) => !prev);
-  };
-
   const handlePublishForm = () => {
+    if (!areUserDetails) {
+      window.history.pushState(null, "", "?lackUserDetails=" + Date.now());
+      return;
+    }
+
     startTransition(publishForm);
   };
 
   return (
     <>
-      <ModalWrapper onClose={handlePrintModal} isOpen={isOpen}>
-        <div>
-          <Link href={"/user-settings"}>
-            Zapisz dane kontaktowe w ustawieniach
-          </Link>
-        </div>
-      </ModalWrapper>
       <Button
         message="Publikuj"
         onClickAction={handlePublishForm}
         isLoading={isPending}
       />
-      <button onClick={handlePrintModal}>eee</button>
     </>
   );
 };

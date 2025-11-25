@@ -58,7 +58,8 @@ export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
   };
 }
 
-export function serializeUser(user: IUser): UserSerialized {
+export function serializeUser(user: IUser | null): UserSerialized | null {
+  if (!user) return null;
   return {
     ...user,
     _id: user._id.toString(),

@@ -1,14 +1,17 @@
 import { Button } from "@/components/shared";
-import React from "react";
+import { useUser } from "@/context/UserContextProvider";
+import React, { use } from "react";
 
 type Props = {
   handlePrintForm: () => void;
-  contactDetails: any;
 };
 
 const UserDetails = (props: Props) => {
+  const { userPromise } = useUser();
+  const user: any = use(userPromise);
+
   const { committeeUnion, committeeName, committeePhone, committeeEmail } =
-    props.contactDetails;
+    user;
 
   const dataUserDetails: { header: string; detail: string }[] = [
     {

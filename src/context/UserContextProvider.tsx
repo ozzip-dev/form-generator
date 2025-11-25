@@ -13,11 +13,14 @@ type UserContextType = {
 
 export const UserContext = createContext<UserContextType | null>(null);
 
+// export const UserContext = createContext<any>(null);
+
 export function UserContextProvider({
   userPromise,
   children,
 }: {
-  userPromise: Promise<User>;
+  // userPromise: Promise<User>;
+  userPromise: any;
   children: React.ReactNode;
 }) {
   return (

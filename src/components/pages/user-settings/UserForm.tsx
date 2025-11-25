@@ -10,6 +10,8 @@ import {
 } from "@/lib/zodSchema/userDetailsShema";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useErrorBoundary } from "react-error-boundary";
+import { useUser } from "@/context/UserContextProvider";
+import { use } from "react";
 
 const dataInputscommittee = [
   {
@@ -40,13 +42,16 @@ const dataInputscommittee = [
 
 type Props = {
   handlePrintForm: () => void;
-  contactDetails: any;
 };
 
 const UserForm = (props: Props) => {
   const { showBoundary } = useErrorBoundary();
+  const { userPromise } = useUser();
+
+  const user: any = use(userPromise);
+
   const { committeeUnion, committeeName, committeePhone, committeeEmail } =
-    props.contactDetails;
+    user;
 
   const {
     register,

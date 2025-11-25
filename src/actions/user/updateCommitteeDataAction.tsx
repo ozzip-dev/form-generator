@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { isModerator } from "@/lib/utils";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { requireUser } from "@/services/queries/requireUser";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import {
   UserDetailsSchema,
   userDetailsSchema,
@@ -50,8 +50,7 @@ export async function updateCommitteeDataAction(
       },
     });
 
-    revalidatePath(`user-settings`);
-    revalidatePath(`create-form`);
+    revalidatePath("/user-settings");
   };
 
   await runAsyncAction(performUpdateCommitteeData);

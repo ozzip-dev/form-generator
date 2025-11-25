@@ -3,6 +3,7 @@ import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import { requireUser } from "@/services/queries/requireUser";
 import { UserContextProvider } from "@/context/UserContextProvider";
 import IsUserModal from "@/components/shared/IsUserModal";
+import { getUser } from "@/services/queries/getUser";
 
 export default async function DashboardLayout({
   children,
@@ -10,9 +11,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   const user = await requireUser();
-  const userPromise = requireUser();
-
-  console.log("layout", user);
+  const userPromise = getUser();
 
   return (
     <>
@@ -24,7 +23,7 @@ export default async function DashboardLayout({
           {user?.role === "moderator" && <DashboardMenu />}
         </header>
 
-        <main>wwww{children}</main>
+        <main>{children}</main>
       </UserContextProvider>
     </>
   );

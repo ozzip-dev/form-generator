@@ -4,23 +4,16 @@ import { useUser } from "@/context/UserContextProvider";
 import LogoutButton from "./LogoutButton";
 import { use } from "react";
 
-type Props = {
-  user: { name: string; role: string };
-};
-
 const DashboardTopBar = () => {
   const { userPromise } = useUser();
-
-  const user = use(userPromise);
-
-  console.log("topbar", user);
+  const { name, role } = use(userPromise);
 
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
         <p className="mb-4">
-          {/* <span>{user.role}: </span>
-          <span className="font-bold">{user.name}</span> */}
+          <span>{role}: </span>
+          <span className="font-bold">{name}</span>
         </p>
         <LogoutButton />
       </div>
