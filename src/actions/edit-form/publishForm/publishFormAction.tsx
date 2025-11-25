@@ -7,7 +7,7 @@ import { FormSerialized } from "@/types/form";
 import { requireUser } from "@/services/queries/requireUser";
 import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
-export async function publishFormAction(form: FormSerialized) {
+export async function publishFormAction(form: FormSerialized): Promise<string> {
   const user = await requireUser();
 
   if (!isUserAuthor(form, user.id))

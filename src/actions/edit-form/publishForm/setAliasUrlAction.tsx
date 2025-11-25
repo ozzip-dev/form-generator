@@ -8,12 +8,15 @@ import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
 import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import {
+  handleServerErrors,
+  MoledFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 
 export async function setAliasUrlAction(
   form: FormSerialized,
   alias: SetAliasSchema
-): Promise<{ success: true } | { error: any }> {
+): Promise<{ success: true } | { error: MoledFieldErrors }> {
   const user = await requireUser();
 
   const validationResult = setAliasSchema.safeParse(alias);

@@ -4,15 +4,14 @@ import {
   handleServerErrors,
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { serializeForm } from "@/lib/serialize-utils";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
-import { Form, FormSerialized } from "@/types/form";
-import { FormInput, Input } from "@/types/input";
-import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
-import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { Form } from "@/types/form";
+import { FormInput, Input } from "@/types/input";
+import { Document, ObjectId, WithId } from "mongodb";
+import { revalidateTag } from "next/cache";
 
 function makeId(header: string): string {
   return `${header.trim().toLowerCase()}-${Math.round(
@@ -47,7 +46,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<FormSerialized | { error: MoledFieldErrors }> {
+): Promise<void | { error: MoledFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;
@@ -86,9 +85,7 @@ export async function addFormFieldAction(
       throw new Error("Nie udało się dodać pola formularza");
     }
     revalidateTag(`form-${formId}`);
-
-    return serializeForm(result as Form);
   };
 
-  return await runAsyncAction(addNewField);
+  await runAsyncAction(addNewField);
 }

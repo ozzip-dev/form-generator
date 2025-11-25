@@ -4,6 +4,7 @@ import {
   handleServerErrors,
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
+import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findById, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { requireUser } from "@/services/queries/requireUser";
@@ -57,13 +58,17 @@ const editInputOptionAction = async (
     };
   });
 
-  await updateById(db, "form", formId, {
-    $set: {
-      inputs: [...mappedInputs],
-    },
-  });
+  const performEditOption = async () => {
+    await updateById(db, "form", formId, {
+      $set: {
+        inputs: [...mappedInputs],
+      },
+    });
 
-  revalidateTag(`form-${formId}`);
+    revalidateTag(`form-${formId}`);
+  };
+
+  await runAsyncAction(performEditOption);
 };
 
 export default editInputOptionAction;

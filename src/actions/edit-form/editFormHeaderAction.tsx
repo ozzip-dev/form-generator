@@ -17,7 +17,7 @@ import { editFormHeaderSchema } from "@/lib/zodSchema/editFormSchemas/editFormHe
 export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
-): Promise<FormSerialized | { error: MoledFieldErrors }> {
+): Promise<void | { error: MoledFieldErrors }> {
   await requireUser();
 
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
@@ -37,9 +37,7 @@ export async function editFormHeaderAction(
       throw new Error("Nie udało się zaktualizować formularza");
     }
     revalidateTag(`form-${formId}`);
-
-    return serializeForm(result as Form);
   };
 
-  return await runAsyncAction(performUpdate);
+  await runAsyncAction(performUpdate);
 }
