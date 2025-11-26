@@ -7,7 +7,7 @@ import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useEffect } from "react";
+import { JSX, use, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   renderCheckbox,
@@ -15,6 +15,8 @@ import {
   renderRadio,
   renderTextarea,
 } from "./CreatedFormFields";
+import { az } from "zod/v4/locales";
+import SuccesMsg from "./SuccesMsg";
 
 type Props = {
   form: FormSerialized;
@@ -25,6 +27,7 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
+  const [isSucces, setSucces] = useState(false);
 
   const defaultValues = inputs.reduce((acu: any, input: any) => {
     const { type, options, id } = input;
@@ -51,7 +54,7 @@ const CreatedForm = (props: Props) => {
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     control,
     watch,
     handleSubmit,
@@ -79,10 +82,7 @@ const CreatedForm = (props: Props) => {
 
     try {
       await submitFormAction(_id, data);
-      toast({
-        title: "Sukces! Dzieki",
-        variant: "success",
-      });
+      setSucces(true);
     } catch (e) {
       console.log("blad ", e);
       const err = e as Error;
@@ -119,6 +119,7 @@ const CreatedForm = (props: Props) => {
 
   return (
     <div className="flex justify-center ">
+      {isSucces && <SuccesMsg setSucces={setSucces} />}
       <div className="w-4/5">
         <h1 className="text-4xl">{title}</h1>
         {description && <h2 className="text-2xl">{description}</h2>}
@@ -134,6 +135,7 @@ const CreatedForm = (props: Props) => {
               message="Zatwierdź"
               disabled={props.isPreview ? true : false}
               type="submit"
+              isLoading={isSubmitting}
             />
           </form>
         </FormProvider>
