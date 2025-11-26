@@ -2,7 +2,6 @@
 
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
-import { LogOut } from "lucide-react";
 import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "@/actions/auth/signOutAction";
@@ -48,15 +47,9 @@ const LogoutButton = () => {
   return (
     <button onClick={handleSignOut} disabled={pending}>
       {pending ? (
-        <div className="flex items-center">
-          <LogOut className="mr-2 h-4 w-4 animate-spin" />
-          Signing out...
-        </div>
+        <div className="flex items-center">Signing out...</div>
       ) : (
-        <div className="flex items-center">
-          <LogOut className="mr-2 h-4 w-4" />
-          Wyloguj
-        </div>
+        <div className="flex items-center">Wyloguj</div>
       )}
     </button>
   );

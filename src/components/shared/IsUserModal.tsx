@@ -15,7 +15,7 @@ const IsUserModal = () => {
   const [areDetails, setAreDetails] = useState(areUserDetails);
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const tabParam = searchParams.get("lackUserDetails");
+  const tabParam = searchParams.get("emptyUserDetails");
 
   useEffect(() => {
     if (pathname === "/user-settings") {

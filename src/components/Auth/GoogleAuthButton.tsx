@@ -1,6 +1,5 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { authClient } from "@/lib/zodSchema/zodAuthSchema/auth-client";
@@ -55,7 +54,7 @@ export const GoogleAuthButton = ({
       disabled={isLoading}
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+       <div>loading</div>
       ) : (
         <>
           <GoogleIcon className="w-4 h-4" />

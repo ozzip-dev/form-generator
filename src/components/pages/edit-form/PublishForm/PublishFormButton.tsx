@@ -24,7 +24,7 @@ const PublishFormButton = ({ form }: Props) => {
 
   const handlePublishForm = () => {
     if (!areUserDetails) {
-      window.history.pushState(null, "", "?lackUserDetails=" + Date.now());
+      window.history.pushState(null, "", "?emptyUserDetails=" + Date.now());
       return;
     }
 
