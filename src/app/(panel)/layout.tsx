@@ -1,8 +1,7 @@
-import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
-import { requireUser } from "@/services/queries/requireUser";
-import { UserContextProvider } from "@/context/UserContextProvider";
+import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
 import IsUserModal from "@/components/shared/IsUserModal";
+import { UserContextProvider } from "@/context/UserContextProvider";
 import { getUser } from "@/services/queries/getUser";
 
 export default async function DashboardLayout({
@@ -10,7 +9,6 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await requireUser();
   const userPromise = getUser();
 
   return (
@@ -20,7 +18,7 @@ export default async function DashboardLayout({
 
         <header className="bg-gray-50">
           <DashboardTopBar />
-          {user?.role === "moderator" && <DashboardMenu />}
+          <DashboardMenu />
         </header>
 
         <main>{children}</main>

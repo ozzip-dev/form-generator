@@ -6,14 +6,14 @@ import { use } from "react";
 
 const DashboardTopBar = () => {
   const { userPromise } = useUser();
-  const { name, role } = use(userPromise);
+  const user = use(userPromise);
 
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
         <p className="mb-4">
-          <span>{role}: </span>
-          <span className="font-bold">{name}</span>
+          <span>{user.role}: </span>
+          <span className="font-bold">{user.name}</span>
         </p>
         <LogoutButton />
       </div>
