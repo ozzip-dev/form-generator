@@ -2,8 +2,8 @@
 
 import { publishFormAction } from "@/actions/edit-form/publishForm/publishFormAction";
 import { Button } from "@/components/shared";
-import { hasCompleteCommitteeData } from "@/components/shared/IsUserModal";
 import { useUser } from "@/context/UserContextProvider";
+import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
 import { FormSerialized } from "@/types/form";
 import { startTransition, use, useActionState } from "react";
 

@@ -1,10 +1,11 @@
 import {
+  CheckboxGroupField,
   InputFields,
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
 
-export const RenderRadio = (
+export const renderRadio = (
   { id, header, description, required, options }: any,
   errors: any
 ) => {
@@ -27,7 +28,7 @@ export const RenderRadio = (
   );
 };
 
-export const RenderTextarea = (
+export const renderTextarea = (
   { id, header, description, required }: any,
   errors: any,
   register: any
@@ -50,7 +51,7 @@ export const RenderTextarea = (
   );
 };
 
-export const RenderInput = (
+export const renderInput = (
   { id, header, description, required, type }: any,
   errors: any,
   register: any
@@ -78,6 +79,33 @@ export const RenderInput = (
         },
       ]}
       register={register}
+      errorMsg={errors}
+    />
+  );
+};
+
+export const renderCheckbox = (
+  { id, header, description, required, options }: any,
+  errors: any,
+  register: any,
+  control: any
+) => {
+  const dataCheckboxOptions =
+    options.map((option: string) => ({
+      label: option,
+      name: option,
+      value: false,
+    })) ?? [];
+
+  return (
+    <CheckboxGroupField
+      key={id}
+      label={header}
+      required={required}
+      description={description}
+      name={id!}
+      options={dataCheckboxOptions}
+      control={control}
       errorMsg={errors}
     />
   );

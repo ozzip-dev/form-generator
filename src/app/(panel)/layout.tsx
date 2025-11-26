@@ -1,10 +1,11 @@
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
+import { SuspenseErrorBoundary } from "@/components/shared";
 import IsUserModal from "@/components/shared/IsUserModal";
 import { UserContextProvider } from "@/context/UserContextProvider";
 import { getUser } from "@/services/queries/getUser";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -17,7 +18,9 @@ export default async function DashboardLayout({
         <IsUserModal />
 
         <header className="bg-gray-50">
-          <DashboardTopBar />
+          <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
+            <DashboardTopBar />
+          </SuspenseErrorBoundary>
           <DashboardMenu />
         </header>
 

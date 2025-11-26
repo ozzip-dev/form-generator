@@ -15,7 +15,14 @@ const UserSettings = () => {
   return (
     <>
       <div>Dane kontaktowe</div>
-      {!isFormPrinted && <UserDetails handlePrintForm={handlePrintForm} />}
+      {!isFormPrinted && (
+        <SuspenseErrorBoundary
+          size="lg"
+          errorMessage="Błąd przesyłu danych formularza"
+        >
+          <UserDetails handlePrintForm={handlePrintForm} />
+        </SuspenseErrorBoundary>
+      )}
       {isFormPrinted && (
         <SuspenseErrorBoundary
           size="lg"

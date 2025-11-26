@@ -11,7 +11,7 @@ export default async function AdminLayout({
   return (
     <>
       <header className="bg-gray-50">
-        <DashboardTopBar />
+        <DashboardTopBar user={user} />
       </header>
 
       <main>{children}</main>

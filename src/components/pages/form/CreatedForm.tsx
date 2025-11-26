@@ -9,7 +9,12 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { JSX, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { RenderInput, RenderRadio, RenderTextarea } from "./CreatedFormFields";
+import {
+  renderCheckbox,
+  renderInput,
+  renderRadio,
+  renderTextarea,
+} from "./CreatedFormFields";
 
 type Props = {
   form: FormSerialized;
@@ -22,16 +27,18 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
 
   const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { id, type, options } = input;
+    const { type, options, id } = input;
 
     if (type === "checkbox") {
       acu[id] =
         options && Array.isArray(options) && options.length > 0
-          ? Object.fromEntries(options.map((op: string) => [op, false]))
+          ? options.reduce((acu: Record<string, boolean>, option: string) => {
+              acu[option] = false;
+
+              return acu;
+            }, {})
           : {};
-    } else {
-      acu[id] = "";
-    }
+    } else acu[id] = "";
 
     return acu;
   }, {});
@@ -50,12 +57,12 @@ const CreatedForm = (props: Props) => {
     handleSubmit,
   } = methods;
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  // useEffect(() => {
+  //   const subscription = watch((values) => {
+  //     console.log("Aktualne wartości:", values);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   const onSubmit = async (data: any) => {
     console.log("sss", data);
@@ -94,42 +101,20 @@ const CreatedForm = (props: Props) => {
     string,
     (input: any, errors: any, register: any, control: any) => JSX.Element
   > = {
-    text: RenderInput,
-    superText: RenderTextarea,
-    number: RenderInput,
-    email: RenderInput,
-    date: RenderInput,
-    singleSelect: RenderRadio,
+    text: renderInput,
+    superText: renderTextarea,
+    number: renderInput,
+    email: renderInput,
+    date: renderInput,
+    singleSelect: renderRadio,
+    checkbox: renderCheckbox,
   };
 
   const formFields = inputs
     .sort((a, b) => a.order - b.order)
-    .map((input, idx) => {
-      const { type, id, header, required, options } = input;
-      if (type === "checkbox") {
-        const dataCheckboxOptions =
-          options.map((option: string) => ({
-            label: option,
-            name: option,
-            value: false,
-          })) ?? [];
-
-        return (
-          <CheckboxGroupField
-            key={idx}
-            label={header}
-            required={required}
-            description={description}
-            name={id!}
-            options={dataCheckboxOptions}
-            control={control}
-            errorMsg={errors}
-          />
-        );
-      } else {
-        const renderer = fieldRenderers[input.type];
-        return renderer(input, errors, register, control);
-      }
+    .map((input) => {
+      const renderer = fieldRenderers[input.type];
+      return renderer(input, errors, register, control);
     });
 
   return (

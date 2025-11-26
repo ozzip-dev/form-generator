@@ -19,6 +19,7 @@ const PublishForm = ({ form }: Props) => {
 
   const { toast } = useToast();
   const urlToCopy = `${window.location.origin}${formUrl}`;
+
   const copyUrl = () => {
     navigator.clipboard.writeText(urlToCopy);
 

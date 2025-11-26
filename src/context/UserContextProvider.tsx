@@ -1,26 +1,21 @@
 "use client";
 
+import { UserSerialized } from "@/types/user";
 import React, { createContext, useContext } from "react";
 
-type User = {
-  name: string;
-  role: string;
+type UserContextType = {
+  userPromise: Promise<UserSerialized | null>;
 };
 
-type UserContextType = {
-  userPromise: Promise<User>;
-};
+type UserClient = UserSerialized;
 
 export const UserContext = createContext<UserContextType | null>(null);
-
-// export const UserContext = createContext<any>(null);
 
 export function UserContextProvider({
   userPromise,
   children,
 }: {
-  // userPromise: Promise<User>;
-  userPromise: any;
+  userPromise: Promise<UserClient | null>;
   children: React.ReactNode;
 }) {
   return (

@@ -5,25 +5,7 @@ import ModalWrapper from "./ModalWrapper";
 import Link from "next/link";
 import { useUser } from "@/context/UserContextProvider";
 import { usePathname, useSearchParams } from "next/navigation";
-
-const requredCommitteeKeys = [
-  "committeeEmail",
-  "committeeName",
-  "committeePhone",
-  "committeeUnion",
-];
-
-export function hasCompleteCommitteeData(user: any): boolean {
-  return requredCommitteeKeys.every((key) => {
-    const value = user[key];
-    return (
-      value !== undefined &&
-      value !== null &&
-      typeof value === "string" &&
-      value.trim().length > 0
-    );
-  });
-}
+import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
 
 const IsUserModal = () => {
   const { userPromise } = useUser();

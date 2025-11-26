@@ -17,7 +17,7 @@ export const getUser = cache(async (): Promise<UserSerialized | null> => {
       .collection<IUser>("user")
       .findOne({ _id: userId });
 
-    return serializeUser(freshUser);
+    return freshUser ? serializeUser(freshUser) : null;
   };
 
   return await runAsyncAction(performGerUser);
