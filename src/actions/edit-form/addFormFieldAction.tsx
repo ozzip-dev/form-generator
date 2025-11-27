@@ -6,7 +6,7 @@ import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/addFormFieldSchema";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
+import { Document, ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { requireUser } from "@/services/queries/requireUser";
 

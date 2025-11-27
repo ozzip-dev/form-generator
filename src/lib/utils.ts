@@ -1,11 +1,5 @@
 import { UserRole } from "@/models/User";
 import { IUser } from "@/types/user";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 // TODO: replace with proper functions or use eg. https://www.npmjs.com/package/date-fns
 const parseTime = (units: number) => (units < 10 ? `0${units}` : units);
