@@ -20,8 +20,8 @@ export default function DashboardLayout({
         <header className="bg-gray-50">
           <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
             <DashboardTopBar />
+            <DashboardMenu />
           </SuspenseErrorBoundary>
-          <DashboardMenu />
         </header>
 
         <main>{children}</main>

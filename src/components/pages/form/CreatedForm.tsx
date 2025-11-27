@@ -31,18 +31,8 @@ type FieldRenderer = (
   control: Control<any>
 ) => JSX.Element;
 
-type Props = {
-  form: FormSerialized;
-  isPreview?: boolean;
-};
-
-const CreatedForm = (props: Props) => {
-  const { title, description, inputs } = props.form;
-  const schema = createdFormSchema(props.form.inputs);
-  const { toast } = useToast();
-  const [isSucces, setSucces] = useState(false);
-
-  const defaultValues = inputs.reduce((acu: any, input: any) => {
+const defaultValues = (inputs: FormInput[]) => {
+  const transformedInputs = inputs.reduce((acu: any, input: any) => {
     const { type, options, id } = input;
 
     if (type === "checkbox") {
@@ -59,8 +49,22 @@ const CreatedForm = (props: Props) => {
     return acu;
   }, {});
 
+  return transformedInputs;
+};
+
+type Props = {
+  form: FormSerialized;
+  isPreview?: boolean;
+};
+
+const CreatedForm = (props: Props) => {
+  const { title, description, inputs } = props.form;
+  const schema = createdFormSchema(props.form.inputs);
+  const { toast } = useToast();
+  const [isSucces, setSucces] = useState(false);
+
   const methods = useForm({
-    defaultValues,
+    defaultValues: defaultValues(inputs),
     resolver: zodResolver(schema),
     mode: "all",
   });
@@ -74,12 +78,12 @@ const CreatedForm = (props: Props) => {
     reset,
   } = methods;
 
-  useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  // useEffect(() => {
+  //   const subscription = watch((values) => {
+  //     console.log("Aktualne wartości:", values);
+  //   });
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   const onSubmit = async (data: any) => {
     console.log("", data);

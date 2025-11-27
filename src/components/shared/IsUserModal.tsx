@@ -11,32 +11,37 @@ const IsUserModal = () => {
   const { userPromise } = useUser();
   const user = use(userPromise);
 
-  const areUserDetails = hasCompleteCommitteeData(user);
-  const [areDetails, setAreDetails] = useState(areUserDetails);
   const pathname = usePathname();
+  const areUserDetails = hasCompleteCommitteeData(user);
+
+  const noBlockedPath =
+    pathname !== "/user-settings" && pathname !== "/dashboard-admin";
+
+  const shouldOpenModal = !areUserDetails && noBlockedPath;
+  const [isModalOpen, setModalOpen] = useState(shouldOpenModal);
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("emptyUserDetails");
 
   useEffect(() => {
-    if (pathname === "/user-settings") {
-      setAreDetails(true);
-    } else if (!areUserDetails && areDetails) setAreDetails(false);
+    if (!areUserDetails && noBlockedPath) {
+      setModalOpen(true);
+    } else {
+      setModalOpen(false);
+    }
   }, [pathname, tabParam]);
 
   const handlePrintModal = () => {
-    setAreDetails((prev) => !prev);
+    setModalOpen((prev) => !prev);
   };
 
   return (
-    <div>
-      <ModalWrapper onClose={handlePrintModal} isOpen={!areDetails}>
-        <div>
-          <Link href={"/user-settings"}>
-            Zapisz dane kontaktowe w ustawieniach
-          </Link>
-        </div>
-      </ModalWrapper>
-    </div>
+    <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
+      <div>
+        <Link href={"/user-settings"}>
+          Zapisz dane kontaktowe w ustawieniach
+        </Link>
+      </div>
+    </ModalWrapper>
   );
 };
 
