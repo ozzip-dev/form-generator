@@ -9,7 +9,11 @@ export const createdFormSchema = (inputs: any[]) => {
     switch (input.type) {
       case "text":
         shape[fieldName] = input.required
-          ? z.string().trim().min(2, "Min. 2 znaki").max(60, "Maks. 60 znaków")
+          ? z
+              .string()
+              .trim()
+              .min(2, "Minimum 2 znaki")
+              .max(60, "Maksymum 60 znaków")
           : z.string().optional();
         break;
       case "superText":
@@ -17,14 +21,14 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .trim()
-              .min(2, "Min. 2 znaki")
-              .max(200, "Maks. 200 znaków")
+              .min(2, "Minimum 2 znaki")
+              .max(200, "Maksymum 200 znaków")
           : z.string().optional();
         break;
 
       case "number":
         shape[fieldName] = input.required
-          ? z.string().trim().regex(/\d/, "Min. 1 cyfra")
+          ? z.string().trim().regex(/\d/, "Minimum 1 cyfra")
           : z.string().optional();
         break;
 
@@ -34,7 +38,7 @@ export const createdFormSchema = (inputs: any[]) => {
               .record(z.boolean())
               .refine(
                 (obj) => obj && Object.values(obj).some((v) => v),
-                "Wybierz co najmniej jedną opcję"
+                "Minimum jedna opcja"
               )
           : z.record(z.boolean()).default({}).optional();
         break;
@@ -44,10 +48,7 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .nullable()
-              .refine(
-                (val) => val !== null && val !== "",
-                "Wybierz jedną opcję"
-              )
+              .refine((val) => val !== null && val !== "", "Jedna opcja")
           : z.string().nullable().optional();
         break;
 
@@ -55,7 +56,7 @@ export const createdFormSchema = (inputs: any[]) => {
         shape[fieldName] = input.required
           ? z
               .string()
-              .email("Podaj format email")
+              .email("Format email")
               .nullable()
               .refine((val) => val !== null && val !== "", "Pole wymagane")
           : z.string().optional();
@@ -66,7 +67,7 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .nullable()
-              .refine((val) => !isNaN(Date.parse(val!)), "Podaj datę")
+              .refine((val) => !isNaN(Date.parse(val!)), "Data")
           : z.string().optional();
         break;
 

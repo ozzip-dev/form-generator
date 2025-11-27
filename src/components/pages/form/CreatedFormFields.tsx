@@ -4,20 +4,21 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import { FormInput } from "@/types/input";
+import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 export const renderRadio = (
-  { id, header, description, required, options }: any,
-  errors: any
+  { id, header, description, required, options }: FormInput,
+  errors: FieldErrors<any>
 ) => {
-  const opts = options.map((op: string) => ({
-    label: op,
-    value: op,
+  const opts = options.map((option: string) => ({
+    label: option,
+    value: option,
   }));
-
   return (
     <RadioGroupField
       key={id}
-      name={id}
+      name={id!}
       label={header}
       description={description}
       required={required}
@@ -29,9 +30,9 @@ export const renderRadio = (
 };
 
 export const renderTextarea = (
-  { id, header, description, required }: any,
-  errors: any,
-  register: any
+  { id, header, description, required }: FormInput,
+  errors: FieldErrors<any>,
+  register: UseFormRegister<any>
 ) => {
   return (
     <TextareaFields
@@ -39,7 +40,7 @@ export const renderTextarea = (
       inputsData={[
         {
           label: header,
-          name: id,
+          name: id!,
           placeholder: "Odpowiedź",
           description,
           required,
@@ -52,9 +53,9 @@ export const renderTextarea = (
 };
 
 export const renderInput = (
-  { id, header, description, required, type }: any,
-  errors: any,
-  register: any
+  { id, header, description, required, type }: FormInput,
+  errors: FieldErrors<any>,
+  register: UseFormRegister<any>
 ) => {
   const placeholder =
     type === "number"
@@ -71,7 +72,7 @@ export const renderInput = (
       inputsData={[
         {
           label: header,
-          name: id,
+          name: id!,
           placeholder,
           type,
           description,
@@ -85,10 +86,10 @@ export const renderInput = (
 };
 
 export const renderCheckbox = (
-  { id, header, description, required, options }: any,
-  errors: any,
-  register: any,
-  control: any
+  { id, header, description, required, options }: FormInput,
+  errors: FieldErrors<any>,
+  register: UseFormRegister<any>,
+  control: Control<any>
 ) => {
   const dataCheckboxOptions =
     options.map((option: string) => ({

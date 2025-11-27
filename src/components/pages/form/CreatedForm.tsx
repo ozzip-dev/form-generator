@@ -7,8 +7,14 @@ import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { JSX, useEffect, useState } from "react";
+import {
+  Control,
+  FieldErrors,
+  FormProvider,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
 import {
   renderCheckbox,
   renderInput,
@@ -16,6 +22,14 @@ import {
   renderTextarea,
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
+import { FormInput } from "@/types/input";
+
+type FieldRenderer = (
+  input: FormInput,
+  errors: FieldErrors<any>,
+  register: UseFormRegister<any>,
+  control: Control<any>
+) => JSX.Element;
 
 type Props = {
   form: FormSerialized;
@@ -28,7 +42,25 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
   const [isSucces, setSucces] = useState(false);
 
+  const defaultValues = inputs.reduce((acu: any, input: any) => {
+    const { type, options, id } = input;
+
+    if (type === "checkbox") {
+      acu[id] =
+        options && Array.isArray(options) && options.length > 0
+          ? options.reduce((acu: Record<string, boolean>, option: string) => {
+              acu[option] = false;
+
+              return acu;
+            }, {})
+          : {};
+    } else acu[id] = "";
+
+    return acu;
+  }, {});
+
   const methods = useForm({
+    defaultValues,
     resolver: zodResolver(schema),
     mode: "all",
   });
@@ -42,12 +74,12 @@ const CreatedForm = (props: Props) => {
     reset,
   } = methods;
 
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = async (data: any) => {
     console.log("", data);
@@ -79,10 +111,7 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  const fieldRenderers: Record<
-    string,
-    (input: any, errors: any, register: any, control: any) => JSX.Element
-  > = {
+  const fieldRenderers: Record<string, FieldRenderer> = {
     text: renderInput,
     superText: renderTextarea,
     number: renderInput,
