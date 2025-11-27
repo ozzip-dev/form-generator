@@ -58,25 +58,29 @@ const Results = (props: Props) => {
 
   return (
     <div className="p-8">
-      <ResultFieldSelect
-        {...{inputs, setInputs}}
-      />
+      <div className=" w-fit p-4 border">
+        <ResultFieldSelect
+          {...{inputs, setInputs}}
+        />
 
-      <ResultDiagramSelect
-        {...{diagrams, setDiagrams}}
-      />
+        <Button
+          onClickAction={onDisplayAnswers}
+          message="Pokaz wyniki"
+          className="!w-auto my-4"
+        />
+      </div>
 
-      <Button
-        onClickAction={onDisplayAnswers}
-        message="Pokaz wyniki"
-        className="!w-auto my-4"
-      />
+      <div className="w-fit mt-4 p-4 border">
+        <ResultDiagramSelect
+          {...{diagrams, setDiagrams}}
+        />
 
-      <Button
-        onClickAction={exportPdf}
-        message="Pobierz"
-        className="!w-auto my-4"
-      />
+        <Button
+          onClickAction={exportPdf}
+          message="Pobierz"
+          className="!w-auto my-4"
+        />
+      </div>
       
       <div id="results" className="w-fit">
         {!!results.length && <div><div className="text-3xl">{title}</div>
