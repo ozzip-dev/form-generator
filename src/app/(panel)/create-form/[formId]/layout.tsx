@@ -1,4 +1,4 @@
-import CreateFormMenu from "@/components/pages/create-form/CreateFormMenu";
+import CreateFormMenu from "@/components/pages/edit-form/CreateFormMenu";
 
 type Props = { params: Promise<{ formId: string }>; children: React.ReactNode };
 

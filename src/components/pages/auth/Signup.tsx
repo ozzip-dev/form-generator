@@ -1,18 +1,18 @@
 "use client";
 
-import { SignUpAction } from "@/actions/auth/SignUpAction";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
-  SignUpSchema,
-  signUpSchema,
+  SignupSchema,
+  signupSchema,
 } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { Button, InputFields } from "@/components/shared";
+import { signupAction } from "@/actions/auth/signupAction";
 
-const dataInputsSignUp = [
+const dataInputsSignup = [
   {
     label: "Imię",
     name: "name",
@@ -39,20 +39,20 @@ const dataInputsSignUp = [
   },
 ];
 
-const SignUp = () => {
+const Signup = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
     reset,
-  } = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+  } = useForm<SignupSchema>({
+    resolver: zodResolver(signupSchema),
   });
 
   const { toast } = useToast();
 
-  const onSubmit = async (data: SignUpSchema) => {
+  const onSubmit = async (data: SignupSchema) => {
     const trimmedData = {
       name: data.name.trim(),
       email: data.email.trim(),
@@ -61,9 +61,9 @@ const SignUp = () => {
     };
 
     try {
-      const resp = await SignUpAction(trimmedData);
+      const resp = await signupAction(trimmedData);
       if (resp?.error) {
-        handleClientErrors<SignUpSchema>(resp.error, setError);
+        handleClientErrors<SignupSchema>(resp.error, setError);
         return;
       }
 
@@ -95,7 +95,7 @@ const SignUp = () => {
           className="space-y-4 flex justify-center flex-col"
         >
           <InputFields
-            inputsData={dataInputsSignUp}
+            inputsData={dataInputsSignup}
             register={register}
             errorMsg={errors}
           />
@@ -114,4 +114,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Signup;

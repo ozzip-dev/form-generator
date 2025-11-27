@@ -3,7 +3,6 @@
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/useToast";
-import { UploadFile } from "@/actions/protocol";
 import InputError from "@/components/shared/inputs/InputError";
 import {
   uploadProtocolSchema,
@@ -11,6 +10,7 @@ import {
 } from "@/lib/zodSchema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/shared";
+import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
 
 const AddProtocolForm = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +34,7 @@ const AddProtocolForm = () => {
   const uploadFile = async ({ file }: UploadProtocolSchema) => {
     if (!file) return;
 
-    await UploadFile(file);
+    await uploadFileAction(file);
 
     toast({
       title: "Sukces",

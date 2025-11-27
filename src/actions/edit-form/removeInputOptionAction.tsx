@@ -6,13 +6,12 @@ import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-const editInputOptionAction = async (
+const removeInputOptionAction = async (
   formIdString: string,
   inputId: string,
-  optionValue: string,
-  name: string
+  optionName: string
 ) => {
-  const index: number = Number(name.split(".")[1]);
+  const index: number = Number(optionName.split(".")[1]);
   const formId = new ObjectId(formIdString);
 
   await requireUser();
@@ -24,22 +23,15 @@ const editInputOptionAction = async (
   const { inputs } = form;
   const { options } = inputs.find(({ id }) => id == inputId)!;
 
-  let mappedOptions = options;
-
-  if (!options[index]) {
-    mappedOptions.push(optionValue);
-  } else {
-    mappedOptions = options.map((option, i) => {
-      if (i != index) return option;
-      return optionValue;
-    });
-  }
+  const filteredOptions = options.filter((_, i) => {
+    return i != index;
+  });
 
   const mappedInputs = inputs.map((input) => {
     if (input.id != inputId) return input;
     return {
       ...input,
-      options: mappedOptions,
+      options: filteredOptions,
     };
   });
 
@@ -52,4 +44,4 @@ const editInputOptionAction = async (
   revalidateTag(`form-${formId}`);
 };
 
-export default editInputOptionAction;
+export default removeInputOptionAction;

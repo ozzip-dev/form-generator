@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginAction } from "@/actions/auth/LoginAction";
+import { loginAction } from "@/actions/auth/loginAction";
 import { Button, InputFields } from "@/components/shared";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
@@ -69,7 +69,7 @@ const Login = () => {
     };
 
     try {
-      const resp = await LoginAction(trimmedData);
+      const resp = await loginAction(trimmedData);
 
       if (resp?.error) {
         handleClientErrors<LoginSchema>(resp.error, setError);

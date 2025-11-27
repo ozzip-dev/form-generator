@@ -61,7 +61,7 @@ The application was developed with grant support received in the grant competiti
 * Dynamic routing
 * Validations - client side, server side
 * Debouncing
-* HTTP requests state messages for user
+* HTTP requests state messages / error boundaries
 * RWD
 
 
@@ -80,7 +80,7 @@ The application was developed with grant support received in the grant competiti
 * react-hook-form
   
 ## Hooks
-* useState, useEffect, useForm, useFormContext, useSearchParams, useParams, useCallback, useContext
+* useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useCallback, useContext
 
 ## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn

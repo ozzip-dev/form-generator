@@ -1,6 +1,6 @@
-import DashboardTopBar from "@/components/pages/dashboard/DashboardTopBar";
+import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
-import { requireUser } from "@/dataAccessLayer/queries";
+import { requireUser } from "@/services/queries/requireUser";
 
 export default async function DashboardLayout({
   children,

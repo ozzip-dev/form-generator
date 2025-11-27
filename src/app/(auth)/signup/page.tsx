@@ -1,6 +1,6 @@
-import SignUp from "@/components/pages/auth/Signup";
+import Signup from "@/components/pages/auth/Signup";
 
-const SignUpPage = () => {
-  return <SignUp />;
+const SignupPage = () => {
+  return <Signup />;
 };
-export default SignUpPage;
+export default SignupPage;

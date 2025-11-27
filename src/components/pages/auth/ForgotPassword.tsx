@@ -1,6 +1,6 @@
 "use client";
 
-import { ForgotPasswordAction } from "@/actions/auth/ForgotPasswordAction";
+import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
 import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
@@ -40,7 +40,7 @@ const ForgotPassword = () => {
     };
 
     try {
-      const resp = await ForgotPasswordAction(trimmedData);
+      const resp = await forgotPasswordAction(trimmedData);
 
       if (resp?.error) {
         handleClientErrors<ForgotPasswordSchema>(resp.error, setError);

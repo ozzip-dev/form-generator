@@ -1,8 +1,8 @@
 import { useToast } from "./useToast";
 import { useState } from "react";
 import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { PublishForm } from "@/actions/form/PublishForm";
 import { FormSerialized } from "@/types/form";
+import { publishFormAction } from "@/actions/form/publishFormAction";
 
 const UsePublishForm = (form: FormSerialized) => {
   const [isloading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ const UsePublishForm = (form: FormSerialized) => {
   const handlePublishForm = async () => {
     setLoading(true);
     try {
-      await PublishForm(form);
+      await publishFormAction(form);
     } catch (err: any) {
       handleNextRedirectError(err);
       toast({

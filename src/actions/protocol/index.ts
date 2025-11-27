@@ -1,1 +1,1 @@
-export { UploadFile } from "./UploadFile";
+import { uploadFileAction } from "./uploadFileAction";
