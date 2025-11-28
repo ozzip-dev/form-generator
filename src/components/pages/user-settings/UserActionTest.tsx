@@ -261,6 +261,9 @@ export default function UserForm() {
   }
   const change = (name: string, value: string) => {
     // Tworzymy "mini" FormData tylko dla tego pola
+
+    console.log("name", name);
+    console.log("value", value);
     const formData = new FormData();
     const ff = formData.set(name, value);
     console.log("ff", ff);

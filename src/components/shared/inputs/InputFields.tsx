@@ -66,7 +66,7 @@ const InputFields = (props: Props) => {
                   //     })
                   //   : {})}
 
-                  onChange={props.onChange}
+                  onChange={(e) => props.onChange?.(name, e.target.value)}
                   name={name}
                 />
 
