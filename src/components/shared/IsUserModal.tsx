@@ -12,13 +12,13 @@ const IsUserModal = () => {
   const user = use(userPromise);
 
   const pathname = usePathname();
-  const areUserDetails = hasCompleteCommitteeData(user);
-
   const noBlockedPath =
     pathname !== "/user-settings" && pathname !== "/dashboard-admin";
+  const areUserDetails = hasCompleteCommitteeData(user);
 
   const shouldOpenModal = !areUserDetails && noBlockedPath;
   const [isModalOpen, setModalOpen] = useState(shouldOpenModal);
+
   const searchParams = useSearchParams();
   const tabParam = searchParams.get("emptyUserDetails");
 

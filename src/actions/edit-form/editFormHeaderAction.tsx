@@ -20,6 +20,8 @@ export async function editFormHeaderAction(
 ): Promise<void | { error: MoledFieldErrors }> {
   await requireUser();
 
+  console.log("updateData", updateData);
+
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
 
   if (!validationResult.success) {

@@ -13,11 +13,14 @@ type Props = {
     description?: string;
     required?: boolean;
   }[];
-  errorMsg?: FieldErrors<any> & {
-    server?: Record<string, { message: string }>;
-  };
+  // errorMsg?: FieldErrors<any> & {
+  //   server?: Record<string, { message: string }>;
+  // };
+
+  errorMsg?: any;
   register?: UseFormRegister<any>;
-  onChange?: (name: string, value: string) => void | Promise<void>;
+  // onChange?: (name: string, value: string) => void | Promise<void>;
+  onChange?: any;
   isLoading?: Record<string, boolean>;
 };
 
@@ -57,11 +60,14 @@ const InputFields = (props: Props) => {
                     }
                   `}
                   placeholder={placeholder}
-                  {...(props.register
-                    ? props.register(name, {
-                        onChange: (e) => props.onChange?.(name, e.target.value),
-                      })
-                    : {})}
+                  // {...(props.register
+                  //   ? props.register(name, {
+                  //       onChange: (e) => props.onChange?.(name, e.target.value),
+                  //     })
+                  //   : {})}
+
+                  onChange={props.onChange}
+                  name={name}
                 />
 
                 {props.isLoading?.[name] && <DataLoader size="sm" />}
@@ -73,6 +79,10 @@ const InputFields = (props: Props) => {
                   (props.errorMsg as any)?.message
                 }
               />
+
+              <div className="text-red-500">
+                {props.errorMsg?.[name] && props.errorMsg?.[name][0]}
+              </div>
             </div>
           );
         }
