@@ -4,7 +4,7 @@ import { db } from "@/lib/mongo";
 import { publishForm } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 
 export async function publishFormAction(form: FormSerialized): Promise<string> {
   const user = await requireUser();

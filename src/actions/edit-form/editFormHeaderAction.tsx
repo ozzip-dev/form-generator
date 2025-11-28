@@ -9,8 +9,8 @@ import { updateForm } from "@/services/form-service";
 import { Form } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { requireUser } from "@/services/queries/requireUser";
 import { editFormHeaderSchema } from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
+import { requireUser } from "@/services/user-service";
 
 export async function editFormHeaderAction(
   formId: string,

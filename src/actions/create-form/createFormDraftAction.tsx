@@ -2,7 +2,7 @@
 
 import { db, findOne } from "@/lib/mongo";
 import { createDraft } from "@/services/form-service";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";

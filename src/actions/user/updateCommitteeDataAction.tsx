@@ -10,7 +10,7 @@ import {
   UserDetailsSchema,
   userDetailsSchema,
 } from "@/lib/zodSchema/userDetailsShema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";

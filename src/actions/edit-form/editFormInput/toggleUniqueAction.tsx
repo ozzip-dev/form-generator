@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { toggleUnique } from "@/services/input-service";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 
 export async function toggleUniqueAction(
   formIdString: string,

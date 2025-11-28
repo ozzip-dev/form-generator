@@ -6,7 +6,7 @@ import {
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, WithId } from "mongodb";

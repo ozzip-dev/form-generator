@@ -3,7 +3,7 @@
 import { checkFormHasInputWithId } from "@/actions/utils";
 import { db } from "@/lib/mongo";
 import { moveInputDown, moveInputUp } from "@/services/input-service";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 

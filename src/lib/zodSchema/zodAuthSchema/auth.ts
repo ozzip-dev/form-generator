@@ -18,22 +18,22 @@ export const auth = betterAuth({
       // TODO: consider changing to 'committeeId' and adding a committee collection
       committeeName: {
         type: 'string',
-        required: false,
+        required: true,
         defaultValue: ''
       },
       committeeEmail: {
         type: 'string',
-        required: false,
+        required: true,
         defaultValue: ''
       },
       committeePhone: {
         type: 'string',
-        required: false,
+        required: true,
         defaultValue: ''
       },
       committeeUnion: {
         type: 'string',
-        required: false,
+        required: true,
         defaultValue: ''
       }
     }

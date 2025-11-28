@@ -6,7 +6,7 @@ import {
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";

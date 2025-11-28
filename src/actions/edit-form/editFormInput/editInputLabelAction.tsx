@@ -9,8 +9,8 @@ import { updateFormInputTexts } from "@/services/input-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
-import { requireUser } from "@/services/queries/requireUser";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
+import { requireUser } from "@/services/user-service";
 
 export async function editInputLabelAction(
   formIdString: string,
@@ -18,7 +18,7 @@ export async function editInputLabelAction(
   data: { header?: string; description?: string }
 ): Promise<void | { error: MoledFieldErrors }> {
   await requireUser();
-  console.log("data", data);
+  
   if (data.header || data.description) {
     const validationResult = editInputFormSchema.partial().safeParse(data);
 

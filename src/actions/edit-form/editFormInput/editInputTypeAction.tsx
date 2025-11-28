@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { updateFormInputType } from "@/services/input-service";
 import { InputType } from "@/enums/input";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 
 export async function editInputTypeAction(
   formIdString: string,

@@ -5,12 +5,12 @@ import { setAliasUrl } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
-import { requireUser } from "@/services/queries/requireUser";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import {
   handleServerErrors,
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
+import { requireUser } from "@/services/user-service";
 
 export async function setAliasUrlAction(
   form: FormSerialized,
