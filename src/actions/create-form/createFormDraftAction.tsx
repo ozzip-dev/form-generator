@@ -46,14 +46,14 @@ export async function createFormDraftAction(templateId: string) {
   }
 
   const { title, description, inputs } = empty
-    ? { title: "[ tytuł ]", description: "[ opis ]", inputs: [] }
-    : (template as Form);
+    ? { title: '', description: '', inputs: [] }
+    : ( template as Form );
 
   const id: ObjectId = await createDraft(
     db,
     userId,
-    title || "",
-    description || "",
+    title,
+    description,
     inputs
   );
 

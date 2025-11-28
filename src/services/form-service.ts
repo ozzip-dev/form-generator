@@ -35,9 +35,9 @@ export async function formHasInputWithId(
 export async function createDraft(
   db: Db,
   userId: ObjectId,
-  title: string,
-  description: string,
-  inputs: FormInput[]
+  title?: string,
+  description?: string,
+  inputs: FormInput[] = []
 ): Promise<ObjectId> {
   const now: Date = new Date();
   const insertData: Form = {
@@ -48,7 +48,7 @@ export async function createDraft(
     description,
     inputs,
     state: "draft",
-    type: FormType.Other,
+    type: '',
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);
