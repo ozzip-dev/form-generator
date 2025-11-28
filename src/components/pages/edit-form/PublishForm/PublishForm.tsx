@@ -6,6 +6,7 @@ import { isDraft } from "@/helpers/formHelpers";
 import AliasUrlForm from "./AliasUrlForm";
 import { useToast } from "@/hooks/useToast";
 import { Button, ButtonLink } from "@/components/shared";
+import { redirect } from "next/navigation";
 
 type Props = {
   form: FormSerialized;
@@ -15,13 +16,13 @@ type Props = {
 const PublishForm = ({ form }: Props) => {
   const isStateDraft: boolean = isDraft(form);
   const { _id, url } = form;
-  const formUrl = `/submit/${url || _id}`;
+  const formUrl: string = `/submit/${url || _id}`;
 
   const { toast } = useToast();
-  const urlToCopy = `${window.location.origin}${formUrl}`;
+  const getFormUrl = () => `${window.location.origin}${formUrl}`;
 
   const copyUrl = () => {
-    navigator.clipboard.writeText(urlToCopy);
+    navigator.clipboard.writeText(getFormUrl());
 
     toast({
       title: "Skopiowano URL",
@@ -44,8 +45,8 @@ const PublishForm = ({ form }: Props) => {
           <Button onClickAction={copyUrl} message="Kopiuj" type="button" />
           <ButtonLink
             message={"Przejdź do formularza"}
-            link={urlToCopy}
-            target={"_blank"}
+            link={formUrl}
+            target="_blank"
           />
         </div>
       )}
