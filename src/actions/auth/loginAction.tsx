@@ -5,7 +5,7 @@ import {
   LoginSchema,
 } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
+import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 
 export async function loginAction(data: LoginSchema) {
@@ -19,7 +19,10 @@ export async function loginAction(data: LoginSchema) {
       body: { email: data.email, password: data.password },
     });
   } catch (err: any) {
-    throw new Error(err?.message ?? "Nieprawidłowy email lub hasło");
+    const msg = err?.status == 'UNAUTHORIZED' 
+      ? "Nieprawidłowy email lub hasło"
+      : (err?.message || 'błąd')
+    throw new Error(msg);
   }
   redirect("/dashboard?login=success");
 }

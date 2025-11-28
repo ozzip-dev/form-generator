@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
+import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 
 export async function signOutAction() {

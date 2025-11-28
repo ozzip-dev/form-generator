@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import { cache } from "react";
 import { serializeUser } from "@/lib/serialize-utils";
 import { headers } from "next/headers";
-import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
+import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 
 export const requireUser = cache(async (): Promise<IUser> => {

@@ -1,7 +1,7 @@
 "use server";
 
 import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { auth } from "@/lib/zodSchema/zodAuthSchema/auth";
+import { auth } from "@/lib/auth/auth";
 import { forgotPasswordSchema } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 
 type FormData = {
