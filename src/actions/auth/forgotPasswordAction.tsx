@@ -17,7 +17,8 @@ export async function forgotPasswordAction(data: FormData) {
   }
 
   try {
-    await auth.api.forgetPassword({
+    // TODO: spr czy dobra funkcja
+    await auth.api.requestPasswordReset({
       body: { email: data.email, redirectTo: "/reset-password" },
     });
 

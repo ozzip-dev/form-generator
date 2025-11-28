@@ -1,6 +1,5 @@
 import { UserRole } from "@/models/User";
 import { IUser } from "@/types/user";
-import { twMerge } from "tailwind-merge";
 
 // TODO: replace with proper functions or use eg. https://www.npmjs.com/package/date-fns
 const parseTime = (units: number) => (units < 10 ? `0${units}` : units);
