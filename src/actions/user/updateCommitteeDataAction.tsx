@@ -4,7 +4,6 @@ import {
   handleServerErrors,
   MoledFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, updateById } from "@/lib/mongo";
 import { isModerator } from "@/lib/utils";
 import {
@@ -42,15 +41,11 @@ export async function updateCommitteeDataAction(
     throw new Error("Invalid data: User does not exist or is not a moderator");
   }
 
-  const performUpdateCommitteeData = async () => {
-    await updateById<IUser>(db, "user", userId, {
-      $set: {
-        ...updateData,
-      },
-    });
+  await updateById<IUser>(db, "user", userId, {
+    $set: {
+      ...updateData,
+    },
+  });
 
-    revalidatePath("/user-settings");
-  };
-
-  await runAsyncAction(performUpdateCommitteeData);
+  revalidatePath("/user-settings");
 }

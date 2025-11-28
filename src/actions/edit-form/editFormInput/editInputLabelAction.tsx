@@ -10,7 +10,6 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 
 export async function editInputLabelAction(
@@ -27,16 +26,11 @@ export async function editInputLabelAction(
       return { error: handleServerErrors(validationResult.error) };
     }
   }
+  const formId = new ObjectId(formIdString);
 
-  const performEditInputLabel = async () => {
-    const formId = new ObjectId(formIdString);
+  checkFormHasInputWithId(db, formId, inputId);
 
-    checkFormHasInputWithId(db, formId, inputId);
+  await updateFormInputTexts(db, formId, inputId, data);
 
-    await updateFormInputTexts(db, formId, inputId, data);
-
-    revalidateTag(`form-${formId}`);
-  };
-
-  await runAsyncAction(performEditInputLabel);
+  revalidateTag(`form-${formId}`);
 }

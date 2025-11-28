@@ -6,16 +6,14 @@ import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import { requireUser } from "./requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
 
   let form: Form | null = null;
 
-  await runAsyncAction(async () => {
-    form = await findById<Form>(db, "form", new ObjectId(formId));
-  });
+  form = await findById<Form>(db, "form", new ObjectId(formId));
+
   if (!form) {
     console.error(`Form not found: ${formId}`);
     redirect("/dashboard-moderator");

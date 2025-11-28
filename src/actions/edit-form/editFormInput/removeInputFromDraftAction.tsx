@@ -1,7 +1,6 @@
 "use server";
 
 import { checkFormHasInputWithId } from "@/actions/utils";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db } from "@/lib/mongo";
 import { removeInputFromDraft } from "@/services/input-service";
 import { requireUser } from "@/services/queries/requireUser";
@@ -23,14 +22,12 @@ export async function removeInputFromDraftAction(
 
   checkFormHasInputWithId(db, formId, inputId);
 
-  await runAsyncAction(async () => {
-    const result: WithId<Form> | null = await removeInputFromDraft(
-      db,
-      formId,
-      inputId
-    );
+  const result: WithId<Form> | null = await removeInputFromDraft(
+    db,
+    formId,
+    inputId
+  );
 
-    if (!result) return;
-    revalidateTag(`form-${formId}`);
-  });
+  if (!result) return;
+  revalidateTag(`form-${formId}`);
 }
