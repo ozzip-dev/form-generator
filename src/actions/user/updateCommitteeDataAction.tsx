@@ -16,7 +16,7 @@ import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
 export async function updateCommitteeDataAction(
-  data: UserDetailsSchema
+  data: Partial<UserDetailsSchema>
 ): Promise<void | { error: ModelFieldErrors }> {
   const user = await requireUser();
 
