@@ -3,9 +3,9 @@ import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo"
 import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
-import { getForm } from "@/services/queries/getForm";
 import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
 import PublishForm from "@/components/pages/edit-form/PublishForm/PublishForm";
+import { getForm } from "@/services/form-service";
 
 type Props = { params: Promise<{ formId: string }> };
 

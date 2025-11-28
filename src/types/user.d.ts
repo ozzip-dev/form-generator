@@ -10,7 +10,7 @@ type UserWithCommittee = User & UserCommitteeInfo
 
 // TODO Pawel: infer addition fields globally, edit IUser => User
 export interface IUser extends Document, UserWithCommittee {
-  role: UserRole;
+  role: UserRole | string;
 }
 
 export interface UserSerialized extends Omit<IUser, '_id'> {

@@ -5,8 +5,7 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { toggleRequired } from "@/services/input-service";
-import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { requireUser } from "@/services/user-service";
 
 export async function toggleRequiredAction(
   formIdString: string,
@@ -18,8 +17,6 @@ export async function toggleRequiredAction(
 
   checkFormHasInputWithId(db, formId, inputId);
 
-  await runAsyncAction(async () => {
-    await toggleRequired(db, formId, inputId);
-    revalidateTag(`form-${formId}`);
-  });
+  await toggleRequired(db, formId, inputId);
+  revalidateTag(`form-${formId}`);
 }

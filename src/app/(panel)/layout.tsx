@@ -3,7 +3,7 @@ import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/Dashbo
 import { SuspenseErrorBoundary } from "@/components/shared";
 import IsUserModal from "@/components/shared/IsUserModal";
 import { UserContextProvider } from "@/context/UserContextProvider";
-import { getUser } from "@/services/queries/getUser";
+import { getUser } from "@/services/user-service";
 
 export default function DashboardLayout({
   children,

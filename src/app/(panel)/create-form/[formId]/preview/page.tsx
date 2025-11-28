@@ -1,6 +1,6 @@
 import CreatedForm from "@/components/pages/form/CreatedForm";
 import { serializeForm } from "@/lib/serialize-utils";
-import { getForm } from "@/services/queries/getForm";
+import { getForm } from "@/services/form-service";
 import { Form } from "@/types/form";
 
 type Props = { params: Promise<{ formId: string }> };

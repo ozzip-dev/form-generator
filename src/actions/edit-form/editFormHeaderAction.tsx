@@ -2,22 +2,20 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { serializeForm } from "@/lib/serialize-utils";
 import { db } from "@/lib/mongo";
 import { updateForm } from "@/services/form-service";
-import { Form, FormSerialized } from "@/types/form";
+import { Form } from "@/types/form";
 import { ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { editFormHeaderSchema } from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
+import { requireUser } from "@/services/user-service";
 
 export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
   console.log("updateData", updateData);
@@ -28,18 +26,14 @@ export async function editFormHeaderAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  const performUpdate = async () => {
-    const result: WithId<Form> | null = await updateForm(
-      db,
-      new ObjectId(formId),
-      updateData
-    );
+  const result: WithId<Form> | null = await updateForm(
+    db,
+    new ObjectId(formId),
+    updateData
+  );
 
-    if (!result) {
-      throw new Error("Nie udało się zaktualizować formularza");
-    }
-    revalidateTag(`form-${formId}`);
-  };
-
-  await runAsyncAction(performUpdate);
+  if (!result) {
+    throw new Error("Nie udało się zaktualizować formularza");
+  }
+  revalidateTag(`form-${formId}`);
 }

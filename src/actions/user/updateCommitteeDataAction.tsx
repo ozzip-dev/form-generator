@@ -2,23 +2,22 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, updateById } from "@/lib/mongo";
 import { isModerator } from "@/lib/utils";
 import {
   UserDetailsSchema,
   userDetailsSchema,
 } from "@/lib/zodSchema/userDetailsShema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
 
 export async function updateCommitteeDataAction(
   data: UserDetailsSchema
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   const user = await requireUser();
 
   const validationResult = userDetailsSchema.safeParse(data);
@@ -42,15 +41,11 @@ export async function updateCommitteeDataAction(
     throw new Error("Invalid data: User does not exist or is not a moderator");
   }
 
-  const performUpdateCommitteeData = async () => {
-    await updateById<IUser>(db, "user", userId, {
-      $set: {
-        ...updateData,
-      },
-    });
+  await updateById<IUser>(db, "user", userId, {
+    $set: {
+      ...updateData,
+    },
+  });
 
-    revalidatePath("/user-settings");
-  };
-
-  await runAsyncAction(performUpdateCommitteeData);
+  revalidatePath("/user-settings");
 }

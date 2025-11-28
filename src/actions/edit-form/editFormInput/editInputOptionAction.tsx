@@ -2,12 +2,11 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findById, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
@@ -17,7 +16,7 @@ const editInputOptionAction = async (
   inputId: string,
   optionValue: string,
   name: string
-): Promise<void | { error: MoledFieldErrors }> => {
+): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
 
   const index: number = Number(name.split(".")[1]);
@@ -58,17 +57,13 @@ const editInputOptionAction = async (
     };
   });
 
-  const performEditOption = async () => {
-    await updateById(db, "form", formId, {
-      $set: {
-        inputs: [...mappedInputs],
-      },
-    });
+  await updateById(db, "form", formId, {
+    $set: {
+      inputs: [...mappedInputs],
+    },
+  });
 
-    revalidateTag(`form-${formId}`);
-  };
-
-  await runAsyncAction(performEditOption);
+  revalidateTag(`form-${formId}`);
 };
 
 export default editInputOptionAction;

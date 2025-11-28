@@ -1,10 +1,9 @@
 "use server";
 
 import { checkFormHasInputWithId } from "@/actions/utils";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db } from "@/lib/mongo";
 import { moveInputDown, moveInputUp } from "@/services/input-service";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
@@ -22,14 +21,12 @@ export async function moveInputUpAction(
 
   checkFormHasInputWithId(db, formId, inputId);
 
-  await runAsyncAction(async () => {
-    const result = await moveInputUp(db, formId, inputId);
+  const result = await moveInputUp(db, formId, inputId);
 
-    if (!result) {
-      throw new Error("Move failed");
-    }
-    revalidateTag(`form-${formId}`);
-  });
+  if (!result) {
+    throw new Error("Move failed");
+  }
+  revalidateTag(`form-${formId}`);
 }
 
 export async function moveInputDownAction(
@@ -45,10 +42,10 @@ export async function moveInputDownAction(
 
   checkFormHasInputWithId(db, formId, inputId);
 
-  await runAsyncAction(async () => {
-    const result = await moveInputDown(db, formId, inputId);
+  const result = await moveInputDown(db, formId, inputId);
 
-    if (!result) return;
-    revalidateTag(`form-${formId}`);
-  });
+  if (!result) {
+    throw new Error("Move failed");
+  }
+  revalidateTag(`form-${formId}`);
 }

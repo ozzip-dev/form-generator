@@ -23,25 +23,15 @@ type Props<T extends FieldValues> = {
 };
 
 const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
-  if (
-    !props.options ||
-    !Array.isArray(props.options) ||
-    props.options.length === 0
-  ) {
-    return null;
-  }
-
-  if (!props.control || !props.name) {
-    return null;
-  }
-
   const defaultValues = useMemo(
     () =>
       Object.fromEntries(
         props.options.map((opt) => [opt.name, opt.value ?? false])
       ),
-    [props.options]
-  );
+      [props.options]
+    );
+
+  if (!props.options.length) return null
 
   return (
     <Controller

@@ -5,18 +5,17 @@ import { setAliasUrl } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
-import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
+import { requireUser } from "@/services/user-service";
 
 export async function setAliasUrlAction(
   form: FormSerialized,
   alias: SetAliasSchema
-): Promise<{ success: true } | { error: MoledFieldErrors }> {
+): Promise<{ success: true } | { error: ModelFieldErrors }> {
   const user = await requireUser();
 
   const validationResult = setAliasSchema.safeParse(alias);
@@ -29,9 +28,7 @@ export async function setAliasUrlAction(
 
   const formId: string = form._id!;
 
-  return await runAsyncAction(async () => {
-    await setAliasUrl(db, formId, alias.url);
-    revalidateTag(`form-${formId}`);
-    return { success: true };
-  });
+  await setAliasUrl(db, formId, alias.url);
+  revalidateTag(`form-${formId}`);
+  return { success: true };
 }

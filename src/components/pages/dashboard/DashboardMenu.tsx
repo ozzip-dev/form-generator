@@ -13,12 +13,11 @@ const dataNavLinks = [
 ];
 
 const DashboardMenu = () => {
+  const pathname = usePathname();
   const { userPromise } = useUser();
   const user = use(userPromise);
 
   if (!user || user.role === "admin") return;
-
-  const pathname = usePathname();
 
   return (
     <ul className="flex items-center p-4 ">

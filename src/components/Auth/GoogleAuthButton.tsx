@@ -2,7 +2,7 @@
 
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
-import { authClient } from "@/lib/zodSchema/zodAuthSchema/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import { GoogleIcon } from "../shared/google-icon";
 
 interface GoogleAuthButtonProps {

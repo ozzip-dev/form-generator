@@ -1,9 +1,8 @@
 "use server";
 
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findOne } from "@/lib/mongo";
 import { createDraft } from "@/services/form-service";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
@@ -50,15 +49,13 @@ export async function createFormDraftAction(templateId: string) {
     ? { title: "[ tytuł ]", description: "[ opis ]", inputs: [] }
     : (template as Form);
 
-  await runAsyncAction(async () => {
-    const id: ObjectId = await createDraft(
-      db,
-      userId,
-      title || "",
-      description || "",
-      inputs
-    );
+  const id: ObjectId = await createDraft(
+    db,
+    userId,
+    title || "",
+    description || "",
+    inputs
+  );
 
-    redirect(`/create-form/${id}/edit`);
-  });
+  redirect(`/create-form/${id}/edit`);
 }

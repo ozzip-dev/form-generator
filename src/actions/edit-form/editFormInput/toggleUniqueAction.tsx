@@ -5,8 +5,7 @@ import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { toggleUnique } from "@/services/input-service";
-import { requireUser } from "@/services/queries/requireUser";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
+import { requireUser } from "@/services/user-service";
 
 export async function toggleUniqueAction(
   formIdString: string,
@@ -18,8 +17,6 @@ export async function toggleUniqueAction(
 
   checkFormHasInputWithId(db, formId, inputId);
 
-  await runAsyncAction(async () => {
-    await toggleUnique(db, formId, inputId);
-    revalidateTag(`form-${formId}`);
-  });
+  await toggleUnique(db, formId, inputId);
+  revalidateTag(`form-${formId}`);
 }

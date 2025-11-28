@@ -2,12 +2,11 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
-import { runAsyncAction } from "@/helpers/runAsyncFunction";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
-import { requireUser } from "@/services/queries/requireUser";
+import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
 import { Document, ObjectId, WithId } from "mongodb";
@@ -46,7 +45,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;
@@ -56,36 +55,32 @@ export async function addFormFieldAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  const addNewField = async () => {
-    const draft = await findById<Form>(db, "form", new ObjectId(formId));
-    if (!draft) {
-      throw new Error("Nie znaleziono formularza");
-    }
+  const draft = await findById<Form>(db, "form", new ObjectId(formId));
+  if (!draft) {
+    throw new Error("Nie znaleziono formularza");
+  }
 
-    const order = getNextOrder(draft as Form);
-    const inputData = mapInputDocToFormInputData(input, order);
+  const order = getNextOrder(draft as Form);
+  const inputData = mapInputDocToFormInputData(input, order);
 
-    const result: WithId<Document> | null = await updateById(
-      db,
-      "form",
-      new ObjectId(formId),
-      {
-        $push: {
-          inputs: {
-            ...inputData,
-          },
+  const result: WithId<Document> | null = await updateById(
+    db,
+    "form",
+    new ObjectId(formId),
+    {
+      $push: {
+        inputs: {
+          ...inputData,
         },
-        $set: {
-          updatedAt: new Date(),
-        },
-      }
-    );
-
-    if (!result) {
-      throw new Error("Nie udało się dodać pola formularza");
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
     }
-    revalidateTag(`form-${formId}`);
-  };
+  );
 
-  await runAsyncAction(addNewField);
+  if (!result) {
+    throw new Error("Nie udało się dodać pola formularza");
+  }
+  revalidateTag(`form-${formId}`);
 }

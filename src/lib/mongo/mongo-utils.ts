@@ -9,6 +9,7 @@ import {
   InsertOneResult,
   ObjectId,
   OptionalUnlessRequiredId,
+  Sort,
   UpdateResult,
   WithId,
 } from "mongodb";
@@ -46,10 +47,15 @@ export const getCollection = <T extends Document>(
 export async function find<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Filter<T>
+  query: Filter<T>,
+  sort: Sort | string = {}
 ): Promise<WithId<T>[]> {
   const collection: Collection<T> = getCollection(db, collectionName);
-  const docs: WithId<T>[] = await collection.find(query).toArray();
+  const docs: WithId<T>[] = await collection
+    .find(query)
+    .sort(sort)
+    .toArray();
+
   return docs;
 }
 

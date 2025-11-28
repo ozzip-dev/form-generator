@@ -69,6 +69,7 @@ const UserForm = (props: Props) => {
     mode: "all",
   });
 
+  // TODO Pawel: walidacja na froncie przy useActionState
   const onSubmit = async (data: UserDetailsSchema) => {
     try {
       const resp = await updateCommitteeDataAction(data);

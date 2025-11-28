@@ -61,7 +61,7 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
-  const [isSucces, setSucces] = useState(false);
+  const [isSuccess, setSuccess] = useState(false);
 
   const methods = useForm({
     defaultValues: defaultValues(inputs),
@@ -99,7 +99,7 @@ const CreatedForm = (props: Props) => {
 
     try {
       await submitFormAction(_id, data);
-      setSucces(true);
+      setSuccess(true);
       reset();
     } catch (e) {
       console.log("blad ", e);
@@ -134,7 +134,7 @@ const CreatedForm = (props: Props) => {
 
   return (
     <div className="flex justify-center ">
-      {isSucces && <SuccesMsg setSucces={setSucces} />}
+      {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="w-4/5">
         <h1 className="text-4xl">{title}</h1>
         {description && <h2 className="text-2xl">{description}</h2>}

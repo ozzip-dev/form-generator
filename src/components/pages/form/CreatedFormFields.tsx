@@ -4,6 +4,7 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import { InputType } from "@/enums";
 import { FormInput } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
@@ -57,14 +58,12 @@ export const renderInput = (
   errors: FieldErrors<any>,
   register: UseFormRegister<any>
 ) => {
-  const placeholder =
-    type === "number"
-      ? "Numer"
-      : type === "email"
-      ? "Email"
-      : type === "date"
-      ? ""
-      : "Odpowiedź";
+  const placeholderTexts: Partial<Record<InputType, string>> = {
+    number: 'Numer',
+    email: 'Email',
+    date: ''
+  }
+  const placeholder: string = placeholderTexts[type] || "Odpowiedź";
 
   return (
     <InputFields

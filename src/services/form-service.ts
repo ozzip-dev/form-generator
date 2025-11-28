@@ -1,8 +1,26 @@
 import { FormType } from "@/enums/form";
-import { find, findById, findOne, insert, updateById } from "@/lib/mongo";
-import { Form } from "@/types/form";
+import { db, find, findById, findOne, insert, updateById } from "@/lib/mongo";
+import { Form, FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
+import { cache } from "react";
+import { redirect } from "next/navigation";
+import { serializeForm } from "@/lib/serialize-utils";
+import { requireUser } from "./user-service";
+import { isUserAuthor } from "@/helpers/formHelpers";
+
+export const getForm = cache(async (formId: string): Promise<Form> => {
+  await requireUser();
+
+  const form: Form | null = await findById<Form>(db, "form", new ObjectId(formId));
+
+  if (!form) {
+    console.error(`Form not found: ${formId}`);
+    redirect("/dashboard-moderator");
+  }
+
+  return form;
+});
 
 export async function formHasInputWithId(
   db: Db,
@@ -99,3 +117,40 @@ export async function setAliasUrl(
     },
   });
 }
+
+export async function getSerializedFormList(): Promise<Partial<FormSerialized>[]> {
+  const user = await requireUser();
+
+  try {
+    const forms: Form[] = await find(
+      db,
+      'form',
+      { createdBy: new ObjectId(user.id) },
+      { updatedAt: -1 }
+    )
+
+    const serializedForms: FormSerialized[] = forms.map((form) => serializeForm(form))
+
+    return serializedForms;
+  } catch (err: any) {
+    throw new Error("Błąd podczas pobierania formularzy:", err);
+  }
+}
+
+// TODO Pawel: nazwe moze zmienic? Aale sama logika chyba ok
+export const getFormByAuthor = async (formId: string):
+  Promise<FormSerialized> => {
+  const user = await requireUser();
+  const form = await getForm(formId)
+
+  if (!form) {
+    throw new Error("Formularz nie istnieje");
+  }
+
+  const serializedForm = serializeForm(form)
+
+  if (!isUserAuthor(serializedForm, user._id))
+    throw new Error("Nie jesteś autorem tego formularza");
+
+  return serializedForm
+};
