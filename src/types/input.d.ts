@@ -23,3 +23,5 @@ export interface FormInput extends Input {
   unique: boolean
   order: number
 }
+
+export type FormInputSelectable = FormInput & { selected: boolean }

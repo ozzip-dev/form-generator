@@ -154,3 +154,16 @@ export const getFormByAuthor = async (formId: string):
 
   return serializedForm
 };
+
+export async function getFormById(formId: string): Promise<Form> {
+  const form = await findById<Form>(db, 'form', new ObjectId(formId))
+  if (!form) throw new Error('Invalid form id')
+  return form
+}
+
+// TODO: if not needed, delete, keep getFormById
+export async function getFormInputs(formId: string): Promise<FormInput[]> {
+  const form = await findById<Form>(db, 'form', new ObjectId(formId))
+  if (!form) throw new Error('Invalid form id')
+  return form.inputs
+}
