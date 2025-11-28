@@ -2,7 +2,7 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db } from "@/lib/mongo";
 import { updateForm } from "@/services/form-service";
@@ -15,7 +15,7 @@ import { requireUser } from "@/services/user-service";
 export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);

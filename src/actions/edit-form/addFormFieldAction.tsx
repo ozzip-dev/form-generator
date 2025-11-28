@@ -2,7 +2,7 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
@@ -45,7 +45,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;

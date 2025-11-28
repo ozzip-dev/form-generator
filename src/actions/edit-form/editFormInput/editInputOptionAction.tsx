@@ -2,7 +2,7 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
@@ -16,7 +16,7 @@ const editInputOptionAction = async (
   inputId: string,
   optionValue: string,
   name: string
-): Promise<void | { error: MoledFieldErrors }> => {
+): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
 
   const index: number = Number(name.split(".")[1]);

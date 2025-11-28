@@ -2,7 +2,7 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db } from "@/lib/mongo";
 import { updateFormInputTexts } from "@/services/input-service";
@@ -16,7 +16,7 @@ export async function editInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
   
   if (data.header || data.description) {

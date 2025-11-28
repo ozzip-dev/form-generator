@@ -2,7 +2,7 @@
 
 import {
   handleServerErrors,
-  MoledFieldErrors,
+  ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, updateById } from "@/lib/mongo";
 import { isModerator } from "@/lib/utils";
@@ -17,7 +17,7 @@ import { revalidatePath } from "next/cache";
 
 export async function updateCommitteeDataAction(
   data: UserDetailsSchema
-): Promise<void | { error: MoledFieldErrors }> {
+): Promise<void | { error: ModelFieldErrors }> {
   const user = await requireUser();
 
   const validationResult = userDetailsSchema.safeParse(data);
