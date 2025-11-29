@@ -73,7 +73,7 @@ const UserSettings = () => {
             <UserForm handlePrintForm={handlePrintForm} />
           </SuspenseErrorBoundary> */}
           <>
-            <UserDetailTest />
+            <UserDetailTest handlePrintForm={handlePrintForm} />
           </>
         </>
       )}{" "}

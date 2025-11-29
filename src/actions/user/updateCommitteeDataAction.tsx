@@ -17,12 +17,16 @@ import { revalidatePath } from "next/cache";
 
 export async function updateCommitteeDataAction(
   data: Partial<UserDetailsSchema>
-): Promise<void | { error: ModelFieldErrors }> {
+  // ): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { errors: any }> {
   const user = await requireUser();
 
   const validationResult = userDetailsSchema.safeParse(data);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return {
+      errors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   const updateData: Partial<UserCommitteeInfo> = {};

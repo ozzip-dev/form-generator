@@ -4,12 +4,12 @@ export const userDetailsSchema = z.object({
   committeeUnion: z
     .string()
     .trim()
-    .min(2, "Min. 2 znaki")
+    .min(5, "Min. 2 znaki")
     .max(200, "Max. 200 znaków"),
   committeeName: z
     .string()
     .trim()
-    .min(2, "Min. 2 znaki")
+    .min(5, "Min. 2 znaki")
     .max(200, "Max. 200 znaków"),
   committeePhone: z
     .string()
