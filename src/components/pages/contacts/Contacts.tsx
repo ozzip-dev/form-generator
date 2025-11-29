@@ -6,6 +6,7 @@ import { FormSerialized } from "@/types/form";
 import { getFormsByType } from "@/services/form-service";
 import { getCommitteeMembers } from "@/services/user-service";
 import { serializeForm } from "@/lib/serialize-utils";
+import CommitteeHeaders from "./CommitteeContactsHeaders";
 
 type Props = {
   committees: UserCommitteeInfo[]
@@ -17,7 +18,6 @@ const Contacts = async ({ committees, type }: Props) => {
     "use server"
     const committeeUsers: UserSerialized[] = await getCommitteeMembers(committee)
     const userIds: string[] = committeeUsers.map(({ _id }) => _id.toString())
-    console.log(userIds)
     const forms = await getFormsByType(type)
     return forms
       .map((form) => serializeForm(form))
@@ -36,13 +36,8 @@ const Contacts = async ({ committees, type }: Props) => {
           *:items-center
         "
       >
-        <div className="font-black">
-          <div>Nazwa</div>
-          <div>Związek zawodowy</div>
-          <div>Telefon</div>
-          <div>Email</div>
-          <div></div>
-        </div>
+        <CommitteeHeaders />
+
         {committees.map((committee, i) => (
           <ContactCommitteeItem
             {...{committee, getForms}} 
