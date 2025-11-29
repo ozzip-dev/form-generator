@@ -1,4 +1,4 @@
-import { db, findById } from "@/lib/mongo";
+import { db, find, findById } from "@/lib/mongo";
 import { IUser, UserSerialized } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { cache } from "react";
@@ -6,6 +6,9 @@ import { serializeUser } from "@/lib/serialize-utils";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
+import { FormType } from "@/enums/form";
+import { getFormsByType } from "./form-service";
+import { Form } from "@/types/form";
 
 export const requireUser = cache(async (): Promise<IUser> => {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -27,3 +30,16 @@ export const getUser = cache(async (): Promise<UserSerialized | null> => {
   return user ? serializeUser(user) : null;
 });
 
+export async function getUsersWithFormType(type: FormType): Promise<IUser[]> {
+  const user = await requireUser();
+  const forms: Form[] = await getFormsByType(type);
+  const authorIds: (ObjectId | undefined)[] = forms
+    .map(({ createdBy }) => createdBy);
+  const authorsIdsUnique: ObjectId[] = [
+    ...new Set(authorIds
+      /* filter out currently logged in user */
+      .filter((id) => id && id.toString() != user.id))
+  ] as ObjectId[];
+
+  return await find<IUser>(db, 'user', { _id: { $in: authorsIdsUnique } });
+}
