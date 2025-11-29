@@ -20,5 +20,13 @@ export const formTypesWithLabels: { label: string, value: FormType }[] = [
   { label: "Inne", value: FormType.Other },
 ];
 
+export const formStateWithLabels: Record<string, string> = {
+  draft: 'Szkic',
+  active: 'Aktywny',
+  disabled: 'Nieaktywny',
+  removed: 'Usunięty',
+  template: 'Szablon'
+}
+
 export const getTypeLabel = (type: FormType): string => formTypesWithLabels
   .find(({ value }) => value == type)?.label || (type as string)

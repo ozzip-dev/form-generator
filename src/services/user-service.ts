@@ -1,5 +1,5 @@
 import { db, find, findById } from "@/lib/mongo";
-import { IUser, UserSerialized } from "@/types/user";
+import { IUser, UserCommitteeInfo, UserSerialized } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { cache } from "react";
 import { serializeUser } from "@/lib/serialize-utils";
@@ -42,4 +42,9 @@ export async function getUsersWithFormType(type: FormType): Promise<IUser[]> {
   ] as ObjectId[];
 
   return await find<IUser>(db, 'user', { _id: { $in: authorsIdsUnique } });
+}
+
+export async function getCommitteeMembers(committee: UserCommitteeInfo): Promise<UserSerialized[]> {
+  const users = await find<IUser>(db, 'user', { committeeEmail: committee.committeeEmail });
+  return users.map((user) => serializeUser(user))
 }
