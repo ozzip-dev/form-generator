@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormSerialized } from "@/types/form";
 
 type Props = { form: Partial<FormSerialized> };
 
 export default function FormLink(props: Props) {
-  const formatted = formatDateAndHour(props.form.updatedAt);
+  const formatted = formatDateAndTime(props.form.updatedAt);
 
   return (
     <Link

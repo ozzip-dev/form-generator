@@ -12,16 +12,17 @@ type Props = { params: Promise<{ formId: string }> };
 const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
-  const { inputs, createdAt, updatedAt } = form;
+  const formSerialized = serializeForm(form)
+  const { inputs, createdAt, updatedAt } = formSerialized;
 
   return (
     <>
       <CreatedUpdatedInfo
-        createdAt={createdAt.toDateString()}
-        updatedAt={updatedAt.toDateString()}
+        createdAt={createdAt}
+        updatedAt={updatedAt}
       />
       <SuspenseErrorBoundary size="sm" errorMessage="Błąd pubilacji formularza">
-        <PublishForm form={serializeForm(form)} />
+        <PublishForm form={formSerialized} />
       </SuspenseErrorBoundary>
 
       <SuspenseErrorBoundary
@@ -29,7 +30,7 @@ const EditFormPage = async (props: Props) => {
         errorMessage="Błąd edycji nagłówka formularza"
         loadingMessage="Ładowanie danych formularza"
       >
-        <EditFormHeader form={serializeForm(form)} />
+        <EditFormHeader form={formSerialized} />
       </SuspenseErrorBoundary>
 
       {inputs
