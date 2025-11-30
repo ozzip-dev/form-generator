@@ -1,17 +1,20 @@
 "use server";
 
+import { auth } from "@/lib/auth/auth";
 import {
   loginSchema,
   LoginSchema,
 } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { auth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 
 export async function loginAction(data: LoginSchema) {
   const validationResult = loginSchema.safeParse(data);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return {
+      success: false,
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   try {
@@ -19,10 +22,14 @@ export async function loginAction(data: LoginSchema) {
       body: { email: data.email, password: data.password },
     });
   } catch (err: any) {
-    const msg = err?.status == 'UNAUTHORIZED' 
-      ? "Nieprawidłowy email lub hasło"
-      : (err?.message || 'błąd')
-    throw new Error(msg);
+    const msg =
+      err?.status == "UNAUTHORIZED"
+        ? "Nieprawidłowy email lub hasło"
+        : err?.message || "błąd";
+    return {
+      success: false,
+      catchError: `${msg}. Nieudane logowanie.`,
+    };
   }
   redirect("/dashboard?login=success");
 }

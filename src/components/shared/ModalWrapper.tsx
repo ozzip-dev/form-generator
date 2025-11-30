@@ -24,7 +24,7 @@ export default function ModalWrapper({
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-[9999]"
+      className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-[100]"
     >
       <div className="bg-white rounded-xl p-6 w-full max-w-lg shadow-xl relative">
         <button

@@ -2,18 +2,11 @@
 
 import { loginAction } from "@/actions/auth/loginAction";
 import { Button, InputFields } from "@/components/shared";
-import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
-import {
-  loginSchema,
-  LoginSchema,
-} from "@/lib/zodSchema/zodAuthSchema/loginSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import Link from "next/link";
 import { useActionState, useRef } from "react";
-import { useForm } from "react-hook-form";
 
 const ToastsData: ModelToast[] = [
   {
@@ -54,6 +47,7 @@ const initialState: State = { errors: {}, inputs: null };
 
 const Login = () => {
   const { toast } = useToast();
+  useOneTimeToast(ToastsData);
   const isAction = useRef(false);
 
   const loginUser = async (
@@ -73,9 +67,19 @@ const Login = () => {
     isAction.current = true;
     const resp = await loginAction(data);
 
-    // if (resp?.errors) {
-    //   return { errors: resp.errors, inputs: data };
-    // }
+    if (resp?.validationErrors) {
+      return { errors: resp.validationErrors, inputs: data };
+    }
+
+    if (resp.catchError) {
+      toast({
+        title: "Błąd logowania",
+        description: resp.catchError || "Coś poszło nie tak",
+        variant: "error",
+      });
+      return { errors: {}, inputs: data };
+    }
+
     isAction.current = false;
 
     return { errors: {}, inputs: data };
@@ -86,62 +90,16 @@ const Login = () => {
     initialState
   );
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   setError,
-  //   formState: { errors, isSubmitting },
-  // } = useForm<LoginSchema>({
-  //   resolver: zodResolver(loginSchema),
-  // });
-
-  // useOneTimeToast(ToastsData);
-
-  // const onSubmit = async (data: LoginSchema) => {
-  //   const trimmedData = {
-  //     email: data.email.trim(),
-  //     password: data.password.trim(),
-  //   };
-
-  //   try {
-  //     const resp = await loginAction(trimmedData);
-
-  //     if (resp?.error) {
-  //       handleClientErrors<LoginSchema>(resp.error, setError);
-  //       return;
-  //     }
-
-  //     if (resp?.error?.email?.type === "auth") {
-  //       toast({
-  //         title: "Błąd logowania",
-  //         description: resp.error.email.message || "Coś poszło nie tak",
-  //         variant: "error",
-  //       });
-
-  //       return;
-  //     }
-  //   } catch (err: any) {
-  //     handleNextRedirectError(err);
-
-  //     toast({
-  //       title: "Błąd logowania",
-  //       description: err.message || "Coś poszło nie tak",
-  //       variant: "error",
-  //     });
-  //   }
-  // };
-
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold text-center">Zaloguj się</h1>
 
-        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
         <form action={formAction}>
           <InputFields
             inputsData={dataInputsLogin}
-            // register={register}
             errorMsg={state.errors}
+            default={state?.inputs}
           />
           <div className="flex items-center justify-end">
             <Link

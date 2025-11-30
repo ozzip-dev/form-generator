@@ -3,7 +3,10 @@
 import { signupAction } from "@/actions/auth/signupAction";
 import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
-import { signupSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+import {
+  signupSchema,
+  SignupSchema,
+} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 import { useActionState, useRef } from "react";
 
 const dataInputsSignup = [
@@ -47,7 +50,7 @@ const Signup = () => {
     prevState: State,
     formData: FormData
   ): Promise<State> => {
-    const data = Object.fromEntries(formData.entries()) as any;
+    const data = Object.fromEntries(formData.entries()) as SignupSchema;
 
     const validationResult = signupSchema.safeParse(data);
     if (!validationResult.success) {
