@@ -1,16 +1,10 @@
 "use client";
 
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/useToast";
-import {
-  SignupSchema,
-  signupSchema,
-} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import { Button, InputFields } from "@/components/shared";
 import { signupAction } from "@/actions/auth/signupAction";
+import { Button, InputFields } from "@/components/shared";
+import { useToast } from "@/hooks/useToast";
+import { signupSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+import { useActionState, useRef } from "react";
 
 const dataInputsSignup = [
   {
@@ -39,60 +33,78 @@ const dataInputsSignup = [
   },
 ];
 
+type State = {
+  errors: Record<string, string[]>;
+  inputs: Record<string, string> | null;
+};
+const initialState: State = { errors: {}, inputs: null };
+
 const Signup = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-    reset,
-  } = useForm<SignupSchema>({
-    resolver: zodResolver(signupSchema),
-  });
-
   const { toast } = useToast();
+  const isAction = useRef(false);
 
-  const onSubmit = async (data: SignupSchema) => {
-    try {
-      const resp = await signupAction(data);
-      if (resp?.error) {
-        handleClientErrors<SignupSchema>(resp.error, setError);
-        return;
-      }
+  const signUpnUser = async (
+    prevState: State,
+    formData: FormData
+  ): Promise<State> => {
+    const data = Object.fromEntries(formData.entries()) as any;
 
+    const validationResult = signupSchema.safeParse(data);
+    if (!validationResult.success) {
+      return {
+        errors: validationResult.error.formErrors.fieldErrors,
+        inputs: data,
+      };
+    }
+
+    isAction.current = true;
+    const resp = await signupAction(validationResult.data);
+
+    if (resp?.validationErrors) {
+      return { errors: resp.validationErrors, inputs: data };
+    }
+
+    if (resp.catchError) {
+      toast({
+        title: "Błąd rejestracji",
+        description: resp?.catchError || "Coś poszło nie tak",
+        variant: "error",
+      });
+    }
+
+    if (resp.success) {
       toast({
         title: "Sukces",
         description:
           "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
         variant: "success",
       });
-      reset();
-    } catch (err: any) {
-      handleNextRedirectError(err);
-
-      toast({
-        title: "Błąd rejestracji",
-        description: err.message || "Coś poszło nie tak",
-        variant: "error",
-      });
     }
+
+    isAction.current = false;
+    return { errors: {}, inputs: resp.success ? null : data };
   };
+
+  const [state, formAction, isPending] = useActionState(
+    signUpnUser,
+    initialState
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold text-center">Załóż konto</h1>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 flex justify-center flex-col"
-        >
+        <form action={formAction}>
           <InputFields
             inputsData={dataInputsSignup}
-            register={register}
-            errorMsg={errors}
+            errorMsg={state.errors}
+            default={state?.inputs}
           />
-          <Button isLoading={isSubmitting} message="Załóż konto" />
+          <Button
+            isLoading={isAction.current && isPending}
+            message="Załóż konto"
+          />
         </form>
 
         <div className="flex flex-col space-y-4">

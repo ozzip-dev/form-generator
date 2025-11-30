@@ -386,7 +386,7 @@ type Props = {
   // onChange?: (name: string, value: string) => void | Promise<void>;
   onChange?: any;
   isLoading?: Record<string, boolean>;
-  default: any;
+  default?: any;
 };
 
 const InputFields = (props: Props) => {
@@ -415,7 +415,7 @@ const InputFields = (props: Props) => {
               <div className="flex">
                 <input
                   type={type}
-                  defaultValue={props.default[name] ? props.default[name] : ""}
+                  defaultValue={props.default ? props.default[name] : ""}
                   disabled={props.isLoading?.[name]}
                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
                     ${
