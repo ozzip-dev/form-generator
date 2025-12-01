@@ -1,12 +1,11 @@
 import { UserCommitteeInfo, UserSerialized } from "@/types/user";
-import ContactCommitteeItem from "./ContactCommitteeItem";
 import { FormType } from "@/enums/form";
 import { getTypeLabel } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { getFormsByType } from "@/services/form-service";
 import { getCommitteeMembers } from "@/services/user-service";
 import { serializeForm } from "@/lib/serialize-utils";
-import CommitteeHeaders from "./CommitteeContactsHeaders";
+import ContactList from "./ContactList";
 
 type Props = {
   committees: UserCommitteeInfo[]
@@ -30,22 +29,8 @@ const Contacts = async ({ committees, type }: Props) => {
         <span>Kontakty do komitetów związkowych, które mają doświadczenie w tworzeniu formularzy typu:</span>{" "}
         <span className="font-black">{getTypeLabel(type)}</span>
       </div>
-      <div
-        className="
-          *:grid *:grid-cols-[repeat(5,12rem)]
-          *:items-center
-        "
-      >
-        <CommitteeHeaders />
 
-        {committees.map((committee, i) => (
-          <ContactCommitteeItem
-            {...{committee, getForms}} 
-            key={i}
-
-          />
-        ))}
-      </div>
+      <ContactList {...{ committees, getForms }} />
     </div>
   );
 };
