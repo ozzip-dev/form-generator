@@ -16,14 +16,14 @@ export async function editInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }
-): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { error: any }> {
   await requireUser();
-  
+
   if (data.header || data.description) {
     const validationResult = editInputFormSchema.partial().safeParse(data);
 
     if (!validationResult.success) {
-      return { error: handleServerErrors(validationResult.error) };
+      return { error: validationResult.error.formErrors.fieldErrors };
     }
   }
   const formId = new ObjectId(formIdString);

@@ -74,7 +74,7 @@ const EditFormInput = (props: Props) => {
   };
 
   const methods = useForm<EditInputFormSchema>({
-    resolver: zodResolver(editInputFormSchema),
+    // resolver: zodResolver(editInputFormSchema),
     defaultValues,
     mode: "all",
   });
@@ -114,6 +114,8 @@ const EditFormInput = (props: Props) => {
     },
     null
   );
+
+  console.log("errors", errors);
 
   const handleEditType = (type: InputType) => {
     startTransition(() => {
