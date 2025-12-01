@@ -19,6 +19,11 @@ export const editInputFormSchema = z
           .trim()
           .min(2, "Min. 2 znaki w opcji")
           .max(200, "Maks. 200 znaków w opcji"),
+        label: z
+          .string()
+          .trim()
+          .min(2, "Min. 2 znaki w opcji")
+          .max(200, "Maks. 200 znaków w opcji"),
       })
     ),
   })

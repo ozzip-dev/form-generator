@@ -5,17 +5,13 @@ import {
   TextareaFields,
 } from "@/components/shared";
 import { InputType } from "@/enums";
-import { FormInput } from "@/types/input";
+import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 export const renderRadio = (
   { id, header, description, required, options }: FormInput,
   errors: FieldErrors<any>
 ) => {
-  const opts = options.map((option: string) => ({
-    label: option,
-    value: option,
-  }));
   return (
     <RadioGroupField
       key={id}
@@ -23,7 +19,7 @@ export const renderRadio = (
       label={header}
       description={description}
       required={required}
-      options={opts}
+      options={options}
       errorMsg={errors}
       optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
     />
@@ -91,9 +87,9 @@ export const renderCheckbox = (
   control: Control<any>
 ) => {
   const dataCheckboxOptions =
-    options.map((option: string) => ({
-      label: option,
-      name: option,
+    options.map((option: FormOption) => ({
+      label: option.label,
+      name: option.label,
       value: false,
     })) ?? [];
 

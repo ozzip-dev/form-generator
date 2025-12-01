@@ -6,6 +6,7 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
+import { makeId } from "@/lib/utils";
 
 type Props = {
   inputIdx: number;
@@ -64,7 +65,7 @@ const AddOption = (props: Props) => {
               inputsData={[
                 {
                   type: "text",
-                  name: `options.${idx}.value`,
+                  name: `options.${idx}.label`,
                   placeholder: `Opcja ${idx + 1}`,
                 },
               ]}
@@ -94,7 +95,7 @@ const AddOption = (props: Props) => {
             disabled={!!errors.options}
             onClickAction={() => {
               if (errors.options) return;
-              append({ value: "" });
+              append({ value: makeId(props.inputId) });
             }}
           />
         </div>

@@ -7,6 +7,12 @@ interface InputValidation {
   custom?: bool // fn returning bool?
 }
 
+export type FormOption = {
+  value: string
+  label: string
+  isOther?: boolean
+}
+
 export interface Input extends Document {
   id?: string /* template inputs only */
   type: InputType
@@ -14,7 +20,7 @@ export interface Input extends Document {
   description?: string
   // placeholder?: string // ?
   validation: InputValidation
-  options: string[]
+  options: FormOption[]
   template?: boolean
 }
 

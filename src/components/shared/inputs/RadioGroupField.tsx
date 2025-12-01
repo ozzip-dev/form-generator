@@ -42,7 +42,7 @@ const RadioGroupField = (props: Props) => {
 
       <div className={props.className}>
         {props.options.map((option) => {
-          const isChecked = selected === option.value;
+          const isChecked = selected === option.label;
 
           return (
             <label
@@ -53,7 +53,7 @@ const RadioGroupField = (props: Props) => {
               <input
                 {...register(props.name)}
                 type="radio"
-                value={option.value}
+                value={option.label}
                 className="hidden"
               />
               <span>{option.label}</span>

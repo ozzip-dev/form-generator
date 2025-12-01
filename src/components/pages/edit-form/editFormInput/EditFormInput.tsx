@@ -67,7 +67,7 @@ const EditFormInput = (props: Props) => {
   const defaultValues = {
     header,
     description,
-    options: options.map((option: string) => ({ value: option })) || [],
+    options,
     required: { inputReqired: required },
     unique: { inputUnique: unique },
     type,
