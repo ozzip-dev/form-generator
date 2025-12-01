@@ -56,7 +56,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
       return { errors: resp.validationErrors, inputs: data };
     }
 
-    if (resp.catchError) {
+    if (resp?.catchError) {
       toast({
         title: "Błąd zmiany hasła",
         description: resp.catchError || "Coś poszło nie tak",

@@ -71,7 +71,7 @@ const Login = () => {
       return { errors: resp.validationErrors, inputs: data };
     }
 
-    if (resp.catchError) {
+    if (resp?.catchError) {
       toast({
         title: "Błąd logowania",
         description: resp.catchError || "Coś poszło nie tak",

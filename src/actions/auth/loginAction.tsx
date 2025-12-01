@@ -7,7 +7,15 @@ import {
 } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import { redirect } from "next/navigation";
 
-export async function loginAction(data: LoginSchema) {
+type ActionResult = {
+  success: boolean;
+  validationErrors?: Record<string, string[]>;
+  catchError?: string;
+};
+
+export async function loginAction(
+  data: LoginSchema
+): Promise<ActionResult | void> {
   const validationResult = loginSchema.safeParse(data);
 
   if (!validationResult.success) {

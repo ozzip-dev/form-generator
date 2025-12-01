@@ -1,13 +1,12 @@
 "use server";
 
 import { auth } from "@/lib/auth/auth";
-import { forgotPasswordSchema } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
+import {
+  forgotPasswordSchema,
+  ForgotPasswordSchema,
+} from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 
-type FormData = {
-  email: string;
-};
-
-export async function forgotPasswordAction(data: FormData) {
+export async function forgotPasswordAction(data: ForgotPasswordSchema) {
   const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {

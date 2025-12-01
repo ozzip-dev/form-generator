@@ -1,13 +1,10 @@
 "use server";
 
 import { auth } from "@/lib/auth/auth";
-import { signupSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
-
-type SignupInput = {
-  email: string;
-  password: string;
-  name: string;
-};
+import {
+  signupSchema,
+  SignupSchema,
+} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 
 type ActionResult<T> = {
   success: boolean;
@@ -17,7 +14,7 @@ type ActionResult<T> = {
 };
 
 export async function signupAction(
-  data: SignupInput
+  data: SignupSchema
 ): Promise<ActionResult<null>> {
   const validationResult = signupSchema.safeParse(data);
 
