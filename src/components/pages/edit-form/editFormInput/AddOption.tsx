@@ -7,20 +7,21 @@ import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { makeId } from "@/lib/utils";
-import { isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
-import { FormOption } from "@/types/input";
+import { inputHasOther, isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
+import { FormInput, FormOption } from "@/types/input";
 
 type Props = {
   inputIdx: number;
-  inputId: string;
+  input: FormInput;
   header: string;
 };
 
 const AddOption = (props: Props) => {
+  const inputId = props.input.id!
   const formId = useSafeURLParam("formId");
   const [_, removeOption, isPending] = useActionState<null, string>(
     async (_state, optionName) => {
-      await removeInputOptionAction(formId!, props.inputId, optionName);
+      await removeInputOptionAction(formId!, inputId, optionName);
       return null;
     },
     null
@@ -28,7 +29,7 @@ const AddOption = (props: Props) => {
 
   const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
     async (_state) => {
-      await editInputOptionAction(formId!, props.inputId, 'Inne', OPTION_OTHER);
+      await editInputOptionAction(formId!, inputId, 'Inne', OPTION_OTHER);
       return null;
     },
     null
@@ -49,7 +50,7 @@ const AddOption = (props: Props) => {
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
-    inputId: props.inputId,
+    inputId,
     trigger,
     action: editInputOptionAction,
     mode: "inputOption",
@@ -112,7 +113,7 @@ const AddOption = (props: Props) => {
             disabled={!!errors.options}
             onClickAction={() => {
               if (errors.options) return;
-              append({ value: makeId(props.inputId) });
+              append({ value: makeId(inputId) });
             }}
           />
         </div>
@@ -122,7 +123,8 @@ const AddOption = (props: Props) => {
             type="button"
             onClickAction={() => {
               handleAddOther()
-            }}  
+            }}
+            disabled={inputHasOther(props.input)}
           />
         </div>
       </div>

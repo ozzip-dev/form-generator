@@ -7,6 +7,7 @@ import {
 import { db, updateById } from "@/lib/mongo";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { getFormById } from "@/services/form-service";
+import { checkInputHasOtherOption } from "@/services/input-service";
 import { requireUser } from "@/services/user-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
@@ -18,6 +19,9 @@ const editInputOptionAction = async (
   inputValue: string
 ): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
+
+  // TODO: opcja znika, potrzeba zrobic refresh karty
+  await checkInputHasOtherOption(formIdString, inputId)
 
   const formId = new ObjectId(formIdString);
   const form = await getFormById(formId.toString());

@@ -150,7 +150,7 @@ const EditFormInput = (props: Props) => {
               {(type === "checkbox" || type === "singleSelect") && (
                 <AddOption
                   inputIdx={props.inputIdx}
-                  inputId={inputId as string}
+                  input={props.input}
                   header={header}
                 />
               )}
