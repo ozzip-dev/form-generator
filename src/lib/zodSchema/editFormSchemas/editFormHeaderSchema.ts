@@ -11,7 +11,7 @@ export const editFormHeaderSchema = z.object({
     .trim()
     .min(2, { message: "Min. 2 litery" })
     .max(2000, { message: "Max. 2000 liter" }),
-  type: z.string().nonempty({ message: "Wymagane" }),
+  type: z.string().nonempty({ message: "Podaj kateogorię formularza" }),
 });
 
 export type EditFormHeaderSchema = z.infer<typeof editFormHeaderSchema>;

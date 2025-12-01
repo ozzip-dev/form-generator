@@ -17,8 +17,8 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
-const dataSelectOptions: { label: string, value: FormType | '' }[] = [
-  { label: "-- wybierz --", value: "" },
+const dataSelectOptions: { label: string; value: FormType | "" }[] = [
+  { label: "Brak kategorii", value: "" },
   { label: "Ankieta pracownicza", value: FormType.Survey },
   { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
   { label: "Referedum strajkowe", value: FormType.Strike },
@@ -62,10 +62,11 @@ export default function EditFormHeader(props: Props) {
 
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     trigger,
     setError,
   } = methods;
+  // console.log("registered fields:", methods.getValues());
 
   const { handleEdit, isLoading } = useEditForm({
     formId,

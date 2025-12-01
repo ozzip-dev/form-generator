@@ -46,7 +46,7 @@ const Signup = () => {
   const { toast } = useToast();
   const isAction = useRef(false);
 
-  const signUpnUser = async (
+  const signUpUser = async (
     prevState: State,
     formData: FormData
   ): Promise<State> => {
@@ -85,11 +85,11 @@ const Signup = () => {
     }
 
     isAction.current = false;
-    return { errors: {}, inputs: resp.success ? null : data };
+    return { errors: {}, inputs: data };
   };
 
   const [state, formAction, isPending] = useActionState(
-    signUpnUser,
+    signUpUser,
     initialState
   );
 

@@ -12,8 +12,15 @@ type FormData = {
 
 export async function resetPasswordAction(data: FormData) {
   const validationResult = resetPasswordSchema.safeParse(data);
+  // if (!validationResult.success) {
+  //   return { error: handleServerErrors(validationResult.error) };
+  // }
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return {
+      success: false,
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   try {
@@ -21,7 +28,10 @@ export async function resetPasswordAction(data: FormData) {
       body: { newPassword: data.password, token: data.token },
     });
   } catch (err: any) {
-    throw new Error(err?.message ?? "Nie można się wylogować");
+    return {
+      success: false,
+      catchError: `${err?.message}. Zmiana hasła się nie powiodła.`,
+    };
   }
 
   redirect("/login?resetPassword=success");

@@ -18,6 +18,8 @@ export async function editFormHeaderAction(
 ): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
+  console.log("updateData", updateData);
+
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
 
   if (!validationResult.success) {

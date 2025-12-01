@@ -29,16 +29,9 @@ export function useEditForm({
   const debounceMap = useRef(new Map<string, NodeJS.Timeout>());
 
   const modeHandlers = {
-    formHeader: (name: string, value: string) => [{ [name]: value.trim() }],
-    inputLabel: (name: string, value: string) => [
-      inputId!,
-      { [name]: value.trim() },
-    ],
-    inputOption: (name: string, value: string) => [
-      inputId!,
-      value.trim(),
-      name,
-    ],
+    formHeader: (name: string, value: string) => [{ [name]: value }],
+    inputLabel: (name: string, value: string) => [inputId!, { [name]: value }],
+    inputOption: (name: string, value: string) => [inputId!, value, name],
   } as const;
 
   const handleEdit = useCallback(
@@ -49,6 +42,7 @@ export function useEditForm({
       clearTimeout(debounceMap.current.get(key)!);
 
       const timeout = setTimeout(async () => {
+        console.log("www", name);
         if (trigger && !(await trigger(name))) {
           debounceMap.current.delete(key);
           return;

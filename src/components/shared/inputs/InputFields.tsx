@@ -1,87 +1,101 @@
-// "use client";
+"use client";
 
-// import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
-// import { DataLoader, InputError } from "../index";
+import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
+import { DataLoader, InputError } from "../index";
 
-// type Props = {
-//   inputsData: {
-//     label?: string;
-//     name: string;
-//     placeholder?: string;
-//     type: string;
-//     defaultValue?: string;
-//     description?: string;
-//     required?: boolean;
-//   }[];
-//   errorMsg?: FieldErrors<any> & {
-//     server?: Record<string, { message: string }>;
-//   };
-//   register?: UseFormRegister<any>;
-//   onChange?: (name: string, value: string) => void | Promise<void>;
-//   isLoading?: Record<string, boolean>;
-// };
+type Props = {
+  inputsData: {
+    label?: string;
+    name: string;
+    placeholder?: string;
+    type: string;
+    defaultValue?: string;
+    description?: string;
+    required?: boolean;
+  }[];
+  // errorMsg?: FieldErrors<any> & {
+  //   server?: Record<string, { message: string }>;
+  // };
 
-// const InputFields = (props: Props) => {
-//   return (
-//     <>
-//       {props.inputsData.map(
-//         ({
-//           label,
-//           name,
-//           placeholder,
-//           type,
-//           defaultValue,
-//           description,
-//           required,
-//         }) => {
-//           return (
-//             // TODO: make a separate component for input field
-//             <div key={name}>
-//               {label && (
-//                 <label className="text-lg block text-xl !important">
-//                   {label} {required && <span className="text-red-600">*</span>}
-//                 </label>
-//               )}
+  errorMsg?: any;
+  register?: UseFormRegister<any>;
+  onChange?: (name: string, value: string) => void | Promise<void>;
+  isLoading?: Record<string, boolean>;
+  default?: any;
+};
 
-//               {description && <div className="text-sm">{description}</div>}
-//               <div className="flex">
-//                 <input
-//                   type={type}
-//                   defaultValue={defaultValue ? defaultValue : ""}
-//                   disabled={props.isLoading?.[name]}
-//                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
-//                     ${
-//                       props.isLoading?.[name]
-//                         ? "opacity-50 cursor-not-allowed"
-//                         : ""
-//                     }
-//                   `}
-//                   placeholder={placeholder}
-//                   {...(props.register
-//                     ? props.register(name, {
-//                         onChange: (e) => props.onChange?.(name, e.target.value),
-//                       })
-//                     : {})}
-//                 />
+const InputFields = (props: Props) => {
+  return (
+    <>
+      {props.inputsData.map(
+        ({
+          label,
+          name,
+          placeholder,
+          type,
+          defaultValue,
+          description,
+          required,
+        }) => {
+          return (
+            // TODO: make a separate component for input field
+            <div key={name}>
+              {label && (
+                <label className="text-lg block text-xl !important">
+                  {label} {required && <span className="text-red-600">*</span>}
+                </label>
+              )}
 
-//                 {props.isLoading?.[name] && <DataLoader size="sm" />}
-//               </div>
+              {description && <div className="text-sm">{description}</div>}
+              <div className="flex">
+                <input
+                  type={type}
+                  // defaultValue={defaultValue ? defaultValue : ""}
+                  defaultValue={props.default ? props.default[name] : ""}
+                  disabled={props.isLoading?.[name]}
+                  className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
+                    ${
+                      props.isLoading?.[name]
+                        ? "opacity-50 cursor-not-allowed"
+                        : ""
+                    }
+                  `}
+                  placeholder={placeholder}
+                  {...(props.register && props.register(name))}
+                  onChange={(e) => {
+                    props.register && props.register(name).onChange(e);
+                    props.onChange?.(name, e.target.value);
+                  }}
+                  // {...(props.register
+                  //   ? props.register(name, {
+                  //       onChange: (e) => props.onChange?.(name, e.target.value),
+                  //     })
+                  //   : {})}
+                  name={name}
+                />
 
-//               <InputError
-//                 errorMsg={
-//                   (props.errorMsg?.[name]?.message as string) ||
-//                   (props.errorMsg as any)?.message
-//                 }
-//               />
-//             </div>
-//           );
-//         }
-//       )}
-//     </>
-//   );
-// };
+                {props.isLoading?.[name] && <DataLoader size="sm" />}
+              </div>
 
-// export default InputFields;
+              <InputError
+                errorMsg={
+                  (props.errorMsg?.[name]?.message as string) ||
+                  (props.errorMsg as any)?.message
+                }
+              />
+
+              <div className="text-red-500">
+                {props.errorMsg?.[name] && props.errorMsg?.[name][0]}
+              </div>
+            </div>
+          );
+        }
+      )}
+    </>
+  );
+};
+
+export default InputFields;
 
 // "use client";
 
@@ -362,100 +376,100 @@
 //   );
 // };
 
-"use client";
+// "use client";
 
-import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
-import { DataLoader, InputError } from "../index";
+// import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
+// import { DataLoader, InputError } from "../index";
 
-type Props = {
-  inputsData: {
-    label?: string;
-    name: string;
-    placeholder?: string;
-    type: string;
-    defaultValue?: string;
-    description?: string;
-    required?: boolean;
-  }[];
-  // errorMsg?: FieldErrors<any> & {
-  //   server?: Record<string, { message: string }>;
-  // };
+// type Props = {
+//   inputsData: {
+//     label?: string;
+//     name: string;
+//     placeholder?: string;
+//     type: string;
+//     defaultValue?: string;
+//     description?: string;
+//     required?: boolean;
+//   }[];
+//   // errorMsg?: FieldErrors<any> & {
+//   //   server?: Record<string, { message: string }>;
+//   // };
 
-  errorMsg?: any;
-  register?: UseFormRegister<any>;
-  // onChange?: (name: string, value: string) => void | Promise<void>;
-  onChange?: any;
-  isLoading?: Record<string, boolean>;
-  default?: any;
-};
+//   errorMsg?: any;
+//   register?: UseFormRegister<any>;
+//   // onChange?: (name: string, value: string) => void | Promise<void>;
+//   onChange?: any;
+//   isLoading?: Record<string, boolean>;
+//   default?: any;
+// };
 
-const InputFields = (props: Props) => {
-  return (
-    <>
-      {props.inputsData.map(
-        ({
-          label,
-          name,
-          placeholder,
-          type,
-          defaultValue,
-          description,
-          required,
-        }) => {
-          return (
-            // TODO: make a separate component for input field
-            <div key={name}>
-              {label && (
-                <label className="text-lg block text-xl !important">
-                  {label} {required && <span className="text-red-600">*</span>}
-                </label>
-              )}
+// const InputFields = (props: Props) => {
+//   return (
+//     <>
+//       {props.inputsData.map(
+//         ({
+//           label,
+//           name,
+//           placeholder,
+//           type,
+//           defaultValue,
+//           description,
+//           required,
+//         }) => {
+//           return (
+//             // TODO: make a separate component for input field
+//             <div key={name}>
+//               {label && (
+//                 <label className="text-lg block text-xl !important">
+//                   {label} {required && <span className="text-red-600">*</span>}
+//                 </label>
+//               )}
 
-              {description && <div className="text-sm">{description}</div>}
-              <div className="flex">
-                <input
-                  type={type}
-                  defaultValue={props.default ? props.default[name] : ""}
-                  disabled={props.isLoading?.[name]}
-                  className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
-                    ${
-                      props.isLoading?.[name]
-                        ? "opacity-50 cursor-not-allowed"
-                        : ""
-                    }
-                  `}
-                  placeholder={placeholder}
-                  {...(props.register
-                    ? props.register(name, {
-                        onChange: (e) => props.onChange?.(name, e.target.value),
-                      })
-                    : {})}
-                  onChange={(e) => props.onChange?.(name, e.target.value)}
-                  name={name}
-                />
+//               {description && <div className="text-sm">{description}</div>}
+//               <div className="flex">
+//                 <input
+//                   type={type}
+//                   defaultValue={props.default ? props.default[name] : ""}
+//                   disabled={props.isLoading?.[name]}
+//                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
+//                     ${
+//                       props.isLoading?.[name]
+//                         ? "opacity-50 cursor-not-allowed"
+//                         : ""
+//                     }
+//                   `}
+//                   placeholder={placeholder}
+//                   {...(props.register
+//                     ? props.register(name, {
+//                         onChange: (e) => props.onChange?.(name, e.target.value),
+//                       })
+//                     : {})}
+//                   onChange={(e) => props.onChange?.(name, e.target.value)}
+//                   name={name}
+//                 />
 
-                {props.isLoading?.[name] && <DataLoader size="sm" />}
-              </div>
+//                 {props.isLoading?.[name] && <DataLoader size="sm" />}
+//               </div>
 
-              <InputError
-                errorMsg={
-                  (props.errorMsg?.[name]?.message as string) ||
-                  (props.errorMsg as any)?.message
-                }
-              />
+//               <InputError
+//                 errorMsg={
+//                   (props.errorMsg?.[name]?.message as string) ||
+//                   (props.errorMsg as any)?.message
+//                 }
+//               />
 
-              <div className="text-red-500">
-                {props.errorMsg?.[name] && props.errorMsg?.[name][0]}
-              </div>
-            </div>
-          );
-        }
-      )}
-    </>
-  );
-};
+//               <div className="text-red-500">
+//                 {props.errorMsg?.[name] && props.errorMsg?.[name][0]}
+//               </div>
+//             </div>
+//           );
+//         }
+//       )}
+//     </>
+//   );
+// };
 
-export default InputFields;
+// export default InputFields;
 
 import React from "react";
 
