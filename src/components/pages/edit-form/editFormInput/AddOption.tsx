@@ -7,6 +7,8 @@ import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { makeId } from "@/lib/utils";
+import { isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
+import { FormOption } from "@/types/input";
 
 type Props = {
   inputIdx: number;
@@ -16,9 +18,17 @@ type Props = {
 
 const AddOption = (props: Props) => {
   const formId = useSafeURLParam("formId");
-  const [state, removeOption, isPending] = useActionState<null, string>(
+  const [_, removeOption, isPending] = useActionState<null, string>(
     async (_state, optionName) => {
       await removeInputOptionAction(formId!, props.inputId, optionName);
+      return null;
+    },
+    null
+  );
+
+  const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
+    async (_state) => {
+      await editInputOptionAction(formId!, props.inputId, 'Inne', OPTION_OTHER);
       return null;
     },
     null
@@ -53,12 +63,19 @@ const AddOption = (props: Props) => {
     });
   };
 
+  const handleAddOther = () => {
+    startTransition(() => {
+      addOtherOption();
+      append({ value: OPTION_OTHER, label: 'Inne' });
+    });
+  };
+
   const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
-      {(isPending || isAnyLoading) && <FullscreenLoader />}
-      {fields.map((field, idx) => {
+      {(isPending || isAddOptionPending || isAnyLoading) && <FullscreenLoader />}
+      {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         return (
           <div key={field.id} className="flex gap-2 items-center">
             <InputFields
@@ -66,12 +83,12 @@ const AddOption = (props: Props) => {
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: `Opcja ${idx + 1}`,
+                  placeholder: isOptionOther(field as unknown as FormOption) ? 'Inne' : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.value}
-              onChange={(_, value) => handleEdit(`options.${idx}.value`, value)}
+              onChange={(_, value) => handleEdit(field.value as string, value)}
             />
 
             <div className="w-fit ml-2">
@@ -100,7 +117,13 @@ const AddOption = (props: Props) => {
           />
         </div>
         <div className="w-fit">
-          <Button message="Dodaj inne" type="button" />
+          <Button
+            message="Dodaj inne"
+            type="button"
+            onClickAction={() => {
+              handleAddOther()
+            }}  
+          />
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import {
   ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, updateById } from "@/lib/mongo";
-import { makeId } from "@/lib/utils";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { getFormById } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
@@ -16,13 +15,11 @@ const editInputOptionAction = async (
   formIdString: string,
   inputId: string,
   optionValue: string,
-  name: string
+  inputValue: string
 ): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
 
-  const index: number = Number(name.split(".")[1]);
   const formId = new ObjectId(formIdString);
-
   const form = await getFormById(formId.toString());
   const { inputs } = form;
   const { options } = inputs.find(({ id }) => id == inputId)!;
@@ -33,13 +30,15 @@ const editInputOptionAction = async (
     return { error: handleServerErrors(validationResult.error) };
   }
 
+  const editedOption = options.find(({ value }) => value == inputValue)
+
   let mappedOptions = options;
 
-  if (!options[index]) {
-    mappedOptions.push({ value: makeId(inputId), label: optionValue });
+  if (!editedOption) {
+    mappedOptions.push({ value: inputValue, label: optionValue });
   } else {
     mappedOptions = options.map((option, i) => {
-      if (i != index) return option;
+      if (option.value != inputValue) return option;
       return {
         ...option,
         label: optionValue
