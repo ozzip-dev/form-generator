@@ -47,6 +47,7 @@ export const createdFormSchema = (inputs: any[]) => {
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .nullable()
               .refine((val) => val !== null && val !== "", "Jedna opcja")
           : z.string().nullable().optional();
@@ -56,6 +57,7 @@ export const createdFormSchema = (inputs: any[]) => {
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .email("Format email")
               .nullable()
               .refine((val) => val !== null && val !== "", "Pole wymagane")
@@ -66,6 +68,7 @@ export const createdFormSchema = (inputs: any[]) => {
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .nullable()
               .refine((val) => !isNaN(Date.parse(val!)), "Data")
           : z.string().optional();
@@ -74,7 +77,7 @@ export const createdFormSchema = (inputs: any[]) => {
       default:
         shape[fieldName] = input.required
           ? z.string().trim().min(1, "Pole wymagane")
-          : z.string().optional();
+          : z.string().trim().optional();
         break;
     }
   });

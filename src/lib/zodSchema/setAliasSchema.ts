@@ -3,6 +3,7 @@ import { z } from "zod";
 export const setAliasSchema = z.object({
   url: z
     .string()
+    .trim()
     .min(2, { message: "Min. 2 znaki" })
     .max(20, { message: "Max. 20 znaków" }),
 });
