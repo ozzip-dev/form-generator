@@ -77,18 +77,23 @@ const AddOption = (props: Props) => {
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
       {(isPending || isAddOptionPending || isAnyLoading) && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
+        const isOther = isOptionOther(field as unknown as FormOption)
         return (
-          <div key={field.id} className="flex gap-2 items-center">
+          <div
+            key={field.id}
+            className="flex gap-2 items-center"
+            style={isOther ? { padding: '2px', backgroundColor: 'lightskyblue' } : {}}
+          >
             <InputFields
               inputsData={[
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: isOptionOther(field as unknown as FormOption) ? 'Inne' : `Opcja ${idx + 1}`,
+                  placeholder: isOther ? 'Inne' : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
-              errorMsg={(errors.options as any)?.[idx]?.value}
+              errorMsg={(errors.options as any)?.[idx]?.label}
               onChange={(_, value) => handleEdit(field.value as string, value)}
             />
 

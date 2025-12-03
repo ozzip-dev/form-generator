@@ -60,7 +60,6 @@ export function useEditForm({
           const args = modeHandlers[mode](name, value);
 
           const resp = await action(formId, ...args);
-          console.log(args)
 
           if (resp?.error && setError) {
             handleClientErrors<AddFormFieldSchema>(resp.error, setError);

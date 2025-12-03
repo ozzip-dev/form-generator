@@ -1,8 +1,10 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputError from "./InputError";
+import { isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
+import OtherOptionInput from "./selectField/OtherOptionInput";
 
 type Option = {
   label: string;
@@ -11,6 +13,7 @@ type Option = {
 
 type Props = {
   name: string;
+  value?: string;
   label?: string;
   description?: string;
   required?: boolean;
@@ -25,7 +28,10 @@ const RadioGroupField = (props: Props) => {
     register,
     watch,
     formState: { errors },
+    setValue,
   } = useFormContext();
+  // TODO: jakos prosciej
+  const [optionClicked, setOptionClicked] = useState<string>('')
 
   const selected = watch(props.name);
   const errorMsg = (errors[props.name]?.message as string) || "";
@@ -42,22 +48,36 @@ const RadioGroupField = (props: Props) => {
 
       <div className={props.className}>
         {props.options.map((option) => {
-          const isChecked = selected === option.label;
+          const isOtherSelected = optionClicked == OPTION_OTHER;
+          const isChecked = isOptionOther(option) ? optionClicked == OPTION_OTHER : selected === option.label;
 
           return (
-            <label
+            <div
               key={option.value}
-              className={props.optionClass}
-              data-checked={isChecked}
+              className="flex gap-4 items-center"
             >
-              <input
-                {...register(props.name)}
-                type="radio"
-                value={option.label}
-                className="hidden"
-              />
-              <span>{option.label}</span>
-            </label>
+              <label
+                className={props.optionClass}
+                data-checked={isChecked}
+              >
+                <input
+                  {...register(props.name)}
+                  type="radio"
+                  value={option.label}
+                  className="hidden"
+                  onClick={() => setOptionClicked(option.value)}
+                />
+                <span>{option.label}</span>
+              </label>
+
+              {isOptionOther(option) &&   
+                <OtherOptionInput
+                  name={props.name}
+                  setValue={setValue}
+                  disabled={!isOtherSelected}  
+                />
+              }
+            </div>
           );
         })}
       </div>

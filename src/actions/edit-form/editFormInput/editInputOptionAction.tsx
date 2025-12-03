@@ -20,9 +20,6 @@ const editInputOptionAction = async (
 ): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
 
-  // TODO: opcja znika, potrzeba zrobic refresh karty
-  await checkInputHasOtherOption(formIdString, inputId)
-
   const formId = new ObjectId(formIdString);
   const form = await getFormById(formId.toString());
   const { inputs } = form;
@@ -39,6 +36,9 @@ const editInputOptionAction = async (
   let mappedOptions = options;
 
   if (!editedOption) {
+    // TODO: opcja znika, potrzeba zrobic refresh karty
+    await checkInputHasOtherOption(formIdString, inputId)
+    
     mappedOptions.push({ value: inputValue, label: optionValue });
   } else {
     mappedOptions = options.map((option, i) => {

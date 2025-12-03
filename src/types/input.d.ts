@@ -10,7 +10,6 @@ interface InputValidation {
 export type FormOption = {
   value: string
   label: string
-  isOther?: boolean
 }
 
 export interface Input extends Document {
