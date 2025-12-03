@@ -58,9 +58,9 @@ const AddOption = (props: Props) => {
   });
 
   const handleDeleteOption = (optionName: string, idx: number) => {
+    remove(idx);
     startTransition(() => {
       removeOption(optionName);
-      remove(idx);
     });
   };
 
@@ -115,7 +115,7 @@ const AddOption = (props: Props) => {
           <Button
             message={"Dodaj opcję"}
             type="button"
-            disabled={!!errors.options}
+            disabled={!!errors.options || inputHasOther(props.input)}
             onClickAction={() => {
               if (errors.options) return;
               append({ value: makeId(inputId) });
