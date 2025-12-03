@@ -180,7 +180,7 @@ const AddProtocolForm = () => {
     onDrop,
     onDropRejected,
     maxFiles: 3,
-    maxSize: 1024 * 1024 * 2,
+    maxSize: 1024 * 1024 * 3,
     accept: { "image/*": [] },
   });
 
@@ -224,7 +224,7 @@ const AddProtocolForm = () => {
             {files.map(({ id, objectUrl, file }, idx) => {
               return (
                 <div key={idx} className="w-[4rem]  h-[4rem] relative">
-                  <button onClick={handleDelete}>
+                  <button onClick={handleDelete} disabled={isPending}>
                     <IconTrash style="h-5 w-5 bg-red-500 absolute -right-5" />
                   </button>
 
