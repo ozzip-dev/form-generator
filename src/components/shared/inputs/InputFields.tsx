@@ -80,7 +80,8 @@ const InputFields = (props: Props) => {
               <InputError
                 errorMsg={
                   (props.errorMsg?.[name]?.message as string) ||
-                  (props.errorMsg as any)?.message
+                  (props.errorMsg as any)?.message ||
+                  (props.errorMsg?.[name] && props.errorMsg?.[name][0])
                 }
               />
 
