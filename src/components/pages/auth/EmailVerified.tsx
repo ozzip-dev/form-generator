@@ -1,13 +1,10 @@
 import { ButtonLink } from "@/components/shared";
-import { CheckCircle2 } from "lucide-react";
 
 const EmailVerified = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
       <div className="w-full max-w-md p-8 space-y-6 text-center bg-white rounded-lg shadow-md">
-        <div className="flex justify-center">
-          <CheckCircle2 className="w-16 h-16 text-green-500" />
-        </div>
+        <div className="flex justify-center"></div>
 
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
           Email zweryfikowany!

@@ -1,14 +1,16 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { serializeForm } from "@/lib/serialize-utils";
+import {
+  handleServerErrors,
+  ModelFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
-import { addFormFieldSchema } from "@/lib/zodSchema/addFormFieldSchema";
-import { Form, FormSerialized } from "@/types/form";
+import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
+import { requireUser } from "@/services/user-service";
+import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import { Document, ObjectId, UpdateResult, WithId } from "mongodb";
+import { Document, ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
-import { requireUser } from "@/services/queries/requireUser";
 
 function makeId(header: string): string {
   return `${header.trim().toLowerCase()}-${Math.round(
@@ -43,7 +45,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<FormSerialized | { error: string } | { error: any }> {
+): Promise<void | { error: ModelFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;
@@ -53,39 +55,32 @@ export async function addFormFieldAction(
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  try {
-    const draft = await findById<Form>(db, "form", new ObjectId(formId));
-    if (!draft) {
-      return { error: "Nie znaleziono formularza" };
-    }
-
-    const order = getNextOrder(draft as Form);
-    const inputData = mapInputDocToFormInputData(input, order);
-
-    const result: WithId<Document> | null = await updateById(
-      db,
-      "form",
-      new ObjectId(formId),
-      {
-        $push: {
-          inputs: {
-            ...inputData,
-          },
-        },
-        $set: {
-          updatedAt: new Date(),
-        },
-      }
-    );
-
-    if (!result) {
-      return { error: "Nie udało się zaktualizować formularza" };
-    }
-    revalidateTag(`form-${formId}`);
-
-    return serializeForm(result as Form);
-  } catch (err: any) {
-    console.error("Błąd AddFormFieldAction:", err);
-    throw new Error(`Błąd: ${err}`);
+  const draft = await findById<Form>(db, "form", new ObjectId(formId));
+  if (!draft) {
+    throw new Error("Nie znaleziono formularza");
   }
+
+  const order = getNextOrder(draft as Form);
+  const inputData = mapInputDocToFormInputData(input, order);
+
+  const result: WithId<Document> | null = await updateById(
+    db,
+    "form",
+    new ObjectId(formId),
+    {
+      $push: {
+        inputs: {
+          ...inputData,
+        },
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    }
+  );
+
+  if (!result) {
+    throw new Error("Nie udało się dodać pola formularza");
+  }
+  revalidateTag(`form-${formId}`);
 }

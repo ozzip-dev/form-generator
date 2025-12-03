@@ -1,18 +1,7 @@
 import UserSettings from "@/components/pages/user-settings/UserSettings";
-import { requireUser } from "@/services/queries/requireUser";
 
 const UserSettingsPage = async () => {
-  const user = await requireUser();
-
-  console.log("", user.name);
-
-  return <UserSettings contactDetails={{ committeeUnion: user.name }} />;
-
-  // if ((user.name = "ggg aaa")) {
-  //   <Settings contactDetails={{ committeeUnion: user.name }} />;
-  // } else {
-  //   <Settings contactDetails={{ committeeUnion: user.name }} />;
-  // }
+  return <UserSettings />;
 };
 
 export default UserSettingsPage;

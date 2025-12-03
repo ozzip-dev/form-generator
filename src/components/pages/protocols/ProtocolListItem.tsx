@@ -4,7 +4,7 @@ import { Binary } from "mongodb";
 import { mapFileExtensionName } from "./utils";
 import { ProtocolSerialized } from "@/types/protocol";
 import { convertBToKB } from "@/lib/utils";
-import { formatDateAndHour } from "@/helpers/dates/formatDateAndHour";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { Button } from "@/components/shared";
 
 const getFileBlob = (data: Binary, type: string): Blob => {
@@ -46,7 +46,7 @@ const ProtocolListItem = ({
       <div>{name}</div>
       <div>{mapFileExtensionName(type)}</div>
       <div>{convertBToKB(size)} KB</div>
-      <div>{formatDateAndHour(uploadedAt)}</div>
+      <div>{formatDateAndTime(uploadedAt)}</div>
       <div>
         <Button
           message="Pobierz"

@@ -8,11 +8,11 @@ import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
   AddFormFieldSchema,
-} from "@/lib/zodSchema/addFormFieldSchema";
+} from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 
 const dataSelectOptions = [
@@ -38,6 +38,13 @@ const AddFormField = () => {
   const inputTypes = Object.values(InputType);
   const { formId } = useParams();
 
+  const methods = useForm<AddFormFieldSchema>({
+    resolver: zodResolver(addFormFieldSchema),
+    defaultValues: {
+      type: "text",
+    },
+  });
+
   const {
     control,
     register,
@@ -45,12 +52,8 @@ const AddFormField = () => {
     setError,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<AddFormFieldSchema>({
-    resolver: zodResolver(addFormFieldSchema),
-    defaultValues: {
-      type: "text",
-    },
-  });
+  } = methods;
+
   const { showBoundary } = useErrorBoundary();
 
   const onSubmit = async (data: AddFormFieldSchema) => {
@@ -73,30 +76,30 @@ const AddFormField = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex mb-6 px-4">
-      {isSubmitting && <FullscreenLoader />}
-      <div className="flex mb-6">
-        <InputFields
-          inputsData={dataInputsheader}
-          register={register}
-          errorMsg={errors}
-        />
-
-        <div className="w-48 flex justify-center">
-          <SelectFieldControler
-            name="type"
-            control={control}
-            placeholder="Wybierz"
-            defaultValue="text"
-            options={dataSelectOptions}
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex mb-6 px-4">
+        {isSubmitting && <FullscreenLoader />}
+        <div className="flex mb-6">
+          <InputFields
+            inputsData={dataInputsheader}
+            register={register}
+            errorMsg={errors}
           />
-        </div>
 
-        <div className="w-fit">
-          <Button icon={<IconPlus style="h-7 w-7 bg-white" />} />
+          <div className="w-48 flex justify-center">
+            <SelectFieldControler
+              name="type"
+              defaultValue="text"
+              options={dataSelectOptions}
+            />
+          </div>
+
+          <div className="w-fit">
+            <Button icon={<IconPlus style="h-7 w-7 bg-white" />} />
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 };
 

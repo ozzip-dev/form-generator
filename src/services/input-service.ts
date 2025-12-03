@@ -3,6 +3,7 @@ import { findById, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
+import { setFormUpdatedAtDate } from "./form-service";
 
 function getFormInputById(
   inputs: FormInput[],
@@ -62,6 +63,8 @@ export async function removeInputFromDraft(
     formId,
     inputId
   )
+
+  await setFormUpdatedAtDate(formId)
 
   return (await updateById<Form>(
     db,
@@ -127,6 +130,8 @@ export async function moveInputUp(
     }
   )
 
+  await setFormUpdatedAtDate(formId)
+
   const updatedForm = await findById<Form>(db, 'form', formId)
   return updatedForm! /* we check earlier if form exists */
 }
@@ -179,6 +184,8 @@ export async function moveInputDown(
     }
   )
 
+  await setFormUpdatedAtDate(formId)
+
   const updatedForm = await findById<Form>(db, 'form', formId)
   return updatedForm! /* we check earlier if form exists */
 }
@@ -203,6 +210,8 @@ export async function toggleRequired(
       },
     }
   )
+
+  await setFormUpdatedAtDate(formId)
 }
 
 export async function toggleUnique(
@@ -225,6 +234,8 @@ export async function toggleUnique(
       },
     }
   )
+
+  await setFormUpdatedAtDate(formId)
 }
 
 export async function updateFormInputTexts(
@@ -254,6 +265,8 @@ export async function updateFormInputTexts(
       },
     }
   )
+
+  await setFormUpdatedAtDate(formId)
 }
 
 export async function updateFormInputType(
@@ -278,4 +291,6 @@ export async function updateFormInputType(
       },
     }
   )
+
+  await setFormUpdatedAtDate(formId)
 }

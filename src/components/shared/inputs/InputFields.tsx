@@ -38,10 +38,7 @@ const InputFields = (props: Props) => {
             // TODO: make a separate component for input field
             <div key={name}>
               {label && (
-                <label
-                  htmlFor={name}
-                  className="text-lg block text-xl !important"
-                >
+                <label className="text-lg block text-xl !important">
                   {label} {required && <span className="text-red-600">*</span>}
                 </label>
               )}
@@ -50,7 +47,6 @@ const InputFields = (props: Props) => {
               <div className="flex">
                 <input
                   type={type}
-                  id={name}
                   defaultValue={defaultValue ? defaultValue : ""}
                   disabled={props.isLoading?.[name]}
                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1

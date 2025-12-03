@@ -1,8 +1,8 @@
-import { getFormsLst } from "@/services/queries/getFormsList";
+import { getSerializedFormList } from "@/services/form-service";
 import FormLink from "./FormLink";
 
 const FormsLIst = async () => {
-  const forms = await getFormsLst();
+  const forms = await getSerializedFormList();
 
   if (!forms || forms.length === 0) {
     return <div>Brak zapisanych formularzy</div>;

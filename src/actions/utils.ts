@@ -7,9 +7,7 @@ export const checkFormHasInputWithId = (
   inputId: string
 ): boolean => {
   if (!formHasInputWithId(db, formId, inputId)) {
-    // TODO: or throw error?
-    console.error(`Form doesn\'t contain input: ${inputId}`);
-    return false;
+    throw new Error(`Form doesn\'t contain input: ${inputId}`);
   }
   return true;
-}
+};

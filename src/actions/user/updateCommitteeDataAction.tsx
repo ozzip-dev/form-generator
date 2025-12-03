@@ -1,15 +1,33 @@
 "use server";
 
+import {
+  handleServerErrors,
+  ModelFieldErrors,
+} from "@/helpers/helpersValidation/handleFormErrors";
 import { db, updateById } from "@/lib/mongo";
-import { ObjectId } from "mongodb";
 import { isModerator } from "@/lib/utils";
+import {
+  UserDetailsSchema,
+  userDetailsSchema,
+} from "@/lib/zodSchema/userDetailsShema";
+import { requireUser } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
-import { requireUser } from "@/services/queries/requireUser";
+import { ObjectId } from "mongodb";
+import { revalidatePath } from "next/cache";
 
-export async function updateCommitteeDataAction(data: FormData): Promise<void> {
+export async function updateCommitteeDataAction(
+  data: UserDetailsSchema
+): Promise<void | { error: ModelFieldErrors }> {
+  const user = await requireUser();
+
+  const validationResult = userDetailsSchema.safeParse(data);
+  if (!validationResult.success) {
+    return { error: handleServerErrors(validationResult.error) };
+  }
+
   const updateData: Partial<UserCommitteeInfo> = {};
 
-  Array.from(data.entries())
+  Object.entries(data)
     .filter(([_, value]) => value)
     .forEach(([key, value]) => {
       if (typeof value === "string") {
@@ -17,7 +35,6 @@ export async function updateCommitteeDataAction(data: FormData): Promise<void> {
       }
     });
 
-  const user = await requireUser();
   const userId = new ObjectId(user.id);
 
   if (!user || !isModerator(user as IUser)) {
@@ -29,4 +46,6 @@ export async function updateCommitteeDataAction(data: FormData): Promise<void> {
       ...updateData,
     },
   });
+
+  revalidatePath("/user-settings");
 }

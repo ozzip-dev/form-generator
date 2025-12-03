@@ -1,7 +1,9 @@
 "use client";
 
 import { ButtonLink } from "@/components/shared";
+import { useUser } from "@/context/UserContextProvider";
 import { usePathname } from "next/navigation";
+import { use } from "react";
 
 const dataNavLinks = [
   { text: "Formularze", link: "/dashboard-moderator" },
@@ -12,6 +14,10 @@ const dataNavLinks = [
 
 const DashboardMenu = () => {
   const pathname = usePathname();
+  const { userPromise } = useUser();
+  const user = use(userPromise);
+
+  if (!user || user.role === "admin") return;
 
   return (
     <ul className="flex items-center p-4 ">

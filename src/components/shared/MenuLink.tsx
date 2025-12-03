@@ -11,6 +11,7 @@ type Props = {
 const MenuLink = ({ text, link }: Props) => {
   const pathname = usePathname();
   const isActive = pathname === link;
+  const isPreview = text === "Podgląd" // TODO: add 'id' param to menu and check id == preview
 
   return (
     <li
@@ -23,8 +24,8 @@ const MenuLink = ({ text, link }: Props) => {
       <ButtonLink
         message={text}
         link={link}
-        target={text === "Podgląd" ? "_blank" : "_self"}
-        rel={text === "Podgląd" ? "noopener noreferrer" : undefined}
+        target={isPreview ? "_blank" : "_self"}
+        rel={isPreview ? "noopener noreferrer" : undefined}
       />
     </li>
   );

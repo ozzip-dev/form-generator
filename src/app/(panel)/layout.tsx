@@ -1,22 +1,31 @@
-import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
-import { requireUser } from "@/services/queries/requireUser";
+import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
+import { SuspenseErrorBoundary } from "@/components/shared";
+import IsUserModal from "@/components/shared/IsUserModal";
+import { UserContextProvider } from "@/context/UserContextProvider";
+import { getUser } from "@/services/user-service";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await requireUser();
+  const userPromise = getUser();
 
   return (
     <>
-      <header className="bg-gray-50">
-        <DashboardTopBar user={user} />
-        {user?.role === "moderator" && <DashboardMenu />}
-      </header>
+      <UserContextProvider userPromise={userPromise}>
+        <IsUserModal />
 
-      <main>{children}</main>
+        <header className="bg-gray-50">
+          <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
+            <DashboardTopBar />
+            <DashboardMenu />
+          </SuspenseErrorBoundary>
+        </header>
+
+        <main>{children}</main>
+      </UserContextProvider>
     </>
   );
 }

@@ -1,19 +1,56 @@
 "use client";
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
-import {
-  Button,
-  CheckboxGroupField,
-  InputFields,
-  RadioGroupField,
-  TextareaFields,
-} from "@/components/shared";
+import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { JSX, useEffect, useState } from "react";
+import {
+  Control,
+  FieldErrors,
+  FormProvider,
+  useForm,
+  UseFormRegister,
+} from "react-hook-form";
+import {
+  renderCheckbox,
+  renderInput,
+  renderRadio,
+  renderTextarea,
+} from "./CreatedFormFields";
+import SuccesMsg from "./SuccesMsg";
+import { FormInput } from "@/types/input";
+
+type FieldRenderer = (
+  input: FormInput,
+  errors: FieldErrors<any>,
+  register: UseFormRegister<any>,
+  control: Control<any>
+) => JSX.Element;
+
+const defaultValues = (inputs: FormInput[]) => {
+  const transformedInputs = inputs.reduce((acu: any, input: any) => {
+    const { type, options, id } = input;
+
+    if (type === "checkbox") {
+      acu[id] =
+        options && Array.isArray(options) && options.length > 0
+          ? options.reduce((acu: Record<string, boolean>, option: string) => {
+              acu[option] = false;
+
+              return acu;
+            }, {})
+          : {};
+    } else acu[id] = "";
+
+    return acu;
+  }, {});
+
+  return transformedInputs;
+};
 
 type Props = {
   form: FormSerialized;
@@ -24,45 +61,22 @@ const CreatedForm = (props: Props) => {
   const { title, description, inputs } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
-  // console.log("", inputs);
-
-  const defaultValues = inputs.reduce((acu: any, input: any) => {
-    const { header, type, options } = input;
-    const inputLabel = header;
-
-    const inputOptions = options.reduce(
-      (acu: Record<string, boolean>, option: string) => {
-        acu[option] = false;
-
-        return acu;
-      },
-      {}
-    );
-
-    const checkboxOptions = (acu[inputLabel] =
-      type === "checkbox" ? inputOptions : "");
-
-    return acu;
-  }, {});
+  const [isSuccess, setSuccess] = useState(false);
 
   const methods = useForm({
-    defaultValues,
+    defaultValues: defaultValues(inputs),
     resolver: zodResolver(schema),
     mode: "all",
   });
 
   const {
     register,
-    reset,
-    formState: { errors },
-    trigger,
+    formState: { errors, isSubmitting },
     control,
-    setError,
     watch,
     handleSubmit,
+    reset,
   } = methods;
-
-  // console.log("er", errors);
 
   // useEffect(() => {
   //   const subscription = watch((values) => {
@@ -72,8 +86,7 @@ const CreatedForm = (props: Props) => {
   // }, [watch]);
 
   const onSubmit = async (data: any) => {
-    console.log("sss", data);
-
+    console.log("", data);
     const _id = props.form._id?.toString();
     if (!_id) return; // ?
 
@@ -86,10 +99,8 @@ const CreatedForm = (props: Props) => {
 
     try {
       await submitFormAction(_id, data);
-      toast({
-        title: "Sukces! Dzieki",
-        variant: "success",
-      });
+      setSuccess(true);
+      reset();
     } catch (e) {
       console.log("blad ", e);
       const err = e as Error;
@@ -104,113 +115,30 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  // console.log("", props.form);
+  const fieldRenderers: Record<string, FieldRenderer> = {
+    text: renderInput,
+    superText: renderTextarea,
+    number: renderInput,
+    email: renderInput,
+    date: renderInput,
+    singleSelect: renderRadio,
+    checkbox: renderCheckbox,
+  };
 
   const formFields = inputs
-    .sort((a: any, b: any) => a.order - b.order)
-    .map(
-      ({ type, header, description, required, options, id }: any, idx: number) => {
-        if (type === "checkbox") {
-          const dataCheckboxOptions = options?.map((option: string) => {
-            return { label: option, name: option, value: false };
-          });
-
-          return (
-            <CheckboxGroupField
-              key={idx}
-              label={header}
-              required={required}
-              description={description}
-              name={id}
-              options={dataCheckboxOptions}
-              control={control}
-              errorMsg={errors}
-            />
-          );
-        } else if (type === "singleSelect") {
-          const dataRadioOoptions = options?.map((option: any) => {
-            return { label: option, value: option };
-          });
-
-          return (
-            <RadioGroupField
-              key={idx}
-              name={id}
-              label={header}
-              description={description}
-              required={required}
-              options={dataRadioOoptions}
-              errorMsg={errors}
-              optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
-            />
-          );
-        } else if (type === "superText") {
-          const dataInputTextarea = [
-            {
-              label: header,
-              name: header,
-              placeholder: "Odpowiedź",
-              description,
-              required,
-            },
-          ];
-
-          return (
-            <TextareaFields
-              key={idx}
-              inputsData={dataInputTextarea}
-              register={register}
-              errorMsg={errors}
-            />
-          );
-        } else {
-          let placeholder;
-
-          switch (type) {
-            case "text": {
-              placeholder = "Odpowiedź";
-              break;
-            }
-            case "number": {
-              placeholder = "Numer";
-              break;
-            }
-            case "email": {
-              placeholder = "Email";
-              break;
-            }
-          }
-
-          const dataInputText = [
-            {
-              label: header,
-              name: id,
-              placeholder,
-              type,
-              description,
-              required,
-            },
-          ];
-
-          return (
-            <InputFields
-              key={idx}
-              inputsData={dataInputText}
-              register={register}
-              errorMsg={errors}
-            />
-          );
-        }
-      }
-    );
+    .sort((a, b) => a.order - b.order)
+    .map((input) => {
+      const renderer = fieldRenderers[input.type];
+      return renderer(input, errors, register, control);
+    });
 
   return (
     <div className="flex justify-center ">
+      {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="w-4/5">
         <h1 className="text-4xl">{title}</h1>
         {description && <h2 className="text-2xl">{description}</h2>}
         <div className="text-red-600 text-sm mb-6">* Odpowiedź wymagana</div>
-
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -222,6 +150,7 @@ const CreatedForm = (props: Props) => {
               message="Zatwierdź"
               disabled={props.isPreview ? true : false}
               type="submit"
+              isLoading={isSubmitting}
             />
           </form>
         </FormProvider>

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
 import InputError from "../InputError";
+import { useFormContext } from "react-hook-form";
 
 export type Option = {
   label: string;
