@@ -1,3 +1,4 @@
+import { TopicCategory } from "@/enums/forum";
 import { Document, ObjectId } from "mongodb";
 
 export interface Post extends Document {
@@ -25,7 +26,7 @@ export interface Topic extends Document {
   _id: ObjectId;
   title: string; // ??
   description?: string; // ??
-  category: string; // ??
+  category: TopicCategory; // ??
   createdBy: ObjectId;
   createdAt: Date;
   updatedAt: Date;
@@ -36,7 +37,7 @@ export interface TopicSerialized extends Document {
   _id: string;
   title: string;
   description?: string;
-  category: string;
+  category: TopicCategory;
   createdBy: string;
   createdAt: string;
   updatedAt: string;

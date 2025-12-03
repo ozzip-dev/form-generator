@@ -1,18 +1,17 @@
 import { TopicCategory } from "@/enums/forum";
-import { insert } from "@/lib/mongo";
+import { db, insert } from "@/lib/mongo";
 import { Topic } from "@/types/forum";
 import { Db, ObjectId } from "mongodb";
 
 export async function createTopic(
-  db: Db,
-  userId: ObjectId,
+  userId: string,
   title: string,
-  description: string,
   category: TopicCategory,
+  description?: string
 ): Promise<ObjectId> {
   const now: Date = new Date();
   const insertData: Partial<Topic> = {
-    createdBy: userId,
+    createdBy: new ObjectId(userId),
     createdAt: now,
     updatedAt: now,
     title,
