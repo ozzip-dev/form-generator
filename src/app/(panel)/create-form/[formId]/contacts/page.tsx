@@ -1,7 +1,24 @@
 import Contacts from "@/components/pages/contacts/Contacts";
+import { getFormById } from "@/services/form-service";
+import { getUsersWithFormType } from "@/services/user-service";
+import { IUser, UserCommitteeInfo } from "@/types/user";
 
-const ContactsPage = () => {
-  return <Contacts />;
+type Props = { params: Promise<{ formId: string }> };
+
+const ContactsPage = async (props: Props) => {
+  const { formId } = await props.params;
+  const { type } = await getFormById(formId)
+  
+  const usersWithSameTypeForms: IUser[] = await getUsersWithFormType(type)
+  const userCommittees: UserCommitteeInfo[] = usersWithSameTypeForms
+    .map(({ committeeEmail, committeeName, committeePhone, committeeUnion}) => ({
+      committeeEmail, committeeName, committeePhone, committeeUnion
+    }))
+
+  return <Contacts
+    committees={userCommittees}
+    type={type}  
+  />;
 };
 
 export default ContactsPage;

@@ -107,15 +107,18 @@ export async function setAliasUrl(
   url: string
 ): Promise<void> {
   const form = await getFormBySlug(db, url);
+  const formIdObj = new ObjectId(formId)
   if (form)
     throw new Error(`Formularz o ID lub ścierzce "${url}" już istnieje.`);
 
-  await updateById<Form>(db, "form", new ObjectId(formId), {
+  await updateById<Form>(db, "form", formIdObj, {
     $set: {
       url,
       updatedAt: new Date(),
     },
   });
+
+  await setFormUpdatedAtDate(formIdObj)
 }
 
 export async function getSerializedFormList(): Promise<Partial<FormSerialized>[]> {
@@ -166,4 +169,15 @@ export async function getFormInputs(formId: string): Promise<FormInput[]> {
   const form = await findById<Form>(db, 'form', new ObjectId(formId))
   if (!form) throw new Error('Invalid form id')
   return form.inputs
+}
+
+export async function setFormUpdatedAtDate(formId: ObjectId): Promise<WithId<Form> | null> {
+  return await updateById<Form>(db, "form", formId, {
+    $set: { updatedAt: new Date() },
+  });
+}
+
+export async function getFormsByType(type: FormType): Promise<Form[]> {
+  const forms = await find<Form>(db, "form", { type });
+  return forms;
 }

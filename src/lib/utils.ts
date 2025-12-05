@@ -1,18 +1,15 @@
 import { UserRole } from "@/models/User";
 import { IUser } from "@/types/user";
 
-// TODO: replace with proper functions or use eg. https://www.npmjs.com/package/date-fns
-const parseTime = (units: number) => (units < 10 ? `0${units}` : units);
-export const formatDate = (date: Date) => `
-  ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}
-  (${parseTime(date.getHours())} : ${parseTime(
-  date.getMinutes()
-)} : ${parseTime(date.getSeconds())})
-`;
-
 export const convertBToKB = (bytes: number): string => {
   return (bytes / 1024).toFixed(2);
 };
+
+export function makeId(header: string): string {
+  return `${header.trim().toLowerCase()}-${Math.round(
+    Math.random() * 100000
+  ).toString()}`;
+}
 
 /* user */
 export const isModerator = (user: IUser): boolean =>

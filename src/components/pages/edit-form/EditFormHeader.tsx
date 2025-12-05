@@ -8,6 +8,7 @@ import {
 } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { FormType } from "@/enums/form";
+import { formTypesWithLabels } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
 import {
   editFormHeaderSchema,
@@ -18,11 +19,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
-  { label: "Brak kategorii", value: "" },
-  { label: "Ankieta pracownicza", value: FormType.Survey },
-  { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
-  { label: "Referendum strajkowe", value: FormType.Strike },
-  { label: "Inne", value: FormType.Other },
+  { label: "-- wybierz --", value: "" },
+  ...formTypesWithLabels,
 ];
 
 const dataInputsFormTitle = [

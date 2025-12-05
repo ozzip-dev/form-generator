@@ -79,6 +79,7 @@ const Results = (props: Props) => {
           onClickAction={exportPdf}
           message="Pobierz"
           className="!w-auto my-4"
+          disabled={!results.length}
         />
       </div>
       
