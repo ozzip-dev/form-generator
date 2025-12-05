@@ -4,7 +4,10 @@ import { loginAction } from "@/actions/auth/loginAction";
 import { Button, InputFields } from "@/components/shared";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import { useToast } from "@/hooks/useToast";
-import { loginSchema } from "@/lib/zodSchema/zodAuthSchema/loginSchema";
+import {
+  LoginSchema,
+  loginSchema,
+} from "@/lib/zodSchema/zodAuthSchema/loginSchema";
 import Link from "next/link";
 import { useActionState, useRef } from "react";
 
@@ -54,7 +57,7 @@ const Login = () => {
     prevState: State,
     formData: FormData
   ): Promise<State> => {
-    const data = Object.fromEntries(formData.entries()) as any;
+    const data = Object.fromEntries(formData.entries()) as LoginSchema;
 
     const validationResult = loginSchema.safeParse(data);
     if (!validationResult.success) {
