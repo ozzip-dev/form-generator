@@ -88,6 +88,14 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import DeleteDocumentConformation from "./DeleteDocumentConformation";
 import IconPDF from "@/icons/iconPDF/IconPDF";
 
+// branza
+// data rozpoczecia sporu
+// powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
+// nazwa związku
+// nazwa zakładu
+// rokowania - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
+// mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
+
 type UploadedFile = {
   id: string;
   file: File;
