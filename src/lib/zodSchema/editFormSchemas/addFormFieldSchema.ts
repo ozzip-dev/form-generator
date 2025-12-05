@@ -5,7 +5,7 @@ export const addFormFieldSchema = z.object({
     .string()
     .trim()
     .min(2, { message: "Min. 2 znaki" })
-    .max(20, { message: "Max. 20 znaków" }),
+    .max(500, { message: "Max. 500 znaków" }),
   type: z.string().nonempty({ message: "Wymagane" }),
 });
 

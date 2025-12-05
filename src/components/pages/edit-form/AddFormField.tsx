@@ -17,7 +17,7 @@ import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
-  { label: "Ddpowiedź długa", value: "superText" },
+  { label: "Odpowiedź długa", value: "superText" },
   { label: "Email", value: "email" },
   { label: "Data", value: "date" },
   { label: "Numer", value: "number" },

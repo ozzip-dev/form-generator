@@ -5,13 +5,13 @@ import { addProtocol } from "@/services/protocol-service";
 import { Binary } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-export async function uploadFileAction(file: File): Promise<void> {
+export async function uploadFileAction(file: File): Promise<any> {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
   const { name, size, type, lastModified } = file;
-
-  await addProtocol(db, {
+  // throw new Error("ppppppppp");
+  const resp = await addProtocol(db, {
     createdAt: new Date(),
     name,
     size,
@@ -22,4 +22,5 @@ export async function uploadFileAction(file: File): Promise<void> {
   });
 
   revalidateTag("protocols");
+  return resp;
 }

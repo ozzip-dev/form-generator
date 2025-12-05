@@ -21,7 +21,7 @@ const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Brak kategorii", value: "" },
   { label: "Ankieta pracownicza", value: FormType.Survey },
   { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
-  { label: "Referedum strajkowe", value: FormType.Strike },
+  { label: "Referendum strajkowe", value: FormType.Strike },
   { label: "Inne", value: FormType.Other },
 ];
 

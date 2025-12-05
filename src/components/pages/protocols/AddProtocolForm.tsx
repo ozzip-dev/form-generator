@@ -79,11 +79,14 @@
 
 import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
 import { Button, DataLoader } from "@/components/shared";
+import ModalWrapper from "@/components/shared/ModalWrapper";
 import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import DeleteDocumentConformation from "./DeleteDocumentConformation";
+import IconPDF from "@/icons/iconPDF/IconPDF";
 
 type UploadedFile = {
   id: string;
@@ -99,6 +102,7 @@ const AddProtocolForm = () => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isPending, setPending] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const uploadFile = async (file: File) => {
     setPending(true);
@@ -110,32 +114,42 @@ const AddProtocolForm = () => {
       });
     });
 
-    await uploadFileAction(file);
+    console.log("uuuu");
+
+    try {
+      const resp = await uploadFileAction(file);
+
+      toast({
+        title: "Sukces",
+        description: "Dokument dodany",
+        variant: "success",
+      });
+      setFiles((prev) => [
+        ...prev,
+        {
+          id: "pppppu",
+          file,
+          uploading: false,
+          progress: 100,
+          isDeleting: false,
+          error: false,
+          objectUrl: URL.createObjectURL(file),
+        },
+      ]);
+    } catch (error) {
+      setPending(false);
+      toast({
+        title: "Błąd",
+        description: `Dokument nie zostałzapisany. ${error}`,
+        variant: "error",
+      });
+    }
+
     setPending(false);
-    toast({
-      title: "Sukces",
-      description: "Dokument dodany",
-      variant: "success",
-    });
   };
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
-
-    setFiles((prev) => [
-      ...prev,
-      ...acceptedFiles.map((file) => {
-        return {
-          id: "poai",
-          file,
-          uploading: false,
-          progress: 0,
-          isDeleting: false,
-          error: false,
-          objectUrl: URL.createObjectURL(file),
-        };
-      }),
-    ]);
 
     acceptedFiles.forEach(uploadFile);
   }, []);
@@ -179,18 +193,29 @@ const AddProtocolForm = () => {
   } = useDropzone({
     onDrop,
     onDropRejected,
-    maxFiles: 3,
-    maxSize: 1024 * 1024 * 3,
-    accept: { "image/*": [] },
+    maxFiles: 5,
+    maxSize: 1024 * 1024 * 5,
+    accept: { "image/*": [], "application/pdf": [] },
   });
 
+  const handlePrintModal = () => {
+    setModalOpen((prev) => !prev);
+  };
+
   const handleDelete = () => {
+    setModalOpen((prev) => !prev);
     console.log("hhhwha");
   };
 
   return (
     <>
       <div className="flex justify-center items-center flex-col ">
+        {isModalOpen && (
+          <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
+            <DeleteDocumentConformation setModalOpen={setModalOpen} />
+          </ModalWrapper>
+        )}
+
         <div
           {...getRootProps()}
           className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2  margin-auto h-80"
@@ -207,36 +232,49 @@ const AddProtocolForm = () => {
 
           <input {...getInputProps()} />
 
-          <div className="">
-            <p>
-              {isDragActive
-                ? "Upuść plik w tym miejscu"
-                : "Upuść plik lub wybierz z komputera"}
-            </p>
+          <div>
+            <p>{isDragActive ? "Upuść plik w tym miejscu" : "Upuść plik"}</p>
 
             {!isDragActive && (
-              <Button message="Wgraj protokół" onClickAction={() => open()} />
+              <>
+                <Button message="Wybierz z komputera" />
+
+                <div>
+                  Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
+                </div>
+                <div>Maksymalny rozmiar: 5 MB</div>
+              </>
             )}
           </div>
         </div>
         <div>
           <div className="flex p-2 gap-7">
             {files.map(({ id, objectUrl, file }, idx) => {
+              console.log("file", file);
+
               return (
                 <div key={idx} className="w-[4rem]  h-[4rem] relative">
-                  <button onClick={handleDelete} disabled={isPending}>
-                    <IconTrash style="h-5 w-5 bg-red-500 absolute -right-5" />
+                  <button
+                    onClick={handlePrintModal}
+                    disabled={isPending}
+                    className="h-5 w-5 absolute -right-5"
+                  >
+                    <IconTrash style="size-full bg-red-500" />
                   </button>
 
-                  <Image
-                    src={objectUrl}
-                    alt={file.name}
-                    width={100}
-                    height={100}
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.jpg"
-                    loading="lazy"
-                  />
+                  {file.type === "application/pdf" ? (
+                    <IconPDF style="size-full bg-red-500" />
+                  ) : (
+                    <Image
+                      src={objectUrl}
+                      alt={file.name}
+                      width={100}
+                      height={100}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
+                      loading="lazy"
+                    />
+                  )}
                   <div className="truncate">{file.name}</div>
                 </div>
               );

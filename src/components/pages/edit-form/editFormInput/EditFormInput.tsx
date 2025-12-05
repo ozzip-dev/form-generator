@@ -27,7 +27,7 @@ import { InputType } from "@/enums";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
-  { label: "Ddpowiedź długa", value: "superText" },
+  { label: "Odpowiedź długa", value: "superText" },
   { label: "Email", value: "email" },
   { label: "Data", value: "date" },
   { label: "Numer", value: "number" },
@@ -74,7 +74,7 @@ const EditFormInput = (props: Props) => {
   };
 
   const methods = useForm<EditInputFormSchema>({
-    // resolver: zodResolver(editInputFormSchema),
+    resolver: zodResolver(editInputFormSchema),
     defaultValues,
     mode: "all",
   });
@@ -115,7 +115,7 @@ const EditFormInput = (props: Props) => {
     null
   );
 
-  console.log("errors", errors);
+  // console.log("errors", errors);
 
   const handleEditType = (type: InputType) => {
     startTransition(() => {

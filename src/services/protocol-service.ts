@@ -9,17 +9,17 @@ export async function getProtocols(database: Db): Promise<Protocol[]> {
 
 // TODO Pawel: get records with no data, add download action
 export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
-  const collection: Collection<Protocol> = getCollection<Protocol>(database, 'protocol');
-  const protocols = await collection
-    .find({})
-    .project({ data: 0 })
-    .toArray()
+  const collection: Collection<Protocol> = getCollection<Protocol>(
+    database,
+    "protocol"
+  );
+  const protocols = await collection.find({}).project({ data: 0 }).toArray();
   return protocols as Protocol[];
 }
 
 export async function addProtocol(
   database: Db,
   data: Partial<Protocol>
-): Promise<void> {
-  await insert<Protocol>(database, "protocol", data);
+): Promise<any> {
+  return await insert<Protocol>(database, "protocol", data);
 }

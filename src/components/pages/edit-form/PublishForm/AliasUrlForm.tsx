@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 const dataInputUrl = [
   {
     name: "url",
+    label: "Wpisz własny adres formularza",
     placeholder: "www:formularz",
     type: "text",
   },
@@ -58,10 +59,7 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
         {/* TODO: add remove alias */}
         <div>
-          <Button
-            message="Zapisz link do formularza"
-            isLoading={isSubmitting}
-          />
+          <Button message="Zapisz" isLoading={isSubmitting} />
         </div>
       </form>
     </>
