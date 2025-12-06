@@ -2,19 +2,12 @@
 
 import { db, updateById } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
-import { Protocol, ProtocolFileCategory, ProtocolFiles, ProtocolFileType } from "@/types/protocol";
+import {
+  ProtocolFileCategory, ProtocolFileType, ProtocolInsertData
+} from "@/types/protocol";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
-
-type ProtocolInsertData = {
-  branch: string
-  disputeReason: string
-  tradeUnionName: string
-  workplaceName: string
-  disputeStartDate: string
-  negotiations: ProtocolFiles
-  mediations: ProtocolFiles
-}
+import { redirect } from "next/navigation";
 
 const fileDefaults: {
   meetings: string[]
@@ -32,29 +25,29 @@ export async function createProtocol({
   disputeStartDate,
   negotiations = fileDefaults,
   mediations = fileDefaults
-}: ProtocolInsertData): Promise<Protocol> {
+}: ProtocolInsertData): Promise<void> {
+  let protocolId = ''
   try {
-    const protocol = await addProtocol(db, {
+    protocolId = await addProtocol(db, {
       branch,
       disputeReason,
       tradeUnionName,
       workplaceName,
-      disputeStartDate: new Date(disputeStartDate),
+      disputeStartDate,
       files: {
         negotiations,
         mediations,
       },
-      lastModifiedAt: new Date(),
-      uploadedAt: new Date()
     });
 
     revalidateTag("protocols");
-  
-    return protocol;
+
   } catch(_) {
     // Delete files? If yes, trigger proper action
     throw new Error('Invalid protocol data')
   }
+  
+  redirect(`/protocols/${protocolId}`);
 }
 
 export async function addFileToProtocol({

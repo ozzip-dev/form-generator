@@ -1,6 +1,6 @@
 import { Collection, Db, Document, InsertOneResult } from "mongodb";
 import { db, findAll, findById, getCollection, insert } from "@/lib/mongo";
-import { Protocol } from "@/types/protocol";
+import { Protocol, ProtocolSerialized } from "@/types/protocol";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -19,8 +19,18 @@ export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
 
 export async function addProtocol(
   database: Db,
-  data: Partial<Protocol>
-): Promise<Protocol> {
-  const { insertedId } = await insert<Protocol>(database, "protocol", data);
-  return await findById(database, 'protocol', insertedId) as Protocol
+  data: Partial<ProtocolSerialized>
+): Promise<string> {
+  const now = new Date()
+  const lastModifiedAt = now
+  const uploadedAt = now
+  const disputeStartDate = new Date(data.disputeStartDate!)
+  const { insertedId } = await insert<Protocol>(database, "protocol", {
+    ...data,
+    lastModifiedAt,
+    uploadedAt,
+    disputeStartDate
+  });
+
+  return insertedId
 }
