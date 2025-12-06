@@ -19,7 +19,7 @@ type Props = {
 
   errorMsg?: any;
   register?: UseFormRegister<any>;
-  onChange?: (name: string, value: string) => void | Promise<void>;
+  onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
   default?: any;
 };
@@ -72,7 +72,9 @@ const InputFields = (props: Props) => {
                   // }}
                   {...(props.register
                     ? props.register(name, {
-                        onChange: (e) => props.onChange?.(name, e.target.value),
+                        // onChange: (e) => props.onChange?.(name, e.target.value),
+                        onChange: (e) =>
+                          props.onChange?.(name, e.target.value, props.default),
                       })
                     : {})}
                   name={name}

@@ -49,8 +49,27 @@ export const createdFormSchema = (inputs: any[]) => {
               .string()
               .trim()
               .nullable()
-              .refine((val) => val !== null && val !== "", "Jedna opcja")
+              .superRefine((val, ctx) => {
+                if (!val || val === "") {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "Jedna opcja",
+                  });
+                  return;
+                }
+
+                if (val.length < 2) {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.too_small,
+                    minimum: 2,
+                    type: "string",
+                    inclusive: true,
+                    message: "Minimum 2 znaki",
+                  });
+                }
+              })
           : z.string().nullable().optional();
+
         break;
 
       case "email":

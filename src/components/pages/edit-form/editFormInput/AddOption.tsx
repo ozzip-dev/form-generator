@@ -61,8 +61,6 @@ const AddOption = (props: Props) => {
     setError,
   });
 
-  console.log("eer", errors);
-
   const handleDeleteOption = (optionName: string, idx: number) => {
     remove(idx);
     startTransition(() => {
@@ -87,7 +85,6 @@ const AddOption = (props: Props) => {
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOther = isOptionOther(field as unknown as FormOption);
 
-        // console.log("props.input", props.input);
         return (
           <div
             key={field.id}
@@ -135,7 +132,8 @@ const AddOption = (props: Props) => {
             disabled={!!errors.options || inputHasOther(props.input)}
             onClickAction={() => {
               if (errors.options) return;
-              append({ value: makeId(inputId) });
+
+              append({ label: "" });
             }}
           />
         </div>

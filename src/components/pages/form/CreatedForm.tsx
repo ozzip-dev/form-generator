@@ -69,6 +69,8 @@ const CreatedForm = (props: Props) => {
     mode: "all",
   });
 
+  console.log("inputs", inputs);
+
   const {
     register,
     formState: { errors, isSubmitting },
@@ -78,12 +80,12 @@ const CreatedForm = (props: Props) => {
     reset,
   } = methods;
 
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = async (data: any) => {
     console.log("", data);

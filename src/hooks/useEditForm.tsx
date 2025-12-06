@@ -40,7 +40,7 @@ export function useEditForm({
 
       const key = `${formId}-${name}`;
       clearTimeout(debounceMap.current.get(key)!);
-      console.log("name", name);
+
       const timeout = setTimeout(async () => {
         if (trigger && !(await trigger(name))) {
           debounceMap.current.delete(key);
