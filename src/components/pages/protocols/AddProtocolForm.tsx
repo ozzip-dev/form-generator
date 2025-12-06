@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/shared";
 import { ProtocolDisputeReason, ProtocolInsertData } from "@/types/protocol";
 import { createProtocol } from "@/actions/protocol/createProtocol";
+import { mapDisputeReason } from "./utils";
 
 type State = {
   errors: Record<string, string[]>;
@@ -29,31 +30,32 @@ const textInputs: { id: string; label: string }[] = [
   },
 ]
 
+// TODO: ladniej
 const disputeReasonOptions: { id: ProtocolDisputeReason, label: string }[] = [
   {
     id: 'workTime',
-    label: 'Czas pracy'
+    label: mapDisputeReason['workTime']
   },
   {
     id: 'safety',
-    label: 'Standardy BHP'
+    label: mapDisputeReason['safety']
   },
   {
     id: 'wages',
-    label: 'Wysokoć płac'
+    label: mapDisputeReason['wages']
   },
   {
     id: 'standards',
-    label: 'Normy pracy'
+    label: mapDisputeReason['standards']
   },
   {
     id: 'other',
-    label: 'Inne'
+    label: mapDisputeReason['other']
   },
 ]
 
 const AddProtocolForm = () => {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   
   const uploadFile = async (
     _: State,

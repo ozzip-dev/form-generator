@@ -1,4 +1,4 @@
-import { Collection, Db, Document, InsertOneResult } from "mongodb";
+import { Collection, Db, Document, InsertOneResult, ObjectId } from "mongodb";
 import { db, findAll, findById, getCollection, insert } from "@/lib/mongo";
 import { Protocol, ProtocolSerialized } from "@/types/protocol";
 
@@ -33,4 +33,10 @@ export async function addProtocol(
   });
 
   return insertedId
+}
+
+export async function getProtocolById(formId: string): Promise<Protocol> {
+  const protocol = await findById<Protocol>(db, 'protocol', new ObjectId(formId))
+  if (!protocol) throw new Error('Invalid protocol id')
+  return protocol
 }
