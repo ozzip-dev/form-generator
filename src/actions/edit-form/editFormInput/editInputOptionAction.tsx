@@ -15,53 +15,51 @@ import { revalidateTag } from "next/cache";
 const editInputOptionAction = async (
   formIdString: string,
   inputId: string,
-  optionValue: string,
-  inputValue: string
+  inputValue: string,
+  inputName: string
 ): Promise<void | { error: ModelFieldErrors }> => {
   await requireUser();
 
   const formId = new ObjectId(formIdString);
   const form = await getFormById(formId.toString());
-  const { inputs } = form;
-  const { options } = inputs.find(({ id }) => id == inputId)!;
+  const input = form.inputs.find(({ id }) => id === inputId);
 
-  const validationResult = editInputFormSchema.partial().safeParse({ options });
+  if (!input) return;
+
+  const optionIndex = Number(inputName.split(".")[1]);
+
+  const dataToValidate = input.options.map((opt, idx) =>
+    idx === optionIndex ? { ...opt, label: inputValue } : opt
+  );
+
+  console.log("dataToValidate", dataToValidate);
+
+  const validationResult = editInputFormSchema.partial().safeParse({
+    options: dataToValidate,
+  });
 
   if (!validationResult.success) {
     return { error: handleServerErrors(validationResult.error) };
   }
 
-  const editedOption = options.find(({ value }) => value == inputValue)
+  let mappedOptions = [...input.options];
 
-  let mappedOptions = options;
-
-  if (!editedOption) {
-    // TODO: opcja znika, potrzeba zrobic refresh karty
-    await checkInputHasOtherOption(formIdString, inputId)
-    
-    mappedOptions.push({ value: inputValue, label: optionValue });
+  if (!mappedOptions[optionIndex]) {
+    await checkInputHasOtherOption(formIdString, inputId);
+    mappedOptions.push({ value: inputName, label: inputValue });
   } else {
-    mappedOptions = options.map((option, i) => {
-      if (option.value != inputValue) return option;
-      return {
-        ...option,
-        label: optionValue
-      };
-    });
+    mappedOptions[optionIndex] = {
+      ...mappedOptions[optionIndex],
+      label: inputValue,
+    };
   }
 
-  const mappedInputs = inputs.map((input) => {
-    if (input.id != inputId) return input;
-    return {
-      ...input,
-      options: mappedOptions,
-    };
-  });
+  const mappedInputs = form.inputs.map((inp) =>
+    inp.id === inputId ? { ...inp, options: mappedOptions } : inp
+  );
 
   await updateById(db, "form", formId, {
-    $set: {
-      inputs: [...mappedInputs],
-    },
+    $set: { inputs: mappedInputs },
   });
 
   revalidateTag(`form-${formId}`);

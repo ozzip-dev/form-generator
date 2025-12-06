@@ -93,8 +93,11 @@ import IconPDF from "@/icons/iconPDF/IconPDF";
 // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
 // nazwa związku
 // nazwa zakładu
-// rokowania - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
-// mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
+// rządania wszynające spór zbiorowy
+// rokowania - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności, inne
+// mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności, inne
+// porozumienie kończące spór
+// inne
 
 type UploadedFile = {
   id: string;

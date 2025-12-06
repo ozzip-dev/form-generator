@@ -25,6 +25,8 @@ type Props = {
 };
 
 const InputFields = (props: Props) => {
+  // console.log("props.inputsData", props.inputsData);
+
   return (
     <>
       {props.inputsData.map(
@@ -37,8 +39,10 @@ const InputFields = (props: Props) => {
           description,
           required,
         }) => {
+          // console.log("name", name);
           return (
             // TODO: make a separate component for input field
+
             <div key={name}>
               {label && (
                 <label className="text-lg block text-xl !important">
@@ -61,16 +65,16 @@ const InputFields = (props: Props) => {
                     }
                   `}
                   placeholder={placeholder}
-                  {...(props.register && props.register(name))}
-                  onChange={(e) => {
-                    props.register && props.register(name).onChange(e);
-                    props.onChange?.(name, e.target.value);
-                  }}
-                  // {...(props.register
-                  //   ? props.register(name, {
-                  //       onChange: (e) => props.onChange?.(name, e.target.value),
-                  //     })
-                  //   : {})}
+                  // {...(props.register && props.register(name))}
+                  // onChange={(e) => {
+                  //   props.register && props.register(name).onChange(e);
+                  //   props.onChange?.(name, e.target.value);
+                  // }}
+                  {...(props.register
+                    ? props.register(name, {
+                        onChange: (e) => props.onChange?.(name, e.target.value),
+                      })
+                    : {})}
                   name={name}
                 />
 

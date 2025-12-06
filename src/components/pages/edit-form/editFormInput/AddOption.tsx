@@ -7,7 +7,11 @@ import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { makeId } from "@/lib/utils";
-import { inputHasOther, isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
+import {
+  inputHasOther,
+  isOptionOther,
+  OPTION_OTHER,
+} from "@/helpers/inputHelpers";
 import { FormInput, FormOption } from "@/types/input";
 
 type Props = {
@@ -17,7 +21,7 @@ type Props = {
 };
 
 const AddOption = (props: Props) => {
-  const inputId = props.input.id!
+  const inputId = props.input.id!;
   const formId = useSafeURLParam("formId");
   const [_, removeOption, isPending] = useActionState<null, string>(
     async (_state, optionName) => {
@@ -29,7 +33,7 @@ const AddOption = (props: Props) => {
 
   const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
     async (_state) => {
-      await editInputOptionAction(formId!, inputId, 'Inne', OPTION_OTHER);
+      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER);
       return null;
     },
     null
@@ -57,6 +61,8 @@ const AddOption = (props: Props) => {
     setError,
   });
 
+  console.log("eer", errors);
+
   const handleDeleteOption = (optionName: string, idx: number) => {
     remove(idx);
     startTransition(() => {
@@ -67,7 +73,7 @@ const AddOption = (props: Props) => {
   const handleAddOther = () => {
     startTransition(() => {
       addOtherOption();
-      append({ value: OPTION_OTHER, label: 'Inne' });
+      append({ value: OPTION_OTHER, label: "Inne" });
     });
   };
 
@@ -75,26 +81,37 @@ const AddOption = (props: Props) => {
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
-      {(isPending || isAddOptionPending || isAnyLoading) && <FullscreenLoader />}
+      {(isPending || isAddOptionPending || isAnyLoading) && (
+        <FullscreenLoader />
+      )}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
-        const isOther = isOptionOther(field as unknown as FormOption)
+        const isOther = isOptionOther(field as unknown as FormOption);
+
+        // console.log("props.input", props.input);
         return (
           <div
             key={field.id}
             className="flex gap-2 items-center"
-            style={isOther ? { padding: '2px', backgroundColor: 'lightskyblue' } : {}}
+            style={
+              isOther ? { padding: "2px", backgroundColor: "lightskyblue" } : {}
+            }
           >
             <InputFields
               inputsData={[
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: isOther ? 'Inne' : `Opcja ${idx + 1}`,
+                  placeholder: isOther ? "Inne" : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
-              onChange={(_, value) => handleEdit(field.value as string, value)}
+              // onChange={(_, value) => handleEdit(field.value as string, value)}
+              // onChange={(name, value) =>
+              //   handleEdit(name, field.value as string)
+              // }
+
+              onChange={(name, value) => handleEdit(name, value)}
             />
 
             <div className="w-fit ml-2">
@@ -127,7 +144,7 @@ const AddOption = (props: Props) => {
             message="Dodaj inne"
             type="button"
             onClickAction={() => {
-              handleAddOther()
+              handleAddOther();
             }}
             disabled={inputHasOther(props.input)}
           />

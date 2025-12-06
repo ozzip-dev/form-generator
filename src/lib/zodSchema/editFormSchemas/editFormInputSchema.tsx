@@ -14,11 +14,11 @@ export const editInputFormSchema = z
       .max(1000, "Max. 1000 znaków"),
     options: z.array(
       z.object({
-        value: z
-          .string()
-          .trim()
-          .min(2, "Min. 2 znaki w opcji")
-          .max(200, "Maks. 200 znaków w opcji"),
+        // value: z
+        //   .string()
+        //   .trim()
+        //   .min(2, "Min. 2 znaki w opcji")
+        //   .max(200, "Maks. 200 znaków w opcji"),
         label: z
           .string()
           .trim()
