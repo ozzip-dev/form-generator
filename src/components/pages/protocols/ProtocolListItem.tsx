@@ -29,11 +29,11 @@ const saveFile = (data: Binary, type: string, name: string) => {
 };
 
 const ProtocolListItem = ({
-  data,
-  name,
-  type,
-  size,
-  uploadedAt,
+  // data,
+  // name,
+  // type,
+  // size,
+  // uploadedAt,
 }: ProtocolSerialized) => {
   return (
     <div
@@ -43,7 +43,7 @@ const ProtocolListItem = ({
         mb-1
       "
     >
-      <div>{name}</div>
+      {/* <div>{name}</div>
       <div>{mapFileExtensionName(type)}</div>
       <div>{convertBToKB(size)} KB</div>
       <div>{formatDateAndTime(uploadedAt)}</div>
@@ -52,7 +52,7 @@ const ProtocolListItem = ({
           message="Pobierz"
           onClickAction={() => saveFile(data, type, name)}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

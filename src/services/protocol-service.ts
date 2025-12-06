@@ -1,5 +1,5 @@
-import { Collection, Db, Document } from "mongodb";
-import { findAll, getCollection, insert } from "@/lib/mongo";
+import { Collection, Db, Document, InsertOneResult } from "mongodb";
+import { db, findAll, findById, getCollection, insert } from "@/lib/mongo";
 import { Protocol } from "@/types/protocol";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
@@ -20,6 +20,7 @@ export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
 export async function addProtocol(
   database: Db,
   data: Partial<Protocol>
-): Promise<any> {
-  return await insert<Protocol>(database, "protocol", data);
+): Promise<Protocol> {
+  const { insertedId } = await insert<Protocol>(database, "protocol", data);
+  return await findById(database, 'protocol', insertedId) as Protocol
 }
