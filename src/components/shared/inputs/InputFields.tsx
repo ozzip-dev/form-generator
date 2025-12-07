@@ -59,7 +59,7 @@ const InputFields = (props: Props) => {
                   disabled={props.isLoading?.[name]}
                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
                     ${
-                      props.isLoading?.[name]
+                      props.isLoading?.[name] 
                         ? "opacity-50 cursor-not-allowed"
                         : ""
                     }

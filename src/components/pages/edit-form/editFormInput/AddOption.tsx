@@ -23,7 +23,8 @@ type Props = {
 const AddOption = (props: Props) => {
   const inputId = props.input.id!;
   const formId = useSafeURLParam("formId");
-  const [_, removeOption, isPending] = useActionState<null, string>(
+
+  const [_, removeOption, isRemoveOptionPending] = useActionState<null, string>(
     async (_state, optionName) => {
       await removeInputOptionAction(formId!, inputId, optionName);
       return null;
@@ -63,7 +64,7 @@ const AddOption = (props: Props) => {
 
   const handleAddOption = () => {
     if (errors.options) return;
-    append({ label: "" });
+    append({ value: "xxx", label: "" });
   };
 
   const handleAddOther = () => {
@@ -82,11 +83,12 @@ const AddOption = (props: Props) => {
 
   const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
 
+  const isDisabled =
+    isRemoveOptionPending || isAddOptionPending || isAnyLoading;
+
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
-      {(isPending || isAddOptionPending || isAnyLoading) && (
-        <FullscreenLoader />
-      )}
+      {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOther = isOptionOther(field as unknown as FormOption);
 
@@ -109,6 +111,7 @@ const AddOption = (props: Props) => {
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
               onChange={(name, value) => handleEdit(name, value)}
+              isLoading={isLoading}
             />
 
             <div className="w-fit ml-2">

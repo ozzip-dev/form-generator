@@ -4,6 +4,7 @@ import {
   handleServerErrors,
   ModelFieldErrors,
 } from "@/helpers/helpersValidation/handleFormErrors";
+import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import { db, updateById } from "@/lib/mongo";
 import { makeId } from "@/lib/utils";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
@@ -45,7 +46,8 @@ const editInputOptionAction = async (
 
   let mappedOptions = [...input.options];
 
-  const optionValue = inputName === "other" ? "other" : makeId(inputId);
+  const optionValue =
+    inputName === OPTION_OTHER ? OPTION_OTHER : makeId(inputId);
 
   if (!mappedOptions[optionIndex]) {
     await checkInputHasOtherOption(formIdString, inputId);

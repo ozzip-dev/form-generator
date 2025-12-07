@@ -3,16 +3,18 @@
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { useMemo } from "react";
 import { InputError } from "../index";
+import { OPTION_OTHER } from "@/helpers/inputHelpers";
 
 type CheckboxOption = {
   label: string;
   name: string;
   value?: boolean;
+  optionId?: string;
 };
 
 type Props<T extends FieldValues> = {
-  label?: string;
-  description?: string;
+  groupLabel?: string;
+  groupDescription?: string;
   required?: boolean;
   name: Path<T>;
   control: Control<T>;
@@ -28,10 +30,12 @@ const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
       Object.fromEntries(
         props.options.map((opt) => [opt.name, opt.value ?? false])
       ),
-      [props.options]
-    );
+    [props.options]
+  );
 
-  if (!props.options.length) return null
+  if (!props.options.length) return null;
+
+  // console.log("props.options", props.options);
 
   return (
     <Controller
@@ -62,33 +66,59 @@ const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
 
         return (
           <div className={`flex flex-col gap-2 py-5 ${props.className ?? ""}`}>
-            {props.label && (
+            {props.groupLabel && (
               <div className="text-xl">
-                {props.label}{" "}
+                {props.groupLabel}{" "}
                 {props.required && <span className="text-red-600">*</span>}
               </div>
             )}
-            {props.description && (
-              <div className="text-sm">{props.description} </div>
+            {props.groupDescription && (
+              <div className="text-sm">{props.groupDescription}</div>
             )}
-            {props.options.map((option) => (
-              <label
-                key={option.name}
-                className="flex items-center gap-3 cursor-pointer"
-              >
-                <div className="relative inline-block w-12 h-6">
+            {props.options.map(({ name, label, optionId = "" }) => {
+              if (optionId === OPTION_OTHER) {
+                return (
                   <input
-                    type="checkbox"
-                    checked={selectedValues[option.name] ?? false}
-                    onChange={() => handleToggle(option.name)}
-                    className="peer sr-only"
+                    key={name}
+                    type="text"
+                    placeholder="Inna odpowiedź"
+                    value={
+                      typeof selectedValues[name] === "string"
+                        ? selectedValues[name]
+                        : ""
+                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      field.onChange({
+                        ...selectedValues,
+                        [name]: value,
+                      });
+                    }}
+                    className="border px-2 py-1"
                   />
-                  <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full peer-checked:bg-sky-500 transition-colors" />
-                  <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-6" />
-                </div>
-                <span className="text-sm">{option.label}</span>
-              </label>
-            ))}
+                );
+              }
+
+              return (
+                <label
+                  key={name}
+                  className="flex items-center gap-3 cursor-pointer"
+                >
+                  <div className="relative inline-block w-12 h-6">
+                    <input
+                      type="checkbox"
+                      checked={!!selectedValues[name]}
+                      onChange={() => handleToggle(name)}
+                      className="peer sr-only"
+                    />
+                    <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full peer-checked:bg-sky-500 transition-colors" />
+                    <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-6" />
+                  </div>
+                  <span className="text-sm">{label}</span>
+                </label>
+              );
+            })}
             <InputError
               errorMsg={
                 fieldState.error?.message ||

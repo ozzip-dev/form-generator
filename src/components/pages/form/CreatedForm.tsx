@@ -32,24 +32,22 @@ type FieldRenderer = (
 ) => JSX.Element;
 
 const defaultValues = (inputs: FormInput[]) => {
-  const transformedInputs = inputs.reduce((acu: any, input: any) => {
+  const defaultValues = inputs.reduce((formObject: any, input: any) => {
     const { type, options, id } = input;
 
+    const checkboxValues = options.reduce((optionsObject: any, option: any) => {
+      optionsObject[option.label] = false;
+      return optionsObject;
+    }, {});
+
     if (type === "checkbox") {
-      acu[id] =
-        options && Array.isArray(options) && options.length > 0
-          ? options.reduce((acu: Record<string, boolean>, option: string) => {
-              acu[option] = false;
+      formObject[id] = checkboxValues;
+    } else formObject[id] = "";
 
-              return acu;
-            }, {})
-          : {};
-    } else acu[id] = "";
-
-    return acu;
+    return formObject;
   }, {});
 
-  return transformedInputs;
+  return defaultValues;
 };
 
 type Props = {
@@ -63,13 +61,15 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
 
+  // console.log("defaultValues(inputs),", defaultValues(inputs));
+
   const methods = useForm({
     defaultValues: defaultValues(inputs),
     resolver: zodResolver(schema),
     mode: "all",
   });
 
-  console.log("inputs", inputs);
+  // console.log("inputs", inputs);
 
   const {
     register,
@@ -80,6 +80,8 @@ const CreatedForm = (props: Props) => {
     reset,
   } = methods;
 
+  console.log("errors", errors);
+
   useEffect(() => {
     const subscription = watch((values) => {
       console.log("Aktualne wartości:", values);
@@ -88,33 +90,33 @@ const CreatedForm = (props: Props) => {
   }, [watch]);
 
   const onSubmit = async (data: any) => {
-    console.log("", data);
-    const _id = props.form._id?.toString();
-    if (!_id) return; // ?
+    console.log("data", data);
+    // const _id = props.form._id?.toString();
+    // if (!_id) return; // ?
 
-    // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
-    const keys = Object.keys(data);
-    const inputIds = inputs.map(({ id }) => id);
-    keys.forEach((key) => {
-      if (!inputIds.includes(key)) delete data[key];
-    });
+    // // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
+    // const keys = Object.keys(data);
+    // const inputIds = inputs.map(({ id }) => id);
+    // keys.forEach((key) => {
+    //   if (!inputIds.includes(key)) delete data[key];
+    // });
 
-    try {
-      await submitFormAction(_id, data);
-      setSuccess(true);
-      reset();
-    } catch (e) {
-      console.log("blad ", e);
-      const err = e as Error;
-      const title =
-        err.message == uniqueErrorMessage
-          ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
-          : "Blad. Sprobuj ponownie.";
-      toast({
-        title,
-        variant: "error",
-      });
-    }
+    // try {
+    //   await submitFormAction(_id, data);
+    //   setSuccess(true);
+    //   reset();
+    // } catch (e) {
+    //   console.log("blad ", e);
+    //   const err = e as Error;
+    //   const title =
+    //     err.message == uniqueErrorMessage
+    //       ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
+    //       : "Blad. Sprobuj ponownie.";
+    //   toast({
+    //     title,
+    //     variant: "error",
+    //   });
+    // }
   };
 
   const fieldRenderers: Record<string, FieldRenderer> = {
