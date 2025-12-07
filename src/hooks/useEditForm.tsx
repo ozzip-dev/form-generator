@@ -54,9 +54,11 @@ export function useEditForm({
 
           const resp = await action(formId, ...args);
 
-          if (resp?.error && setError) {
-            console.log("resp?.error", resp?.error);
-            handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+          if (resp?.validationError && setError) {
+            handleClientErrors<AddFormFieldSchema>(
+              resp.validationError,
+              setError
+            );
             return;
           }
         } catch (err) {

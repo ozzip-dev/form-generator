@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+const optionSchema = z.object({
+  value: z.string().trim().min(2, "Min. 2 znaki").max(200, "Maks. 200 znaków"),
+  label: z.string().trim().min(2, "Min. 2 znaki").max(200, "Maks. 200 znaków"),
+});
+
 export const editInputFormSchema = z
   .object({
     header: z
@@ -7,25 +12,40 @@ export const editInputFormSchema = z
       .trim()
       .min(2, "Min. 2 znaki")
       .max(200, "Max. 200 znaków"),
+
     description: z
       .string()
       .trim()
       .min(2, "Min. 2 znaki")
-      .max(1000, "Max. 1000 znaków"),
-    options: z.array(
-      z.object({
-        // value: z
-        //   .string()
-        //   .trim()
-        //   .min(2, "Min. 2 znaki w opcji")
-        //   .max(200, "Maks. 200 znaków w opcji"),
-        label: z
-          .string()
-          .trim()
-          .min(2, "Min. 2 znaki w opcji")
-          .max(200, "Maks. 200 znaków w opcji"),
-      })
-    ),
+      .max(1000, "Maks. 1000 znaków"),
+
+    options: z.array(optionSchema).superRefine((options, ctx) => {
+      const seen = new Map<string, number>();
+
+      options.forEach((opt, index) => {
+        const normalized = opt.label.trim().toLowerCase();
+
+        if (!normalized) return;
+
+        if (seen.has(normalized)) {
+          const firstIndex = seen.get(normalized)!;
+
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Opcja już istnieje",
+            path: [index, "label"],
+          });
+
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Opcja występuje więcej niż raz",
+            path: [firstIndex, "label"],
+          });
+        } else {
+          seen.set(normalized, index);
+        }
+      });
+    }),
   })
   .passthrough();
 

@@ -11,19 +11,19 @@ import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
 import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { requireUser } from "@/services/user-service";
-import { headers } from "next/headers";
+
 export async function editInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }
-): Promise<void | { error: any }> {
+): Promise<void | { validationError: any }> {
   await requireUser();
 
   if (data.header || data.description) {
     const validationResult = editInputFormSchema.partial().safeParse(data);
 
     if (!validationResult.success) {
-      return { error: validationResult.error.formErrors.fieldErrors };
+      return { validationError: validationResult.error.formErrors.fieldErrors };
     }
   }
   const formId = new ObjectId(formIdString);

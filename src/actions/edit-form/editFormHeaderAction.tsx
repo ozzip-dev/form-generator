@@ -15,15 +15,13 @@ import { requireUser } from "@/services/user-service";
 export async function editFormHeaderAction(
   formId: string,
   updateData: Record<string, string>
-): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { validationError: ModelFieldErrors }> {
   await requireUser();
-
-  console.log("updateData", updateData);
 
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
 
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationError: handleServerErrors(validationResult.error) };
   }
 
   const result: WithId<Form> | null = await updateForm(

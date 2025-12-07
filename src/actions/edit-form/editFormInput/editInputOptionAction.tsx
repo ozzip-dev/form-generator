@@ -18,7 +18,7 @@ const editInputOptionAction = async (
   inputId: string,
   inputLabel: string,
   inputName: string
-): Promise<void | { error: ModelFieldErrors }> => {
+): Promise<void | { validationError: ModelFieldErrors }> => {
   await requireUser();
 
   const formId = new ObjectId(formIdString);
@@ -37,8 +37,10 @@ const editInputOptionAction = async (
     options: dataToValidate,
   });
 
+  console.log("validationResult", validationResult);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationError: handleServerErrors(validationResult.error) };
   }
 
   let mappedOptions = [...input.options];
