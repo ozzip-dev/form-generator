@@ -19,7 +19,7 @@ const editInputOptionAction = async (
   inputId: string,
   inputLabel: string,
   inputName: string
-): Promise<void | { validationError: ModelFieldErrors }> => {
+): Promise<void | { validationErrors: ModelFieldErrors }> => {
   await requireUser();
 
   const formId = new ObjectId(formIdString);
@@ -36,12 +36,25 @@ const editInputOptionAction = async (
 
   console.log("dataToValidate", dataToValidate);
 
+  // const validationResult = editInputFormSchema.safeParse({
+  //   options: dataToValidate,
+  // });
+
   const validationResult = editInputFormSchema.partial().safeParse({
     options: dataToValidate,
   });
+  // const validationResult = editInputFormSchema
+  //   .partial()
+  //   .safeParse({ dataToValidate });
+
+  console.log(
+    "hhhh",
+    validationResult.error && validationResult.error.flatten().fieldErrors
+  );
 
   if (!validationResult.success) {
-    return { validationError: handleServerErrors(validationResult.error) };
+    return { validationErrors: handleServerErrors(validationResult.error) };
+    // return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
   let mappedOptions = [...input.options];

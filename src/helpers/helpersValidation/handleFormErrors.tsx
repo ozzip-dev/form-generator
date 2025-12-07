@@ -4,6 +4,8 @@ import { FieldValues, UseFormSetError, Path } from "react-hook-form";
 export type ModelFieldError = { type: string; message: string };
 export type ModelFieldErrors = Record<string, ModelFieldError>;
 
+export type ValidationErrors = Record<string, string[] | undefined>;
+
 export function handleServerErrors(zodError: ZodError): ModelFieldErrors {
   const fieldErrors: ModelFieldErrors = {};
 
@@ -19,16 +21,33 @@ export function handleServerErrors(zodError: ZodError): ModelFieldErrors {
   return fieldErrors;
 }
 
-export function handleClientErrors<T extends FieldValues>(
-  errors: ModelFieldErrors | { error: ModelFieldErrors },
-  setError: UseFormSetError<T>
-) {
-  const fieldErrors = "error" in errors ? errors.error : errors;
+type ErrorValue = string[] | { type?: string; message?: string } | undefined;
 
-  Object.entries(fieldErrors).forEach(([field, error]) => {
+const resolveErrorMessage = (error: ErrorValue): string => {
+  if (!error) return "Błąd serwera";
+
+  if (Array.isArray(error)) {
+    return error[0] ?? "Błąd walidacji";
+  }
+
+  if (typeof error === "object" && "message" in error) {
+    return error.message ?? "Błąd walidacji";
+  }
+
+  return "Błąd walidacji";
+};
+
+export const setClientErrors = <T extends FieldValues>(
+  errors: Record<
+    string,
+    string[] | { type?: string; message?: string } | undefined
+  >,
+  setError: UseFormSetError<T>
+) => {
+  Object.entries(errors).forEach(([field, error]) => {
     setError(field as Path<T>, {
-      type: error.type === "auth" ? "server" : error.type,
-      message: error.message,
+      type: "server",
+      message: resolveErrorMessage(error),
     });
   });
-}
+};

@@ -3,7 +3,7 @@
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { InputType } from "@/enums";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
@@ -35,7 +35,6 @@ const dataInputsheader = [
 ];
 
 const AddFormField = () => {
-  const inputTypes = Object.values(InputType);
   const { formId } = useParams();
 
   const methods = useForm<AddFormFieldSchema>({
@@ -47,7 +46,6 @@ const AddFormField = () => {
   });
 
   const {
-    control,
     register,
     handleSubmit,
     setError,
@@ -66,8 +64,8 @@ const AddFormField = () => {
         options: [],
       });
 
-      if (resp?.validationError) {
-        handleClientErrors<AddFormFieldSchema>(resp.validationError, setError);
+      if (resp?.validationErrors) {
+        setClientErrors(resp.validationErrors, setError);
         return;
       }
       reset();

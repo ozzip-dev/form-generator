@@ -48,23 +48,10 @@ const AddOption = (props: Props) => {
     setError,
   } = useFormContext();
 
-  const { fields, append, remove, insert } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: `options`,
   });
-
-  const getInsertIndex = () => {
-    const otherIndex = fields.findIndex(
-      (field) => field.value === OPTION_OTHER
-    );
-
-    if (otherIndex === -1) {
-      return fields.length;
-    }
-
-    return otherIndex;
-  };
-  console.log("fields", fields);
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -75,19 +62,9 @@ const AddOption = (props: Props) => {
     setError,
   });
 
-  // const handleAddOption = () => {
-  //   if (errors.options) return;
-  //   append({ label: "" });
-  // };
-
   const handleAddOption = () => {
     if (errors.options) return;
-
-    const insertIndex = getInsertIndex();
-
-    insert(insertIndex, {
-      label: "",
-    });
+    append({ label: "" });
   };
 
   const handleAddOther = () => {
@@ -155,8 +132,7 @@ const AddOption = (props: Props) => {
           <Button
             message={"Dodaj opcję"}
             type="button"
-            // disabled={!!errors.options || inputHasOther(props.input)}
-            disabled={!!errors.options}
+            disabled={!!errors.options || inputHasOther(props.input)}
             onClickAction={handleAddOption}
           />
         </div>

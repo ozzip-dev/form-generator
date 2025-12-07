@@ -7,21 +7,21 @@ import { requireUser } from "@/services/user-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 import { checkFormHasInputWithId } from "../../utils";
+import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 export async function editInputLabelAction(
   formIdString: string,
   inputId: string,
   data: { header?: string; description?: string }
-): Promise<void | { validationError: any }> {
+): Promise<void | { validationErrors: ValidationErrors }> {
   await requireUser();
 
-  if (data.header || data.description) {
-    const validationResult = editInputFormSchema.partial().safeParse(data);
+  const validationResult = editInputFormSchema.partial().safeParse(data);
 
-    if (!validationResult.success) {
-      return { validationError: validationResult.error.formErrors.fieldErrors };
-    }
+  if (!validationResult.success) {
+    return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
+
   const formId = new ObjectId(formIdString);
 
   checkFormHasInputWithId(db, formId, inputId);

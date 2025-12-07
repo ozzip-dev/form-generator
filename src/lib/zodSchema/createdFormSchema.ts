@@ -9,11 +9,7 @@ export const createdFormSchema = (inputs: any[]) => {
     switch (input.type) {
       case "text":
         shape[fieldName] = input.required
-          ? z
-              .string()
-              .trim()
-              .min(2, "Minimum 2 znaki")
-              .max(60, "Maksymum 60 znaków")
+          ? z.string().trim().min(2, "Min. 2 znaki").max(60, "Maks. 60 znaków")
           : z.string().optional();
         break;
       case "superText":
@@ -21,14 +17,14 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .trim()
-              .min(2, "Minimum 2 znaki")
-              .max(2000, "Maksymum 2000 znaków")
+              .min(2, "Min. 2 znaki")
+              .max(2000, "Maks. 2000 znaków")
           : z.string().optional();
         break;
 
       case "number":
         shape[fieldName] = input.required
-          ? z.string().trim().regex(/\d/, "Minimum 1 cyfra")
+          ? z.string().trim().regex(/\d/, "Min. 1 cyfra")
           : z.string().optional();
         break;
 
@@ -39,7 +35,7 @@ export const createdFormSchema = (inputs: any[]) => {
             if (!obj) {
               ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Minimum jedna opcja",
+                message: "Min. jedna opcja",
               });
               return;
             }
@@ -62,7 +58,7 @@ export const createdFormSchema = (inputs: any[]) => {
                     minimum: 2,
                     type: "string",
                     inclusive: true,
-                    message: "Minimum 2 znaki",
+                    message: "Min. 2 znaki",
                   });
                 }
 

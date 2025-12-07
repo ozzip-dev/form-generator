@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
-import { UseFormTrigger, UseFormSetError } from "react-hook-form";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { AddFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
+import { UseFormSetError, UseFormTrigger } from "react-hook-form";
 
 type UseEditOptions = {
   formId?: string;
@@ -54,11 +53,10 @@ export function useEditForm({
 
           const resp = await action(formId, ...args);
 
-          if (resp?.validationError && setError) {
-            handleClientErrors<AddFormFieldSchema>(
-              resp.validationError,
-              setError
-            );
+          if (resp?.validationErrors && setError) {
+            console.log("resp?.validationErrors", resp?.validationErrors);
+
+            setClientErrors(resp.validationErrors, setError);
             return;
           }
         } catch (err) {

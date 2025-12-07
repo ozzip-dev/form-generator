@@ -23,6 +23,7 @@ import {
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
 import { FormInput } from "@/types/input";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 type FieldRenderer = (
   input: FormInput,
@@ -65,7 +66,8 @@ const CreatedForm = (props: Props) => {
 
   const methods = useForm({
     defaultValues: defaultValues(inputs),
-    resolver: zodResolver(schema),
+    // resolver: zodResolver(schema),
+    resolver: async (values) => ({ values, errors: {} }),
     mode: "all",
   });
 
@@ -78,6 +80,8 @@ const CreatedForm = (props: Props) => {
     watch,
     handleSubmit,
     reset,
+    setError,
+    clearErrors,
   } = methods;
 
   console.log("errors", errors);
@@ -90,33 +94,42 @@ const CreatedForm = (props: Props) => {
   }, [watch]);
 
   const onSubmit = async (data: any) => {
+    // clearErrors();
+    // reset(data);
+
     console.log("data", data);
-    // const _id = props.form._id?.toString();
-    // if (!_id) return; // ?
+    const _id = props.form._id?.toString();
+    if (!_id) return;
 
-    // // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
-    // const keys = Object.keys(data);
-    // const inputIds = inputs.map(({ id }) => id);
-    // keys.forEach((key) => {
-    //   if (!inputIds.includes(key)) delete data[key];
-    // });
+    // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
+    const keys = Object.keys(data);
+    const inputIds = inputs.map(({ id }) => id);
+    keys.forEach((key) => {
+      if (!inputIds.includes(key)) delete data[key];
+    });
 
-    // try {
-    //   await submitFormAction(_id, data);
-    //   setSuccess(true);
-    //   reset();
-    // } catch (e) {
-    //   console.log("blad ", e);
-    //   const err = e as Error;
-    //   const title =
-    //     err.message == uniqueErrorMessage
-    //       ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
-    //       : "Blad. Sprobuj ponownie.";
-    //   toast({
-    //     title,
-    //     variant: "error",
-    //   });
-    // }
+    try {
+      const resp = await submitFormAction(_id, data, inputs);
+
+      if (resp?.validationErrors) {
+        setClientErrors(resp.validationErrors, setError);
+        return;
+      }
+
+      setSuccess(true);
+      reset();
+    } catch (e) {
+      console.log("blad ", e);
+      const err = e as Error;
+      const title =
+        err.message == uniqueErrorMessage
+          ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
+          : "Blad. Sprobuj ponownie.";
+      toast({
+        title,
+        variant: "error",
+      });
+    }
   };
 
   const fieldRenderers: Record<string, FieldRenderer> = {
