@@ -1,9 +1,9 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
-import InputError from "./InputError";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
-import InputOther from "./InputOther";
+import { useFormContext } from "react-hook-form";
+import InputError from "../InputError";
+import InputRadioOther from "./InputRadioOther";
 
 type Option = {
   label: string;
@@ -56,7 +56,7 @@ const RadioGroupField = (props: Props) => {
           return (
             <div key={option.value} className="flex gap-4 items-center">
               {isOther ? (
-                <InputOther
+                <InputRadioOther
                   label={option.label}
                   name={props.name}
                   setValue={setValue}

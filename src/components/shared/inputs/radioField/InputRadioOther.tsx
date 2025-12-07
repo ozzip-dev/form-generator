@@ -10,7 +10,7 @@ type Props = {
   label?: string;
 };
 
-const InputOther = (props: Props) => {
+const InputRadioOther = (props: Props) => {
   return (
     <div>
       <label className="text-lg block text-xl !important">{props.label}</label>
@@ -30,4 +30,4 @@ const InputOther = (props: Props) => {
   );
 };
 
-export default InputOther;
+export default InputRadioOther;

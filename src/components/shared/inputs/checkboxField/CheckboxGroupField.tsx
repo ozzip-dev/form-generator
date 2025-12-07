@@ -2,8 +2,9 @@
 
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { useMemo } from "react";
-import { InputError } from "../index";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
+import InputError from "../InputError";
+import InputCheckboxOther from "./InputCheckboxOther";
 
 type CheckboxOption = {
   label: string;
@@ -21,7 +22,9 @@ type Props<T extends FieldValues> = {
   options: CheckboxOption[];
   className?: string;
   errorMsg?: any;
-  onChangeAction?: (values: { name: string; value: boolean }[]) => void;
+  onChangeAction?: (
+    values: { name: string; value: boolean | string }[]
+  ) => void;
 };
 
 const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
@@ -46,7 +49,7 @@ const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
       render={({ field, fieldState }) => {
         const selectedValues = (field.value ?? defaultValues) as Record<
           string,
-          boolean
+          boolean | string
         >;
 
         const handleToggle = (name: string) => {
@@ -78,24 +81,11 @@ const CheckboxGroupField = <T extends FieldValues>(props: Props<T>) => {
             {props.options.map(({ name, label, optionId = "" }) => {
               if (optionId === OPTION_OTHER) {
                 return (
-                  <input
+                  <InputCheckboxOther
                     key={name}
-                    type="text"
-                    placeholder="Inna odpowiedź"
-                    value={
-                      typeof selectedValues[name] === "string"
-                        ? selectedValues[name]
-                        : ""
-                    }
-                    onChange={(e) => {
-                      const value = e.target.value;
-
-                      field.onChange({
-                        ...selectedValues,
-                        [name]: value,
-                      });
-                    }}
-                    className="border px-2 py-1"
+                    name={name}
+                    selectedValues={selectedValues}
+                    onChange={field.onChange}
                   />
                 );
               }
