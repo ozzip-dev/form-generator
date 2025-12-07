@@ -61,17 +61,22 @@ const AddOption = (props: Props) => {
     setError,
   });
 
-  const handleDeleteOption = (optionName: string, idx: number) => {
-    remove(idx);
-    startTransition(() => {
-      removeOption(optionName);
-    });
+  const handleAddOption = () => {
+    if (errors.options) return;
+    append({ label: "" });
   };
 
   const handleAddOther = () => {
     startTransition(() => {
       addOtherOption();
       append({ value: OPTION_OTHER, label: "Inne" });
+    });
+  };
+
+  const handleDeleteOption = (optionName: string, idx: number) => {
+    remove(idx);
+    startTransition(() => {
+      removeOption(optionName);
     });
   };
 
@@ -103,11 +108,6 @@ const AddOption = (props: Props) => {
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
-              // onChange={(_, value) => handleEdit(field.value as string, value)}
-              // onChange={(name, value) =>
-              //   handleEdit(name, field.value as string)
-              // }
-
               onChange={(name, value) => handleEdit(name, value)}
             />
 
@@ -130,21 +130,15 @@ const AddOption = (props: Props) => {
             message={"Dodaj opcję"}
             type="button"
             disabled={!!errors.options || inputHasOther(props.input)}
-            onClickAction={() => {
-              if (errors.options) return;
-
-              append({ label: "" });
-            }}
+            onClickAction={handleAddOption}
           />
         </div>
         <div className="w-fit">
           <Button
             message="Dodaj inne"
             type="button"
-            onClickAction={() => {
-              handleAddOther();
-            }}
             disabled={inputHasOther(props.input)}
+            onClickAction={handleAddOther}
           />
         </div>
       </div>
