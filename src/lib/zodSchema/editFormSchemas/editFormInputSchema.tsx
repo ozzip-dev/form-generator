@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const optionSchema = z.object({
-  value: z.string().trim().min(2, "Min. 2 znaki").max(200, "Maks. 200 znaków"),
   label: z.string().trim().min(2, "Min. 2 znaki").max(200, "Maks. 200 znaków"),
 });
 

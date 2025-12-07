@@ -39,7 +39,7 @@ const AddFormField = () => {
   const { formId } = useParams();
 
   const methods = useForm<AddFormFieldSchema>({
-    // resolver: zodResolver(addFormFieldSchema),
+    resolver: zodResolver(addFormFieldSchema),
     defaultValues: {
       type: "text",
     },
@@ -66,8 +66,8 @@ const AddFormField = () => {
         options: [],
       });
 
-      if (resp?.error) {
-        handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+      if (resp?.validationError) {
+        handleClientErrors<AddFormFieldSchema>(resp.validationError, setError);
         return;
       }
       reset();

@@ -34,8 +34,8 @@ export default function AliasUrlForm(form: FormSerialized) {
     try {
       const resp = await setAliasUrlAction(form, data);
 
-      if ("error" in resp) {
-        handleClientErrors<SetAliasSchema>(resp.error, setError);
+      if ("validationError" in resp) {
+        handleClientErrors<SetAliasSchema>(resp.validationError, setError);
         return;
       }
     } catch (e: any) {

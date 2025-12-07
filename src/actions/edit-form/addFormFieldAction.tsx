@@ -40,14 +40,14 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { validationError: ModelFieldErrors }> {
   await requireUser();
 
   const { header, type } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationError: handleServerErrors(validationResult.error) };
   }
 
   const draft = await findById<Form>(db, "form", new ObjectId(formId));

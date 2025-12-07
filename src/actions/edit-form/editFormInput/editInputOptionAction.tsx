@@ -34,11 +34,11 @@ const editInputOptionAction = async (
     idx === optionIndex ? { ...opt, label: inputLabel } : opt
   );
 
+  console.log("dataToValidate", dataToValidate);
+
   const validationResult = editInputFormSchema.partial().safeParse({
     options: dataToValidate,
   });
-
-  console.log("validationResult", validationResult);
 
   if (!validationResult.success) {
     return { validationError: handleServerErrors(validationResult.error) };

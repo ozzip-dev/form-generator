@@ -15,12 +15,12 @@ import { requireUser } from "@/services/user-service";
 export async function setAliasUrlAction(
   form: FormSerialized,
   alias: SetAliasSchema
-): Promise<{ success: true } | { error: ModelFieldErrors }> {
+): Promise<{ success: true } | { validationError: ModelFieldErrors }> {
   const user = await requireUser();
 
   const validationResult = setAliasSchema.safeParse(alias);
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationError: handleServerErrors(validationResult.error) };
   }
 
   if (!isUserAuthor(form, user.id))
