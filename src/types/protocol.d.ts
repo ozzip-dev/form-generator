@@ -8,18 +8,37 @@ import { Binary, Document } from "mongodb";
 // rokowania - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
 // mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności
 
-export type ProtocolFileCategory = 'negotiations' | 'mediations'
-export type ProtocolFileType = 'meetings' | 'discrepancy'
-export type ProtocolDisputeReason = 'workTime' | 'safety' | 'wages' | 'standards' | 'other'
+// Jeśli chcemy zagniezdzoną strukture
+// export type ProtocolFileCategory = 'demands' | 'negotiations' | 'mediations' | 'agreement' | 'other'
+// export type ProtocolFileType = 'meetings' | 'discrepancy'
+// type ProtocolFiles = Record<ProtocolFileType, string[]> | string[]
 
-type ProtocolFiles = Record<ProtocolFileType, string[]>
+// TODO: czy dac strukture zagniezdzona?
+export type ProtocolFileCategory =
+  'demands' |
+  'negotiationMeetings' |
+  'negotiationDiscrepancy' |
+  'mediationMeetings' |
+  'mediationDiscrepancy' |
+  'agreement' |
+  'other'
+
+export type ProtocolDisputeReason = 'workTime' | 'safety' | 'wages' | 'standards' | 'other'
 
 interface ProtocolData {
   branch: string; // branza
   disputeReason: ProtocolDisputeReason[]; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
   tradeUnionName: string; // nazwa związku
   workplaceName: string; // nazwa zakładu
-  files: Record<ProtocolFileCategory, ProtocolFiles>
+  files: Record<ProtocolFileCategory, string[]> // file ids
+  // files: Record<ProtocolFileCategory, ProtocolFiles>
+  // files: { // file ids
+  //   demands: string[];
+  //   negotiations: ProtocolFiles;
+  //   mediations: ProtocolFiles;
+  //   agreement: string[];
+  //   other: string[];
+  // }
   // negotiations: ProtocolFiles; // rokowania
   // mediations: ProtocolFiles; // mediacje
 }
@@ -44,8 +63,8 @@ export type ProtocolInsertData = {
   tradeUnionName: string
   workplaceName: string
   disputeStartDate: string
-  negotiations?: ProtocolFiles
-  mediations?: ProtocolFiles
+  // negotiations?: ProtocolFiles
+  // mediations?: ProtocolFiles
 }
 
 export type ProtocolMenuItem = { text: string; link: string }

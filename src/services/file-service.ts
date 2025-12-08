@@ -1,6 +1,7 @@
-import { db, insert, insertMany } from "@/lib/mongo";
-import { File } from "@/types/file";
-import { InsertManyResult, InsertOneResult } from "mongodb";
+import { db, find, findAll, insert, insertMany } from "@/lib/mongo";
+import { serializeFile } from "@/lib/serialize-utils";
+import { File, FileSerialized } from "@/types/file";
+import { InsertManyResult, InsertOneResult, ObjectId } from "mongodb";
 
 export async function insertFile(
   data: Partial<File>
@@ -12,4 +13,20 @@ export async function insertFiles(
   data: Partial<File>[]
 ): Promise<InsertManyResult<File>> {
   return await insertMany<File>(db, "file", data);
+}
+
+export async function getAllFiles(): Promise<FileSerialized[]> {
+  const files = await findAll<File>(db, 'file')
+  return files.map((file) => serializeFile(file))
+}
+
+export async function getFilesByFileIdsNoData(fileIdStrings: string[] = []): Promise<Partial<FileSerialized>[]> {
+  const fileIds = fileIdStrings.map((id) => (new ObjectId(id)))
+  const files = await db
+    .collection<File>('file')
+    .find({ _id: { $in: fileIds as never[] } })
+    .project({ _id: 1, name: 1 })
+    .toArray();
+  // const files = await find<File>(db, 'file', {{ _id: { $in: fileIds } }, {  }})
+  return files.map((file) => ({ ...file, _id: file._id.toString() }))
 }

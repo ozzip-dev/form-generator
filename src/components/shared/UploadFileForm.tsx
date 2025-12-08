@@ -11,6 +11,7 @@ import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import IconPDF from "@/icons/iconPDF/IconPDF";
 import DeleteDocumentConformation from "../pages/protocols/DeleteDocumentConformation";
+import { ProtocolFileCategory } from "@/types/protocol";
 
 type UploadedFile = {
   id: string;
@@ -22,7 +23,12 @@ type UploadedFile = {
   objectUrl: string;
 };
 
-const AddProtocolForm = () => {
+type Props = {
+  category?: ProtocolFileCategory
+  onFileUpload?: (fileId: string, category: ProtocolFileCategory) => void
+}
+
+const UploadFileForm = (props: Props) => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isPending, setPending] = useState(false);
@@ -40,13 +46,16 @@ const AddProtocolForm = () => {
 
 
     try {
-      const resp = await uploadFileAction(file);
+      const insertedId = await uploadFileAction(file);
+      console.log(props)
+      props.onFileUpload?.(insertedId, props.category!)
 
       toast({
         title: "Sukces",
         description: "Dokument dodany",
         variant: "success",
       });
+
       setFiles((prev) => [
         ...prev,
         {
@@ -63,7 +72,7 @@ const AddProtocolForm = () => {
       setPending(false);
       toast({
         title: "Błąd",
-        description: `Dokument nie zostałzapisany. ${error}`,
+        description: `Dokument nie został zapisany. ${error}`,
         variant: "error",
       });
     }
@@ -81,7 +90,7 @@ const AddProtocolForm = () => {
     if (rejectedFiles.length === 0) return;
 
     const toManyFiles = rejectedFiles.find((file) => {
-      console.log("toManyFiles", file.errors[0].code);
+      console.log("tooManyFiles", file.errors[0].code);
       return file.errors[0].code === "too-many-files";
     });
 
@@ -141,7 +150,7 @@ const AddProtocolForm = () => {
 
         <div
           {...getRootProps()}
-          className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2  margin-auto h-80"
+          className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2  margin-auto h-64"
           style={{
             borderColor: isDragActive ? "blue" : "gray",
             backgroundColor: isDragActive ? "lightblue" : "white",
@@ -170,7 +179,7 @@ const AddProtocolForm = () => {
             )}
           </div>
         </div>
-        <div>
+        {/* <div>
           <div className="flex p-2 gap-7">
             {files.map(({ id, objectUrl, file }, idx) => {
               console.log("file", file);
@@ -203,10 +212,10 @@ const AddProtocolForm = () => {
               );
             })}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
 };
 
-export default AddProtocolForm;
+export default UploadFileForm;

@@ -1,6 +1,6 @@
 import { Collection, Db, Document, InsertOneResult, ObjectId } from "mongodb";
-import { db, findAll, findById, getCollection, insert } from "@/lib/mongo";
-import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { db, findAll, findById, getCollection, insert, updateById } from "@/lib/mongo";
+import { Protocol, ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -39,4 +39,39 @@ export async function getProtocolById(formId: string): Promise<Protocol> {
   const protocol = await findById<Protocol>(db, 'protocol', new ObjectId(formId))
   if (!protocol) throw new Error('Invalid protocol id')
   return protocol
+}
+
+export async function addFileToProtocol({
+  protocolId,
+  fileId,
+  fileCategory,
+  // fileType
+}: {
+  protocolId: string,
+  fileId: string,
+  fileCategory?: ProtocolFileCategory,
+  // fileType?: ProtocolFileType
+}): Promise<void> {
+  // const pushQuery: string = fileType
+  //   ? `files.${fileCategory}.${fileType}`
+  //   : `files.${fileCategory}`
+  const pushQuery: string = `files.${fileCategory}`
+
+  await updateById(
+    db,
+    'protocol',
+    new ObjectId(protocolId),
+    {
+      $push: {
+        [pushQuery]: fileId
+      }
+      // $push: {
+      //   files: {
+      //     [fileCategory]: {
+      //       [fileType]: fileId
+      //     }
+      //   }
+      // }
+    }
+  )
 }

@@ -1,39 +1,61 @@
+import { addProtocolFile } from "@/actions/protocol";
 import ProtocolDetails from "@/components/pages/protocols/ProtocolDetails";
+import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
 import Protocols from "@/components/pages/protocols/Protocols";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { db } from "@/lib/mongo";
 import { serializeProtocol } from "@/lib/serialize-utils";
+import { getAllFiles, getFilesByFileIdsNoData } from "@/services/file-service";
 import { getProtocolById, getProtocols } from "@/services/protocol-service";
-import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { Protocol, ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import { redirect } from "next/navigation";
 
 const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: string }> }) => {
   const { protocolId } = await params
-  const {
-    branch,
-    disputeReason,
-    disputeStartDate,
-    tradeUnionName,
-    lastModifiedAt,
-    uploadedAt,
-    workplaceName
-  } = await getProtocolById(protocolId)
+  try {
+    const {
+      branch,
+      disputeReason,
+      disputeStartDate,
+      tradeUnionName,
+      lastModifiedAt,
+      uploadedAt,
+      workplaceName,
+      files: fileIds
+    } = await getProtocolById(protocolId)
 
-  return (
-    <div>
-      <ProtocolDetails 
-        {...{
-          branch,
-          disputeReason,
-          disputeStartDate,
-          tradeUnionName,
-          lastModifiedAt,
-          uploadedAt,
-          workplaceName
-        }}
-      />    
+    const fieldIdArray = Object.keys(fileIds)
+      .map((key) => fileIds[key as ProtocolFileCategory])
+      .flat()
 
-    </div>
-  );
+    const files = await getFilesByFileIdsNoData(fieldIdArray)
+    
+    const addFile = async (protocolId: string, category: ProtocolFileCategory, fileId: string) => {
+      'use server'
+      await addProtocolFile({ protocolId, fileId, fileCategory: category })
+    }
+
+    return (
+      <div>
+        <ProtocolDetails 
+          {...{
+            branch,
+            disputeReason,
+            disputeStartDate,
+            tradeUnionName,
+            lastModifiedAt,
+            uploadedAt,
+            workplaceName
+          }}
+        />
+
+        <ProtocolFileUploads id={protocolId} files={files} fileIds={fileIds} addFile={addFile} />
+      </div>
+    );
+  } catch(e) {
+    console.error(e)
+    redirect('/protocols/add')
+  }
 };
 
 export default EditProtocolPage;

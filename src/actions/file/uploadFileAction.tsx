@@ -1,14 +1,15 @@
 "use server";
 
 import { insertFile } from "@/services/file-service";
-import { Binary } from "mongodb";
+import { Binary, ObjectId } from "mongodb";
+import { revalidateTag } from "next/cache";
 
-export async function uploadFileAction(uploadedFile: File): Promise<any> {
+export async function uploadFileAction(uploadedFile: File): Promise<string> {
   const arrayBuffer = await uploadedFile.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
   const { name, size, type, lastModified } = uploadedFile;
-  const file = await insertFile({
+  const { insertedId }: { insertedId: ObjectId } = await insertFile({
     name,
     size,
     type,
@@ -17,5 +18,7 @@ export async function uploadFileAction(uploadedFile: File): Promise<any> {
     data: new Binary(buffer),
   });
 
-  return file;
+  revalidateTag('files')
+
+  return insertedId.toString();
 }

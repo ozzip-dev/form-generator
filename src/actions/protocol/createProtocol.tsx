@@ -1,21 +1,18 @@
 "use server";
 
-import { db, updateById } from "@/lib/mongo";
+import { db } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
-import {
-  ProtocolFileCategory, ProtocolFileType, ProtocolInsertData
-} from "@/types/protocol";
-import { ObjectId } from "mongodb";
+import { ProtocolInsertData} from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-const fileDefaults: {
-  meetings: string[]
-  discrepancy: string[]
-} = {
-  meetings: [],
-  discrepancy: []
-}
+// const fileDefaults: {
+//   meetings: string[]
+//   discrepancy: string[]
+// } = {
+//   meetings: [],
+//   discrepancy: []
+// }
 
 export async function createProtocol({
   branch,
@@ -23,8 +20,8 @@ export async function createProtocol({
   tradeUnionName,
   workplaceName,
   disputeStartDate,
-  negotiations = fileDefaults,
-  mediations = fileDefaults
+  // negotiations = fileDefaults,
+  // mediations = fileDefaults
 }: ProtocolInsertData): Promise<void> {
   let protocolId = ''
   try {
@@ -35,8 +32,15 @@ export async function createProtocol({
       workplaceName,
       disputeStartDate,
       files: {
-        negotiations,
-        mediations,
+        // negotiations: fileDefaults,
+        // mediations: fileDefaults,
+        demands: [],
+        mediationMeetings: [],
+        mediationDiscrepancy: [],
+        negotiationMeetings: [],
+        negotiationDiscrepancy: [],
+        agreement: [],
+        other: []
       },
     });
 
@@ -48,35 +52,4 @@ export async function createProtocol({
   }
   
   redirect(`/protocols/${protocolId}`);
-}
-
-export async function addFileToProtocol({
-  protocolId,
-  fileId,
-  fileCategory,
-  fileType
-}: {
-  protocolId: string,
-  fileId: string,
-  fileCategory: ProtocolFileCategory,
-  fileType: ProtocolFileType
-}): Promise<void> {
-  const pushQuery: string = `files.${fileCategory}.${fileType}`
-  await updateById(
-    db,
-    'protocol',
-    new ObjectId(protocolId),
-    {
-      $push: {
-        [pushQuery]: fileId
-      }
-      // $push: {
-      //   files: {
-      //     [fileCategory]: {
-      //       [fileType]: fileId
-      //     }
-      //   }
-      // }
-    }
-  )
 }
