@@ -15,7 +15,7 @@ const Protocols = ({ protocols }: Props) => {
 
   return (
     <div className="p-8">
-      <ProtocolListFilters filters={filters} setFilters={setFilters} />
+      {/* <ProtocolListFilters filters={filters} setFilters={setFilters} /> */}
       <ProtocolList filters={filters} protocols={protocols} />
     </div>
   );

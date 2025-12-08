@@ -3,6 +3,8 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { mapFileExtensionName, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
+import Link from "next/link";
 
 type Props = {
   filters: ProtocolFilters;
@@ -23,6 +25,16 @@ const ProtocolList = ({ filters, protocols }: Props) => {
   {/* //     {filteredResults.map((protocol, i) => (
   //       <ProtocolListItem {...protocol} key={i} />
   //     ))} */}
+
+      {protocols.map(({ _id, branch, tradeUnionName, workplaceName, uploadedAt }, i) => (
+        <div key={i}>
+          <span>
+            {branch} {tradeUnionName} {workplaceName} {formatDateAndTime(uploadedAt)}
+          </span>
+          {" "}
+          <Link href={`/protocols/${_id}`}><b>Edytuj</b></Link>      
+        </div>
+      ))}
     </>
   );
 };
