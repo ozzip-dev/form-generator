@@ -1,15 +1,13 @@
 "use client";
 
 import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
-import { Button, DataLoader } from "@/components/shared";
-import ModalWrapper from "@/components/shared/ModalWrapper";
+import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
+import IconPDF from "@/icons/iconPDF/IconPDF";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
-import IconPDF from "@/icons/iconPDF/IconPDF";
 
 type UploadedFile = {
   id: string;
