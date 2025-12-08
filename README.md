@@ -80,6 +80,7 @@ The application was developed with grant support received in the grant competiti
 * react-hook-form
 * react-dropzone
 * react-error-boundary
+* nodemailer
 
 
 ## Hooks
