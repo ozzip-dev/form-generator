@@ -16,6 +16,7 @@ const ProtocolDetails = (props: Partial<Protocol>) => {
   const displayDisputeReasons = disputeReason?.map((reason) => mapDisputeReason[reason]).join(', ')
   const displayDate = (date: Date) => formatDateAndTime(date.toISOString())
 
+  // TODO: przerobic
   return (
     <div>
       <div className="text-lg font-black">Dane protokołu:</div>

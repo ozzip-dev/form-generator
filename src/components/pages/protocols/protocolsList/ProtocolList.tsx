@@ -21,21 +21,25 @@ const ProtocolList = ({ filters, protocols }: Props) => {
   // );
 
   return (
-    <>
+    <div className="grid grid-cols-5">
   {/* //     {filteredResults.map((protocol, i) => (
   //       <ProtocolListItem {...protocol} key={i} />
   //     ))} */}
-
-      {protocols.map(({ _id, branch, tradeUnionName, workplaceName, uploadedAt }, i) => (
-        <div key={i}>
-          <span>
-            {branch} {tradeUnionName} {workplaceName} {formatDateAndTime(uploadedAt)}
-          </span>
-          {" "}
+      <div className="font-black">Branza</div>
+      <div className="font-black">Nazwa związku</div>
+      <div className="font-black">Nazwa zakładu</div>
+      <div className="font-black">Data sporu</div>
+      <div></div>
+      {protocols.map(({ _id, branch, tradeUnionName, workplaceName, disputeStartDate }, i) => (
+        <div key={i} className="contents">
+          <div>{branch}</div>
+          <div>{tradeUnionName}</div>
+          <div>{workplaceName}</div>
+          <div>{formatDateAndTime(disputeStartDate)}</div>
           <Link href={`/protocols/${_id}`}><b>Edytuj</b></Link>      
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

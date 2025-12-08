@@ -164,6 +164,7 @@ const ProtocolForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 m-auto">
+      <div className="text-[30px] font-black">Krok 1: uzupełnij dane</div>
       <InputFields
         inputsData={dataInputsProtocolForm}
         register={register}

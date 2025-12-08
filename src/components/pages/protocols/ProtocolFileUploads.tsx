@@ -29,6 +29,7 @@ const ProtocolFileUploads = ({ id, files, fileIds, addFile }: Props) => {
 
   return (
     <div className="pt-16">
+      <div className="text-[30px] font-black">Krok 2: dodaj dokumenty</div>
       <div className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
         {fileCategories.map((category, i) =>(
           <Button
