@@ -119,13 +119,13 @@ const AddProtocolForm = () => {
 
       <ProtocolForm />
       <div className="w-4/5 m-auto flex flex-col gap-5">
-        <div className="text-2xl">Załącz dokumenty</div>
+        <div className="text-4xl">Załącz dokumenty</div>
         <DocumentDrop
           label="Żądania wstrzynające spór"
           setGlobalPending={setIsPending}
           setDeleteModalOpen={setDeleteModalOpen}
         />
-        <div className="text-2xl">Rokowania</div>
+        <div className="text-2xl font-semibold">Rokowania</div>
         <DocumentDrop
           label="Protokoły ze spotakń"
           setGlobalPending={setIsPending}
@@ -141,7 +141,7 @@ const AddProtocolForm = () => {
           setGlobalPending={setIsPending}
           setDeleteModalOpen={setDeleteModalOpen}
         />
-        <div className="text-2xl">Mediacje</div>
+        <div className="text-2xl font-semibold">Mediacje</div>
         <DocumentDrop
           label="Protokoły ze spotakń"
           setGlobalPending={setIsPending}

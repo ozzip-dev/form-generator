@@ -136,7 +136,7 @@ const DocumentDrop = (props: Props) => {
   return (
     <>
       <div className="flex gap-3 ">
-        <div>{props.label}</div>
+        <div className="ml-6">{props.label}</div>
         <div
           {...getRootProps()}
           className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2 ml-auto w- h-32"
@@ -172,25 +172,24 @@ const DocumentDrop = (props: Props) => {
               <div key={idx} className="w-[4rem]  h-[4rem] relative">
                 <button
                   onClick={handlePrintModal}
-                  className="h-5 w-5 absolute -right-5"
+                  className="w-[50px] h-[50px] realtive relative transition-transform duration-200 ease-out hover:scale-110"
                 >
-                  <IconTrash style="size-full bg-red-500" />
+                  <IconTrash style="size-full bg-red-500 h-5 w-5 absolute -right-1" />
+                  {file.type === "application/pdf" ? (
+                    <IconPDF style="size-full bg-red-500" />
+                  ) : (
+                    <Image
+                      src={objectUrl}
+                      alt={file.name}
+                      width={50}
+                      height={50}
+                      placeholder="blur"
+                      blurDataURL="/images/placeholder.jpg"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="truncate">{file.name}</div>
                 </button>
-
-                {file.type === "application/pdf" ? (
-                  <IconPDF style="size-full bg-red-500" />
-                ) : (
-                  <Image
-                    src={objectUrl}
-                    alt={file.name}
-                    width={100}
-                    height={100}
-                    placeholder="blur"
-                    blurDataURL="/images/placeholder.jpg"
-                    loading="lazy"
-                  />
-                )}
-                <div className="truncate">{file.name}</div>
               </div>
             );
           })}

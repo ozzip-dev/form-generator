@@ -108,7 +108,10 @@ const ProtocolForm = () => {
         errorMsg={errors}
       />
       <div className="w-fit ml-auto">
-        <Button message="Zapisz opis sporu" isLoading={isSubmitting} />
+        <Button
+          message="Zapisz dane nt. sporu zbiorowego"
+          isLoading={isSubmitting}
+        />
       </div>
     </form>
   );
