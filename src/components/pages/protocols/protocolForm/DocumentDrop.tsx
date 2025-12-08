@@ -21,7 +21,11 @@ type UploadedFile = {
   objectUrl: string;
 };
 
-const DocumentDrop = () => {
+type Props = {
+  label: string;
+};
+
+const DocumentDrop = (props: Props) => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isPending, setPending] = useState(false);
@@ -132,16 +136,16 @@ const DocumentDrop = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col ">
+      <div className="flex gap-3 ">
         {isModalOpen && (
           <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
             <DeleteDocumentConformation setModalOpen={setModalOpen} />
           </ModalWrapper>
         )}
-
+        <div>{props.label}</div>
         <div
           {...getRootProps()}
-          className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2  margin-auto h-80"
+          className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2 ml-auto w- h-32"
           style={{
             borderColor: isDragActive ? "blue" : "gray",
             backgroundColor: isDragActive ? "lightblue" : "white",
@@ -162,47 +166,47 @@ const DocumentDrop = () => {
               <>
                 <Button message="Wybierz z komputera" />
 
-                <div>
+                <div className="text-xs">
                   Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
                 </div>
-                <div>Maksymalny rozmiar: 5 MB</div>
+                <div className="text-xs">Maksymalny rozmiar: 5 MB</div>
               </>
             )}
           </div>
         </div>
-        <div>
-          <div className="flex p-2 gap-7">
-            {files.map(({ id, objectUrl, file }, idx) => {
-              console.log("file", file);
+      </div>
+      <div>
+        <div className="flex p-2 gap-7">
+          {files.map(({ id, objectUrl, file }, idx) => {
+            console.log("file", file);
 
-              return (
-                <div key={idx} className="w-[4rem]  h-[4rem] relative">
-                  <button
-                    onClick={handlePrintModal}
-                    disabled={isPending}
-                    className="h-5 w-5 absolute -right-5"
-                  >
-                    <IconTrash style="size-full bg-red-500" />
-                  </button>
+            return (
+              <div key={idx} className="w-[4rem]  h-[4rem] relative">
+                <button
+                  onClick={handlePrintModal}
+                  disabled={isPending}
+                  className="h-5 w-5 absolute -right-5"
+                >
+                  <IconTrash style="size-full bg-red-500" />
+                </button>
 
-                  {file.type === "application/pdf" ? (
-                    <IconPDF style="size-full bg-red-500" />
-                  ) : (
-                    <Image
-                      src={objectUrl}
-                      alt={file.name}
-                      width={100}
-                      height={100}
-                      placeholder="blur"
-                      blurDataURL="/images/placeholder.jpg"
-                      loading="lazy"
-                    />
-                  )}
-                  <div className="truncate">{file.name}</div>
-                </div>
-              );
-            })}
-          </div>
+                {file.type === "application/pdf" ? (
+                  <IconPDF style="size-full bg-red-500" />
+                ) : (
+                  <Image
+                    src={objectUrl}
+                    alt={file.name}
+                    width={100}
+                    height={100}
+                    placeholder="blur"
+                    blurDataURL="/images/placeholder.jpg"
+                    loading="lazy"
+                  />
+                )}
+                <div className="truncate">{file.name}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

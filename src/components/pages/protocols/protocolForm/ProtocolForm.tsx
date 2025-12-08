@@ -20,7 +20,7 @@ import {
 
 const dataInputsProtocolForm = [
   {
-    label: "Branża produkcji",
+    label: "Branża",
     name: "productionBranch",
     placeholder: "Budownictwo",
     type: "text",
@@ -81,7 +81,7 @@ const ProtocolForm = () => {
   } = methods;
 
   return (
-    <form action="" className=" w-4/5 m-auto">
+    <form action="" className="w-4/5 m-auto">
       <InputFields
         inputsData={dataInputsProtocolForm}
         register={register}

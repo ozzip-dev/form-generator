@@ -101,11 +101,26 @@ import ProtocolForm from "./ProtocolForm";
 // porozumienie kończące spór
 // inne - ladowanie likow
 
+const dataDropLabels = [];
+
 const AddProtocolForm = () => {
   return (
     <>
       <ProtocolForm />
-      <DocumentDrop />
+      <div className="w-4/5 m-auto flex flex-col gap-5">
+        <div className="text-2xl">Załącz dokumenty</div>
+        <DocumentDrop label="Żądania wstrzynające spór" />
+        <div className="text-2xl">Rokowania</div>
+        <DocumentDrop label="Protokoły ze spotakń" />
+        <DocumentDrop label="Główny protokul rozbierzności" />
+        <DocumentDrop label="Rokowania inne" />
+        <div className="text-2xl">Mediacje</div>
+        <DocumentDrop label="Protokoły ze spotakń" />
+        <DocumentDrop label="Główny protokul rozbierzności" />
+        <DocumentDrop label="Mediacje inne" />
+        <DocumentDrop label="Porozumienie kończące spór" />
+        <DocumentDrop label="Spór inne" />
+      </div>
     </>
   );
 };
