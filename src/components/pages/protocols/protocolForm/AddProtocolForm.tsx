@@ -88,6 +88,7 @@ import { FileRejection, useDropzone } from "react-dropzone";
 import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
 import IconPDF from "@/icons/iconPDF/IconPDF";
 import DocumentDrop from "./DocumentDrop";
+import ProtocolForm from "./ProtocolForm";
 
 // branza
 // data rozpoczecia sporu
@@ -101,7 +102,12 @@ import DocumentDrop from "./DocumentDrop";
 // inne - ladowanie likow
 
 const AddProtocolForm = () => {
-  return <DocumentDrop />;
+  return (
+    <>
+      <ProtocolForm />
+      <DocumentDrop />
+    </>
+  );
 };
 
 export default AddProtocolForm;
