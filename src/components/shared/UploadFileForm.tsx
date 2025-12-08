@@ -10,7 +10,7 @@ import Image from "next/image";
 import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import IconPDF from "@/icons/iconPDF/IconPDF";
-import DeleteDocumentConformation from "../pages/protocols/DeleteDocumentConformation";
+import DeleteDocumentConformation from "../pages/protocols/protocolsList/DeleteDocumentConformation";
 import { ProtocolFileCategory } from "@/types/protocol";
 
 type UploadedFile = {

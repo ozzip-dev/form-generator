@@ -1,7 +1,7 @@
 "use client";
 
 import { Binary } from "mongodb";
-import { mapFileExtensionName } from "./utils";
+import { mapFileExtensionName } from "../utils";
 import { ProtocolSerialized } from "@/types/protocol";
 import { convertBToKB } from "@/lib/utils";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";

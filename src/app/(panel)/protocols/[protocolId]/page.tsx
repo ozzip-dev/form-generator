@@ -1,7 +1,6 @@
 import { addProtocolFile } from "@/actions/protocol";
 import ProtocolDetails from "@/components/pages/protocols/ProtocolDetails";
 import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
-import Protocols from "@/components/pages/protocols/Protocols";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { db } from "@/lib/mongo";
 import { serializeProtocol } from "@/lib/serialize-utils";

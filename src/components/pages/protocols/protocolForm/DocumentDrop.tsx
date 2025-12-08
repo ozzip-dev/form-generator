@@ -1,6 +1,6 @@
 "use client";
 
-import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
+import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import IconPDF from "@/icons/iconPDF/IconPDF";

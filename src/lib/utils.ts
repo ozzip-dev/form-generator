@@ -6,7 +6,7 @@ export const convertBToKB = (bytes: number): string => {
 };
 
 export function makeId(header: string): string {
-  return `${header.trim().toLowerCase()}-${Math.round(
+  return `${header.trim().toLowerCase().replace(' ', '-')}-${Math.round(
     Math.random() * 100000
   ).toString()}`;
 }

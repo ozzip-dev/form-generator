@@ -2,7 +2,7 @@
 
 import { mapFileExtensionName, ProtocolFilters } from "./utils";
 import { ProtocolSerialized } from "@/types/protocol";
-import ProtocolListItem from "./ProtocolListItem";
+// import ProtocolListItem from "./ProtocolListItem";
 
 type Props = {
   filters: ProtocolFilters,

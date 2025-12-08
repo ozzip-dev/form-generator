@@ -9,18 +9,20 @@ type Props = {
   protocols: ProtocolSerialized[];
 };
 
+// TODO Pawel: wroc do tego
+
 const ProtocolList = ({ filters, protocols }: Props) => {
-  const filteredResults = protocols.filter(
-    ({ name, type }) =>
-      name.includes(filters.name) &&
-      mapFileExtensionName(type).includes(filters.type)
-  );
+  // const filteredResults = protocols.filter(
+  //   ({ name, type }) =>
+  //     name.includes(filters.name) &&
+  //     mapFileExtensionName(type).includes(filters.type)
+  // );
 
   return (
     <>
-      {filteredResults.map((protocol, i) => (
-        <ProtocolListItem {...protocol} key={i} />
-      ))}
+  {/* //     {filteredResults.map((protocol, i) => (
+  //       <ProtocolListItem {...protocol} key={i} />
+  //     ))} */}
     </>
   );
 };
