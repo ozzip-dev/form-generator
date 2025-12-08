@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
-import { UseFormTrigger, UseFormSetError } from "react-hook-form";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { AddFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
+import { UseFormSetError, UseFormTrigger } from "react-hook-form";
 
 type UseEditOptions = {
   formId?: string;
@@ -42,7 +41,6 @@ export function useEditForm({
       clearTimeout(debounceMap.current.get(key)!);
 
       const timeout = setTimeout(async () => {
-        console.log("www", name);
         if (trigger && !(await trigger(name))) {
           debounceMap.current.delete(key);
           return;
@@ -55,9 +53,10 @@ export function useEditForm({
 
           const resp = await action(formId, ...args);
 
-          if (resp?.error && setError) {
-            console.log("resp?.error", resp?.error);
-            handleClientErrors<AddFormFieldSchema>(resp.error, setError);
+          if (resp?.validationErrors && setError) {
+            console.log("resp?.validationErrors", resp?.validationErrors);
+
+            setClientErrors(resp.validationErrors, setError);
             return;
           }
         } catch (err) {

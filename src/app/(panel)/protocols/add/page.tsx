@@ -1,4 +1,4 @@
-import AddProtocolForm from "@/components/pages/protocols/AddProtocolForm";
+import AddProtocolForm from "@/components/pages/protocols/protocolForm/AddProtocolForm";
 
 // TODO: gdy ustalimy strukture stron do dodawania/edycji/przegladania protokolow, 
 // poprawic pliki layout i sciezki w menu

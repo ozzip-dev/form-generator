@@ -60,7 +60,7 @@ export default function EditFormHeader(props: Props) {
 
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     trigger,
     setError,
   } = methods;

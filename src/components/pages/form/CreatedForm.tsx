@@ -23,6 +23,7 @@ import {
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
 import { FormInput } from "@/types/input";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 type FieldRenderer = (
   input: FormInput,
@@ -32,24 +33,22 @@ type FieldRenderer = (
 ) => JSX.Element;
 
 const defaultValues = (inputs: FormInput[]) => {
-  const transformedInputs = inputs.reduce((acu: any, input: any) => {
+  const defaultValues = inputs.reduce((formObject: any, input: any) => {
     const { type, options, id } = input;
 
+    const checkboxValues = options.reduce((optionsObject: any, option: any) => {
+      optionsObject[option.label] = false;
+      return optionsObject;
+    }, {});
+
     if (type === "checkbox") {
-      acu[id] =
-        options && Array.isArray(options) && options.length > 0
-          ? options.reduce((acu: Record<string, boolean>, option: string) => {
-              acu[option] = false;
+      formObject[id] = checkboxValues;
+    } else formObject[id] = "";
 
-              return acu;
-            }, {})
-          : {};
-    } else acu[id] = "";
-
-    return acu;
+    return formObject;
   }, {});
 
-  return transformedInputs;
+  return defaultValues;
 };
 
 type Props = {
@@ -63,11 +62,16 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
 
+  // console.log("defaultValues(inputs),", defaultValues(inputs));
+
   const methods = useForm({
     defaultValues: defaultValues(inputs),
     resolver: zodResolver(schema),
+    // resolver: async (values) => ({ values, errors: {} }),
     mode: "all",
   });
+
+  // console.log("inputs", inputs);
 
   const {
     register,
@@ -76,29 +80,28 @@ const CreatedForm = (props: Props) => {
     watch,
     handleSubmit,
     reset,
+    setError,
   } = methods;
 
-  // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
+  useEffect(() => {
+    const subscription = watch((values) => {
+      console.log("Aktualne wartości:", values);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   const onSubmit = async (data: any) => {
-    console.log("", data);
+    console.log("data", data);
     const _id = props.form._id?.toString();
-    if (!_id) return; // ?
-
-    // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
-    const keys = Object.keys(data);
-    const inputIds = inputs.map(({ id }) => id);
-    keys.forEach((key) => {
-      if (!inputIds.includes(key)) delete data[key];
-    });
+    if (!_id) return;
 
     try {
-      await submitFormAction(_id, data);
+      const resp = await submitFormAction(_id, data, inputs);
+
+      if (resp?.validationErrors) {
+        setClientErrors(resp.validationErrors, setError);
+        return;
+      }
       setSuccess(true);
       reset();
     } catch (e) {

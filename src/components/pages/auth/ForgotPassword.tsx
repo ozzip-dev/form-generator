@@ -3,15 +3,12 @@
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useRef } from "react";
-import { useForm } from "react-hook-form";
 
 const dataInputsForgotPassword = [
   {

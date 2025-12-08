@@ -6,8 +6,12 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
-import { makeId } from "@/lib/utils";
-import { inputHasOther, isOptionOther, OPTION_OTHER } from "@/helpers/inputHelpers";
+
+import {
+  inputHasOther,
+  isOptionOther,
+  OPTION_OTHER,
+} from "@/helpers/inputHelpers";
 import { FormInput, FormOption } from "@/types/input";
 
 type Props = {
@@ -17,9 +21,10 @@ type Props = {
 };
 
 const AddOption = (props: Props) => {
-  const inputId = props.input.id!
+  const inputId = props.input.id!;
   const formId = useSafeURLParam("formId");
-  const [_, removeOption, isPending] = useActionState<null, string>(
+
+  const [_, removeOption, isRemoveOptionPending] = useActionState<null, string>(
     async (_state, optionName) => {
       await removeInputOptionAction(formId!, inputId, optionName);
       return null;
@@ -29,7 +34,7 @@ const AddOption = (props: Props) => {
 
   const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
     async (_state) => {
-      await editInputOptionAction(formId!, inputId, 'Inne', OPTION_OTHER);
+      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER);
       return null;
     },
     null
@@ -57,6 +62,18 @@ const AddOption = (props: Props) => {
     setError,
   });
 
+  const handleAddOption = () => {
+    if (errors.options) return;
+    append({ label: "" });
+  };
+
+  const handleAddOther = () => {
+    startTransition(() => {
+      addOtherOption();
+      append({ value: OPTION_OTHER, label: "Inne" });
+    });
+  };
+
   const handleDeleteOption = (optionName: string, idx: number) => {
     remove(idx);
     startTransition(() => {
@@ -64,37 +81,37 @@ const AddOption = (props: Props) => {
     });
   };
 
-  const handleAddOther = () => {
-    startTransition(() => {
-      addOtherOption();
-      append({ value: OPTION_OTHER, label: 'Inne' });
-    });
-  };
-
   const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
+
+  const isDisabled =
+    isRemoveOptionPending || isAddOptionPending || isAnyLoading;
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
-      {(isPending || isAddOptionPending || isAnyLoading) && <FullscreenLoader />}
+      {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
-        const isOther = isOptionOther(field as unknown as FormOption)
+        const isOther = isOptionOther(field as unknown as FormOption);
+
         return (
           <div
             key={field.id}
             className="flex gap-2 items-center"
-            style={isOther ? { padding: '2px', backgroundColor: 'lightskyblue' } : {}}
+            style={
+              isOther ? { padding: "2px", backgroundColor: "lightskyblue" } : {}
+            }
           >
             <InputFields
               inputsData={[
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: isOther ? 'Inne' : `Opcja ${idx + 1}`,
+                  placeholder: isOther ? "Inne" : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
-              onChange={(_, value) => handleEdit(field.value as string, value)}
+              onChange={(name, value) => handleEdit(name, value)}
+              isLoading={isLoading}
             />
 
             <div className="w-fit ml-2">
@@ -116,20 +133,15 @@ const AddOption = (props: Props) => {
             message={"Dodaj opcję"}
             type="button"
             disabled={!!errors.options || inputHasOther(props.input)}
-            onClickAction={() => {
-              if (errors.options) return;
-              append({ value: makeId(inputId) });
-            }}
+            onClickAction={handleAddOption}
           />
         </div>
         <div className="w-fit">
           <Button
             message="Dodaj inne"
             type="button"
-            onClickAction={() => {
-              handleAddOther()
-            }}
             disabled={inputHasOther(props.input)}
+            onClickAction={handleAddOther}
           />
         </div>
       </div>

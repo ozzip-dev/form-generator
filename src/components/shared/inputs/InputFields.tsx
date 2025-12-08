@@ -19,12 +19,14 @@ type Props = {
 
   errorMsg?: any;
   register?: UseFormRegister<any>;
-  onChange?: (name: string, value: string) => void | Promise<void>;
+  onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
   default?: any;
 };
 
 const InputFields = (props: Props) => {
+  // console.log("props.inputsData", props.inputsData);
+
   return (
     <>
       {props.inputsData.map(
@@ -37,8 +39,10 @@ const InputFields = (props: Props) => {
           description,
           required,
         }) => {
+          // console.log("name", name);
           return (
             // TODO: make a separate component for input field
+
             <div key={name}>
               {label && (
                 <label className="text-lg block text-xl !important">
@@ -55,22 +59,24 @@ const InputFields = (props: Props) => {
                   disabled={props.isLoading?.[name]}
                   className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
                     ${
-                      props.isLoading?.[name]
+                      props.isLoading?.[name] 
                         ? "opacity-50 cursor-not-allowed"
                         : ""
                     }
                   `}
                   placeholder={placeholder}
-                  {...(props.register && props.register(name))}
-                  onChange={(e) => {
-                    props.register && props.register(name).onChange(e);
-                    props.onChange?.(name, e.target.value);
-                  }}
-                  // {...(props.register
-                  //   ? props.register(name, {
-                  //       onChange: (e) => props.onChange?.(name, e.target.value),
-                  //     })
-                  //   : {})}
+                  // {...(props.register && props.register(name))}
+                  // onChange={(e) => {
+                  //   props.register && props.register(name).onChange(e);
+                  //   props.onChange?.(name, e.target.value);
+                  // }}
+                  {...(props.register
+                    ? props.register(name, {
+                        // onChange: (e) => props.onChange?.(name, e.target.value),
+                        onChange: (e) =>
+                          props.onChange?.(name, e.target.value, props.default),
+                      })
+                    : {})}
                   name={name}
                 />
 
