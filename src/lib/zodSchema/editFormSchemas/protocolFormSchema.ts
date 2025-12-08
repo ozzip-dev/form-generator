@@ -5,12 +5,12 @@ export const protocolFormSchema = z.object({
     .string()
     .trim()
     .min(2, { message: "Min. 2 znaki" })
-    .max(6, { message: "Maks. 100 znaków" }),
+    .max(100, { message: "Maks. 100 znaków" }),
   companyName: z
     .string()
     .trim()
     .min(2, { message: "Min. 2 znaki" })
-    .max(6, { message: "Maks. 100 znaków" }),
+    .max(100, { message: "Maks. 100 znaków" }),
   startDate: z
     .string()
     .trim()

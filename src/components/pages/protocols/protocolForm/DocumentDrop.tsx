@@ -24,12 +24,12 @@ type UploadedFile = {
 type Props = {
   label: string;
   setGlobalPending: Dispatch<SetStateAction<boolean>>;
+  setDeleteModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const DocumentDrop = (props: Props) => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
-  const [isModalOpen, setModalOpen] = useState(false);
 
   const uploadFile = async (file: File) => {
     props.setGlobalPending(true);
@@ -125,22 +125,17 @@ const DocumentDrop = (props: Props) => {
   });
 
   const handlePrintModal = () => {
-    setModalOpen((prev) => !prev);
+    props.setDeleteModalOpen((prev) => !prev);
   };
 
   const handleDelete = () => {
-    setModalOpen((prev) => !prev);
+    props.setDeleteModalOpen((prev) => !prev);
     console.log("hhhwha");
   };
 
   return (
     <>
       <div className="flex gap-3 ">
-        {isModalOpen && (
-          <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
-            <DeleteDocumentConformation setModalOpen={setModalOpen} />
-          </ModalWrapper>
-        )}
         <div>{props.label}</div>
         <div
           {...getRootProps()}

@@ -77,18 +77,13 @@
 
 "use client";
 
-import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
-import { Button, DataLoader } from "@/components/shared";
-import ModalWrapper from "@/components/shared/ModalWrapper";
-import { useToast } from "@/hooks/useToast";
-import IconTrash from "@/icons/iconTrash/IconTrash";
-import Image from "next/image";
-import { useCallback, useState } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
-import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
-import IconPDF from "@/icons/iconPDF/IconPDF";
+import { DataLoader } from "@/components/shared";
+import { useState } from "react";
 import DocumentDrop from "./DocumentDrop";
 import ProtocolForm from "./ProtocolForm";
+import ModalWrapper from "@/components/shared/ModalWrapper";
+import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
+import { az } from "zod/v4/locales";
 
 // branza
 // data rozpoczecia sporu
@@ -101,10 +96,14 @@ import ProtocolForm from "./ProtocolForm";
 // porozumienie kończące spór
 // inne - ladowanie likow
 
-const dataDropLabels = [];
-
 const AddProtocolForm = () => {
   const [isPending, setIsPending] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const handlePrintModal = () => {
+    setDeleteModalOpen((prev) => !prev);
+  };
+
   return (
     <>
       {isPending && (
@@ -112,38 +111,62 @@ const AddProtocolForm = () => {
           <DataLoader />
         </div>
       )}
+      {isDeleteModalOpen && (
+        <ModalWrapper isOpen={isDeleteModalOpen} onClose={handlePrintModal}>
+          <DeleteDocumentConformation setModalOpen={setDeleteModalOpen} />
+        </ModalWrapper>
+      )}
+
       <ProtocolForm />
       <div className="w-4/5 m-auto flex flex-col gap-5">
         <div className="text-2xl">Załącz dokumenty</div>
         <DocumentDrop
           label="Żądania wstrzynające spór"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
         <div className="text-2xl">Rokowania</div>
         <DocumentDrop
           label="Protokoły ze spotakń"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
         <DocumentDrop
           label="Główny protokul rozbierzności"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
-        <DocumentDrop label="Rokowania inne" setGlobalPending={setIsPending} />
+        <DocumentDrop
+          label="Rokowania inne"
+          setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
+        />
         <div className="text-2xl">Mediacje</div>
         <DocumentDrop
           label="Protokoły ze spotakń"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
         <DocumentDrop
           label="Główny protokul rozbierzności"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
-        <DocumentDrop label="Mediacje inne" setGlobalPending={setIsPending} />
+        <DocumentDrop
+          label="Mediacje inne"
+          setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
+        />
         <DocumentDrop
           label="Porozumienie kończące spór"
           setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
         />
-        <DocumentDrop label="Spór inne" setGlobalPending={setIsPending} />
+        <DocumentDrop
+          label="Spór inne"
+          setGlobalPending={setIsPending}
+          setDeleteModalOpen={setDeleteModalOpen}
+        />
       </div>
     </>
   );
