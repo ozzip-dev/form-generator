@@ -104,22 +104,46 @@ import ProtocolForm from "./ProtocolForm";
 const dataDropLabels = [];
 
 const AddProtocolForm = () => {
+  const [isPending, setIsPending] = useState(false);
   return (
     <>
+      {isPending && (
+        <div className="fixed inset-0 z-50 bg-white/40 backdrop-blur-sm flex items-center justify-center">
+          <DataLoader />
+        </div>
+      )}
       <ProtocolForm />
       <div className="w-4/5 m-auto flex flex-col gap-5">
         <div className="text-2xl">Załącz dokumenty</div>
-        <DocumentDrop label="Żądania wstrzynające spór" />
+        <DocumentDrop
+          label="Żądania wstrzynające spór"
+          setGlobalPending={setIsPending}
+        />
         <div className="text-2xl">Rokowania</div>
-        <DocumentDrop label="Protokoły ze spotakń" />
-        <DocumentDrop label="Główny protokul rozbierzności" />
-        <DocumentDrop label="Rokowania inne" />
+        <DocumentDrop
+          label="Protokoły ze spotakń"
+          setGlobalPending={setIsPending}
+        />
+        <DocumentDrop
+          label="Główny protokul rozbierzności"
+          setGlobalPending={setIsPending}
+        />
+        <DocumentDrop label="Rokowania inne" setGlobalPending={setIsPending} />
         <div className="text-2xl">Mediacje</div>
-        <DocumentDrop label="Protokoły ze spotakń" />
-        <DocumentDrop label="Główny protokul rozbierzności" />
-        <DocumentDrop label="Mediacje inne" />
-        <DocumentDrop label="Porozumienie kończące spór" />
-        <DocumentDrop label="Spór inne" />
+        <DocumentDrop
+          label="Protokoły ze spotakń"
+          setGlobalPending={setIsPending}
+        />
+        <DocumentDrop
+          label="Główny protokul rozbierzności"
+          setGlobalPending={setIsPending}
+        />
+        <DocumentDrop label="Mediacje inne" setGlobalPending={setIsPending} />
+        <DocumentDrop
+          label="Porozumienie kończące spór"
+          setGlobalPending={setIsPending}
+        />
+        <DocumentDrop label="Spór inne" setGlobalPending={setIsPending} />
       </div>
     </>
   );

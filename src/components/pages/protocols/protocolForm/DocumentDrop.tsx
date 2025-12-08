@@ -6,7 +6,7 @@ import ModalWrapper from "@/components/shared/ModalWrapper";
 import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import Image from "next/image";
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
 import IconPDF from "@/icons/iconPDF/IconPDF";
@@ -23,16 +23,16 @@ type UploadedFile = {
 
 type Props = {
   label: string;
+  setGlobalPending: Dispatch<SetStateAction<boolean>>;
 };
 
 const DocumentDrop = (props: Props) => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
-  const [isPending, setPending] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const uploadFile = async (file: File) => {
-    setPending(true);
+    props.setGlobalPending(true);
     setFiles((prevFiles) => {
       return prevFiles.map((prevFile) => {
         return prevFile.file === file
@@ -64,15 +64,14 @@ const DocumentDrop = (props: Props) => {
         },
       ]);
     } catch (error) {
-      setPending(false);
       toast({
         title: "Błąd",
         description: `Dokument nie zostałzapisany. ${error}`,
         variant: "error",
       });
+    } finally {
+      props.setGlobalPending(false);
     }
-
-    setPending(false);
   };
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -151,12 +150,6 @@ const DocumentDrop = (props: Props) => {
             backgroundColor: isDragActive ? "lightblue" : "white",
           }}
         >
-          {isPending && (
-            <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center">
-              <DataLoader />
-            </div>
-          )}
-
           <input {...getInputProps()} />
 
           <div>
@@ -184,7 +177,6 @@ const DocumentDrop = (props: Props) => {
               <div key={idx} className="w-[4rem]  h-[4rem] relative">
                 <button
                   onClick={handlePrintModal}
-                  disabled={isPending}
                   className="h-5 w-5 absolute -right-5"
                 >
                   <IconTrash style="size-full bg-red-500" />

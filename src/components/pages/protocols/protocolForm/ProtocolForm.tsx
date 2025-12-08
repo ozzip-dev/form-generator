@@ -1,10 +1,11 @@
-import { CheckboxGroupField, InputFields } from "@/components/shared";
+import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   ProtocolFormSchema,
   protocolFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
+import { useErrorBoundary } from "react-error-boundary";
 
 // branza
 // data rozpoczecia sporu
@@ -20,6 +21,11 @@ import {
 
 const dataInputsProtocolForm = [
   {
+    label: "Data rozpoczęcia sporu zbiorowego",
+    name: "startDate",
+    type: "date",
+  },
+  {
     label: "Branża",
     name: "productionBranch",
     placeholder: "Budownictwo",
@@ -30,11 +36,6 @@ const dataInputsProtocolForm = [
     name: "companyName",
     placeholder: "firma",
     type: "text",
-  },
-  {
-    label: "Data rozpoczęcia sporu",
-    name: "startDate",
-    type: "date",
   },
 ];
 
@@ -74,20 +75,30 @@ const ProtocolForm = () => {
   });
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     trigger,
     setError,
     control,
+    reset,
+    handleSubmit,
   } = methods;
 
+  const onSubmit = async (data: ProtocolFormSchema) => {
+    console.log("", data);
+
+    try {
+      reset();
+    } catch (err) {}
+  };
+
   return (
-    <form action="" className="w-4/5 m-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 m-auto">
       <InputFields
         inputsData={dataInputsProtocolForm}
         register={register}
         errorMsg={errors}
         // onChange={handleEdit}
-        // isLoading={isLoading}
+        // isLoading={isSubmitting}
       />
       <CheckboxGroupField
         groupLabel={"Przyczyna rozpoczęcia sporu"}
@@ -96,6 +107,9 @@ const ProtocolForm = () => {
         control={control}
         errorMsg={errors}
       />
+      <div className="w-fit ml-auto">
+        <Button message="Zapisz opis sporu" isLoading={isSubmitting} />
+      </div>
     </form>
   );
 };
