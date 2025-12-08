@@ -34,27 +34,12 @@ const editInputOptionAction = async (
     idx === optionIndex ? { ...opt, label: inputLabel } : opt
   );
 
-  console.log("dataToValidate", dataToValidate);
-
-  // const validationResult = editInputFormSchema.safeParse({
-  //   options: dataToValidate,
-  // });
-
   const validationResult = editInputFormSchema.partial().safeParse({
     options: dataToValidate,
   });
-  // const validationResult = editInputFormSchema
-  //   .partial()
-  //   .safeParse({ dataToValidate });
-
-  console.log(
-    "hhhh",
-    validationResult.error && validationResult.error.flatten().fieldErrors
-  );
 
   if (!validationResult.success) {
     return { validationErrors: handleServerErrors(validationResult.error) };
-    // return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
   let mappedOptions = [...input.options];

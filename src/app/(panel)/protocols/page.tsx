@@ -1,4 +1,4 @@
-import AddProtocolForm from "@/components/pages/protocols/AddProtocolForm";
+import AddProtocolForm from "@/components/pages/protocols/protocolForm/AddProtocolForm";
 
 const ProtocolsPage = async () => {
   return <AddProtocolForm />;

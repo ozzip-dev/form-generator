@@ -18,16 +18,10 @@ export async function submitFormAction(
   inputs: FormInput[]
 ): Promise<void | { validationErrors: ValidationErrors }> {
   await requireUser();
-  console.log("inputs", inputs);
 
   const schema = createdFormSchema(inputs);
 
   const validationResult = schema.safeParse(answers);
-
-  console.log(
-    "errr",
-    validationResult.error && validationResult.error.flatten().fieldErrors
-  );
 
   if (!validationResult.success) {
     return { validationErrors: validationResult.error.flatten().fieldErrors };

@@ -66,8 +66,8 @@ const CreatedForm = (props: Props) => {
 
   const methods = useForm({
     defaultValues: defaultValues(inputs),
-    // resolver: zodResolver(schema),
-    resolver: async (values) => ({ values, errors: {} }),
+    resolver: zodResolver(schema),
+    // resolver: async (values) => ({ values, errors: {} }),
     mode: "all",
   });
 
@@ -81,10 +81,7 @@ const CreatedForm = (props: Props) => {
     handleSubmit,
     reset,
     setError,
-    clearErrors,
   } = methods;
-
-  console.log("errors", errors);
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -94,19 +91,9 @@ const CreatedForm = (props: Props) => {
   }, [watch]);
 
   const onSubmit = async (data: any) => {
-    // clearErrors();
-    // reset(data);
-
     console.log("data", data);
     const _id = props.form._id?.toString();
     if (!_id) return;
-
-    // TODO: czemu trafiają tu Labele/Headery? Usunąć z obiektu i usunąć ten kod
-    const keys = Object.keys(data);
-    const inputIds = inputs.map(({ id }) => id);
-    keys.forEach((key) => {
-      if (!inputIds.includes(key)) delete data[key];
-    });
 
     try {
       const resp = await submitFormAction(_id, data, inputs);
@@ -115,7 +102,6 @@ const CreatedForm = (props: Props) => {
         setClientErrors(resp.validationErrors, setError);
         return;
       }
-
       setSuccess(true);
       reset();
     } catch (e) {

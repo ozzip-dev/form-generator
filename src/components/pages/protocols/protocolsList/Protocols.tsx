@@ -3,8 +3,8 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { useState } from "react";
 import ProtocolList from "./ProtocolList";
-import ProtocolListFilters from "./ProtocolListFilters";
-import { filtersDefault, ProtocolFilters } from "./utils";
+import ProtocolListFilters from "../ProtocolListFilters";
+import { filtersDefault, ProtocolFilters } from "../utils";
 
 type Props = {
   protocols: ProtocolSerialized[];
