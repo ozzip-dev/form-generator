@@ -1,7 +1,7 @@
-import { db, find, findAll, insert, insertMany } from "@/lib/mongo";
+import { db, deleteById, find, findAll, insert, insertMany } from "@/lib/mongo";
 import { serializeFile } from "@/lib/serialize-utils";
 import { File, FileSerialized } from "@/types/file";
-import { InsertManyResult, InsertOneResult, ObjectId } from "mongodb";
+import { DeleteOneModel, DeleteResult, InsertManyResult, InsertOneResult, ObjectId } from "mongodb";
 
 export async function insertFile(
   data: Partial<File>
@@ -29,4 +29,8 @@ export async function getFilesByFileIdsNoData(fileIdStrings: string[] = []): Pro
     .toArray();
   // const files = await find<File>(db, 'file', {{ _id: { $in: fileIds } }, {  }})
   return files.map((file) => ({ ...file, _id: file._id.toString() }))
+}
+
+export async function removeFile(fileId: string): Promise<DeleteResult> {
+  return await deleteById<File>(db, "file", new ObjectId(fileId));
 }

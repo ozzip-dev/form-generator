@@ -5,11 +5,8 @@ import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { Button, DataLoader } from "@/components/shared";
 import ModalWrapper from "@/components/shared/ModalWrapper";
 import { useToast } from "@/hooks/useToast";
-import IconTrash from "@/icons/iconTrash/IconTrash";
-import Image from "next/image";
 import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
-import IconPDF from "@/icons/iconPDF/IconPDF";
 import DeleteDocumentConformation from "../pages/protocols/protocolsList/DeleteDocumentConformation";
 import { ProtocolFileCategory } from "@/types/protocol";
 
@@ -30,20 +27,12 @@ type Props = {
 
 const UploadFileForm = (props: Props) => {
   const { toast } = useToast();
-  const [files, setFiles] = useState<UploadedFile[]>([]);
-  const [isPending, setPending] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  // const [files, setFiles] = useState<UploadedFile[]>([]);
+  const [isPending, setPending] = useState<boolean>(false);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const uploadFile = async (file: File) => {
     setPending(true);
-    setFiles((prevFiles) => {
-      return prevFiles.map((prevFile) => {
-        return prevFile.file === file
-          ? { ...prevFile, uploading: true, progress: 0 }
-          : prevFile;
-      });
-    });
-
 
     try {
       const insertedId = await uploadFileAction(file);
@@ -56,18 +45,6 @@ const UploadFileForm = (props: Props) => {
         variant: "success",
       });
 
-      setFiles((prev) => [
-        ...prev,
-        {
-          id: "pppppu",
-          file,
-          uploading: false,
-          progress: 100,
-          isDeleting: false,
-          error: false,
-          objectUrl: URL.createObjectURL(file),
-        },
-      ]);
     } catch (error) {
       setPending(false);
       toast({
@@ -141,7 +118,7 @@ const UploadFileForm = (props: Props) => {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col ">
+      <div className="flex justify-center items-center flex-col mt-4">
         {isModalOpen && (
           <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
             <DeleteDocumentConformation setModalOpen={setModalOpen} />

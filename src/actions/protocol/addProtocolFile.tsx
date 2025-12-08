@@ -30,6 +30,4 @@ export async function addProtocolFile({
     // Delete files? If yes, trigger proper action
     throw new Error('Failed to add file to protocol')
   }
-  
-  redirect(`/protocols/${protocolId}`);
 }

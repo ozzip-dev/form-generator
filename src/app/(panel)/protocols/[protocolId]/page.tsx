@@ -1,12 +1,9 @@
 import { addProtocolFile } from "@/actions/protocol";
 import ProtocolDetails from "@/components/pages/protocols/ProtocolDetails";
 import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { db } from "@/lib/mongo";
-import { serializeProtocol } from "@/lib/serialize-utils";
-import { getAllFiles, getFilesByFileIdsNoData } from "@/services/file-service";
-import { getProtocolById, getProtocols } from "@/services/protocol-service";
-import { Protocol, ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import { getFilesByFileIdsNoData } from "@/services/file-service";
+import { getProtocolById } from "@/services/protocol-service";
+import { ProtocolFileCategory } from "@/types/protocol";
 import { redirect } from "next/navigation";
 
 const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: string }> }) => {
@@ -35,7 +32,7 @@ const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: stri
     }
 
     return (
-      <div>
+      <div className="p-4">
         <ProtocolDetails 
           {...{
             branch,

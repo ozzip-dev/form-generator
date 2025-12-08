@@ -1,12 +1,12 @@
 "use client"
 
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { Protocol, ProtocolFileCategory } from "@/types/protocol";
-import { mapDisputeReason, mapFileCategory } from "./utils";
+import { ProtocolFileCategory } from "@/types/protocol";
+import { mapFileCategory } from "./utils";
 import UploadFileForm from "@/components/shared/UploadFileForm";
-import { File, FileSerialized } from "@/types/file";
+import { FileSerialized } from "@/types/file";
 import { useState } from "react";
 import { Button } from "@/components/shared";
+import ProtocolAttachedFile from "./ProtocolAttachedFile";
 
 type Props = {
   id: string
@@ -29,11 +29,11 @@ const ProtocolFileUploads = ({ id, files, fileIds, addFile }: Props) => {
 
   return (
     <div className="pt-16">
-      <div className="flex flex-wrap gap-x-8 gap-y-2 pb-8">
+      <div className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
         {fileCategories.map((category, i) =>(
           <Button
             key={i}
-            className="!w-auto"
+            className={`!w-auto ${category == visibleCategory ? '!bg-slate-300 !text-black' : ''}`}
             message={mapFileCategory[category]}
             onClickAction={() => setVisibleCategory(category)}
           />
@@ -44,7 +44,12 @@ const ProtocolFileUploads = ({ id, files, fileIds, addFile }: Props) => {
           <div className="font-black">{mapFileCategory[category]}</div>
           <div>liczba załączników: {fileIds[category]?.length || 0}</div>
           {fileIds[category]?.map((fileId) => (
-            <div key={fileId}>{getFileById(fileId)?.name}</div>
+            <ProtocolAttachedFile
+              key={fileId}
+              file={getFileById(fileId)!}
+              protocolId={id}
+              fileCategory={category}
+            />
           ))}
           <UploadFileForm category={category} onFileUpload={onProtocolFileUploaded} />
         </div>

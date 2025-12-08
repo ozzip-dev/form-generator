@@ -41,6 +41,7 @@ export async function getProtocolById(formId: string): Promise<Protocol> {
   return protocol
 }
 
+// Zostawic na razie wykomentowany kod
 export async function addFileToProtocol({
   protocolId,
   fileId,
@@ -65,13 +66,29 @@ export async function addFileToProtocol({
       $push: {
         [pushQuery]: fileId
       }
-      // $push: {
-      //   files: {
-      //     [fileCategory]: {
-      //       [fileType]: fileId
-      //     }
-      //   }
-      // }
+    }
+  )
+}
+
+export async function removeFileFromProtocol({
+  protocolId,
+  fileId,
+  fileCategory,
+}: {
+  protocolId: string,
+  fileId: string,
+  fileCategory?: ProtocolFileCategory,
+}): Promise<void> {
+  const pullQuery: string = `files.${fileCategory}`
+
+  await updateById(
+    db,
+    'protocol',
+    new ObjectId(protocolId),
+    {
+      $pull: {
+        [pullQuery]: fileId
+      }
     }
   )
 }
