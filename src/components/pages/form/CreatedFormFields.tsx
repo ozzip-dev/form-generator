@@ -55,10 +55,10 @@ export const renderInput = (
   register: UseFormRegister<any>
 ) => {
   const placeholderTexts: Partial<Record<InputType, string>> = {
-    number: 'Numer',
-    email: 'Email',
-    date: ''
-  }
+    number: "Numer",
+    email: "Email",
+    date: "",
+  };
   const placeholder: string = placeholderTexts[type] || "Odpowiedź";
 
   return (
@@ -86,19 +86,22 @@ export const renderCheckbox = (
   register: UseFormRegister<any>,
   control: Control<any>
 ) => {
+  // console.log("options", options);
+
   const dataCheckboxOptions =
     options.map((option: FormOption) => ({
       label: option.label,
       name: option.label,
       value: false,
+      optionId: option.value,
     })) ?? [];
 
   return (
     <CheckboxGroupField
       key={id}
-      label={header}
+      groupLabel={header}
       required={required}
-      description={description}
+      groupDescription={description}
       name={id!}
       options={dataCheckboxOptions}
       control={control}

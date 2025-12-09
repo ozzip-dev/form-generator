@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { fileExtensionMap, filtersDefault, ProtocolFilters } from "./utils";
+import { fileExtensionMap, filtersDefault, ProtocolFilters } from "../utils";
 import { Button } from "@/components/shared";
 
 type Props = {

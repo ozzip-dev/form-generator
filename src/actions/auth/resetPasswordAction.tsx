@@ -1,19 +1,28 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth/auth";
-import { resetPasswordSchema } from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
+import {
+  resetPasswordSchema,
+  ResetPasswordSchema,
+} from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
 import { redirect } from "next/navigation";
 
-type FormData = {
-  password: string;
-  token: string;
+type ActionResult = {
+  success: boolean;
+  validationErrors?: Record<string, string[]>;
+  catchError?: string;
 };
 
-export async function resetPasswordAction(data: FormData) {
+export async function resetPasswordAction(
+  data: ResetPasswordSchema & { token: string }
+): Promise<ActionResult | void> {
   const validationResult = resetPasswordSchema.safeParse(data);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return {
+      success: false,
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   try {
@@ -21,7 +30,10 @@ export async function resetPasswordAction(data: FormData) {
       body: { newPassword: data.password, token: data.token },
     });
   } catch (err: any) {
-    throw new Error(err?.message ?? "Nie można się wylogować");
+    return {
+      success: false,
+      catchError: `${err?.message}. Zmiana hasła się nie powiodła.`,
+    };
   }
 
   redirect("/login?resetPassword=success");

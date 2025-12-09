@@ -1,29 +1,44 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth/auth";
-import { signupSchema } from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+import {
+  signupSchema,
+  SignupSchema,
+} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
 
-type FormData = {
-  email: string;
-  password: string;
-  name: string;
+type ActionResult<T> = {
+  success: boolean;
+  data?: T;
+  validationErrors?: Record<string, string[]>;
+  catchError?: string;
 };
 
-export async function signupAction(data: FormData) {
+export async function signupAction(
+  data: SignupSchema
+): Promise<ActionResult<null>> {
   const validationResult = signupSchema.safeParse(data);
 
   if (!validationResult.success) {
-    const fieldErrors = handleServerErrors(validationResult.error);
-
-    return { error: fieldErrors };
+    return {
+      success: false,
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   try {
     await auth.api.signUpEmail({
-      body: { email: data.email, password: data.password, name: data.name },
+      body: {
+        email: data.email,
+        password: data.password,
+        name: data.name,
+      },
     });
+
+    return { success: true, data: null };
   } catch (err: any) {
-    throw new Error(err?.message ?? "Rejestracja się nie powiodła");
+    return {
+      success: false,
+      catchError: `${err?.message}. Rejestracja się nie powiodła.`,
+    };
   }
 }

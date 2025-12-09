@@ -1,26 +1,24 @@
 "use server";
 
-import { db } from "@/lib/mongo";
-import { setAliasUrl } from "@/services/form-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
+import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { db } from "@/lib/mongo";
+import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
+import { setAliasUrl } from "@/services/form-service";
+import { requireUser } from "@/services/user-service";
 import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
-import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
-import {
-  handleServerErrors,
-  ModelFieldErrors,
-} from "@/helpers/helpersValidation/handleFormErrors";
-import { requireUser } from "@/services/user-service";
 
 export async function setAliasUrlAction(
   form: FormSerialized,
   alias: SetAliasSchema
-): Promise<{ success: true } | { error: ModelFieldErrors }> {
+): Promise<{ success: true } | { validationErrors: ValidationErrors }> {
   const user = await requireUser();
 
   const validationResult = setAliasSchema.safeParse(alias);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
   if (!isUserAuthor(form, user.id))

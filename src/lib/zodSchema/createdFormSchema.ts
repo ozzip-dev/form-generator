@@ -9,11 +9,7 @@ export const createdFormSchema = (inputs: any[]) => {
     switch (input.type) {
       case "text":
         shape[fieldName] = input.required
-          ? z
-              .string()
-              .trim()
-              .min(2, "Minimum 2 znaki")
-              .max(60, "Maksymum 60 znaków")
+          ? z.string().trim().min(2, "Min. 2 znaki").max(60, "Maks. 60 znaków")
           : z.string().optional();
         break;
       case "superText":
@@ -21,44 +17,122 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .trim()
-              .min(2, "Minimum 2 znaki")
-              .max(200, "Maksymum 200 znaków")
+              .min(2, "Min. 2 znaki")
+              .max(2000, "Maks. 2000 znaków")
           : z.string().optional();
         break;
 
       case "number":
         shape[fieldName] = input.required
-          ? z.string().trim().regex(/\d/, "Minimum 1 cyfra")
+          ? z.string().trim().regex(/\d/, "Min. 1 cyfra")
           : z.string().optional();
         break;
 
       case "checkbox":
-        shape[fieldName] = input.required
-          ? z
-              .record(z.boolean())
-              .refine(
-                (obj) => obj && Object.values(obj).some((v) => v),
-                "Minimum jedna opcja"
-              )
-          : z.record(z.boolean()).default({}).optional();
+        shape[fieldName] = z
+          .record(z.union([z.boolean(), z.string()]))
+          .superRefine((obj, ctx) => {
+            if (!obj) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Min. jedna opcja",
+              });
+              return;
+            }
+
+            let hasSelection = false;
+
+            Object.entries(obj).forEach(([_, value]) => {
+              if (value === true) {
+                hasSelection = true;
+              }
+
+              if (typeof value === "string") {
+                if (value.trim().length === 0) return;
+
+                hasSelection = true;
+
+                if (value.trim().length < 2) {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.too_small,
+                    minimum: 2,
+                    type: "string",
+                    inclusive: true,
+                    message: "Min. 2 znaki",
+                  });
+                }
+
+                if (value.trim().length > 100) {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.too_big,
+                    maximum: 100,
+                    type: "string",
+                    inclusive: true,
+                    message: "Maks. 100 znaków",
+                  });
+                }
+              }
+            });
+
+            if (!hasSelection) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Min. jedna opcja",
+              });
+            }
+          });
         break;
 
       case "singleSelect":
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .nullable()
-              .refine((val) => val !== null && val !== "", "Jedna opcja")
+              .superRefine((value, ctx) => {
+                if (!value || value === "") {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "Jedna opcja",
+                  });
+                  return;
+                }
+
+                if (value.length < 2) {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.too_small,
+                    minimum: 2,
+                    type: "string",
+                    inclusive: true,
+                    message: "Min. 2 znaki",
+                  });
+                }
+
+                if (value.length > 100) {
+                  ctx.addIssue({
+                    code: z.ZodIssueCode.too_big,
+                    maximum: 100,
+                    type: "string",
+                    inclusive: true,
+                    message: "Maks. 100 znaków",
+                  });
+                }
+              })
           : z.string().nullable().optional();
+
         break;
 
       case "email":
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .email("Format email")
               .nullable()
-              .refine((val) => val !== null && val !== "", "Pole wymagane")
+              .refine(
+                (value) => value !== null && value !== "",
+                "Pole wymagane"
+              )
           : z.string().optional();
         break;
 
@@ -66,6 +140,7 @@ export const createdFormSchema = (inputs: any[]) => {
         shape[fieldName] = input.required
           ? z
               .string()
+              .trim()
               .nullable()
               .refine((val) => !isNaN(Date.parse(val!)), "Data")
           : z.string().optional();
@@ -74,7 +149,7 @@ export const createdFormSchema = (inputs: any[]) => {
       default:
         shape[fieldName] = input.required
           ? z.string().trim().min(1, "Pole wymagane")
-          : z.string().optional();
+          : z.string().trim().optional();
         break;
     }
   });

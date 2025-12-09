@@ -1,19 +1,19 @@
 "use server";
 
-import { handleServerErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { auth } from "@/lib/auth/auth";
-import { forgotPasswordSchema } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
+import {
+  forgotPasswordSchema,
+  ForgotPasswordSchema,
+} from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
 
-type FormData = {
-  email: string;
-};
-
-export async function forgotPasswordAction(data: FormData) {
+export async function forgotPasswordAction(data: ForgotPasswordSchema) {
   const validationResult = forgotPasswordSchema.safeParse(data);
 
   if (!validationResult.success) {
-    const fieldErrors = handleServerErrors(validationResult.error);
-    return { error: fieldErrors };
+    return {
+      success: false,
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   try {
@@ -25,12 +25,8 @@ export async function forgotPasswordAction(data: FormData) {
     return { success: true };
   } catch (err: any) {
     return {
-      error: {
-        email: {
-          type: "auth",
-          message: err?.message ?? "Nie można wysłać linku resetującego hasło",
-        },
-      },
+      success: false,
+      catchError: `${err?.message} ?? Nie można wysłać linku resetującego hasło`,
     };
   }
 }

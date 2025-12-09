@@ -1,3 +1,5 @@
+import { ProtocolDisputeReason, ProtocolFileCategory } from "@/types/protocol";
+
 export type ProtocolFilters = {
   type: string
   name: string
@@ -5,6 +7,7 @@ export type ProtocolFilters = {
 
 export const filtersDefault = { type: '', name: '' }
 
+// TODO: move utils to file utils
 export const fileExtensionMap: Record<string, string> = {
   "text/rtf": "rtf",
   "application/vnd.oasis.opendocument.text": "odt",
@@ -18,3 +21,21 @@ export const fileExtensionMap: Record<string, string> = {
 export const mapFileExtensionName = (type: string): string => {
   return fileExtensionMap[type];
 };
+
+export const mapDisputeReason: Record<ProtocolDisputeReason, string> = {
+  workTime: 'Czas pracy',
+  safety: 'Standardy BHP',
+  wages: 'Wysokoć płac',
+  standards: 'Normy pracy',
+  other: 'Inne',
+}
+
+export const mapFileCategory: Record<ProtocolFileCategory, string> = {
+  demands: 'Żądania wszczynające spór',
+  mediationMeetings: 'Mediacje: spotkania',
+  mediationDiscrepancy: 'Mediacje: rozbieności',
+  negotiationMeetings: 'Rokowania: spotkania',
+  negotiationDiscrepancy: 'Rokowania: rozbieności',
+  agreement: 'Porozumienie kończące spór',
+  other: 'Inne',
+}

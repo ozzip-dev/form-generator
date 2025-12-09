@@ -19,6 +19,7 @@
     "nodemailer": "^6.10.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-dropzone": "^14.3.8",
     "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.55.0",
     "tailwindcss-animate": "^1.0.7",

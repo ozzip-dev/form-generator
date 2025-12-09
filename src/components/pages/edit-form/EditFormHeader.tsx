@@ -18,7 +18,7 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
-const dataSelectOptions: { label: string, value: FormType | '' }[] = [
+const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "-- wybierz --", value: "" },
   ...formTypesWithLabels,
 ];
@@ -64,6 +64,7 @@ export default function EditFormHeader(props: Props) {
     trigger,
     setError,
   } = methods;
+  // console.log("registered fields:", methods.getValues());
 
   const { handleEdit, isLoading } = useEditForm({
     formId,

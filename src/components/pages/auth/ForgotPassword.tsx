@@ -3,14 +3,12 @@
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useActionState, useRef } from "react";
 
 const dataInputsForgotPassword = [
   {
@@ -21,60 +19,78 @@ const dataInputsForgotPassword = [
   },
 ];
 
+type State = {
+  errors: Record<string, string[]>;
+  inputs: Record<string, string> | null;
+};
+const initialState: State = { errors: {}, inputs: null };
+
 const ForgotPassword = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-    reset,
-  } = useForm<ForgotPasswordSchema>({
-    resolver: zodResolver(forgotPasswordSchema),
-  });
-
   const { toast } = useToast();
+  const isAction = useRef(false);
 
-  const onSubmit = async (data: ForgotPasswordSchema) => {
-    const trimmedData = {
-      email: data.email.trim(),
-    };
+  const sendForgotPasswordLink = async (
+    prevState: State,
+    formData: FormData
+  ): Promise<State> => {
+    const data = Object.fromEntries(formData.entries()) as ForgotPasswordSchema;
 
-    try {
-      const resp = await forgotPasswordAction(trimmedData);
+    const validationResult = forgotPasswordSchema.safeParse(data);
+    if (!validationResult.success) {
+      return {
+        errors: validationResult.error.formErrors.fieldErrors,
+        inputs: data,
+      };
+    }
 
-      if (resp?.error) {
-        handleClientErrors<ForgotPasswordSchema>(resp.error, setError);
-        return;
-      }
+    isAction.current = true;
+    const resp = await forgotPasswordAction(validationResult.data);
 
+    if (resp?.validationErrors) {
+      return { errors: resp.validationErrors, inputs: data };
+    }
+
+    if (resp.catchError) {
       toast({
-        title: "Sukces",
-        description: "Jeżeli konto istnieje, dostałeś link do resetu hasła",
-        variant: "info",
-      });
-      reset();
-    } catch (err: any) {
-      toast({
-        title: "Błąd. Spróbuj ponownie",
-        description: err.message,
+        title: "Błąd rejestracji",
+        description: resp?.catchError || "Coś poszło nie tak",
         variant: "error",
       });
     }
+
+    if (resp.success) {
+      toast({
+        title: "Sukces",
+        description:
+          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+        variant: "success",
+      });
+    }
+
+    isAction.current = false;
+    return { errors: {}, inputs: resp.success ? null : data };
   };
+
+  const [state, formAction, isPending] = useActionState(
+    sendForgotPasswordLink,
+    initialState
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold text-center">Nie pamiętasz hasła?</h1>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form action={formAction} className="space-y-4">
           <InputFields
             inputsData={dataInputsForgotPassword}
-            register={register}
-            errorMsg={errors}
+            errorMsg={state.errors}
+            default={state?.inputs}
           />
 
-          <Button isLoading={isSubmitting} message="Wyślij link" />
+          <Button
+            isLoading={isAction.current && isPending}
+            message="Wyślij link"
+          />
         </form>
 
         <FormAuthFooter

@@ -1,3 +1,4 @@
+import { File, FileSerialized } from "@/types/file";
 import { Form, FormSerialized } from "@/types/form";
 import { Protocol, ProtocolSerialized } from "@/types/protocol";
 import { IUser, UserSerialized } from "@/types/user";
@@ -32,27 +33,32 @@ export function serializeForm(form: Form): FormSerialized {
   };
 }
 
+export function serializeFile(file: File): FileSerialized {
+  const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file
+  const base64 = btoa(String.fromCharCode(...data.buffer));
+
+  return {
+    ...file,
+    _id: _id?.toString(),
+    data: base64,
+    uploadedBy: uploadedBy?.toString(),
+    uploadedAt: uploadedAt?.toISOString(),
+    lastModifiedAt: lastModifiedAt?.toISOString(),
+  };
+}
+
 export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
   const {
     _id,
-    data,
-    name,
-    description,
-    size,
-    type,
-    uploadedAt,
+    disputeStartDate,
     lastModifiedAt,
-    uploadedBy,
+    uploadedAt
   } = protocol;
-  const base64 = btoa(String.fromCharCode(...data.buffer));
+
   return {
+    ...protocol,
     _id: _id?.toString(),
-    data: base64,
-    name,
-    description,
-    type,
-    size,
-    uploadedBy: uploadedBy?.toString(),
+    disputeStartDate: disputeStartDate.toISOString(),
     uploadedAt: uploadedAt?.toISOString(),
     lastModifiedAt: lastModifiedAt?.toISOString(),
   };

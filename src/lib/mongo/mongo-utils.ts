@@ -102,7 +102,7 @@ export async function insert<T extends Document>(
 export async function insertMany<T extends Document>(
   db: Db,
   collectionName: string,
-  docs: T[]
+  docs: Partial<T>[]
 ): Promise<InsertManyResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const result: InsertManyResult<T> = await collection.insertMany(

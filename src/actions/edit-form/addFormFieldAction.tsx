@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  handleServerErrors,
-  ModelFieldErrors,
-} from "@/helpers/helpersValidation/handleFormErrors";
+import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { makeId } from "@/lib/utils";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
@@ -40,14 +37,14 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { validationErrors: ValidationErrors }> {
   await requireUser();
 
   const { header, type } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
   const draft = await findById<Form>(db, "form", new ObjectId(formId));

@@ -19,20 +19,20 @@ export const ToastContext = createContext<ToastContextType | undefined>(
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const toast = (t: Omit<Toast, "id">) => {
+  const toast = (toast: Omit<Toast, "id">) => {
     const id = Date.now();
     setToasts((prev) => {
       if (
         prev.some(
           (p) =>
-            p.title === t.title &&
-            p.description === t.description &&
-            p.variant === t.variant
+            p.title === toast.title &&
+            p.description === toast.description &&
+            p.variant === toast.variant
         )
       ) {
         return prev;
       }
-      return [...prev, { ...t, id }];
+      return [...prev, { ...toast, id }];
     });
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
@@ -43,20 +43,20 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
     <ToastContext.Provider value={{ toast }}>
       {children}
 
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
-        {toasts.map((t) => {
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 z-[101]">
+        {toasts.map((toast) => {
           let bgColor = "bg-zinc-400";
-          if (t.variant === "success") bgColor = "bg-sky-400";
-          if (t.variant === "error") bgColor = "bg-rose-400";
+          if (toast.variant === "success") bgColor = "bg-sky-400";
+          if (toast.variant === "error") bgColor = "bg-rose-400";
 
           return (
             <div
-              key={t.id}
+              key={toast.id}
               className={`transform transition-all duration-300 px-4 py-3 rounded-lg shadow-lg text-white min-w-[250px] max-w-sm opacity-0 translate-y-4 animate-toast-in ${bgColor}`}
             >
-              <h4 className="font-bold">{t.title}</h4>
-              {t.description && (
-                <p className="text-sm opacity-90">{t.description}</p>
+              <h4 className="font-bold">{toast.title}</h4>
+              {toast.description && (
+                <p className="text-sm opacity-90">{toast.description}</p>
               )}
             </div>
           );

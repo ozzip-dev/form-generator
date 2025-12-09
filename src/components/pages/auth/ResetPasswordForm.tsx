@@ -1,17 +1,14 @@
 "use client";
 
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
+import FormAuthFooter from "@/components/Auth/FormAuthFooter";
+import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import {
   ResetPasswordSchema,
   resetPasswordSchema,
 } from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { handleNextRedirectError } from "@/helpers/helpersAuth/handleNextRedirectError";
-import FormAuthFooter from "@/components/Auth/FormAuthFooter";
-import { Button, InputFields } from "@/components/shared";
-import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
+import { useActionState, useRef } from "react";
 
 const dataInputsResetPassword = [
   {
@@ -28,53 +25,69 @@ const dataInputsResetPassword = [
   },
 ];
 
+type State = {
+  errors: Record<string, string[]>;
+  inputs: Record<string, string> | null;
+};
+const initialState: State = { errors: {}, inputs: null };
+
 const ResetPasswordForm = ({ token }: { token: string }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<ResetPasswordSchema>({
-    resolver: zodResolver(resetPasswordSchema),
-  });
-
   const { toast } = useToast();
+  const isAction = useRef(false);
 
-  const onSubmit = async (data: ResetPasswordSchema) => {
-    const trimmedData = {
-      password: data.password.trim(),
-      confirmPassword: data.confirmPassword.trim(),
-    };
+  const resetPassword = async (
+    prevState: State,
+    formData: FormData
+  ): Promise<any> => {
+    const data = Object.fromEntries(formData.entries()) as ResetPasswordSchema;
 
-    try {
-      const resp = await resetPasswordAction({ ...trimmedData, token });
-      if (resp?.error) {
-        handleClientErrors<ResetPasswordSchema>(resp.error, setError);
-        return;
-      }
-    } catch (err: any) {
-      handleNextRedirectError(err);
+    const validationResult = resetPasswordSchema.safeParse(data);
+    if (!validationResult.success) {
+      return {
+        errors: validationResult.error.formErrors.fieldErrors,
+        inputs: data,
+      };
+    }
 
+    isAction.current = true;
+    const resp = await resetPasswordAction({ ...validationResult.data, token });
+
+    if (resp?.validationErrors) {
+      return { errors: resp.validationErrors, inputs: data };
+    }
+
+    if (resp?.catchError) {
       toast({
         title: "Błąd zmiany hasła",
-        description: err.message || "Coś poszło nie tak",
+        description: resp.catchError || "Coś poszło nie tak",
         variant: "error",
       });
     }
+    isAction.current = false;
+    return { errors: {}, inputs: data };
   };
+
+  const [state, formAction, isPending] = useActionState(
+    resetPassword,
+    initialState
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
       <div className="w-full max-w-md">
         <h1 className="text-2xl font-bold text-center">Zmień hasło</h1>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form action={formAction}>
+          {" "}
           <InputFields
             inputsData={dataInputsResetPassword}
-            register={register}
-            errorMsg={errors}
+            errorMsg={state.errors}
+            default={state?.inputs}
           />
-          <Button isLoading={isSubmitting} message="Zmień hasło" />
+          <Button
+            isLoading={isAction.current && isPending}
+            message="Zmień hasło"
+          />
         </form>
 
         <FormAuthFooter
