@@ -17,8 +17,6 @@ export async function submitFormAction(
   answers: Answers,
   inputs: FormInput[]
 ): Promise<void | { validationErrors: ValidationErrors }> {
-  await requireUser();
-
   const schema = createdFormSchema(inputs);
 
   const validationResult = schema.safeParse(answers);
