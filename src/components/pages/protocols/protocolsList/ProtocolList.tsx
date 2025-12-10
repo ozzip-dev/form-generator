@@ -1,7 +1,7 @@
 "use client";
 
 import { ProtocolSerialized } from "@/types/protocol";
-import { ProtocolFilters } from "../utils";
+import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
 
 type Props = {
@@ -12,17 +12,25 @@ type Props = {
 const headers = ["Branza", "Nazwa związku", "Nazwa zakładu", "Data sporu"];
 
 const ProtocolList = ({
-  filters: { text = "", fromDate, toDate },
+  filters: { text = "", fromDate, toDate, sortOrder },
   protocols,
 }: Props) => {
-  const filteredResults = protocols.filter(
-    ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
-      (branch.includes(text) ||
-        tradeUnionName.includes(text) ||
-        workplaceName.includes(text)) &&
-      (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
-      (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true)
-  );
+  const getDisputeTime = (protocol: ProtocolSerialized) =>
+    new Date(protocol.disputeStartDate).getTime();
+  const filteredResults = protocols
+    .filter(
+      ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
+        (branch.includes(text) ||
+          tradeUnionName.includes(text) ||
+          workplaceName.includes(text)) &&
+        (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
+        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true)
+    )
+    .sort((a, b) =>
+      isAscending(sortOrder)
+        ? getDisputeTime(a) - getDisputeTime(b)
+        : getDisputeTime(b) - getDisputeTime(a)
+    );
 
   return (
     <div className="grid grid-cols-5">

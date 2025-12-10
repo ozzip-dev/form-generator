@@ -1,7 +1,12 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { filtersDefault, ProtocolFilters } from "../utils";
+import {
+  filtersDefault,
+  mapSortOrder,
+  ProtocolFilters,
+  SortOrder,
+} from "../utils";
 import { Button } from "@/components/shared";
 
 type Props = {
@@ -34,17 +39,17 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   return (
     <div
       className="
-      grid grid-rows-[30px_auto] grid-cols-[repeat(4,13rem)] gap-3 items-center
+      grid grid-rows-[30px_auto] grid-cols-[repeat(5,13rem)] gap-3 items-center
       p-2 mb-5
       bg-slate-200
     "
     >
-      <div className="text-center font-black" style={{ gridColumn: "1 / 5" }}>
+      <div className="text-center font-black" style={{ gridColumn: "1 / 6" }}>
         Filtry
       </div>
 
       <label className="block" htmlFor={filters.text}>
-        <span>Szukaj</span>
+        <div>Szukaj</div>
         <input
           type="text"
           value={filters.text}
@@ -63,8 +68,24 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
 
       <Button
         message="Resetuj filtry"
+        className="max-w-40"
         onClickAction={() => setFilters(filtersDefault)}
       ></Button>
+
+      <label className="block" htmlFor="sortOrder">
+        <div>Sortuj</div>
+        <select
+          name="sortOrder"
+          id="sortOrder"
+          onChange={(e) => onFilterChange(e, "sortOrder")}
+        >
+          {[SortOrder.Ascending, SortOrder.Descending].map((order, i) => (
+            <option value={order} key={i}>
+              {mapSortOrder[order]}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 };
