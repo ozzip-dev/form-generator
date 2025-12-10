@@ -174,3 +174,37 @@
 .btn:disabled {
   color: grey;
 }
+
+
+input[type='date'] {
+  width: 170px;
+  height: 39px;
+  padding-right: 5px;
+  border: 1px black solid;
+  background-color: white;
+}
+
+::-webkit-datetime-edit {
+  padding: 1em;
+}
+
+::-webkit-datetime-edit-fields-wrapper {
+  display: none;
+}
+
+::-webkit-calendar-picker-indicator {
+  padding-left: 110px;
+}
+
+.date-filter-input {
+  position: relative;
+
+  > div {
+    position: absolute;
+    pointer-events: none;
+    top: 8px;
+    left: 10px;
+    z-index: 99;
+    color: black;
+  }
+}

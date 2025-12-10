@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { fileExtensionMap, filtersDefault, ProtocolFilters } from "../utils";
+import { filtersDefault, ProtocolFilters } from "../utils";
 import { Button } from "@/components/shared";
 
 type Props = {
@@ -9,10 +9,21 @@ type Props = {
   setFilters: (filters: ProtocolFilters) => void;
 };
 
+const dateFilters: { key: "fromDate" | "toDate"; label: string }[] = [
+  {
+    key: "fromDate",
+    label: "Spory od:",
+  },
+  {
+    key: "toDate",
+    label: "Spory do:",
+  },
+];
+
 const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   const onFilterChange = (
     e: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    key: "type" | "name"
+    key: keyof ProtocolFilters
   ): void => {
     setFilters({
       ...filters,
@@ -20,43 +31,35 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
     });
   };
 
-  const extensions = Object.values(fileExtensionMap);
-
   return (
     <div
       className="
-      grid grid-rows-[30px_auto] grid-cols-[8rem_17rem_10rem] gap-3 items-center
+      grid grid-rows-[30px_auto] grid-cols-[repeat(4,13rem)] gap-3 items-center
       p-2 mb-5
       bg-slate-200
     "
     >
-      <div className="text-center font-black" style={{ gridColumn: "1 / 4" }}>
+      <div className="text-center font-black" style={{ gridColumn: "1 / 5" }}>
         Filtry
       </div>
 
-      <label htmlFor={filters.type}>
-        <span>typ: </span>
-        <select
-          value={filters.type}
-          onChange={(e) => onFilterChange(e, "type")}
-        >
-          <option value="">---</option>
-          {extensions.map((item, i) => (
-            <option value={item} key={i}>
-              {item}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block" htmlFor={filters.name}>
-        <span>nazwa: </span>
+      <label className="block" htmlFor={filters.text}>
+        <span>Szukaj</span>
         <input
           type="text"
-          value={filters.name}
-          onChange={(e) => onFilterChange(e, "name")}
+          value={filters.text}
+          onChange={(e) => onFilterChange(e, "text")}
         />
       </label>
+
+      {dateFilters.map(({ key, label }, i) => (
+        <div key={i} className="  ">
+          <div>
+            {label} {filters[key]}
+          </div>
+          <input type="date" onChange={(e) => onFilterChange(e, key)} />
+        </div>
+      ))}
 
       <Button
         message="Resetuj filtry"

@@ -5,54 +5,47 @@ import { mapFileExtensionName } from "../utils";
 import { ProtocolSerialized } from "@/types/protocol";
 import { convertBToKB } from "@/lib/utils";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { Button } from "@/components/shared";
+import Link from "next/link";
 
-const getFileBlob = (data: Binary, type: string): Blob => {
-  const binaryString = atob(data as unknown as string);
-  const len = binaryString.length;
-  const uint8Array: Uint8Array = new Uint8Array(len);
-  for (let i = 0; i < len; i++) uint8Array[i] = binaryString.charCodeAt(i);
-  const blob = new Blob([uint8Array as BlobPart], { type });
-  return blob;
-};
+// TODO: use this code for files
 
-const saveFile = (data: Binary, type: string, name: string) => {
-  const blob = getFileBlob(data, type);
+// const getFileBlob = (data: Binary, type: string): Blob => {
+//   const binaryString = atob(data as unknown as string);
+//   const len = binaryString.length;
+//   const uint8Array: Uint8Array = new Uint8Array(len);
+//   for (let i = 0; i < len; i++) uint8Array[i] = binaryString.charCodeAt(i);
+//   const blob = new Blob([uint8Array as BlobPart], { type });
+//   return blob;
+// };
 
-  const a = document.createElement("a");
-  a.download = name;
-  a.href = URL.createObjectURL(blob);
-  a.addEventListener("click", () => {
-    setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
-  });
-  a.click();
-};
+// const saveFile = (data: Binary, type: string, name: string) => {
+//   const blob = getFileBlob(data, type);
+
+//   const a = document.createElement("a");
+//   a.download = name;
+//   a.href = URL.createObjectURL(blob);
+//   a.addEventListener("click", () => {
+//     setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+//   });
+//   a.click();
+// };
 
 const ProtocolListItem = ({
-  // data,
-  // name,
-  // type,
-  // size,
-  // uploadedAt,
+  _id,
+  branch,
+  tradeUnionName,
+  workplaceName,
+  disputeStartDate,
 }: ProtocolSerialized) => {
   return (
-    <div
-      className="
-        grid grid-cols-[18rem_5rem_6rem_12rem_6rem]
-        items-center gap-2
-        mb-1
-      "
-    >
-      {/* <div>{name}</div>
-      <div>{mapFileExtensionName(type)}</div>
-      <div>{convertBToKB(size)} KB</div>
-      <div>{formatDateAndTime(uploadedAt)}</div>
-      <div>
-        <Button
-          message="Pobierz"
-          onClickAction={() => saveFile(data, type, name)}
-        />
-      </div> */}
+    <div className="contents">
+      <div>{branch}</div>
+      <div>{tradeUnionName}</div>
+      <div>{workplaceName}</div>
+      <div>{formatDateAndTime(disputeStartDate)}</div>
+      <Link href={`/protocols/${_id}`}>
+        <b>Edytuj</b>
+      </Link>
     </div>
   );
 };

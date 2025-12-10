@@ -13,9 +13,11 @@ type Props = {
 const Protocols = ({ protocols }: Props) => {
   const [filters, setFilters] = useState<ProtocolFilters>(filtersDefault);
 
+  console.log(filters);
+
   return (
     <div className="p-8">
-      {/* <ProtocolListFilters filters={filters} setFilters={setFilters} /> */}
+      <ProtocolListFilters filters={filters} setFilters={setFilters} />
       <ProtocolList filters={filters} protocols={protocols} />
     </div>
   );

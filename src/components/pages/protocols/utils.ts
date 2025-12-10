@@ -1,11 +1,18 @@
 import { ProtocolDisputeReason, ProtocolFileCategory } from "@/types/protocol";
 
 export type ProtocolFilters = {
-  type: string
-  name: string
+  text: string
+  fromDate: string
+  toDate: string
+  // disputeReasons : string[] - checkbox group
 }
 
-export const filtersDefault = { type: '', name: '' }
+export const filtersDefault: ProtocolFilters = {
+  text: '',
+  fromDate: '',
+  toDate: ''
+  // disputeReasons = ''
+}
 
 // TODO: move utils to file utils
 export const fileExtensionMap: Record<string, string> = {
