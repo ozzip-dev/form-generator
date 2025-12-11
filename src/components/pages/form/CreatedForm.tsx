@@ -24,6 +24,7 @@ import {
 import SuccesMsg from "./SuccesMsg";
 import { FormInput } from "@/types/input";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import CheckboxSwitch from "@/components/shared/inputs/CheckboxSwitch";
 
 type FieldRenderer = (
   input: FormInput,
@@ -37,7 +38,7 @@ const defaultValues = (inputs: FormInput[]) => {
     const { type, options, id } = input;
 
     const checkboxValues = options.reduce((optionsObject: any, option: any) => {
-      optionsObject[option.label] = false;
+      optionsObject[option.label] = "";
       return optionsObject;
     }, {});
 
@@ -77,18 +78,14 @@ const CreatedForm = (props: Props) => {
     register,
     formState: { errors, isSubmitting },
     control,
-    watch,
     handleSubmit,
     reset,
     setError,
   } = methods;
 
   useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
 
   const onSubmit = async (data: any) => {
     console.log("data", data);
@@ -149,6 +146,7 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
+            {/* <CheckboxSwitch label={"header"} name="llll" control={control} /> */}
             <Button
               message="Zatwierdź"
               disabled={props.isPreview ? true : false}

@@ -9,18 +9,21 @@ const InputCheckboxOther = (props: Props) => {
   const inputValue = typeof rawValue === "string" ? rawValue : "";
 
   return (
-    <input
-      type="text"
-      placeholder="Inna odpowiedź"
-      value={inputValue}
-      onChange={(e) => {
-        props.onChange({
-          ...props.selectedValues,
-          [props.name]: e.target.value,
-        });
-      }}
-      className="border px-2 py-1"
-    />
+    <>
+      <label>{props.name}</label>
+      <input
+        type="text"
+        placeholder="Inna odpowiedź"
+        value={inputValue}
+        onChange={(e) => {
+          props.onChange({
+            ...props.selectedValues,
+            [props.name]: e.target.value,
+          });
+        }}
+        className="border px-2 py-1"
+      />
+    </>
   );
 };
 

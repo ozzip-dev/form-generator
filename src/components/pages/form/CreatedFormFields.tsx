@@ -4,6 +4,7 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import CheckboxGroupFieldXX from "@/components/shared/inputs/checkboxField/CheckboxGroupField";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
@@ -90,22 +91,26 @@ export const renderCheckbox = (
 
   const dataCheckboxOptions =
     options.map((option: FormOption) => ({
-      label: option.label,
       name: option.label,
-      value: false,
       optionId: option.value,
     })) ?? [];
 
   return (
-    <CheckboxGroupField
-      key={id}
-      groupLabel={header}
-      required={required}
-      groupDescription={description}
-      name={id!}
-      options={dataCheckboxOptions}
+    <CheckboxGroupFieldXX
       control={control}
-      errorMsg={errors}
+      name={id!}
+      groupLabel={header}
+      options={dataCheckboxOptions}
     />
+    // <CheckboxGroupField
+    //   key={id}
+    //   groupLabel={header}
+    //   groupDescription={description}
+    //   required={required}
+    //   name={id!}
+    //   options={dataCheckboxOptions}
+    //   control={control}
+    //   errorMsg={errors}
+    // />
   );
 };
