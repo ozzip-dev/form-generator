@@ -1,16 +1,14 @@
 "use server";
 
-import { db } from "@/lib/mongo";
-import { findById } from "@/lib/mongo";
-import { serializeProtocol } from "@/lib/serialize-utils";
-import { Protocol, ProtocolSerialized } from "@/types/protocol";
-import { ObjectId } from "mongodb";
+import { mapFilesToProtocol } from "@/services/protocol-service";
+import { ProtocolWithFilesSerialized } from "@/types/protocol";
 
-export async function getProtocolDetails(protocolId: string): Promise<ProtocolSerialized | null> {
+export async function getProtocolDetails(protocolId: string): Promise<ProtocolWithFilesSerialized | null> {
   try {
-    const protocol = await findById<Protocol>(db, "protocol", new ObjectId(protocolId));
-    if (!protocol) throw new Error('Invalid protocol id')
-    return serializeProtocol(protocol);
+    const protocolWithFiles = await mapFilesToProtocol(protocolId)
+    if (!protocolWithFiles) throw new Error('Invalid protocol id')
+    return protocolWithFiles
+
   } catch (error) {
     console.error("Error fetching protocol details:", error);
     return null;

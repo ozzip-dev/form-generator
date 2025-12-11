@@ -68,7 +68,6 @@ export type ProtocolInsertData = {
   // mediations?: ProtocolFiles
 }
 
-export type ProtocolWithFiles = Protocol & { files: File[] }
-export type ProtocolWithFilesSerialized = ProtocolSerialized & { files: FileSerialized[] }
+export type ProtocolWithFilesSerialized = ProtocolSerialized & { files: Record<ProtocolFileCategory, (FileSerialized | null)[]> }
 
 export type ProtocolMenuItem = { text: string; link: string }

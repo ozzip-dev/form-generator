@@ -1,15 +1,18 @@
 "use client";
 
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import {
+  ProtocolFileCategory,
+  ProtocolWithFilesSerialized,
+} from "@/types/protocol";
 import { mapFileCategory } from "../utils";
 
 // TODO: map files
 const ProtocolListItemDetails = ({
-  fileIds,
+  files,
   lastModifiedAt,
   uploadedAt,
-}: ProtocolSerialized) => {
+}: ProtocolWithFilesSerialized) => {
   return (
     <div className="col-span-5 p-4 mb-4 border border-black bg-slate-200">
       <div className="flex gap-8">
@@ -21,8 +24,8 @@ const ProtocolListItemDetails = ({
         {Object.entries(mapFileCategory).map(([key, value]) => (
           <div key={key} className="mb-2">
             <div className="font-black">{value}</div>
-            {fileIds[key as ProtocolFileCategory].map((id) => (
-              <div key={id}>{id}</div>
+            {files[key as ProtocolFileCategory].map((file, i) => (
+              <div key={i}>{file?.name || "-"}</div>
             ))}
           </div>
         ))}

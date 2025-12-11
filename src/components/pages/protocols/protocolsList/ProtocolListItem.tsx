@@ -1,7 +1,10 @@
 "use client";
 
 import { useActionState, useState, startTransition } from "react";
-import { ProtocolSerialized } from "@/types/protocol";
+import {
+  ProtocolSerialized,
+  ProtocolWithFilesSerialized,
+} from "@/types/protocol";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import Link from "next/link";
 import { getProtocolDetails } from "@/actions/protocol/getProtocolDetails";
@@ -9,7 +12,9 @@ import { Button, FullscreenLoader } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
 const ProtocolListItem = (protocol: ProtocolSerialized) => {
-  const [details, setDetails] = useState<ProtocolSerialized | null>(null);
+  const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
+    null
+  );
   const [_state, fetchDetails, isPending] = useActionState(async () => {
     if (details) {
       setDetails(null);
@@ -43,7 +48,7 @@ const ProtocolListItem = (protocol: ProtocolSerialized) => {
         </div>
       </div>
 
-      {details && <ProtocolListItemDetails {...protocol} />}
+      {details && <ProtocolListItemDetails {...details} />}
     </>
   );
 };
