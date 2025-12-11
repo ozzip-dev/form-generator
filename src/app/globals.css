@@ -176,35 +176,38 @@
 }
 
 
-input[type='date'] {
-  width: 170px;
-  height: 39px;
-  padding-right: 5px;
-  border: 1px black solid;
-  background-color: white;
-}
 
-::-webkit-datetime-edit {
-  padding: 1em;
-}
+.protocol-filters {
+  input[type='date'] {
+    width: 170px;
+    height: 39px;
+    padding-right: 5px;
+    border: 1px black solid;
+    background-color: white;
+  }
 
-::-webkit-datetime-edit-fields-wrapper {
-  display: none;
-}
+  ::-webkit-datetime-edit {
+    padding: 1em;
+  }
 
-::-webkit-calendar-picker-indicator {
-  padding-left: 110px;
-}
+  ::-webkit-datetime-edit-fields-wrapper {
+    display: none;
+  }
 
-.date-filter-input {
-  position: relative;
+  ::-webkit-calendar-picker-indicator {
+    padding-left: 110px;
+  }
 
-  > div {
-    position: absolute;
-    pointer-events: none;
-    top: 8px;
-    left: 10px;
-    z-index: 99;
-    color: black;
+  .date-filter-input {
+    position: relative;
+
+    > div {
+      position: absolute;
+      pointer-events: none;
+      top: 8px;
+      left: 10px;
+      z-index: 99;
+      color: black;
+    }
   }
 }
