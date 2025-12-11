@@ -39,10 +39,11 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   return (
     <div
       className="
-      grid grid-rows-[30px_auto] grid-cols-[repeat(5,13rem)] gap-3 items-center
-      p-2 mb-5
-      bg-slate-200
-    "
+        protocol-filters
+        grid grid-rows-[30px_auto] grid-cols-[repeat(5,13rem)] gap-3 items-center
+        p-2 mb-5
+        bg-slate-200
+      "
     >
       <div className="text-center font-black" style={{ gridColumn: "1 / 6" }}>
         Filtry
@@ -58,7 +59,7 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
       </label>
 
       {dateFilters.map(({ key, label }, i) => (
-        <div key={i} className="  ">
+        <div key={i}>
           <div>
             {label} {filters[key]}
           </div>
