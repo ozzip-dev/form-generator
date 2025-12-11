@@ -6,7 +6,7 @@ import { mapFileCategory } from "../utils";
 
 // TODO: map files
 const ProtocolListItemDetails = ({
-  files,
+  fileIds,
   lastModifiedAt,
   uploadedAt,
 }: ProtocolSerialized) => {
@@ -21,7 +21,7 @@ const ProtocolListItemDetails = ({
         {Object.entries(mapFileCategory).map(([key, value]) => (
           <div key={key} className="mb-2">
             <div className="font-black">{value}</div>
-            {files[key as ProtocolFileCategory].map((id) => (
+            {fileIds[key as ProtocolFileCategory].map((id) => (
               <div key={id}>{id}</div>
             ))}
           </div>

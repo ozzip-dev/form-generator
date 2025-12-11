@@ -1,4 +1,4 @@
-import { Collection, Db, Document, InsertOneResult, ObjectId } from "mongodb";
+import { Collection, Db, ObjectId } from "mongodb";
 import { db, findAll, findById, getCollection, insert, updateById } from "@/lib/mongo";
 import { Protocol, ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 
@@ -41,22 +41,16 @@ export async function getProtocolById(formId: string): Promise<Protocol> {
   return protocol
 }
 
-// Zostawic na razie wykomentowany kod
 export async function addFileToProtocol({
   protocolId,
   fileId,
   fileCategory,
-  // fileType
 }: {
   protocolId: string,
   fileId: string,
   fileCategory?: ProtocolFileCategory,
-  // fileType?: ProtocolFileType
 }): Promise<void> {
-  // const pushQuery: string = fileType
-  //   ? `files.${fileCategory}.${fileType}`
-  //   : `files.${fileCategory}`
-  const pushQuery: string = `files.${fileCategory}`
+  const pushQuery: string = `fileIds.${fileCategory}`
 
   await updateById(
     db,
@@ -79,7 +73,7 @@ export async function removeFileFromProtocol({
   fileId: string,
   fileCategory?: ProtocolFileCategory,
 }): Promise<void> {
-  const pullQuery: string = `files.${fileCategory}`
+  const pullQuery: string = `fileIds.${fileCategory}`
 
   await updateById(
     db,

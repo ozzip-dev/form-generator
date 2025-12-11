@@ -6,8 +6,12 @@ import { getProtocolById } from "@/services/protocol-service";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { redirect } from "next/navigation";
 
-const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: string }> }) => {
-  const { protocolId } = await params
+const EditProtocolPage = async ({
+  params,
+}: {
+  params: Promise<{ protocolId: string }>;
+}) => {
+  const { protocolId } = await params;
   try {
     const {
       branch,
@@ -17,23 +21,27 @@ const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: stri
       lastModifiedAt,
       uploadedAt,
       workplaceName,
-      files: fileIds
-    } = await getProtocolById(protocolId)
+      fileIds,
+    } = await getProtocolById(protocolId);
 
     const fieldIdArray = Object.keys(fileIds)
       .map((key) => fileIds[key as ProtocolFileCategory])
-      .flat()
+      .flat();
 
-    const files = await getFilesByFileIdsNoData(fieldIdArray)
-    
-    const addFile = async (protocolId: string, category: ProtocolFileCategory, fileId: string) => {
-      'use server'
-      await addProtocolFile({ protocolId, fileId, fileCategory: category })
-    }
+    const files = await getFilesByFileIdsNoData(fieldIdArray);
+
+    const addFile = async (
+      protocolId: string,
+      category: ProtocolFileCategory,
+      fileId: string
+    ) => {
+      "use server";
+      await addProtocolFile({ protocolId, fileId, fileCategory: category });
+    };
 
     return (
       <div className="p-4">
-        <ProtocolDetails 
+        <ProtocolDetails
           {...{
             branch,
             disputeReason,
@@ -41,16 +49,21 @@ const EditProtocolPage = async ({ params }: { params: Promise<{ protocolId: stri
             tradeUnionName,
             lastModifiedAt,
             uploadedAt,
-            workplaceName
+            workplaceName,
           }}
         />
 
-        <ProtocolFileUploads id={protocolId} files={files} fileIds={fileIds} addFile={addFile} />
+        <ProtocolFileUploads
+          id={protocolId}
+          files={files}
+          fileIds={fileIds}
+          addFile={addFile}
+        />
       </div>
     );
-  } catch(e) {
-    console.error(e)
-    redirect('/protocols/add')
+  } catch (e) {
+    console.error(e);
+    redirect("/protocols/add");
   }
 };
 

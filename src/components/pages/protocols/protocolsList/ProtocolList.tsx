@@ -33,7 +33,7 @@ const ProtocolList = ({
     );
 
   return (
-    <div className="grid grid-cols-5">
+    <div className="grid grid-cols-5 items-center">
       {headers.map((header, i) => (
         <div key={i} className="font-black">
           {header}

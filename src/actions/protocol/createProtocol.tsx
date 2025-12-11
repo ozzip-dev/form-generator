@@ -2,17 +2,9 @@
 
 import { db } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
-import { ProtocolInsertData} from "@/types/protocol";
+import { ProtocolInsertData } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-
-// const fileDefaults: {
-//   meetings: string[]
-//   discrepancy: string[]
-// } = {
-//   meetings: [],
-//   discrepancy: []
-// }
 
 export async function createProtocol({
   branch,
@@ -20,10 +12,8 @@ export async function createProtocol({
   tradeUnionName,
   workplaceName,
   disputeStartDate,
-  // negotiations = fileDefaults,
-  // mediations = fileDefaults
 }: ProtocolInsertData): Promise<void> {
-  let protocolId = ''
+  let protocolId = "";
   try {
     protocolId = await addProtocol(db, {
       branch,
@@ -31,25 +21,22 @@ export async function createProtocol({
       tradeUnionName,
       workplaceName,
       disputeStartDate,
-      files: {
-        // negotiations: fileDefaults,
-        // mediations: fileDefaults,
+      fileIds: {
         demands: [],
         mediationMeetings: [],
         mediationDiscrepancy: [],
         negotiationMeetings: [],
         negotiationDiscrepancy: [],
         agreement: [],
-        other: []
+        other: [],
       },
     });
 
     revalidateTag("protocols");
-
-  } catch(_) {
+  } catch (_) {
     // Delete files? If yes, trigger proper action
-    throw new Error('Invalid protocol data')
+    throw new Error("Invalid protocol data");
   }
-  
+
   redirect(`/protocols/${protocolId}`);
 }
