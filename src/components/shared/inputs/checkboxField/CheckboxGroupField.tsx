@@ -9,6 +9,7 @@ import Checkbox from "./Checkbox";
 type CheckboxOption = {
   name: string;
   optionId?: string;
+  checkboxLabel?: string;
 };
 
 type Props = {
@@ -54,11 +55,12 @@ export default function CheckboxGroupField(props: Props) {
               <div className="text-sm">{props.groupDescription}</div>
             )}
 
-            {props.options.map(({ name, optionId = "" }) => {
+            {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
               if (optionId === OPTION_OTHER) {
                 return (
                   <InputCheckboxOther
                     key={name}
+                    label={checkboxLabel}
                     name={name}
                     selectedValues={selectedValues}
                     onChange={field.onChange}
@@ -69,6 +71,7 @@ export default function CheckboxGroupField(props: Props) {
               return (
                 <Checkbox
                   key={name}
+                  checkboxLabel={checkboxLabel}
                   name={name}
                   onChange={() => toggle(name)}
                   checkedValue={selectedValues[name]}

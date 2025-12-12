@@ -1,11 +1,11 @@
-import { ProtocolDisputeReason, ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolFileCategory } from "@/types/protocol";
 
 export type ProtocolFilters = {
-  type: string
-  name: string
-}
+  type: string;
+  name: string;
+};
 
-export const filtersDefault = { type: '', name: '' }
+export const filtersDefault = { type: "", name: "" };
 
 // TODO: move utils to file utils
 export const fileExtensionMap: Record<string, string> = {
@@ -22,20 +22,19 @@ export const mapFileExtensionName = (type: string): string => {
   return fileExtensionMap[type];
 };
 
-export const mapDisputeReason: Record<ProtocolDisputeReason, string> = {
-  workTime: 'Czas pracy',
-  safety: 'Standardy BHP',
-  wages: 'Wysokoć płac',
-  standards: 'Normy pracy',
-  other: 'Inne',
-}
+export const mapDisputeReason: Record<string, string> = {
+  workTime: "Czas pracy",
+  safety: "Standardy BHP",
+  wages: "Wysokoć płac",
+  safetyConditions: "Normy pracy",
+};
 
 export const mapFileCategory: Record<ProtocolFileCategory, string> = {
-  demands: 'Żądania wszczynające spór',
-  mediationMeetings: 'Mediacje: spotkania',
-  mediationDiscrepancy: 'Mediacje: rozbieności',
-  negotiationMeetings: 'Rokowania: spotkania',
-  negotiationDiscrepancy: 'Rokowania: rozbieności',
-  agreement: 'Porozumienie kończące spór',
-  other: 'Inne',
-}
+  demands: "Żądania wszczynające spór",
+  mediationMeetings: "Mediacje: spotkania",
+  mediationDiscrepancy: "Mediacje: rozbieności",
+  negotiationMeetings: "Rokowania: spotkania",
+  negotiationDiscrepancy: "Rokowania: rozbieności",
+  agreement: "Porozumienie kończące spór",
+  other: "Inne",
+};

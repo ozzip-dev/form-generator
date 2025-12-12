@@ -1,17 +1,16 @@
-"use client"
+"use client";
 
+import { createProtocol } from "@/actions/protocol";
+import { createProtocolAction } from "@/actions/protocol/createProtocol.Action";
 import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
   ProtocolFormSchema,
   protocolFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
-import { useErrorBoundary } from "react-error-boundary";
-import { ProtocolDisputeReason } from "@/types/protocol";
-import { mapDisputeReason } from "../utils";
-import { useState } from "react";
-import { createProtocol } from "@/actions/protocol";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 // branza
 // data rozpoczecia sporu
@@ -24,7 +23,6 @@ import { createProtocol } from "@/actions/protocol";
 // mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności, inne
 // porozumienie kończące spór
 // inne - ladowanie likow
-
 
 // TODO: gdy dojdziemy do ładu i składu:
 // 1. wywalić pozostałe formy: ...M i ...K
@@ -43,7 +41,7 @@ const dataInputsProtocolForm = [
     placeholder: "Budownictwo",
     type: "text",
   },
-    {
+  {
     label: "Nazwa związku",
     name: "tradeUnionName",
     placeholder: "Solimarność",
@@ -59,64 +57,34 @@ const dataInputsProtocolForm = [
 
 const dataCheckboxOptions = [
   {
-    label: "Czas pracy",
+    checkboxLabel: "Czas pracy",
     name: "workTime",
-    value: false,
   },
   {
-    label: "Warunki BHP",
+    checkboxLabel: "Warunki BHP",
     name: "safetyConditions",
-    value: false,
   },
   {
-    label: "Wysokość płac",
+    checkboxLabel: "Wysokość płac",
     name: "wages",
-    value: false,
   },
   {
-    label: "Normy pracy",
+    checkboxLabel: "Normy pracy",
     name: "workStandards",
-    value: false,
   },
   {
-    label: "Czas pracy",
-    name: "other",
-    value: false,
-    optionId: "other",
+    checkboxLabel: "Inne",
+    name: OPTION_OTHER,
+    optionId: OPTION_OTHER,
   },
 ];
 
-const disputeReasonOptions: { id: ProtocolDisputeReason, label: string }[] = [
-  {
-    id: 'workTime',
-    label: mapDisputeReason['workTime']
-  },
-  {
-    id: 'safety',
-    label: mapDisputeReason['safety']
-  },
-  {
-    id: 'wages',
-    label: mapDisputeReason['wages']
-  },
-  {
-    id: 'standards',
-    label: mapDisputeReason['standards']
-  },
-  {
-    id: 'other',
-    label: mapDisputeReason['other']
-  },
-]
-
 const ProtocolForm = () => {
-  const [reasons, setReasons] = useState<ProtocolDisputeReason[]>([])
-
   const methods = useForm<ProtocolFormSchema>({
     resolver: zodResolver(protocolFormSchema),
     mode: "all",
   });
-    // const methods = useForm()
+
   const {
     register,
     formState: { errors, isSubmitting },
@@ -126,41 +94,38 @@ const ProtocolForm = () => {
     reset,
     handleSubmit,
     setValue,
-    getValues
+    getValues,
   } = methods;
+
+  useEffect(() => {
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
 
   const onSubmit = async (data: ProtocolFormSchema) => {
     const {
       branch,
       tradeUnionName,
       workplaceName,
-      disputeStartDate        
-    } = data
+      disputeStartDate,
+      disputeReason,
+    } = data;
 
-    await createProtocol({
+    const disputeReasonValues = Object.values(disputeReason).filter(
+      (string) => string !== ""
+    );
+
+    await createProtocolAction({
       branch,
-      disputeReason: reasons,
+      disputeReason: disputeReasonValues,
       tradeUnionName,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
-    })
+    });
 
     try {
       reset();
     } catch (err) {}
   };
-
-  // TODO: delete after checkbox structure refactor
-  const onDisputeReasonEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target
-    if (checked) {
-      setReasons([
-        ...reasons, value as ProtocolDisputeReason
-      ])
-    } else {
-      setReasons(reasons.filter((item) => item != value))
-    }
-  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 m-auto">
@@ -169,43 +134,18 @@ const ProtocolForm = () => {
         inputsData={dataInputsProtocolForm}
         register={register}
         errorMsg={errors}
-        // onChange={handleEdit}
-        // isLoading={isSubmitting}
       />
-      {/* <CheckboxGroupField
-        groupLabel={"Przyczyna rozpoczęcia sporu"}
-        name="barganingReason"
+
+      <CheckboxGroupField
+        groupLabel="Przyczyna rozpoczęcia sporu"
+        control={control!}
+        name="disputeReason"
         options={dataCheckboxOptions}
-        control={control}
-        errorMsg={errors}
-      /> */}
-
-        {/* TODO: replace with CheckboxGroupField */}
-
-        <div>
-          <div className="text-lg font-black">Powod sporu</div>
-          <div className="flex gap-4">
-            {disputeReasonOptions.map(({ id, label }, i) => (
-              <label key={i} htmlFor={id}>
-                <input
-                  type="checkbox"
-                  name="disputeReason"
-                  value={id}
-                  id={id}
-                  className="mr-2"  
-                  onChange={onDisputeReasonEdit}
-                />
-                <span>{label}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-
-        {/* ---- */}
+      />
 
       <div className="w-fit ml-auto">
         <Button
-          message="Zapisz dane nt. sporu zbiorowego"
+          message="Zapisz dane dotyczące sporu zbiorowego"
           isLoading={isSubmitting}
         />
       </div>

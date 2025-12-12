@@ -15,22 +15,20 @@ import { Binary, Document } from "mongodb";
 
 // TODO: czy dac strukture zagniezdzona?
 export type ProtocolFileCategory =
-  'demands' |
-  'negotiationMeetings' |
-  'negotiationDiscrepancy' |
-  'mediationMeetings' |
-  'mediationDiscrepancy' |
-  'agreement' |
-  'other'
-
-export type ProtocolDisputeReason = 'workTime' | 'safety' | 'wages' | 'standards' | 'other'
+  | "demands"
+  | "negotiationMeetings"
+  | "negotiationDiscrepancy"
+  | "mediationMeetings"
+  | "mediationDiscrepancy"
+  | "agreement"
+  | "other";
 
 interface ProtocolData {
   branch: string; // branza
-  disputeReason: ProtocolDisputeReason[]; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
+  disputeReason: string[]; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
   tradeUnionName: string; // nazwa związku
   workplaceName: string; // nazwa zakładu
-  files: Record<ProtocolFileCategory, string[]> // file ids
+  files: Record<ProtocolFileCategory, string[]>; // file ids
   // files: Record<ProtocolFileCategory, ProtocolFiles>
   // files: { // file ids
   //   demands: string[];
@@ -58,13 +56,13 @@ export interface ProtocolSerialized extends ProtocolData {
 }
 
 export type ProtocolInsertData = {
-  branch: string
-  disputeReason: ProtocolDisputeReason[]
-  tradeUnionName: string
-  workplaceName: string
-  disputeStartDate: string
+  branch: string;
+  disputeReason: ProtocolDisputeReason[];
+  tradeUnionName: string;
+  workplaceName: string;
+  disputeStartDate: string;
   // negotiations?: ProtocolFiles
   // mediations?: ProtocolFiles
-}
+};
 
-export type ProtocolMenuItem = { text: string; link: string }
+export type ProtocolMenuItem = { text: string; link: string };

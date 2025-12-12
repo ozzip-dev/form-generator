@@ -1,4 +1,5 @@
 type Props = {
+  label?: string;
   name: string;
   selectedValues: Record<string, boolean | string>;
   onChange: (value: Record<string, boolean | string>) => void;
@@ -10,7 +11,10 @@ const InputCheckboxOther = (props: Props) => {
 
   return (
     <>
-      <label htmlFor={props.name}>{props.name}</label>
+      <label htmlFor={props.name}>
+        {props.label ? props.label : props.name}
+      </label>
+
       <input
         id={props.name}
         type="text"
