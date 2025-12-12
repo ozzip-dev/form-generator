@@ -1,5 +1,5 @@
 import { addProtocolFile } from "@/actions/protocol";
-import EditProtocol from "@/components/pages/protocols/EditProtocol";
+import EditProtocol from "@/components/pages/protocols/editProtocol/EditProtocol";
 import ProtocolDetails from "@/components/pages/protocols/ProtocolDetails";
 import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
 import { getFilesByFileIdsNoData } from "@/services/file-service";

@@ -2,10 +2,11 @@
 import { addProtocolFile } from "@/actions/protocol";
 import { getFilesByFileIdsNoData } from "@/services/file-service";
 import { ProtocolFileCategory } from "@/types/protocol";
-import ProtocolDetails from "./ProtocolDetails";
-import ProtocolFileUploads from "./ProtocolFileUploads";
+import ProtocolDetails from "../ProtocolDetails";
+import ProtocolFileUploads from "../ProtocolFileUploads";
 import { useState } from "react";
-import ProtocolForm from "./protocolForm/ProtocolForm";
+import ProtocolForm from "../protocolForm/ProtocolForm";
+import { handleEditProtocol } from "./handleEditProtocol";
 
 type Props = {
   protocol: any;
@@ -64,6 +65,7 @@ const EditProtocol = (props: Props) => {
         <>
           <ProtocolForm
             handlePrintForm={handlePrintForm}
+            onSubmit={handleEditProtocol}
             protocol={{
               branch,
               disputeReason,

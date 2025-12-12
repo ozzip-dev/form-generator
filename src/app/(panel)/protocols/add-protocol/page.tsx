@@ -1,3 +1,6 @@
+"use client";
+
+import { handleAddProtocol } from "@/components/pages/protocols/protocolForm/handleAddProtocol";
 import ProtocolForm from "@/components/pages/protocols/protocolForm/ProtocolForm";
 
 // TODO: gdy ustalimy strukture stron do dodawania/edycji/przegladania protokolow,
@@ -6,7 +9,7 @@ const AddProtocolPage = async () => {
   return (
     <>
       <div className="text-[30px] font-black">Krok 1: uzupełnij dane</div>
-      <ProtocolForm />;
+      <ProtocolForm onSubmit={handleAddProtocol} />;
     </>
   );
 };

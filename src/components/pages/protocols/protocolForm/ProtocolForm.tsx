@@ -70,19 +70,18 @@ const dataCheckboxOptions = [
 type Props = {
   handlePrintForm?: () => void;
   protocol?: Partial<Protocol>;
+  onSubmit: (data: any) => Promise<void>;
 };
 
-const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
-  console.log(" protocol?.disputeReason", protocol?.disputeReason);
-
+const ProtocolForm = (props: Props) => {
   const defaultValues = {
-    branch: protocol?.branch ?? "",
-    disputeStartDate: protocol?.disputeStartDate
-      ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
+    branch: props.protocol?.branch ?? "",
+    disputeStartDate: props.protocol?.disputeStartDate
+      ? new Date(props.protocol.disputeStartDate).toISOString().split("T")[0]
       : "",
-    tradeUnionName: protocol?.tradeUnionName ?? "",
-    workplaceName: protocol?.workplaceName ?? "",
-    disputeReason: protocol?.disputeReason ?? {
+    tradeUnionName: props.protocol?.tradeUnionName ?? "",
+    workplaceName: props.protocol?.workplaceName ?? "",
+    disputeReason: props.protocol?.disputeReason ?? {
       workTime: "",
       safetyConditions: "",
       wages: "",
@@ -107,29 +106,13 @@ const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
     console.log("FORM VALUES", methods.getValues());
   }, [methods.watch()]);
 
-  const onSubmit = async (data: any) => {
-    console.log("SUBMIT", data);
-
-    const {
-      branch,
-      tradeUnionName,
-      workplaceName,
-      disputeStartDate,
-      disputeReason,
-    } = data;
-
-    await createProtocolAction({
-      branch,
-      disputeReason,
-      tradeUnionName,
-      workplaceName,
-      disputeStartDate: disputeStartDate as string,
-    });
-  };
-
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(async (data) => {
+          await props.onSubmit(data);
+        })}
+      >
         <InputFields inputsData={dataInputsProtocolForm} register={register} />
         <CheckboxGroupField
           groupLabel="Przyczyna rozpoczęcia sporu"
@@ -140,11 +123,11 @@ const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
 
         <Button message="Zapisz" isLoading={isSubmitting} />
       </form>
-      {handlePrintForm && (
+      {props.handlePrintForm && (
         <Button
           type="button"
           message="Anuluj"
-          onClickAction={handlePrintForm}
+          onClickAction={props.handlePrintForm}
         />
       )}
     </>
