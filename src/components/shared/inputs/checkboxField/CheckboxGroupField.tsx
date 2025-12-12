@@ -42,15 +42,6 @@ export default function CheckboxGroupField(props: Props) {
           field.onChange(newValue);
         };
 
-        const uuu = Object.fromEntries(
-          props.options.map((option: any) => [option.name, ""])
-        );
-
-        const propsx = props.options;
-
-        console.log("propsx", propsx);
-        console.log("object", uuu);
-
         return (
           <div className="flex flex-col gap-3">
             {props.groupLabel && (
@@ -62,6 +53,7 @@ export default function CheckboxGroupField(props: Props) {
             {props.groupDescription && (
               <div className="text-sm">{props.groupDescription}</div>
             )}
+
             {props.options.map(({ name, optionId = "" }) => {
               if (optionId === OPTION_OTHER) {
                 return (

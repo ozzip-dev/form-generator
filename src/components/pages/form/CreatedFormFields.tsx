@@ -86,9 +86,7 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
 
   const dataCheckboxOptions =
     options.map((option: FormOption) => ({
-      label: option.label,
       name: option.label,
-      value: false,
       optionId: option.value,
     })) ?? [];
 
