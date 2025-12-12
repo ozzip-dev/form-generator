@@ -61,6 +61,9 @@ export async function addFileToProtocol({
     {
       $push: {
         [pushQuery]: fileId
+      },
+      $set: {
+        lastModifiedAt: new Date()
       }
     }
   )

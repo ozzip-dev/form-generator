@@ -1,4 +1,3 @@
-
 "use client";
 
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
@@ -21,9 +20,9 @@ type UploadedFile = {
 };
 
 type Props = {
-  category?: ProtocolFileCategory
-  onFileUpload?: (fileId: string, category: ProtocolFileCategory) => void
-}
+  category?: ProtocolFileCategory;
+  onFileUpload?: (fileId: string, category: ProtocolFileCategory) => void;
+};
 
 const UploadFileForm = (props: Props) => {
   const { toast } = useToast();
@@ -36,15 +35,13 @@ const UploadFileForm = (props: Props) => {
 
     try {
       const insertedId = await uploadFileAction(file);
-      console.log(props)
-      props.onFileUpload?.(insertedId, props.category!)
+      props.onFileUpload?.(insertedId, props.category!);
 
       toast({
         title: "Sukces",
         description: "Dokument dodany",
         variant: "success",
       });
-
     } catch (error) {
       setPending(false);
       toast({
@@ -151,7 +148,8 @@ const UploadFileForm = (props: Props) => {
                 <div>
                   Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
                 </div>
-                <div>Maksymalny rozmiar: 5 MB</div>
+                {/* TODO: jaki max rozmiar? Czy chcemy wiekszy? */}
+                <div>Maksymalny rozmiar: 1 MB</div>
               </>
             )}
           </div>

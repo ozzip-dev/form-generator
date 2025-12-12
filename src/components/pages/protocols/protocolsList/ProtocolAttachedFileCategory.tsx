@@ -11,10 +11,14 @@ type Props = {
 };
 
 const ProtocolAttachedFileCategory = ({ files, category, header }: Props) => {
+  const categoryFiles = files[category as ProtocolFileCategory];
+
   return (
     <div className="mb-2">
-      <div className="font-black">{header}</div>
-      {files[category as ProtocolFileCategory].map((file, i) =>
+      <div className="font-black">
+        {header} ({categoryFiles?.length || 0})
+      </div>
+      {categoryFiles.map((file, i) =>
         file ? (
           <ProtocolDetailsAttachedFile key={i} {...file} />
         ) : (
