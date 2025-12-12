@@ -1,8 +1,14 @@
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { Protocol } from "@/types/protocol";
 import { mapDisputeReason } from "./utils";
+import { Button } from "@/components/shared";
 
-const ProtocolDetails = (props: Partial<Protocol>) => {
+type Props = {
+  handlePrintForm: () => void;
+  protocol: Partial<Protocol>;
+};
+
+const ProtocolDetails = (props: Props) => {
   const {
     branch,
     disputeReason,
@@ -11,7 +17,7 @@ const ProtocolDetails = (props: Partial<Protocol>) => {
     lastModifiedAt,
     uploadedAt,
     workplaceName,
-  } = props;
+  } = props.protocol;
 
   const displayDisputeReasons = disputeReason
     ?.map((reason) =>
@@ -24,7 +30,7 @@ const ProtocolDetails = (props: Partial<Protocol>) => {
   // TODO: przerobic
   return (
     <div>
-      <div className="text-lg font-black">Dane protokołu:</div>
+      <div className="text-lg font-black">Dane sporu zbiorowego:</div>
       <div>
         <div>
           <span className="font-black">Branza: </span>
@@ -55,6 +61,11 @@ const ProtocolDetails = (props: Partial<Protocol>) => {
           {displayDate(lastModifiedAt!)}
         </div>
       </div>
+      <Button
+        message="Edytuj dane protokołu"
+        type="button"
+        onClickAction={props.handlePrintForm}
+      />{" "}
     </div>
   );
 };

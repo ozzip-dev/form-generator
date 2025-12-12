@@ -1,6 +1,5 @@
 "use client";
 
-import { createProtocol } from "@/actions/protocol";
 import { createProtocolAction } from "@/actions/protocol/createProtocol.Action";
 import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
@@ -9,7 +8,7 @@ import {
   protocolFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // branza
