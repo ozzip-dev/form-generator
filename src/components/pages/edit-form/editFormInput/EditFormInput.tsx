@@ -68,13 +68,13 @@ const EditFormInput = (props: Props) => {
     header,
     description,
     options,
-    required: { inputReqired: required },
-    unique: { inputUnique: unique },
+    required,
+    unique,
     type,
   };
 
   const methods = useForm<EditInputFormSchema>({
-    // resolver: zodResolver(editInputFormSchema),
+    resolver: zodResolver(editInputFormSchema),
     defaultValues,
     mode: "all",
   });
@@ -95,6 +95,10 @@ const EditFormInput = (props: Props) => {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
+  useEffect(() => {
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
+
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId,
@@ -114,8 +118,6 @@ const EditFormInput = (props: Props) => {
     },
     null
   );
-
-  console.log("errorffffs", errors);
 
   const handleEditType = (type: InputType) => {
     startTransition(() => {
