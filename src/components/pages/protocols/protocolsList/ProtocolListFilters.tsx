@@ -1,7 +1,12 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import { fileExtensionMap, filtersDefault, ProtocolFilters } from "../utils";
+import {
+  filtersDefault,
+  mapSortOrder,
+  ProtocolFilters,
+  SortOrder,
+} from "../utils";
 import { Button } from "@/components/shared";
 
 type Props = {
@@ -9,10 +14,21 @@ type Props = {
   setFilters: (filters: ProtocolFilters) => void;
 };
 
+const dateFilters: { key: "fromDate" | "toDate"; label: string }[] = [
+  {
+    key: "fromDate",
+    label: "Spory od:",
+  },
+  {
+    key: "toDate",
+    label: "Spory do:",
+  },
+];
+
 const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   const onFilterChange = (
     e: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    key: "type" | "name"
+    key: keyof ProtocolFilters
   ): void => {
     setFilters({
       ...filters,
@@ -20,48 +36,57 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
     });
   };
 
-  const extensions = Object.values(fileExtensionMap);
-
   return (
     <div
       className="
-      grid grid-rows-[30px_auto] grid-cols-[8rem_17rem_10rem] gap-3 items-center
-      p-2 mb-5
-      bg-slate-200
-    "
+        protocol-filters
+        grid grid-rows-[30px_auto] grid-cols-[repeat(5,13rem)] gap-3 items-center
+        p-2 mb-5
+        bg-slate-200
+      "
     >
-      <div className="text-center font-black" style={{ gridColumn: "1 / 4" }}>
+      <div className="text-center font-black" style={{ gridColumn: "1 / 6" }}>
         Filtry
       </div>
 
-      <label htmlFor={filters.type}>
-        <span>typ: </span>
+      <label className="block" htmlFor={filters.text}>
+        <div>Szukaj</div>
+        <input
+          type="text"
+          value={filters.text}
+          onChange={(e) => onFilterChange(e, "text")}
+        />
+      </label>
+
+      {dateFilters.map(({ key, label }, i) => (
+        <div key={i}>
+          <div>
+            {label} {filters[key]}
+          </div>
+          <input type="date" onChange={(e) => onFilterChange(e, key)} />
+        </div>
+      ))}
+
+      <Button
+        message="Resetuj filtry"
+        className="max-w-40"
+        onClickAction={() => setFilters(filtersDefault)}
+      ></Button>
+
+      <label className="block" htmlFor="sortOrder">
+        <div>Sortuj</div>
         <select
-          value={filters.type}
-          onChange={(e) => onFilterChange(e, "type")}
+          name="sortOrder"
+          id="sortOrder"
+          onChange={(e) => onFilterChange(e, "sortOrder")}
         >
-          <option value="">---</option>
-          {extensions.map((item, i) => (
-            <option value={item} key={i}>
-              {item}
+          {[SortOrder.Ascending, SortOrder.Descending].map((order, i) => (
+            <option value={order} key={i}>
+              {mapSortOrder[order]}
             </option>
           ))}
         </select>
       </label>
-
-      <label className="block" htmlFor={filters.name}>
-        <span>nazwa: </span>
-        <input
-          type="text"
-          value={filters.name}
-          onChange={(e) => onFilterChange(e, "name")}
-        />
-      </label>
-
-      <Button
-        message="Resetuj filtry"
-        onClickAction={() => setFilters(filtersDefault)}
-      ></Button>
     </div>
   );
 };

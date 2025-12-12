@@ -1,6 +1,8 @@
-import { Collection, Db, Document, InsertOneResult, ObjectId } from "mongodb";
+import { Collection, Db, ObjectId } from "mongodb";
 import { db, findAll, findById, getCollection, insert, updateById } from "@/lib/mongo";
-import { Protocol, ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import { Protocol, ProtocolFileCategory, ProtocolSerialized, ProtocolWithFilesSerialized } from "@/types/protocol";
+import { File, FileSerialized } from "@/types/file";
+import { serializeFile, serializeProtocol } from "@/lib/serialize-utils";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -35,28 +37,22 @@ export async function addProtocol(
   return insertedId
 }
 
-export async function getProtocolById(formId: string): Promise<Protocol> {
-  const protocol = await findById<Protocol>(db, 'protocol', new ObjectId(formId))
+export async function getProtocolById(protocolId: string): Promise<Protocol> {
+  const protocol = await findById<Protocol>(db, 'protocol', new ObjectId(protocolId))
   if (!protocol) throw new Error('Invalid protocol id')
   return protocol
 }
 
-// Zostawic na razie wykomentowany kod
 export async function addFileToProtocol({
   protocolId,
   fileId,
   fileCategory,
-  // fileType
 }: {
   protocolId: string,
   fileId: string,
   fileCategory?: ProtocolFileCategory,
-  // fileType?: ProtocolFileType
 }): Promise<void> {
-  // const pushQuery: string = fileType
-  //   ? `files.${fileCategory}.${fileType}`
-  //   : `files.${fileCategory}`
-  const pushQuery: string = `files.${fileCategory}`
+  const pushQuery: string = `fileIds.${fileCategory}`
 
   await updateById(
     db,
@@ -65,6 +61,9 @@ export async function addFileToProtocol({
     {
       $push: {
         [pushQuery]: fileId
+      },
+      $set: {
+        lastModifiedAt: new Date()
       }
     }
   )
@@ -79,7 +78,7 @@ export async function removeFileFromProtocol({
   fileId: string,
   fileCategory?: ProtocolFileCategory,
 }): Promise<void> {
-  const pullQuery: string = `files.${fileCategory}`
+  const pullQuery: string = `fileIds.${fileCategory}`
 
   await updateById(
     db,
@@ -91,4 +90,37 @@ export async function removeFileFromProtocol({
       }
     }
   )
+}
+
+export async function mapFilesToProtocol(protocolId: string): Promise<ProtocolWithFilesSerialized> {
+  const protocol = await getProtocolById(protocolId)
+  const serialiedProtocol = serializeProtocol(protocol)
+  const { fileIds } = serialiedProtocol
+
+  const files: Record<ProtocolFileCategory, (FileSerialized | null)[]> = {
+    agreement: [],
+    demands: [],
+    mediationDiscrepancy: [],
+    mediationMeetings: [],
+    negotiationDiscrepancy: [],
+    negotiationMeetings: [],
+    other: []
+  }
+  const fileTypes: ProtocolFileCategory[] = Object.keys(fileIds) as ProtocolFileCategory[]
+  for (const type of fileTypes) {
+    for (const id of fileIds[type]) {
+      try {
+        const file = await findById<File>(db, 'file', new ObjectId(id))
+        if (file) files[type]?.push(serializeFile(file))
+        else files[type]?.push(null)
+      } catch(e) {
+        files[type]?.push(null)
+      }
+    }
+  }
+
+  return {
+    ...serialiedProtocol,
+    files
+  }
 }

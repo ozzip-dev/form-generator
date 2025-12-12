@@ -1,59 +1,55 @@
 "use client";
 
-import { Binary } from "mongodb";
-import { mapFileExtensionName } from "../utils";
-import { ProtocolSerialized } from "@/types/protocol";
-import { convertBToKB } from "@/lib/utils";
+import { useActionState, useState, startTransition } from "react";
+import {
+  ProtocolSerialized,
+  ProtocolWithFilesSerialized,
+} from "@/types/protocol";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { Button } from "@/components/shared";
+import Link from "next/link";
+import { getProtocolDetails } from "@/actions/protocol/getProtocolDetails";
+import { Button, FullscreenLoader } from "@/components/shared";
+import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
-const getFileBlob = (data: Binary, type: string): Blob => {
-  const binaryString = atob(data as unknown as string);
-  const len = binaryString.length;
-  const uint8Array: Uint8Array = new Uint8Array(len);
-  for (let i = 0; i < len; i++) uint8Array[i] = binaryString.charCodeAt(i);
-  const blob = new Blob([uint8Array as BlobPart], { type });
-  return blob;
-};
+const ProtocolListItem = (protocol: ProtocolSerialized) => {
+  const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
+    null
+  );
+  const [_state, fetchDetails, isPending] = useActionState(async () => {
+    if (details) {
+      setDetails(null);
+      return null;
+    }
+    const result = await getProtocolDetails(_id);
+    if (result) setDetails(result);
+    return result;
+  }, null);
 
-const saveFile = (data: Binary, type: string, name: string) => {
-  const blob = getFileBlob(data, type);
+  const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
+    protocol;
 
-  const a = document.createElement("a");
-  a.download = name;
-  a.href = URL.createObjectURL(blob);
-  a.addEventListener("click", () => {
-    setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
-  });
-  a.click();
-};
-
-const ProtocolListItem = ({
-  // data,
-  // name,
-  // type,
-  // size,
-  // uploadedAt,
-}: ProtocolSerialized) => {
   return (
-    <div
-      className="
-        grid grid-cols-[18rem_5rem_6rem_12rem_6rem]
-        items-center gap-2
-        mb-1
-      "
-    >
-      {/* <div>{name}</div>
-      <div>{mapFileExtensionName(type)}</div>
-      <div>{convertBToKB(size)} KB</div>
-      <div>{formatDateAndTime(uploadedAt)}</div>
-      <div>
-        <Button
-          message="Pobierz"
-          onClickAction={() => saveFile(data, type, name)}
-        />
-      </div> */}
-    </div>
+    <>
+      {isPending && <FullscreenLoader />}
+      <div className="contents">
+        <div>{branch}</div>
+        <div>{tradeUnionName}</div>
+        <div>{workplaceName}</div>
+        <div>{formatDateAndTime(disputeStartDate)}</div>
+        <div className="flex gap-2">
+          <Button
+            message={details ? "Ukryj info" : "Pokaz info"}
+            onClickAction={() => startTransition(fetchDetails)}
+            isLoading={isPending}
+          />
+          <Link href={`/protocols/${_id}`}>
+            <b>Edytuj</b>
+          </Link>
+        </div>
+      </div>
+
+      {details && <ProtocolListItemDetails {...details} />}
+    </>
   );
 };
 

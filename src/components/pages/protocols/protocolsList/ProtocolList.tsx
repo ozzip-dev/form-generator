@@ -1,43 +1,48 @@
 "use client";
 
 import { ProtocolSerialized } from "@/types/protocol";
-import { mapFileExtensionName, ProtocolFilters } from "../utils";
+import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import Link from "next/link";
 
 type Props = {
   filters: ProtocolFilters;
   protocols: ProtocolSerialized[];
 };
 
-// TODO Pawel: wroc do tego
+const headers = ["Branza", "Nazwa związku", "Nazwa zakładu", "Data sporu"];
 
-const ProtocolList = ({ filters, protocols }: Props) => {
-  // const filteredResults = protocols.filter(
-  //   ({ name, type }) =>
-  //     name.includes(filters.name) &&
-  //     mapFileExtensionName(type).includes(filters.type)
-  // );
+const ProtocolList = ({
+  filters: { text = "", fromDate, toDate, sortOrder },
+  protocols,
+}: Props) => {
+  const getDisputeTime = (protocol: ProtocolSerialized) =>
+    new Date(protocol.disputeStartDate).getTime();
+  const filteredResults = protocols
+    .filter(
+      ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
+        (branch.includes(text) ||
+          tradeUnionName.includes(text) ||
+          workplaceName.includes(text)) &&
+        (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
+        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true)
+    )
+    .sort((a, b) =>
+      isAscending(sortOrder)
+        ? getDisputeTime(a) - getDisputeTime(b)
+        : getDisputeTime(b) - getDisputeTime(a)
+    );
 
   return (
-    <div className="grid grid-cols-5">
-  {/* //     {filteredResults.map((protocol, i) => (
-  //       <ProtocolListItem {...protocol} key={i} />
-  //     ))} */}
-      <div className="font-black">Branza</div>
-      <div className="font-black">Nazwa związku</div>
-      <div className="font-black">Nazwa zakładu</div>
-      <div className="font-black">Data sporu</div>
-      <div></div>
-      {protocols.map(({ _id, branch, tradeUnionName, workplaceName, disputeStartDate }, i) => (
-        <div key={i} className="contents">
-          <div>{branch}</div>
-          <div>{tradeUnionName}</div>
-          <div>{workplaceName}</div>
-          <div>{formatDateAndTime(disputeStartDate)}</div>
-          <Link href={`/protocols/${_id}`}><b>Edytuj</b></Link>      
+    <div className="grid grid-cols-5 items-center">
+      {headers.map((header, i) => (
+        <div key={i} className="font-black">
+          {header}
         </div>
+      ))}
+      <div></div>
+
+      {filteredResults.map((protocol, i) => (
+        <ProtocolListItem {...protocol} key={i} />
       ))}
     </div>
   );

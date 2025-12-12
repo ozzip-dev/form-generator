@@ -1,4 +1,5 @@
 import { Binary, Document } from "mongodb";
+import { File, FileSerialized } from "./file";
 
 // branza
 // data rozpoczecia sporu
@@ -28,7 +29,7 @@ interface ProtocolData {
   disputeReason: string[]; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
   tradeUnionName: string; // nazwa związku
   workplaceName: string; // nazwa zakładu
-  files: Record<ProtocolFileCategory, string[]>; // file ids
+  fileIds: Record<ProtocolFileCategory, string[]>; // file ids
   // files: Record<ProtocolFileCategory, ProtocolFiles>
   // files: { // file ids
   //   demands: string[];
@@ -63,6 +64,10 @@ export type ProtocolInsertData = {
   disputeStartDate: string;
   // negotiations?: ProtocolFiles
   // mediations?: ProtocolFiles
+};
+
+export type ProtocolWithFilesSerialized = ProtocolSerialized & {
+  files: Record<ProtocolFileCategory, (FileSerialized | null)[]>;
 };
 
 export type ProtocolMenuItem = { text: string; link: string };
