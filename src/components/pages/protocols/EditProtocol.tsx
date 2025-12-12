@@ -5,7 +5,7 @@ import { ProtocolFileCategory } from "@/types/protocol";
 import ProtocolDetails from "./ProtocolDetails";
 import ProtocolFileUploads from "./ProtocolFileUploads";
 import { useState } from "react";
-import ProtocolForm from "./ProtocolForm";
+import ProtocolForm from "./protocolForm/ProtocolForm";
 
 type Props = {
   protocol: any;
@@ -60,7 +60,22 @@ const EditProtocol = (props: Props) => {
         />
       )}
 
-      {isFormPrinted && <ProtocolForm handlePrintForm={handlePrintForm} />}
+      {isFormPrinted && (
+        <>
+          <ProtocolForm
+            handlePrintForm={handlePrintForm}
+            protocol={{
+              branch,
+              disputeReason,
+              disputeStartDate,
+              tradeUnionName,
+              lastModifiedAt,
+              uploadedAt,
+              workplaceName,
+            }}
+          />
+        </>
+      )}
 
       {/* <ProtocolFileUploads
         id={protocolId}

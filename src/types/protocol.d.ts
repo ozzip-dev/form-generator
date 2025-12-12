@@ -57,7 +57,7 @@ export interface ProtocolSerialized extends ProtocolData {
 
 export type ProtocolInsertData = {
   branch: string;
-  disputeReason: ProtocolDisputeReason[];
+  disputeReason: string[];
   tradeUnionName: string;
   workplaceName: string;
   disputeStartDate: string;

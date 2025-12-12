@@ -1,7 +1,9 @@
-import { Button } from "@/components/shared";
+import { Button, InputFields } from "@/components/shared";
+import { Protocol } from "@/types/protocol";
 
 type Props = {
   handlePrintForm: () => void;
+  protocol: Partial<Protocol>;
 };
 
 const ProtocolForm = (props: Props) => {

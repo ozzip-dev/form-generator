@@ -14,17 +14,6 @@ const EditProtocolPage = async ({
 }) => {
   const { protocolId } = await params;
 
-  // const {
-  //   branch,
-  //   disputeReason,
-  //   disputeStartDate,
-  //   tradeUnionName,
-  //   lastModifiedAt,
-  //   uploadedAt,
-  //   workplaceName,
-  //   files: fileIds,
-  // } = await getProtocolById(protocolId);
-
   const protocol = await getProtocolById(protocolId);
 
   // const fieldIdArray = Object.keys(fileIds)
@@ -45,24 +34,6 @@ const EditProtocolPage = async ({
   return (
     <div className="p-4">
       <EditProtocol protocol={protocol} />
-      {/* <ProtocolDetails
-        {...{
-          branch,
-          disputeReason,
-          disputeStartDate,
-          tradeUnionName,
-          lastModifiedAt,
-          uploadedAt,
-          workplaceName,
-        }}
-      />
-
-      <ProtocolFileUploads
-        id={protocolId}
-        files={files}
-        fileIds={fileIds}
-        addFile={addFile}
-      /> */}
     </div>
   );
 };

@@ -7,21 +7,10 @@ import {
   ProtocolFormSchema,
   protocolFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
+import { Protocol } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-
-// branza
-// data rozpoczecia sporu
-// nazwa związku
-// nazwa zakładu
-// powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
-
-// rządania wszynające spór zbiorowy - ladowanie plikow
-// rokowania - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności, inne
-// mediacje - ladowanie plików: protokoły ze spotkań, ladowanie plików: główny protokul rozbierzności, inne
-// porozumienie kończące spór
-// inne - ladowanie likow
 
 // TODO: gdy dojdziemy do ładu i składu:
 // 1. wywalić pozostałe formy: ...M i ...K
@@ -78,29 +67,53 @@ const dataCheckboxOptions = [
   },
 ];
 
-const ProtocolForm = () => {
-  const methods = useForm<ProtocolFormSchema>({
+type Props = {
+  handlePrintForm?: () => void;
+  protocol?: Partial<Protocol>;
+};
+
+const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
+  console.log(" protocol?.disputeReason", protocol?.disputeReason);
+
+const checkboxDefaultValues = {
+  worktime: 
+}
+
+
+  const defaultValues = {
+    branch: protocol?.branch ?? "",
+    disputeStartDate: protocol?.disputeStartDate
+      ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
+      : "",
+    tradeUnionName: protocol?.tradeUnionName ?? "",
+    workplaceName: protocol?.workplaceName ?? "",
+    disputeReason: protocol?.disputeReason ?? {
+      workTime: "",
+      safetyConditions: "",
+      wages: "",
+      workStandards: "",
+    },
+  };
+
+  const methods = useForm<any>({
     resolver: zodResolver(protocolFormSchema),
-    mode: "all",
+    defaultValues,
   });
 
   const {
     register,
-    formState: { errors, isSubmitting },
-    trigger,
-    setError,
     control,
-    reset,
     handleSubmit,
-    setValue,
-    getValues,
+    formState: { isSubmitting },
   } = methods;
 
   useEffect(() => {
     console.log("FORM VALUES", methods.getValues());
   }, [methods.watch()]);
 
-  const onSubmit = async (data: ProtocolFormSchema) => {
+  const onSubmit = async (data: any) => {
+    console.log("SUBMIT", data);
+
     const {
       branch,
       tradeUnionName,
@@ -109,9 +122,9 @@ const ProtocolForm = () => {
       disputeReason,
     } = data;
 
-    const disputeReasonValues = Object.values(disputeReason).filter(
-      (string) => string !== ""
-    );
+    const disputeReasonValues = Object.values(
+      disputeReason as Record<string, string>
+    ).filter((string) => string !== "");
 
     await createProtocolAction({
       branch,
@@ -120,36 +133,184 @@ const ProtocolForm = () => {
       workplaceName,
       disputeStartDate: disputeStartDate as string,
     });
-
-    try {
-      reset();
-    } catch (err) {}
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 m-auto">
-      <div className="text-[30px] font-black">Krok 1: uzupełnij dane</div>
-      <InputFields
-        inputsData={dataInputsProtocolForm}
-        register={register}
-        errorMsg={errors}
-      />
-
-      <CheckboxGroupField
-        groupLabel="Przyczyna rozpoczęcia sporu"
-        control={control!}
-        name="disputeReason"
-        options={dataCheckboxOptions}
-      />
-
-      <div className="w-fit ml-auto">
-        <Button
-          message="Zapisz dane dotyczące sporu zbiorowego"
-          isLoading={isSubmitting}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputFields inputsData={dataInputsProtocolForm} register={register} />
+        <CheckboxGroupField
+          groupLabel="Przyczyna rozpoczęcia sporu"
+          control={control}
+          name="disputeReason"
+          options={dataCheckboxOptions}
         />
-      </div>
-    </form>
+
+        <Button message="Zapisz" isLoading={isSubmitting} />
+      </form>
+      {handlePrintForm && (
+        <Button
+          type="button"
+          message="Anuluj"
+          onClickAction={handlePrintForm}
+        />
+      )}
+    </>
   );
 };
 
 export default ProtocolForm;
+
+// const ProtocolForm = (props: Props) => {
+//   const {
+//     branch,
+//     disputeReason,
+//     disputeStartDate,
+//     tradeUnionName,
+//     lastModifiedAt,
+//     uploadedAt,
+//     workplaceName,
+//   } = props.protocol;
+
+//   const defaultValues = { branch, workplaceName, disputeStartDate };
+
+//   const methods = useForm<ProtocolFormSchema>({
+//     resolver: zodResolver(protocolFormSchema),
+//     defaultValues: defaultValues,
+//     mode: "all",
+//   });
+
+//   const {
+//     register,
+//     formState: { errors, isSubmitting },
+//     trigger,
+//     setError,
+//     control,
+//     reset,
+//     handleSubmit,
+//     setValue,
+//     getValues,
+//   } = methods;
+
+//   useEffect(() => {
+//     console.log("FORM VALUES", methods.getValues());
+//   }, [methods.watch()]);
+
+//   const onSubmit = async (data: ProtocolFormSchema) => {
+//     const {
+//       branch,
+//       tradeUnionName,
+//       workplaceName,
+//       disputeStartDate,
+//       disputeReason,
+//     } = data;
+
+//     const disputeReasonValues = Object.values(disputeReason).filter(
+//       (string) => string !== ""
+//     );
+
+//     await createProtocolAction({
+//       branch,
+//       disputeReason: disputeReasonValues,
+//       tradeUnionName,
+//       workplaceName,
+//       disputeStartDate: disputeStartDate as string,
+//     });
+
+//     try {
+//       reset();
+//     } catch (err) {}
+//   };
+
+//   return (
+//     <>
+//       <form onSubmit={handleSubmit(onSubmit)} className="w-4/5 m-auto">
+//         <InputFields
+//           inputsData={dataInputsProtocolForm}
+//           register={register}
+//           errorMsg={errors}
+//         />
+
+//         <CheckboxGroupField
+//           groupLabel="Przyczyna rozpoczęcia sporu"
+//           control={control!}
+//           name="disputeReason"
+//           options={dataCheckboxOptions}
+//         />
+
+//         <div className="w-fit ml-auto">
+//           <Button
+//             message="Zapisz dane dotyczące sporu zbiorowego"
+//             isLoading={isSubmitting}
+//           />
+//         </div>
+//       </form>
+//       <div>
+//         {props.handlePrintForm && (
+//           <Button
+//             message="Anuluj"
+//             type="button"
+//             onClickAction={props.handlePrintForm}
+//           />
+//         )}
+//       </div>
+//     </>
+//   );
+// };
+
+// const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
+//   const methods = useForm<ProtocolFormSchema>({
+//     resolver: zodResolver(protocolFormSchema),
+//     defaultValues: {
+//       branch: protocol?.branch ?? "",
+//       disputeStartDate: protocol?.disputeStartDate
+//         ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
+//         : "",
+//       tradeUnionName: protocol?.tradeUnionName ?? "",
+//       workplaceName: protocol?.workplaceName ?? "",
+//       // disputeReason: protocol?.disputeReason ?? [],
+//     },
+//   });
+
+//   const {
+//     register,
+//     control,
+//     handleSubmit,
+//     formState: { isSubmitting },
+//   } = methods;
+
+//   const onSubmit = async (data: ProtocolFormSchema) => {
+//     // const cleanReasons = data.disputeReason.filter((s:any) => s !== "");
+
+//     //   await createProtocolAction({
+//     //     ...data,
+//     //     disputeReason: cleanReasons,
+//     //   });
+//     // };
+
+//     return (
+//       <form onSubmit={handleSubmit(onSubmit)}>
+//         <InputFields inputsData={dataInputsProtocolForm} register={register} />
+
+//         {/* <CheckboxGroupField
+//         groupLabel="Przyczyna rozpoczęcia sporu"
+//         control={control}
+//         name="disputeReason"
+//         options={dataCheckboxOptions}
+//       /> */}
+
+//         <Button message="Zapisz" isLoading={isSubmitting} />
+
+//         {handlePrintForm && (
+//           <Button
+//             type="button"
+//             message="Anuluj"
+//             onClickAction={handlePrintForm}
+//           />
+//         )}
+//       </form>
+//     );
+//   };
+// };
+
+// export default ProtocolForm;
