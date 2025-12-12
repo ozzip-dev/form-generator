@@ -19,10 +19,9 @@ const ProtocolDetails = (props: Props) => {
     workplaceName,
   } = props.protocol;
 
-  const displayDisputeReasons = disputeReason
-    ?.map((reason) =>
-      mapDisputeReason[reason] ? mapDisputeReason[reason] : reason
-    )
+  const displayDisputeReasons = Object.values(disputeReason)
+    .filter((reason) => reason && reason !== "")
+    .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
   const displayDate = (date: Date) => formatDateAndTime(date.toISOString());

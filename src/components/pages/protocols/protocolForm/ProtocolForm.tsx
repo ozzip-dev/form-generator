@@ -75,11 +75,6 @@ type Props = {
 const ProtocolForm = ({ protocol, handlePrintForm }: Props) => {
   console.log(" protocol?.disputeReason", protocol?.disputeReason);
 
-const checkboxDefaultValues = {
-  worktime: 
-}
-
-
   const defaultValues = {
     branch: protocol?.branch ?? "",
     disputeStartDate: protocol?.disputeStartDate
@@ -92,6 +87,7 @@ const checkboxDefaultValues = {
       safetyConditions: "",
       wages: "",
       workStandards: "",
+      [OPTION_OTHER]: "",
     },
   };
 
@@ -122,13 +118,9 @@ const checkboxDefaultValues = {
       disputeReason,
     } = data;
 
-    const disputeReasonValues = Object.values(
-      disputeReason as Record<string, string>
-    ).filter((string) => string !== "");
-
     await createProtocolAction({
       branch,
-      disputeReason: disputeReasonValues,
+      disputeReason,
       tradeUnionName,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
