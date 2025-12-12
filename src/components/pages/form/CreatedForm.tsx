@@ -2,42 +2,30 @@
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
 import { Button } from "@/components/shared";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
+import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { JSX, useEffect, useState } from "react";
-import {
-  Control,
-  FieldErrors,
-  FormProvider,
-  useForm,
-  UseFormRegister,
-} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   renderCheckbox,
+  RendererParams,
   renderInput,
   renderRadio,
   renderTextarea,
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
-import { FormInput } from "@/types/input";
-import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-
-type FieldRenderer = (
-  input: FormInput,
-  errors: FieldErrors<any>,
-  register: UseFormRegister<any>,
-  control: Control<any>
-) => JSX.Element;
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: any) => {
     const { type, options, id } = input;
 
     const checkboxValues = options.reduce((optionsObject: any, option: any) => {
-      optionsObject[option.label] = false;
+      optionsObject[option.label] = "";
       return optionsObject;
     }, {});
 
@@ -62,33 +50,24 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
 
-  // console.log("defaultValues(inputs),", defaultValues(inputs));
-
   const methods = useForm({
     defaultValues: defaultValues(inputs),
     resolver: zodResolver(schema),
-    // resolver: async (values) => ({ values, errors: {} }),
     mode: "all",
   });
-
-  // console.log("inputs", inputs);
 
   const {
     register,
     formState: { errors, isSubmitting },
     control,
-    watch,
     handleSubmit,
     reset,
     setError,
   } = methods;
 
   useEffect(() => {
-    const subscription = watch((values) => {
-      console.log("Aktualne wartości:", values);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
 
   const onSubmit = async (data: any) => {
     console.log("data", data);
@@ -118,7 +97,7 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  const fieldRenderers: Record<string, FieldRenderer> = {
+  const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
     text: renderInput,
     superText: renderTextarea,
     number: renderInput,
@@ -132,7 +111,12 @@ const CreatedForm = (props: Props) => {
     .sort((a, b) => a.order - b.order)
     .map((input) => {
       const renderer = fieldRenderers[input.type];
-      return renderer(input, errors, register, control);
+      return renderer({
+        input,
+        errors,
+        register,
+        control,
+      });
     });
 
   return (
@@ -148,7 +132,6 @@ const CreatedForm = (props: Props) => {
             className="w-4/5 bg-zinc-100 p-4 my-4"
           >
             {formFields}
-
             <Button
               message="Zatwierdź"
               disabled={props.isPreview ? true : false}
