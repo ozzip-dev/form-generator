@@ -27,7 +27,7 @@ const EditProtocol = (props: Props) => {
 
   const [isFormPrinted, setFormPrinted] = useState(false);
 
-  console.log("fileIds", fileIds);
+  // console.log("fileIds", fileIds);
 
   const handlePrintForm = () => {
     setFormPrinted((prev) => !prev);
@@ -65,16 +65,6 @@ const EditProtocol = (props: Props) => {
           }}
         />
       )}
-
-      {/* <ProtocolFileUploads
-        id={protocolId}
-        files={files}
-        fileIds={fileIds}
-        addFile={addFile}
-      /> */}
-
-      {/* 
-      <ProtocolFileUploads files={props.files} fileIds={fileIds} /> */}
     </div>
   );
 };
