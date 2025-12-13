@@ -27,11 +27,12 @@ const EditProtocolPage = async ({
 
   return (
     <div className="p-4">
-      <SuspenseErrorBoundary size="lg" errorMessage="Brak protokołu">
+      <SuspenseErrorBoundary size="lg" errorMessage="Brak danych protokołu">
         <EditProtocol />
       </SuspenseErrorBoundary>
-
-      <ProtocolFileUploads files={files} fileIds={protocol.fileIds} />
+      <SuspenseErrorBoundary size="lg" errorMessage="Brak plików">
+        <ProtocolFileUploads files={files} />
+      </SuspenseErrorBoundary>
     </div>
   );
 };

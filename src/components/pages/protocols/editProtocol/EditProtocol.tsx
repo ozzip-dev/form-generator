@@ -6,6 +6,7 @@ import { handleEditProtocol } from "./handleEditProtocol";
 import { useProtocol } from "@/context/ProtocolContext";
 
 const EditProtocol = () => {
+  const [isFormPrinted, setFormPrinted] = useState(false);
   const { protocolPromise } = useProtocol();
   const protocol = use(protocolPromise);
   if (!protocol) {
@@ -21,8 +22,6 @@ const EditProtocol = () => {
     uploadedAt,
     workplaceName,
   } = protocol;
-
-  const [isFormPrinted, setFormPrinted] = useState(false);
 
   const handlePrintForm = () => {
     setFormPrinted((prev) => !prev);

@@ -27,15 +27,18 @@ export function useEditForm({
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
   const debounceMap = useRef(new Map<string, NodeJS.Timeout>());
 
-  const modeHandlers = {
-    formHeader: (name: string, value: string) => [{ [name]: value }],
-    inputLabel: (name: string, value: string) => [inputId!, { [name]: value }],
-    inputOption: (name: string, value: string) => [inputId!, value, name],
-  } as const;
-
   const handleEdit = useCallback(
     (name: string, value: string) => {
       if (!formId) return;
+
+      const modeHandlers = {
+        formHeader: (name: string, value: string) => [{ [name]: value }],
+        inputLabel: (name: string, value: string) => [
+          inputId!,
+          { [name]: value },
+        ],
+        inputOption: (name: string, value: string) => [inputId!, value, name],
+      } as const;
 
       const key = `${formId}-${name}`;
       clearTimeout(debounceMap.current.get(key)!);
@@ -72,10 +75,19 @@ export function useEditForm({
     [formId, inputId, trigger, action, mode, setError, showBoundary]
   );
 
+  // useEffect(() => {
+  //   return () => {
+  //     debounceMap.current.forEach(clearTimeout);
+  //     debounceMap.current.clear();
+  //   };
+  // }, []);
+
   useEffect(() => {
+    const map = debounceMap.current;
+
     return () => {
-      debounceMap.current.forEach(clearTimeout);
-      debounceMap.current.clear();
+      map.forEach(clearTimeout);
+      map.clear();
     };
   }, []);
 

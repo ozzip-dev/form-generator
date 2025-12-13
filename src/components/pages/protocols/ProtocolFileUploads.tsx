@@ -4,15 +4,15 @@ import { ProtocolFileCategory } from "@/types/protocol";
 import { mapFileCategory } from "./utils";
 import UploadFileForm from "@/components/shared/UploadFileForm";
 import { FileSerialized } from "@/types/file";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Button } from "@/components/shared";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
+import { useProtocol } from "@/context/ProtocolContext";
 
 type Props = {
   files: Partial<FileSerialized>[];
-  fileIds: Record<ProtocolFileCategory, string[]>;
 };
 
 const fileCategories: ProtocolFileCategory[] = [
@@ -25,10 +25,16 @@ const fileCategories: ProtocolFileCategory[] = [
   "other",
 ];
 
-const ProtocolFileUploads = ({ files, fileIds }: Props) => {
+const ProtocolFileUploads = ({ files }: Props) => {
   const [visibleCategory, setVisibleCategory] =
     useState<ProtocolFileCategory>("demands");
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
   const protocolId = useSafeURLParam("protocolId");
+  if (!protocol) {
+    return <div>Nie znaleziono protokołu</div>;
+  }
+
   if (!protocolId) return;
 
   const onProtocolFileUploaded = async (
@@ -59,8 +65,10 @@ const ProtocolFileUploads = ({ files, fileIds }: Props) => {
       {fileCategories.map((category, idx) => (
         <div key={idx} className={category != visibleCategory ? "!hidden" : ""}>
           <div className="font-black">{mapFileCategory[category]}</div>
-          <div>liczba załączników: {fileIds[category]?.length || 0}</div>
-          {fileIds[category]?.map((fileId) => (
+          <div>
+            liczba załączników: {protocol.fileIds[category]?.length || 0}
+          </div>
+          {protocol.fileIds[category]?.map((fileId) => (
             <ProtocolAttachedFile
               key={fileId}
               file={getFileById(fileId)!}

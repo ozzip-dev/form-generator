@@ -93,9 +93,9 @@ const ProtocolForm = (props: Props) => {
     formState: { isSubmitting },
   } = methods;
 
-  useEffect(() => {
-    console.log("FORM VALUES", methods.getValues());
-  }, [methods.watch()]);
+  // useEffect(() => {
+  //   console.log("FORM VALUES", methods.getValues());
+  // }, [methods.watch()]);
 
   return (
     <>

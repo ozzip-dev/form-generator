@@ -24,70 +24,110 @@ type Props = {
   onFileUpload?: (fileId: string, category: ProtocolFileCategory) => void;
 };
 
-const UploadFileForm = (props: Props) => {
+const UploadFileForm = ({ category, onFileUpload }: Props) => {
   const { toast } = useToast();
   // const [files, setFiles] = useState<UploadedFile[]>([]);
   const [isPending, setPending] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const uploadFile = async (file: File) => {
-    setPending(true);
+  // const uploadFile = async (file: File) => {
+  //   setPending(true);
 
-    try {
-      const insertedId = await uploadFileAction(file);
-      props.onFileUpload?.(insertedId, props.category!);
-      console.log("insertedId", insertedId);
-      toast({
-        title: "Sukces",
-        description: "Dokument dodany",
-        variant: "success",
+  //   try {
+  //     const insertedId = await uploadFileAction(file);
+  //     props.onFileUpload?.(insertedId, props.category!);
+  //     console.log("insertedId", insertedId);
+  //     toast({
+  //       title: "Sukces",
+  //       description: "Dokument dodany",
+  //       variant: "success",
+  //     });
+  //   } catch (error) {
+  //     setPending(false);
+  //     toast({
+  //       title: "Błąd",
+  //       description: `Dokument nie został zapisany. ${error}`,
+  //       variant: "error",
+  //     });
+  //   }
+
+  //   setPending(false);
+  // };
+
+  const uploadFile = useCallback(
+    async (file: File) => {
+      setPending(true);
+
+      try {
+        const insertedId = await uploadFileAction(file);
+        onFileUpload?.(insertedId, category!);
+
+        toast({
+          title: "Sukces",
+          description: "Dokument dodany",
+          variant: "success",
+        });
+      } catch (error) {
+        toast({
+          title: "Błąd",
+          description: `Dokument nie został zapisany. ${error}`,
+          variant: "error",
+        });
+      } finally {
+        setPending(false);
+      }
+    },
+    [toast, onFileUpload, category]
+  );
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles.length === 0) return;
+      acceptedFiles.forEach(uploadFile);
+    },
+    [uploadFile]
+  );
+
+  // const onDrop = useCallback(
+  //   (acceptedFiles: File[]) => {
+  //     if (acceptedFiles.length === 0) return;
+
+  //     acceptedFiles.forEach(uploadFile);
+  //   },
+  //   [uploadFile]
+  // );
+
+  const onDropRejected = useCallback(
+    (rejectedFiles: FileRejection[]) => {
+      if (rejectedFiles.length === 0) return;
+
+      const toManyFiles = rejectedFiles.find((file) => {
+        console.log("tooManyFiles", file.errors[0].code);
+        return file.errors[0].code === "too-many-files";
       });
-    } catch (error) {
-      setPending(false);
-      toast({
-        title: "Błąd",
-        description: `Dokument nie został zapisany. ${error}`,
-        variant: "error",
+
+      const fileTooLarge = rejectedFiles.find((file) => {
+        console.log("fileTooLarge", file.errors[0].code);
+        return file.errors[0].code === "file-too-large";
       });
-    }
 
-    setPending(false);
-  };
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length === 0) return;
-
-    acceptedFiles.forEach(uploadFile);
-  }, []);
-
-  const onDropRejected = useCallback((rejectedFiles: FileRejection[]) => {
-    if (rejectedFiles.length === 0) return;
-
-    const toManyFiles = rejectedFiles.find((file) => {
-      console.log("tooManyFiles", file.errors[0].code);
-      return file.errors[0].code === "too-many-files";
-    });
-
-    const fileTooLarge = rejectedFiles.find((file) => {
-      console.log("fileTooLarge", file.errors[0].code);
-      return file.errors[0].code === "file-too-large";
-    });
-
-    if (toManyFiles) {
-      toast({
-        title: "Błąd ładowania",
-        description: "Maksymalnie 3 dokument",
-        variant: "error",
-      });
-    }
-    if (fileTooLarge) {
-      toast({
-        title: "Błąd ładowania",
-        description: "Maksymalnie 1024",
-        variant: "error",
-      });
-    }
-  }, []);
+      if (toManyFiles) {
+        toast({
+          title: "Błąd ładowania",
+          description: "Maksymalnie 3 dokument",
+          variant: "error",
+        });
+      }
+      if (fileTooLarge) {
+        toast({
+          title: "Błąd ładowania",
+          description: "Maksymalnie 1024",
+          variant: "error",
+        });
+      }
+    },
+    [toast]
+  );
 
   const {
     getRootProps,
