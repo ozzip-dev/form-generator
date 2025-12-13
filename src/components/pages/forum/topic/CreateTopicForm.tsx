@@ -2,7 +2,6 @@
 
 import { addTopicAction } from "@/actions/forum/addTopicAction";
 import { FullscreenLoader, InputFields } from "@/components/shared";
-import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/hooks/useToast";
 import {
@@ -60,22 +59,10 @@ const CreateTopicForm = () => {
     return { errors: { message: [] } };
   };
 
-  // TODO: add generic notation
-  const [state, createNewTopic, isPending] = useActionState(
-    /*<{ errors: Record<string, string[]>, inputs: any }, CreateTopicSchema>*/ addNewTopic,
-    // async (_state, { title, description, category }) => {
-    //   if (!title || !description) return null;
-    //   await addTopic(title, category as TopicCategory, description);
-    //   return null;
-    // },
-    { errors: {}, inputs: null }
-  );
-
-  // const handleCreateTopic = (topic: CreateTopicSchema) => {
-  //   startTransition(() => {
-  //     createNewTopic(topic);
-  //   });
-  // };
+  const [state, createNewTopic, isPending] = useActionState(addNewTopic, {
+    errors: {},
+    inputs: null,
+  });
 
   return (
     <>
@@ -88,11 +75,7 @@ const CreateTopicForm = () => {
           });
         }}
       >
-        <InputFields
-          errorMsg={state.errors}
-          inputsData={topicInputData}
-          // default={defaultValues}
-        />
+        <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
         <select name="category">
           {categorySelectOptions.map(({ value, label }) => (
@@ -101,14 +84,7 @@ const CreateTopicForm = () => {
             </option>
           ))}
         </select>
-        {/* <SelectFieldControler
-          name="category"
-          defaultValue={TopicCategory.OTHER}
-          options={categorySelectOptions}
-          onChangeAction={(name, value) => {
-            handleEditType(value as InputType);
-          }}
-        /> */}
+
         <button>Utworz</button>
       </form>
     </>

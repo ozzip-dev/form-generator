@@ -1,10 +1,14 @@
-import { Topic } from "@/types/forum";
+import { TopicSerialized } from "@/types/forum";
 
-const TopicContainer = (topic: Topic) => {
+type Props = {
+  topic: TopicSerialized;
+};
+
+const TopicContainer = (props: Props) => {
   return (
     <div>
-      <div>{topic.title}</div>
-      <div>{topic.description}</div>
+      <div>{props.topic.title}</div>
+      <div>{props.topic.description}</div>
     </div>
   );
 };
