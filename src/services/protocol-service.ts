@@ -1,6 +1,18 @@
 import { Collection, Db, ObjectId } from "mongodb";
-import { db, findAll, findById, getCollection, insert, updateById } from "@/lib/mongo";
-import { Protocol, ProtocolFileCategory, ProtocolSerialized, ProtocolWithFilesSerialized } from "@/types/protocol";
+import {
+  db,
+  findAll,
+  findById,
+  getCollection,
+  insert,
+  updateById,
+} from "@/lib/mongo";
+import {
+  Protocol,
+  ProtocolFileCategory,
+  ProtocolSerialized,
+  ProtocolWithFilesSerialized,
+} from "@/types/protocol";
 import { File, FileSerialized } from "@/types/file";
 import { serializeFile, serializeProtocol } from "@/lib/serialize-utils";
 
@@ -23,24 +35,30 @@ export async function addProtocol(
   database: Db,
   data: Partial<ProtocolSerialized>
 ): Promise<string> {
-  const now = new Date()
-  const lastModifiedAt = now
-  const uploadedAt = now
-  const disputeStartDate = new Date(data.disputeStartDate!)
+  const now = new Date();
+  const lastModifiedAt = now;
+  const uploadedAt = now;
+  const disputeStartDate = new Date(data.disputeStartDate!);
   const { insertedId } = await insert<Protocol>(database, "protocol", {
     ...data,
     lastModifiedAt,
     uploadedAt,
-    disputeStartDate
+    disputeStartDate,
   });
 
-  return insertedId
+  return insertedId;
 }
 
-export async function getProtocolById(protocolId: string): Promise<Protocol> {
-  const protocol = await findById<Protocol>(db, 'protocol', new ObjectId(protocolId))
-  if (!protocol) throw new Error('Invalid protocol id')
-  return protocol
+export async function getProtocolById(
+  protocolId: string
+): Promise<ProtocolSerialized> {
+  const protocol = await findById<Protocol>(
+    db,
+    "protocol",
+    new ObjectId(protocolId)
+  );
+  if (!protocol) throw new Error("Invalid protocol id");
+  return serializeProtocol(protocol);
 }
 
 export async function addFileToProtocol({
@@ -48,25 +66,20 @@ export async function addFileToProtocol({
   fileId,
   fileCategory,
 }: {
-  protocolId: string,
-  fileId: string,
-  fileCategory?: ProtocolFileCategory,
+  protocolId: string;
+  fileId: string;
+  fileCategory?: ProtocolFileCategory;
 }): Promise<void> {
-  const pushQuery: string = `fileIds.${fileCategory}`
+  const pushQuery: string = `fileIds.${fileCategory}`;
 
-  await updateById(
-    db,
-    'protocol',
-    new ObjectId(protocolId),
-    {
-      $push: {
-        [pushQuery]: fileId
-      },
-      $set: {
-        lastModifiedAt: new Date()
-      }
-    }
-  )
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $push: {
+      [pushQuery]: fileId,
+    },
+    $set: {
+      lastModifiedAt: new Date(),
+    },
+  });
 }
 
 export async function removeFileFromProtocol({
@@ -74,28 +87,25 @@ export async function removeFileFromProtocol({
   fileId,
   fileCategory,
 }: {
-  protocolId: string,
-  fileId: string,
-  fileCategory?: ProtocolFileCategory,
+  protocolId: string;
+  fileId: string;
+  fileCategory?: ProtocolFileCategory;
 }): Promise<void> {
-  const pullQuery: string = `fileIds.${fileCategory}`
+  const pullQuery: string = `fileIds.${fileCategory}`;
 
-  await updateById(
-    db,
-    'protocol',
-    new ObjectId(protocolId),
-    {
-      $pull: {
-        [pullQuery]: fileId
-      }
-    }
-  )
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $pull: {
+      [pullQuery]: fileId,
+    },
+  });
 }
 
-export async function mapFilesToProtocol(protocolId: string): Promise<ProtocolWithFilesSerialized> {
-  const protocol = await getProtocolById(protocolId)
-  const serialiedProtocol = serializeProtocol(protocol)
-  const { fileIds } = serialiedProtocol
+export async function mapFilesToProtocol(
+  protocolId: string
+): Promise<ProtocolWithFilesSerialized> {
+  const protocol = await getProtocolById(protocolId);
+  const serialiedProtocol = protocol;
+  const { fileIds } = serialiedProtocol;
 
   const files: Record<ProtocolFileCategory, (FileSerialized | null)[]> = {
     agreement: [],
@@ -104,23 +114,25 @@ export async function mapFilesToProtocol(protocolId: string): Promise<ProtocolWi
     mediationMeetings: [],
     negotiationDiscrepancy: [],
     negotiationMeetings: [],
-    other: []
-  }
-  const fileTypes: ProtocolFileCategory[] = Object.keys(fileIds) as ProtocolFileCategory[]
+    other: [],
+  };
+  const fileTypes: ProtocolFileCategory[] = Object.keys(
+    fileIds
+  ) as ProtocolFileCategory[];
   for (const type of fileTypes) {
     for (const id of fileIds[type]) {
       try {
-        const file = await findById<File>(db, 'file', new ObjectId(id))
-        if (file) files[type]?.push(serializeFile(file))
-        else files[type]?.push(null)
-      } catch(e) {
-        files[type]?.push(null)
+        const file = await findById<File>(db, "file", new ObjectId(id));
+        if (file) files[type]?.push(serializeFile(file));
+        else files[type]?.push(null);
+      } catch (e) {
+        files[type]?.push(null);
       }
     }
   }
 
   return {
     ...serialiedProtocol,
-    files
-  }
+    files,
+  };
 }

@@ -4,9 +4,10 @@ import { getFilesByFileIdsNoData } from "@/services/file-service";
 import { ProtocolFileCategory } from "@/types/protocol";
 import ProtocolDetails from "../ProtocolDetails";
 import ProtocolFileUploads from "../ProtocolFileUploads";
-import { useState } from "react";
+import { use, useState } from "react";
 import ProtocolForm from "../protocolForm/ProtocolForm";
 import { handleEditProtocol } from "./handleEditProtocol";
+import { useProtocol } from "@/context/ProtocolContext";
 
 type Props = {
   protocol: any;
@@ -24,6 +25,11 @@ const EditProtocol = (props: Props) => {
     workplaceName,
     files: fileIds,
   } = props.protocol;
+
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
+
+  console.log("protocol", protocol);
 
   const [isFormPrinted, setFormPrinted] = useState(false);
 

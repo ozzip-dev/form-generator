@@ -26,7 +26,7 @@ const EditProtocolPage = async ({
 
   return (
     <div className="p-4">
-      <EditProtocol protocol={serializeProtocol(protocol)} files={files} />
+      <EditProtocol protocol={protocol} files={files} />
 
       <ProtocolFileUploads files={files} fileIds={protocol.fileIds} />
     </div>
