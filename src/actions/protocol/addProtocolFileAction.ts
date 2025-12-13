@@ -4,7 +4,7 @@ import { addFileToProtocol } from "@/services/protocol-service";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 
-export async function addProtocolFile({
+export async function addProtocolFileAction({
   protocolId,
   fileId,
   fileCategory,

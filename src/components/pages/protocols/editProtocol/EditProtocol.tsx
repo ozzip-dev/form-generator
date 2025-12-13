@@ -10,6 +10,7 @@ import { handleEditProtocol } from "./handleEditProtocol";
 
 type Props = {
   protocol: any;
+  files: any;
 };
 
 const EditProtocol = (props: Props) => {
@@ -25,24 +26,10 @@ const EditProtocol = (props: Props) => {
   } = props.protocol;
 
   const [isFormPrinted, setFormPrinted] = useState(false);
-  const fieldIdArray = Object.keys(fileIds)
-    .map((key) => fileIds[key as ProtocolFileCategory])
-    .flat();
 
   const handlePrintForm = () => {
     setFormPrinted((prev) => !prev);
   };
-
-  // const files = await getFilesByFileIdsNoData(fieldIdArray);
-
-  // const addFile = async (
-  //   protocolId: string,
-  //   category: ProtocolFileCategory,
-  //   fileId: string
-  // ) => {
-  //   "use server";
-  //   await addProtocolFile({ protocolId, fileId, fileCategory: category });
-  // };
 
   return (
     <div className="p-4">
@@ -62,29 +49,22 @@ const EditProtocol = (props: Props) => {
       )}
 
       {isFormPrinted && (
-        <>
-          <ProtocolForm
-            handlePrintForm={handlePrintForm}
-            onSubmit={handleEditProtocol}
-            protocol={{
-              branch,
-              disputeReason,
-              disputeStartDate,
-              tradeUnionName,
-              lastModifiedAt,
-              uploadedAt,
-              workplaceName,
-            }}
-          />
-        </>
+        <ProtocolForm
+          handlePrintForm={handlePrintForm}
+          onSubmit={handleEditProtocol}
+          protocol={{
+            branch,
+            disputeReason,
+            disputeStartDate,
+            tradeUnionName,
+            lastModifiedAt,
+            uploadedAt,
+            workplaceName,
+          }}
+        />
       )}
 
-      {/* <ProtocolFileUploads
-        id={protocolId}
-        files={files}
-        fileIds={fileIds}
-        addFile={addFile}
-      /> */}
+      <ProtocolFileUploads files={props.files} fileIds={fileIds} />
     </div>
   );
 };

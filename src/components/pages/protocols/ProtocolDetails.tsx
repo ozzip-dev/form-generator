@@ -24,7 +24,7 @@ const ProtocolDetails = (props: Props) => {
     .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
-  const displayDate = (date: Date) => formatDateAndTime(date.toISOString());
+  const displayDate = (date: Date) => formatDateAndTime(date);
 
   // TODO: przerobic
   return (
