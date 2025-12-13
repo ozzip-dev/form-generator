@@ -3,7 +3,7 @@
 import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import { protocolFormSchema } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
-import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
