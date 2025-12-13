@@ -36,7 +36,7 @@ const UploadFileForm = (props: Props) => {
     try {
       const insertedId = await uploadFileAction(file);
       props.onFileUpload?.(insertedId, props.category!);
-
+      console.log("insertedId", insertedId);
       toast({
         title: "Sukces",
         description: "Dokument dodany",

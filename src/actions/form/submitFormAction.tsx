@@ -1,16 +1,15 @@
 "use server";
 
-import { Answers } from "@/types/result";
+import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import {
   addSubmission,
   checkUniqueFieldsValid,
   createResult,
   formResultExists,
 } from "@/services/result-service";
-import { requireUser } from "@/services/user-service";
-import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormInput } from "@/types/input";
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { Answers } from "@/types/result";
 
 export async function submitFormAction(
   formId: string,

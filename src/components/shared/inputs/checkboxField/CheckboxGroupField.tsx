@@ -140,10 +140,12 @@ import { Control, Controller } from "react-hook-form";
 import InputError from "../InputError";
 import InputCheckboxOther from "./InputCheckboxOther";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
+import Checkbox from "./Checkbox";
 
 type CheckboxOption = {
   name: string;
   optionId?: string;
+  checkboxLabel?: string;
 };
 
 type Props = {
@@ -157,13 +159,13 @@ type Props = {
   errorMsg?: any;
 };
 
-export default function CheckboxGroupFieldXX(props: Props) {
+export default function CheckboxGroupField(props: Props) {
   return (
     <Controller
       name={props.name}
       control={props.control}
       defaultValue={Object.fromEntries(
-        props.options.map((o: any) => [o.name, ""])
+        props.options.map((option: any) => [option.name, ""])
       )}
       render={({ field, fieldState }) => {
         const selectedValues = field.value;
@@ -181,7 +183,7 @@ export default function CheckboxGroupFieldXX(props: Props) {
           <div className="flex flex-col gap-3">
             {props.groupLabel && (
               <div className="text-xl">
-                {props.groupLabel}{" "}
+                {props.groupLabel}
                 {props.required && <span className="text-red-600">*</span>}
               </div>
             )}
@@ -189,11 +191,13 @@ export default function CheckboxGroupFieldXX(props: Props) {
             {props.groupDescription && (
               <div className="text-sm">{props.groupDescription}</div>
             )}
-            {props.options.map(({ name, optionId = "" }) => {
+
+            {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
               if (optionId === OPTION_OTHER) {
                 return (
                   <InputCheckboxOther
                     key={name}
+                    label={checkboxLabel}
                     name={name}
                     selectedValues={selectedValues}
                     onChange={field.onChange}
@@ -202,26 +206,16 @@ export default function CheckboxGroupFieldXX(props: Props) {
               }
 
               return (
-                <label
+                <Checkbox
                   key={name}
-                  className="flex items-center gap-3 cursor-pointer"
-                >
-                  <div className="relative inline-block w-12 h-6">
-                    {" "}
-                    <input
-                      type="checkbox"
-                      checked={selectedValues[name] !== ""}
-                      onChange={() => toggle(name)}
-                      className="peer sr-only"
-                    />
-                    <div className="absolute top-0 left-0 w-full h-full bg-gray-300 rounded-full peer-checked:bg-sky-500 transition-colors" />
-                    <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-6" />
-                  </div>
-
-                  {name}
-                </label>
+                  checkboxLabel={checkboxLabel}
+                  name={name}
+                  onChange={() => toggle(name)}
+                  checkedValue={selectedValues[name]}
+                />
               );
             })}
+
             <InputError
               errorMsg={
                 fieldState.error?.message ||

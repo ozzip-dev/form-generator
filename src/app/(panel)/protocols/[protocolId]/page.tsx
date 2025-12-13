@@ -1,10 +1,10 @@
-import { addProtocolFile } from "@/actions/protocol";
-import ProtocolDetails from "@/components/pages/protocols/ProtocolDetails";
-import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
+import EditProtocol from "@/components/pages/protocols/editProtocol/EditProtocol";
 import { getFilesByFileIdsNoData } from "@/services/file-service";
 import { getProtocolById } from "@/services/protocol-service";
-import { ProtocolFileCategory } from "@/types/protocol";
-import { redirect } from "next/navigation";
+import { Protocol, ProtocolFileCategory } from "@/types/protocol";
+import { serializeProtocol } from "@/lib/serialize-utils";
+import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
+import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 
 const EditProtocolPage = async ({
   params,
@@ -12,59 +12,40 @@ const EditProtocolPage = async ({
   params: Promise<{ protocolId: string }>;
 }) => {
   const { protocolId } = await params;
-  try {
-    const {
-      branch,
-      disputeReason,
-      disputeStartDate,
-      tradeUnionName,
-      lastModifiedAt,
-      uploadedAt,
-      workplaceName,
-      fileIds,
-    } = await getProtocolById(protocolId);
 
-    const fieldIdArray = Object.keys(fileIds)
-      .map((key) => fileIds[key as ProtocolFileCategory])
-      .flat();
+  const protocol = await getProtocolById(protocolId);
 
-    const files = await getFilesByFileIdsNoData(fieldIdArray);
+  const fieldIdArray = protocol.fileIds
+    ? Object.keys(protocol.fileIds)
+        .map((key) => protocol.fileIds[key as ProtocolFileCategory])
+        .flat()
+    : [];
 
-    const addFile = async (
-      protocolId: string,
-      category: ProtocolFileCategory,
-      fileId: string
-    ) => {
-      "use server";
-      await addProtocolFile({ protocolId, fileId, fileCategory: category });
-    };
+  const files = await getFilesByFileIdsNoData(fieldIdArray);
 
-    return (
-      <div className="p-4">
-        <ProtocolDetails
-          {...{
-            branch,
-            disputeReason,
-            disputeStartDate,
-            tradeUnionName,
-            lastModifiedAt,
-            uploadedAt,
-            workplaceName,
-          }}
-        />
+  const addFile = async (
+    protocolId: string,
+    category: ProtocolFileCategory,
+    fileId: string
+  ) => {
+    "use server";
+    await addProtocolFileAction({ protocolId, fileId, fileCategory: category });
+  };
 
-        <ProtocolFileUploads
-          id={protocolId}
-          files={files}
-          fileIds={fileIds}
-          addFile={addFile}
-        />
-      </div>
-    );
-  } catch (e) {
-    console.error(e);
-    redirect("/protocols/add");
-  }
+  console.log("files", files);
+
+  return (
+    <div className="p-4">
+      <EditProtocol protocol={serializeProtocol(protocol)} files={files} />
+
+      <ProtocolFileUploads
+        id={protocolId}
+        files={files}
+        fileIds={protocol.fileIds}
+        addFile={addFile}
+      />
+    </div>
+  );
 };
 
 export default EditProtocolPage;

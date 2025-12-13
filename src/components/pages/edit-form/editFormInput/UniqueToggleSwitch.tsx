@@ -1,7 +1,7 @@
 "use client";
 
 import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
-import CheckboxSwitch from "@/components/shared/inputs/CheckboxSwitch";
+import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { startTransition, useActionState } from "react";
@@ -18,7 +18,7 @@ export default function UniqueToggleSwitch(props: Props) {
   const formId = useSafeURLParam("formId");
   const { control } = useFormContext();
 
-  const [state, switchToggle, isPending] = useActionState(async () => {
+  const [_, switchToggle, isPending] = useActionState(async () => {
     if (!formId || !props.input.id) return;
     await toggleUniqueAction(formId, props.input.id);
   }, null);
@@ -32,8 +32,8 @@ export default function UniqueToggleSwitch(props: Props) {
       {isPending && <FullscreenLoader />}
 
       <CheckboxSwitch
-        label={"Odpowiedż unikalna"}
-        name={"unique"}
+        label="Odpowiedż unikalna"
+        name={`unique`}
         control={control}
         onChangeAction={async () => {
           handleSwitch();

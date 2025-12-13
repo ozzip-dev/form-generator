@@ -2,19 +2,21 @@ import { ProtocolMenuItem } from "@/types/protocol";
 import MenuLink from "../../shared/MenuLink";
 
 type Props = {
-  protocolId?: string
-}
+  protocolId?: string;
+};
 
 const ProtocolsMenu = ({ protocolId }: Props) => {
   const protocolBasicItems: ProtocolMenuItem[] = [
-    { text: "Dodaj protokół", link: '/protocols/add' },
-    { text: "Lista protokołów", link: `/protocols/protocols-list` }
-  ]
+    { text: "Dodaj protokół", link: "/protocols/add-protocol" },
+    { text: "Lista protokołów", link: `/protocols/protocols-list` },
+  ];
 
-  const dataNavLinks = !protocolId ? protocolBasicItems : [
-    { text: "Edytuj protokół", link: `/protocols/${protocolId}` },
-    ...protocolBasicItems
-  ]
+  const dataNavLinks = !protocolId
+    ? protocolBasicItems
+    : [
+        { text: "Edytuj protokół", link: `/protocols/${protocolId}` },
+        ...protocolBasicItems,
+      ];
 
   return (
     <div>
