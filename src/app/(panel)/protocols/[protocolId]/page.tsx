@@ -3,6 +3,8 @@ import { getFilesByFileIdsNoData } from "@/services/file-service";
 import { getProtocolById } from "@/services/protocol-service";
 import { Protocol, ProtocolFileCategory } from "@/types/protocol";
 import { serializeProtocol } from "@/lib/serialize-utils";
+import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
+import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 
 const EditProtocolPage = async ({
   params,
@@ -21,9 +23,27 @@ const EditProtocolPage = async ({
 
   const files = await getFilesByFileIdsNoData(fieldIdArray);
 
+  const addFile = async (
+    protocolId: string,
+    category: ProtocolFileCategory,
+    fileId: string
+  ) => {
+    "use server";
+    await addProtocolFileAction({ protocolId, fileId, fileCategory: category });
+  };
+
+  console.log("files", files);
+
   return (
     <div className="p-4">
       <EditProtocol protocol={serializeProtocol(protocol)} files={files} />
+
+      <ProtocolFileUploads
+        id={protocolId}
+        files={files}
+        fileIds={protocol.fileIds}
+        addFile={addFile}
+      />
     </div>
   );
 };
