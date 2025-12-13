@@ -1,10 +1,27 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import ProtocolDetails from "../ProtocolDetails";
 import ProtocolForm from "../protocolForm/ProtocolForm";
 import { handleEditProtocol } from "./handleEditProtocol";
+import { useProtocol } from "@/context/ProtocolContext";
 
 const EditProtocol = () => {
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
+  if (!protocol) {
+    return <div>Nie znaleziono protokołu</div>;
+  }
+
+  const {
+    branch,
+    disputeReason,
+    disputeStartDate,
+    tradeUnionName,
+    lastModifiedAt,
+    uploadedAt,
+    workplaceName,
+  } = protocol;
+
   const [isFormPrinted, setFormPrinted] = useState(false);
 
   const handlePrintForm = () => {
@@ -19,6 +36,15 @@ const EditProtocol = () => {
         <ProtocolForm
           handlePrintForm={handlePrintForm}
           onSubmit={handleEditProtocol}
+          protocol={{
+            branch,
+            disputeReason,
+            disputeStartDate,
+            tradeUnionName,
+            lastModifiedAt,
+            uploadedAt,
+            workplaceName,
+          }}
         />
       )}
     </div>

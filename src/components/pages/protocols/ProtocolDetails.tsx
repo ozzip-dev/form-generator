@@ -1,9 +1,8 @@
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { Protocol } from "@/types/protocol";
-import { mapDisputeReason } from "./utils";
 import { Button } from "@/components/shared";
 import { useProtocol } from "@/context/ProtocolContext";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
+import { mapDisputeReason } from "./utils";
 
 type Props = {
   handlePrintForm: () => void;
@@ -24,7 +23,6 @@ const ProtocolDetails = (props: Props) => {
     lastModifiedAt,
     uploadedAt,
     workplaceName,
-    fileIds,
   } = protocol;
 
   const displayDisputeReasons = Object.values(disputeReason)
@@ -32,7 +30,8 @@ const ProtocolDetails = (props: Props) => {
     .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
-  const displayDate = (date: Date) => formatDateAndTime(date);
+  const safeDisplayDate = (date?: string) =>
+    date ? formatDateAndTime(date) : "—";
 
   // TODO: przerobic
   return (
@@ -57,16 +56,15 @@ const ProtocolDetails = (props: Props) => {
         </div>
         <div>
           <span className="font-black">Data rozpoczęcia sporu: </span>
-          {/* {displayDate(disputeStartDate!)} */}
-          {disputeStartDate!}
+          {safeDisplayDate(disputeStartDate)}
         </div>
         <div>
           <span className="font-black">Data dodania protokołu: </span>
-          {uploadedAt!}
+          {safeDisplayDate(uploadedAt)}
         </div>
         <div>
           <span className="font-black">Data ostatniej edycji: </span>
-          {lastModifiedAt!}
+          {safeDisplayDate(lastModifiedAt)}
         </div>
       </div>
       <Button
