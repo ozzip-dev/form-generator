@@ -78,9 +78,13 @@ The application was developed with grant support received in the grant competiti
 * better-auth
 * zod
 * react-hook-form
-  
+* react-dropzone
+* react-error-boundary
+* nodemailer
+
+
 ## Hooks
-* useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useCallback, useContext
+* use, useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useCallback, useContext, custom hooks
 
 ## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn

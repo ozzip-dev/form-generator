@@ -2,7 +2,7 @@
 
 import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
 import { Button, InputFields } from "@/components/shared";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 const dataInputUrl = [
   {
     name: "url",
+    label: "Wpisz własny adres formularza",
     placeholder: "www:formularz",
     type: "text",
   },
@@ -33,8 +34,8 @@ export default function AliasUrlForm(form: FormSerialized) {
     try {
       const resp = await setAliasUrlAction(form, data);
 
-      if ("error" in resp) {
-        handleClientErrors<SetAliasSchema>(resp.error, setError);
+      if ("validationErrors" in resp) {
+        setClientErrors(resp.validationErrors, setError);
         return;
       }
     } catch (e: any) {
@@ -58,10 +59,7 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
         {/* TODO: add remove alias */}
         <div>
-          <Button
-            message="Zapisz link do formularza"
-            isLoading={isSubmitting}
-          />
+          <Button message="Zapisz" isLoading={isSubmitting} />
         </div>
       </form>
     </>

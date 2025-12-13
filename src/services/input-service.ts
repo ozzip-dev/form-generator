@@ -3,7 +3,8 @@ import { findById, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
-import { setFormUpdatedAtDate } from "./form-service";
+import { getFormById, setFormUpdatedAtDate } from "./form-service";
+import { inputHasOther } from "@/helpers/inputHelpers";
 
 function getFormInputById(
   inputs: FormInput[],
@@ -293,4 +294,13 @@ export async function updateFormInputType(
   )
 
   await setFormUpdatedAtDate(formId)
+}
+
+export async function checkInputHasOtherOption(
+  formId: string, inputId: string
+): Promise<void> {
+  const { inputs } = await getFormById(formId)
+  const input = getFormInputById(inputs, inputId)
+  if (inputHasOther(input))
+    throw new Error("Pole posiada juz opcje 'Inne'")
 }

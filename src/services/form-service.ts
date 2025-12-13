@@ -176,3 +176,8 @@ export async function setFormUpdatedAtDate(formId: ObjectId): Promise<WithId<For
     $set: { updatedAt: new Date() },
   });
 }
+
+export async function getFormsByType(type: FormType): Promise<Form[]> {
+  const forms = await find<Form>(db, "form", { type });
+  return forms;
+}

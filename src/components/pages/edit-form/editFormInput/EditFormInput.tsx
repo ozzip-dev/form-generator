@@ -27,7 +27,7 @@ import { InputType } from "@/enums";
 
 const dataSelectOptions = [
   { label: "Odpowiedź krótka", value: "text" },
-  { label: "Ddpowiedź długa", value: "superText" },
+  { label: "Odpowiedź długa", value: "superText" },
   { label: "Email", value: "email" },
   { label: "Data", value: "date" },
   { label: "Numer", value: "number" },
@@ -67,9 +67,9 @@ const EditFormInput = (props: Props) => {
   const defaultValues = {
     header,
     description,
-    options: options.map((option: string) => ({ value: option })) || [],
-    required: { inputReqired: required },
-    unique: { inputUnique: unique },
+    options,
+    required,
+    unique,
     type,
   };
 
@@ -95,6 +95,10 @@ const EditFormInput = (props: Props) => {
   //   return () => subscription.unsubscribe();
   // }, [watch]);
 
+  useEffect(() => {
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
+
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId,
@@ -106,7 +110,7 @@ const EditFormInput = (props: Props) => {
       setError,
     });
 
-  const [state, editType, isPending] = useActionState<null, InputType>(
+  const [_, editType, isPending] = useActionState<null, InputType>(
     async (_state, type) => {
       if (!formId || !props.input.id) return null;
       await editInputTypeAction(formId, props.input.id, type);
@@ -150,7 +154,7 @@ const EditFormInput = (props: Props) => {
               {(type === "checkbox" || type === "singleSelect") && (
                 <AddOption
                   inputIdx={props.inputIdx}
-                  inputId={inputId as string}
+                  input={props.input}
                   header={header}
                 />
               )}

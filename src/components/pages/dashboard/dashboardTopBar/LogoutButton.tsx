@@ -21,13 +21,10 @@ const LogoutButton = () => {
   useOneTimeToast(ToastsData);
   const { toast } = useToast();
 
-  const [state, signOut, pending] = useActionState(signOutAction, {
-    error: null,
-    success: false,
-  });
+  const [state, signOut, pending] = useActionState(signOutAction, null);
 
   useEffect(() => {
-    if (state?.error) {
+    if (state?.success === false) {
       toast({
         title: "Błąd wylogowania",
         description: state.error,

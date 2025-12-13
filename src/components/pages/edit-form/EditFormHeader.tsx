@@ -8,6 +8,7 @@ import {
 } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { FormType } from "@/enums/form";
+import { formTypesWithLabels } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
 import {
   editFormHeaderSchema,
@@ -17,12 +18,9 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
-const dataSelectOptions: { label: string, value: FormType | '' }[] = [
+const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "-- wybierz --", value: "" },
-  { label: "Ankieta pracownicza", value: FormType.Survey },
-  { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
-  { label: "Referedum strajkowe", value: FormType.Strike },
-  { label: "Inne", value: FormType.Other },
+  ...formTypesWithLabels,
 ];
 
 const dataInputsFormTitle = [
@@ -66,6 +64,7 @@ export default function EditFormHeader(props: Props) {
     trigger,
     setError,
   } = methods;
+  // console.log("registered fields:", methods.getValues());
 
   const { handleEdit, isLoading } = useEditForm({
     formId,

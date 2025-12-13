@@ -27,7 +27,6 @@ const PublishFormButton = ({ form }: Props) => {
       window.history.pushState(null, "", "?emptyUserDetails=" + Date.now());
       return;
     }
-
     startTransition(publishForm);
   };
 

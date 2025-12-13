@@ -1,109 +1,102 @@
-"use client";
+// "use client";
 
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  UserDetailsSchema,
-  userDetailsSchema,
-} from "@/lib/zodSchema/userDetailsShema";
-import { handleClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useErrorBoundary } from "react-error-boundary";
 import { useUser } from "@/context/UserContextProvider";
-import { use } from "react";
+import {
+  userDetailsSchema,
+  UserDetailsSchema,
+} from "@/lib/zodSchema/userDetailsShema";
+import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee = [
-  {
-    label: "Nazwa związku zawodowego",
-    name: "committeeUnion",
-    placeholder: "Związek",
-    type: "text",
-  },
-  {
-    label: "Nazwa struktury związku",
-    name: "committeeName",
-    placeholder: "Komisja",
-    type: "text",
-  },
+  { label: "Nazwa związku zawodowego", name: "committeeUnion", type: "text" },
+  { label: "Nazwa struktury związku", name: "committeeName", type: "text" },
   {
     label: "Telefon kontaktowy struktury",
     name: "committeePhone",
-    placeholder: "+48 123 456 789",
     type: "text",
   },
   {
     label: "Email kontaktowy struktury",
     name: "committeeEmail",
-    placeholder: "kamil@ip.com",
     type: "email",
   },
 ];
-
-type Props = {
-  handlePrintForm: () => void;
-};
+type State = { errors: Record<string, string[]>; inputs?: any };
+const initialState: State = { errors: {}, inputs: null };
+type Props = { handlePrintForm: () => void };
 
 const UserForm = (props: Props) => {
-  const { showBoundary } = useErrorBoundary();
   const { userPromise } = useUser();
+  const userData: any = use(userPromise);
+  const isAction = useRef(false);
 
-  const user: any = use(userPromise);
+  const initialValues = [
+    "committeeUnion",
+    "committeeName",
+    "committeePhone",
+    "committeeEmail",
+  ].reduce((acu: Record<string, string>, key: string) => {
+    acu[key] = userData[key];
+    return acu;
+  }, {});
 
-  const { committeeUnion, committeeName, committeePhone, committeeEmail } =
-    user;
+  const editUserDetails = async (
+    prevState: State,
+    formData: FormData
+  ): Promise<State> => {
+    const data = Object.fromEntries(formData.entries()) as UserDetailsSchema;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-  } = useForm<UserDetailsSchema>({
-    resolver: zodResolver(userDetailsSchema),
-    defaultValues: {
-      committeeUnion,
-      committeeName,
-      committeePhone,
-      committeeEmail,
-    },
-    mode: "all",
-  });
-
-  // TODO Pawel: walidacja na froncie przy useActionState
-  const onSubmit = async (data: UserDetailsSchema) => {
-    try {
-      const resp = await updateCommitteeDataAction(data);
-      if (resp?.error) {
-        handleClientErrors<UserDetailsSchema>(resp.error, setError);
-        return;
-      }
-    } catch (err) {
-      showBoundary(err);
-      return;
+    const validationResult = userDetailsSchema.safeParse(data);
+    if (!validationResult.success) {
+      return {
+        errors: validationResult.error.formErrors.fieldErrors,
+        inputs: data,
+      };
     }
 
+    isAction.current = true;
+
+    const resp = await updateCommitteeDataAction(data);
+    if (resp?.validationErrors) {
+      return { errors: resp?.validationErrors, inputs: data };
+    }
+    isAction.current = false;
     props.handlePrintForm();
+    return { errors: {}, inputs: data };
   };
 
-  const handleCancel = () => {
-    props.handlePrintForm();
-  };
+  const [state, formAction, isPending] = useActionState(
+    editUserDetails,
+    initialState
+  );
+
+  const defaultValues = state?.inputs ? state?.inputs : initialValues;
 
   return (
-    <div className="flex flex-col items-center justify-center ">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-4/5">
+    <div className="flex flex-col items-center justify-center w-full p-4">
+      <form action={formAction} className="w-full max-w-lg space-y-4">
         <InputFields
-          register={register}
-          errorMsg={errors}
+          errorMsg={state.errors}
           inputsData={dataInputscommittee}
+          default={defaultValues}
         />
-        <Button isLoading={isSubmitting} message="Zapisz" type="submit" />
+        <Button
+          isLoading={isAction.current && isPending}
+          message="Zapisz"
+          type="submit"
+        />
       </form>
       <div className="w-4/5 mt-4">
-        <Button message="Anuluj" onClickAction={handleCancel} />
+        <Button
+          message="Anuluj"
+          onClickAction={() => {
+            props.handlePrintForm();
+          }}
+        />
       </div>
     </div>
   );
 };
-
 export default UserForm;

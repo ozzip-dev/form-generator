@@ -1,7 +1,7 @@
 import { Document, ObjectId } from "mongodb";
 import { FormInput } from "./input";
 
-export type FormState = "draft" | "active" | "disabled" | "template";
+export type FormState = "draft" | "active" | "disabled" | "removed" | "template";
 
 export interface FormTemplate extends Document {
   _id?: ObjectId;

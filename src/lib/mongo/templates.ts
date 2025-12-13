@@ -96,9 +96,18 @@ export const formTemplates: Form[] = [
         order: 2,
         unique: false,
         options: [
-          'żółty',
-          'zielony',
-          'czerwony'
+          {
+            value: 'color-123',
+            label: 'żółty',
+          },
+          {
+            value: 'color-456',
+            label: 'zielony',
+          },
+          {
+            value: 'color-789',
+            label: 'czerwony',
+          }
         ]
       },
     ]

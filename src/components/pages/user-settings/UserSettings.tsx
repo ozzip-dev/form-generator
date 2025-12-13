@@ -4,6 +4,7 @@ import { useState } from "react";
 import UserDetails from "./UserDetails";
 import UserForm from "./UserForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
+import UserDetailTest from "./UserActionTest";
 
 const UserSettings = () => {
   const [isFormPrinted, setFormPrinted] = useState(false);
@@ -24,12 +25,17 @@ const UserSettings = () => {
         </SuspenseErrorBoundary>
       )}
       {isFormPrinted && (
-        <SuspenseErrorBoundary
-          size="lg"
-          errorMessage="Błąd przesyłu danych formularza"
-        >
-          <UserForm handlePrintForm={handlePrintForm} />
-        </SuspenseErrorBoundary>
+        <>
+          <SuspenseErrorBoundary
+            size="lg"
+            errorMessage="Błąd przesyłu danych formularza"
+          >
+            <UserForm handlePrintForm={handlePrintForm} />
+          </SuspenseErrorBoundary>
+          {/* <>
+            <UserDetailTest handlePrintForm={handlePrintForm} />
+          </> */}
+        </>
       )}{" "}
       <div className="w-fit ml-auto"></div>
     </>

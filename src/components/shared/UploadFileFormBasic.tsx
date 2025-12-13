@@ -1,3 +1,4 @@
+
 "use client";
 
 import { ChangeEvent, useRef } from "react";
@@ -10,9 +11,11 @@ import {
 } from "@/lib/zodSchema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/shared";
-import { uploadFileAction } from "@/actions/protocol/uploadFileAction";
+import { uploadFileAction } from "@/actions/file/uploadFileAction";
 
-const AddProtocolForm = () => {
+/* Zostawiam na wszelki wypadek, gdyby z UploadFileForm były probnlemy np. na mobile */
+
+const UploadFileFormBasic = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
   const {
@@ -73,4 +76,4 @@ const AddProtocolForm = () => {
   );
 };
 
-export default AddProtocolForm;
+export default UploadFileFormBasic;

@@ -4,18 +4,15 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
+import CheckboxGroupFieldXX from "@/components/shared/inputs/checkboxField/CheckboxGroupField";
 import { InputType } from "@/enums";
-import { FormInput } from "@/types/input";
+import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 export const renderRadio = (
   { id, header, description, required, options }: FormInput,
   errors: FieldErrors<any>
 ) => {
-  const opts = options.map((option: string) => ({
-    label: option,
-    value: option,
-  }));
   return (
     <RadioGroupField
       key={id}
@@ -23,7 +20,7 @@ export const renderRadio = (
       label={header}
       description={description}
       required={required}
-      options={opts}
+      options={options}
       errorMsg={errors}
       optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
     />
@@ -59,10 +56,10 @@ export const renderInput = (
   register: UseFormRegister<any>
 ) => {
   const placeholderTexts: Partial<Record<InputType, string>> = {
-    number: 'Numer',
-    email: 'Email',
-    date: ''
-  }
+    number: "Numer",
+    email: "Email",
+    date: "",
+  };
   const placeholder: string = placeholderTexts[type] || "Odpowiedź";
 
   return (
@@ -90,23 +87,30 @@ export const renderCheckbox = (
   register: UseFormRegister<any>,
   control: Control<any>
 ) => {
+  // console.log("options", options);
+
   const dataCheckboxOptions =
-    options.map((option: string) => ({
-      label: option,
-      name: option,
-      value: false,
+    options.map((option: FormOption) => ({
+      name: option.label,
+      optionId: option.value,
     })) ?? [];
 
   return (
-    <CheckboxGroupField
-      key={id}
-      label={header}
-      required={required}
-      description={description}
-      name={id!}
-      options={dataCheckboxOptions}
+    <CheckboxGroupFieldXX
       control={control}
-      errorMsg={errors}
+      name={id!}
+      groupLabel={header}
+      options={dataCheckboxOptions}
     />
+    // <CheckboxGroupField
+    //   key={id}
+    //   groupLabel={header}
+    //   groupDescription={description}
+    //   required={required}
+    //   name={id!}
+    //   options={dataCheckboxOptions}
+    //   control={control}
+    //   errorMsg={errors}
+    // />
   );
 };

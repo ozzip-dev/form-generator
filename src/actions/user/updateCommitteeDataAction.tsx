@@ -1,9 +1,5 @@
 "use server";
 
-import {
-  handleServerErrors,
-  ModelFieldErrors,
-} from "@/helpers/helpersValidation/handleFormErrors";
 import { db, updateById } from "@/lib/mongo";
 import { isModerator } from "@/lib/utils";
 import {
@@ -17,12 +13,15 @@ import { revalidatePath } from "next/cache";
 
 export async function updateCommitteeDataAction(
   data: UserDetailsSchema
-): Promise<void | { error: ModelFieldErrors }> {
+): Promise<void | { validationErrors: Record<string, string[]> }> {
   const user = await requireUser();
 
   const validationResult = userDetailsSchema.safeParse(data);
+
   if (!validationResult.success) {
-    return { error: handleServerErrors(validationResult.error) };
+    return {
+      validationErrors: validationResult.error.formErrors.fieldErrors,
+    };
   }
 
   const updateData: Partial<UserCommitteeInfo> = {};
