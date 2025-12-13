@@ -5,12 +5,14 @@ import { ModelFieldErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { createTopic } from "@/services/forum-service";
 import { requireUser } from "@/services/user-service";
 
-export async function addTopic(
+export async function addTopicAction(
   title: string,
   category: TopicCategory,
   description?: string
 ): Promise<void | { error: ModelFieldErrors }> {
-  const user = await requireUser()
+  throw new Error("Blad przy tworzeniu tematu");
+  const user = await requireUser();
 
-  await createTopic(user.id, title, category, description)
+  const id = await createTopic(user.id, title, category, description);
+  if (!id) throw new Error("Blad przy tworzeniu tematu");
 }
