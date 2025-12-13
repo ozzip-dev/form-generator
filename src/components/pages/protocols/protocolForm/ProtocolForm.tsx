@@ -2,6 +2,7 @@
 
 import { createProtocolAction } from "@/actions/protocol/createProtocol.Action";
 import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
+import { useProtocol } from "@/context/ProtocolContext";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
   ProtocolFormSchema,
@@ -9,7 +10,7 @@ import {
 } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
 import { Protocol } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const dataInputsProtocolForm = [
@@ -64,19 +65,24 @@ const dataCheckboxOptions = [
 
 type Props = {
   handlePrintForm?: () => void;
-  protocol?: Partial<Protocol>;
   onSubmit: (data: any) => Promise<void>;
 };
 
 const ProtocolForm = (props: Props) => {
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
+  if (!protocol) {
+    return <div>Nie znaleziono protokołu</div>;
+  }
+
   const defaultValues = {
-    branch: props.protocol?.branch ?? "",
-    disputeStartDate: props.protocol?.disputeStartDate
-      ? new Date(props.protocol.disputeStartDate).toISOString().split("T")[0]
+    branch: protocol?.branch ?? "",
+    disputeStartDate: protocol?.disputeStartDate
+      ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
       : "",
-    tradeUnionName: props.protocol?.tradeUnionName ?? "",
-    workplaceName: props.protocol?.workplaceName ?? "",
-    disputeReason: props.protocol?.disputeReason ?? {
+    tradeUnionName: protocol?.tradeUnionName ?? "",
+    workplaceName: protocol?.workplaceName ?? "",
+    disputeReason: protocol?.disputeReason ?? {
       workTime: "",
       safetyConditions: "",
       wages: "",

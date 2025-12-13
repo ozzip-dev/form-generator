@@ -2,13 +2,20 @@ import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { Protocol } from "@/types/protocol";
 import { mapDisputeReason } from "./utils";
 import { Button } from "@/components/shared";
+import { useProtocol } from "@/context/ProtocolContext";
+import { use } from "react";
 
 type Props = {
   handlePrintForm: () => void;
-  protocol: Partial<Protocol>;
 };
 
 const ProtocolDetails = (props: Props) => {
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
+  if (!protocol) {
+    return <div>Nie znaleziono protokołu</div>;
+  }
+
   const {
     branch,
     disputeReason,
@@ -17,7 +24,8 @@ const ProtocolDetails = (props: Props) => {
     lastModifiedAt,
     uploadedAt,
     workplaceName,
-  } = props.protocol;
+    fileIds,
+  } = protocol;
 
   const displayDisputeReasons = Object.values(disputeReason)
     .filter((reason) => reason && reason !== "")
@@ -48,16 +56,17 @@ const ProtocolDetails = (props: Props) => {
           {workplaceName}
         </div>
         <div>
-          <span className="font-black">Data sporu: </span>
-          {displayDate(disputeStartDate!)}
+          <span className="font-black">Data rozpoczęcia sporu: </span>
+          {/* {displayDate(disputeStartDate!)} */}
+          {disputeStartDate!}
         </div>
         <div>
           <span className="font-black">Data dodania protokołu: </span>
-          {displayDate(uploadedAt!)}
+          {uploadedAt!}
         </div>
         <div>
           <span className="font-black">Data ostatniej edycji: </span>
-          {displayDate(lastModifiedAt!)}
+          {lastModifiedAt!}
         </div>
       </div>
       <Button
