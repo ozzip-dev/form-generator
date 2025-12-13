@@ -94,6 +94,8 @@ import { FileSerialized } from "@/types/file";
 import { useState } from "react";
 import { Button } from "@/components/shared";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
+import { useSafeURLParam } from "@/hooks/useSafeURLParam";
+import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 
 type Props = {
   id: string;
@@ -119,11 +121,16 @@ const fileCategories: ProtocolFileCategory[] = [
 const ProtocolFileUploads = ({ id, files, fileIds, addFile }: Props) => {
   const [visibleCategory, setVisibleCategory] =
     useState<ProtocolFileCategory>("demands");
+  const protocolId = useSafeURLParam("protocolId");
+
   const onProtocolFileUploaded = async (
     fileId: string,
     category: ProtocolFileCategory
   ) => {
-    await addFile(id, category, fileId);
+    // await addFile(id, category, fileId);
+    if (!protocolId) return;
+
+    await addProtocolFileAction({ protocolId, fileId, fileCategory: category });
   };
 
   const getFileById = (fileId: string) =>
@@ -147,7 +154,7 @@ const ProtocolFileUploads = ({ id, files, fileIds, addFile }: Props) => {
       {fileCategories.map((category, i) => (
         <div key={i} className={category != visibleCategory ? "!hidden" : ""}>
           <div className="font-black">{mapFileCategory[category]}</div>
-          <div>liczba załączników: {fileIds[category]?.length || 0}</div>
+          {/* <div>liczba załączników: {fileIds[category]?.length || 0}</div> */}
           {fileIds[category]?.map((fileId) => (
             <ProtocolAttachedFile
               key={fileId}

@@ -109,7 +109,7 @@ ProtocolInsertData): Promise<void> {
       tradeUnionName,
       workplaceName,
       disputeStartDate,
-      files: {
+      fileIds: {
         // negotiations: fileDefaults,
         // mediations: fileDefaults,
         demands: [],
