@@ -1,7 +1,7 @@
 import { TopicCategory } from "@/enums/forum";
-import { db, insert } from "@/lib/mongo";
+import { db, deleteById, insert } from "@/lib/mongo";
 import { Topic } from "@/types/forum";
-import { Db, ObjectId } from "mongodb";
+import { DeleteResult, ObjectId } from "mongodb";
 
 export async function createTopic(
   userId: string,
@@ -22,4 +22,8 @@ export async function createTopic(
   const { insertedId } = await insert<Topic>(db, 'topic', insertData);
 
   return insertedId; // or void?
+}
+
+export async function removeTopic(topicId: string): Promise<DeleteResult> {
+  return await deleteById<Topic>(db, "topic", new ObjectId(topicId));
 }
