@@ -28,5 +28,5 @@ export async function editInputLabelAction(
 
   await updateFormInputTexts(db, formId, inputId, data);
 
-  revalidateTag(`form-${formId}`);
+  // revalidateTag(`form-${formId}`);
 }

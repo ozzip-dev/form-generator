@@ -34,39 +34,33 @@ const ProtocolDetails = (props: Props) => {
     date ? formatDateAndTime(date) : "—";
 
   // TODO: przerobic
+
+  const protocolDetails = [
+    { label: "Branza:", value: branch },
+    { label: "Powod sporu:", value: displayDisputeReasons },
+    { label: "Nazwa związku:", value: tradeUnionName },
+    { label: "Nazwa zakładu:", value: workplaceName },
+    {
+      label: "Data rozpoczęcia sporu:",
+      value: safeDisplayDate(disputeStartDate),
+    },
+    { label: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
+    { label: "Data ostatniej edycji", value: safeDisplayDate(lastModifiedAt) },
+  ];
+
   return (
     <div>
       <div className="text-lg font-black">Dane sporu zbiorowego:</div>
-      <div>
-        <div>
-          <span className="font-black">Branza: </span>
-          {branch}
-        </div>
-        <div>
-          <span className="font-black">Powod sporu: </span>
-          {displayDisputeReasons}
-        </div>
-        <div>
-          <span className="font-black">Nazwa związku: </span>
-          {tradeUnionName}
-        </div>
-        <div>
-          <span className="font-black">Nazwa zakładu: </span>
-          {workplaceName}
-        </div>
-        <div>
-          <span className="font-black">Data rozpoczęcia sporu: </span>
-          {safeDisplayDate(disputeStartDate)}
-        </div>
-        <div>
-          <span className="font-black">Data dodania protokołu: </span>
-          {safeDisplayDate(uploadedAt)}
-        </div>
-        <div>
-          <span className="font-black">Data ostatniej edycji: </span>
-          {safeDisplayDate(lastModifiedAt)}
-        </div>
-      </div>
+      <ul>
+        {protocolDetails.map(({ label, value }) => {
+          return (
+            <li key={label}>
+              <span className="font-black">{label} </span>
+              {value}
+            </li>
+          );
+        })}
+      </ul>
       <Button
         message="Edytuj dane protokołu"
         type="button"

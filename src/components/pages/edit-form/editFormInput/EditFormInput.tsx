@@ -130,7 +130,7 @@ const EditFormInput = (props: Props) => {
     <FormProvider {...methods}>
       <form className="mb-3">
         <div className="flex gap-2 items-center p-2 bg-slate-200">
-          {(isAnyLoading || isPending) && <FullscreenLoader />}
+          {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
               <InputFields
