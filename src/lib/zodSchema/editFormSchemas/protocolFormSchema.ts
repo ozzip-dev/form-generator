@@ -1,8 +1,5 @@
 import { z } from "zod";
 
-// TODO: delete after checkbox structure refactor
-const disputeReasonSchema = z.string();
-
 export const protocolFormSchema = z.object({
   branch: z
     .string()
@@ -25,58 +22,41 @@ export const protocolFormSchema = z.object({
     .nullable()
     .refine((val) => !isNaN(Date.parse(val!)), "Data"),
 
-  disputeReason: z
-    .record(z.union([z.boolean(), z.string()]))
-    .superRefine((obj, ctx) => {
-      if (!obj) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Min. jedna opcja",
-        });
-        return;
-      }
+  disputeReason: z.record(z.string()).superRefine((obj, ctx) => {
+    const values = Object.values(obj).map((v) => v.trim());
 
-      let hasSelection = false;
+    const hasAnyValue = values.some((v) => v.length > 0);
 
-      Object.entries(obj).forEach(([_, value]) => {
-        if (value === true) {
-          hasSelection = true;
-        }
-
-        if (typeof value === "string") {
-          if (value.trim().length === 0) return;
-
-          hasSelection = true;
-
-          if (value.trim().length < 2) {
-            ctx.addIssue({
-              code: z.ZodIssueCode.too_small,
-              minimum: 2,
-              type: "string",
-              inclusive: true,
-              message: "Min. 2 znaki",
-            });
-          }
-
-          if (value.trim().length > 100) {
-            ctx.addIssue({
-              code: z.ZodIssueCode.too_big,
-              maximum: 100,
-              type: "string",
-              inclusive: true,
-              message: "Maks. 100 znaków",
-            });
-          }
-        }
+    if (!hasAnyValue) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Min. jedna opcja",
       });
+      return;
+    }
 
-      if (!hasSelection) {
+    values.forEach((value) => {
+      if (value.length > 0 && value.length < 2) {
         ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Min. jedna opcja",
+          code: z.ZodIssueCode.too_small,
+          minimum: 2,
+          type: "string",
+          inclusive: true,
+          message: "Min. 2 znaki",
         });
       }
-    }),
+
+      if (value.length > 100) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.too_big,
+          maximum: 100,
+          type: "string",
+          inclusive: true,
+          message: "Maks. 100 znaków",
+        });
+      }
+    });
+  }),
 });
 
 export type ProtocolFormSchema = z.infer<typeof protocolFormSchema>;

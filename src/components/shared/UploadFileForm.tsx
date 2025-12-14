@@ -30,30 +30,6 @@ const UploadFileForm = ({ category, onFileUpload }: Props) => {
   const [isPending, setPending] = useState<boolean>(false);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-  // const uploadFile = async (file: File) => {
-  //   setPending(true);
-
-  //   try {
-  //     const insertedId = await uploadFileAction(file);
-  //     props.onFileUpload?.(insertedId, props.category!);
-  //     console.log("insertedId", insertedId);
-  //     toast({
-  //       title: "Sukces",
-  //       description: "Dokument dodany",
-  //       variant: "success",
-  //     });
-  //   } catch (error) {
-  //     setPending(false);
-  //     toast({
-  //       title: "Błąd",
-  //       description: `Dokument nie został zapisany. ${error}`,
-  //       variant: "error",
-  //     });
-  //   }
-
-  //   setPending(false);
-  // };
-
   const uploadFile = useCallback(
     async (file: File) => {
       setPending(true);
@@ -87,15 +63,6 @@ const UploadFileForm = ({ category, onFileUpload }: Props) => {
     },
     [uploadFile]
   );
-
-  // const onDrop = useCallback(
-  //   (acceptedFiles: File[]) => {
-  //     if (acceptedFiles.length === 0) return;
-
-  //     acceptedFiles.forEach(uploadFile);
-  //   },
-  //   [uploadFile]
-  // );
 
   const onDropRejected = useCallback(
     (rejectedFiles: FileRejection[]) => {

@@ -2,7 +2,10 @@
 
 import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
-import { protocolFormSchema } from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
+import {
+  protocolFormSchema,
+  ProtocolFormSchema,
+} from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
 import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -69,7 +72,7 @@ const ProtocolForm = (props: Props) => {
     branch: props.protocol?.branch ?? "",
     disputeStartDate: props.protocol?.disputeStartDate
       ? new Date(props.protocol.disputeStartDate).toISOString().split("T")[0]
-      : "",
+      : null,
     tradeUnionName: props.protocol?.tradeUnionName ?? "",
     workplaceName: props.protocol?.workplaceName ?? "",
     disputeReason: props.protocol?.disputeReason ?? {
@@ -81,7 +84,7 @@ const ProtocolForm = (props: Props) => {
     },
   };
 
-  const methods = useForm<any>({
+  const methods = useForm<ProtocolFormSchema>({
     resolver: zodResolver(protocolFormSchema),
     defaultValues,
   });
@@ -90,12 +93,12 @@ const ProtocolForm = (props: Props) => {
     register,
     control,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { isSubmitting, errors },
   } = methods;
 
-  // useEffect(() => {
-  //   console.log("FORM VALUES", methods.getValues());
-  // }, [methods.watch()]);
+  useEffect(() => {
+    console.log("FORM VALUES", methods.getValues());
+  }, [methods.watch()]);
 
   return (
     <>
@@ -104,7 +107,11 @@ const ProtocolForm = (props: Props) => {
           await props.onSubmit(data);
         })}
       >
-        <InputFields inputsData={dataInputsProtocolForm} register={register} />
+        <InputFields
+          inputsData={dataInputsProtocolForm}
+          register={register}
+          errorMsg={errors}
+        />
         <CheckboxGroupField
           groupLabel="Przyczyna rozpoczęcia sporu"
           control={control}

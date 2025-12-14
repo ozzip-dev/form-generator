@@ -26,7 +26,7 @@ export type ProtocolFileCategory =
 
 interface ProtocolData {
   branch: string; // branza
-  disputeReason: string[]; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
+  disputeReason: Record<string, string>; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
   tradeUnionName: string; // nazwa związku
   workplaceName: string; // nazwa zakładu
   fileIds: Record<ProtocolFileCategory, string[]>; // file ids
