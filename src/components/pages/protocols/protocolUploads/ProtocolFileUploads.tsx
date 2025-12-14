@@ -1,7 +1,7 @@
 "use client";
 
 import { ProtocolFileCategory } from "@/types/protocol";
-import { mapFileCategory } from "./utils";
+import { mapFileCategory } from "../utils";
 import UploadFileForm from "@/components/shared/UploadFileForm";
 import { FileSerialized } from "@/types/file";
 import { use, useState } from "react";
@@ -10,6 +10,7 @@ import ProtocolAttachedFile from "./ProtocolAttachedFile";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 import { useProtocol } from "@/context/ProtocolContext";
+import ProtocolUploadsMenu from "./ProtocolUploadsMenu";
 
 type Props = {
   files: Partial<FileSerialized>[];
@@ -51,16 +52,10 @@ const ProtocolFileUploads = ({ files }: Props) => {
     <div className="pt-16">
       <div className="text-[30px] font-black">Krok 2: dodaj dokumenty</div>
       <div className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
-        {fileCategories.map((category, idx) => (
-          <Button
-            key={idx}
-            className={`!w-auto ${
-              category == visibleCategory ? "!bg-slate-300 !text-black" : ""
-            }`}
-            message={mapFileCategory[category]}
-            onClickAction={() => setVisibleCategory(category)}
-          />
-        ))}
+        <ProtocolUploadsMenu
+          visibleCategory={visibleCategory}
+          setVisibleCategory={setVisibleCategory}
+        />
       </div>
       {fileCategories.map((category, idx) => (
         <div key={idx} className={category != visibleCategory ? "!hidden" : ""}>

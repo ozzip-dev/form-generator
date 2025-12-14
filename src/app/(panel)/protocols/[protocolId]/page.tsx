@@ -1,5 +1,5 @@
 import EditProtocol from "@/components/pages/protocols/editProtocol/EditProtocol";
-import ProtocolFileUploads from "@/components/pages/protocols/ProtocolFileUploads";
+import ProtocolFileUploads from "@/components/pages/protocols/protocolUploads/ProtocolFileUploads";
 import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
 import { serializeProtocol } from "@/lib/serialize-utils";
 import { getFilesByFileIdsNoData } from "@/services/file-service";
