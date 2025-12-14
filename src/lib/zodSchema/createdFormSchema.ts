@@ -30,58 +30,93 @@ export const createdFormSchema = (inputs: any[]) => {
 
       case "checkbox":
         if (input.required) {
-          shape[fieldName] = z
-            .record(z.union([z.boolean(), z.string()]))
-            .superRefine((obj, ctx) => {
-              if (!obj) {
+          shape[fieldName] = z.record(z.string()).superRefine((obj, ctx) => {
+            const values = Object.values(obj).map((v) => v.trim());
+
+            const hasAnyValue = values.some((v) => v.length > 0);
+
+            if (!hasAnyValue) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "Min. jedna opcja",
+              });
+              return;
+            }
+
+            values.forEach((value) => {
+              if (value.length > 0 && value.length < 2) {
                 ctx.addIssue({
-                  code: z.ZodIssueCode.custom,
-                  message: "Min. jedna opcja",
+                  code: z.ZodIssueCode.too_small,
+                  minimum: 2,
+                  type: "string",
+                  inclusive: true,
+                  message: "Min. 2 znaki",
                 });
-                return;
               }
 
-              let hasSelection = false;
-
-              Object.entries(obj).forEach(([_, value]) => {
-                if (value === true) {
-                  hasSelection = true;
-                }
-
-                if (typeof value === "string") {
-                  if (value.trim().length > 0) {
-                    hasSelection = true;
-
-                    if (value.trim().length < 2) {
-                      ctx.addIssue({
-                        code: z.ZodIssueCode.too_small,
-                        minimum: 2,
-                        type: "string",
-                        inclusive: true,
-                        message: "Min. 2 znaki",
-                      });
-                    }
-
-                    if (value.trim().length > 100) {
-                      ctx.addIssue({
-                        code: z.ZodIssueCode.too_big,
-                        maximum: 100,
-                        type: "string",
-                        inclusive: true,
-                        message: "Maks. 100 znaków",
-                      });
-                    }
-                  }
-                }
-              });
-
-              if (!hasSelection) {
+              if (value.length > 100) {
                 ctx.addIssue({
-                  code: z.ZodIssueCode.custom,
-                  message: "Min. jedna opcja",
+                  code: z.ZodIssueCode.too_big,
+                  maximum: 100,
+                  type: "string",
+                  inclusive: true,
+                  message: "Maks. 100 znaków",
                 });
               }
             });
+          });
+
+          //   .record(z.union([z.boolean(), z.string()]))
+          //   .superRefine((obj, ctx) => {
+          //     if (!obj) {
+          //       ctx.addIssue({
+          //         code: z.ZodIssueCode.custom,
+          //         message: "Min. jedna opcja",
+          //       });
+          //       return;
+          //     }
+
+          //     let hasSelection = false;
+
+          //     Object.entries(obj).forEach(([_, value]) => {
+          //       if (value === true) {
+          //         hasSelection = true;
+          //       }
+
+          //       if (typeof value === "string") {
+          //         if (value.trim().length > 0) {
+          //           hasSelection = true;
+
+          //           if (value.trim().length < 2) {
+          //             ctx.addIssue({
+          //               code: z.ZodIssueCode.too_small,
+          //               minimum: 2,
+          //               type: "string",
+          //               inclusive: true,
+          //               message: "Min. 2 znaki",
+          //             });
+          //           }
+
+          //           if (value.trim().length > 100) {
+          //             ctx.addIssue({
+          //               code: z.ZodIssueCode.too_big,
+          //               maximum: 100,
+          //               type: "string",
+          //               inclusive: true,
+          //               message: "Maks. 100 znaków",
+          //             });
+          //           }
+          //         }
+          //       }
+          //     });
+
+          //     if (!hasSelection) {
+          //       ctx.addIssue({
+          //         code: z.ZodIssueCode.custom,
+          //         message: "Min. jedna opcja",
+          //       });
+          //     }
+          //   });
         } else {
           shape[fieldName] = z
             .record(z.union([z.boolean(), z.string()]))

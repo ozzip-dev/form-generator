@@ -5,7 +5,7 @@ import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
   protocolFormSchema,
   ProtocolFormSchema,
-} from "@/lib/zodSchema/editFormSchemas/protocolFormSchema";
+} from "@/lib/zodSchema/protocolFormSchema";
 import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
