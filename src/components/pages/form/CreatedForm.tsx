@@ -52,7 +52,7 @@ const CreatedForm = (props: Props) => {
 
   const methods = useForm({
     defaultValues: defaultValues(inputs),
-    resolver: zodResolver(schema),
+    // resolver: zodResolver(schema),
     mode: "all",
   });
 

@@ -81,10 +81,13 @@ const AddOption = (props: Props) => {
     });
   };
 
-  const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
+  inputHasOther(props.input);
 
-  const isDisabled =
-    isRemoveOptionPending || isAddOptionPending || isAnyLoading;
+  console.log("  inputHasOther(props.input)", inputHasOther(props.input));
+
+  // const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
+
+  const isDisabled = isRemoveOptionPending || isAddOptionPending;
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
@@ -111,7 +114,7 @@ const AddOption = (props: Props) => {
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
               onChange={(name, value) => handleEdit(name, value)}
-              isLoading={isLoading}
+              // isLoading={isLoading}
             />
 
             <div className="w-fit ml-2">
@@ -136,14 +139,15 @@ const AddOption = (props: Props) => {
             onClickAction={handleAddOption}
           />
         </div>
-        <div className="w-fit">
-          <Button
-            message="Dodaj inne"
-            type="button"
-            disabled={inputHasOther(props.input)}
-            onClickAction={handleAddOther}
-          />
-        </div>
+        {!inputHasOther(props.input) && (
+          <div className="w-fit">
+            <Button
+              message="Dodaj inne"
+              type="button"
+              onClickAction={handleAddOther}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

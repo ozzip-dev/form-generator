@@ -65,7 +65,7 @@ const editInputOptionAction = async (
     $set: { inputs: mappedInputs },
   });
 
-  // revalidateTag(`form-${formId}`);
+  if (inputName === OPTION_OTHER) revalidateTag(`form-${formId}`);
 };
 
 export default editInputOptionAction;
