@@ -101,3 +101,13 @@ export const mapFileCategory: Record<ProtocolFileCategory, string> = {
   agreement: "Porozumienie kończące spór",
   other: "Inne",
 };
+
+export const fileCategories: ProtocolFileCategory[] = [
+  "demands",
+  "mediationMeetings",
+  "mediationDiscrepancy",
+  "negotiationMeetings",
+  "negotiationDiscrepancy",
+  "agreement",
+  "other",
+];
