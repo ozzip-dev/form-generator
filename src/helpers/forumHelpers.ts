@@ -1,10 +1,10 @@
-import { Topic, TopicSerialized } from "@/types/forum";
+import { Post, PostSerialized, Topic, TopicSerialized } from "@/types/forum";
 import { IUser, UserSerialized } from "@/types/user";
 
-export const isTopicAuthor = (
+export const isItemAuthor = (
   user: IUser | UserSerialized,
-  topic: Topic | TopicSerialized
+  item: Topic | TopicSerialized | Post | PostSerialized
 ): boolean => {
   const { _id, id } = user
-  return !!topic._id && [id, _id].includes(topic.createdBy.toString())
+  return !!item._id && [id, _id].includes(item.createdBy.toString())
 }

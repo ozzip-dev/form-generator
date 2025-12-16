@@ -10,7 +10,6 @@ const Forum = async () => {
   const topicsSerialized: TopicSerialized[] = topics.map(serializeTopic);
   return (
     <>
-      <div>forum</div>
       <CreateTopicForm />
       <TopicList topics={topicsSerialized} />
     </>

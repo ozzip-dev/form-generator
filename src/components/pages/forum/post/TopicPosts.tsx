@@ -1,6 +1,6 @@
 "use client";
 
-import { getTopicPosts } from "@/actions/forum/getTopicPosts";
+import { getTopicPostsAction } from "@/actions/forum/getTopicPostsAction";
 import { Button } from "@/components/shared";
 import { PostSerialized } from "@/types/forum";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ const TopicPosts = (props: Props) => {
   // TODO: fetch on click?
   useEffect(() => {
     async function fetchPosts() {
-      setPosts((await getTopicPosts(props.topicId)) || []);
+      setPosts((await getTopicPostsAction(props.topicId)) || []);
     }
 
     fetchPosts();

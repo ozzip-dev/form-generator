@@ -3,7 +3,7 @@
 import { removeTopicAction } from "@/actions/forum/removeTopicAction";
 import { Button } from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
-import { isTopicAuthor } from "@/helpers/forumHelpers";
+import { isItemAuthor } from "@/helpers/forumHelpers";
 import { TopicSerialized } from "@/types/forum";
 import { UserSerialized } from "@/types/user";
 import { use, useState } from "react";
@@ -14,7 +14,7 @@ const TopicActionButtons = (topic: TopicSerialized) => {
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
   // TODO: remember to add also to server side checks
-  const isAuthor = !!(user && isTopicAuthor(user, topic));
+  const isAuthor = !!(user && isItemAuthor(user, topic));
 
   const buttons: {
     text: string;

@@ -74,6 +74,7 @@ const CreateTopicForm = () => {
             createNewTopic(new FormData(e.currentTarget));
           });
         }}
+        className="mb-12"
       >
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
@@ -85,7 +86,7 @@ const CreateTopicForm = () => {
           ))}
         </select>
 
-        <Button message="Utwórz" />
+        <Button message="Utwórz" className="!w-32" />
       </form>
     </>
   );

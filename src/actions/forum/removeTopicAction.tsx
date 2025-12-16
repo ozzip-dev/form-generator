@@ -1,6 +1,6 @@
 "use server";
 
-import { isTopicAuthor } from "@/helpers/forumHelpers";
+import { isItemAuthor } from "@/helpers/forumHelpers";
 import { db, findById } from "@/lib/mongo";
 import { removeTopic } from "@/services/forum-service";
 import { requireUser } from "@/services/user-service";
@@ -13,8 +13,8 @@ export async function removeTopicAction(topicId: string): Promise<void> {
 
   const topic = await findById<Topic>(db, "topic", new ObjectId(topicId));
   if (!topic) throw new Error("Invalid topic id");
-  if (!isTopicAuthor(user, topic))
-    throw new Error("Only authors can delete their posts");
+  if (!isItemAuthor(user, topic))
+    throw new Error("Only authors can delete their topics");
 
   try {
     const { deletedCount } = await removeTopic(topicId);

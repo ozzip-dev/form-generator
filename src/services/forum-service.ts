@@ -52,3 +52,7 @@ export async function getPostsByTopicId(topicId: string): Promise<PostSerialized
   const posts = await find<Post>(db, "post", { topicId: new ObjectId(topicId) }, { createdAt: 1 });
   return posts.map(serializePost);
 }
+
+export async function removePost(postId: string): Promise<DeleteResult> {
+  return await deleteById<Post>(db, "post", new ObjectId(postId));
+}
