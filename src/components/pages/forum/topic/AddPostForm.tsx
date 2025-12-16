@@ -1,35 +1,37 @@
 "use client";
 
-import { addTopicAction } from "@/actions/forum/addTopicAction";
+import { addPostAction } from "@/actions/forum/addPostAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
-import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/hooks/useToast";
 import {
-  createTopicSchema,
-  CreateTopicSchema,
-} from "@/lib/zodSchema/forumSchemas/createTopicSchema";
-import { startTransition, useActionState } from "react";
+  addPostSchema,
+  AddPostSchema,
+} from "@/lib/zodSchema/forumSchemas/addPostSchema";
+import {
+  Dispatch,
+  SetStateAction,
+  startTransition,
+  useActionState,
+} from "react";
 
 const topicInputData: { label: string; name: string; type: string }[] = [
-  { label: "Temat", name: "title", type: "text" },
-  { label: "Opis", name: "description", type: "text" },
-];
-
-const categorySelectOptions = [
-  { label: "Wybor inspektora", value: TopicCategory.INSPECTOR },
-  { label: "Strajk", value: TopicCategory.STRIKE },
-  { label: "Inne", value: TopicCategory.OTHER },
+  { label: "Treść", name: "content", type: "text" },
 ];
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 
-const CreateTopicForm = () => {
+type Props = {
+  setShowPostForm: Dispatch<SetStateAction<boolean>>;
+  topicId: string;
+};
+
+const AddPostForm = (props: Props) => {
   const { toast } = useToast();
 
   const addNewTopic = async (_: State, formData: FormData): Promise<State> => {
-    const data = Object.fromEntries(formData.entries()) as CreateTopicSchema;
+    const data = Object.fromEntries(formData.entries()) as AddPostSchema;
 
-    const validationResult = createTopicSchema.safeParse(data);
+    const validationResult = addPostSchema.safeParse(data);
     if (!validationResult.success) {
       toast({
         title: "Błąd",
@@ -39,19 +41,20 @@ const CreateTopicForm = () => {
       return { errors: validationResult.error.formErrors.fieldErrors };
     }
 
-    const { title, category, description } = data;
+    const { content } = data;
 
     try {
-      await addTopicAction(title, category as TopicCategory, description);
+      await addPostAction(props.topicId, content);
       toast({
         title: "Sukces",
-        description: "Utworzono temat",
+        description: "Dodano post",
         variant: "success",
       });
+      props.setShowPostForm(false);
     } catch (e) {
       toast({
         title: "Błąd",
-        description: "Nie udało się stworzyć tematu",
+        description: "Nie udało się dodać posta",
         variant: "error",
       });
     }
@@ -77,18 +80,10 @@ const CreateTopicForm = () => {
       >
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
-        <select name="category">
-          {categorySelectOptions.map(({ value, label }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-
-        <Button message="Utwórz" />
+        <Button message="Dodaj odpowiedz" />
       </form>
     </>
   );
 };
 
-export default CreateTopicForm;
+export default AddPostForm;

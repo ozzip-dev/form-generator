@@ -4,7 +4,7 @@ import { Document, ObjectId } from "mongodb";
 export interface Post extends Document {
   _id: ObjectId;
   topicId: ObjectId;
-  title?: string; // ??
+  // title?: string; // ??
   content: string; // ??
   createdBy: ObjectId;
   createdAt: Date;
@@ -15,7 +15,7 @@ export interface Post extends Document {
 export interface PostSerialized extends Document {
   _id: string;
   topicId: string;
-  title?: string;
+  // title?: string;
   content: string;
   createdBy: string;
   createdAt: string;

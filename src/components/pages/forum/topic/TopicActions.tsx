@@ -6,9 +6,11 @@ import { useUser } from "@/context/UserContextProvider";
 import { isTopicAuthor } from "@/helpers/forumHelpers";
 import { TopicSerialized } from "@/types/forum";
 import { UserSerialized } from "@/types/user";
-import { use } from "react";
+import { use, useState } from "react";
+import AddPostForm from "./AddPostForm";
 
 const TopicActionButtons = (topic: TopicSerialized) => {
+  const [showPostForm, setShowPostForm] = useState<boolean>(false);
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
   // TODO: remember to add also to server side checks
@@ -21,7 +23,9 @@ const TopicActionButtons = (topic: TopicSerialized) => {
   }[] = [
     {
       text: "Odpowiedz",
-      action: () => {},
+      action: () => {
+        setShowPostForm(!showPostForm);
+      },
       isDisplayed: true,
     },
     {
@@ -37,21 +41,27 @@ const TopicActionButtons = (topic: TopicSerialized) => {
   ];
 
   return (
-    <div
-      className="
-      w-full bg-slate-200 p-4
-      flex gap-4  
-    "
-    >
-      {buttons
-        .filter(({ isDisplayed }) => isDisplayed)
-        .map(({ text, action }, idx) => (
-          <Button
-            key={idx}
-            message={text}
-            onClickAction={() => action(topic._id)}
-          />
-        ))}
+    <div>
+      <div
+        className="
+          w-full bg-slate-200 p-4
+          flex gap-4  
+        "
+      >
+        {buttons
+          .filter(({ isDisplayed }) => isDisplayed)
+          .map(({ text, action }, idx) => (
+            <Button
+              key={idx}
+              message={text}
+              onClickAction={() => action(topic._id)}
+            />
+          ))}
+      </div>
+
+      {showPostForm && (
+        <AddPostForm topicId={topic._id} setShowPostForm={setShowPostForm} />
+      )}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export async function getProtocolDetails(protocolId: string): Promise<ProtocolWi
     return protocolWithFiles
 
   } catch (error) {
-    console.error("Error fetching protocol details:", error);
+    console.error("Error fetching protocol details: ", error);
     return null;
   }
 }
