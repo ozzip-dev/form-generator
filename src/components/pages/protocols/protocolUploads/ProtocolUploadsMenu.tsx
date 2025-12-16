@@ -1,17 +1,7 @@
 import { Button } from "@/components/shared";
-import { mapFileCategory } from "../utils";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { Dispatch, SetStateAction, useState } from "react";
-
-const fileCategories: ProtocolFileCategory[] = [
-  "demands",
-  "mediationMeetings",
-  "mediationDiscrepancy",
-  "negotiationMeetings",
-  "negotiationDiscrepancy",
-  "agreement",
-  "other",
-];
+import { Dispatch, SetStateAction } from "react";
+import { fileCategories, mapFileCategory } from "../utils";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;
@@ -20,18 +10,21 @@ type Props = {
 
 const ProtocolUploadsMenu = (props: Props) => {
   return (
-    <div className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
-      {fileCategories.map((category, idx) => (
-        <Button
-          key={idx}
-          className={`!w-auto ${
-            category == props.visibleCategory ? "!bg-slate-300 !text-black" : ""
-          }`}
-          message={mapFileCategory[category]}
-          onClickAction={() => props.setVisibleCategory(category)}
-        />
+    <ul className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
+      {fileCategories.map((category) => (
+        <li key={category}>
+          <Button
+            className={`!w-auto ${
+              category == props.visibleCategory
+                ? "!bg-slate-300 !text-black"
+                : ""
+            }`}
+            message={mapFileCategory[category]}
+            onClickAction={() => props.setVisibleCategory(category)}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

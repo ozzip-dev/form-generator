@@ -97,6 +97,10 @@ const CreatedForm = (props: Props) => {
     }
   };
 
+  const handleCleanForm = () => {
+    reset();
+  };
+
   const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
     text: renderInput,
     superText: renderTextarea,
@@ -132,12 +136,24 @@ const CreatedForm = (props: Props) => {
             className="w-4/5 bg-zinc-100 p-4 my-4"
           >
             {formFields}
-            <Button
-              message="Zatwierdź"
-              disabled={props.isPreview ? true : false}
-              type="submit"
-              isLoading={isSubmitting}
-            />
+            <div className="flex justify-between">
+              <div className="w-fit">
+                <Button
+                  message="Wyczyść formularz"
+                  type="button"
+                  onClickAction={handleCleanForm}
+                />
+              </div>
+
+              <div className="w-fit">
+                <Button
+                  message="Zatwierdź"
+                  disabled={props.isPreview ? true : false}
+                  type="submit"
+                  isLoading={isSubmitting}
+                />
+              </div>
+            </div>
           </form>
         </FormProvider>
       </div>

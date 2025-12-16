@@ -13,6 +13,12 @@ const ProtocolListItemDetails = ({
   lastModifiedAt,
   uploadedAt,
 }: ProtocolWithFilesSerialized) => {
+  console.log("mapFileCategory", mapFileCategory);
+  console.log("mapFileCategory", Object.values(mapFileCategory));
+  const ttt = Object.entries(mapFileCategory).filter(([_, val]) => {});
+
+  console.log("object", Object.entries(mapFileCategory));
+
   return (
     <div className="col-span-5 p-4 mb-4 border border-black bg-slate-200">
       <div className="flex gap-8">

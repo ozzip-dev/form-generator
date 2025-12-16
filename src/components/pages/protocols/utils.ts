@@ -86,9 +86,9 @@ export const mapFileExtensionName = (type: string): string => {
 
 export const mapDisputeReason: Record<string, string> = {
   workTime: "Czas pracy",
-  safety: "Standardy BHP",
+  safetyConditions: "Standardy BHP",
   wages: "Wysokoć płac",
-  standards: "Normy pracy",
+  workStandards: "Normy pracy",
   other: "Inne",
 };
 

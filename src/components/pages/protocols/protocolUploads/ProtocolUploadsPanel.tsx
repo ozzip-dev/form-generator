@@ -1,22 +1,12 @@
-import { ProtocolFileCategory } from "@/types/protocol";
-import { Dispatch, SetStateAction, use } from "react";
-import ProtocolAttachedFile from "./ProtocolAttachedFile";
-import UploadFileForm from "@/components/shared/UploadFileForm";
-import { mapFileCategory } from "../utils";
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
+import UploadFileForm from "@/components/shared/UploadFileForm";
 import { useProtocol } from "@/context/ProtocolContext";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FileSerialized } from "@/types/file";
-
-const fileCategories: ProtocolFileCategory[] = [
-  "demands",
-  "mediationMeetings",
-  "mediationDiscrepancy",
-  "negotiationMeetings",
-  "negotiationDiscrepancy",
-  "agreement",
-  "other",
-];
+import { ProtocolFileCategory } from "@/types/protocol";
+import { use } from "react";
+import { fileCategories, mapFileCategory } from "../utils";
+import ProtocolAttachedFile from "./ProtocolAttachedFile";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;
@@ -45,9 +35,9 @@ const ProtocolUploadsPanel = (props: Props) => {
 
   return (
     <>
-      {fileCategories.map((category, idx) => (
+      {fileCategories.map((category) => (
         <div
-          key={idx}
+          key={category}
           className={category != props.visibleCategory ? "!hidden" : ""}
         >
           <div className="font-black">{mapFileCategory[category]}</div>
