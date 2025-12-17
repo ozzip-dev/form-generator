@@ -10,6 +10,7 @@ import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 
 const dataInputsProtocolForm = [
   {
@@ -26,7 +27,7 @@ const dataInputsProtocolForm = [
   {
     label: "Nazwa związku",
     name: "tradeUnionName",
-    placeholder: "Solimarność",
+    placeholder: "Związek",
     type: "text",
   },
   {
@@ -62,31 +63,22 @@ const dataCheckboxOptions = [
 ];
 
 type Props = {
-  handlePrintForm?: () => void;
+  mode: "add" | "edit";
+  onSubmit: (data: ProtocolFormSchema) => Promise<void>;
   protocol?: Partial<ProtocolSerialized>;
-  onSubmit: (data: any) => Promise<void>;
+  handlePrintForm?: () => void;
 };
 
 const ProtocolForm = (props: Props) => {
-  const defaultValues = {
-    branch: props.protocol?.branch ?? "",
-    disputeStartDate: props.protocol?.disputeStartDate
-      ? new Date(props.protocol.disputeStartDate).toISOString().split("T")[0]
-      : null,
-    tradeUnionName: props.protocol?.tradeUnionName ?? "",
-    workplaceName: props.protocol?.workplaceName ?? "",
-    disputeReason: props.protocol?.disputeReason ?? {
-      workTime: "",
-      safetyConditions: "",
-      wages: "",
-      workStandards: "",
-      [OPTION_OTHER]: "",
-    },
-  };
+  if (props.mode === "edit" && !props.protocol) {
+    throw new Error("ProtocolForm: mode=edit requires protocol");
+  }
 
   const methods = useForm<ProtocolFormSchema>({
     resolver: zodResolver(protocolFormSchema),
-    defaultValues,
+    defaultValues: getProtocolDefaultValues(
+      props.mode === "edit" ? props.protocol : undefined
+    ),
   });
 
   const {

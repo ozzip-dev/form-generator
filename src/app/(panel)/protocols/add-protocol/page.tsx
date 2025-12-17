@@ -9,7 +9,8 @@ const AddProtocolPage = () => {
   return (
     <>
       <div className="text-[30px] font-black">Krok 1: uzupełnij dane</div>
-      <ProtocolForm onSubmit={handleAddProtocol} />;
+      {/* <ProtocolForm onSubmit={handleAddProtocol} />; */}
+      <ProtocolForm mode="add" onSubmit={handleAddProtocol} />
     </>
   );
 };

@@ -33,18 +33,24 @@ const EditProtocol = () => {
 
       {isFormPrinted && (
         <ProtocolForm
-          handlePrintForm={handlePrintForm}
+          mode="edit"
+          protocol={protocol}
           onSubmit={handleEditProtocol}
-          protocol={{
-            branch,
-            disputeReason,
-            disputeStartDate,
-            tradeUnionName,
-            lastModifiedAt,
-            uploadedAt,
-            workplaceName,
-          }}
+          handlePrintForm={handlePrintForm}
         />
+        // <ProtocolForm
+        //   handlePrintForm={handlePrintForm}
+        //   onSubmit={handleEditProtocol}
+        //   protocol={{
+        //     branch,
+        //     disputeReason,
+        //     disputeStartDate,
+        //     tradeUnionName,
+        //     lastModifiedAt,
+        //     uploadedAt,
+        //     workplaceName,
+        //   }}
+        // />
       )}
     </div>
   );
