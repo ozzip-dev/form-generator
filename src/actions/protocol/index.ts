@@ -1,2 +1,2 @@
-export { createProtocol } from "./createProtocol.Action.ts";
-export { addProtocolFile } from "./addProtocolFileAction.js";
+export { createProtocolAction } from "./createProtocolAction.js";
+export { addProtocolFileAction } from "./addProtocolFileAction.js";

@@ -21,19 +21,6 @@ export async function getProtocols(database: Db): Promise<Protocol[]> {
   return protocols;
 }
 
-export async function getProtocolDetails(
-  protocolId: string
-): Promise<ProtocolWithFilesSerialized | null> {
-  try {
-    const protocolWithFiles = await mapFilesToProtocol(protocolId);
-    if (!protocolWithFiles) throw new Error("Invalid protocol id");
-    return protocolWithFiles;
-  } catch (error) {
-    console.error("Error fetching protocol details:", error);
-    return null;
-  }
-}
-
 // TODO Pawel: get records with no data, add download action
 export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
   const collection: Collection<Protocol> = getCollection<Protocol>(

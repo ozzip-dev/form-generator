@@ -9,19 +9,10 @@ const EditProtocol = () => {
   const [isFormPrinted, setFormPrinted] = useState(false);
   const { protocolPromise } = useProtocol();
   const protocol = use(protocolPromise);
+
   if (!protocol) {
     return <div>Nie znaleziono protokołu</div>;
   }
-
-  const {
-    branch,
-    disputeReason,
-    disputeStartDate,
-    tradeUnionName,
-    lastModifiedAt,
-    uploadedAt,
-    workplaceName,
-  } = protocol;
 
   const handlePrintForm = () => {
     setFormPrinted((prev) => !prev);
@@ -33,24 +24,11 @@ const EditProtocol = () => {
 
       {isFormPrinted && (
         <ProtocolForm
-          mode="edit"
+          mode="editProtocol"
           protocol={protocol}
           onSubmit={handleEditProtocol}
           handlePrintForm={handlePrintForm}
         />
-        // <ProtocolForm
-        //   handlePrintForm={handlePrintForm}
-        //   onSubmit={handleEditProtocol}
-        //   protocol={{
-        //     branch,
-        //     disputeReason,
-        //     disputeStartDate,
-        //     tradeUnionName,
-        //     lastModifiedAt,
-        //     uploadedAt,
-        //     workplaceName,
-        //   }}
-        // />
       )}
     </div>
   );

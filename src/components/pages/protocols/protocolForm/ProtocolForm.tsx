@@ -63,21 +63,21 @@ const dataCheckboxOptions = [
 ];
 
 type Props = {
-  mode: "add" | "edit";
+  mode: "addProtocol" | "editProtocol";
   onSubmit: (data: ProtocolFormSchema) => Promise<void>;
   protocol?: Partial<ProtocolSerialized>;
   handlePrintForm?: () => void;
 };
 
 const ProtocolForm = (props: Props) => {
-  if (props.mode === "edit" && !props.protocol) {
-    throw new Error("ProtocolForm: mode=edit requires protocol");
+  if (props.mode === "editProtocol" && !props.protocol) {
+    throw new Error("ProtocolForm: mode=editProtocol requires protocol");
   }
 
   const methods = useForm<ProtocolFormSchema>({
     resolver: zodResolver(protocolFormSchema),
     defaultValues: getProtocolDefaultValues(
-      props.mode === "edit" ? props.protocol : undefined
+      props.mode === "editProtocol" ? props.protocol : undefined
     ),
   });
 
@@ -88,9 +88,9 @@ const ProtocolForm = (props: Props) => {
     formState: { isSubmitting, errors },
   } = methods;
 
-  useEffect(() => {
-    console.log("FORM VALUES", methods.getValues());
-  }, [methods.watch()]);
+  // useEffect(() => {
+  //   console.log("FORM VALUES", methods.getValues());
+  // }, [methods.watch()]);
 
   return (
     <>

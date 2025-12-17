@@ -1,8 +1,6 @@
-import { createProtocolAction } from "@/actions/protocol/createProtocol.Action";
+import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
 
 export const handleAddProtocol = async (data: any) => {
-  console.log("SUBMIT", data);
-
   const {
     branch,
     tradeUnionName,
