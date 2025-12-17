@@ -1,6 +1,7 @@
 import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
+import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 
-export const handleAddProtocol = async (data: any) => {
+export const handleAddProtocol = async (data: ProtocolFormSchema) => {
   const {
     branch,
     tradeUnionName,

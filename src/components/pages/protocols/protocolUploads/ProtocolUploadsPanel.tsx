@@ -1,40 +1,43 @@
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 import UploadFileForm from "@/components/shared/UploadFileForm";
 import { useProtocol } from "@/context/ProtocolContext";
-import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { use } from "react";
+import { use, useState, useTransition } from "react";
 import { fileCategories, mapFileCategory } from "../utils";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
+import { FullscreenLoader } from "@/components/shared";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;
-  files: Partial<FileSerialized>[];
 };
 
 const ProtocolUploadsPanel = (props: Props) => {
-  const { protocolPromise } = useProtocol();
+  const [isGlobalLoader, setGlobalLoader] = useState(false);
+  const { protocolPromise, filesPromise } = useProtocol();
   const protocol = use(protocolPromise);
-  const protocolId = useSafeURLParam("protocolId");
-  if (!protocol) {
+  const files = use(filesPromise);
+
+  if (!protocol || !files) {
     return <div>Nie znaleziono protokołu</div>;
   }
-
-  if (!protocolId) return;
 
   const onProtocolFileUploaded = async (
     fileId: string,
     category: ProtocolFileCategory
   ) => {
-    await addProtocolFileAction({ protocolId, fileId, fileCategory: category });
+    await addProtocolFileAction({
+      protocolId: protocol._id,
+      fileId,
+      fileCategory: category,
+    });
   };
 
   const getFileById = (fileId: string) =>
-    props.files.find((file) => file._id == fileId);
+    files.find((file) => file._id == fileId);
 
   return (
     <>
+      {isGlobalLoader && <FullscreenLoader />}
       {fileCategories.map((category) => (
         <div
           key={category}
@@ -48,8 +51,9 @@ const ProtocolUploadsPanel = (props: Props) => {
             <ProtocolAttachedFile
               key={fileId}
               file={getFileById(fileId)!}
-              protocolId={protocolId}
+              protocolId={protocol._id}
               fileCategory={category}
+              setGlobalLoader={setGlobalLoader}
             />
           ))}
           <UploadFileForm
