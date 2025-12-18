@@ -8,7 +8,6 @@ import {
 } from "@/lib/zodSchema/protocolFormSchema";
 import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 

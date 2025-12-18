@@ -26,17 +26,6 @@ const ProtocolUploadsPanel = (props: Props) => {
     return <div>Nie znaleziono protokołu</div>;
   }
 
-  const onProtocolFileUploaded = async (
-    fileId: string,
-    category: ProtocolFileCategory
-  ) => {
-    await addProtocolFileAction({
-      protocolId: protocol._id,
-      fileId,
-      fileCategory: category,
-    });
-  };
-
   const getFileById = (fileId: string) =>
     files.find((file) => file._id == fileId);
 
@@ -71,10 +60,7 @@ const ProtocolUploadsPanel = (props: Props) => {
               fileCategory={category}
             />
           ))}
-          <UploadFileForm
-            category={category}
-            onFileUpload={onProtocolFileUploaded}
-          />
+          <UploadFileForm category={category} />
         </div>
       ))}
     </>

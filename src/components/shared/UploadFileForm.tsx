@@ -1,20 +1,27 @@
 "use client";
 
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
+import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 import { Button, DataLoader } from "@/components/shared";
+import { useProtocol } from "@/context/ProtocolContext";
 import { useToast } from "@/hooks/useToast";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { useCallback, useState } from "react";
+import { use, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 
 type Props = {
   category?: ProtocolFileCategory;
-  onFileUpload?: (fileId: string, category: ProtocolFileCategory) => void;
 };
 
-const UploadFileForm = ({ category, onFileUpload }: Props) => {
+const UploadFileForm = ({ category }: Props) => {
   const { toast } = useToast();
-  const [isPending, setPending] = useState<boolean>(false);
+  const [isPending, setPending] = useState(false);
+  const { protocolPromise } = useProtocol();
+  const protocol = use(protocolPromise);
+
+  if (!protocol) {
+    return <div>Nie znaleziono protokołu</div>;
+  }
 
   const uploadFile = useCallback(
     async (file: File) => {
@@ -22,7 +29,12 @@ const UploadFileForm = ({ category, onFileUpload }: Props) => {
 
       try {
         const insertedId = await uploadFileAction(file);
-        onFileUpload?.(insertedId, category!);
+
+        await addProtocolFileAction({
+          protocolId: protocol._id,
+          fileId: insertedId,
+          fileCategory: category!,
+        });
 
         toast({
           title: "Sukces",
@@ -39,7 +51,7 @@ const UploadFileForm = ({ category, onFileUpload }: Props) => {
         setPending(false);
       }
     },
-    [toast, onFileUpload, category]
+    [toast, category]
   );
 
   const onDrop = useCallback(

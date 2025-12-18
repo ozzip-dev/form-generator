@@ -1,3 +1,5 @@
+"use client";
+
 import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
@@ -23,11 +25,11 @@ export const handleAddProtocol = async (
       disputeStartDate: disputeStartDate as string,
     });
 
-    console.log("resp", resp);
-
     if (resp?.validationErrors) {
       setClientErrors(resp.validationErrors, setError);
       return;
     }
-  } catch (error) {}
+  } catch (err) {
+    console.error("createProtocol failed", err);
+  }
 };
