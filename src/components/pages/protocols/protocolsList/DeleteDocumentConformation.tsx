@@ -1,4 +1,4 @@
-import { removeProtocolFile } from "@/actions/protocol/removeProtocolFile";
+import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFile.Action";
 import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import { ProtocolFileCategory } from "@/types/protocol";
@@ -17,7 +17,7 @@ const DeleteDocumentConformation = () => {
   const onRemoveFile = async () => {
     try {
       setLoading(true);
-      await removeProtocolFile(
+      await removeProtocolFileAction(
         protocolId,
         fileId,
         category as ProtocolFileCategory

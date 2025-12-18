@@ -2,10 +2,10 @@
 
 import { removeFile } from "@/services/file-service";
 import { removeFileFromProtocol } from "@/services/protocol-service";
-import { ProtocolFileCategory} from "@/types/protocol";
+import { ProtocolFileCategory } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 
-export async function removeProtocolFile(
+export async function removeProtocolFileAction(
   protocolId: string,
   fileId: string,
   fileCategory: ProtocolFileCategory
@@ -16,15 +16,14 @@ export async function removeProtocolFile(
       fileId,
       fileCategory,
       // fileType
-    })
+    });
 
-    const { deletedCount } = await removeFile(fileId)
-    
-    if (!deletedCount) throw new Error('Invalid id, file not deleted')
+    const { deletedCount } = await removeFile(fileId);
+
+    if (!deletedCount) throw new Error("Invalid id, file not deleted");
 
     revalidateTag("protocols");
-
-  } catch(_) {
-    throw new Error('Failed to remove file from protocol')
+  } catch (_) {
+    throw new Error("Failed to remove file from protocol");
   }
 }

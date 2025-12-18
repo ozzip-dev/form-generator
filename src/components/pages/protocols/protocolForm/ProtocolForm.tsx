@@ -8,7 +8,7 @@ import {
 } from "@/lib/zodSchema/protocolFormSchema";
 import { ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 
 const dataInputsProtocolForm = [
@@ -63,7 +63,10 @@ const dataCheckboxOptions = [
 
 type Props = {
   mode: "addProtocol" | "editProtocol";
-  onSubmit: (data: ProtocolFormSchema, setError: any) => Promise<void>;
+  onSubmit: (
+    data: ProtocolFormSchema,
+    setError: UseFormSetError<ProtocolFormSchema>
+  ) => Promise<void>;
   protocol?: Partial<ProtocolSerialized>;
   handlePrintForm?: () => void;
 };

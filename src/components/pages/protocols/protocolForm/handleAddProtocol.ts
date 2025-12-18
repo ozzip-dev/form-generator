@@ -3,10 +3,11 @@
 import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
+import { UseFormSetError } from "react-hook-form";
 
 export const handleAddProtocol = async (
   data: ProtocolFormSchema,
-  setError: any
+  setError: UseFormSetError<ProtocolFormSchema>
 ) => {
   const {
     branch,
