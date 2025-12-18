@@ -1,16 +1,11 @@
 import { removeProtocolFile } from "@/actions/protocol/removeProtocolFile";
-import { Button, DataLoader } from "@/components/shared";
+import { Button } from "@/components/shared";
 import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
-import {
-  Dispatch,
-  SetStateAction,
-  startTransition,
-  useActionState,
-  useState,
-} from "react";
+import { useQueryState } from "nuqs";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   file: Partial<FileSerialized>;
@@ -21,29 +16,32 @@ type Props = {
 
 const ProtocolAttachedFile = (props: Props) => {
   const { toast } = useToast();
+  const [, setModal] = useQueryState("modal");
 
   const onRemoveFile = async () => {
-    try {
-      props.setGlobalLoader(true);
-      await removeProtocolFile(
-        props.protocolId,
-        props.file._id!,
-        props.fileCategory
-      );
-      toast({
-        title: "Sukces",
-        description: "Dokument usuniety",
-        variant: "success",
-      });
-    } catch (error) {
-      toast({
-        title: "Błąd",
-        description: `Dokument nie został usuniety. ${error}`,
-        variant: "error",
-      });
-    } finally {
-      props.setGlobalLoader(false);
-    }
+    setModal("delete");
+
+    // try {
+    //   props.setGlobalLoader(true);
+    //   await removeProtocolFile(
+    //     props.protocolId,
+    //     props.file._id!,
+    //     props.fileCategory
+    //   );
+    //   toast({
+    //     title: "Sukces",
+    //     description: "Dokument usuniety",
+    //     variant: "success",
+    //   });
+    // } catch (error) {
+    //   toast({
+    //     title: "Błąd",
+    //     description: `Dokument nie został usuniety. ${error}`,
+    //     variant: "error",
+    //   });
+    // } finally {
+    //   props.setGlobalLoader(false);
+    // }
   };
 
   return (

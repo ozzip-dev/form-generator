@@ -1,4 +1,5 @@
 import { Button } from "@/components/shared";
+import { useQueryState } from "nuqs";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -6,6 +7,8 @@ type Props = {
 };
 
 const DeleteDocumentConformation = (props: Props) => {
+  const [, setModal] = useQueryState("modal");
+
   const handleDelete = () => {
     props.setModalOpen((prev) => !prev);
     console.log("hhhwha");
@@ -18,7 +21,7 @@ const DeleteDocumentConformation = (props: Props) => {
         <Button
           message="Anuluj"
           onClickAction={() => {
-            props.setModalOpen((prev) => !prev);
+            setModal(null);
           }}
         />
         <Button message="Usuń" onClickAction={handleDelete} />

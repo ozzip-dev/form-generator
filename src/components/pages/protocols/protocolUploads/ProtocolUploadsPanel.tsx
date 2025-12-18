@@ -1,11 +1,14 @@
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
+import { FullscreenLoader } from "@/components/shared";
 import UploadFileForm from "@/components/shared/UploadFileForm";
 import { useProtocol } from "@/context/ProtocolContext";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { use, useState, useTransition } from "react";
+import { use, useState } from "react";
 import { fileCategories, mapFileCategory } from "../utils";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
-import { FullscreenLoader } from "@/components/shared";
+import { useQueryState } from "nuqs";
+import ModalWrapper from "@/components/shared/ModalWrapper";
+import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;
@@ -13,9 +16,11 @@ type Props = {
 
 const ProtocolUploadsPanel = (props: Props) => {
   const [isGlobalLoader, setGlobalLoader] = useState(false);
+  const [modal, setModal] = useQueryState("modal");
   const { protocolPromise, filesPromise } = useProtocol();
   const protocol = use(protocolPromise);
   const files = use(filesPromise);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   if (!protocol || !files) {
     return <div>Nie znaleziono protokołu</div>;
@@ -35,9 +40,23 @@ const ProtocolUploadsPanel = (props: Props) => {
   const getFileById = (fileId: string) =>
     files.find((file) => file._id == fileId);
 
+  const handlePrintModal = () => {
+    setModal(null);
+  };
+
+  console.log("modal", modal);
+
   return (
     <>
       {isGlobalLoader && <FullscreenLoader />}
+      {modal === "delete" && (
+        <div>
+          <ModalWrapper isOpen={!!modal} onClose={handlePrintModal}>
+            <DeleteDocumentConformation setModalOpen={setModalOpen} />
+          </ModalWrapper>
+        </div>
+      )}
+
       {fileCategories.map((category) => (
         <div
           key={category}
