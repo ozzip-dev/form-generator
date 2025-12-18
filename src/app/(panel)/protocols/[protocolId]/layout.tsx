@@ -1,14 +1,19 @@
-import ProtocolsMenu from "@/components/pages/protocols/ProtocolsMenu";
+import { ProtocolContextProvider } from "@/context/ProtocolContext";
+import { getProtocolById } from "@/services/protocol-service";
 
-type Props = { children: React.ReactNode, params: Promise<{ protocolId: string }> };
+type Props = {
+  children: React.ReactNode;
+  params: Promise<{ protocolId: string }>;
+};
 
-export default async function ProtocolsLayout(props: Props) {
-  const { protocolId } = await props.params
+export default async function EditProtocolLayout(props: Props) {
+  const { protocolId } = await props.params;
+
+  const protocolPromise = getProtocolById(protocolId);
 
   return (
-    <>
-      <ProtocolsMenu protocolId={protocolId} />
+    <ProtocolContextProvider protocolPromise={protocolPromise}>
       <section>{props.children}</section>
-    </>
+    </ProtocolContextProvider>
   );
 }

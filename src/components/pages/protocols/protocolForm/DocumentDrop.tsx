@@ -25,87 +25,100 @@ type Props = {
   setDeleteModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const DocumentDrop = (props: Props) => {
+const DocumentDrop = ({
+  label,
+  setGlobalPending,
+  setDeleteModalOpen,
+}: Props) => {
   const { toast } = useToast();
   const [files, setFiles] = useState<UploadedFile[]>([]);
 
-  const uploadFile = async (file: File) => {
-    props.setGlobalPending(true);
-    setFiles((prevFiles) => {
-      return prevFiles.map((prevFile) => {
-        return prevFile.file === file
-          ? { ...prevFile, uploading: true, progress: 0 }
-          : prevFile;
+  const uploadFile = useCallback(
+    async (file: File) => {
+      setGlobalPending(true);
+      setFiles((prevFiles) => {
+        return prevFiles.map((prevFile) => {
+          return prevFile.file === file
+            ? { ...prevFile, uploading: true, progress: 0 }
+            : prevFile;
+        });
       });
-    });
 
-    console.log("uuuu");
+      console.log("uuuu");
 
-    try {
-      const resp = await uploadFileAction(file);
+      try {
+        const resp = await uploadFileAction(file);
 
-      toast({
-        title: "Sukces",
-        description: "Dokument dodany",
-        variant: "success",
+        toast({
+          title: "Sukces",
+          description: "Dokument dodany",
+          variant: "success",
+        });
+        setFiles((prev) => [
+          ...prev,
+          {
+            id: "pppppu",
+            file,
+            uploading: false,
+            progress: 100,
+            isDeleting: false,
+            error: false,
+            objectUrl: URL.createObjectURL(file),
+          },
+        ]);
+      } catch (error) {
+        toast({
+          title: "Błąd",
+          description: `Dokument nie zostałzapisany. ${error}`,
+          variant: "error",
+        });
+      } finally {
+        setGlobalPending(false);
+      }
+    },
+    [toast, setGlobalPending]
+  );
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles.length === 0) return;
+
+      acceptedFiles.forEach(uploadFile);
+    },
+    [uploadFile]
+  );
+
+  const onDropRejected = useCallback(
+    (rejectedFiles: FileRejection[]) => {
+      if (rejectedFiles.length === 0) return;
+
+      const toManyFiles = rejectedFiles.find((file) => {
+        console.log("toManyFiles", file.errors[0].code);
+        return file.errors[0].code === "too-many-files";
       });
-      setFiles((prev) => [
-        ...prev,
-        {
-          id: "pppppu",
-          file,
-          uploading: false,
-          progress: 100,
-          isDeleting: false,
-          error: false,
-          objectUrl: URL.createObjectURL(file),
-        },
-      ]);
-    } catch (error) {
-      toast({
-        title: "Błąd",
-        description: `Dokument nie zostałzapisany. ${error}`,
-        variant: "error",
+
+      const fileTooLarge = rejectedFiles.find((file) => {
+        console.log("fileTooLarge", file.errors[0].code);
+        return file.errors[0].code === "file-too-large";
       });
-    } finally {
-      props.setGlobalPending(false);
-    }
-  };
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles.length === 0) return;
-
-    acceptedFiles.forEach(uploadFile);
-  }, []);
-
-  const onDropRejected = useCallback((rejectedFiles: FileRejection[]) => {
-    if (rejectedFiles.length === 0) return;
-
-    const toManyFiles = rejectedFiles.find((file) => {
-      console.log("toManyFiles", file.errors[0].code);
-      return file.errors[0].code === "too-many-files";
-    });
-
-    const fileTooLarge = rejectedFiles.find((file) => {
-      console.log("fileTooLarge", file.errors[0].code);
-      return file.errors[0].code === "file-too-large";
-    });
-
-    if (toManyFiles) {
-      toast({
-        title: "Błąd ładowania",
-        description: "Maksymalnie 3 dokument",
-        variant: "error",
-      });
-    }
-    if (fileTooLarge) {
-      toast({
-        title: "Błąd ładowania",
-        description: "Maksymalnie 1024",
-        variant: "error",
-      });
-    }
-  }, []);
+      if (toManyFiles) {
+        toast({
+          title: "Błąd ładowania",
+          description: "Maksymalnie 3 dokument",
+          variant: "error",
+        });
+      }
+      if (fileTooLarge) {
+        toast({
+          title: "Błąd ładowania",
+          description: "Maksymalnie 1024",
+          variant: "error",
+        });
+      }
+    },
+    [toast]
+  );
 
   const {
     getRootProps,
@@ -123,18 +136,18 @@ const DocumentDrop = (props: Props) => {
   });
 
   const handlePrintModal = () => {
-    props.setDeleteModalOpen((prev) => !prev);
+    setDeleteModalOpen((prev) => !prev);
   };
 
   const handleDelete = () => {
-    props.setDeleteModalOpen((prev) => !prev);
+    setDeleteModalOpen((prev) => !prev);
     console.log("hhhwha");
   };
 
   return (
     <>
       <div className="flex gap-3 ">
-        <div className="ml-6">{props.label}</div>
+        <div className="ml-6">{label}</div>
         <div
           {...getRootProps()}
           className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2 ml-auto w- h-32"

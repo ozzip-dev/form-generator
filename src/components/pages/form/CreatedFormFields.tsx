@@ -4,15 +4,20 @@ import {
   RadioGroupField,
   TextareaFields,
 } from "@/components/shared";
-import CheckboxGroupFieldXX from "@/components/shared/inputs/checkboxField/CheckboxGroupField";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
-export const renderRadio = (
-  { id, header, description, required, options }: FormInput,
-  errors: FieldErrors<any>
-) => {
+export type RendererParams = {
+  input: FormInput;
+  errors?: FieldErrors<any>;
+  register?: UseFormRegister<any>;
+  control?: Control<any>;
+};
+
+export const renderRadio = ({ input, errors }: RendererParams) => {
+  const { id, header, description, required, options } = input;
+
   return (
     <RadioGroupField
       key={id}
@@ -27,11 +32,8 @@ export const renderRadio = (
   );
 };
 
-export const renderTextarea = (
-  { id, header, description, required }: FormInput,
-  errors: FieldErrors<any>,
-  register: UseFormRegister<any>
-) => {
+export const renderTextarea = ({ input, errors, register }: RendererParams) => {
+  const { id, header, description, required } = input;
   return (
     <TextareaFields
       key={id}
@@ -50,11 +52,9 @@ export const renderTextarea = (
   );
 };
 
-export const renderInput = (
-  { id, header, description, required, type }: FormInput,
-  errors: FieldErrors<any>,
-  register: UseFormRegister<any>
-) => {
+export const renderInput = ({ input, errors, register }: RendererParams) => {
+  const { id, header, description, required, type } = input;
+
   const placeholderTexts: Partial<Record<InputType, string>> = {
     number: "Numer",
     email: "Email",
@@ -81,13 +81,8 @@ export const renderInput = (
   );
 };
 
-export const renderCheckbox = (
-  { id, header, description, required, options }: FormInput,
-  errors: FieldErrors<any>,
-  register: UseFormRegister<any>,
-  control: Control<any>
-) => {
-  // console.log("options", options);
+export const renderCheckbox = ({ input, control }: RendererParams) => {
+  const { id, header, description, required, options } = input;
 
   const dataCheckboxOptions =
     options.map((option: FormOption) => ({
@@ -96,21 +91,14 @@ export const renderCheckbox = (
     })) ?? [];
 
   return (
-    <CheckboxGroupFieldXX
-      control={control}
-      name={id!}
+    <CheckboxGroupField
+      key={id}
       groupLabel={header}
+      groupDescription={description}
+      control={control!}
+      name={id!}
       options={dataCheckboxOptions}
+      required={required}
     />
-    // <CheckboxGroupField
-    //   key={id}
-    //   groupLabel={header}
-    //   groupDescription={description}
-    //   required={required}
-    //   name={id!}
-    //   options={dataCheckboxOptions}
-    //   control={control}
-    //   errorMsg={errors}
-    // />
   );
 };

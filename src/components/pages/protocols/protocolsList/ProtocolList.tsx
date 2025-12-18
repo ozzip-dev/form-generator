@@ -34,15 +34,15 @@ const ProtocolList = ({
 
   return (
     <div className="grid grid-cols-5 items-center">
-      {headers.map((header, i) => (
-        <div key={i} className="font-black">
+      {headers.map((header, idx) => (
+        <div key={idx} className="font-black">
           {header}
         </div>
       ))}
       <div></div>
 
-      {filteredResults.map((protocol, i) => (
-        <ProtocolListItem {...protocol} key={i} />
+      {filteredResults.map((protocol, idx) => (
+        <ProtocolListItem {...protocol} key={idx} />
       ))}
     </div>
   );

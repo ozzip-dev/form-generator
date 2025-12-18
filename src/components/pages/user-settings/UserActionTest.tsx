@@ -95,8 +95,8 @@ export default function UserDetailTest(props: Props) {
     setTouched({ ...touched, [name]: true });
 
     const formData = new FormData();
-    Object.entries(newValues).forEach(([k, v]) =>
-      formData.append(k, v as string)
+    Object.entries(newValues).forEach(([key, value]) =>
+      formData.append(key, value as string)
     );
 
     startTransition(() => clientAction(formData));

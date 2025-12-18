@@ -7,7 +7,7 @@ import { use } from "react";
 
 const dataNavLinks = [
   { text: "Formularze", link: "/dashboard-moderator" },
-  { text: "Protokoły", link: "/protocols/add" },
+  { text: "Protokoły", link: "/protocols/add-protocol" },
   { text: "Forum", link: "/forum" },
   { text: "Ustawienia", link: "/user-settings" },
 ];

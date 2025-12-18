@@ -70,7 +70,8 @@ The application was developed with grant support received in the grant competiti
 * TypeScript
 * Next.js
 * MongoDB
-* Tailwind 
+* Tailwind
+* Docker
 
 
 ## Libraries

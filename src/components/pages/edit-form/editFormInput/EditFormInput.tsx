@@ -15,7 +15,7 @@ import {
   EditInputFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
@@ -64,15 +64,17 @@ const EditFormInput = (props: Props) => {
     unique,
   } = props.input;
 
-  const defaultValues = {
-    header,
-    description,
-    options,
-    required,
-    unique,
-    type,
-  };
-
+  const defaultValues = useMemo(
+    () => ({
+      header,
+      description,
+      options,
+      required,
+      unique,
+      type,
+    }),
+    [header, description, options, required, unique, type]
+  );
   const methods = useForm<EditInputFormSchema>({
     resolver: zodResolver(editInputFormSchema),
     defaultValues,
@@ -89,15 +91,8 @@ const EditFormInput = (props: Props) => {
   } = methods;
 
   // useEffect(() => {
-  //   const subscription = watch((values) => {
-  //     console.log("Aktualne wartości:", values);
-  //   });
-  //   return () => subscription.unsubscribe();
-  // }, [watch]);
-
-  useEffect(() => {
-    console.log("FORM VALUES", methods.getValues());
-  }, [methods.watch()]);
+  //   console.log("FORM VALUES", methods.getValues());
+  // }, [methods.watch()]);
 
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
@@ -127,7 +122,7 @@ const EditFormInput = (props: Props) => {
 
   useEffect(() => {
     reset(defaultValues);
-  }, [header, description, options, required, unique, type, reset]);
+  }, [defaultValues, reset]);
 
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
 
@@ -135,7 +130,7 @@ const EditFormInput = (props: Props) => {
     <FormProvider {...methods}>
       <form className="mb-3">
         <div className="flex gap-2 items-center p-2 bg-slate-200">
-          {(isAnyLoading || isPending) && <FullscreenLoader />}
+          {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
               <InputFields

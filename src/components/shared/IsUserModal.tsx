@@ -28,7 +28,7 @@ const IsUserModal = () => {
     } else {
       setModalOpen(false);
     }
-  }, [pathname, tabParam]);
+  }, [pathname, tabParam, areUserDetails, noBlockedPath]);
 
   const handlePrintModal = () => {
     setModalOpen((prev) => !prev);

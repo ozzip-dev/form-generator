@@ -78,7 +78,7 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <>
-      {loadingForm && <FullscreenLoader />}
+      {/* {loadingForm && <FullscreenLoader />} */}
 
       <div className="p-4">
         <FormProvider {...methods}>

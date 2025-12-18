@@ -6,7 +6,7 @@ import { ProtocolInsertData } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function createProtocol({
+export async function createProtocolAction({
   branch,
   disputeReason,
   tradeUnionName,

@@ -1,20 +1,22 @@
+"use client";
+
 import { ProtocolMenuItem } from "@/types/protocol";
 import MenuLink from "../../shared/MenuLink";
+import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 
-type Props = {
-  protocolId?: string
-}
+const ProtocolsMenu = () => {
+  const protocolId = useSafeURLParam("protocolId");
 
-const ProtocolsMenu = ({ protocolId }: Props) => {
   const protocolBasicItems: ProtocolMenuItem[] = [
-    { text: "Dodaj protokół", link: '/protocols/add' },
-    { text: "Lista protokołów", link: `/protocols/protocols-list` }
-  ]
-
-  const dataNavLinks = !protocolId ? protocolBasicItems : [
-    { text: "Edytuj protokół", link: `/protocols/${protocolId}` },
-    ...protocolBasicItems
-  ]
+    { text: "Dodaj protokół", link: "/protocols/add-protocol" },
+    { text: "Lista protokołów", link: `/protocols/protocols-list` },
+  ];
+  const dataNavLinks = !protocolId
+    ? protocolBasicItems
+    : [
+        { text: "Edytuj protokół", link: `/protocols/${protocolId}` },
+        ...protocolBasicItems,
+      ];
 
   return (
     <div>

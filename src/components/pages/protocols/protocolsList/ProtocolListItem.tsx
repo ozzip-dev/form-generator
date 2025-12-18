@@ -7,9 +7,10 @@ import {
 } from "@/types/protocol";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import Link from "next/link";
-import { getProtocolDetails } from "@/actions/protocol/getProtocolDetails";
+
 import { Button, FullscreenLoader } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
+import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetails.Action";
 
 const ProtocolListItem = (protocol: ProtocolSerialized) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
@@ -20,7 +21,7 @@ const ProtocolListItem = (protocol: ProtocolSerialized) => {
       setDetails(null);
       return null;
     }
-    const result = await getProtocolDetails(_id);
+    const result = await getProtocolDetailsAction(_id);
     if (result) setDetails(result);
     return result;
   }, null);
