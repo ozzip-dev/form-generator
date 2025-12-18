@@ -1,17 +1,44 @@
+import { removeProtocolFile } from "@/actions/protocol/removeProtocolFile";
 import { Button } from "@/components/shared";
+import { useToast } from "@/hooks/useToast";
+import { ProtocolFileCategory } from "@/types/protocol";
 import { useQueryState } from "nuqs";
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 
-type Props = {
-  setModalOpen: Dispatch<SetStateAction<boolean>>;
-};
+const DeleteDocumentConformation = () => {
+  const [protocolId, setProtocolId] = useQueryState("protocolId");
+  const [fileId, setFileId] = useQueryState("fileId");
+  const [category, setCategory] = useQueryState("category");
+  const [isLoading, setLoading] = useState(false);
+  const { toast } = useToast();
 
-const DeleteDocumentConformation = (props: Props) => {
-  const [, setModal] = useQueryState("modal");
+  if (!protocolId || !fileId || !category) return null;
 
-  const handleDelete = () => {
-    props.setModalOpen((prev) => !prev);
-    console.log("hhhwha");
+  const onRemoveFile = async () => {
+    try {
+      setLoading(true);
+      await removeProtocolFile(
+        protocolId,
+        fileId,
+        category as ProtocolFileCategory
+      );
+      toast({
+        title: "Sukces",
+        description: "Dokument usuniety",
+        variant: "success",
+      });
+      setProtocolId(null);
+      setFileId(null);
+      setCategory(null);
+    } catch (error) {
+      toast({
+        title: "Błąd",
+        description: `Dokument nie został usuniety. ${error}`,
+        variant: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -21,10 +48,16 @@ const DeleteDocumentConformation = (props: Props) => {
         <Button
           message="Anuluj"
           onClickAction={() => {
-            setModal(null);
+            setProtocolId(null);
+            setFileId(null);
+            setCategory(null);
           }}
         />
-        <Button message="Usuń" onClickAction={handleDelete} />
+        <Button
+          message="Usuń"
+          onClickAction={onRemoveFile}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );
