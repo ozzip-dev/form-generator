@@ -1,7 +1,7 @@
 import { Button } from "@/components/shared";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { Dispatch, SetStateAction } from "react";
-import { fileCategories, mapFileCategory } from "../utils";
+import { fileCategories, mapFileCategory } from "../../utils";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;

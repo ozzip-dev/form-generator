@@ -1,7 +1,11 @@
 import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
+import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 
-export const handleAddProtocol = async (data: ProtocolFormSchema) => {
+export const handleAddProtocol = async (
+  data: ProtocolFormSchema,
+  setError: any
+) => {
   const {
     branch,
     tradeUnionName,
@@ -10,11 +14,20 @@ export const handleAddProtocol = async (data: ProtocolFormSchema) => {
     disputeReason,
   } = data;
 
-  await createProtocolAction({
-    branch,
-    disputeReason,
-    tradeUnionName,
-    workplaceName,
-    disputeStartDate: disputeStartDate as string,
-  });
+  try {
+    const resp = await createProtocolAction({
+      branch,
+      disputeReason,
+      tradeUnionName,
+      workplaceName,
+      disputeStartDate: disputeStartDate as string,
+    });
+
+    console.log("resp", resp);
+
+    if (resp?.validationErrors) {
+      setClientErrors(resp.validationErrors, setError);
+      return;
+    }
+  } catch (error) {}
 };

@@ -1,5 +1,5 @@
 import EditProtocol from "@/components/pages/protocols/editProtocol/EditProtocol";
-import ProtocolFileUploads from "@/components/pages/protocols/protocolUploads/ProtocolFileUploads";
+import ProtocolFileUploads from "@/components/pages/protocols/editProtocol/protocolUploads/ProtocolFileUploads";
 import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
 
 const EditProtocolPage = async () => {

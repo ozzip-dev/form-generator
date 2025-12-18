@@ -5,8 +5,8 @@ import { useProtocol } from "@/context/ProtocolContext";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { useQueryState } from "nuqs";
 import { use } from "react";
-import DeleteDocumentConformation from "../protocolsList/DeleteDocumentConformation";
-import { fileCategories, mapFileCategory } from "../utils";
+import DeleteDocumentConformation from "../../protocolsList/DeleteDocumentConformation";
+import { fileCategories, mapFileCategory } from "../../utils";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
 
 type Props = {

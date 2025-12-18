@@ -64,7 +64,7 @@ const dataCheckboxOptions = [
 
 type Props = {
   mode: "addProtocol" | "editProtocol";
-  onSubmit: (data: ProtocolFormSchema) => Promise<void>;
+  onSubmit: (data: ProtocolFormSchema, setError: any) => Promise<void>;
   protocol?: Partial<ProtocolSerialized>;
   handlePrintForm?: () => void;
 };
@@ -86,17 +86,14 @@ const ProtocolForm = (props: Props) => {
     control,
     handleSubmit,
     formState: { isSubmitting, errors },
+    setError,
   } = methods;
-
-  // useEffect(() => {
-  //   console.log("FORM VALUES", methods.getValues());
-  // }, [methods.watch()]);
 
   return (
     <>
       <form
         onSubmit={handleSubmit(async (data) => {
-          await props.onSubmit(data);
+          await props.onSubmit(data, setError);
         })}
       >
         <InputFields
