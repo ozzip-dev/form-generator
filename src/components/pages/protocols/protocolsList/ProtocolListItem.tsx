@@ -1,6 +1,13 @@
 "use client";
 
-import { useActionState, useState, startTransition } from "react";
+import {
+  useActionState,
+  useState,
+  startTransition,
+  SetStateAction,
+  Dispatch,
+  useEffect,
+} from "react";
 import {
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
@@ -12,7 +19,12 @@ import { Button, FullscreenLoader } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetails.Action";
 
-const ProtocolListItem = (protocol: ProtocolSerialized) => {
+type Props = {
+  setPending: Dispatch<SetStateAction<boolean>>;
+  protocol: ProtocolSerialized;
+};
+
+const ProtocolListItem = ({ setPending, protocol }: Props) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
     null
   );
@@ -26,12 +38,15 @@ const ProtocolListItem = (protocol: ProtocolSerialized) => {
     return result;
   }, null);
 
+  useEffect(() => {
+    setPending(isPending);
+  }, [isPending, setPending]);
+
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
     protocol;
 
   return (
     <>
-      {isPending && <FullscreenLoader />}
       <div className="contents">
         <div>{branch}</div>
         <div>{tradeUnionName}</div>
