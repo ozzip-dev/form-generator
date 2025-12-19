@@ -1,8 +1,8 @@
 "use client";
 import { use, useState } from "react";
-import ProtocolDetails from "../ProtocolDetails";
+import ProtocolDetails from "./ProtocolDetails";
 import ProtocolForm from "../protocolForm/ProtocolForm";
-import { handleEditProtocol } from "./handleEditProtocol";
+import { handleEditProtocol } from "../protocolForm/handleEditProtocol";
 import { useProtocol } from "@/context/ProtocolContext";
 
 const EditProtocol = () => {

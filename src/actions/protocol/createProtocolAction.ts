@@ -2,9 +2,12 @@
 
 import { db } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
+import { requireUser } from "@/services/user-service";
 import { ProtocolInsertData } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
+import { protocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
+import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 
 export async function createProtocolAction({
   branch,
@@ -12,7 +15,23 @@ export async function createProtocolAction({
   tradeUnionName,
   workplaceName,
   disputeStartDate,
-}: ProtocolInsertData): Promise<void> {
+}: ProtocolInsertData): Promise<void | { validationErrors: ValidationErrors }> {
+  requireUser();
+
+  const data = {
+    branch,
+    tradeUnionName,
+    workplaceName,
+    disputeStartDate,
+    disputeReason,
+  };
+
+  const validationResult = protocolFormSchema.safeParse(data);
+
+  if (!validationResult.success) {
+    return { validationErrors: validationResult.error.flatten().fieldErrors };
+  }
+
   let protocolId = "";
   try {
     protocolId = await addProtocol(db, {

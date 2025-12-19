@@ -1,11 +1,9 @@
-"use client";
-
-import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
+import { editProtocolAction } from "@/actions/protocol/editProtocolAction";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 import { UseFormSetError } from "react-hook-form";
 
-export const handleAddProtocol = async (
+export const handleEditProtocol = async (
   data: ProtocolFormSchema,
   setError: UseFormSetError<ProtocolFormSchema>
 ) => {
@@ -18,19 +16,18 @@ export const handleAddProtocol = async (
   } = data;
 
   try {
-    const resp = await createProtocolAction({
+    const resp = await editProtocolAction({
       branch,
       disputeReason,
       tradeUnionName,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
     });
-
     if (resp?.validationErrors) {
       setClientErrors(resp.validationErrors, setError);
       return;
     }
   } catch (err) {
-    console.error("createProtocol failed", err);
+    console.error("edit Protocol failed", err);
   }
 };

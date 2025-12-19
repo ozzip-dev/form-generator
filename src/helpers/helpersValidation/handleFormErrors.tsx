@@ -45,6 +45,7 @@ export const setClientErrors = <T extends FieldValues>(
   setError: UseFormSetError<T>
 ) => {
   Object.entries(errors).forEach(([field, error]) => {
+    console.log("field", field, error);
     setError(field as Path<T>, {
       type: "server",
       message: resolveErrorMessage(error),
