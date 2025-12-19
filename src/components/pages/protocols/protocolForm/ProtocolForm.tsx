@@ -10,7 +10,7 @@ import { ProtocolInsertData, ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 
 const dataInputsProtocolForm = [
   {

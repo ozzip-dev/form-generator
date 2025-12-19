@@ -45,7 +45,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
         setPending(false);
       }
     },
-    [toast, category]
+    [toast, category, protocol._id]
   );
 
   const onDrop = useCallback(
