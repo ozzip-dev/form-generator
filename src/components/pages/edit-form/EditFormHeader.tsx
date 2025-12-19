@@ -80,7 +80,7 @@ export default function EditFormHeader(props: Props) {
     <>
       {/* {loadingForm && <FullscreenLoader />} */}
 
-      <div className="p-4">
+      <div className="p-4 bg-accent">
         <FormProvider {...methods}>
           <form className="mt-4 space-y-2">
             <div className="w-80 mb-10">
