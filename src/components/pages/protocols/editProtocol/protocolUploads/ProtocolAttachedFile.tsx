@@ -1,8 +1,10 @@
+import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFile.Action";
 import { Button } from "@/components/shared";
+import { confirmAction } from "@/helpers/confirmAction";
+import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { useQueryState } from "nuqs";
 
 type Props = {
   file: Partial<FileSerialized>;
@@ -11,14 +13,34 @@ type Props = {
 };
 
 const ProtocolAttachedFile = (props: Props) => {
-  const [, setProtocolId] = useQueryState("protocolId");
-  const [, setFileId] = useQueryState("fileId");
-  const [, setCategory] = useQueryState("category");
+  const { toast } = useToast();
 
   const printModal = async () => {
-    setProtocolId(props.protocolId);
-    setFileId(props.file._id!);
-    setCategory(props.fileCategory);
+    try {
+      const { protocolId, file, fileCategory } = props;
+      // TODO: przemyslec czy nie przeniesść toast do confirm modal
+      // i dać opcjonalne propsy z tekstem
+      await removeProtocolFileAction(
+        protocolId,
+        file._id as string,
+        fileCategory
+      );
+      toast({
+        title: "Sukces",
+        description: "Dokument usuniety",
+        variant: "success",
+      });
+    } catch (error) {
+      toast({
+        title: "Błąd",
+        description: `Dokument nie został usuniety. ${error}`,
+        variant: "error",
+      });
+    }
+  };
+
+  const onRemoveFile = async () => {
+    await confirmAction(printModal, "Czy na pewno usunąć wybrany plik?");
   };
 
   return (
@@ -28,7 +50,7 @@ const ProtocolAttachedFile = (props: Props) => {
         type="button"
         icon={<IconTrash style="h-5 w-5 bg-white" />}
         className="!w-12 !bg-red-600"
-        onClickAction={printModal}
+        onClickAction={onRemoveFile}
       />
     </div>
   );

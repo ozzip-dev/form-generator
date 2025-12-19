@@ -3,13 +3,13 @@
 import { ReactNode } from "react";
 
 type ModalWrapperProps = {
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
   children: ReactNode;
 };
 
 export default function ModalWrapper({
-  isOpen,
+  isOpen = true,
   onClose,
   children,
 }: ModalWrapperProps) {
