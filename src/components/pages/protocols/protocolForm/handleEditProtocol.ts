@@ -4,6 +4,7 @@ import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 import { UseFormSetError } from "react-hook-form";
 
 export const handleEditProtocol = async (
+  protocolId: string,
   data: ProtocolFormSchema,
   setError: UseFormSetError<ProtocolFormSchema>
 ) => {
@@ -16,7 +17,8 @@ export const handleEditProtocol = async (
   } = data;
 
   try {
-    const resp = await editProtocolAction({
+    const resp = await editProtocolAction(protocolId,
+      {
       branch,
       disputeReason,
       tradeUnionName,
@@ -28,6 +30,6 @@ export const handleEditProtocol = async (
       return;
     }
   } catch (err) {
-    console.error("edit Protocol failed", err);
+    throw new Error(`edit Protocol failed: ${err}`);
   }
 };

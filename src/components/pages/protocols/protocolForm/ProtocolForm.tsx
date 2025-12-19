@@ -6,10 +6,11 @@ import {
   protocolFormSchema,
   ProtocolFormSchema,
 } from "@/lib/zodSchema/protocolFormSchema";
-import { ProtocolSerialized } from "@/types/protocol";
+import { ProtocolInsertData, ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
+import { useToast } from "@/hooks/useToast";
 
 const dataInputsProtocolForm = [
   {
@@ -72,6 +73,8 @@ type Props = {
 };
 
 const ProtocolForm = (props: Props) => {
+  const { toast } = useToast();
+
   if (props.mode === "editProtocol" && !props.protocol) {
     throw new Error("ProtocolForm: mode=editProtocol requires protocol");
   }
@@ -91,13 +94,29 @@ const ProtocolForm = (props: Props) => {
     setError,
   } = methods;
 
+  const onFormSubmit = async (data: ProtocolInsertData) => {
+    try {
+      await props.onSubmit(data, setError);
+      toast({
+        title: "Sukces",
+        description: "Protokół wyedytowany",
+        variant: "success",
+      });
+    } catch (e) {
+      console.log(1);
+      toast({
+        title: "Błąd edycji protokołu",
+        description: "Coś poszło nie tak",
+        variant: "error",
+      });
+    } finally {
+      props.handlePrintForm?.();
+    }
+  };
+
   return (
     <>
-      <form
-        onSubmit={handleSubmit(async (data) => {
-          await props.onSubmit(data, setError);
-        })}
-      >
+      <form onSubmit={handleSubmit(onFormSubmit)}>
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}
