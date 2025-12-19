@@ -19,7 +19,6 @@ export const protocolFormSchema = z.object({
   disputeStartDate: z
     .string()
     .trim()
-    .nullable()
     .refine((val) => !isNaN(Date.parse(val!)), "Data"),
 
   disputeReason: z.record(z.string()).superRefine((obj, ctx) => {

@@ -2,16 +2,21 @@
 
 import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { protocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
+import { editProtocol } from "@/services/protocol-service";
 import { requireUser } from "@/services/user-service";
 import { ProtocolInsertData } from "@/types/protocol";
+import { revalidateTag } from "next/cache";
 
-export const editProtocolAction = async ({
-  branch,
-  disputeReason,
-  tradeUnionName,
-  workplaceName,
-  disputeStartDate,
-}: ProtocolInsertData): Promise<void | {
+export const editProtocolAction = async (
+  protocolId: string,
+  {
+    branch,
+    disputeReason,
+    tradeUnionName,
+    workplaceName,
+    disputeStartDate,
+  }: ProtocolInsertData
+): Promise<void | {
   validationErrors: ValidationErrors;
 }> => {
   requireUser();
@@ -29,5 +34,7 @@ export const editProtocolAction = async ({
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
-  return;
+  await editProtocol(protocolId, data)
+
+  revalidateTag("protocols")
 };

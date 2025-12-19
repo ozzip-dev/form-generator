@@ -26,7 +26,9 @@ const EditProtocol = () => {
         <ProtocolForm
           mode="editProtocol"
           protocol={protocol}
-          onSubmit={handleEditProtocol}
+          onSubmit={(data, setError) =>
+            handleEditProtocol(protocol._id, data, setError)
+          }
           handlePrintForm={handlePrintForm}
         />
       )}
