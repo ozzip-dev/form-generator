@@ -81,9 +81,9 @@ const AddOption = (props: Props) => {
     });
   };
 
-  inputHasOther(props.input);
+  // inputHasOther(props.input);
 
-  console.log("  inputHasOther(props.input)", inputHasOther(props.input));
+  // console.log("  inputHasOther(props.input)", inputHasOther(props.input));
 
   // const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
 

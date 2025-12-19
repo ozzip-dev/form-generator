@@ -1,15 +1,10 @@
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
-import {
-  Button,
-  FullscreenLoader,
-  InputFields,
-  TextareaFields,
-} from "../../../shared";
-import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+import { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
+import { Button, FullscreenLoader, TextareaFields } from "../../../shared";
 
 const dataInputDescription = [
   {
@@ -27,6 +22,8 @@ type Props = {
 };
 
 const EditFormDescriptionInput = (props: Props) => {
+  const [isDeleting, setDeleting] = useState(false);
+
   const [isDescriptionInput, setDescriptionInput] = useState(
     !!props.description
   );
@@ -51,21 +48,24 @@ const EditFormDescriptionInput = (props: Props) => {
 
   const printDescriptionInput = () => {
     setDescriptionInput((prev) => !prev);
+    setDeleting(false);
+  };
+  const handleRemoveDescriptionInput = () => {
+    setDeleting(true);
+    handleEditLabel("description", "");
   };
 
-  const handleRemoveDescriptionInput = async () => {
-    setDescriptionInput((prev) => !prev);
+  const isRemoveLoading = isDeleting && isLoading?.description === true;
 
-    if (!props.description) return;
-
-    await handleEditLabel("description", "");
-  };
-
-  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+  useEffect(() => {
+    if (isRemoveLoading) {
+      setDescriptionInput((prev) => !prev);
+    }
+  }, [isRemoveLoading]);
 
   return (
     <>
-      {loadingForm && <FullscreenLoader />}
+      {isRemoveLoading && <FullscreenLoader />}
       {props.description || isDescriptionInput ? (
         <div className="flex gap-2">
           <TextareaFields

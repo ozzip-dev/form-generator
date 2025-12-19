@@ -101,7 +101,7 @@ export default function EditFormHeader(props: Props) {
                 register={register}
                 errorMsg={errors}
                 onChange={handleEdit}
-                isLoading={isLoading}
+                // isLoading={isLoading}
               />
 
               <TextareaFields

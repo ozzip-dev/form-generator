@@ -57,7 +57,6 @@ export function useEditForm({
           const resp = await action(formId, ...args);
 
           if (resp?.validationErrors && setError) {
-            console.log("resp?.validationErrors", resp?.validationErrors);
 
             setClientErrors(resp.validationErrors, setError);
             return;
@@ -75,12 +74,7 @@ export function useEditForm({
     [formId, inputId, trigger, action, mode, setError, showBoundary]
   );
 
-  // useEffect(() => {
-  //   return () => {
-  //     debounceMap.current.forEach(clearTimeout);
-  //     debounceMap.current.clear();
-  //   };
-  // }, []);
+
 
   useEffect(() => {
     const map = debounceMap.current;

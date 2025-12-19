@@ -12,11 +12,7 @@ export const editInputFormSchema = z
       .min(2, "Min. 2 znaki")
       .max(200, "Maks. 200 znaków"),
 
-    description: z
-      .string()
-      .trim()
-      .min(2, "Min. 2 znaki")
-      .max(1000, "Maks. 1000 znaków"),
+    description: z.string().trim().max(1000, "Maks. 1000 znaków"),
 
     options: z.array(optionSchema).superRefine((options, ctx) => {
       const seen = new Map<string, number>();

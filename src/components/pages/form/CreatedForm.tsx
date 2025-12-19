@@ -128,7 +128,9 @@ const CreatedForm = (props: Props) => {
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="w-4/5">
         <h1 className="text-4xl">{title}</h1>
-        {description && <h2 className="text-2xl">{description}</h2>}
+        {description && (
+          <h2 className="text-2xl whitespace-pre-wrap">{description}</h2>
+        )}
         <div className="text-red-600 text-sm mb-6">* Odpowiedź wymagana</div>
         <FormProvider {...methods}>
           <form

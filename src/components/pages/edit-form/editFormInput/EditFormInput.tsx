@@ -138,7 +138,7 @@ const EditFormInput = (props: Props) => {
                 register={register}
                 errorMsg={errors.header as any}
                 onChange={handleEditLabel}
-                isLoading={isLoadingLabel}
+                // isLoading={isLoadingLabel}
               />
 
               <EditFormDescriptionInput
