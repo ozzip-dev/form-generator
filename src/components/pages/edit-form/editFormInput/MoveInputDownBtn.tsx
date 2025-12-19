@@ -10,7 +10,7 @@ type Props = {
 const MoveInputDownBtn = (props: Props) => {
   const { formId } = useParams();
 
-  const [state, moveDown, isPending] = useActionState(async () => {
+  const [_, moveDown, isPending] = useActionState(async () => {
     await moveInputDownAction(formId as string, props.inputId);
   }, null);
 

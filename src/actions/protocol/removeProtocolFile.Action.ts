@@ -5,7 +5,7 @@ import { removeFileFromProtocol } from "@/services/protocol-service";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 
-export async function removeProtocolFile(
+export async function removeProtocolFileAction(
   protocolId: string,
   fileId: string,
   fileCategory: ProtocolFileCategory

@@ -1,55 +1,51 @@
-import { removeProtocolFile } from "@/actions/protocol/removeProtocolFile";
-import { Button, DataLoader } from "@/components/shared";
+import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFile.Action";
+import { Button } from "@/components/shared";
+import { confirmAction } from "@/helpers/confirmAction";
 import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
-import { useState } from "react";
 
 type Props = {
-  file: Partial<FileSerialized>
-  protocolId: string
-  fileCategory: ProtocolFileCategory
-}
+  file: Partial<FileSerialized>;
+  protocolId: string;
+  fileCategory: ProtocolFileCategory;
+};
 
-const ProtocolAttachedFile = ({ file, protocolId, fileCategory } : Props) => {
-  const [isPending, setPending] = useState<boolean>(false);
-  const { toast } = useToast()  
-  const onRemoveFile = async () => {
-    setPending(true);
+const ProtocolAttachedFile = (props: Props) => {
+  const { toast } = useToast();
 
+  const printModal = async () => {
     try {
-      await removeProtocolFile(
+      const { protocolId, file, fileCategory } = props;
+      // TODO: przemyslec czy nie przeniesść toast do confirm modal
+      // i dać opcjonalne propsy z tekstem
+      await removeProtocolFileAction(
         protocolId,
-        file._id!,
+        file._id as string,
         fileCategory
-      )
-
+      );
       toast({
         title: "Sukces",
         description: "Dokument usuniety",
         variant: "success",
       });
     } catch (error) {
-      setPending(false);
       toast({
         title: "Błąd",
         description: `Dokument nie został usuniety. ${error}`,
         variant: "error",
       });
     }
+  };
 
-    setPending(false);
-  }
+  const onRemoveFile = async () => {
+    await confirmAction(printModal, "Czy na pewno usunąć wybrany plik?");
+  };
 
   return (
     <div className="flex gap-4 items-center">
-      {isPending && (
-        <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center">
-          <DataLoader />
-        </div>
-      )}
-      <div>{file.name}</div>
+      <div>{props.file.name}</div>
       <Button
         type="button"
         icon={<IconTrash style="h-5 w-5 bg-white" />}

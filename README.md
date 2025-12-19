@@ -82,10 +82,11 @@ The application was developed with grant support received in the grant competiti
 * react-dropzone
 * react-error-boundary
 * nodemailer
+* nuqs
 
 
 ## Hooks
-* use, useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useCallback, useContext, custom hooks
+* use, useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useQueryState, useCallback, useContext, custom hooks
 
 ## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn

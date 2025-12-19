@@ -1,22 +1,34 @@
 "use client";
 
-import { useActionState, useState, startTransition } from "react";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import {
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import Link from "next/link";
+import {
+  Dispatch,
+  SetStateAction,
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
 
-import { Button, FullscreenLoader } from "@/components/shared";
-import ProtocolListItemDetails from "./ProtocolListItemDetails";
 import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetails.Action";
+import { Button } from "@/components/shared";
+import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
-const ProtocolListItem = (protocol: ProtocolSerialized) => {
+type Props = {
+  setPending: Dispatch<SetStateAction<boolean>>;
+  protocol: ProtocolSerialized;
+};
+
+const ProtocolListItem = ({ setPending, protocol }: Props) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
     null
   );
-  const [_state, fetchDetails, isPending] = useActionState(async () => {
+  const [_, fetchDetails, isPending] = useActionState(async () => {
     if (details) {
       setDetails(null);
       return null;
@@ -26,12 +38,15 @@ const ProtocolListItem = (protocol: ProtocolSerialized) => {
     return result;
   }, null);
 
+  useEffect(() => {
+    setPending(isPending);
+  }, [isPending, setPending]);
+
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
     protocol;
 
   return (
     <>
-      {isPending && <FullscreenLoader />}
       <div className="contents">
         <div>{branch}</div>
         <div>{tradeUnionName}</div>

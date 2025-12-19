@@ -1,26 +1,31 @@
 "use client";
 
+import { FileSerialized } from "@/types/file";
 import { ProtocolSerialized } from "@/types/protocol";
 import React, { createContext, useContext } from "react";
 
-type ProtocolContextType = {
+type ProtocolContextValue = {
   protocolPromise: Promise<ProtocolSerialized | null>;
+  filesPromise: Promise<Partial<FileSerialized>[]>;
 };
 
-type ProtocolClient = ProtocolSerialized;
+export const ProtocolContext = createContext<ProtocolContextValue | null>(null);
 
-export const ProtocolContext = createContext<ProtocolContextType | null>(null);
-
-export function ProtocolContextProvider({
-  protocolPromise,
-  children,
-}: {
-  protocolPromise: Promise<ProtocolClient | null>;
+type Props = {
+  protocolPromise: Promise<ProtocolSerialized | null>;
+  filesPromise: Promise<Partial<FileSerialized>[]>;
   children: React.ReactNode;
-}) {
+};
+
+export function ProtocolContextProvider(props: Props) {
   return (
-    <ProtocolContext.Provider value={{ protocolPromise }}>
-      {children}
+    <ProtocolContext.Provider
+      value={{
+        protocolPromise: props.protocolPromise,
+        filesPromise: props.filesPromise,
+      }}
+    >
+      {props.children}
     </ProtocolContext.Provider>
   );
 }

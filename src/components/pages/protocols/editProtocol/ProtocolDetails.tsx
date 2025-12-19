@@ -2,7 +2,7 @@ import { Button } from "@/components/shared";
 import { useProtocol } from "@/context/ProtocolContext";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
-import { mapDisputeReason } from "./utils";
+import { mapDisputeReason } from "../utils";
 
 type Props = {
   handlePrintForm: () => void;
