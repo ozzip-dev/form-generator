@@ -3,25 +3,19 @@
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 import { Button, DataLoader } from "@/components/shared";
-import { useProtocol } from "@/context/ProtocolContext";
 import { useToast } from "@/hooks/useToast";
-import { ProtocolFileCategory } from "@/types/protocol";
-import { use, useCallback, useState } from "react";
+import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 
 type Props = {
-  category?: ProtocolFileCategory;
+  category: ProtocolFileCategory;
+  protocol: ProtocolSerialized;
 };
 
-const UploadFileForm = ({ category }: Props) => {
+const UploadFileForm = ({ category, protocol }: Props) => {
   const { toast } = useToast();
   const [isPending, setPending] = useState(false);
-  const { protocolPromise } = useProtocol();
-  const protocol = use(protocolPromise);
-
-  if (!protocol) {
-    return <div>Nie znaleziono protokołu</div>;
-  }
 
   const uploadFile = useCallback(
     async (file: File) => {

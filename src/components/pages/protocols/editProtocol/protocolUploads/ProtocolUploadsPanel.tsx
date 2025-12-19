@@ -40,7 +40,11 @@ const ProtocolUploadsPanel = (props: Props) => {
               fileCategory={category}
             />
           ))}
-          <UploadFileForm category={category} />
+          {!!protocol ? (
+            <UploadFileForm {...{ category, protocol }} />
+          ) : (
+            <div>Nie znaleziono protokołu</div>
+          )}
         </div>
       ))}
     </>
