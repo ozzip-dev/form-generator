@@ -1,7 +1,7 @@
-import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFile.Action";
+import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFileAction";
 import { Button } from "@/components/shared";
+import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
-import { useToast } from "@/hooks/useToast";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";

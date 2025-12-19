@@ -2,7 +2,7 @@
 
 import { signupAction } from "@/actions/auth/signupAction";
 import { Button, InputFields } from "@/components/shared";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import {
   signupSchema,
   SignupSchema,

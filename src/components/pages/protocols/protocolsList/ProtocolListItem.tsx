@@ -15,7 +15,7 @@ import {
   useState,
 } from "react";
 
-import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetails.Action";
+import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetailsAction";
 import { Button } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 

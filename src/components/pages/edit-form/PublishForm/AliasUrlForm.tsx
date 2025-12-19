@@ -2,8 +2,8 @@
 
 import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
 import { Button, InputFields } from "@/components/shared";
+import { useToast } from "@/context/ToastProvider";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { useToast } from "@/hooks/useToast";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";

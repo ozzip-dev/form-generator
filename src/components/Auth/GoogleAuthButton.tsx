@@ -1,9 +1,9 @@
 "use client";
 
-import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { authClient } from "@/lib/auth/auth-client";
 import { GoogleIcon } from "../shared/google-icon";
+import { useToast } from "@/context/ToastProvider";
 
 interface GoogleAuthButtonProps {
   action: "login" | "signup";
@@ -54,7 +54,7 @@ export const GoogleAuthButton = ({
       disabled={isLoading}
     >
       {isLoading ? (
-       <div>loading</div>
+        <div>loading</div>
       ) : (
         <>
           <GoogleIcon className="w-4 h-4" />

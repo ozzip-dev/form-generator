@@ -4,9 +4,8 @@ import { FormSerialized } from "@/types/form";
 import PublishFormButton from "./PublishFormButton";
 import { isDraft } from "@/helpers/formHelpers";
 import AliasUrlForm from "./AliasUrlForm";
-import { useToast } from "@/hooks/useToast";
 import { Button, ButtonLink } from "@/components/shared";
-import { redirect } from "next/navigation";
+import { useToast } from "@/context/ToastProvider";
 
 type Props = {
   form: FormSerialized;

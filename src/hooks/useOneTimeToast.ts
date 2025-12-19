@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 
 export type ModelToast = {
   param?: string | null;
