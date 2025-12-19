@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const optionSchema = z.object({
-  label: z.string().trim().min(2, "Min. 2 znaki").max(200, "Maks. 200 znaków"),
+  label: z.string().trim().min(1, "Min. 1 znak").max(200, "Maks. 200 znaków"),
 });
 
 export const editInputFormSchema = z
