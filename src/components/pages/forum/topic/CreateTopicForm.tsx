@@ -3,7 +3,7 @@
 import { addTopicAction } from "@/actions/forum/addTopicAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { TopicCategory } from "@/enums/forum";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import {
   createTopicSchema,
   CreateTopicSchema,

@@ -2,7 +2,7 @@
 
 import { addPostAction } from "@/actions/forum/addPostAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import {
   addPostSchema,
   AddPostSchema,

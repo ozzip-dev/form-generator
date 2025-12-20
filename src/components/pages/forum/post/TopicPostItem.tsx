@@ -1,7 +1,7 @@
 import { removePostAction } from "@/actions/forum/removePostAction";
 import { Button, DataLoader } from "@/components/shared";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { PostSerialized } from "@/types/forum";
 import { useState } from "react";
