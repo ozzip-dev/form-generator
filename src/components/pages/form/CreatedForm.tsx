@@ -16,7 +16,6 @@ import {
   renderInput,
   renderParagraph,
   renderRadio,
-  renderTextarea,
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
 import { useToast } from "@/context/ToastProvider";
@@ -104,7 +103,7 @@ const CreatedForm = (props: Props) => {
 
   const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
     text: renderInput,
-    superText: renderTextarea,
+    superText: renderInput,
     number: renderInput,
     email: renderInput,
     date: renderInput,

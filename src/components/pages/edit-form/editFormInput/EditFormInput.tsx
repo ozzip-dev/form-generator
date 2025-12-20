@@ -44,6 +44,7 @@ const dataInputTextarea = [
     name: `description`,
     placeholder: "Opis",
     label: "Edytuj opis",
+    type: "textarea",
   },
 ];
 
@@ -147,15 +148,14 @@ const EditFormInput = (props: Props) => {
               )}
 
               {type === InputType.PARAGRAPH && (
-                <TextareaFields
+                <InputFields
                   inputsData={dataInputTextarea}
                   register={register}
-                  errorMsg={errors.description as any}
+                  errorMsg={errors.header as any}
                   onChange={handleEditLabel}
                   // isLoading={isLoadingLabel}
                 />
               )}
-
               {type !== InputType.PARAGRAPH && (
                 <EditFormDescriptionInput
                   inputId={inputId as string}

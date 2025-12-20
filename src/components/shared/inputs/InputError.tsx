@@ -24,8 +24,7 @@ type Props = {
 };
 
 const InputError = (props: Props) => {
-  const msg = normalizeError(props?.errorMsg);
-  return <div className="text-xs text-red-500 h-4">{props?.errorMsg}</div>;
+  return <div className="text-xs text-red h-4">{props?.errorMsg}</div>;
 };
 
 export default InputError;

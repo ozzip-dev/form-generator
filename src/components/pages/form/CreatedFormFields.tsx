@@ -32,26 +32,6 @@ export const renderRadio = ({ input, errors }: RendererParams) => {
   );
 };
 
-export const renderTextarea = ({ input, errors, register }: RendererParams) => {
-  const { id, header, description, required } = input;
-  return (
-    <TextareaFields
-      key={id}
-      inputsData={[
-        {
-          label: header,
-          name: id!,
-          placeholder: "Odpowiedź",
-          description,
-          required,
-        },
-      ]}
-      register={register}
-      errorMsg={errors}
-    />
-  );
-};
-
 export const renderInput = ({ input, errors, register }: RendererParams) => {
   const { id, header, description, required, type } = input;
 
@@ -60,7 +40,9 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
     email: "Email",
     date: "",
   };
-  const placeholder: string = placeholderTexts[type] || "Odpowiedź";
+  const placeholder = placeholderTexts[type] || "Odpowiedź";
+
+  const inputType = type === "superText" ? "textarea" : type;
 
   return (
     <InputFields
@@ -70,7 +52,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
           label: header,
           name: id!,
           placeholder,
-          type,
+          type: inputType,
           description,
           required,
         },

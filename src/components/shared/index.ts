@@ -13,4 +13,4 @@ export { default as TextareaFields } from "./inputs/TextareaFields";
 export { default as CheckboxGroupField } from "./inputs/checkboxField/CheckboxGroupField";
 export { default as InputError } from "./inputs/InputError";
 export { default as RadioGroupField } from "./inputs/radioField/RadioGroupField";
-export { default as InputFields } from "./inputs/InputFields";
+export { default as InputFields } from "./inputs/inputFields/InputFields";
