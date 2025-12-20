@@ -1,10 +1,10 @@
 "use client";
 
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
-import { useToast } from "@/hooks/useToast";
 import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "@/actions/auth/signOutAction";
+import { useToast } from "@/context/ToastProvider";
 
 const ToastsData: ModelToast[] = [
   {

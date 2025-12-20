@@ -3,7 +3,7 @@
 import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import {
   ResetPasswordSchema,
   resetPasswordSchema,

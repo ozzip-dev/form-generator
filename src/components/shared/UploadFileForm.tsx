@@ -3,7 +3,7 @@
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
 import { Button, DataLoader } from "@/components/shared";
-import { useToast } from "@/hooks/useToast";
+import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
@@ -45,7 +45,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
         setPending(false);
       }
     },
-    [toast, category]
+    [toast, category, protocol._id]
   );
 
   const onDrop = useCallback(

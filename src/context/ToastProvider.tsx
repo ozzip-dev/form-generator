@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useContext } from "react";
 
 type Toast = {
   id: number;
@@ -64,4 +64,12 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
       </div>
     </ToastContext.Provider>
   );
+};
+
+export const useToast = () => {
+  const ctx = useContext(ToastContext);
+  if (!ctx) {
+    throw new Error("useToast must be used inside <ToastProvider>");
+  }
+  return ctx;
 };

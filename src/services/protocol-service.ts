@@ -10,6 +10,7 @@ import {
 import {
   Protocol,
   ProtocolFileCategory,
+  ProtocolInsertData,
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
@@ -135,4 +136,19 @@ export async function mapFilesToProtocol(
     ...serialiedProtocol,
     files,
   };
+}
+
+export async function editProtocol(
+  protocolId: string,
+  data: ProtocolInsertData,
+): Promise<void> {
+  const updateData = {
+    ...data,
+    disputeStartDate: new Date(data.disputeStartDate)
+  }
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $set: {
+      ...updateData,
+    },
+  });
 }

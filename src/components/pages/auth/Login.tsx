@@ -2,8 +2,8 @@
 
 import { loginAction } from "@/actions/auth/loginAction";
 import { Button, InputFields } from "@/components/shared";
+import { useToast } from "@/context/ToastProvider";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
-import { useToast } from "@/hooks/useToast";
 import {
   LoginSchema,
   loginSchema,

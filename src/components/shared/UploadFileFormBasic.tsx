@@ -1,9 +1,8 @@
-
 "use client";
 
 import { ChangeEvent, useRef } from "react";
 import { useForm } from "react-hook-form";
-import { useToast } from "@/hooks/useToast";
+
 import InputError from "@/components/shared/inputs/InputError";
 import {
   uploadProtocolSchema,
@@ -12,6 +11,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/shared";
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
+import { useToast } from "@/context/ToastProvider";
 
 /* Zostawiam na wszelki wypadek, gdyby z UploadFileForm były probnlemy np. na mobile */
 
