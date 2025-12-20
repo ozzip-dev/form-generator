@@ -80,9 +80,9 @@ export default function EditFormHeader(props: Props) {
     <>
       {/* {loadingForm && <FullscreenLoader />} */}
 
-      <div className="p-4 bg-accent">
+      <div className="p-4">
         <FormProvider {...methods}>
-          <form className="mt-4 space-y-2">
+          <form className="mt-4 space-y-2 rounded-md shadow-default  border border-default bg-bg_light">
             <div className="w-80 mb-10">
               <SelectFieldControler
                 name="type"

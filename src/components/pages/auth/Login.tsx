@@ -32,18 +32,21 @@ const dataInputsLogin = [
   {
     label: "Email",
     name: "email",
-    placeholder: "kamil@ozzip.com",
+    placeholder: "kamil@kamil.com",
     type: "email",
-    defaultValue: "user@user.com",
   },
   {
     label: "Hasło",
     name: "password",
     placeholder: "hasło",
     type: "password",
-    defaultValue: "123123123",
   },
 ];
+
+const defauldValues = {
+  email: "user@user.com",
+  password: "123123123",
+};
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
@@ -102,7 +105,7 @@ const Login = () => {
           <InputFields
             inputsData={dataInputsLogin}
             errorMsg={state.errors}
-            default={state?.inputs}
+            default={defauldValues}
           />
           <div className="flex items-center justify-end">
             <Link

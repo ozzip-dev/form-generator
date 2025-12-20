@@ -9,7 +9,7 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-accent_opacity">
       <div className="flex justify-between items-center">
         <p className="mb-4">
           <span>{user?.role}: </span>
