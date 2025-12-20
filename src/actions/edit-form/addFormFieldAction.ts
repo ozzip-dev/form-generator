@@ -1,5 +1,6 @@
 "use server";
 
+import { InputType } from "@/enums";
 import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { db, findById, updateById } from "@/lib/mongo";
 import { makeId } from "@/lib/utils";
@@ -20,9 +21,12 @@ function getNextOrder(form: Form): number {
 
 function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const { type, header, description, validation, options = [] } = input;
+
+  const idPrefix = !header ? description! : header;
+
   return {
     /* id: create from input's id + some number if ids are duplicated? or simply uuid? */
-    id: makeId(header),
+    id: makeId(idPrefix),
     type,
     header,
     description,
@@ -40,7 +44,7 @@ export async function addFormFieldAction(
 ): Promise<void | { validationErrors: ValidationErrors }> {
   await requireUser();
 
-  const { header, type } = input;
+  const { header, type, ...res } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });
 
   if (!validationResult.success) {
@@ -52,8 +56,15 @@ export async function addFormFieldAction(
     throw new Error("Nie znaleziono formularza");
   }
 
+  console.log("input", input);
+
+  const newInput =
+    type === InputType.PARAGRAPH
+      ? { description: header, header: "", type, ...res }
+      : input;
+
   const order = getNextOrder(draft as Form);
-  const inputData = mapInputDocToFormInputData(input, order);
+  const inputData = mapInputDocToFormInputData(newInput, order);
 
   const result: WithId<Document> | null = await updateById(
     db,

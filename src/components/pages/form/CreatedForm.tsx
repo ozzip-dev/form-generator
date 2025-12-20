@@ -14,6 +14,7 @@ import {
   renderCheckbox,
   RendererParams,
   renderInput,
+  renderParagraph,
   renderRadio,
   renderTextarea,
 } from "./CreatedFormFields";
@@ -109,6 +110,7 @@ const CreatedForm = (props: Props) => {
     date: renderInput,
     singleSelect: renderRadio,
     checkbox: renderCheckbox,
+    paragraph: renderParagraph,
   };
 
   const formFields = inputs

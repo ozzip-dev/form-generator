@@ -5,7 +5,11 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-import { FullscreenLoader, InputFields } from "@/components/shared";
+import {
+  FullscreenLoader,
+  InputFields,
+  TextareaFields,
+} from "@/components/shared";
 import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useEditForm } from "@/hooks/useEditForm";
@@ -24,16 +28,7 @@ import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
 import { startTransition, useActionState } from "react";
 import { InputType } from "@/enums";
-
-const dataSelectOptions = [
-  { label: "Odpowiedź krótka", value: "text" },
-  { label: "Odpowiedź długa", value: "superText" },
-  { label: "Email", value: "email" },
-  { label: "Data", value: "date" },
-  { label: "Numer", value: "number" },
-  { label: "Wybór pojedynczy", value: "singleSelect" },
-  { label: "Wybór wielokrotny", value: "checkbox" },
-];
+import { dataSelectOptions } from "../editFormData";
 
 const dataInputLabel = [
   {
@@ -41,6 +36,14 @@ const dataInputLabel = [
     name: `header`,
     placeholder: "Pytanie",
     label: "Edytuj pytanie",
+  },
+];
+
+const dataInputTextarea = [
+  {
+    name: `description`,
+    placeholder: "Opis",
+    label: "Edytuj opis",
   },
 ];
 
@@ -133,20 +136,35 @@ const EditFormInput = (props: Props) => {
           {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
-              <InputFields
-                inputsData={dataInputLabel}
-                register={register}
-                errorMsg={errors.header as any}
-                onChange={handleEditLabel}
-                // isLoading={isLoadingLabel}
-              />
+              {type !== InputType.PARAGRAPH && (
+                <InputFields
+                  inputsData={dataInputLabel}
+                  register={register}
+                  errorMsg={errors.header as any}
+                  onChange={handleEditLabel}
+                  // isLoading={isLoadingLabel}
+                />
+              )}
 
-              <EditFormDescriptionInput
-                inputId={inputId as string}
-                inputIdx={props.inputIdx}
-                description={description ?? ""}
-              />
-              {(type === "checkbox" || type === "singleSelect") && (
+              {type === InputType.PARAGRAPH && (
+                <TextareaFields
+                  inputsData={dataInputTextarea}
+                  register={register}
+                  errorMsg={errors.description as any}
+                  onChange={handleEditLabel}
+                  // isLoading={isLoadingLabel}
+                />
+              )}
+
+              {type !== InputType.PARAGRAPH && (
+                <EditFormDescriptionInput
+                  inputId={inputId as string}
+                  inputIdx={props.inputIdx}
+                  description={description ?? ""}
+                />
+              )}
+              {(type === InputType.CHECKBOX ||
+                type === InputType.SINGLE_SELECT) && (
                 <AddOption
                   inputIdx={props.inputIdx}
                   input={props.input}
@@ -167,10 +185,12 @@ const EditFormInput = (props: Props) => {
             </div>
           </div>
 
-          <div>
-            <RequiredToggleSwitch input={props.input} />
-            <UniqueToggleSwitch input={props.input} />
-          </div>
+          {type !== InputType.PARAGRAPH && (
+            <div>
+              <RequiredToggleSwitch input={props.input} />
+              <UniqueToggleSwitch input={props.input} />
+            </div>
+          )}
 
           <div className="flex flex-col justify-center gap-2 mb-auto">
             <div className="">
