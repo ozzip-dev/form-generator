@@ -1,17 +1,19 @@
 import { db, findAll } from "@/lib/mongo";
-import { serializeTopic } from "@/lib/serialize-utils";
 import { Topic } from "@/types/forum";
-import { TopicSerialized } from "@/types/forum";
 import CreateTopicForm from "./topic/CreateTopicForm";
 import TopicList from "./topic/TopicList";
+import { getTopicIds, getTopicWithPostCount } from "@/services/forum-service";
 
 const Forum = async () => {
   const topics = await findAll<Topic>(db, "topic");
-  const topicsSerialized: TopicSerialized[] = topics.map(serializeTopic);
+  const topicIds = await getTopicIds();
+  const topicsWithPostCount = await Promise.all(
+    topicIds.map(getTopicWithPostCount)
+  );
   return (
     <>
       <CreateTopicForm />
-      <TopicList topics={topicsSerialized} />
+      <TopicList topics={topicsWithPostCount} />
     </>
   );
 };

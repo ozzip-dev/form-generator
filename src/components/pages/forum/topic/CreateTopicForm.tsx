@@ -16,8 +16,8 @@ const topicInputData: { label: string; name: string; type: string }[] = [
 ];
 
 const categorySelectOptions = [
-  { label: "Wybor inspektora", value: TopicCategory.INSPECTOR },
-  { label: "Strajk", value: TopicCategory.STRIKE },
+  { label: "Formularz", value: TopicCategory.FORM },
+  { label: "Protokół", value: TopicCategory.PROTOCOL },
   { label: "Inne", value: TopicCategory.OTHER },
 ];
 

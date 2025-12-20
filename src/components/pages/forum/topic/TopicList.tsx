@@ -1,15 +1,15 @@
-import { TopicSerialized } from "@/types/forum";
-import TopicContainer from "./TopicContainer";
+import { TopicSerializedWithPostCount } from "@/types/forum";
+import TopicListItem from "./TopicListItem";
 
 type Props = {
-  topics: TopicSerialized[];
+  topics: TopicSerializedWithPostCount[];
 };
 
 const TopicList = (props: Props) => {
   return (
     <div>
-      {props.topics.map((item, idx) => (
-        <TopicContainer key={idx} topic={item} />
+      {props.topics.map((topic, idx) => (
+        <TopicListItem key={idx} {...topic} />
       ))}
     </div>
   );

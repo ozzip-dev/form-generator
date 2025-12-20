@@ -42,3 +42,12 @@ export interface TopicSerialized extends Document {
   createdAt: string;
   updatedAt: string;
 }
+
+export type TopicSerializedWithPostCount = TopicSerialized & {
+  postCount: number;
+};
+
+export type TopicSerializedDetailed = TopicSerialized & {
+  authorName: string;
+  posts: PostDetailed[];
+};
