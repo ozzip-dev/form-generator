@@ -5,13 +5,10 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-import {
-  FullscreenLoader,
-  InputFields,
-  TextareaFields,
-} from "@/components/shared";
 import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
+import { InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { InputType } from "@/enums";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import {
@@ -19,16 +16,14 @@ import {
   EditInputFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo } from "react";
+import { startTransition, useActionState, useEffect, useMemo } from "react";
+import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
-import { startTransition, useActionState } from "react";
-import { InputType } from "@/enums";
-import { dataSelectOptions } from "../editFormData";
 
 const dataInputLabel = [
   {

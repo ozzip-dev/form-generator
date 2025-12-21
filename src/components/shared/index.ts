@@ -9,7 +9,6 @@ export { default as LoadingError } from "./errors/LoadingError";
 export { default as LoadingPageError } from "./errors/LoadingPageError";
 export { default as SuspenseErrorBoundary } from "./errors/SuspenseErrorBoundary";
 
-export { default as TextareaFields } from "./inputs/TextareaFields";
 export { default as CheckboxGroupField } from "./inputs/checkboxField/CheckboxGroupField";
 export { default as InputError } from "./inputs/InputError";
 export { default as RadioGroupField } from "./inputs/radioField/RadioGroupField";

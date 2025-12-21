@@ -1,11 +1,7 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import {
-  FullscreenLoader,
-  InputFields,
-  TextareaFields,
-} from "@/components/shared";
+import { InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { FormType } from "@/enums/form";
 import { formTypesWithLabels } from "@/helpers/formHelpers";
@@ -37,7 +33,7 @@ const dataInputsFormDescription = [
     label: "Edytuj opis formularza",
     name: "description",
     placeholder: "Edytuj opis formularza",
-    type: "text",
+    type: "textarea",
   },
 ];
 
@@ -104,12 +100,12 @@ export default function EditFormHeader(props: Props) {
                 // isLoading={isLoading}
               />
 
-              <TextareaFields
+              <InputFields
                 inputsData={dataInputsFormDescription}
                 register={register}
                 errorMsg={errors}
                 onChange={handleEdit}
-                isLoading={isLoading}
+                // isLoading={isLoading}
               />
             </div>
           </form>
