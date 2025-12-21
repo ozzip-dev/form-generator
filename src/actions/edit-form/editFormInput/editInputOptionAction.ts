@@ -50,8 +50,6 @@ export const editInputOptionAction = async (
     (!hasOptionOther && !!options[optionIndex]) ||
     (hasOptionOther && isCurrentOptionOther);
 
-  console.log("isEdit", isEdit);
-
   const newOption = {
     value: isCurrentOptionOther ? OPTION_OTHER : makeId(inputId),
     label: inputLabel,
