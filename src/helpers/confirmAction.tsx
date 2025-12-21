@@ -1,12 +1,21 @@
 import { createRoot } from "react-dom/client";
 import ConfirmModal from "@/components/shared/ConfirmModal";
 
-export function confirmAction(
-  action: () => void | Promise<void>,
-  confirmText: string,
-  yesText?: string,
-  noText?: string
-): Promise<boolean> {
+type Props = {
+  action: (args?: unknown) => void | Promise<void>;
+  confirmText: string;
+  yesText?: string;
+  noText?: string;
+  args?: unknown;
+};
+
+export function confirmAction({
+  action,
+  confirmText,
+  yesText,
+  noText,
+  args,
+}: Props): Promise<boolean> {
   if (!document) return Promise.resolve(false);
   return new Promise((resolve) => {
     const container = document.createElement("div");
@@ -21,7 +30,9 @@ export function confirmAction(
     };
 
     root.render(
-      <ConfirmModal {...{ action, onClose, confirmText, yesText, noText }} />
+      <ConfirmModal
+        {...{ action, onClose, confirmText, yesText, noText, args }}
+      />
     );
   });
 }
