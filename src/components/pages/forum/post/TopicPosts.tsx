@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/shared";
-import { PostSerialized } from "@/types/forum";
+import { PostSerializedDetailed } from "@/types/forum";
 import { useState } from "react";
 import TopicPostList from "./TopicPostList";
 
 type Props = {
-  posts: PostSerialized[];
+  posts: PostSerializedDetailed[];
 };
 
 const TopicPosts = (props: Props) => {

@@ -1,8 +1,8 @@
-import { PostSerialized } from "@/types/forum";
+import { PostSerializedDetailed } from "@/types/forum";
 import TopicPostItem from "./TopicPostItem";
 
 type Props = {
-  posts: PostSerialized[];
+  posts: PostSerializedDetailed[];
 };
 
 const TopicPostList = (props: Props) => {

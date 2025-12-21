@@ -21,7 +21,6 @@ const TopicActionButtons = (topic: TopicSerialized) => {
   const user: UserSerialized | null = use(userPromise);
   const router = useRouter();
 
-  // TODO: remember to add also to server side checks
   const isAuthor = !!(user && isItemAuthor(user, topic));
 
   const successToast = (text: string) =>

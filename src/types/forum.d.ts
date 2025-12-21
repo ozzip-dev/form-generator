@@ -49,5 +49,9 @@ export type TopicSerializedWithPostCount = TopicSerialized & {
 
 export type TopicSerializedDetailed = TopicSerialized & {
   authorName: string;
-  posts: PostDetailed[];
+  posts: PostSerializedDetailed[];
+};
+
+export type PostSerializedDetailed = PostSerialized & {
+  authorName: string;
 };
