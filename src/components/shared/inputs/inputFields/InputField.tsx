@@ -10,6 +10,7 @@ type Props = {
     type: string;
     description?: string;
     required?: boolean;
+    dataAttribut?: string;
   };
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
@@ -18,7 +19,7 @@ type Props = {
 };
 
 const InputField = (props: Props) => {
-  const { name, placeholder, type } = props.inputData;
+  const { name, placeholder, type, dataAttribut } = props.inputData;
 
   return (
     <div>
@@ -44,6 +45,7 @@ const InputField = (props: Props) => {
           //     })
           //   : {})}
           name={name}
+          data-input={dataAttribut}
         />
 
         {props.isLoading?.[name] && <DataLoader size="sm" />}

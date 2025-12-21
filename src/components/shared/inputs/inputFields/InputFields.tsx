@@ -13,6 +13,7 @@ type TypeInputData = {
   defaultValue?: string;
   description?: string;
   required?: boolean;
+  dataAttribut?: string;
 };
 
 type Props = {
@@ -35,7 +36,7 @@ const InputFields = (props: Props) => {
         const { label, required, description, name, type } = inputData;
 
         return (
-          <div>
+          <div key={name}>
             {label && (
               <label className="text-lg block text-xl !important">
                 {label} {required && <span className="text-red">*</span>}
@@ -45,7 +46,6 @@ const InputFields = (props: Props) => {
 
             {type === "textarea" ? (
               <TextareaField
-                key={name}
                 inputData={inputData}
                 register={props.register}
                 onChange={props.onChange}
@@ -54,7 +54,6 @@ const InputFields = (props: Props) => {
               />
             ) : (
               <InputField
-                key={name}
                 inputData={inputData}
                 register={props.register}
                 onChange={props.onChange}

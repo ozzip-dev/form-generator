@@ -28,7 +28,7 @@ export function useEditForm({
   const debounceMap = useRef(new Map<string, NodeJS.Timeout>());
 
   const handleEdit = useCallback(
-    (name: string, value: string) => {
+    (name: string, value: string, isOtherOption?: boolean) => {
       if (!formId) return;
 
       const modeHandlers = {
@@ -37,7 +37,12 @@ export function useEditForm({
           inputId!,
           { [name]: value },
         ],
-        inputOption: (name: string, value: string) => [inputId!, value, name],
+        inputOption: (name: string, value: string) => [
+          inputId!,
+          value,
+          name,
+          isOtherOption,
+        ],
       } as const;
 
       const key = `${formId}-${name}`;
@@ -57,7 +62,6 @@ export function useEditForm({
           const resp = await action(formId, ...args);
 
           if (resp?.validationErrors && setError) {
-
             setClientErrors(resp.validationErrors, setError);
             return;
           }
@@ -73,8 +77,6 @@ export function useEditForm({
     },
     [formId, inputId, trigger, action, mode, setError, showBoundary]
   );
-
-
 
   useEffect(() => {
     const map = debounceMap.current;

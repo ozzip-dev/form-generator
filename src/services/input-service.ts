@@ -305,8 +305,8 @@ export async function updateFormInputType(
 export async function checkInputHasOtherOption(
   formId: string,
   inputId: string
-): Promise<void> {
+): Promise<boolean> {
   const { inputs } = await getFormById(formId);
   const input = getFormInputById(inputs, inputId);
-  if (inputHasOther(input)) throw new Error("Pole posiada juz opcje 'Inne'");
+  return inputHasOther(input);
 }

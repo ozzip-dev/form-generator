@@ -1,7 +1,7 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
-import editInputOptionAction from "@/actions/edit-form/editFormInput/editInputOptionAction";
+import { editInputOptionAction } from "@/actions/edit-form/editFormInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
@@ -34,7 +34,7 @@ const AddOption = (props: Props) => {
 
   const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
     async (_state) => {
-      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER);
+      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER, true);
       return null;
     },
     null
@@ -48,7 +48,7 @@ const AddOption = (props: Props) => {
     setError,
   } = useFormContext();
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, insert } = useFieldArray({
     control,
     name: `options`,
   });
@@ -62,9 +62,20 @@ const AddOption = (props: Props) => {
     setError,
   });
 
+  // console.log("field", fields);
+
+  const getInsertIndex = () => {
+    const otherIndex = fields.findIndex(
+      (field) => (field as any).value === OPTION_OTHER
+    );
+    return otherIndex === -1 ? fields.length : otherIndex;
+  };
+
   const handleAddOption = () => {
     if (errors.options) return;
-    append({ label: "" });
+
+    const insertIndex = getInsertIndex();
+    insert(insertIndex, { value: `option-${Date.now()}`, label: "" });
   };
 
   const handleAddOther = () => {
@@ -81,13 +92,9 @@ const AddOption = (props: Props) => {
     });
   };
 
-  // inputHasOther(props.input);
-
-  // console.log("  inputHasOther(props.input)", inputHasOther(props.input));
-
-  // const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
-
   const isDisabled = isRemoveOptionPending || isAddOptionPending;
+
+  // console.log("fields", fields);
 
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
@@ -113,7 +120,9 @@ const AddOption = (props: Props) => {
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
-              onChange={(name, value) => handleEdit(name, value)}
+              onChange={(name, value) => {
+                handleEdit(name, value, isOther);
+              }}
               // isLoading={isLoading}
             />
 
@@ -135,7 +144,7 @@ const AddOption = (props: Props) => {
           <Button
             message={"Dodaj opcję"}
             type="button"
-            disabled={!!errors.options || inputHasOther(props.input)}
+            disabled={!!errors.options}
             onClickAction={handleAddOption}
           />
         </div>
