@@ -62,8 +62,6 @@ const AddOption = (props: Props) => {
     setError,
   });
 
-  // console.log("field", fields);
-
   const getInsertIndex = () => {
     const otherIndex = fields.findIndex(
       (field) => (field as any).value === OPTION_OTHER
@@ -94,20 +92,20 @@ const AddOption = (props: Props) => {
 
   const isDisabled = isRemoveOptionPending || isAddOptionPending;
 
-  // console.log("fields", fields);
-
   return (
     <div className="ml-8 pt-4 border-t-2 border-zinc-400">
       {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
-        const isOther = isOptionOther(field as unknown as FormOption);
+        const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
           <div
             key={field.id}
             className="flex gap-2 items-center"
             style={
-              isOther ? { padding: "2px", backgroundColor: "lightskyblue" } : {}
+              isOtherOption
+                ? { padding: "2px", backgroundColor: "lightskyblue" }
+                : {}
             }
           >
             <InputFields
@@ -115,13 +113,13 @@ const AddOption = (props: Props) => {
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: isOther ? "Inne" : `Opcja ${idx + 1}`,
+                  placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
               errorMsg={(errors.options as any)?.[idx]?.label}
               onChange={(name, value) => {
-                handleEdit(name, value, isOther);
+                handleEdit(name, value, isOtherOption);
               }}
               // isLoading={isLoading}
             />
