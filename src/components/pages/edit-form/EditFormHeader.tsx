@@ -72,7 +72,6 @@ export default function EditFormHeader(props: Props) {
     trigger,
     setError,
   } = methods;
-  // console.log("registered fields:", methods.getValues());
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -83,8 +82,6 @@ export default function EditFormHeader(props: Props) {
   });
 
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
-
-  console.log(props.form);
 
   return (
     <>
