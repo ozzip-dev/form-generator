@@ -28,7 +28,7 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
     null
   );
   const [isOpen, setIsOpen] = useState(false);
-  const animationDuration = 1000;
+  const animationDuration = 700;
 
   const toggleProtocolDetails = async () => {
     if (details) {
@@ -75,7 +75,8 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
       <div className="group ">
         <div
           className={`
-          grid overflow-hidden transition-all duration-${animationDuration}
+          grid overflow-hidden transition-all 
+          duration-${animationDuration}
           ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
         `}
         >
