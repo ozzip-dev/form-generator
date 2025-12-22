@@ -2,6 +2,7 @@
 
 import { InputType } from "@/enums";
 import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { isInputTypeParagraph } from "@/helpers/inputHelpers";
 import { db, findById, updateById } from "@/lib/mongo";
 import { makeId } from "@/lib/utils";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
@@ -58,10 +59,9 @@ export async function addFormFieldAction(
 
   console.log("input", input);
 
-  const newInput =
-    type === InputType.PARAGRAPH
-      ? { description: header, header: "", type, ...res }
-      : input;
+  const newInput = isInputTypeParagraph(input)
+    ? { description: header, header: "", type, ...res }
+    : input;
 
   const order = getNextOrder(draft as Form);
   const inputData = mapInputDocToFormInputData(newInput, order);
