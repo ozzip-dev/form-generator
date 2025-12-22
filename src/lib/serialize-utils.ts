@@ -1,6 +1,7 @@
 import { File, FileSerialized } from "@/types/file";
 import { Form, FormSerialized } from "@/types/form";
 import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { Submission, SubmissionSerialized } from "@/types/result";
 import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
@@ -34,7 +35,7 @@ export function serializeForm(form: Form): FormSerialized {
 }
 
 export function serializeFile(file: File): FileSerialized {
-  const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file
+  const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file;
   const base64 = btoa(String.fromCharCode(...data.buffer));
 
   return {
@@ -48,12 +49,7 @@ export function serializeFile(file: File): FileSerialized {
 }
 
 export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
-  const {
-    _id,
-    disputeStartDate,
-    lastModifiedAt,
-    uploadedAt
-  } = protocol;
+  const { _id, disputeStartDate, lastModifiedAt, uploadedAt } = protocol;
 
   return {
     ...protocol,
@@ -68,5 +64,15 @@ export function serializeUser(user: IUser): UserSerialized {
   return {
     ...user,
     _id: user._id.toString(),
+  };
+}
+
+export function serializeResultSubmission(
+  submission: Submission
+): SubmissionSerialized {
+  return {
+    ...submission,
+    id: submission.id.toString(),
+    submittedAt: submission.submittedAt?.toISOString(),
   };
 }

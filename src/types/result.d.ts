@@ -1,11 +1,13 @@
 export type Answers = Record<string, string | Record<string, string>>;
 
 export type Submission = {
+  id: ObjectId;
   submittedAt: Date;
   answers: Answers;
 };
 
 export type SubmissionSerialized = {
+  id: string;
   submittedAt: string;
   answers: Answers;
 };
