@@ -8,11 +8,16 @@ import { redirect } from "next/navigation";
 import { serializeForm } from "@/lib/serialize-utils";
 import { requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
+import { isInputSubmittable } from "@/helpers/inputHelpers";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
 
-  const form: Form | null = await findById<Form>(db, "form", new ObjectId(formId));
+  const form: Form | null = await findById<Form>(
+    db,
+    "form",
+    new ObjectId(formId)
+  );
 
   if (!form) {
     console.error(`Form not found: ${formId}`);
@@ -48,7 +53,7 @@ export async function createDraft(
     description,
     inputs,
     state: "draft",
-    type: '',
+    type: "",
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);
@@ -107,7 +112,7 @@ export async function setAliasUrl(
   url: string
 ): Promise<void> {
   const form = await getFormBySlug(db, url);
-  const formIdObj = new ObjectId(formId)
+  const formIdObj = new ObjectId(formId);
   if (form)
     throw new Error(`Formularz o ID lub ścierzce "${url}" już istnieje.`);
 
@@ -118,21 +123,25 @@ export async function setAliasUrl(
     },
   });
 
-  await setFormUpdatedAtDate(formIdObj)
+  await setFormUpdatedAtDate(formIdObj);
 }
 
-export async function getSerializedFormList(): Promise<Partial<FormSerialized>[]> {
+export async function getSerializedFormList(): Promise<
+  Partial<FormSerialized>[]
+> {
   const user = await requireUser();
 
   try {
     const forms: Form[] = await find(
       db,
-      'form',
+      "form",
       { createdBy: new ObjectId(user.id) },
       { updatedAt: -1 }
-    )
+    );
 
-    const serializedForms: FormSerialized[] = forms.map((form) => serializeForm(form))
+    const serializedForms: FormSerialized[] = forms.map((form) =>
+      serializeForm(form)
+    );
 
     return serializedForms;
   } catch (err: any) {
@@ -141,37 +150,33 @@ export async function getSerializedFormList(): Promise<Partial<FormSerialized>[]
 }
 
 // TODO Pawel: nazwe moze zmienic? Aale sama logika chyba ok
-export const getFormByAuthor = async (formId: string):
-  Promise<FormSerialized> => {
+export const getFormByAuthor = async (
+  formId: string
+): Promise<FormSerialized> => {
   const user = await requireUser();
-  const form = await getForm(formId)
+  const form = await getForm(formId);
 
   if (!form) {
     throw new Error("Formularz nie istnieje");
   }
 
-  const serializedForm = serializeForm(form)
+  const serializedForm = serializeForm(form);
 
   if (!isUserAuthor(serializedForm, user._id))
     throw new Error("Nie jesteś autorem tego formularza");
 
-  return serializedForm
+  return serializedForm;
 };
 
 export async function getFormById(formId: string): Promise<Form> {
-  const form = await findById<Form>(db, 'form', new ObjectId(formId))
-  if (!form) throw new Error('Invalid form id')
-  return form
+  const form = await findById<Form>(db, "form", new ObjectId(formId));
+  if (!form) throw new Error("Invalid form id");
+  return form;
 }
 
-// TODO: if not needed, delete, keep getFormById
-export async function getFormInputs(formId: string): Promise<FormInput[]> {
-  const form = await findById<Form>(db, 'form', new ObjectId(formId))
-  if (!form) throw new Error('Invalid form id')
-  return form.inputs
-}
-
-export async function setFormUpdatedAtDate(formId: ObjectId): Promise<WithId<Form> | null> {
+export async function setFormUpdatedAtDate(
+  formId: ObjectId
+): Promise<WithId<Form> | null> {
   return await updateById<Form>(db, "form", formId, {
     $set: { updatedAt: new Date() },
   });
