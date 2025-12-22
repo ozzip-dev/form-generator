@@ -34,11 +34,22 @@ const AnswerResults = (props: Props) => {
     value: count,
     label: answer,
   }));
+
   const diagramIds: string[] = props.diagrams
     .filter(({ selected }) => selected)
     .map(({ value }) => value);
 
   const isDiagramSelected = (id: string) => diagramIds.includes(id);
+  const charts = [
+    {
+      id: "pieChart",
+      Component: PieChart,
+    },
+    {
+      id: "barChart",
+      Component: BarChart,
+    },
+  ];
 
   return (
     <div className=" flex gap-8 mb-4">
@@ -51,13 +62,11 @@ const AnswerResults = (props: Props) => {
           ))}
       </div>
 
-      {/* {isDiagramSelected('pieChart') && <PieChart
-        data={mappedAnswers}
-      />}
-
-      {isDiagramSelected('barChart') && <BarChart
-        data={mappedAnswers}
-      />} */}
+      {charts
+        .filter(({ id }) => isDiagramSelected(id))
+        .map(({ Component, id }) => (
+          <Component key={id} data={mappedAnswers} />
+        ))}
     </div>
   );
 };

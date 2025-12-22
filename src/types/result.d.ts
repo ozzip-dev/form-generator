@@ -1,14 +1,14 @@
-export type Answers = Record<string, string /* string? */>
+export type Answers = Record<string, string | Record<string, string>>;
 
 export type Submission = {
   submittedAt: Date;
   answers: Answers;
-}
+};
 
 export type SubmissionSerialized = {
   submittedAt: string;
   answers: Answers;
-}
+};
 
 export interface Result extends Document {
   formId: string;
@@ -33,6 +33,6 @@ export interface GroupedAnswer {
 
 export type DiagramType = {
   value: string;
-  label: string
-  selected: boolean
-}
+  label: string;
+  selected: boolean;
+};
