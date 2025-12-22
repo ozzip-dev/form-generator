@@ -3,8 +3,8 @@
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
-import { FormType } from "@/enums/form";
-import { formTypesWithLabels } from "@/helpers/formHelpers";
+import { FormResultVisibility, FormType } from "@/enums/form";
+import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
 import {
   editFormHeaderSchema,
@@ -18,6 +18,11 @@ const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "-- wybierz --", value: "" },
   ...formTypesWithLabels,
 ];
+
+const resultVisibilityOptions: {
+  label: string;
+  value: FormResultVisibility | "";
+}[] = [{ label: "-- wybierz --", value: "" }, ...formVisibilityData];
 
 const dataInputsFormTitle = [
   {
@@ -42,7 +47,13 @@ type Props = {
 };
 
 export default function EditFormHeader(props: Props) {
-  const { _id: formId, title, description, type } = props.form;
+  const {
+    _id: formId,
+    title,
+    description,
+    type,
+    resultVisibility,
+  } = props.form;
 
   const methods = useForm<EditFormHeaderSchema>({
     resolver: zodResolver(editFormHeaderSchema),
@@ -50,6 +61,7 @@ export default function EditFormHeader(props: Props) {
       title,
       description,
       type,
+      resultVisibility,
     },
     mode: "all",
   });
@@ -72,6 +84,8 @@ export default function EditFormHeader(props: Props) {
 
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
+  console.log(props.form);
+
   return (
     <>
       {/* {loadingForm && <FullscreenLoader />} */}
@@ -79,7 +93,7 @@ export default function EditFormHeader(props: Props) {
       <div className="p-4">
         <FormProvider {...methods}>
           <form className="mt-4 space-y-2 rounded-md shadow-default  border border-default bg-bg_light">
-            <div className="w-80 mb-10">
+            <div className="w-80 !mb-10">
               <SelectFieldControler
                 name="type"
                 defaultValue=""
@@ -91,6 +105,20 @@ export default function EditFormHeader(props: Props) {
                 }}
               />
             </div>
+
+            <div className="w-80 !mb-10">
+              <SelectFieldControler
+                name="resultVisibility"
+                defaultValue=""
+                label="Wybierz typ głosowania"
+                placeholder="Wybierz typ głosowania"
+                options={resultVisibilityOptions}
+                onChangeAction={(name, value) => {
+                  handleEdit(name, value);
+                }}
+              />
+            </div>
+
             <div className="w-80">
               <InputFields
                 inputsData={dataInputsFormTitle}

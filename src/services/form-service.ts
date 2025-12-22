@@ -54,6 +54,7 @@ export async function createDraft(
     inputs,
     state: "draft",
     type: "",
+    resultVisibility: "",
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);

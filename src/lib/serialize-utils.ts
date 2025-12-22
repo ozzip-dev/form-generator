@@ -17,12 +17,14 @@ export function serializeForm(form: Form): FormSerialized {
     description,
     inputs,
     type,
+    resultVisibility,
   } = form;
 
   return {
     _id: _id?.toString(),
     id,
     type,
+    resultVisibility,
     title,
     description,
     createdBy: createdBy?.toString(),
