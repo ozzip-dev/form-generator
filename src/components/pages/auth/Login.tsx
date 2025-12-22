@@ -43,7 +43,7 @@ const dataInputsLogin = [
   },
 ];
 
-const defauldValues = {
+const defaultValues = {
   email: "user@user.com",
   password: "123123123",
 };
@@ -105,7 +105,7 @@ const Login = () => {
           <InputFields
             inputsData={dataInputsLogin}
             errorMsg={state.errors}
-            default={defauldValues}
+            default={defaultValues}
           />
           <div className="flex items-center justify-end">
             <Link
