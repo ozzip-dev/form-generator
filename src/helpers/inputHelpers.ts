@@ -17,3 +17,7 @@ export const isInputTypeCheckbox = (input: Input | FormInput) =>
 
 export const isInputWithOptions = ({ type }: Input | FormInput) =>
   type === InputType.CHECKBOX || type === InputType.SINGLE_SELECT;
+
+/* osobny helper gdyby więce typów doszło */
+export const isInputSubmittable = (input: Input | FormInput) =>
+  input.type !== InputType.PARAGRAPH;
