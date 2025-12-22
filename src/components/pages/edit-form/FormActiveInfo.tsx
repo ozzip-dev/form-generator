@@ -1,5 +1,5 @@
 const FormActiveInfo = () => {
-  return <div>Forlularz opublikowany, nie można jedgo edytować</div>;
+  return <div>Formularz opublikowany, nie można jego edytować</div>;
 };
 
 export default FormActiveInfo;

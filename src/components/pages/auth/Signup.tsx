@@ -99,11 +99,7 @@ const Signup = () => {
         <h1 className="text-2xl font-bold text-center">Załóż konto</h1>
 
         <form action={formAction}>
-          <InputFields
-            inputsData={dataInputsSignup}
-            errorMsg={state.errors}
-            default={state?.inputs}
-          />
+          <InputFields inputsData={dataInputsSignup} errorMsg={state.errors} />
           <Button
             isLoading={isAction.current && isPending}
             message="Załóż konto"

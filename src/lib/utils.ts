@@ -6,9 +6,11 @@ export const convertBToKB = (bytes: number): string => {
 };
 
 export function makeId(header: string): string {
-  return `${header.trim().toLowerCase().replace(' ', '-')}-${Math.round(
-    Math.random() * 100000
-  ).toString()}`;
+  return `${header
+    .trim()
+    .toLowerCase()
+    .replaceAll(" ", "-")
+    .substring(0, 10)}-${Math.round(Math.random() * 100000).toString()}`;
 }
 
 /* user */
