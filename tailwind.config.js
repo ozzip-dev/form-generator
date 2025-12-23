@@ -34,9 +34,21 @@ module.exports = {
         "2xl": ["var(--fs-2xl)", { fontWeight: "var(--fw-semi-bold)" }],
       },
 
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem",
+          sm: "1.5rem",
+          lg: "2rem",
+        },
+        screens: {
+          xl: "1450px",
+        },
+      },
+
       borderRadius: {
-        sm: "10px",
-        md: "35px",
+        sm: "1rem",
+        md: "3.5rem",
       },
       borderColor: {
         default: "rgba(217, 217, 217, 1)",
@@ -51,7 +63,7 @@ module.exports = {
 
       screens: {
         sm: "400px",
-        md: "600px",
+        md: "500px",
         lg: "750px",
       },
       keyframes: {

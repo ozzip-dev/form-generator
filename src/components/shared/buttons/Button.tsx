@@ -15,20 +15,29 @@ const Button = (props: Props) => {
     <button
       type={props.type}
       onClick={props.onClickAction}
-      disabled={props.disabled ? props.disabled : props.isLoading}
+      disabled={props.disabled || props.isLoading}
       className={`
-      flex items-center justify-center
-      w-full rounded-lg px-4 py-2
-      font-medium text-white
-      bg-sky-500 hover:bg-sky-600
+      relative
+      rounded-lg
+      px-16 py-2
+      text-white
+      bg-accent_opacity hover:bg-accent
       disabled:opacity-70 disabled:cursor-not-allowed
       transition-colors duration-200
-      shadow-sm 
-      h-10  
+      block
+      m-auto
       ${props.className}
     `}
     >
-      {props.isLoading ? <Loader /> : props.message || props.icon}
+      <span className={props.isLoading ? "opacity-0" : "opacity-100"}>
+        {props.message || props.icon}
+      </span>
+
+      {props.isLoading && (
+        <span className="absolute inset-0 flex items-center justify-center">
+          <Loader size="lg" />
+        </span>
+      )}
     </button>
   );
 };

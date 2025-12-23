@@ -91,34 +91,39 @@ const Login = () => {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 ">
-      <div className="">
-        <h1 className="text-2xl text-center">Zaloguj się</h1>
+    <div className="flex flex-col items-center justify-center p-4 h-full">
+      <h1 className="text-2xl text-center mb-4">Zaloguj się</h1>
 
-        <form
-          action={formAction}
-          className="border border-default shadow-default rounded-md px-4 py-8"
-        >
-          <InputFields
-            inputsData={dataInputsLogin}
-            errorMsg={state.errors}
-            default={defaultValues}
-          />
-          <div className="flex items-center justify-end">
-            <Link
-              href="/forgot-password"
-              className="text-blue-600 hover:underline hover:decoration-blue-600"
-            >
-              Nie pamiętasz hasła?
-            </Link>
-          </div>
-          <Button
-            isLoading={isAction.current && isPending}
-            message="Zaloguj"
-            type="submit"
-          />
-        </form>
-      </div>
+      <form
+        action={formAction}
+        className=" px-10 py-16 w-1/2 min-w-[31rem] max-w-[52rem]
+    
+         md:border md:border-default
+        md:shadow-default
+        md:bg-bg_dark
+        md:rounded-md"
+      >
+        <InputFields
+          inputsData={dataInputsLogin}
+          errorMsg={state.errors}
+          default={defaultValues}
+        />
+        <div className="text-end my-4">
+          <Link
+            href="/forgot-password"
+            className="text-accent_dark hover:underline hover:decoration-accent_dark"
+          >
+            Nie pamiętasz hasła?
+          </Link>
+        </div>
+
+        <Button
+          isLoading={isAction.current && isPending}
+          message="Zaloguj"
+          type="submit"
+          className="text-lg"
+        />
+      </form>
     </div>
   );
 };
