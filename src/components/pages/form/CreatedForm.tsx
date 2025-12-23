@@ -19,19 +19,18 @@ import {
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
 import { useToast } from "@/context/ToastProvider";
+import { isInputTypeCheckbox } from "@/helpers/inputHelpers";
 
 const defaultValues = (inputs: FormInput[]) => {
-  const defaultValues = inputs.reduce((formObject: any, input: any) => {
-    const { type, options, id } = input;
+  const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
+    const { options, id } = input;
 
     const checkboxValues = options.reduce((optionsObject: any, option: any) => {
       optionsObject[option.label] = "";
       return optionsObject;
     }, {});
 
-    if (type === "checkbox") {
-      formObject[id] = checkboxValues;
-    } else formObject[id] = "";
+    formObject[id as string] = isInputTypeCheckbox(input) ? checkboxValues : "";
 
     return formObject;
   }, {});

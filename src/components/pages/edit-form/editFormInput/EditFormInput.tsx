@@ -24,6 +24,10 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
+import {
+  isInputTypeParagraph,
+  isInputWithOptions,
+} from "@/helpers/inputHelpers";
 
 const dataInputLabel = [
   {
@@ -132,17 +136,22 @@ const EditFormInput = (props: Props) => {
           {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
-              {type !== InputType.PARAGRAPH && (
-                <InputFields
-                  inputsData={dataInputLabel}
-                  register={register}
-                  errorMsg={errors.header as any}
-                  onChange={handleEditLabel}
-                  // isLoading={isLoadingLabel}
-                />
-              )}
-
-              {type === InputType.PARAGRAPH && (
+              {!isInputTypeParagraph(props.input) ? (
+                <>
+                  <InputFields
+                    inputsData={dataInputLabel}
+                    register={register}
+                    errorMsg={errors.header as any}
+                    onChange={handleEditLabel}
+                    // isLoading={isLoadingLabel}
+                  />
+                  <EditFormDescriptionInput
+                    inputId={inputId as string}
+                    inputIdx={props.inputIdx}
+                    description={description ?? ""}
+                  />
+                </>
+              ) : (
                 <InputFields
                   inputsData={dataInputTextarea}
                   register={register}
@@ -151,15 +160,8 @@ const EditFormInput = (props: Props) => {
                   // isLoading={isLoadingLabel}
                 />
               )}
-              {type !== InputType.PARAGRAPH && (
-                <EditFormDescriptionInput
-                  inputId={inputId as string}
-                  inputIdx={props.inputIdx}
-                  description={description ?? ""}
-                />
-              )}
-              {(type === InputType.CHECKBOX ||
-                type === InputType.SINGLE_SELECT) && (
+
+              {isInputWithOptions(props.input) && (
                 <AddOption
                   inputIdx={props.inputIdx}
                   input={props.input}
