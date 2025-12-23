@@ -28,24 +28,18 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
     null
   );
   const [isOpen, setIsOpen] = useState(false);
-  const animationDuration = 700;
 
   const toggleProtocolDetails = async () => {
-    if (details) {
-      setIsOpen(false);
-      setTimeout(() => {
-        setDetails(null);
-      }, animationDuration);
+    setIsOpen((prev) => !prev);
+    if (details) return;
 
-      return null;
-    }
     const result = await getProtocolDetailsAction(_id);
     if (result) {
       setDetails(result);
-      requestAnimationFrame(() => setIsOpen(true));
     }
     return result;
   };
+
   const [_, fetchDetails, isPending] = useActionState(
     toggleProtocolDetails,
     null
@@ -76,7 +70,7 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
         <div
           className={`
           grid overflow-hidden transition-all 
-          duration-${animationDuration}
+          duration-700
           ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
         `}
         >
