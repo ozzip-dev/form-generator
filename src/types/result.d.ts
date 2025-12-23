@@ -1,3 +1,5 @@
+import { InputType } from "@/enums";
+
 export type Answers = Record<string, string | Record<string, string>>;
 
 export type Submission = {
@@ -30,6 +32,7 @@ export interface ResultAnswer {
 export interface GroupedAnswer {
   answers: ResultAnswer[];
   id: string;
+  type: InputType;
   header: string;
 }
 
