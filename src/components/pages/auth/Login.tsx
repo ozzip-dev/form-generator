@@ -97,9 +97,9 @@ const Login = () => {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 ">
       <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center">Zaloguj się</h1>
+        <h1 className="font_heading--lg text-center">Zaloguj się</h1>
 
         <form action={formAction}>
           <InputFields

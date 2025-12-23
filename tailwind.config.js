@@ -25,6 +25,7 @@ module.exports = {
 
         red: "rgba(255, 87, 87, 1)",
       },
+
       borderRadius: {
         sm: "10px",
         md: "35px",
