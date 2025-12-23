@@ -8,7 +8,7 @@ import InputField from "./InputField";
 type TypeInputData = {
   label?: string;
   name: string;
-  placeholder?: string;
+  // placeholder?: string;
   type: string;
   defaultValue?: string;
   description?: string;
@@ -31,17 +31,12 @@ type Props = {
 
 const InputFields = (props: Props) => {
   return (
-    <>
+    <div>
       {props.inputsData.map((inputData) => {
         const { label, required, description, name, type } = inputData;
 
         return (
-          <div key={name}>
-            {label && (
-              <label className="text-lg block text-xl !important">
-                {label} {required && <span className="text-red">*</span>}
-              </label>
-            )}
+          <div key={name} className="relative">
             {description && <div className="text-sm">{description}</div>}
 
             {type === "textarea" ? (
@@ -62,6 +57,30 @@ const InputFields = (props: Props) => {
               />
             )}
 
+            <label
+              htmlFor={name}
+              className={`
+                bg-white px-1
+                pointer-events-none absolute left-3
+                origin-left transition-all duration-200
+
+                // empty not focus
+                peer-placeholder-shown:top-3
+                peer-placeholder-shown:text-base
+
+                // focus - label up 
+                peer-focus:-top-3
+                peer-focus:text-xs
+                peer-focus:text-accent
+
+                // not focus - label up
+                -top-3 text-xs 
+            `}
+            >
+              {label}
+              {required && <span className="text-red ml-0.5">*</span>}
+            </label>
+
             <InputError
               errorMsg={
                 (props.errorMsg?.[name]?.message as string) ||
@@ -69,14 +88,10 @@ const InputFields = (props: Props) => {
                 (props.errorMsg?.[name] && props.errorMsg?.[name][0])
               }
             />
-
-            {/* <div className="text-red-500">
-              {props.errorMsg?.[name] && props.errorMsg?.[name][0]}
-            </div> */}
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 

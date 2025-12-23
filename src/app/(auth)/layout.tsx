@@ -7,11 +7,13 @@ export default function AuthLayout({
 }>) {
   return (
     <>
-      <div className="w-fit">
-        <ButtonLink message="Strona główna" link="/" />
-      </div>
+      <header className="shrink-0">
+        <div className="w-fit">
+          <ButtonLink message="Strona główna" link="/" />
+        </div>
+      </header>
 
-      {children}
+      <main className="flex-1 overflow-y-auto">{children}</main>
     </>
   );
 }

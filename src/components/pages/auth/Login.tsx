@@ -29,16 +29,10 @@ const ToastsData: ModelToast[] = [
 ];
 
 const dataInputsLogin = [
-  {
-    label: "Email",
-    name: "email",
-    placeholder: "kamil@kamil.com",
-    type: "email",
-  },
+  { label: "Email", name: "email", type: "email" },
   {
     label: "Hasło",
     name: "password",
-    placeholder: "hasło",
     type: "password",
   },
 ];
@@ -98,12 +92,12 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 ">
-      <div className="w-full max-w-md">
+      <div className="">
         <h1 className="text-2xl text-center">Zaloguj się</h1>
 
         <form
           action={formAction}
-          className="border border-default shadow-default rounded-md"
+          className="border border-default shadow-default rounded-md px-4 py-8"
         >
           <InputFields
             inputsData={dataInputsLogin}
