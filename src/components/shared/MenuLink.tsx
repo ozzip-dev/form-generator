@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 type Props = {
   text: string;
   link: string;
+  sameTab?: boolean;
 };
 
-const MenuLink = ({ text, link }: Props) => {
+const MenuLink = ({ text, link, sameTab = false }: Props) => {
   const pathname = usePathname();
+  // TODO: inaczej trzeba to zrobic, dla zagniezdzonych sciezek to nie działa
   const isActive = pathname === link;
   const isPreview = text === "Podgląd"; // TODO: add 'id' param to menu and check id == preview
 
@@ -26,7 +28,7 @@ const MenuLink = ({ text, link }: Props) => {
         link={link}
         // target={isPreview ? "_blank" : "_self"}
         // rel={isPreview ? "noopener noreferrer" : undefined}
-        target={"_blank"}
+        target={sameTab ? "_self" : "_blank"}
         rel={"noopener noreferrer"}
       />
     </li>
