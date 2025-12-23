@@ -1,6 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
-import InputError from "../InputError";
 
 type Props = {
   inputData: {
@@ -28,7 +27,7 @@ const InputField = (props: Props) => {
           type={type}
           defaultValue={props.default ? props.default[name] : ""}
           disabled={props.isLoading?.[name]}
-          className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
+          className={`text-sm w-full border rounded-sm focus:border-accent focus:outline-none p-3
           ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
         `}
           placeholder={placeholder}

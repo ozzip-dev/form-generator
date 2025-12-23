@@ -25,6 +25,14 @@ module.exports = {
 
         red: "rgba(255, 87, 87, 1)",
       },
+      fontSize: {
+        xs: ["var(--fs-xs)", { fontWeight: "var(--fw-base)" }],
+        sm: ["var(--fs-sm)", { fontWeight: "var(--fw-base)" }],
+        base: ["var(--fs-md)", { fontWeight: "var(--fw-base)" }],
+        lg: ["var(--fs-lg)", { fontWeight: "var(--fw-semi-bold)" }],
+        xl: ["var(--fs-xl)", { fontWeight: "var(--fw-base)" }],
+        "2xl": ["var(--fs-2xl)", { fontWeight: "var(--fw-semi-bold)" }],
+      },
 
       borderRadius: {
         sm: "10px",

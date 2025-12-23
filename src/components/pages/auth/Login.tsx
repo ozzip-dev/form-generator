@@ -99,9 +99,12 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 ">
       <div className="w-full max-w-md">
-        <h1 className="font_heading--lg text-center">Zaloguj się</h1>
+        <h1 className="text-2xl text-center">Zaloguj się</h1>
 
-        <form action={formAction}>
+        <form
+          action={formAction}
+          className="border border-default shadow-default rounded-md"
+        >
           <InputFields
             inputsData={dataInputsLogin}
             errorMsg={state.errors}

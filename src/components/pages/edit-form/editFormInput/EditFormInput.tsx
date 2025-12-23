@@ -131,7 +131,7 @@ const EditFormInput = (props: Props) => {
 
   return (
     <FormProvider {...methods}>
-      <form className="mb-3 rounded-md shadow-default  border border-default bg-bg_light">
+      <form className="mb-3 border border-default shadow-default rounded-md bg-bg_light">
         <div className="flex gap-2 items-center p-2">
           {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">

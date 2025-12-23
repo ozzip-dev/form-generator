@@ -11,6 +11,7 @@ import {
   SetStateAction,
   startTransition,
   useActionState,
+  useRef,
   useState,
 } from "react";
 
@@ -28,15 +29,18 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
     null
   );
   const [isOpen, setIsOpen] = useState(false);
+  const isFetching = useRef(false);
 
   const toggleProtocolDetails = async () => {
     setIsOpen((prev) => !prev);
     if (details) return;
 
+    isFetching.current = true;
     const result = await getProtocolDetailsAction(_id);
     if (result) {
       setDetails(result);
     }
+    isFetching.current = false;
     return result;
   };
 
@@ -59,7 +63,7 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
           <Button
             message={details ? "Ukryj info" : "Pokaż info"}
             onClickAction={() => startTransition(fetchDetails)}
-            isLoading={isPending}
+            isLoading={isPending && isFetching.current}
           />
           <Link href={`/protocols/${_id}`}>
             <b>Edytuj</b>
