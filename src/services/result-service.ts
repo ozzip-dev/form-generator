@@ -3,6 +3,8 @@ import { db, findById, findOne, insert, update } from "@/lib/mongo";
 import { Form } from "@/types/form";
 import { Answers, Result, Submission } from "@/types/result";
 import { ObjectId } from "mongodb";
+import { getFormById } from "./form-service";
+import { isFormSecret } from "@/helpers/formHelpers";
 
 export async function formResultExists(formId: string): Promise<boolean> {
   return !!(await findOne<Result>(db, "result", { formId }));
@@ -38,6 +40,17 @@ export async function addSubmission(
   formId: string,
   answers: Answers
 ): Promise<Result | null> {
+  const form = await getFormById(formId);
+  const isSecret = isFormSecret(form);
+
+  const submissionRecord = isSecret
+    ? { answers }
+    : {
+        id: new ObjectId(),
+        submittedAt: new Date(),
+        answers,
+      };
+
   const submission = await update<Result>(
     db,
     "result",
@@ -46,11 +59,7 @@ export async function addSubmission(
     },
     {
       $push: {
-        submissions: {
-          id: new ObjectId(),
-          submittedAt: new Date(),
-          answers,
-        },
+        submissions: submissionRecord,
       },
     }
   );

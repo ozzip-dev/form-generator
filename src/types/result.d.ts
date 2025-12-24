@@ -2,15 +2,17 @@ import { InputType } from "@/enums";
 
 export type Answers = Record<string, string | Record<string, string>>;
 
+/* 'id' i 'submittedAt' opcjonalne = nie ma ich w tajnych submissions */
 export type Submission = {
-  id: ObjectId;
-  submittedAt: Date;
+  id?: ObjectId;
+  submittedAt?: Date;
   answers: Answers;
 };
 
+/* 'id' i 'submittedAt' opcjonalne = nie ma ich w tajnych submissions */
 export type SubmissionSerialized = {
-  id: string;
-  submittedAt: string;
+  id?: string;
+  submittedAt?: string;
   answers: Answers;
 };
 

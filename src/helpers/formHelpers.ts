@@ -13,6 +13,10 @@ export function isUserAuthor(form: FormSerialized, userId: string): boolean {
   return form.createdBy?.toString() === userId;
 }
 
+export function isFormSecret(form: FormSerialized | Form): boolean {
+  return form.resultVisibility === FormResultVisibility.Secret;
+}
+
 export const formTypesWithLabels: { label: string; value: FormType }[] = [
   { label: "Ankieta pracownicza", value: FormType.Survey },
   { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
