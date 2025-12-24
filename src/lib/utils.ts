@@ -13,6 +13,13 @@ export function makeId(header: string): string {
     .substring(0, 10)}-${Math.round(Math.random() * 100000).toString()}`;
 }
 
+export const downloadFile = (blob: Blob, name: string) => {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = name;
+  link.click();
+};
+
 /* user */
 export const isModerator = (user: IUser): boolean =>
   user.role === UserRole.MODERATOR;
