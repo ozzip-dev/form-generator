@@ -6,110 +6,113 @@
 */
 
 import { InputType } from "@/enums";
+import { FormType } from "@/enums/form";
 import { Form } from "@/types/form";
 
 const getCreatedUpdatedDates = (): {
-  createdAt: Date,
-  updatedAt: Date
+  createdAt: Date;
+  updatedAt: Date;
 } => {
-  const now = new Date()
+  const now = new Date();
 
   return {
     createdAt: now,
     updatedAt: now,
-  }
-}
+  };
+};
 
 export const formTemplates: Form[] = [
   {
-    id: 'membership',
-    type: 'other',
-    title: 'Członkostwo',
-    description: 'Dołącz do nas',
+    id: "membership",
+    type: FormType.Other,
+    resultVisibility: "open",
+    title: "Członkostwo",
+    description: "Dołącz do nas",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
-        id: 'name',
+        id: "name",
         type: InputType.TEXT,
-        header: 'Imię',
+        header: "Imię",
         validation: {},
         options: [],
         required: true,
         order: 0,
-        unique: false
+        unique: false,
       },
       {
-        id: 'email',
+        id: "email",
         type: InputType.EMAIL,
-        header: 'Email',
+        header: "Email",
         validation: {},
         options: [],
         required: true,
         order: 1,
-        unique: false
+        unique: false,
       },
       {
-        id: 'login',
+        id: "login",
         type: InputType.TEXT,
-        header: 'Login id',
+        header: "Login id",
         validation: {},
         options: [],
         required: true,
         order: 2,
-        unique: true
+        unique: true,
       },
-    ]
+    ],
   },
   {
-    id: 'favourite-color',
-    type: 'other',
-    title: 'Ulubiony kolor',
-    description: 'Jaki jest Twój ulubiony kolor?',
+    id: "favourite-color",
+    type: FormType.Other,
+    resultVisibility: "open",
+    title: "Ulubiony kolor",
+    description: "Jaki jest Twój ulubiony kolor?",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
-        id: 'name-surname',
+        id: "name-surname",
         type: InputType.TEXT,
-        header: 'Imię i nazwisko',
+        header: "Imię i nazwisko",
         validation: {},
         options: [],
         required: true,
         order: 0,
-        unique: false
+        unique: false,
       },
       {
-        id: 'age',
+        id: "age",
         type: InputType.NUMBER,
-        header: 'Wiek',
+        header: "Wiek",
         validation: {},
         options: [],
         required: false,
         order: 1,
-        unique: false
+        unique: false,
       },
       {
-        id: 'color',
+        id: "color",
         type: InputType.SINGLE_SELECT,
-        header: 'Kolor',
+        header: "Kolor",
         validation: {},
         required: true,
         order: 2,
         unique: false,
         options: [
           {
-            value: 'color-123',
-            label: 'żółty',
+            value: "color-123",
+            label: "żółty",
           },
           {
-            value: 'color-456',
-            label: 'zielony',
+            value: "color-456",
+            label: "zielony",
           },
           {
-            value: 'color-789',
-            label: 'czerwony',
-          }
-        ]
+            value: "color-789",
+            label: "czerwony",
+          },
+        ],
       },
-    ]
-  }
-]
+    ],
+  },
+];

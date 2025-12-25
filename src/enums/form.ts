@@ -4,3 +4,8 @@ export enum FormType {
   Strike = "strike",
   Other = "other",
 }
+
+export enum FormResultVisibility {
+  Open = "open",
+  Secret = "secret",
+}

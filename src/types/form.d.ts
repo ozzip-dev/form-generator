@@ -1,12 +1,21 @@
 import { Document, ObjectId } from "mongodb";
 import { FormInput } from "./input";
+import { FormType } from "@/enums/form";
 
-export type FormState = "draft" | "active" | "disabled" | "removed" | "template";
+export type FormState =
+  | "draft"
+  | "active"
+  | "disabled"
+  | "removed"
+  | "template";
+
+// export type FormResultVisibility = "secret" | "open" | "";
 
 export interface FormTemplate extends Document {
   _id?: ObjectId;
   id?: string; // TODO Pawel: id + state 'template': too much?
-  type: FormType;
+  type: FormType | "";
+  resultVisibility: FormResultVisibility;
   title?: string;
   description?: string;
   inputs: FormInput[];
