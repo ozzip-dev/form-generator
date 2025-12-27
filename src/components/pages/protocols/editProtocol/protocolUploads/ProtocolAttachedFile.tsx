@@ -40,7 +40,10 @@ const ProtocolAttachedFile = (props: Props) => {
   };
 
   const onRemoveFile = async () => {
-    await confirmAction(printModal, "Czy na pewno usunąć wybrany plik?");
+    await confirmAction({
+      action: printModal,
+      confirmText: "Czy na pewno usunąć wybrany plik?",
+    });
   };
 
   return (

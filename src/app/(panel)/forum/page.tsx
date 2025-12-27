@@ -1,6 +1,6 @@
 import Forum from "@/components/pages/forum/Forum";
 
-const ForumPage = () => {
+const ForumPage = async () => {
   return <Forum />;
 };
 

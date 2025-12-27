@@ -51,10 +51,7 @@ export async function find<T extends Document>(
   sort: Sort | string = {}
 ): Promise<WithId<T>[]> {
   const collection: Collection<T> = getCollection(db, collectionName);
-  const docs: WithId<T>[] = await collection
-    .find(query)
-    .sort(sort)
-    .toArray();
+  const docs: WithId<T>[] = await collection.find(query).sort(sort).toArray();
 
   return docs;
 }
@@ -169,4 +166,14 @@ export async function deleteById<T extends Document>(
   const query: Filter<T> = { _id } as Filter<T>;
   const result: DeleteResult = await collection.deleteOne(query);
   return result;
+}
+
+export async function getCount<T extends Document>(
+  db: Db,
+  collectionName: string,
+  query: Filter<T>
+): Promise<number> {
+  const collection: Collection<T> = getCollection(db, collectionName);
+
+  return collection.countDocuments(query);
 }

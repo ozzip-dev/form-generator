@@ -4,8 +4,9 @@ import ModalWrapper from "./ModalWrapper";
 
 type Props = {
   onClose: (result: boolean) => void;
-  action: () => void /* czy tylko async fn? */ | Promise<void>;
+  action: (args?: unknown) => void /* czy tylko async fn? */ | Promise<void>;
   confirmText: string;
+  args?: unknown;
   yesText?: string;
   noText?: string;
 };
@@ -21,7 +22,7 @@ const ConfirmModal = (props: Props) => {
   const onConfirm = async () => {
     setLoading(true);
     try {
-      await props.action();
+      await props.action(props.args);
       props.onClose(true);
     } catch (e) {
       console.error(e);
