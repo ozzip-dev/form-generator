@@ -9,10 +9,21 @@ type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
-  const { inputs, title = "", description = "" } = await getFormById(formId);
+  const {
+    inputs,
+    title = "",
+    description = "",
+    type,
+    createdAt,
+  } = await getFormById(formId);
   const submittableInputs = inputs.filter(isInputSubmittable);
 
-  const displayResults = async (selectedInputIds: string[]) => {
+  const displayResults = async (
+    selectedInputIds: string[]
+  ): Promise<{
+    results: GroupedAnswer[];
+    submissionCount: number;
+  }> => {
     "use server";
     const submissions: Submission[] = await getAllSubmissions(formId);
     const filteredInputs = submittableInputs.filter((input) =>
@@ -29,7 +40,7 @@ const FormResultsPage = async (props: Props) => {
       answers
     );
 
-    return groupedResults;
+    return { results: groupedResults, submissionCount: submissions.length };
   };
 
   return (
@@ -37,7 +48,12 @@ const FormResultsPage = async (props: Props) => {
       {...{
         inputs: submittableInputs,
         displayResults,
-        formData: { title, description },
+        formData: {
+          title,
+          description,
+          type,
+          createdAt: createdAt.toISOString(),
+        },
       }}
     />
   );
