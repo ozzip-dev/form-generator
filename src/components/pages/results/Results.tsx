@@ -11,9 +11,14 @@ import ResultFieldSelect from "./ResultFieldSelect";
 import ResultDiagramSelect from "./ResultDiagramSelect";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormType } from "@/enums/form";
-import { robotoRegular } from "./fonts/robotoRegular";
 import { dataSelectOptions } from "../edit-form/editFormData";
-import { robotoBold } from "./fonts/robotoBold";
+import {
+  addFonts,
+  addPageHeader,
+  getPdfWidth,
+  setFontFamilyBold,
+  setFontFamilyRegular,
+} from "./utils";
 
 type Props = {
   inputs: FormInput[];
@@ -44,6 +49,7 @@ export const diagramTypes: DiagramType[] = [
 // TODO: refactor!
 // Wydzielic funkcje do renderowania elementow, poczekac na ustalony design,
 // raczej podzielic na jeden inpupt - jedna strona.
+// zmienic odstepy w px na zmienne
 const Results = (props: Props) => {
   const [displayedResults, setDisplayedResults] = useState<{
     results: GroupedAnswer[];
@@ -62,44 +68,6 @@ const Results = (props: Props) => {
       .map(({ id }) => id!);
     const { results, submissionCount } = await props.displayResults(inputIds);
     setDisplayedResults({ results, submissionCount });
-  };
-
-  const getPdfWidth = (pdf: jsPDF): number => pdf.internal.pageSize.getWidth();
-
-  const setFontFamilyRegular = (pdf: jsPDF): void => {
-    pdf.setFont("RobotoRegular");
-  };
-
-  const setFontFamilyBold = (pdf: jsPDF): void => {
-    pdf.setFont("RobotoBold");
-  };
-
-  const addOzzipLogo = (pdf: jsPDF): void => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src =
-      "https://mlodzi.ozzip.pl/img/9b7922d9-f1dc-431e-a55d-1f5b63ebd5bf.png";
-    pdf.addImage(img, "PNG", getPdfWidth(pdf) - 50, 0, 50, 50);
-  };
-
-  const drawHeader = (pdf: jsPDF): void => {
-    pdf.setFillColor("#c53030");
-    pdf.rect(0, 0, getPdfWidth(pdf), 50, "F");
-  };
-
-  const addHeaderText = (pdf: jsPDF): void => {
-    setFontFamilyBold(pdf);
-
-    pdf.setFontSize(35);
-    pdf.text(title, 10, 30);
-
-    setFontFamilyRegular(pdf);
-    pdf.setFontSize(12);
-    pdf.text(
-      `(wyniki wygenerowano: ${formatDateAndTime(new Date().toISOString())})`,
-      10,
-      42
-    );
   };
 
   const addFormDetailsText = (pdf: jsPDF): void => {
@@ -141,12 +109,6 @@ const Results = (props: Props) => {
     );
   };
 
-  const addPageHeader = (pdf: jsPDF): void => {
-    drawHeader(pdf);
-    addOzzipLogo(pdf);
-    addHeaderText(pdf);
-  };
-
   const exportPdf = () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
@@ -155,19 +117,16 @@ const Results = (props: Props) => {
       const pdf = new jsPDF({
         unit: "px",
       });
-      pdf.addFileToVFS("RobotoRegular-normal.ttf", robotoRegular);
-      pdf.addFileToVFS("RobotoRegular-bold.ttf", robotoBold);
-      pdf.addFont("RobotoRegular-normal.ttf", "RobotoRegular", "normal");
-      pdf.addFont("RobotoRegular-bold.ttf", "RobotoBold", "normal");
+      addFonts(pdf);
 
       /* title page */
-      addPageHeader(pdf);
+      addPageHeader(title, pdf);
       addFormDetailsText(pdf);
 
       /* results page */
       const imgData = canvas.toDataURL("image/png");
       pdf.addPage();
-      addPageHeader(pdf);
+      addPageHeader(title, pdf);
       pdf.addImage(imgData, "PNG", 0, 80, getPdfWidth(pdf), 0, "SLOW");
 
       pdf.save("download.pdf");
@@ -176,6 +135,10 @@ const Results = (props: Props) => {
 
   return (
     <div className="p-8">
+      <div>
+        <div className="text-3xl">{title}</div>
+        <div className="text-2xl mb-4">{description}</div>
+      </div>
       <div className=" w-fit p-4 border">
         <ResultFieldSelect {...{ inputs, setInputs }} />
 
@@ -198,12 +161,6 @@ const Results = (props: Props) => {
       </div>
 
       <div id="results" className="w-fit p-4">
-        {!!displayedResults.results.length && (
-          <div>
-            <div className="text-3xl">{title}</div>
-            <div className="text-2xl mb-4">{description}</div>
-          </div>
-        )}
         {displayedResults.results.map((result, i) => (
           <AnswerResults {...{ result, diagrams }} key={i} />
         ))}
