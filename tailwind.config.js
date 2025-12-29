@@ -14,8 +14,10 @@ module.exports = {
         accent: "rgba(159, 193, 255, 1)",
         accent_opacity: "rgba(159, 193, 255, 0.64)",
         accent_dark: "rgba(101, 130, 255, 1)",
+
         bg_dark: "rgba(245, 245, 245, 1)",
         bg_light: "rgba(251, 251, 251, 1)",
+
         grey_primary: "rgba(217, 217, 217, 1)",
 
         font_dark: "rgba(66, 66, 66, 1)",

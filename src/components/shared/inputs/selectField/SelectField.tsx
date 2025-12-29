@@ -30,7 +30,9 @@ const SelectField = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const selectedValue = props.value ?? props.defaultValue ?? "";
-  const selectedOption = props.options.find((o) => o.value === selectedValue);
+  const selectedOption = props.options.find(
+    (option) => option.value === selectedValue
+  );
 
   const handleSelect = (val: string) => {
     props.onChange?.(val);

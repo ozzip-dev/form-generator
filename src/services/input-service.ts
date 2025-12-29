@@ -6,15 +6,12 @@ import { Db, ObjectId, WithId } from "mongodb";
 import { getFormById, setFormUpdatedAtDate } from "./form-service";
 import { inputHasOther } from "@/helpers/inputHelpers";
 
-function getFormInputById(
-  inputs: FormInput[],
-  id: string
-): FormInput {
-  const input = inputs.find((el: FormInput) => el.id == id!)
+function getFormInputById(inputs: FormInput[], id: string): FormInput {
+  const input = inputs.find((el: FormInput) => el.id == id!);
 
   if (!input) throw new Error(`Input not found: ${id}`);
 
-  return input
+  return input;
 }
 
 async function decreaseRemainingInputsOrder(
@@ -22,33 +19,35 @@ async function decreaseRemainingInputsOrder(
   formId: ObjectId,
   inputId: string
 ) {
-  const form = await findById<Form>(db, 'form', formId)
-  if (!form)
-    throw new Error('Invalid form id')
+  const form = await findById<Form>(db, "form", formId);
+  if (!form) throw new Error("Invalid form id");
 
-  const { inputs } = form
-  const startingOrder: number | undefined = getFormInputById(form.inputs, inputId!)?.order
+  const { inputs } = form;
+  const startingOrder: number | undefined = getFormInputById(
+    form.inputs,
+    inputId!
+  )?.order;
   /* if order is undefined/null or is last element. We have no inputs to update */
-  if (startingOrder == undefined || startingOrder >= inputs.length - 1) return
+  if (startingOrder == undefined || startingOrder >= inputs.length - 1) return;
   const remainingOrders = inputs
     .sort((a, b) => a.order - b.order)
     .map(({ order }) => order)
-    .filter((order) => order > startingOrder)
+    .filter((order) => order > startingOrder);
 
   for (const order of remainingOrders) {
     await update<Form>(
       db,
-      'form',
+      "form",
       {
         _id: form._id,
-        "inputs.order": order
+        "inputs.order": order,
       },
       {
         $inc: {
-          "inputs.$.order": -1
-        }
+          "inputs.$.order": -1,
+        },
       }
-    )
+    );
   }
 }
 
@@ -57,152 +56,145 @@ export async function removeInputFromDraft(
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form>> {
-
   /* all inputs higher than removed one get their order decreased by 1 */
-  await decreaseRemainingInputsOrder(
-    db,
-    formId,
-    inputId
-  )
+  await decreaseRemainingInputsOrder(db, formId, inputId);
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 
-  return (await updateById<Form>(
-    db,
-    'form',
-    formId,
-    {
-      $pull: {
-        inputs: { id: inputId }
-      },
-      $set: {
-        updatedAt: new Date(),
-      },
-    }
-  )) as WithId<Form>
+  return (await updateById<Form>(db, "form", formId, {
+    $pull: {
+      inputs: { id: inputId },
+    },
+    $set: {
+      updatedAt: new Date(),
+    },
+  })) as WithId<Form>;
 }
-
-
 
 export async function moveInputUp(
   db: Db,
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form> | undefined> {
-  const form = await findById<Form>(db, 'form', formId)
-  if (!form)
-    throw new Error('Invalid form id')
+  const form = await findById<Form>(db, "form", formId);
+  if (!form) throw new Error("Invalid form id");
 
-  const { inputs } = form
-  const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
+  const { inputs } = form;
+  const updatedOrder: number | undefined = getFormInputById(
+    inputs,
+    inputId!
+  )?.order;
   /* if order is undefined/null or 0. We can't move up input with index 0 */
-  if (!updatedOrder) return
+  if (!updatedOrder) return;
 
-  const previousOrder = updatedOrder - 1
+  const previousOrder = updatedOrder - 1;
 
   await update<Form>(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.order": previousOrder
+      "inputs.order": previousOrder,
     },
     {
       $inc: {
-        "inputs.$.order": 1
-      }
+        "inputs.$.order": 1,
+      },
     }
-  )
+  );
 
   await update<Form>(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.id": inputId
+      "inputs.id": inputId,
     },
     {
       $inc: {
-        "inputs.$.order": -1
+        "inputs.$.order": -1,
       },
       $set: {
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 
-  const updatedForm = await findById<Form>(db, 'form', formId)
-  return updatedForm! /* we check earlier if form exists */
+  const updatedForm = await findById<Form>(db, "form", formId);
+  return updatedForm!; /* we check earlier if form exists */
 }
-
 
 export async function moveInputDown(
   db: Db,
   formId: ObjectId,
   inputId: string
 ): Promise<WithId<Form> | undefined> {
-  const form = await findById<Form>(db, 'form', formId)
-  if (!form)
-    throw new Error('Invalid form id')
+  const form = await findById<Form>(db, "form", formId);
+  if (!form) throw new Error("Invalid form id");
 
-  const { inputs } = form
-  const updatedOrder: number | undefined = getFormInputById(inputs, inputId!)?.order
+  const { inputs } = form;
+  const updatedOrder: number | undefined = getFormInputById(
+    inputs,
+    inputId!
+  )?.order;
   /* if order is undefined/null or is last element. We can't move down last input */
-  if (updatedOrder == undefined || updatedOrder >= inputs.length - 1) return
+  if (updatedOrder == undefined || updatedOrder >= inputs.length - 1) return;
 
-  const nextOrder = updatedOrder + 1
+  const nextOrder = updatedOrder + 1;
 
   await update(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.order": nextOrder
+      "inputs.order": nextOrder,
     },
     {
       $inc: {
-        "inputs.$.order": -1
-      }
+        "inputs.$.order": -1,
+      },
     }
-  )
+  );
 
   await update(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.id": inputId
+      "inputs.id": inputId,
     },
     {
       $inc: {
-        "inputs.$.order": 1
+        "inputs.$.order": 1,
       },
       $set: {
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 
-  const updatedForm = await findById<Form>(db, 'form', formId)
-  return updatedForm! /* we check earlier if form exists */
+  const updatedForm = await findById<Form>(db, "form", formId);
+  return updatedForm!; /* we check earlier if form exists */
 }
 
 export async function toggleRequired(
-  db: Db, formId: ObjectId, inputId: string
+  db: Db,
+  formId: ObjectId,
+  inputId: string
 ): Promise<void> {
-  const form = await findById(db, 'form', formId) as Form
-  const input: FormInput = getFormInputById(form.inputs, inputId)
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
 
   await update<Form>(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.id": inputId
+      "inputs.id": inputId,
     },
     {
       $set: {
@@ -210,23 +202,25 @@ export async function toggleRequired(
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 }
 
 export async function toggleUnique(
-  db: Db, formId: ObjectId, inputId: string
+  db: Db,
+  formId: ObjectId,
+  inputId: string
 ): Promise<void> {
-  const form = await findById(db, 'form', formId) as Form
-  const input: FormInput = getFormInputById(form.inputs, inputId)
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
 
   await update<Form>(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.id": inputId
+      "inputs.id": inputId,
     },
     {
       $set: {
@@ -234,9 +228,9 @@ export async function toggleUnique(
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 }
 
 export async function updateFormInputTexts(
@@ -245,19 +239,20 @@ export async function updateFormInputTexts(
   inputId: string,
   data: { header?: string; description?: string }
 ): Promise<void> {
-  const form = await findById(db, 'form', formId) as Form
-  const { header, description } = data
+  const form = (await findById(db, "form", formId)) as Form;
+  const { header, description } = data;
 
-  const updateData: any = {}
-  if (header !== undefined) updateData["inputs.$.header"] = header
-  if (description !== undefined) updateData["inputs.$.description"] = description
+  const updateData: any = {};
+  if (header !== undefined) updateData["inputs.$.header"] = header;
+  if (description !== undefined)
+    updateData["inputs.$.description"] = description;
 
   await update<Form>(
     db,
-    'form',
+    "form",
     {
       _id: form._id,
-      "inputs.id": inputId
+      "inputs.id": inputId,
     },
     {
       $set: {
@@ -265,9 +260,9 @@ export async function updateFormInputTexts(
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  await setFormUpdatedAtDate(formId);
 }
 
 export async function updateFormInputType(
@@ -276,31 +271,42 @@ export async function updateFormInputType(
   inputId: string,
   type?: InputType
 ): Promise<void> {
-  const form = await findById<Form>(db, 'form', formId)
+  if (!type) return;
 
   await update(
     db,
-    'form',
-    {
-      _id: form?._id,
-      "inputs.id": inputId
-    },
+    "form",
+    { _id: formId, "inputs.id": inputId },
     {
       $set: {
         "inputs.$.type": type,
         updatedAt: new Date(),
       },
     }
-  )
+  );
 
-  await setFormUpdatedAtDate(formId)
+  if (type !== InputType.CHECKBOX && type !== InputType.SINGLE_SELECT) {
+    await update(
+      db,
+      "form",
+      { _id: formId, "inputs.id": inputId },
+      {
+        $set: {
+          "inputs.$.options": [],
+          updatedAt: new Date(),
+        },
+      }
+    );
+  }
+
+  await setFormUpdatedAtDate(formId);
 }
 
 export async function checkInputHasOtherOption(
-  formId: string, inputId: string
-): Promise<void> {
-  const { inputs } = await getFormById(formId)
-  const input = getFormInputById(inputs, inputId)
-  if (inputHasOther(input))
-    throw new Error("Pole posiada juz opcje 'Inne'")
+  formId: string,
+  inputId: string
+): Promise<boolean> {
+  const { inputs } = await getFormById(formId);
+  const input = getFormInputById(inputs, inputId);
+  return inputHasOther(input);
 }

@@ -12,24 +12,22 @@ const PieChart = ({
   data = [],
   width = 250,
   height = 250,
-  innerRadius = 50
+  innerRadius = 50,
 }: Props) => {
   const radius = Math.min(width, height) / 2;
-  const pie = d3.pie<DataObject>().value((d) => d.value)
-  const pieData = pie(data)
+  const pie = d3.pie<DataObject>().value((d) => d.value);
+  const pieData = pie(data);
   const arcGenerator = d3
     .arc<d3.PieArcDatum<DataObject>>()
     .innerRadius(innerRadius)
-    .outerRadius(radius)
+    .outerRadius(radius);
 
   const color = d3
     .scaleOrdinal<string>()
     .domain(pieData.map((_, i) => String(i)))
-    .range(d3.schemeTableau10 as string[])
+    .range(d3.schemeTableau10 as string[]);
 
-  const total = data
-    .map((a) => a.value)
-    .reduce((a, b) => a + b)
+  const total = data.map((a) => a.value).reduce((a, b) => a + b, 0);
 
   return (
     <svg
@@ -43,13 +41,19 @@ const PieChart = ({
         {pieData.map((d, i) => {
           const path = arcGenerator(d) ?? undefined;
           const [x, y] = arcGenerator.centroid(d);
-          const { value, label } = (d.data)
-          const percentLabel = total > 0 ? `${Math.round((value / total) * 100)}%` : "0%";
-          const text = label ? `${label}: ${percentLabel}` :  percentLabel;
+          const { value, label } = d.data;
+          const percentLabel =
+            total > 0 ? `${Math.round((value / total) * 100)}%` : "0%";
+          const text = label ? `${label}: ${percentLabel}` : percentLabel;
 
           return (
             <g key={i}>
-              <path d={path} fill={color(String(i))} stroke="#fff" strokeWidth={1} />
+              <path
+                d={path}
+                fill={color(String(i))}
+                stroke="#fff"
+                strokeWidth={1}
+              />
               <text
                 transform={`translate(${x}, ${y})`}
                 fill="#fff"

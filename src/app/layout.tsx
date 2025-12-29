@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="pl" className="h-full">
+      <body className={`${geistSans.variable} ${geistMono.variable} h-full`}>
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

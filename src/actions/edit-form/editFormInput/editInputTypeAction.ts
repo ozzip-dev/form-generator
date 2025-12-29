@@ -15,7 +15,7 @@ export async function editInputTypeAction(
 ): Promise<void> {
   await requireUser();
   const formId = new ObjectId(formIdString);
-  checkFormHasInputWithId(db, formId, inputId)
+  checkFormHasInputWithId(db, formId, inputId);
 
   await updateFormInputType(db, formId, inputId, type);
   revalidateTag(`form-${formId}`);

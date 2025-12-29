@@ -5,9 +5,10 @@ import { FormProvider, useForm } from "react-hook-form";
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-import { FullscreenLoader, InputFields } from "@/components/shared";
 import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
+import { InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { InputType } from "@/enums";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import {
@@ -15,25 +16,18 @@ import {
   EditInputFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo } from "react";
+import { startTransition, useActionState, useEffect, useMemo } from "react";
+import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
-import { startTransition, useActionState } from "react";
-import { InputType } from "@/enums";
-
-const dataSelectOptions = [
-  { label: "Odpowiedź krótka", value: "text" },
-  { label: "Odpowiedź długa", value: "superText" },
-  { label: "Email", value: "email" },
-  { label: "Data", value: "date" },
-  { label: "Numer", value: "number" },
-  { label: "Wybór pojedynczy", value: "singleSelect" },
-  { label: "Wybór wielokrotny", value: "checkbox" },
-];
+import {
+  isInputTypeParagraph,
+  isInputWithOptions,
+} from "@/helpers/inputHelpers";
 
 const dataInputLabel = [
   {
@@ -41,6 +35,15 @@ const dataInputLabel = [
     name: `header`,
     placeholder: "Pytanie",
     label: "Edytuj pytanie",
+  },
+];
+
+const dataInputTextarea = [
+  {
+    name: `description`,
+    placeholder: "Opis",
+    label: "Edytuj opis",
+    type: "textarea",
   },
 ];
 
@@ -128,25 +131,37 @@ const EditFormInput = (props: Props) => {
 
   return (
     <FormProvider {...methods}>
-      <form className="mb-3 rounded-md shadow-default  border border-default">
+      <form className="mb-3 rounded-md shadow-default  border border-default bg-bg_light">
         <div className="flex gap-2 items-center p-2">
           {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
           <div className="w-3/5 flex">
             <div className="flex flex-col gap-2 mr-4 w-3/5">
-              <InputFields
-                inputsData={dataInputLabel}
-                register={register}
-                errorMsg={errors.header as any}
-                onChange={handleEditLabel}
-                // isLoading={isLoadingLabel}
-              />
+              {!isInputTypeParagraph(props.input) ? (
+                <>
+                  <InputFields
+                    inputsData={dataInputLabel}
+                    register={register}
+                    errorMsg={errors.header as any}
+                    onChange={handleEditLabel}
+                    // isLoading={isLoadingLabel}
+                  />
+                  <EditFormDescriptionInput
+                    inputId={inputId as string}
+                    inputIdx={props.inputIdx}
+                    description={description ?? ""}
+                  />
+                </>
+              ) : (
+                <InputFields
+                  inputsData={dataInputTextarea}
+                  register={register}
+                  errorMsg={errors.header as any}
+                  onChange={handleEditLabel}
+                  // isLoading={isLoadingLabel}
+                />
+              )}
 
-              <EditFormDescriptionInput
-                inputId={inputId as string}
-                inputIdx={props.inputIdx}
-                description={description ?? ""}
-              />
-              {(type === "checkbox" || type === "singleSelect") && (
+              {isInputWithOptions(props.input) && (
                 <AddOption
                   inputIdx={props.inputIdx}
                   input={props.input}
@@ -167,10 +182,12 @@ const EditFormInput = (props: Props) => {
             </div>
           </div>
 
-          <div>
-            <RequiredToggleSwitch input={props.input} />
-            <UniqueToggleSwitch input={props.input} />
-          </div>
+          {type !== InputType.PARAGRAPH && (
+            <div>
+              <RequiredToggleSwitch input={props.input} />
+              <UniqueToggleSwitch input={props.input} />
+            </div>
+          )}
 
           <div className="flex flex-col justify-center gap-2 mb-auto">
             <div className="">

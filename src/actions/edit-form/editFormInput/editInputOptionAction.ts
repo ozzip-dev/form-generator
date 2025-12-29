@@ -14,24 +14,24 @@ import { requireUser } from "@/services/user-service";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-const editInputOptionAction = async (
+export const editInputOptionAction = async (
   formIdString: string,
   inputId: string,
   inputLabel: string,
-  inputName: string
+  inputName: string,
+  isCurrentOptionOther: boolean
 ): Promise<void | { validationErrors: ModelFieldErrors }> => {
   await requireUser();
 
   const formId = new ObjectId(formIdString);
   const form = await getFormById(formId.toString());
-  const input = form.inputs.find(({ id }) => id === inputId);
-
+  const input = form.inputs.find((i) => i.id === inputId);
   if (!input) return;
 
   const optionIndex = Number(inputName.split(".")[1]);
 
-  const dataToValidate = input.options.map((opt, idx) =>
-    idx === optionIndex ? { ...opt, label: inputLabel } : opt
+  const dataToValidate = input.options.map((option, idx) =>
+    idx === optionIndex ? { ...option, label: inputLabel } : option
   );
 
   const validationResult = editInputFormSchema.partial().safeParse({
@@ -42,23 +42,37 @@ const editInputOptionAction = async (
     return { validationErrors: handleServerErrors(validationResult.error) };
   }
 
-  let mappedOptions = [...input.options];
+  const options = [...input.options];
 
-  const optionValue =
-    inputName === OPTION_OTHER ? OPTION_OTHER : makeId(inputId);
+  const hasOptionOther = await checkInputHasOtherOption(formIdString, inputId);
 
-  if (!mappedOptions[optionIndex]) {
-    await checkInputHasOtherOption(formIdString, inputId);
-    mappedOptions.push({ value: optionValue, label: inputLabel });
-  } else {
-    mappedOptions[optionIndex] = {
-      ...mappedOptions[optionIndex],
+  const isEdit =
+    (!hasOptionOther && !!options[optionIndex]) ||
+    (hasOptionOther && isCurrentOptionOther);
+
+  const newOption = {
+    value: isCurrentOptionOther ? OPTION_OTHER : makeId(inputId),
+    label: inputLabel,
+  };
+
+  if (isEdit) {
+    options[optionIndex] = {
+      ...options[optionIndex],
       label: inputLabel,
     };
+  } else {
+    if (hasOptionOther) {
+      const otherIndex = options.findIndex(
+        (option) => option.value === OPTION_OTHER
+      );
+      options.splice(otherIndex, 0, newOption);
+    } else {
+      options.push(newOption);
+    }
   }
 
   const mappedInputs = form.inputs.map((inp) =>
-    inp.id === inputId ? { ...inp, options: mappedOptions } : inp
+    inp.id === inputId ? { ...inp, options } : inp
   );
 
   await updateById(db, "form", formId, {
@@ -67,5 +81,3 @@ const editInputOptionAction = async (
 
   if (inputName === OPTION_OTHER) revalidateTag(`form-${formId}`);
 };
-
-export default editInputOptionAction;

@@ -11,7 +11,6 @@ import {
   SetStateAction,
   startTransition,
   useActionState,
-  useEffect,
   useState,
 } from "react";
 
@@ -28,19 +27,29 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
     null
   );
-  const [_, fetchDetails, isPending] = useActionState(async () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const animationDuration = 700;
+
+  const toggleProtocolDetails = async () => {
     if (details) {
-      setDetails(null);
+      setIsOpen(false);
+      setTimeout(() => {
+        setDetails(null);
+      }, animationDuration);
+
       return null;
     }
     const result = await getProtocolDetailsAction(_id);
-    if (result) setDetails(result);
+    if (result) {
+      setDetails(result);
+      requestAnimationFrame(() => setIsOpen(true));
+    }
     return result;
-  }, null);
-
-  useEffect(() => {
-    setPending(isPending);
-  }, [isPending, setPending]);
+  };
+  const [_, fetchDetails, isPending] = useActionState(
+    toggleProtocolDetails,
+    null
+  );
 
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
     protocol;
@@ -54,7 +63,7 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
         <div>{formatDateAndTime(disputeStartDate)}</div>
         <div className="flex gap-2">
           <Button
-            message={details ? "Ukryj info" : "Pokaz info"}
+            message={details ? "Ukryj info" : "Pokaż info"}
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending}
           />
@@ -63,8 +72,19 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
           </Link>
         </div>
       </div>
-
-      {details && <ProtocolListItemDetails {...details} />}
+      <div className="group ">
+        <div
+          className={`
+          grid overflow-hidden transition-all 
+          duration-${animationDuration}
+          ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+        `}
+        >
+          <div className="min-h-0">
+            {details && <ProtocolListItemDetails {...details} />}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

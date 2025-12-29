@@ -16,15 +16,16 @@ export default function DashboardLayout({
     <>
       <UserContextProvider userPromise={userPromise}>
         <IsUserModal />
+        <div className="h-full flex flex-col">
+          <header className="shrink-0">
+            <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
+              <DashboardTopBar />
+              <DashboardMenu />
+            </SuspenseErrorBoundary>
+          </header>
 
-        <header className="bg-gray-50">
-          <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
-            <DashboardTopBar />
-            <DashboardMenu />
-          </SuspenseErrorBoundary>
-        </header>
-
-        <main>{children}</main>
+          <main className="flex-1 overflow-y-auto">{children}</main>
+        </div>
       </UserContextProvider>
     </>
   );

@@ -6,10 +6,19 @@ export const convertBToKB = (bytes: number): string => {
 };
 
 export function makeId(header: string): string {
-  return `${header.trim().toLowerCase().replace(' ', '-')}-${Math.round(
-    Math.random() * 100000
-  ).toString()}`;
+  return `${header
+    .trim()
+    .toLowerCase()
+    .replaceAll(" ", "-")
+    .substring(0, 10)}-${Math.round(Math.random() * 100000).toString()}`;
 }
+
+export const downloadFile = (blob: Blob, name: string) => {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = name;
+  link.click();
+};
 
 /* user */
 export const isModerator = (user: IUser): boolean =>

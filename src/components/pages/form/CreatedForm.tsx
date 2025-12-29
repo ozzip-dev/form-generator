@@ -14,24 +14,26 @@ import {
   renderCheckbox,
   RendererParams,
   renderInput,
+  renderParagraph,
   renderRadio,
-  renderTextarea,
 } from "./CreatedFormFields";
 import SuccesMsg from "./SuccesMsg";
 import { useToast } from "@/context/ToastProvider";
+import {
+  isInputSubmittable,
+  isInputTypeCheckbox,
+} from "@/helpers/inputHelpers";
 
 const defaultValues = (inputs: FormInput[]) => {
-  const defaultValues = inputs.reduce((formObject: any, input: any) => {
-    const { type, options, id } = input;
+  const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
+    const { options, id } = input;
 
     const checkboxValues = options.reduce((optionsObject: any, option: any) => {
       optionsObject[option.label] = "";
       return optionsObject;
     }, {});
 
-    if (type === "checkbox") {
-      formObject[id] = checkboxValues;
-    } else formObject[id] = "";
+    formObject[id as string] = isInputTypeCheckbox(input) ? checkboxValues : "";
 
     return formObject;
   }, {});
@@ -70,12 +72,22 @@ const CreatedForm = (props: Props) => {
   // }, [methods.watch()]);
 
   const onSubmit = async (data: any) => {
-    console.log("data", data);
     const _id = props.form._id?.toString();
     if (!_id) return;
 
     try {
-      const resp = await submitFormAction(_id, data, inputs);
+      const submittableInputs = inputs.filter(isInputSubmittable);
+      const submittableInputIds: string[] = submittableInputs.map(
+        ({ id }) => id!
+      );
+
+      for (const key of Object.keys(data)) {
+        if (!submittableInputIds.includes(key)) {
+          delete data[key];
+        }
+      }
+
+      const resp = await submitFormAction(_id, data, submittableInputs);
 
       if (resp?.validationErrors) {
         setClientErrors(resp.validationErrors, setError);
@@ -103,12 +115,13 @@ const CreatedForm = (props: Props) => {
 
   const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
     text: renderInput,
-    superText: renderTextarea,
+    superText: renderInput,
     number: renderInput,
     email: renderInput,
     date: renderInput,
     singleSelect: renderRadio,
     checkbox: renderCheckbox,
+    paragraph: renderParagraph,
   };
 
   const formFields = inputs

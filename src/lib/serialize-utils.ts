@@ -2,12 +2,11 @@ import { File, FileSerialized } from "@/types/file";
 import { Form, FormSerialized } from "@/types/form";
 import { Post, PostSerialized, Topic, TopicSerialized } from "@/types/forum";
 import { Protocol, ProtocolSerialized } from "@/types/protocol";
+import { Submission, SubmissionSerialized } from "@/types/result";
 import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
-  const {
-    _id, createdAt, createdBy, updatedAt,
-  } = form;
+  const { _id, createdAt, createdBy, updatedAt } = form;
 
   return {
     ...form,
@@ -19,7 +18,7 @@ export function serializeForm(form: Form): FormSerialized {
 }
 
 export function serializeFile(file: File): FileSerialized {
-  const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file
+  const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file;
   const base64 = btoa(String.fromCharCode(...data.buffer));
 
   return {
@@ -33,12 +32,7 @@ export function serializeFile(file: File): FileSerialized {
 }
 
 export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
-  const {
-    _id,
-    disputeStartDate,
-    lastModifiedAt,
-    uploadedAt
-  } = protocol;
+  const { _id, disputeStartDate, lastModifiedAt, uploadedAt } = protocol;
 
   return {
     ...protocol,
@@ -57,9 +51,7 @@ export function serializeUser(user: IUser): UserSerialized {
 }
 
 export function serializePost(post: Post): PostSerialized {
-  const {
-    _id, topicId, createdAt, createdBy, updatedAt
-  } = post;
+  const { _id, topicId, createdAt, createdBy, updatedAt } = post;
 
   return {
     ...post,
@@ -67,20 +59,27 @@ export function serializePost(post: Post): PostSerialized {
     topicId: topicId.toString(),
     createdAt: createdAt.toISOString(),
     createdBy: createdBy.toString(),
-    updatedAt: updatedAt.toISOString()
+    updatedAt: updatedAt.toISOString(),
   };
 }
 
 export function serializeTopic(topic: Topic): TopicSerialized {
-  const {
-    _id, createdAt, createdBy, updatedAt
-  } = topic;
+  const { _id, createdAt, createdBy, updatedAt } = topic;
 
   return {
     ...topic,
     _id: _id.toString(),
     createdAt: createdAt.toISOString(),
     createdBy: createdBy.toString(),
-    updatedAt: updatedAt.toISOString()
+    updatedAt: updatedAt.toISOString(),
+  };
+}
+export function serializeResultSubmission(
+  submission: Submission
+): SubmissionSerialized {
+  return {
+    ...submission,
+    id: submission.id.toString(),
+    submittedAt: submission.submittedAt?.toISOString(),
   };
 }

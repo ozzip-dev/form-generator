@@ -12,7 +12,7 @@ import { userDetailsSchema } from "@/lib/zodSchema/userDetailsShema";
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
-import { InputFieldsAA } from "@/components/shared/inputs/InputFields";
+// import { InputFieldsAA } from "@/components/shared/inputs/inputFields/InputFields";
 
 const dataInputscommittee = [
   {
@@ -104,14 +104,14 @@ export default function UserDetailTest(props: Props) {
   return (
     <form className="space-y-4">
       {isAction.current && isPending && <FullscreenLoader />}
-      <InputFieldsAA
+      {/* <InputFieldsAA
         inputsData={dataInputscommittee}
         errorMsg={Object.fromEntries(
           Object.entries(state.errors).filter(([key]) => touched[key])
         )}
         values={values}
         onChange={onChange}
-      />
+      /> */}
     </form>
   );
 }

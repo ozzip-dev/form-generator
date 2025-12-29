@@ -20,7 +20,7 @@ const DashboardMenu = () => {
   if (!user || user.role === "admin") return;
 
   return (
-    <ul className="flex items-center p-4 ">
+    <ul className="flex items-center p-4 bg-accent_opacity">
       {dataNavLinks.map(({ text, link }) => {
         const isActive =
           pathname === link || pathname.startsWith("create-form" + "/");

@@ -14,16 +14,7 @@ import { useParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
 import { FormProvider, useForm } from "react-hook-form";
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
-
-const dataSelectOptions = [
-  { label: "Odpowiedź krótka", value: "text" },
-  { label: "Odpowiedź długa", value: "superText" },
-  { label: "Email", value: "email" },
-  { label: "Data", value: "date" },
-  { label: "Numer", value: "number" },
-  { label: "Wybór pojedynczy", value: "singleSelect" },
-  { label: "Wybór wielokrotny", value: "checkbox" },
-];
+import { dataSelectOptions } from "./editFormData";
 
 const dataInputsheader = [
   {

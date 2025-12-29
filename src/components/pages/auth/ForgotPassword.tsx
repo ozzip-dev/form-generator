@@ -84,7 +84,6 @@ const ForgotPassword = () => {
           <InputFields
             inputsData={dataInputsForgotPassword}
             errorMsg={state.errors}
-            default={state?.inputs}
           />
 
           <Button

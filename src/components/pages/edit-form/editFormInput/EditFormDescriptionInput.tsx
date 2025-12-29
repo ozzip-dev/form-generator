@@ -4,11 +4,11 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { Button, FullscreenLoader, TextareaFields } from "../../../shared";
+import { Button, FullscreenLoader, InputFields } from "../../../shared";
 
 const dataInputDescription = [
   {
-    type: "text",
+    type: "textarea",
     name: `description`,
     placeholder: "Opis",
     label: "Edytuj opis pytania",
@@ -68,12 +68,13 @@ const EditFormDescriptionInput = (props: Props) => {
       {isRemoveLoading && <FullscreenLoader />}
       {props.description || isDescriptionInput ? (
         <div className="flex gap-2">
-          <TextareaFields
+          <InputFields
             inputsData={dataInputDescription}
             register={register}
-            errorMsg={errors?.description as any}
+            errorMsg={errors.header as any}
             onChange={handleEditLabel}
           />
+
           <div className="w-fit flex items-center">
             <Button
               type="button"
