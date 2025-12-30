@@ -15,7 +15,7 @@ export async function editInputLabelAction(
   data: { header?: string; description?: string }
 ): Promise<void | { validationErrors: ValidationErrors }> {
   await requireUser();
-  console.log("", data);
+
   const validationResult = editInputFormSchema.partial().safeParse(data);
 
   if (!validationResult.success) {
@@ -28,7 +28,5 @@ export async function editInputLabelAction(
 
   await updateFormInputTexts(db, formId, inputId, data);
 
-  if (data.description === "") {
-    revalidateTag(`form-${formId}`);
-  }
+  revalidateTag(`form-${formId}`);
 }

@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import { serializeForm } from "@/lib/serialize-utils";
 import { requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
-import { isInputSubmittable } from "@/helpers/inputHelpers";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
@@ -123,8 +122,6 @@ export async function setAliasUrl(
       updatedAt: new Date(),
     },
   });
-
-  await setFormUpdatedAtDate(formIdObj);
 }
 
 export async function getSerializedFormList(): Promise<
@@ -173,14 +170,6 @@ export async function getFormById(formId: string): Promise<Form> {
   const form = await findById<Form>(db, "form", new ObjectId(formId));
   if (!form) throw new Error("Invalid form id");
   return form;
-}
-
-export async function setFormUpdatedAtDate(
-  formId: ObjectId
-): Promise<WithId<Form> | null> {
-  return await updateById<Form>(db, "form", formId, {
-    $set: { updatedAt: new Date() },
-  });
 }
 
 export async function getFormsByType(type: FormType): Promise<Form[]> {
