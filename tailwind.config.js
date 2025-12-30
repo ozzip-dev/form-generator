@@ -11,24 +11,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: "rgba(159, 193, 255, 1)",
-        accent_opacity: "rgba(159, 193, 255, 0.64)",
-        accent_dark: "rgba(101, 130, 255, 1)",
+        accent: "var(--color-accent)",
+        accent_opacity: "var(--color-accent_opacity)",
+        accent_dark: "var(--color-accent_dark)",
 
-        bg_dark: "rgba(245, 245, 245, 1)",
-        bg_light: "rgba(251, 251, 251, 1)",
+        bg_dark: "var(--color-bg_dark)",
+        bg_light: "var(--color-bg_light)",
 
         grey_primary: "rgba(217, 217, 217, 1)",
 
         font_dark: "rgba(66, 66, 66, 1)",
         font_light: "rgba(193, 193, 193, 1)",
 
-        red: "rgba(255, 87, 87, 1)",
+        error: "var(--color-error)",
       },
       fontSize: {
         xs: ["var(--fs-xs)", { fontWeight: "var(--fw-base)" }],
         sm: ["var(--fs-sm)", { fontWeight: "var(--fw-base)" }],
         base: ["var(--fs-md)", { fontWeight: "var(--fw-base)" }],
+        base_bold: ["var(--fs-md)", { fontWeight: "var(--fw-semi-bold)" }],
         lg: ["var(--fs-lg)", { fontWeight: "var(--fw-semi-bold)" }],
         xl: ["var(--fs-xl)", { fontWeight: "var(--fw-base)" }],
         "2xl": ["var(--fs-2xl)", { fontWeight: "var(--fw-semi-bold)" }],
@@ -58,7 +59,7 @@ module.exports = {
       },
 
       boxShadow: {
-        default: "0 4px 12px rgba(0,0,0,0.1)",
+        default: "0 0.4rem 1.2rem rgba(0,0,0,0.1)",
       },
 
       screens: {

@@ -52,6 +52,7 @@ const ProtocolAttachedFile = (props: Props) => {
         className="!w-12 !bg-red-600"
         onClickAction={onRemoveFile}
       />
+      <button>xxx</button>
     </div>
   );
 };

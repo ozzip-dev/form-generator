@@ -11,24 +11,11 @@ export default function ButtonLink(props: Props) {
   return (
     <Link
       href={props.link}
-      className="w-full block"
+      className="block text-base_bold"
       target={props.target}
       rel={props.rel}
     >
-      <button
-        type="submit"
-        className={`
-        flex items-center justify-center
-        w-full rounded-lg px-2 
-        font-medium text-white
-        bg-zinc-300 hover:bg-zinc-400
-        transition-colors duration-200
-        shadow-sm 
-    
-      `}
-      >
-        {props.message}
-      </button>
+      {props.message}
     </Link>
   );
 }

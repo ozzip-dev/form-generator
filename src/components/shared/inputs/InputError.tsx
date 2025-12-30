@@ -24,7 +24,7 @@ type Props = {
 };
 
 const InputError = (props: Props) => {
-  return <div className="text-xs text-red h-4">{props?.errorMsg}</div>;
+  return <div className="text-xs text-error h-4">{props?.errorMsg}</div>;
 };
 
 export default InputError;

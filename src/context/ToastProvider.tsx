@@ -16,7 +16,11 @@ export const ToastContext = createContext<ToastContextType | undefined>(
   undefined
 );
 
-export const ToastProvider = ({ children }: { children: ReactNode }) => {
+type Props = {
+  children: ReactNode;
+};
+
+export const ToastProvider = (props: Props) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
   const toast = (toast: Omit<Toast, "id">) => {
@@ -41,7 +45,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ToastContext.Provider value={{ toast }}>
-      {children}
+      {props.children}
 
       <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 z-[101]">
         {toasts.map((toast) => {

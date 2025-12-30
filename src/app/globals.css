@@ -14,6 +14,15 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
+  --color-accent: rgba(159, 193, 255, 1);
+  --color-accent_opacity: rgba(159, 193, 255, 0.64);
+  --color-accent_dark: rgba(101, 130, 255, 1);
+
+  --color-bg_dark: rgba(245, 245, 245, 1);
+  --color-bg_light: rgba(251, 251, 251, 1);
+
+  --color-error: rgba(255, 87, 87, 1);
+
   --color-text-base: rgba(66, 66, 66, 1);
 }
 
