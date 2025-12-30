@@ -1,14 +1,20 @@
-export type Answers = Record<string, string /* string? */>
+import { InputType } from "@/enums";
 
+export type Answers = Record<string, string | Record<string, string>>;
+
+/* 'id' i 'submittedAt' opcjonalne = nie ma ich w tajnych submissions */
 export type Submission = {
-  submittedAt: Date;
+  id?: ObjectId;
+  submittedAt?: Date;
   answers: Answers;
-}
+};
 
+/* 'id' i 'submittedAt' opcjonalne = nie ma ich w tajnych submissions */
 export type SubmissionSerialized = {
-  submittedAt: string;
+  id?: string;
+  submittedAt?: string;
   answers: Answers;
-}
+};
 
 export interface Result extends Document {
   formId: string;
@@ -28,11 +34,12 @@ export interface ResultAnswer {
 export interface GroupedAnswer {
   answers: ResultAnswer[];
   id: string;
+  type: InputType;
   header: string;
 }
 
 export type DiagramType = {
   value: string;
-  label: string
-  selected: boolean
-}
+  label: string;
+  selected: boolean;
+};

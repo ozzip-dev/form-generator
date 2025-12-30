@@ -11,6 +11,7 @@ export async function removeProtocolFileAction(
   fileCategory: ProtocolFileCategory
 ): Promise<void> {
   try {
+    // TODO: add check if user is protocol author
     await removeFileFromProtocol({
       protocolId,
       fileId,

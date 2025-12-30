@@ -4,6 +4,7 @@ import { FileSerialized } from "@/types/file";
 import { Button } from "@/components/shared";
 import Image from "next/image";
 import IconPDF from "@/icons/iconPDF/IconPDF";
+import { downloadFile } from "@/lib/utils";
 
 const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const getFileBlob = (file: FileSerialized): Blob | undefined => {
@@ -21,13 +22,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const handleDownload = (file: FileSerialized) => {
     const blob = getFileBlob(file);
     if (!blob) return;
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = file.name || "downloaded_file";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(link.href);
+    downloadFile(blob, file.name || "downloaded_file");
   };
 
   return (

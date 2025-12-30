@@ -5,6 +5,8 @@ import { DbModel } from "@/types/mongo";
 import { TemplateFormId } from "@/models/Form";
 import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
 import { ProtocolModel } from "@/models/Protocol";
+import { PostModel } from "@/models/Post";
+import { TopicModel } from "@/models/Topic";
 import { FileModel } from "@/models/File";
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
@@ -17,6 +19,8 @@ const collections: [string, DbModel][] = [
   ["form", FormModel],
   ["file", FileModel],
   ["protocol", ProtocolModel],
+  ["post", PostModel],
+  ["topic", TopicModel],
 ];
 
 // TODO Pawel

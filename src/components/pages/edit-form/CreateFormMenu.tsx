@@ -8,7 +8,7 @@ const CreateFormMenu = ({ formId }: Props) => {
   const dataNavLinks = [
     { text: "Formularz", link: `/create-form/${formId}/edit` },
     { text: "Podgląd", link: `/create-form/${formId}/preview` },
-    { text: "Wyniki", link: `/create-form/${formId}/results` },
+    { text: "Wyniki", link: `/create-form/${formId}/results/summary` },
     { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
   ];
 

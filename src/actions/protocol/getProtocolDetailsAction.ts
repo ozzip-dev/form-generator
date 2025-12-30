@@ -11,7 +11,7 @@ export async function getProtocolDetailsAction(
     if (!protocolWithFiles) throw new Error("Invalid protocol id");
     return protocolWithFiles;
   } catch (error) {
-    console.error("Error fetching protocol details:", error);
+    console.error("Error fetching protocol details: ", error);
     return null;
   }
 }
