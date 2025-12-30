@@ -8,6 +8,7 @@ import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import RemoveAliasButton from "./RemoveAliasButton";
 
 const dataInputUrl = [
   {
@@ -47,21 +48,23 @@ export default function AliasUrlForm(form: FormSerialized) {
   };
 
   return (
-    <>
+    <div className="flex gap-8">
       <form
         onSubmit={handleSubmit(setAlias)}
-        className="flex items-center gap-4"
+        className="flex shrink-0 items-center gap-4"
       >
         <InputFields
           inputsData={dataInputUrl}
           register={register}
           errorMsg={errors}
         />
-        {/* TODO: add remove alias */}
+
         <div>
           <Button message="Zapisz" isLoading={isSubmitting} />
         </div>
       </form>
-    </>
+
+      <RemoveAliasButton form={form} />
+    </div>
   );
 }

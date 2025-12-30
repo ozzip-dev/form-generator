@@ -114,12 +114,25 @@ export async function setAliasUrl(
   const form = await getFormBySlug(db, url);
   const formIdObj = new ObjectId(formId);
   if (form)
-    throw new Error(`Formularz o ID lub ścierzce "${url}" już istnieje.`);
+    throw new Error(`Formularz o ID lub ścieżce "${url}" już istnieje.`);
 
   await updateById<Form>(db, "form", formIdObj, {
     $set: {
       url,
       updatedAt: new Date(),
+    },
+  });
+}
+
+export async function removeAliasUrl(db: Db, formId: string): Promise<void> {
+  const form = await getFormById(formId);
+  const formIdObj = new ObjectId(formId);
+
+  if (!form) throw new Error(`Błąd ładowania formularza`);
+
+  await updateById<Form>(db, "form", formIdObj, {
+    $unset: {
+      url: 1,
     },
   });
 }
