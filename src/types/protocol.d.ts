@@ -47,6 +47,7 @@ export interface Protocol extends ProtocolData {
   disputeStartDate: Date; // data rozpoczecia sporu
   lastModifiedAt: Date;
   uploadedAt: Date;
+  uploadedBy: ObjectId;
 }
 
 export interface ProtocolSerialized extends ProtocolData {
@@ -54,6 +55,7 @@ export interface ProtocolSerialized extends ProtocolData {
   disputeStartDate: string; // data rozpoczecia sporu
   lastModifiedAt: string;
   uploadedAt: string;
+  uploadedBy: string;
 }
 
 export type ProtocolInsertData = {

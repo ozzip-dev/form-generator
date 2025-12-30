@@ -32,13 +32,15 @@ export function serializeFile(file: File): FileSerialized {
 }
 
 export function serializeProtocol(protocol: Protocol): ProtocolSerialized {
-  const { _id, disputeStartDate, lastModifiedAt, uploadedAt } = protocol;
+  const { _id, disputeStartDate, lastModifiedAt, uploadedAt, uploadedBy } =
+    protocol;
 
   return {
     ...protocol,
     _id: _id?.toString(),
     disputeStartDate: disputeStartDate.toISOString(),
     uploadedAt: uploadedAt?.toISOString(),
+    uploadedBy: uploadedBy?.toString(),
     lastModifiedAt: lastModifiedAt?.toISOString(),
   };
 }

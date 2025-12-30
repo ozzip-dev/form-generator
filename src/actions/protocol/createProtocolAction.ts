@@ -16,7 +16,7 @@ export async function createProtocolAction({
   workplaceName,
   disputeStartDate,
 }: ProtocolInsertData): Promise<void | { validationErrors: ValidationErrors }> {
-  requireUser();
+  const user = await requireUser();
 
   const data = {
     branch,
@@ -34,7 +34,7 @@ export async function createProtocolAction({
 
   let protocolId = "";
   try {
-    protocolId = await addProtocol(db, {
+    protocolId = await addProtocol(db, user._id, {
       branch,
       disputeReason,
       tradeUnionName,
@@ -53,7 +53,6 @@ export async function createProtocolAction({
 
     revalidateTag("protocols");
   } catch (_) {
-    // Delete files? If yes, trigger proper action
     throw new Error("Invalid protocol data");
   }
 
