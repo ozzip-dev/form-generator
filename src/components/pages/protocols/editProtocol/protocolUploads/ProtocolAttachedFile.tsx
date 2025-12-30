@@ -1,5 +1,6 @@
 import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFileAction";
 import { Button } from "@/components/shared";
+import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
 import IconTrash from "@/icons/iconTrash/IconTrash";
@@ -14,6 +15,7 @@ type Props = {
 
 const ProtocolAttachedFile = (props: Props) => {
   const { toast } = useToast();
+  const { openModal } = useModal();
 
   const printModal = async () => {
     try {
@@ -55,7 +57,13 @@ const ProtocolAttachedFile = (props: Props) => {
         className="!w-12 !bg-red-600"
         onClickAction={onRemoveFile}
       />
-      <button>xxx</button>
+      <button
+        onClick={() =>
+          openModal({ action: printModal, header: "Czy usunąć dokument?" })
+        }
+      >
+        xxx
+      </button>
     </div>
   );
 };
