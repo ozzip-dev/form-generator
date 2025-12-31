@@ -20,7 +20,7 @@ const ProtocolsMenu = () => {
 
   return (
     <div>
-      <ul className="flex items-center justify-center">
+      <ul className="flex items-center justify-center gap-3">
         {dataNavLinks.map(({ text, link }) => (
           <MenuLink key={text} text={text} link={link} />
         ))}

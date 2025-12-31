@@ -41,7 +41,12 @@ const PublishForm = ({ form }: Props) => {
           <div>Opublikowano:</div>
           <div className="font-bold">{formUrl}</div>
 
-          <Button onClickAction={copyUrl} message="Kopiuj" type="button" />
+          <Button
+            onClickAction={copyUrl}
+            message="Kopiuj"
+            type="button"
+            variant="primary-rounded"
+          />
           <ButtonLink
             message={"Przejdź do formularza"}
             link={formUrl}

@@ -78,7 +78,8 @@ const EditFormDescriptionInput = (props: Props) => {
           <div className="w-fit flex items-center">
             <Button
               type="button"
-              icon={<IconTrash style="h-5 w-5 bg-white" />}
+              icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+              variant="icon"
               onClickAction={handleRemoveDescriptionInput}
             />
           </div>
@@ -88,6 +89,7 @@ const EditFormDescriptionInput = (props: Props) => {
           type="button"
           message="Dodaj opis pytania"
           onClickAction={printDescriptionInput}
+          variant="primary-rounded"
         />
       )}
     </>

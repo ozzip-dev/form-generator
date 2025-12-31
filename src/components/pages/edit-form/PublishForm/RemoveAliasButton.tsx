@@ -24,6 +24,7 @@ const RemoveAliasButton = ({ form }: Props) => {
         message="Usuń alias"
         onClickAction={handleRemoveAliasUrl}
         isLoading={isPending}
+        variant="primary-rounded"
       />
     </>
   );

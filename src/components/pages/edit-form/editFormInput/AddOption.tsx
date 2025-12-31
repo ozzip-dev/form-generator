@@ -113,7 +113,7 @@ const AddOption = (props: Props) => {
                 {
                   type: "text",
                   name: `options.${idx}.label`,
-                  placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
+                  // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
                 },
               ]}
               register={register}
@@ -127,10 +127,11 @@ const AddOption = (props: Props) => {
             <div className="w-fit ml-2">
               <Button
                 type="button"
-                icon={<IconTrash style="h-5 w-5 bg-white" />}
+                icon={<IconTrash style="h-10 w-8 bg-font_light" />}
                 onClickAction={() =>
                   handleDeleteOption(`option.${idx}.${props.header}`, idx)
                 }
+                variant="icon"
               />
             </div>
           </div>
@@ -144,6 +145,7 @@ const AddOption = (props: Props) => {
             type="button"
             disabled={!!errors.options}
             onClickAction={handleAddOption}
+            variant="primary-rounded"
           />
         </div>
         {!inputHasOther(props.input) && (
@@ -152,6 +154,7 @@ const AddOption = (props: Props) => {
               message="Dodaj inne"
               type="button"
               onClickAction={handleAddOther}
+              variant="primary-rounded"
             />
           </div>
         )}

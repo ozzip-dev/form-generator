@@ -57,7 +57,8 @@ const TopicPostItem = (props: Props) => {
         {isAuthor && (
           <Button
             type="button"
-            icon={<IconTrash style="h-5 w-5 bg-white" />}
+            icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+            variant="icon"
             className="!w-12 !bg-red-600"
             onClickAction={onRemovePost}
           />

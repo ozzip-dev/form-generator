@@ -60,7 +60,11 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
 
         <div>
-          <Button message="Zapisz" isLoading={isSubmitting} />
+          <Button
+            message="Zapisz"
+            isLoading={isSubmitting}
+            variant="primary-rounded"
+          />
         </div>
       </form>
 
