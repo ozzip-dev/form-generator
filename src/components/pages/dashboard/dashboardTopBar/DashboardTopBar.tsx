@@ -12,7 +12,7 @@ const DashboardTopBar = () => {
   return (
     <div className="flex justify-between items-center container">
       <DashboardMenu />
-      <div className="w-1/3 flex justify-between">
+      <div className="w-1/3 flex justify-between items-center ">
         <div>
           <span>{user?.role}: </span>
           <span className="font-bold">{user?.name}</span>

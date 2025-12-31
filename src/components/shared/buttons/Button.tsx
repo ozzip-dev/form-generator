@@ -42,7 +42,7 @@ const Button = (props: Props) => {
 
       {props.isLoading && (
         <span className="absolute inset-0 flex items-center justify-center">
-          <Loader size="lg" />
+          <Loader size="sm" />
         </span>
       )}
     </button>

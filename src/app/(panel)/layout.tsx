@@ -18,7 +18,7 @@ export default function DashboardLayout({
         <UserContextProvider userPromise={userPromise}>
           <IsUserModal />
           <div className="h-full flex flex-col">
-            <header className="shrink-0 bg-accent_opacity">
+            <header className="shrink-0 bg-accent_opacity py-6">
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
                 <DashboardTopBar />
               </SuspenseErrorBoundary>

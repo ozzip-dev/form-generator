@@ -7,9 +7,9 @@ export default function AuthLayout({
 }>) {
   return (
     <div className="h-full flex flex-col">
-      <header className="shrink-0 bg-accent_opacity ">
+      <header className="shrink-0 bg-accent_opacity py-6">
         <div className="container">
-          <div className="w-fit">
+          <div className="w-fit bg-white rounded-full text-accent py-1 px-4">
             <ButtonLink message="Strona główna" link="/" />
           </div>
         </div>

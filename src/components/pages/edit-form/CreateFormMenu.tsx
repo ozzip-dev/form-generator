@@ -6,7 +6,7 @@ type Props = {
 
 const CreateFormMenu = ({ formId }: Props) => {
   const dataNavLinks = [
-    { text: "Formularz", link: `/create-form/${formId}/edit` },
+    { text: "Edycja", link: `/create-form/${formId}/edit` },
     { text: "Podgląd", link: `/create-form/${formId}/preview` },
     { text: "Wyniki", link: `/create-form/${formId}/results/summary` },
     { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
@@ -14,7 +14,7 @@ const CreateFormMenu = ({ formId }: Props) => {
 
   return (
     <div>
-      <ul className="flex items-center justify-center">
+      <ul className="flex items-center justify-center gap-4">
         {dataNavLinks.map(({ text, link }) => (
           <MenuLink key={text} text={text} link={link} />
         ))}

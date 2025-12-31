@@ -17,7 +17,7 @@ const MenuLink = ({ text, link, sameTab = false }: Props) => {
 
   return (
     <li
-      className={`me-1 pb-1 ${
+      className={` ${
         isActive
           ? "border-b-2 border-blue-500"
           : "border-b-2 border-transparent"

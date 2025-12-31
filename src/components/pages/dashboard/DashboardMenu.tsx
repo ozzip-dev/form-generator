@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonLink } from "@/components/shared";
+import MenuLink from "@/components/shared/MenuLink";
 import { useUser } from "@/context/UserContextProvider";
 import { usePathname } from "next/navigation";
 import { use } from "react";
@@ -20,22 +21,23 @@ const DashboardMenu = () => {
   if (!user || user.role === "admin") return;
 
   return (
-    <ul className="flex items-center w-1/2">
+    <ul className="flex items-center w-1/2 gap-4">
       {dataNavLinks.map(({ text, link }) => {
         const isActive =
           pathname === link || pathname.startsWith("create-form" + "/");
 
         return (
-          <li
-            key={text}
-            className={`me-1 pb-1 ${
-              isActive
-                ? "border-b-2 border-blue-500"
-                : "border-b-2 border-transparent"
-            }`}
-          >
-            <ButtonLink message={text} link={link} />
-          </li>
+          <MenuLink key={text} text={text} link={link} />
+          // <li
+          //   key={text}
+          //   className={`me-1 pb-1 ${
+          //     isActive
+          //       ? "border-b-2 border-blue-500"
+          //       : "border-b-2 border-transparent"
+          //   }`}
+          // >
+          //   <ButtonLink message={text} link={link} />
+          // </li>
         );
       })}
     </ul>

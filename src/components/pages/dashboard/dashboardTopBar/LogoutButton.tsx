@@ -5,6 +5,7 @@ import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "@/actions/auth/signOutAction";
 import { useToast } from "@/context/ToastProvider";
+import { Button } from "@/components/shared";
 
 const ToastsData: ModelToast[] = [
   {
@@ -42,13 +43,13 @@ const LogoutButton = () => {
   };
 
   return (
-    <button onClick={handleSignOut} disabled={pending}>
-      {pending ? (
-        <div className="flex items-center">Signing out...</div>
-      ) : (
-        <div className="flex items-center">Wyloguj</div>
-      )}
-    </button>
+    <Button
+      onClickAction={handleSignOut}
+      isLoading={pending}
+      message="Wyloguj"
+      variant="ghost"
+      className="bg-white rounded-full text-accent py-1 px-4"
+    />
   );
 };
 
