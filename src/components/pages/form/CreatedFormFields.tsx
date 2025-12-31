@@ -50,7 +50,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
         {
           label: header,
           name: id!,
-          placeholder,
+          // placeholder,
           type: inputType,
           description,
           required,
