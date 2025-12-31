@@ -8,7 +8,6 @@ import { redirect } from "next/navigation";
 import { serializeForm } from "@/lib/serialize-utils";
 import { requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
-import { isInputSubmittable } from "@/helpers/inputHelpers";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
@@ -115,7 +114,7 @@ export async function setAliasUrl(
   const form = await getFormBySlug(db, url);
   const formIdObj = new ObjectId(formId);
   if (form)
-    throw new Error(`Formularz o ID lub ścierzce "${url}" już istnieje.`);
+    throw new Error(`Formularz o ID lub ścieżce "${url}" już istnieje.`);
 
   await updateById<Form>(db, "form", formIdObj, {
     $set: {
@@ -123,8 +122,19 @@ export async function setAliasUrl(
       updatedAt: new Date(),
     },
   });
+}
 
-  await setFormUpdatedAtDate(formIdObj);
+export async function removeAliasUrl(db: Db, formId: string): Promise<void> {
+  const form = await getFormById(formId);
+  const formIdObj = new ObjectId(formId);
+
+  if (!form) throw new Error(`Błąd ładowania formularza`);
+
+  await updateById<Form>(db, "form", formIdObj, {
+    $unset: {
+      url: 1,
+    },
+  });
 }
 
 export async function getSerializedFormList(): Promise<
@@ -173,14 +183,6 @@ export async function getFormById(formId: string): Promise<Form> {
   const form = await findById<Form>(db, "form", new ObjectId(formId));
   if (!form) throw new Error("Invalid form id");
   return form;
-}
-
-export async function setFormUpdatedAtDate(
-  formId: ObjectId
-): Promise<WithId<Form> | null> {
-  return await updateById<Form>(db, "form", formId, {
-    $set: { updatedAt: new Date() },
-  });
 }
 
 export async function getFormsByType(type: FormType): Promise<Form[]> {

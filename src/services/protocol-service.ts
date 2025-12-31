@@ -34,6 +34,7 @@ export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
 
 export async function addProtocol(
   database: Db,
+  userId: string,
   data: Partial<ProtocolSerialized>
 ): Promise<string> {
   const now = new Date();
@@ -44,6 +45,7 @@ export async function addProtocol(
     ...data,
     lastModifiedAt,
     uploadedAt,
+    uploadedBy: new ObjectId(userId),
     disputeStartDate,
   });
 
@@ -140,12 +142,12 @@ export async function mapFilesToProtocol(
 
 export async function editProtocol(
   protocolId: string,
-  data: ProtocolInsertData,
+  data: ProtocolInsertData
 ): Promise<void> {
   const updateData = {
     ...data,
-    disputeStartDate: new Date(data.disputeStartDate)
-  }
+    disputeStartDate: new Date(data.disputeStartDate),
+  };
   await updateById(db, "protocol", new ObjectId(protocolId), {
     $set: {
       ...updateData,

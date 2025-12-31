@@ -6,10 +6,8 @@ import { Protocol, ProtocolSerialized } from "@/types/protocol";
 
 const PageProtocolsList = async () => {
   const protocols: Protocol[] = await getProtocols(db);
-  // TODO: fix serialization
-  const serializedProtocols: ProtocolSerialized[] = protocols.map((item) =>
-    serializeProtocol(item)
-  );
+  const serializedProtocols: ProtocolSerialized[] =
+    protocols.map(serializeProtocol);
   return <Protocols protocols={serializedProtocols} />;
 };
 

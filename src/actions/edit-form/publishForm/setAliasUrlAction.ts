@@ -22,7 +22,7 @@ export async function setAliasUrlAction(
   }
 
   if (!isUserAuthor(form, user.id))
-    throw new Error("Jedynie autor/-ka może opublikować swój formularz");
+    throw new Error("Jedynie autor/-ka może może edytować alias");
 
   const formId: string = form._id!;
 

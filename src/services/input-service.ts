@@ -1,10 +1,10 @@
 import { InputType } from "@/enums";
 import { findById, update, updateById } from "@/lib/mongo";
 import { Form } from "@/types/form";
-import { FormInput } from "@/types/input";
+import { FormInput, FormOption, Input } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
-import { getFormById, setFormUpdatedAtDate } from "./form-service";
-import { inputHasOther } from "@/helpers/inputHelpers";
+import { getFormById } from "./form-service";
+import { inputHasOther, isInputWithOptions } from "@/helpers/inputHelpers";
 
 function getFormInputById(inputs: FormInput[], id: string): FormInput {
   const input = inputs.find((el: FormInput) => el.id == id!);
@@ -58,8 +58,6 @@ export async function removeInputFromDraft(
 ): Promise<WithId<Form>> {
   /* all inputs higher than removed one get their order decreased by 1 */
   await decreaseRemainingInputsOrder(db, formId, inputId);
-
-  await setFormUpdatedAtDate(formId);
 
   return (await updateById<Form>(db, "form", formId, {
     $pull: {
@@ -120,8 +118,6 @@ export async function moveInputUp(
     }
   );
 
-  await setFormUpdatedAtDate(formId);
-
   const updatedForm = await findById<Form>(db, "form", formId);
   return updatedForm!; /* we check earlier if form exists */
 }
@@ -175,8 +171,6 @@ export async function moveInputDown(
     }
   );
 
-  await setFormUpdatedAtDate(formId);
-
   const updatedForm = await findById<Form>(db, "form", formId);
   return updatedForm!; /* we check earlier if form exists */
 }
@@ -203,8 +197,6 @@ export async function toggleRequired(
       },
     }
   );
-
-  await setFormUpdatedAtDate(formId);
 }
 
 export async function toggleUnique(
@@ -229,8 +221,6 @@ export async function toggleUnique(
       },
     }
   );
-
-  await setFormUpdatedAtDate(formId);
 }
 
 export async function updateFormInputTexts(
@@ -261,8 +251,6 @@ export async function updateFormInputTexts(
       },
     }
   );
-
-  await setFormUpdatedAtDate(formId);
 }
 
 export async function updateFormInputType(
@@ -273,33 +261,30 @@ export async function updateFormInputType(
 ): Promise<void> {
   if (!type) return;
 
+  let updateObject: {
+    "inputs.$.type": InputType;
+    updatedAt: Date;
+    "inputs.$.options"?: FormOption[];
+  } = {
+    "inputs.$.type": type,
+    updatedAt: new Date(),
+  };
+
+  if (isInputWithOptions({ type } as Input)) {
+    updateObject = {
+      ...updateObject,
+      "inputs.$.options": [],
+    };
+  }
+
   await update(
     db,
     "form",
     { _id: formId, "inputs.id": inputId },
     {
-      $set: {
-        "inputs.$.type": type,
-        updatedAt: new Date(),
-      },
+      $set: updateObject,
     }
   );
-
-  if (type !== InputType.CHECKBOX && type !== InputType.SINGLE_SELECT) {
-    await update(
-      db,
-      "form",
-      { _id: formId, "inputs.id": inputId },
-      {
-        $set: {
-          "inputs.$.options": [],
-          updatedAt: new Date(),
-        },
-      }
-    );
-  }
-
-  await setFormUpdatedAtDate(formId);
 }
 
 export async function checkInputHasOtherOption(
