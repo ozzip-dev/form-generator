@@ -1,25 +1,17 @@
-import { ProtocolMenuItem } from "@/types/protocol";
-import MenuLink from "../../shared/MenuLink";
+import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenuLink } from "@/types/shared";
 
 type Props = {
   formId: string;
 };
 
 const ResultsNavMenu = ({ formId }: Props) => {
-  const resultsNavLinks: ProtocolMenuItem[] = [
+  const resultsNavLinks: NavMenuLink[] = [
     { text: "Podsumowanie", link: `/create-form/${formId}/results/summary` },
     { text: "Tabela", link: `/create-form/${formId}/results/table` },
   ];
 
-  return (
-    <div>
-      <ul className="flex items-center justify-center">
-        {resultsNavLinks.map(({ text, link }, idx) => (
-          <MenuLink key={idx} {...{ text, link, sameTab: true }} />
-        ))}
-      </ul>
-    </div>
-  );
+  return <NavMenu links={resultsNavLinks} />;
 };
 
 export default ResultsNavMenu;

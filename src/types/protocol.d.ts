@@ -71,5 +71,3 @@ export type ProtocolInsertData = {
 export type ProtocolWithFilesSerialized = ProtocolSerialized & {
   files: Record<ProtocolFileCategory, (FileSerialized | null)[]>;
 };
-
-export type ProtocolMenuItem = { text: string; link: string };

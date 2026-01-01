@@ -1,26 +1,19 @@
-import MenuLink from "../../shared/MenuLink";
+import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenuLink } from "@/types/shared";
 
 type Props = {
   formId: string;
 };
 
 const CreateFormMenu = ({ formId }: Props) => {
-  const dataNavLinks = [
+  const dataNavLinks: NavMenuLink[] = [
     { text: "Edycja", link: `/create-form/${formId}/edit` },
     { text: "Podgląd", link: `/create-form/${formId}/preview` },
     { text: "Wyniki", link: `/create-form/${formId}/results/summary` },
     { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
   ];
 
-  return (
-    <div>
-      <ul className="flex items-center justify-center gap-4">
-        {dataNavLinks.map(({ text, link }) => (
-          <MenuLink key={text} text={text} link={link} />
-        ))}
-      </ul>
-    </div>
-  );
+  return <NavMenu links={dataNavLinks} />;
 };
 
 export default CreateFormMenu;

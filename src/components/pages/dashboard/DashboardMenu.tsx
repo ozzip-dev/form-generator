@@ -1,12 +1,11 @@
 "use client";
 
-import { ButtonLink } from "@/components/shared";
-import MenuLink from "@/components/shared/MenuLink";
+import { NavMenu } from "@/components/shared/nav-menu";
 import { useUser } from "@/context/UserContextProvider";
-import { usePathname } from "next/navigation";
+import { NavMenuLink } from "@/types/shared";
 import { use } from "react";
 
-const dataNavLinks = [
+const dataNavLinks: NavMenuLink[] = [
   { text: "Formularze", link: "/dashboard-moderator" },
   { text: "Protokoły", link: "/protocols/add-protocol" },
   { text: "Forum", link: "/forum" },
@@ -14,34 +13,12 @@ const dataNavLinks = [
 ];
 
 const DashboardMenu = () => {
-  const pathname = usePathname();
   const { userPromise } = useUser();
   const user = use(userPromise);
 
   if (!user || user.role === "admin") return;
 
-  return (
-    <ul className="flex items-center w-1/2 gap-4">
-      {dataNavLinks.map(({ text, link }) => {
-        const isActive =
-          pathname === link || pathname.startsWith("create-form" + "/");
-
-        return (
-          <MenuLink key={text} text={text} link={link} />
-          // <li
-          //   key={text}
-          //   className={`me-1 pb-1 ${
-          //     isActive
-          //       ? "border-b-2 border-blue-500"
-          //       : "border-b-2 border-transparent"
-          //   }`}
-          // >
-          //   <ButtonLink message={text} link={link} />
-          // </li>
-        );
-      })}
-    </ul>
-  );
+  return <NavMenu links={dataNavLinks} />;
 };
 
 export default DashboardMenu;
