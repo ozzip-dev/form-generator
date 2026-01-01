@@ -34,7 +34,7 @@ export async function createProtocolAction({
 
   let protocolId = "";
   try {
-    protocolId = await addProtocol(db, user._id, {
+    protocolId = await addProtocol(db, user.id, {
       branch,
       disputeReason,
       tradeUnionName,
