@@ -2,6 +2,7 @@
 
 import { NavMenuLink } from "@/types/shared";
 import MenuLink from "./MenuLink";
+import Icon from "../icons/Icon";
 
 type Props = {
   links: NavMenuLink[];
@@ -10,10 +11,18 @@ type Props = {
 
 const NavMenu = (props: Props) => {
   return (
-    <div className="flex justify-between">
-      <div>{/* {TODO: add icon} */}</div>
+    <div className="flex justify-between items-center">
       <div>
-        <ul className="flex items-center w-1/2 gap-4">
+        {props.icon && (
+          <Icon
+            icon={props.icon}
+            size={47}
+            color="var(--color-accent_opacity)"
+          />
+        )}
+      </div>
+      <div>
+        <ul className="flex items-center gap-[40px] py-[30px]">
           {props.links.map(({ text, link }, idx) => (
             <MenuLink key={idx} {...{ text, link }} />
           ))}

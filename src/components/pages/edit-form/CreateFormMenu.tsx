@@ -13,7 +13,7 @@ const CreateFormMenu = ({ formId }: Props) => {
     { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
   ];
 
-  return <NavMenu links={dataNavLinks} />;
+  return <NavMenu links={dataNavLinks} icon="edit-form" />;
 };
 
 export default CreateFormMenu;

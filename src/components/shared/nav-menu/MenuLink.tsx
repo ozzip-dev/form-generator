@@ -19,9 +19,7 @@ const MenuLink = ({ text, link, sameTab = true }: Props) => {
   return (
     <li
       className={`shrink-0 ${
-        isActive
-          ? "border-b-2 border-blue-500"
-          : "border-b-2 border-transparent"
+        isActive ? "border-b-[3px] border-[var(--color-accent)]" : ""
       }`}
     >
       <ButtonLink

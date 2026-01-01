@@ -18,7 +18,7 @@ const ProtocolsMenu = () => {
         ...protocolBasicItems,
       ];
 
-  return <NavMenu links={dataNavLinks} />;
+  return <NavMenu links={dataNavLinks} icon="protocols" />;
 };
 
 export default ProtocolsMenu;
