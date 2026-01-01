@@ -53,3 +53,15 @@ body {
 .shadow-border-box {
   @apply space-y-2 rounded-md shadow-default border border-default bg-bg_light
 }
+
+.btn {
+  @apply text-white bg-accent_opacity hover:bg-accent
+}
+
+.btn-primary {
+  @apply rounded-lg px-16 py-2 text-lg
+}
+
+.btn-primary-rounded {
+  @apply rounded-full px-4 py-1 text-sm
+}

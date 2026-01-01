@@ -26,7 +26,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-10 w-fit">
       <span>{file?.name || "-"}</span>
       {file?.data && (
         <div className="contents">
@@ -36,8 +36,8 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
             <Image
               src={URL.createObjectURL(getFileBlob(file)!)}
               alt={file.name}
-              width={50}
-              height={50}
+              width={30}
+              height={30}
               placeholder="blur"
               blurDataURL="/images/placeholder.jpg"
               loading="lazy"
@@ -45,7 +45,6 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
           )}
           <Button
             onClickAction={() => handleDownload(file)}
-            className="!w-20"
             message="Pobierz"
           />
         </div>

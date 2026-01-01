@@ -14,7 +14,7 @@ const ProtocolAttachedFileCategory = ({ files, category, header }: Props) => {
   const categoryFiles = files[category as ProtocolFileCategory];
 
   return (
-    <div className="mb-2">
+    <div className="mb-sm">
       <div className="font-black">
         {header} ({categoryFiles?.length || 0})
       </div>

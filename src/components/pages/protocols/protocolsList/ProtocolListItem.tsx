@@ -61,26 +61,22 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
         <div>{formatDateAndTime(disputeStartDate)}</div>
         <div className="flex gap-2">
           <Button
-            message={details ? "Ukryj info" : "Pokaż info"}
+            message={isOpen ? "Ukryj info" : "Pokaż info"}
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
           />
-          <Link href={`/protocols/${_id}`}>
-            <b>Edytuj</b>
+          <Link className="btn btn-primary m-auto" href={`/protocols/${_id}`}>
+            Edytuj
           </Link>
         </div>
       </div>
-      <div className="group ">
-        <div
-          className={`
-          grid overflow-hidden transition-all 
-          duration-700
-          ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
-        `}
-        >
-          <div className="min-h-0">
-            {details && <ProtocolListItemDetails {...details} />}
-          </div>
+      <div
+        className={`transition-all duration-700 ${
+          isOpen ? "col-span-5" : "hidden"
+        }`}
+      >
+        <div className="min-h-0">
+          {details && <ProtocolListItemDetails {...details} />}
         </div>
       </div>
     </>
