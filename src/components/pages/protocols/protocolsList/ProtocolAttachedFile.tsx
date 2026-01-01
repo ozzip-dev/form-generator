@@ -3,8 +3,8 @@
 import { FileSerialized } from "@/types/file";
 import { Button } from "@/components/shared";
 import Image from "next/image";
-import IconPDF from "@/icons/iconPDF/IconPDF";
 import { downloadFile } from "@/lib/utils";
+import Icon from "@/components/shared/icons/Icon";
 
 const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const getFileBlob = (file: FileSerialized): Blob | undefined => {
@@ -31,7 +31,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
       {file?.data && (
         <div className="contents">
           {file.type === "application/pdf" ? (
-            <IconPDF style="size-[50px] bg-red-500" />
+            <Icon icon="file-pdf-regular-full" size={40} color="red" />
           ) : (
             <Image
               src={URL.createObjectURL(getFileBlob(file)!)}

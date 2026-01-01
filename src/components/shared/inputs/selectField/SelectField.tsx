@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
 import InputError from "../InputError";
 import { useFormContext } from "react-hook-form";
+import Icon from "@/components/shared/icons/Icon";
 
 export type Option = {
   label: string;
@@ -75,7 +75,12 @@ const SelectField = (props: Props) => {
         <span className={`${!selectedOption ? "text-gray-400" : ""}`}>
           {selectedOption ? selectedOption.label : props.placeholder}
         </span>
-        <IconArrowDown className="h-4 w-4 bg-black" />
+        <Icon
+          icon="chevron-down-solid-full"
+          size={15}
+          className="h-4 w-4"
+          color="#000"
+        />
       </button>
 
       {open && (

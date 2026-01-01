@@ -1,8 +1,7 @@
 "use client";
 
 import { removeInputFromDraftAction } from "@/actions/edit-form/editFormInput/removeInputFromDraftAction";
-import { Button, FullscreenLoader } from "@/components/shared";
-import IconTrash from "@/icons/iconTrash/IconTrash";
+import { Button, FullscreenLoader, IconTrash } from "@/components/shared";
 import { useParams } from "next/navigation";
 import { startTransition, useActionState } from "react";
 
@@ -26,7 +25,7 @@ function RemoveInputBtn(props: Props) {
 
       <Button
         type="button"
-        icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+        icon={<IconTrash />}
         variant="icon"
         onClickAction={handleDeleteInput}
       />

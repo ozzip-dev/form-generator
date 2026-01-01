@@ -13,3 +13,6 @@ export { default as CheckboxGroupField } from "./inputs/checkboxField/CheckboxGr
 export { default as InputError } from "./inputs/InputError";
 export { default as RadioGroupField } from "./inputs/radioField/RadioGroupField";
 export { default as InputFields } from "./inputs/inputFields/InputFields";
+
+export { default as Icon } from "./icons/Icon";
+export { default as IconTrash } from "./icons/IconTrash";

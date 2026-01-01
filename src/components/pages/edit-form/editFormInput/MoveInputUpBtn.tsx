@@ -2,7 +2,7 @@ import { useParams } from "next/navigation";
 import { Button, FullscreenLoader } from "../../../shared";
 import { moveInputUpAction } from "@/actions/edit-form/editFormInput/moveInputActions";
 import { startTransition, useActionState } from "react";
-import IconArrowDown from "@/icons/iconArrowDown/IconArrowDown";
+import Icon from "@/components/shared/icons/Icon";
 
 type Props = {
   inputId: string;
@@ -25,7 +25,13 @@ const MoveInputUpBtn = ({ inputId }: Props) => {
       <Button
         type="button"
         onClickAction={handleMoveUp}
-        icon={<IconArrowDown className="h-10 w-8 bg-font_light rotate-180" />}
+        icon={
+          <Icon
+            icon="chevron-down-solid-full"
+            size={20}
+            className="rotate-180"
+          />
+        }
         variant="icon"
       />
     </>
