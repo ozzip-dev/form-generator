@@ -51,6 +51,12 @@ module.exports = {
         },
       },
 
+      spacing: {
+        sm: '2rem',
+        md: '3.5rem',
+        lg: '5rem',
+      },
+
       borderRadius: {
         sm: "1rem",
         md: "3.5rem",
