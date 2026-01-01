@@ -1,10 +1,14 @@
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { Button, FullscreenLoader, InputFields } from "../../../shared";
+import {
+  Button,
+  FullscreenLoader,
+  IconTrash,
+  InputFields,
+} from "../../../shared";
 
 const dataInputDescription = [
   {
@@ -78,7 +82,7 @@ const EditFormDescriptionInput = (props: Props) => {
           <div className="w-fit flex items-center">
             <Button
               type="button"
-              icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+              icon={<IconTrash size={27} />}
               variant="icon"
               onClickAction={handleRemoveDescriptionInput}
             />
