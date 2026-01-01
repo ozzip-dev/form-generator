@@ -25,14 +25,14 @@ const Button = (props: Props) => {
       onClick={props.onClickAction}
       disabled={props.disabled || props.isLoading}
       className={`
-      relative
-      disabled:opacity-70 disabled:cursor-not-allowed
-      transition-colors duration-200
-      block
-      m-auto
-      ${VARIANTS[props.variant || "primary"]}
-      ${props.className}
-    `}
+        relative
+        disabled:opacity-70 disabled:cursor-not-allowed
+        transition-colors duration-200
+        block
+        m-auto
+        ${VARIANTS[props.variant || "primary"]}
+        ${props.className}
+      `}
     >
       <span className={props.isLoading ? "opacity-0" : "opacity-100"}>
         {props.message || props.icon}
