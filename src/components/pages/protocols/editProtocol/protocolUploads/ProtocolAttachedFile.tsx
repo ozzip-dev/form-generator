@@ -40,30 +40,17 @@ const ProtocolAttachedFile = (props: Props) => {
     }
   };
 
-  const onRemoveFile = async () => {
-    await confirmAction({
-      action: printModal,
-      confirmText: "Czy na pewno usunąć wybrany plik?",
-    });
-  };
-
   return (
-    <div className="flex gap-4 items-center">
+    <div className="w-fit py-2 flex gap-4 items-center">
       <div>{props.file.name}</div>
       <Button
         type="button"
-        icon={<IconTrash />}
+        icon={<IconTrash size={27} />}
         variant="icon"
-        className="!w-12 !bg-red-600"
-        onClickAction={onRemoveFile}
-      />
-      <button
-        onClick={() =>
+        onClickAction={() =>
           openModal({ action: printModal, header: "Czy usunąć dokument?" })
         }
-      >
-        xxx
-      </button>
+      />
     </div>
   );
 };

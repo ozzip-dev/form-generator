@@ -89,7 +89,7 @@ export default function EditFormHeader(props: Props) {
 
       <div className="p-4">
         <FormProvider {...methods}>
-          <form className="mt-4 space-y-2 rounded-md shadow-default  border border-default bg-bg_light">
+          <form className="mt-4 shadow-border-box">
             <div className="w-80 !mb-10">
               <SelectFieldControler
                 name="type"

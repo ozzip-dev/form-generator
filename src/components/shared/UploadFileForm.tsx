@@ -100,10 +100,14 @@ const UploadFileForm = ({ category, protocol }: Props) => {
       <div className="flex justify-center items-center flex-col mt-4">
         <div
           {...getRootProps()}
-          className="relative border-2  p-4 mb-8 rounded-md transition-colors w-1/2  margin-auto h-64"
+          className="
+            shadow-border-box 
+            p-md 
+            *:flex *:flex-col *:items-center *:gap-[30px] *:text-center
+          "
           style={{
-            borderColor: isDragActive ? "blue" : "gray",
-            backgroundColor: isDragActive ? "lightblue" : "white",
+            borderColor: isDragActive ? "blue" : "",
+            backgroundColor: isDragActive ? "lightblue" : "",
           }}
         >
           {isPending && (
@@ -115,17 +119,21 @@ const UploadFileForm = ({ category, protocol }: Props) => {
           <input {...getInputProps()} />
 
           <div>
-            <p>{isDragActive ? "Upuść plik w tym miejscu" : "Upuść plik"}</p>
+            <p className="text-lg font-black">
+              {isDragActive ? "Upuść plik w tym miejscu" : "Upuść plik"}
+            </p>
 
             {!isDragActive && (
               <>
                 <Button message="Wybierz z komputera" />
 
-                <div>
-                  Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
-                </div>
                 {/* TODO: jaki max rozmiar? Czy chcemy wiekszy? */}
-                <div>Maksymalny rozmiar: 1 MB</div>
+                <div>
+                  <div>
+                    Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
+                  </div>
+                  <div>Maksymalny rozmiar: 1 MB</div>
+                </div>
               </>
             )}
           </div>

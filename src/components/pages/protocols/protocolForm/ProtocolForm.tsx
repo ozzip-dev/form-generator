@@ -116,7 +116,7 @@ const ProtocolForm = (props: Props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onFormSubmit)}>
+      <form onSubmit={handleSubmit(onFormSubmit)} className="shadow-border-box">
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}

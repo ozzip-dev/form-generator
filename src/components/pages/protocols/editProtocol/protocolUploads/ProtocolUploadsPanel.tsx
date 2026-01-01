@@ -28,8 +28,8 @@ const ProtocolUploadsPanel = (props: Props) => {
           key={category}
           className={category != props.visibleCategory ? "!hidden" : ""}
         >
-          <div className="font-black">{mapFileCategory[category]}</div>
-          <div>
+          <div className="pb-md font-black">{mapFileCategory[category]}:</div>
+          <div className="pb-sm">
             liczba załączników: {protocol.fileIds[category]?.length || 0}
           </div>
           {protocol.fileIds[category]?.map((fileId) => (
