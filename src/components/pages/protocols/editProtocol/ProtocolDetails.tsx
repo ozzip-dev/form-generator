@@ -45,24 +45,26 @@ const ProtocolDetails = (props: Props) => {
       value: safeDisplayDate(disputeStartDate),
     },
     { label: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
-    { label: "Data ostatniej edycji", value: safeDisplayDate(lastModifiedAt) },
+    { label: "Data ostatniej edycji:", value: safeDisplayDate(lastModifiedAt) },
   ];
 
   return (
-    <div>
-      <div className="text-lg font-black">Dane sporu zbiorowego:</div>
-      <ul>
+    <div className="shadow-border-box p-lg">
+      <div className="grid grid-cols-2 *:pb-md">
+        <div className="text-lg font-black col-span-2">
+          Dane sporu zbiorowego:
+        </div>
         {protocolDetails.map(({ label, value }) => {
           return (
-            <li key={label}>
+            <div key={label}>
               <span className="font-black">{label} </span>
               {value}
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
       <Button
-        message="Edytuj dane protokołu"
+        message="Edytuj"
         type="button"
         onClickAction={props.handlePrintForm}
       />{" "}

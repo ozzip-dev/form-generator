@@ -39,54 +39,52 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   return (
     <div
       className="
-        protocol-filters
-        grid grid-rows-[30px_auto] grid-cols-[repeat(5,13rem)] gap-3 items-center
-        p-2 mb-5
-        bg-slate-200
+        shadow-border-box p-md
+        mb-md
       "
     >
-      <div className="text-center font-black" style={{ gridColumn: "1 / 6" }}>
-        Filtry
-      </div>
+      <div className="text-center">Filtry</div>
 
-      <label className="block" htmlFor={filters.text}>
+      <label className="flex w-full" htmlFor={filters.text}>
         <div>Szukaj</div>
         <input
+          className="w-full"
           type="text"
           value={filters.text}
           onChange={(e) => onFilterChange(e, "text")}
         />
       </label>
 
-      {dateFilters.map(({ key, label }, i) => (
-        <div key={i}>
-          <div>
-            {label} {filters[key]}
+      <div className="grid grid-cols-[repeat(2,1fr)_150px_1fr] gap-6 items-center">
+        {dateFilters.map(({ key, label }, i) => (
+          <div key={i}>
+            <div>
+              {label} {filters[key]}
+            </div>
+            <input type="date" onChange={(e) => onFilterChange(e, key)} />
           </div>
-          <input type="date" onChange={(e) => onFilterChange(e, key)} />
-        </div>
-      ))}
+        ))}
 
-      <Button
-        message="Resetuj filtry"
-        className="max-w-40"
-        onClickAction={() => setFilters(filtersDefault)}
-      ></Button>
+        <Button
+          message="Resetuj filtry"
+          className="btn btn-primary-rounded !py-3 !px-6"
+          onClickAction={() => setFilters(filtersDefault)}
+        ></Button>
 
-      <label className="block" htmlFor="sortOrder">
-        <div>Sortuj</div>
-        <select
-          name="sortOrder"
-          id="sortOrder"
-          onChange={(e) => onFilterChange(e, "sortOrder")}
-        >
-          {[SortOrder.Ascending, SortOrder.Descending].map((order, i) => (
-            <option value={order} key={i}>
-              {mapSortOrder[order]}
-            </option>
-          ))}
-        </select>
-      </label>
+        <label className="block" htmlFor="sortOrder">
+          <select
+            name="sortOrder"
+            id="sortOrder"
+            onChange={(e) => onFilterChange(e, "sortOrder")}
+          >
+            {[SortOrder.Ascending, SortOrder.Descending].map((order, i) => (
+              <option value={order} key={i}>
+                {mapSortOrder[order]}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </div>
   );
 };

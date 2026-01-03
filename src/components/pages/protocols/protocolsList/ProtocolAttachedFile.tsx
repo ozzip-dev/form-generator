@@ -3,8 +3,8 @@
 import { FileSerialized } from "@/types/file";
 import { Button } from "@/components/shared";
 import Image from "next/image";
-import IconPDF from "@/icons/iconPDF/IconPDF";
 import { downloadFile } from "@/lib/utils";
+import Icon from "@/components/shared/icons/Icon";
 
 const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const getFileBlob = (file: FileSerialized): Blob | undefined => {
@@ -26,18 +26,18 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-10 w-fit">
       <span>{file?.name || "-"}</span>
       {file?.data && (
         <div className="contents">
           {file.type === "application/pdf" ? (
-            <IconPDF style="size-[50px] bg-red-500" />
+            <Icon icon="file-pdf-regular-full" size={40} color="red" />
           ) : (
             <Image
               src={URL.createObjectURL(getFileBlob(file)!)}
               alt={file.name}
-              width={50}
-              height={50}
+              width={30}
+              height={30}
               placeholder="blur"
               blurDataURL="/images/placeholder.jpg"
               loading="lazy"
@@ -45,7 +45,6 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
           )}
           <Button
             onClickAction={() => handleDownload(file)}
-            className="!w-20"
             message="Pobierz"
           />
         </div>

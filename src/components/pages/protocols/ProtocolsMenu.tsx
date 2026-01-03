@@ -1,13 +1,13 @@
 "use client";
 
-import { ProtocolMenuItem } from "@/types/protocol";
-import MenuLink from "../../shared/MenuLink";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
+import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenuLink } from "@/types/shared";
 
 const ProtocolsMenu = () => {
   const protocolId = useSafeURLParam("protocolId");
 
-  const protocolBasicItems: ProtocolMenuItem[] = [
+  const protocolBasicItems: NavMenuLink[] = [
     { text: "Dodaj protokół", link: "/protocols/add-protocol" },
     { text: "Lista protokołów", link: `/protocols/protocols-list` },
   ];
@@ -18,15 +18,7 @@ const ProtocolsMenu = () => {
         ...protocolBasicItems,
       ];
 
-  return (
-    <div>
-      <ul className="flex items-center justify-center gap-3">
-        {dataNavLinks.map(({ text, link }) => (
-          <MenuLink key={text} text={text} link={link} />
-        ))}
-      </ul>
-    </div>
-  );
+  return <NavMenu links={dataNavLinks} icon="protocols" />;
 };
 
 export default ProtocolsMenu;

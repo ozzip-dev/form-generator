@@ -14,8 +14,8 @@ const ProtocolListItemDetails = ({
   uploadedAt,
 }: ProtocolWithFilesSerialized) => {
   return (
-    <div className="col-span-5 p-4 mb-4 border border-black bg-slate-200">
-      <div className="flex gap-8">
+    <div className="col-span-5 shadow-border-box p-md mb-md">
+      <div className="flex gap-8 pb-sm text-grey_secondary text-sm">
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
         <div>Modyfikowano: {formatDateAndTime(lastModifiedAt)}</div>
       </div>

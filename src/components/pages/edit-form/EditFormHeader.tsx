@@ -84,44 +84,45 @@ export default function EditFormHeader(props: Props) {
     <>
       {/* {loadingForm && <FullscreenLoader />} */}
 
-      <FormProvider {...methods}>
-        <form className="flex flex-col gap-14 px-32 py-16 rounded-md shadow-default  border border-default bg-bg_light">
-          <div className="w-fit">
-            <SelectFieldControler
-              name="type"
-              defaultValue=""
-              label="Wybierz kategorię formularza"
-              placeholder="Wybierz kategorię formularza"
-              options={dataSelectOptions}
-              onChangeAction={(name, value) => {
-                handleEdit(name, value);
-              }}
-              variant="horizontal"
-            />
-          </div>
+      <div className="p-4">
+        <FormProvider {...methods}>
+          <form className="mt-4 shadow-border-box">
+            <div className="w-80 !mb-10">
+              <SelectFieldControler
+                name="type"
+                defaultValue=""
+                label="Wybierz kategorię formularza"
+                placeholder="Wybierz kategorię formularza"
+                options={dataSelectOptions}
+                onChangeAction={(name, value) => {
+                  handleEdit(name, value);
+                }}
+              />
+            </div>
 
-          <div className="w-fit">
-            <SelectFieldControler
-              name="resultVisibility"
-              defaultValue=""
-              label="Wybierz typ głosowania"
-              placeholder="Wybierz typ głosowania"
-              options={resultVisibilityOptions}
-              onChangeAction={(name, value) => {
-                handleEdit(name, value);
-              }}
-            />
-          </div>
+            <div className="w-fit">
+              <SelectFieldControler
+                name="resultVisibility"
+                defaultValue=""
+                label="Wybierz typ głosowania"
+                placeholder="Wybierz typ głosowania"
+                options={resultVisibilityOptions}
+                onChangeAction={(name, value) => {
+                  handleEdit(name, value);
+                }}
+              />
+            </div>
 
-          <InputFields
-            inputsData={dataInputsFormTitle}
-            register={register}
-            errorMsg={errors}
-            onChange={handleEdit}
-            // isLoading={isLoading}
-          />
-        </form>
-      </FormProvider>
+            <InputFields
+              inputsData={dataInputsFormTitle}
+              register={register}
+              errorMsg={errors}
+              onChange={handleEdit}
+              // isLoading={isLoading}
+            />
+          </form>
+        </FormProvider>
+      </div>
     </>
   );
 }

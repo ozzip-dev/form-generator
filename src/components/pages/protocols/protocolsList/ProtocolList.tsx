@@ -38,7 +38,7 @@ const ProtocolList = ({
     );
 
   return (
-    <div className="grid grid-cols-5 items-center">
+    <div className="grid grid-cols-[repeat(4,1fr)_auto] items-center gap-4">
       {isPending && <FullscreenLoader />}
       {headers.map((header, idx) => (
         <div key={idx} className="font-black">

@@ -1,11 +1,15 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import IconTrash from "@/icons/iconTrash/IconTrash";
 import { useEditForm } from "@/hooks/useEditForm";
 import { editInputOptionAction } from "@/actions/edit-form/editFormInput/editInputOptionAction";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
-import { Button, FullscreenLoader, InputFields } from "@/components/shared";
+import {
+  Button,
+  FullscreenLoader,
+  InputFields,
+  IconTrash,
+} from "@/components/shared";
 
 import {
   inputHasOther,
@@ -121,7 +125,7 @@ const AddOption = (props: Props) => {
             <div className="w-fit absolute -right-10 top-3">
               <Button
                 type="button"
-                icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+                icon={<IconTrash />}
                 onClickAction={() =>
                   handleDeleteOption(`option.${idx}.${props.header}`, idx)
                 }

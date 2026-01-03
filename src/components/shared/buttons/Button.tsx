@@ -1,10 +1,8 @@
 import Loader from "../loaders/Loader";
 
 const VARIANTS = {
-  primary:
-    "rounded-lg px-16 py-2 text-white text-lg bg-accent_opacity hover:bg-accent",
-  "primary-rounded":
-    "rounded-full px-6 py-2 text-white text-sm bg-accent_opacity hover:bg-accent",
+  primary: "btn btn-primary",
+  "primary-rounded": "btn btn-primary-rounded",
   ghost: "",
   icon: "",
 };
@@ -27,13 +25,14 @@ const Button = (props: Props) => {
       onClick={props.onClickAction}
       disabled={props.disabled || props.isLoading}
       className={`
-      relative
-      disabled:opacity-70 disabled:cursor-not-allowed
-      transition-colors duration-200
-      block
-      ${VARIANTS[props.variant || "primary"]}
-      ${props.className}
-    `}
+        relative
+        disabled:opacity-70 disabled:cursor-not-allowed
+        transition-colors duration-200
+        block
+        m-auto
+        ${VARIANTS[props.variant || "primary"]}
+        ${props.className}
+      `}
     >
       <span className={props.isLoading ? "opacity-0" : "opacity-100"}>
         {props.message || props.icon}

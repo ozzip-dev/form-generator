@@ -5,7 +5,7 @@
 :root {
   --fs-xs: 1.2rem;
   --fs-sm: 1.4rem;
-  --fs-base: 1.6rem;
+  --fs-md: 1.6rem;
   --fs-lg: 2rem;
   --fs-xl: 2.2rem;
   --fs-2xl: 3.8rem;
@@ -17,6 +17,8 @@
   --color-accent: rgba(159, 193, 255, 1);
   --color-accent_opacity: rgba(159, 193, 255, 0.64);
   --color-accent_dark: rgba(101, 130, 255, 1);
+
+  --color-grey_secondary: rgba(193, 193, 193, 1);
 
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);
@@ -44,5 +46,22 @@ html {
 }
 
 body {
-  font-size: var(--fs-base);
+  font-size: var(--fs-md);
+}
+
+/* util classes */
+.shadow-border-box {
+  @apply space-y-2 rounded-md shadow-default border border-default bg-bg_light
+}
+
+.btn {
+  @apply text-white bg-accent_opacity hover:bg-accent
+}
+
+.btn-primary {
+  @apply rounded-lg px-16 py-2 text-lg
+}
+
+.btn-primary-rounded {
+  @apply rounded-full px-4 py-1 text-sm
 }

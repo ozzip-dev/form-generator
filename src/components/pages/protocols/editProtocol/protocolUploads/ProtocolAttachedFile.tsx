@@ -1,9 +1,8 @@
 import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFileAction";
-import { Button } from "@/components/shared";
+import { Button, IconTrash } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
-import IconTrash from "@/icons/iconTrash/IconTrash";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
 
@@ -41,30 +40,17 @@ const ProtocolAttachedFile = (props: Props) => {
     }
   };
 
-  const onRemoveFile = async () => {
-    await confirmAction({
-      action: printModal,
-      confirmText: "Czy na pewno usunąć wybrany plik?",
-    });
-  };
-
   return (
-    <div className="flex gap-4 items-center">
+    <div className="w-fit py-2 flex gap-4 items-center">
       <div>{props.file.name}</div>
       <Button
         type="button"
-        icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+        icon={<IconTrash size={27} />}
         variant="icon"
-        className="!w-12 !bg-red-600"
-        onClickAction={onRemoveFile}
-      />
-      <button
-        onClick={() =>
+        onClickAction={() =>
           openModal({ action: printModal, header: "Czy usunąć dokument?" })
         }
-      >
-        xxx
-      </button>
+      />
     </div>
   );
 };

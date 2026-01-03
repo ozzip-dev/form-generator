@@ -4,7 +4,6 @@ import { SelectFieldControler } from "@/components/shared/inputs/selectField/Sel
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { InputType } from "@/enums";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import IconPlus from "@/icons/iconPlus/IconPlus";
 import {
   addFormFieldSchema,
   AddFormFieldSchema,
@@ -15,6 +14,7 @@ import { useErrorBoundary } from "react-error-boundary";
 import { FormProvider, useForm } from "react-hook-form";
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 import { dataSelectOptions } from "./editFormData";
+import Icon from "@/components/shared/icons/Icon";
 
 const dataInputsheader = [
   {
@@ -89,13 +89,15 @@ const AddFormField = () => {
               options={dataSelectOptions}
             />
           </div>
-        </div>
 
-        <Button
-          icon={<IconPlus style="h-7 w-7 bg-white" />}
-          variant="ghost"
-          className="bg-accent_opacity rounded-full p-4 w-fit h-fit mb-auto"
-        />
+          <div className="w-fit">
+            <Button
+              icon={
+                <Icon icon="plus-solid-full" className="h-7 w-7 bg-white" />
+              }
+            />
+          </div>
+        </div>
       </form>
     </FormProvider>
   );
