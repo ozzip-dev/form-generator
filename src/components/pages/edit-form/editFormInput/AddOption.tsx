@@ -93,38 +93,32 @@ const AddOption = (props: Props) => {
   const isDisabled = isRemoveOptionPending || isAddOptionPending;
 
   return (
-    <div className="ml-8 pt-4 border-t-2 border-zinc-400">
+    <div className="flex flex-col gap-8">
       {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
-          <div
-            key={field.id}
-            className="flex gap-2 items-center"
-            style={
-              isOtherOption
-                ? { padding: "2px", backgroundColor: "lightskyblue" }
-                : {}
-            }
-          >
-            <InputFields
-              inputsData={[
-                {
-                  type: "text",
-                  name: `options.${idx}.label`,
-                  // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
-                },
-              ]}
-              register={register}
-              errorMsg={(errors.options as any)?.[idx]?.label}
-              onChange={(name, value) => {
-                handleEdit(name, value, isOtherOption);
-              }}
-              // isLoading={isLoading}
-            />
-
-            <div className="w-fit ml-2">
+          <div key={field.id} className="relative">
+            <div className="w-full ">
+              <InputFields
+                inputsData={[
+                  {
+                    type: "text",
+                    name: `options.${idx}.label`,
+                    label: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                    // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
+                  },
+                ]}
+                register={register}
+                errorMsg={(errors.options as any)?.[idx]?.label}
+                onChange={(name, value) => {
+                  handleEdit(name, value, isOtherOption);
+                }}
+                // isLoading={isLoading}
+              />
+            </div>
+            <div className="w-fit absolute -right-10 top-3">
               <Button
                 type="button"
                 icon={<IconTrash style="h-10 w-8 bg-font_light" />}

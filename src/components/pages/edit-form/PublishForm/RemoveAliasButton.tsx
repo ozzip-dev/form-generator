@@ -19,14 +19,14 @@ const RemoveAliasButton = ({ form }: Props) => {
   };
 
   return (
-    <>
+    <div className="mb-auto mt-2">
       <Button
         message="Usuń alias"
         onClickAction={handleRemoveAliasUrl}
         isLoading={isPending}
         variant="primary-rounded"
       />
-    </>
+    </div>
   );
 };
 

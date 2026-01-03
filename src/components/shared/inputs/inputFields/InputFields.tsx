@@ -31,7 +31,7 @@ type Props = {
 
 const InputFields = (props: Props) => {
   return (
-    <div className=" flex flex-col gap-8">
+    <div className="flex flex-col gap-14">
       {props.inputsData.map((inputData) => {
         const { label, required, description, name, type } = inputData;
 

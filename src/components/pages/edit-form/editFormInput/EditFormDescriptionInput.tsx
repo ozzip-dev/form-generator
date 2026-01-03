@@ -19,6 +19,7 @@ type Props = {
   inputId: string;
   inputIdx: number;
   description: string;
+  isParagraph: boolean;
 };
 
 const EditFormDescriptionInput = (props: Props) => {
@@ -63,28 +64,36 @@ const EditFormDescriptionInput = (props: Props) => {
     }
   }, [isRemoveLoading]);
 
+  const hasDescription = !!props.description;
+  const shouldShowInput = hasDescription || isDescriptionInput;
+  const canAddDescription = !props.isParagraph && !shouldShowInput;
+
+  const descriptionInput = (
+    <InputFields
+      inputsData={dataInputDescription}
+      register={register}
+      errorMsg={errors.header as any}
+      onChange={handleEditLabel}
+    />
+  );
+
   return (
     <>
       {isRemoveLoading && <FullscreenLoader />}
-      {props.description || isDescriptionInput ? (
-        <div className="flex gap-2">
-          <InputFields
-            inputsData={dataInputDescription}
-            register={register}
-            errorMsg={errors.header as any}
-            onChange={handleEditLabel}
-          />
 
-          <div className="w-fit flex items-center">
-            <Button
-              type="button"
-              icon={<IconTrash style="h-10 w-8 bg-font_light" />}
-              variant="icon"
-              onClickAction={handleRemoveDescriptionInput}
-            />
-          </div>
+      {shouldShowInput && (
+        <div className="flex gap-2">
+          {descriptionInput}
+          <Button
+            type="button"
+            icon={<IconTrash style="h-10 w-8 bg-font_light" />}
+            variant="icon"
+            onClickAction={handleRemoveDescriptionInput}
+          />
         </div>
-      ) : (
+      )}
+
+      {canAddDescription && (
         <Button
           type="button"
           message="Dodaj opis pytania"
@@ -92,6 +101,8 @@ const EditFormDescriptionInput = (props: Props) => {
           variant="primary-rounded"
         />
       )}
+
+      {props.isParagraph && !shouldShowInput && descriptionInput}
     </>
   );
 };

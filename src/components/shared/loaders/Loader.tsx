@@ -5,7 +5,7 @@ type Props = {
 export default function Loader(props: Props) {
   const size = props.size ?? "sm";
 
-  const sizeClasses = size === "lg" ? "h-10 w-10 border-4" : "h-4 w-4 border-2";
+  const sizeClasses = size === "lg" ? "h-10 w-10 border-4" : "h-6 w-6 border-2";
 
   return (
     <div

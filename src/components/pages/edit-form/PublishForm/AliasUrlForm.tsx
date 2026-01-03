@@ -13,7 +13,7 @@ import RemoveAliasButton from "./RemoveAliasButton";
 const dataInputUrl = [
   {
     name: "url",
-    label: "Wpisz własny adres formularza",
+    label: "Własny adres formularza",
     placeholder: "www:formularz",
     type: "text",
   },
@@ -49,17 +49,16 @@ export default function AliasUrlForm(form: FormSerialized) {
 
   return (
     <div className="flex gap-8">
-      <form
-        onSubmit={handleSubmit(setAlias)}
-        className="flex shrink-0 items-center gap-4"
-      >
-        <InputFields
-          inputsData={dataInputUrl}
-          register={register}
-          errorMsg={errors}
-        />
+      <form onSubmit={handleSubmit(setAlias)} className="flex gap-8 w-2/3">
+        <div className="w-full">
+          <InputFields
+            inputsData={dataInputUrl}
+            register={register}
+            errorMsg={errors}
+          />
+        </div>
 
-        <div>
+        <div className="mt-2">
           <Button
             message="Zapisz"
             isLoading={isSubmitting}

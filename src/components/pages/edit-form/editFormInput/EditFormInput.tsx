@@ -131,46 +131,21 @@ const EditFormInput = (props: Props) => {
 
   return (
     <FormProvider {...methods}>
-      <form className="mb-3 border border-default shadow-default rounded-md bg-bg_light">
-        <div className="flex gap-2 items-center p-2">
-          {/* {(isAnyLoading || isPending) && <FullscreenLoader />} */}
-          <div className="w-3/5 flex">
-            <div className="flex flex-col gap-2 mr-4 w-3/5">
-              {!isInputTypeParagraph(props.input) ? (
-                <>
-                  <InputFields
-                    inputsData={dataInputLabel}
-                    register={register}
-                    errorMsg={errors.header as any}
-                    onChange={handleEditLabel}
-                    // isLoading={isLoadingLabel}
-                  />
-                  <EditFormDescriptionInput
-                    inputId={inputId as string}
-                    inputIdx={props.inputIdx}
-                    description={description ?? ""}
-                  />
-                </>
-              ) : (
+      <form className="flex justify-between  py-16 px-32 border border-default shadow-default rounded-md bg-bg_light">
+        <div className="w-2/3 flex flex-col gap-16">
+          <div className="flex justify-between">
+            <div className="w-3/6 ">
+              {!isInputTypeParagraph(props.input) && (
                 <InputFields
-                  inputsData={dataInputTextarea}
+                  inputsData={dataInputLabel}
                   register={register}
                   errorMsg={errors.header as any}
                   onChange={handleEditLabel}
                   // isLoading={isLoadingLabel}
                 />
               )}
-
-              {isInputWithOptions(props.input) && (
-                <AddOption
-                  inputIdx={props.inputIdx}
-                  input={props.input}
-                  header={header}
-                />
-              )}
             </div>
-
-            <div className="w-1/2 flex justify-center">
+            <div className="w-2/6">
               <SelectFieldControler
                 name={`type`}
                 defaultValue={type}
@@ -181,26 +156,45 @@ const EditFormInput = (props: Props) => {
               />
             </div>
           </div>
+          <EditFormDescriptionInput
+            inputId={inputId as string}
+            inputIdx={props.inputIdx}
+            description={description ?? ""}
+            isParagraph={isInputTypeParagraph(props.input)}
+          />
 
-          {type !== InputType.PARAGRAPH && (
-            <div>
-              <RequiredToggleSwitch input={props.input} />
-              <UniqueToggleSwitch input={props.input} />
-            </div>
+          {isInputWithOptions(props.input) && (
+            <AddOption
+              inputIdx={props.inputIdx}
+              input={props.input}
+              header={header}
+            />
           )}
+        </div>
 
-          <div className="flex flex-col justify-center gap-2 mb-auto">
-            <div className="">
+        <div className="flex flex-col gap-14">
+          <div className="flex gap-8 mb-14 h-fit">
+            <div className="ml-auto flex gap-4">
               {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
               {!props.isLastInput && (
                 <MoveInputDownBtn inputId={inputId as string} />
               )}
             </div>
+            <div className="flex flex-col">
+              <div className="flex-1 w-px  bg-font_light" />
+            </div>
+
+            <div className="mb-auto">
+              <RemoveInputBtn inputId={inputId as string} />
+            </div>
           </div>
 
-          <div className="mb-auto">
-            <RemoveInputBtn inputId={inputId as string} />
-          </div>
+          {!isInputTypeParagraph(props.input) && (
+            <div className="flex flex-col gap-10">
+              <RequiredToggleSwitch input={props.input} />
+              <UniqueToggleSwitch input={props.input} />
+            </div>
+          )}
         </div>
       </form>
     </FormProvider>

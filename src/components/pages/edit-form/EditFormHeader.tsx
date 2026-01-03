@@ -31,9 +31,6 @@ const dataInputsFormTitle = [
     placeholder: "Tytuł formularza",
     type: "text",
   },
-];
-
-const dataInputsFormDescription = [
   {
     label: "Edytuj opis formularza",
     name: "description",
@@ -87,55 +84,44 @@ export default function EditFormHeader(props: Props) {
     <>
       {/* {loadingForm && <FullscreenLoader />} */}
 
-      <div className="p-4">
-        <FormProvider {...methods}>
-          <form className="mt-4 space-y-2 rounded-md shadow-default  border border-default bg-bg_light">
-            <div className="w-80 !mb-10">
-              <SelectFieldControler
-                name="type"
-                defaultValue=""
-                label="Wybierz kategorię formularza"
-                placeholder="Wybierz kategorię formularza"
-                options={dataSelectOptions}
-                onChangeAction={(name, value) => {
-                  handleEdit(name, value);
-                }}
-              />
-            </div>
+      <FormProvider {...methods}>
+        <form className="flex flex-col gap-14 px-32 py-16 rounded-md shadow-default  border border-default bg-bg_light">
+          <div className="w-fit">
+            <SelectFieldControler
+              name="type"
+              defaultValue=""
+              label="Wybierz kategorię formularza"
+              placeholder="Wybierz kategorię formularza"
+              options={dataSelectOptions}
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
+              }}
+              variant="horizontal"
+            />
+          </div>
 
-            <div className="w-80 !mb-10">
-              <SelectFieldControler
-                name="resultVisibility"
-                defaultValue=""
-                label="Wybierz typ głosowania"
-                placeholder="Wybierz typ głosowania"
-                options={resultVisibilityOptions}
-                onChangeAction={(name, value) => {
-                  handleEdit(name, value);
-                }}
-              />
-            </div>
+          <div className="w-fit">
+            <SelectFieldControler
+              name="resultVisibility"
+              defaultValue=""
+              label="Wybierz typ głosowania"
+              placeholder="Wybierz typ głosowania"
+              options={resultVisibilityOptions}
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
+              }}
+            />
+          </div>
 
-            <div className="w-80">
-              <InputFields
-                inputsData={dataInputsFormTitle}
-                register={register}
-                errorMsg={errors}
-                onChange={handleEdit}
-                // isLoading={isLoading}
-              />
-
-              <InputFields
-                inputsData={dataInputsFormDescription}
-                register={register}
-                errorMsg={errors}
-                onChange={handleEdit}
-                // isLoading={isLoading}
-              />
-            </div>
-          </form>
-        </FormProvider>
-      </div>
+          <InputFields
+            inputsData={dataInputsFormTitle}
+            register={register}
+            errorMsg={errors}
+            onChange={handleEdit}
+            // isLoading={isLoading}
+          />
+        </form>
+      </FormProvider>
     </>
   );
 }

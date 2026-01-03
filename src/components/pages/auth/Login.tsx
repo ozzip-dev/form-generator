@@ -116,13 +116,13 @@ const Login = () => {
             Nie pamiętasz hasła?
           </Link>
         </div>
-
-        <Button
-          isLoading={isAction.current && isPending}
-          message="Zaloguj"
-          type="submit"
-          className="text-lg"
-        />
+        <div className="flex justify-center">
+          <Button
+            isLoading={isAction.current && isPending}
+            message="Zaloguj"
+            type="submit"
+          />
+        </div>
       </form>
     </div>
   );

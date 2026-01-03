@@ -20,6 +20,7 @@ type Props<T extends FieldValues> = {
   label?: string;
   defaultValue?: string;
   onChangeAction?: (name: string, value: string) => void | Promise<void>;
+  variant?: "horizontal";
 };
 
 export const SelectFieldControler = <T extends FieldValues>(
@@ -34,7 +35,11 @@ export const SelectFieldControler = <T extends FieldValues>(
   }, []);
 
   if (!isLoading) {
-    return <Loader />;
+    return (
+      <div className="flex justify-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -54,6 +59,7 @@ export const SelectFieldControler = <T extends FieldValues>(
             field.onChange(val);
             props.onChangeAction?.(props.name, val);
           }}
+          variant={props.variant}
         />
       )}
     />

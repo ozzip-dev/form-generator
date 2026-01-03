@@ -15,7 +15,7 @@ type Props = {
 const PublishForm = ({ form }: Props) => {
   const isStateDraft: boolean = isDraft(form);
   const { _id, url } = form;
-  const formUrl: string = `/submit/${url || _id}`;
+  const formUrl: string = `www:formypracy/submit/${url || _id}`;
 
   const { toast } = useToast();
   const getFormUrl = () => `${window.location.origin}${formUrl}`;
@@ -30,14 +30,14 @@ const PublishForm = ({ form }: Props) => {
   };
 
   return (
-    <div className="m-4 *:flex *:items-center *:w-fit *:gap-3">
+    <div className="m-4 *:flex *:items-center *:gap-3">
       {isStateDraft ? (
         <div className="*:flex-shrink-0">
           <div>Formularz jest szkicem.</div>
           <PublishFormButton form={form} />
         </div>
       ) : (
-        <div className="mb-2">
+        <div className="mb-8">
           <div>Opublikowano:</div>
           <div className="font-bold">{formUrl}</div>
 
@@ -47,11 +47,13 @@ const PublishForm = ({ form }: Props) => {
             type="button"
             variant="primary-rounded"
           />
-          <ButtonLink
-            message={"Przejdź do formularza"}
-            link={formUrl}
-            target="_blank"
-          />
+          <div className="w-fit bg-accent_opacity rounded-full text-white text-sm py-2 px-6">
+            <ButtonLink
+              message={"Przejdź do formularza"}
+              link={formUrl}
+              target="_blank"
+            />{" "}
+          </div>
         </div>
       )}
 

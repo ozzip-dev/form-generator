@@ -28,7 +28,7 @@ export default function UniqueToggleSwitch(props: Props) {
   };
 
   return (
-    <div className="flex gap-2 items-center mb-auto">
+    <div className="flex gap-2 items-center mb-auto text-sm">
       {isPending && <FullscreenLoader />}
 
       <CheckboxSwitch

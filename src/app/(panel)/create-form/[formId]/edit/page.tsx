@@ -17,7 +17,7 @@ const EditFormPage = async (props: Props) => {
   const { inputs, createdAt, updatedAt, state } = formSerialized;
 
   return (
-    <>
+    <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
       <SuspenseErrorBoundary size="sm" errorMessage="Błąd pubilacji formularza">
         <PublishForm form={formSerialized} />
@@ -27,7 +27,7 @@ const EditFormPage = async (props: Props) => {
 
       {/* {state !== "active" && ( */}
       {state && (
-        <>
+        <div className="flex flex-col gap-16">
           <SuspenseErrorBoundary
             size="lg"
             errorMessage="Błąd edycji nagłówka formularza"
@@ -60,9 +60,9 @@ const EditFormPage = async (props: Props) => {
           >
             <AddFormField />
           </SuspenseErrorBoundary>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

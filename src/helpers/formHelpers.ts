@@ -19,7 +19,7 @@ export function isFormSecret(form: FormSerialized | Form): boolean {
 
 export const formTypesWithLabels: { label: string; value: FormType }[] = [
   { label: "Ankieta pracownicza", value: FormType.Survey },
-  { label: "Wybory społecznego inspektora pracy", value: FormType.Inspector },
+  { label: "Wybory SIP", value: FormType.Inspector },
   { label: "Referendum strajkowe", value: FormType.Strike },
   { label: "Inne", value: FormType.Other },
 ];

@@ -4,7 +4,7 @@ const VARIANTS = {
   primary:
     "rounded-lg px-16 py-2 text-white text-lg bg-accent_opacity hover:bg-accent",
   "primary-rounded":
-    "rounded-full px-4 py-1 text-white text-sm bg-accent_opacity hover:bg-accent",
+    "rounded-full px-6 py-2 text-white text-sm bg-accent_opacity hover:bg-accent",
   ghost: "",
   icon: "",
 };
@@ -31,7 +31,6 @@ const Button = (props: Props) => {
       disabled:opacity-70 disabled:cursor-not-allowed
       transition-colors duration-200
       block
-      m-auto
       ${VARIANTS[props.variant || "primary"]}
       ${props.className}
     `}

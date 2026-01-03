@@ -13,13 +13,11 @@ const CreateFormMenu = ({ formId }: Props) => {
   ];
 
   return (
-    <div>
-      <ul className="flex items-center justify-center gap-4">
-        {dataNavLinks.map(({ text, link }) => (
-          <MenuLink key={text} text={text} link={link} />
-        ))}
-      </ul>
-    </div>
+    <ul className="flex items-center justify-center gap-4 sticky top-0 bg-white z-10 py-10">
+      {dataNavLinks.map(({ text, link }) => (
+        <MenuLink key={text} text={text} link={link} />
+      ))}
+    </ul>
   );
 };
 
