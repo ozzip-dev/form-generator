@@ -22,12 +22,14 @@ const MenuLink = ({ text, link, sameTab = true }: Props) => {
         isActive ? "border-b-[3px] border-[var(--color-accent)]" : ""
       }`}
     >
-      <ButtonLink
-        message={text}
-        link={link}
-        target={sameTab ? "_self" : "_blank"}
-        rel={"noopener noreferrer"}
-      />
+      <div className="text-base_bold">
+        <ButtonLink
+          message={text}
+          link={link}
+          target={sameTab ? "_self" : "_blank"}
+          rel={"noopener noreferrer"}
+        />
+      </div>
     </li>
   );
 };

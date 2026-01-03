@@ -10,7 +10,7 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="flex justify-between items-center container">
+    <div className="flex justify-between items-center container py-6">
       <DashboardMenu />
       <div className="w-1/3 flex justify-between items-center ">
         <div>

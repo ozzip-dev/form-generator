@@ -22,7 +22,7 @@ const NavMenu = (props: Props) => {
         )}
       </div>
       <div>
-        <ul className="flex items-center gap-[40px] py-[30px]">
+        <ul className="flex items-center gap-[40px]">
           {props.links.map(({ text, link }, idx) => (
             <MenuLink key={idx} {...{ text, link }} />
           ))}

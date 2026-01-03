@@ -13,7 +13,11 @@ const CreateFormMenu = ({ formId }: Props) => {
     { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
   ];
 
-  return <NavMenu links={dataNavLinks} icon="edit-form" />;
+  return (
+    <div className="py-8">
+      <NavMenu links={dataNavLinks} icon="edit-form" />
+    </div>
+  );
 };
 
 export default CreateFormMenu;

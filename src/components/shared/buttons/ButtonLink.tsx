@@ -11,7 +11,7 @@ export default function ButtonLink(props: Props) {
   return (
     <Link
       href={props.link}
-      className="block text-base_bold"
+      className="block"
       target={props.target}
       rel={props.rel}
     >
