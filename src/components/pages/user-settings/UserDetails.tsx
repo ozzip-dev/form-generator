@@ -1,4 +1,5 @@
 import { Button } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useUser } from "@/context/UserContextProvider";
 import React, { use } from "react";
 
@@ -25,25 +26,28 @@ const UserDetails = (props: Props) => {
 
   return (
     <>
-      <div className="flex justify-center ">
-        <div className="w-4/5">
+      <Card>
+        <div className="font-bold mb-7">Dane kontaktowe</div>
+        <div className="flex flex-col gap-8">
           {dataUserDetails.map(({ header, detail }) => {
             return (
-              <React.Fragment key={header}>
-                <div className="text-lg block text-xl !important">{header}</div>
-                <div className="w-full border-b-2 border-transparent px-2 py-1 mb-4">
+              <div key={header} className="text-sm">
+                <div className="font-bold mb-1">{header}</div>
+                <div className="p-3 mb-4 border border-transparent">
                   {detail ? detail : <span className="text-red-500">Brak</span>}
                 </div>{" "}
-              </React.Fragment>
+              </div>
             );
           })}
-          <Button
-            message="Edytuj dane kontaktowe"
-            type="button"
-            onClickAction={props.handlePrintForm}
-          />{" "}
         </div>
-      </div>
+      </Card>
+
+      <Button
+        message="Edytuj"
+        type="button"
+        onClickAction={props.handlePrintForm}
+        className="m-auto mt-16"
+      />
     </>
   );
 };

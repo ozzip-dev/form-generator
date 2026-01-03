@@ -7,6 +7,7 @@ import InputField from "./InputField";
 
 type TypeInputData = {
   label?: string;
+  labelX?: string;
   name: string;
   // placeholder?: string;
   type: string;
@@ -31,13 +32,19 @@ type Props = {
 
 const InputFields = (props: Props) => {
   return (
-    <div className="flex flex-col gap-14">
+    <div className="flex flex-col gap-8">
       {props.inputsData.map((inputData) => {
-        const { label, required, description, name, type } = inputData;
+        const { label, labelX, required, description, name, type } = inputData;
 
         return (
           <div key={name} className="relative">
             {description && <div className="text-sm">{description}</div>}
+
+            {labelX && (
+              <label htmlFor={name} className="block text-sm font-bold mb-1">
+                {labelX}
+              </label>
+            )}
 
             {type === "textarea" ? (
               <TextareaField
@@ -57,9 +64,10 @@ const InputFields = (props: Props) => {
               />
             )}
 
-            <label
-              htmlFor={name}
-              className={`
+            {label && (
+              <label
+                htmlFor={name}
+                className={`
                 bg-white px-1
                 pointer-events-none absolute left-3
                 origin-left transition-all duration-200
@@ -76,11 +84,11 @@ const InputFields = (props: Props) => {
                 // not focus - label up
                 -top-3 text-xs 
             `}
-            >
-              {label}
-              {required && <span className="text-red ml-0.5">*</span>}
-            </label>
-
+              >
+                {label}
+                {required && <span className="text-red ml-0.5">*</span>}
+              </label>
+            )}
             <InputError
               errorMsg={
                 (props.errorMsg?.[name]?.message as string) ||

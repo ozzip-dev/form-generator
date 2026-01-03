@@ -4,8 +4,6 @@ import { useState } from "react";
 import UserDetails from "./UserDetails";
 import UserForm from "./UserForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import UserDetailTest from "./UserActionTest";
-import Card from "@/components/shared/Card";
 
 const UserSettings = () => {
   const [isFormPrinted, setFormPrinted] = useState(false);
@@ -15,8 +13,7 @@ const UserSettings = () => {
   };
 
   return (
-    <Card>
-      <div>Dane kontaktowe</div>
+    <>
       {!isFormPrinted && (
         <SuspenseErrorBoundary
           size="lg"
@@ -33,13 +30,9 @@ const UserSettings = () => {
           >
             <UserForm handlePrintForm={handlePrintForm} />
           </SuspenseErrorBoundary>
-          {/* <>
-            <UserDetailTest handlePrintForm={handlePrintForm} />
-          </> */}
         </>
-      )}{" "}
-      <div className="w-fit ml-auto"></div>
-    </Card>
+      )}
+    </>
   );
 };
 

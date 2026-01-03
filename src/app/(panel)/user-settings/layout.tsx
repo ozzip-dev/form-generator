@@ -9,7 +9,9 @@ export default async function SettingsLayout(props: Props) {
         <Icon icon="gear" size={47} color="var(--color-accent_opacity)" />
       </div>
 
-      <section className="flex-1 overflow-y-auto">{props.children}</section>
+      <section className="flex-1 overflow-y-auto pb-16">
+        {props.children}
+      </section>
     </div>
   );
 }
