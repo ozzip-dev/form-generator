@@ -4,6 +4,7 @@ import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
 import { DataLoader, InputError } from "../../index";
 import TextareaField from "./TextareaField";
 import InputField from "./InputField";
+import FloatingLabel from "./FloatingLabel";
 
 type TypeInputData = {
   staticLabel?: string;
@@ -50,6 +51,7 @@ const InputFields = (props: Props) => {
             {staticLabel && (
               <label htmlFor={name} className="block text-sm font-bold mb-1">
                 {staticLabel}
+                {required && <span className="text-red ml-0.5">*</span>}
               </label>
             )}
 
@@ -72,29 +74,11 @@ const InputFields = (props: Props) => {
             )}
 
             {floatingLabel && (
-              <label
-                htmlFor={name}
-                className={`
-                bg-white px-1
-                pointer-events-none absolute left-3
-                origin-left transition-all duration-200
-
-                // empty not focus
-                peer-placeholder-shown:top-3
-                peer-placeholder-shown:text-base
-
-                // focus - label up 
-                peer-focus:-top-3
-                peer-focus:text-xs
-                peer-focus:text-accent
-
-                // not focus - label up
-                -top-3 text-xs 
-            `}
-              >
-                {floatingLabel}
-                {required && <span className="text-red ml-0.5">*</span>}
-              </label>
+              <FloatingLabel
+                name={name}
+                floatingLabel={floatingLabel}
+                required={required || false}
+              />
             )}
             <InputError
               errorMsg={
