@@ -29,7 +29,6 @@ const Button = (props: Props) => {
         disabled:opacity-70 disabled:cursor-not-allowed
         transition-colors duration-200
         block
-        m-auto
         ${VARIANTS[props.variant || "primary"]}
         ${props.className}
       `}

@@ -89,15 +89,13 @@ const AddFormField = () => {
               options={dataSelectOptions}
             />
           </div>
-
-          <div className="w-fit">
-            <Button
-              icon={
-                <Icon icon="plus-solid-full" className="h-7 w-7 bg-white" />
-              }
-            />
-          </div>
         </div>
+
+        <Button
+          icon={<Icon icon="plus-solid-full" size={30} color="white" />}
+          variant="ghost"
+          className="bg-accent_opacity rounded-full p-1 w-fit mb-auto"
+        />
       </form>
     </FormProvider>
   );
