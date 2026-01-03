@@ -44,17 +44,15 @@ export default function CheckboxGroupField(props: Props) {
         };
 
         return (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 text-sm">
             {props.groupLabel && (
-              <div className="text-xl">
+              <div className="font-bold">
                 {props.groupLabel}
                 {props.required && <span className="text-red-600">*</span>}
               </div>
             )}
 
-            {props.groupDescription && (
-              <div className="text-sm">{props.groupDescription}</div>
-            )}
+            {props.groupDescription && <div>{props.groupDescription}</div>}
 
             {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
               if (optionId === OPTION_OTHER) {

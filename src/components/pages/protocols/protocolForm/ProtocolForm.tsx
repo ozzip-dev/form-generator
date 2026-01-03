@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
+import Card from "@/components/shared/Card";
 
 const dataInputsProtocolForm = [
   {
@@ -56,7 +57,7 @@ const dataCheckboxOptions = [
     name: "workStandards",
   },
   {
-    checkboxLabel: "Inne",
+    checkboxLabel: "Inna",
     name: OPTION_OTHER,
     optionId: OPTION_OTHER,
   },
@@ -115,10 +116,10 @@ const ProtocolForm = (props: Props) => {
   };
 
   return (
-    <>
+    <Card>
       <form
         onSubmit={handleSubmit(onFormSubmit)}
-        className="shadow-border-box p-lg"
+        className="flex flex-col gap-10"
       >
         <InputFields
           inputsData={dataInputsProtocolForm}
@@ -141,7 +142,7 @@ const ProtocolForm = (props: Props) => {
           onClickAction={props.handlePrintForm}
         />
       )}
-    </>
+    </Card>
   );
 };
 
