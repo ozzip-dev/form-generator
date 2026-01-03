@@ -10,15 +10,15 @@ import {
 } from "@/lib/zodSchema/forumSchemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
 
-const topicInputData: { label: string; name: string; type: string }[] = [
-  { label: "Temat", name: "title", type: "text" },
-  { label: "Opis", name: "description", type: "text" },
+const topicInputData: { floatingLabel: string; name: string; type: string }[] = [
+  { floatingLabel: "Temat", name: "title", type: "text" },
+  { floatingLabel: "Opis", name: "description", type: "text" },
 ];
 
 const categorySelectOptions = [
-  { label: "Formularz", value: TopicCategory.FORM },
-  { label: "Protokół", value: TopicCategory.PROTOCOL },
-  { label: "Inne", value: TopicCategory.OTHER },
+  { floatingLabel: "Formularz", value: TopicCategory.FORM },
+  { floatingLabel: "Protokół", value: TopicCategory.PROTOCOL },
+  { floatingLabel: "Inne", value: TopicCategory.OTHER },
 ];
 
 type State = { errors: Record<string, string[]>; inputs?: any };
@@ -79,9 +79,9 @@ const CreateTopicForm = () => {
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
         <select name="category">
-          {categorySelectOptions.map(({ value, label }) => (
+          {categorySelectOptions.map(({ value, floatingLabel }) => (
             <option key={value} value={value}>
-              {label}
+              {floatingLabel}
             </option>
           ))}
         </select>

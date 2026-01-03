@@ -14,24 +14,24 @@ import { useToast } from "@/context/ToastProvider";
 
 const dataInputsProtocolForm = [
   {
-    label: "Data rozpoczęcia sporu zbiorowego",
+    staticLabel: "Data rozpoczęcia sporu zbiorowego",
     name: "disputeStartDate",
     type: "date",
   },
   {
-    label: "Branża",
+    staticLabel: "Branża",
     name: "branch",
     placeholder: "Budownictwo",
     type: "text",
   },
   {
-    label: "Nazwa związku",
+    staticLabel: "Nazwa związku",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: "text",
   },
   {
-    label: "Nazwa przedsiębiorstwa",
+    staticLabel: "Nazwa przedsiębiorstwa",
     name: "workplaceName",
     placeholder: "firma",
     type: "text",

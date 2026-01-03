@@ -27,13 +27,13 @@ const resultVisibilityOptions: {
 
 const dataInputsFormTitle = [
   {
-    label: "Edytuj tytuł formularza",
+    floatingLabel: "Edytuj tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
     type: "text",
   },
   {
-    label: "Edytuj opis formularza",
+    floatingLabel: "Edytuj opis formularza",
     name: "description",
     placeholder: "Edytuj opis formularza",
     type: "textarea",

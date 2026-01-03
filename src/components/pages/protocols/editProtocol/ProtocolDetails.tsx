@@ -36,16 +36,16 @@ const ProtocolDetails = (props: Props) => {
   // TODO: przerobic
 
   const protocolDetails = [
-    { label: "Branza:", value: branch },
-    { label: "Powod sporu:", value: displayDisputeReasons },
-    { label: "Nazwa związku:", value: tradeUnionName },
-    { label: "Nazwa zakładu:", value: workplaceName },
+    { staticLabel: "Branza:", value: branch },
+    { staticLabel: "Powod sporu:", value: displayDisputeReasons },
+    { staticLabel: "Nazwa związku:", value: tradeUnionName },
+    { staticLabel: "Nazwa zakładu:", value: workplaceName },
     {
-      label: "Data rozpoczęcia sporu:",
+      staticLabel: "Data rozpoczęcia sporu:",
       value: safeDisplayDate(disputeStartDate),
     },
-    { label: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
-    { label: "Data ostatniej edycji:", value: safeDisplayDate(lastModifiedAt) },
+    { staticLabel: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
+    { staticLabel: "Data ostatniej edycji:", value: safeDisplayDate(lastModifiedAt) },
   ];
 
   return (
@@ -54,10 +54,10 @@ const ProtocolDetails = (props: Props) => {
         <div className="text-lg font-black col-span-2">
           Dane sporu zbiorowego:
         </div>
-        {protocolDetails.map(({ label, value }) => {
+        {protocolDetails.map(({ staticLabel, value }) => {
           return (
-            <div key={label}>
-              <span className="font-black">{label} </span>
+            <div key={staticLabel}>
+              <span className="font-black">{staticLabel} </span>
               {value}
             </div>
           );

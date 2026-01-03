@@ -11,15 +11,23 @@ import {
 import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee = [
-  { labelX: "Nazwa związku zawodowego", name: "committeeUnion", type: "text" },
-  { labelX: "Nazwa struktury związku", name: "committeeName", type: "text" },
   {
-    labelX: "Telefon kontaktowy struktury",
+    staticLabel: "Nazwa związku zawodowego",
+    name: "committeeUnion",
+    type: "text",
+  },
+  {
+    staticLabel: "Nazwa struktury związku",
+    name: "committeeName",
+    type: "text",
+  },
+  {
+    staticLabel: "Telefon kontaktowy struktury",
     name: "committeePhone",
     type: "text",
   },
   {
-    labelX: "Email kontaktowy struktury",
+    staticLabel: "Email kontaktowy struktury",
     name: "committeeEmail",
     type: "email",
   },

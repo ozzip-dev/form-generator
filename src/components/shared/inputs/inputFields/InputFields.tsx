@@ -6,8 +6,8 @@ import TextareaField from "./TextareaField";
 import InputField from "./InputField";
 
 type TypeInputData = {
-  label?: string;
-  labelX?: string;
+  staticLabel?: string;
+  floatingLabel?: string;
   name: string;
   // placeholder?: string;
   type: string;
@@ -34,15 +34,22 @@ const InputFields = (props: Props) => {
   return (
     <div className="flex flex-col gap-8">
       {props.inputsData.map((inputData) => {
-        const { label, labelX, required, description, name, type } = inputData;
+        const {
+          staticLabel,
+          floatingLabel,
+          required,
+          description,
+          name,
+          type,
+        } = inputData;
 
         return (
           <div key={name} className="relative">
             {description && <div className="text-sm">{description}</div>}
 
-            {labelX && (
+            {staticLabel && (
               <label htmlFor={name} className="block text-sm font-bold mb-1">
-                {labelX}
+                {staticLabel}
               </label>
             )}
 
@@ -64,7 +71,7 @@ const InputFields = (props: Props) => {
               />
             )}
 
-            {label && (
+            {floatingLabel && (
               <label
                 htmlFor={name}
                 className={`
@@ -85,7 +92,7 @@ const InputFields = (props: Props) => {
                 -top-3 text-xs 
             `}
               >
-                {label}
+                {floatingLabel}
                 {required && <span className="text-red ml-0.5">*</span>}
               </label>
             )}

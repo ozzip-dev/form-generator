@@ -12,13 +12,13 @@ import { useActionState, useRef } from "react";
 
 const dataInputsResetPassword = [
   {
-    label: "Nowe hasło",
+    floatingLabel: "Nowe hasło",
     name: "password",
     placeholder: "XXXX",
     type: "password",
   },
   {
-    label: "Powtórz hasło",
+    floatingLabel: "Powtórz hasło",
     name: "confirmPassword",
     placeholder: "XXXX",
     type: "password",

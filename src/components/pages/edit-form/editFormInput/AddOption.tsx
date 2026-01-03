@@ -110,7 +110,9 @@ const AddOption = (props: Props) => {
                   {
                     type: "text",
                     name: `options.${idx}.label`,
-                    label: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                    floatingLabel: isOtherOption
+                      ? "Edytuj inne"
+                      : "Edytuj opcję",
                     // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
                   },
                 ]}

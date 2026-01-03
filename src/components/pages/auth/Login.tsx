@@ -29,9 +29,9 @@ const ToastsData: ModelToast[] = [
 ];
 
 const dataInputsLogin = [
-  { label: "Email", name: "email", type: "email" },
+  { floatingLabel: "Email", name: "email", type: "email" },
   {
-    label: "Hasło",
+    floatingLabel: "Hasło",
     name: "password",
     type: "password",
   },

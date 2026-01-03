@@ -35,7 +35,7 @@ const dataInputLabel = [
     type: "text",
     name: `header`,
     placeholder: "Pytanie",
-    label: "Edytuj pytanie",
+    floatingLabel: "Edytuj pytanie",
   },
 ];
 
@@ -43,7 +43,7 @@ const dataInputTextarea = [
   {
     name: `description`,
     placeholder: "Opis",
-    label: "Edytuj opis",
+    floatingLabel: "Edytuj opis",
     type: "textarea",
   },
 ];
