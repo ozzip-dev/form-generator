@@ -19,19 +19,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (request.nextUrl.pathname === "/dashboard") {
-    if (session.user.role === "admin") {
-      return NextResponse.redirect(
-        new URL("/dashboard-admin?login=success", request.url)
-      );
-    }
-    if (session.user.role === "moderator") {
-      return NextResponse.redirect(
-        new URL("/dashboard-moderator?login=success", request.url)
-      );
-    }
-  }
-
   return NextResponse.next();
 }
 

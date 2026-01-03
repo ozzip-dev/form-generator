@@ -1,9 +1,9 @@
 import { SuspenseErrorBoundary } from "@/components/shared";
-import FormTrigger from "./FormTrigger";
-import FormsTemplatesList from "./formTemplatesLIst/FormsTemplatesList";
-import FormsLIst from "./formsList/FormsLIst";
+import FormTrigger from "../FormTrigger";
+import FormsTemplatesList from "../form-template-list/FormsTemplatesList";
+import FormsLIst from "./FormLIst";
 
-const DashboardModerator = async () => {
+const FormListPage = async () => {
   return (
     <div className="mb-10">
       <SuspenseErrorBoundary errorMessage="Błąd tworzenia formularza" size="sm">
@@ -23,4 +23,4 @@ const DashboardModerator = async () => {
   );
 };
 
-export default DashboardModerator;
+export default FormListPage;

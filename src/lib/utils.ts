@@ -1,5 +1,6 @@
 import { UserRole } from "@/models/User";
-import { IUser } from "@/types/user";
+import { IUser, UserSerialized } from "@/types/user";
+import { User } from "better-auth/*";
 
 export const convertBToKB = (bytes: number): string => {
   return (bytes / 1024).toFixed(2);
@@ -21,5 +22,8 @@ export const downloadFile = (blob: Blob, name: string) => {
 };
 
 /* user */
-export const isModerator = (user: IUser): boolean =>
+export const isModerator = (user: IUser | UserSerialized): boolean =>
   user.role === UserRole.MODERATOR;
+
+export const isAdmin = (user: IUser | UserSerialized): boolean =>
+  user.role === UserRole.ADMIN;
