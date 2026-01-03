@@ -5,6 +5,7 @@ import UserDetails from "./UserDetails";
 import UserForm from "./UserForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import UserDetailTest from "./UserActionTest";
+import Card from "@/components/shared/Card";
 
 const UserSettings = () => {
   const [isFormPrinted, setFormPrinted] = useState(false);
@@ -14,7 +15,7 @@ const UserSettings = () => {
   };
 
   return (
-    <>
+    <Card>
       <div>Dane kontaktowe</div>
       {!isFormPrinted && (
         <SuspenseErrorBoundary
@@ -38,7 +39,7 @@ const UserSettings = () => {
         </>
       )}{" "}
       <div className="w-fit ml-auto"></div>
-    </>
+    </Card>
   );
 };
 

@@ -47,11 +47,7 @@ const ProtocolList = ({
       ))}
 
       {filteredResults.map((protocol, idx) => (
-        <ProtocolListItem
-          key={idx}
-          protocol={protocol}
-          setPending={setPending}
-        />
+        <ProtocolListItem key={idx} protocol={protocol} />
       ))}
     </div>
   );

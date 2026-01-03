@@ -6,9 +6,11 @@ type Props = {
 
 export default async function ProtocolsLayout(props: Props) {
   return (
-    <>
-      <ProtocolsMenu />
-      <section>{props.children}</section>
-    </>
+    <div className="h-full flex flex-col">
+      <div className="shrink-0 container">
+        <ProtocolsMenu />
+      </div>
+      <section className="flex-1">{props.children}</section>
+    </div>
   );
 }

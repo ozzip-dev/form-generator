@@ -72,8 +72,8 @@ const SelectField = (props: Props) => {
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => !props.disabled && setOpen((o) => !o)}
-          className={`min-w-[20rem] flex justify-between items-center border rounded-sm p-3 text-sm
-          focus:outline-none focus:ring-2 focus:ring-sky-500 transition
+          className={`w-[20rem] flex justify-between items-center border rounded-sm p-3 text-sm
+          focus:outline-none 
           ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           ${props.errorMsg ? "border-red-500" : "border-gray-300"}`}
         >

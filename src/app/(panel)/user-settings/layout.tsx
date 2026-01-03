@@ -2,7 +2,7 @@ import CreateFormMenu from "@/components/pages/edit-form/CreateFormMenu";
 
 type Props = { params: Promise<{ formId: string }>; children: React.ReactNode };
 
-export default async function CreateFormLayout(props: Props) {
+export default async function SettingsLayout(props: Props) {
   const { formId } = await props.params;
 
   return (

@@ -7,7 +7,7 @@ type Props = {
 
 export default function CreatedUpdatedInfo({ createdAt, updatedAt }: Props) {
   return (
-    <div className="flex justify-between">
+    <div className="flex gap-10">
       <div className="text-xs text-gray-400 mt-1">
         Edytowano: {formatDateAndTime(updatedAt)}
       </div>

@@ -32,7 +32,7 @@ export default function UniqueToggleSwitch(props: Props) {
       {isPending && <FullscreenLoader />}
 
       <CheckboxSwitch
-        label="Odpowiedż unikalna"
+        label="Odpowiedź unikalna"
         name={`unique`}
         control={control}
         onChangeAction={async () => {
