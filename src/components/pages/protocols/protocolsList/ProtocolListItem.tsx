@@ -70,13 +70,18 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
           </Link>
         </div>
       </div>
-      <div
-        className={`transition-all duration-700 ${
-          isOpen ? "col-span-5" : "hidden"
-        }`}
-      >
-        <div className="min-h-0">
-          {details && <ProtocolListItemDetails {...details} />}
+
+      <div className="col-span-full">
+        <div
+          className={`
+          grid overflow-hidden transition-all 
+          duration-700
+          ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+        `}
+        >
+          <div className="min-h-0">
+            {details && <ProtocolListItemDetails {...details} />}
+          </div>
         </div>
       </div>
     </>
