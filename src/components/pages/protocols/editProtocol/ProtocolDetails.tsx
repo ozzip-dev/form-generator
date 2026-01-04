@@ -4,6 +4,7 @@ import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
 import { mapDisputeReason } from "../utils";
 import Card from "@/components/shared/Card";
+import DetailsPrinter from "@/components/shared/DetailsPrinter";
 
 type Props = {
   handlePrintForm: () => void;
@@ -68,33 +69,14 @@ const ProtocolDetails = (props: Props) => {
 
   return (
     <Card>
-      <div className="flex flex-col gap-2">
+      <div className="">
         <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
         {protocolDetails.map(({ staticLabel, value }, idx) => {
-          return (
-            <div key={staticLabel} className="text-sm flex items-center gap-4">
-              <div className="font-bold mb-1">{staticLabel}</div>
-              <div className="p-3 border border-transparent mt-3 mb-4">
-                {idx === 0 && <div className="h-[2px] w-[20rem]"> </div>}
-                {value}
-              </div>
-            </div>
-          );
+          return <DetailsPrinter label={staticLabel} value={value} />;
         })}
-        <div className="flex">
+        <div className="flex gap-4">
           {editionDetails.map(({ staticLabel, value }, idx) => {
-            return (
-              <div
-                key={staticLabel}
-                className="text-sm flex items-center gap-4"
-              >
-                <div className="font-bold mb-1">{staticLabel}</div>
-                <div className="p-3 border border-transparent mt-3 mb-4">
-                  {value}
-                  {idx === 0 && <div className="h-[2px] w-[20rem]"> </div>}
-                </div>
-              </div>
-            );
+            return <DetailsPrinter label={staticLabel} value={value} />;
           })}
         </div>
 

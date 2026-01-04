@@ -117,11 +117,8 @@ const ProtocolForm = (props: Props) => {
 
   return (
     <Card>
-      <form
-        onSubmit={handleSubmit(onFormSubmit)}
-        className="flex flex-col gap-2"
-      >
-        <div className="text-lg font-bold  mb-6">Dane sporu zbiorowego</div>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}

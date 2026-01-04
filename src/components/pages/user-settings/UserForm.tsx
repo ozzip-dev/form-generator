@@ -12,22 +12,22 @@ import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee = [
   {
-    staticLabel: "Nazwa związku zawodowego",
+    staticLabel: "Nazwa związku zawodowego:",
     name: "committeeUnion",
     type: "text",
   },
   {
-    staticLabel: "Nazwa struktury związku",
+    staticLabel: "Nazwa struktury związku:",
     name: "committeeName",
     type: "text",
   },
   {
-    staticLabel: "Telefon kontaktowy struktury",
+    staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: "text",
   },
   {
-    staticLabel: "Email kontaktowy struktury",
+    staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: "email",
   },
@@ -92,6 +92,7 @@ const UserForm = (props: Props) => {
             errorMsg={state.errors}
             inputsData={dataInputscommittee}
             default={defaultValues}
+            variant="horizontal"
           />{" "}
         </Card>
         <div className="flex justify-center mt-16 gap-16">

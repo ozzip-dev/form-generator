@@ -29,7 +29,7 @@ type Props = {
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
   default?: Record<string, string>;
-  variant?: string;
+  variant?: "horizontal";
 };
 
 const InputFields = (props: Props) => {
@@ -49,7 +49,7 @@ const InputFields = (props: Props) => {
           <div key={name} className="relative">
             <div
               className={`${
-                props.variant === "horizontal" ? "flex gap-4 items-center" : ""
+                props.variant === "horizontal" ? "flex gap-2 items-center" : ""
               }`}
             >
               <div>
