@@ -9,7 +9,7 @@ export default function FormLink(props: Props) {
 
   return (
     <Link
-      href={`/create-form/${props.form._id}/edit`}
+      href={`/forms/${props.form._id}/edit`}
       className="block p-4 border rounded hover:bg-gray-50 transition"
     >
       <h3 className="text-lg font-semibold">{props.form.title}</h3>

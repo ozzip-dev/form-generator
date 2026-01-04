@@ -7,15 +7,15 @@ type Props = {
 
 const CreateFormMenu = ({ formId }: Props) => {
   const dataNavLinks: NavMenuLink[] = [
-    { text: "Edycja", link: `/create-form/${formId}/edit` },
-    { text: "Podgląd", link: `/create-form/${formId}/preview` },
-    { text: "Wyniki", link: `/create-form/${formId}/results/summary` },
-    { text: "Kontakty organizacji", link: `/create-form/${formId}/contacts` },
+    { text: "Edycja", link: `/forms/${formId}/edit` },
+    { text: "Podgląd", link: `/forms/${formId}/preview` },
+    { text: "Wyniki", link: `/forms/${formId}/results/summary` },
+    { text: "Kontakty organizacji", link: `/forms/${formId}/contacts` },
   ];
 
   return (
     <div className="py-8">
-      <NavMenu links={dataNavLinks} icon="edit-form" />
+      <NavMenu links={dataNavLinks} icon="edit-form" depth={3} />
     </div>
   );
 };

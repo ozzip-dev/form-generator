@@ -29,7 +29,7 @@ const DashboardMenu = () => {
 
   const links = isModerator(user) ? moderatorNavLinks : adminNavLinks;
 
-  return <NavMenu links={links} />;
+  return <NavMenu links={links} depth={1} />;
 };
 
 export default DashboardMenu;

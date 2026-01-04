@@ -46,8 +46,8 @@ export async function createFormDraftAction(templateId: string) {
   }
 
   const { title, description, inputs } = empty
-    ? { title: '', description: '', inputs: [] }
-    : ( template as Form );
+    ? { title: "", description: "", inputs: [] }
+    : (template as Form);
 
   const id: ObjectId = await createDraft(
     db,
@@ -57,5 +57,5 @@ export async function createFormDraftAction(templateId: string) {
     inputs
   );
 
-  redirect(`/create-form/${id}/edit`);
+  redirect(`/forms/${id}/edit`);
 }

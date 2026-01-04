@@ -8,8 +8,8 @@ const ProtocolsMenu = () => {
   const protocolId = useSafeURLParam("protocolId");
 
   const protocolBasicItems: NavMenuLink[] = [
-    { text: "Dodaj protokół", link: "/protocols/add-protocol" },
-    { text: "Lista protokołów", link: `/protocols/protocols-list` },
+    { text: "Dodaj protokół", link: "/protocols/add" },
+    { text: "Lista protokołów", link: `/protocols/list` },
   ];
   const dataNavLinks = !protocolId
     ? protocolBasicItems

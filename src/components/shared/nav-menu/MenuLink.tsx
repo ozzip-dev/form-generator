@@ -7,15 +7,16 @@ type Props = {
   text: string;
   link: string;
   sameTab?: boolean;
+  isActive?: boolean;
 };
 
-const MenuLink = ({ text, link, sameTab = true }: Props) => {
-  const pathname = usePathname();
-  // TODO:
-  // 1. Przerobic sciezki: /form/create/, /form/list/, itd.
-  // 2. Porównać z wybranym elementem ścieki eby sprawdzić czy isActive
-  const isActive = pathname === link;
-
+const MenuLink = ({ text, link, sameTab = true, isActive = false }: Props) => {
+  // const pathname = usePathname();
+  // // TODO:
+  // // 1. Przerobic sciezki: /form/create/, /form/list/, itd.
+  // // 2. Porównać z wybranym elementem ścieki eby sprawdzić czy isActive
+  // const isActive = pathname === link;
+  // console.log(pathname);
   return (
     <li
       className={`shrink-0 ${

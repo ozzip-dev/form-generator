@@ -18,7 +18,7 @@ const FormPage = async (props: Props) => {
 
   // TODO: what should happen? Redirect + error/warning message?
   if (!form) redirect("/dashboard");
-  if (isDraft(form)) redirect(`/create-form/${formId}/edit`);
+  if (isDraft(form)) redirect(`/forms/${formId}/edit`);
 
   return (
     <SuspenseErrorBoundary
