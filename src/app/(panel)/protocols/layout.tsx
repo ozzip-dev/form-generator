@@ -10,7 +10,8 @@ export default async function ProtocolsLayout(props: Props) {
       <div className="shrink-0 container">
         <ProtocolsMenu />
       </div>
-      <section className="flex-1">{props.children}</section>
+
+      <section className="flex-1  overflow-y-auto">{props.children}</section>
     </div>
   );
 }

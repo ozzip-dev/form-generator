@@ -95,6 +95,7 @@ type Props = {
   isLoading?: Record<string, boolean>;
   default?: Record<string, string>;
   error?: any;
+  variant?: string;
 };
 
 const InputField = ({
@@ -104,6 +105,7 @@ const InputField = ({
   isLoading,
   default: defaultValues,
   error,
+  variant,
 }: Props) => {
   const { name, label, type, required } = inputData;
 
@@ -120,12 +122,14 @@ const InputField = ({
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
         className={`
-         peer w-full rounded-sm border
+         peer  rounded-sm border
          p-3 
-         text-sm
+        text-sm
          focus:outline-none focus:border-accent
           ${error ? "border-red" : "border-default"}
           ${isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
+          ${variant ? "mt-3" : "w-full"}
+
         `}
         {...(register && register(name))}
         onChange={(e) => {

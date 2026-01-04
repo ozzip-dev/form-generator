@@ -3,6 +3,7 @@ import { useProtocol } from "@/context/ProtocolContext";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
 import { mapDisputeReason } from "../utils";
+import Card from "@/components/shared/Card";
 
 type Props = {
   handlePrintForm: () => void;
@@ -30,45 +31,82 @@ const ProtocolDetails = (props: Props) => {
     .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
-  const safeDisplayDate = (date?: string) =>
-    date ? formatDateAndTime(date) : "—";
+  const safeDisplayDate = (date?: string) => {
+    const transformed = date ? formatDateAndTime(date).split(",")[0] : "—";
+
+    return transformed;
+  };
+
+  console.log("safeDisplayDate", safeDisplayDate(disputeStartDate));
 
   // TODO: przerobic
 
   const protocolDetails = [
-    { staticLabel: "Branza:", value: branch },
-    { staticLabel: "Powod sporu:", value: displayDisputeReasons },
-    { staticLabel: "Nazwa związku:", value: tradeUnionName },
-    { staticLabel: "Nazwa zakładu:", value: workplaceName },
     {
       staticLabel: "Data rozpoczęcia sporu:",
       value: safeDisplayDate(disputeStartDate),
     },
-    { staticLabel: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
-    { staticLabel: "Data ostatniej edycji:", value: safeDisplayDate(lastModifiedAt) },
+    { staticLabel: "Branża:", value: branch },
+    { staticLabel: "Nazwa związku:", value: tradeUnionName },
+    { staticLabel: "Nazwa przedsiębiorstwa:", value: workplaceName },
+    {
+      staticLabel: "Przyczyna rozpoczęcia sporu:",
+      value: displayDisputeReasons,
+    },
+  ];
+
+  const editionDetails = [
+    {
+      staticLabel: "Data dodania protokołu:",
+      value: safeDisplayDate(uploadedAt),
+    },
+    {
+      staticLabel: "Data ostatniej edycji:",
+      value: safeDisplayDate(lastModifiedAt),
+    },
   ];
 
   return (
-    <div className="shadow-border-box p-lg">
-      <div className="grid grid-cols-2 *:pb-md">
-        <div className="text-lg font-black col-span-2">
-          Dane sporu zbiorowego:
-        </div>
-        {protocolDetails.map(({ staticLabel, value }) => {
+    <Card>
+      <div className="flex flex-col gap-2">
+        <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
+        {protocolDetails.map(({ staticLabel, value }, idx) => {
           return (
-            <div key={staticLabel}>
-              <span className="font-black">{staticLabel} </span>
-              {value}
+            <div key={staticLabel} className="text-sm flex items-center gap-4">
+              <div className="font-bold mb-1">{staticLabel}</div>
+              <div className="p-3 border border-transparent mt-3 mb-4">
+                {idx === 0 && <div className="h-[2px] w-[20rem]"> </div>}
+                {value}
+              </div>
             </div>
           );
         })}
+        <div className="flex">
+          {editionDetails.map(({ staticLabel, value }, idx) => {
+            return (
+              <div
+                key={staticLabel}
+                className="text-sm flex items-center gap-4"
+              >
+                <div className="font-bold mb-1">{staticLabel}</div>
+                <div className="p-3 border border-transparent mt-3 mb-4">
+                  {value}
+                  {idx === 0 && <div className="h-[2px] w-[20rem]"> </div>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="w-fit m-auto">
+          <Button
+            message="Edytuj"
+            type="button"
+            onClickAction={props.handlePrintForm}
+          />{" "}
+        </div>
       </div>
-      <Button
-        message="Edytuj"
-        type="button"
-        onClickAction={props.handlePrintForm}
-      />{" "}
-    </div>
+    </Card>
   );
 };
 

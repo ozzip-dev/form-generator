@@ -15,24 +15,24 @@ import Card from "@/components/shared/Card";
 
 const dataInputsProtocolForm = [
   {
-    staticLabel: "Data rozpoczęcia sporu zbiorowego",
+    staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
   },
   {
-    staticLabel: "Branża",
+    staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
     type: "text",
   },
   {
-    staticLabel: "Nazwa związku",
+    staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: "text",
   },
   {
-    staticLabel: "Nazwa przedsiębiorstwa",
+    staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "firma",
     type: "text",
@@ -119,29 +119,36 @@ const ProtocolForm = (props: Props) => {
     <Card>
       <form
         onSubmit={handleSubmit(onFormSubmit)}
-        className="flex flex-col gap-10"
+        className="flex flex-col gap-2"
       >
+        <div className="text-lg font-bold  mb-6">Dane sporu zbiorowego</div>
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}
           errorMsg={errors}
+          variant="horizontal"
         />
-        <CheckboxGroupField
-          groupLabel="Przyczyna rozpoczęcia sporu"
-          control={control}
-          name="disputeReason"
-          options={dataCheckboxOptions}
-        />
+        <div className="mt-6">
+          <CheckboxGroupField
+            groupLabel="Przyczyna rozpoczęcia sporu:"
+            control={control}
+            name="disputeReason"
+            options={dataCheckboxOptions}
+          />
+        </div>
 
-        <Button message="Zapisz" isLoading={isSubmitting} />
+        <div className="flex justify-center  gap-16">
+          {props.handlePrintForm && (
+            <Button
+              type="button"
+              message="Anuluj"
+              onClickAction={props.handlePrintForm}
+            />
+          )}
+
+          <Button message="Zapisz" isLoading={isSubmitting} />
+        </div>
       </form>
-      {props.handlePrintForm && (
-        <Button
-          type="button"
-          message="Anuluj"
-          onClickAction={props.handlePrintForm}
-        />
-      )}
     </Card>
   );
 };
