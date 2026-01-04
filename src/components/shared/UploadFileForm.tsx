@@ -97,7 +97,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
   });
 
   return (
-    <div className="flex justify-center items-center flex-col mt-4">
+    <div className="flex justify-center items-center flex-col mt-16">
       <Card className="!p-0 w-1/2 overflow-hidden">
         <div
           {...getRootProps()}

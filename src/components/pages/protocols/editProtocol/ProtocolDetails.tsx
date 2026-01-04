@@ -68,13 +68,25 @@ const ProtocolDetails = (props: Props) => {
       <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
       <div className="flex flex-col gap-2">
         {protocolDetails.map(({ staticLabel, value }) => {
-          return <DetailsPrinter label={staticLabel} value={value} />;
+          return (
+            <DetailsPrinter
+              key={staticLabel}
+              label={staticLabel}
+              value={value}
+            />
+          );
         })}
       </div>
 
       <div className="flex gap-4">
         {editionDetails.map(({ staticLabel, value }) => {
-          return <DetailsPrinter label={staticLabel} value={value} />;
+          return (
+            <DetailsPrinter
+              key={staticLabel}
+              label={staticLabel}
+              value={value}
+            />
+          );
         })}
       </div>
 
