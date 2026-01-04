@@ -104,7 +104,7 @@ const AddOption = (props: Props) => {
 
         return (
           <div key={field.id} className="relative">
-            <div className="w-full ">
+            <div className="w-full">
               <InputFields
                 inputsData={[
                   {

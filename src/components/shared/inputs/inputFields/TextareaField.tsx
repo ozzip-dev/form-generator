@@ -1,5 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
+import InputError from "../InputError";
+import FloatingLabel from "./FloatingLabel";
 
 type Props = {
   inputData: {
@@ -14,24 +16,47 @@ type Props = {
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
   default?: Record<string, string>;
+  error?: any;
+  floatingLabel?: string;
 };
 
 const TextareaField = (props: Props) => {
-  const { name, placeholder, type } = props.inputData;
+  const { name, placeholder, type, required } = props.inputData;
   return (
-    <div className="flex">
+    <div className="">
       <textarea
         id={name}
         disabled={props.isLoading?.[name]}
-        className={`w-full border-b-2 border-gray-300 focus:border-accent focus:outline-none px-2 py-1
-      ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
+        className={` peer  rounded-sm border
+         p-3 
+        text-sm w-full
+         focus:outline-none focus:border-accent
+          ${props.error ? "border-red" : "border-default"}
+          ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
+        
     `}
-        placeholder={placeholder}
+        placeholder=" "
+        // placeholder={placeholder}
         {...(props.register
           ? props.register(name, {
               onChange: (e) => props.onChange?.(name, e.target.value),
             })
           : {})}
+      />
+      {props.floatingLabel && (
+        <FloatingLabel
+          name={name}
+          floatingLabel={props.floatingLabel}
+          required={required || false}
+        />
+      )}
+
+      <InputError
+        errorMsg={
+          (props.error?.[name]?.message as string) ||
+          (props.error as any)?.message ||
+          (props.error?.[name] && props.error?.[name][0])
+        }
       />
       {/* {props.isLoading?.[name] && <DataLoader size="sm" />} */}
     </div>

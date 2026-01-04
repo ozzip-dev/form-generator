@@ -81,6 +81,8 @@
 
 import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
+import InputError from "../InputError";
+import FloatingLabel from "./FloatingLabel";
 
 type Props = {
   inputData: {
@@ -96,6 +98,7 @@ type Props = {
   default?: Record<string, string>;
   error?: any;
   variant?: string;
+  floatingLabel?: string;
 };
 
 const InputField = ({
@@ -106,11 +109,12 @@ const InputField = ({
   default: defaultValues,
   error,
   variant,
+  floatingLabel,
 }: Props) => {
   const { name, label, type, required } = inputData;
 
   return (
-    <>
+    <div>
       <input
         id={name}
         name={name}
@@ -136,21 +140,28 @@ const InputField = ({
           register?.(name).onChange(e);
           onChange?.(name, e.target.value);
         }}
-        // {...(props.register
-        //           //   ? props.register(name, {
-        //           //       // onChange: (e) => props.onChange?.(name, e.target.value),
-        //           //       onChange: (e) =>
-        //           //         props.onChange?.(name, e.target.value, props.default),
-        //           //     })
-        //           //   : {})}
       />
+      {floatingLabel && (
+        <FloatingLabel
+          name={name}
+          floatingLabel={floatingLabel}
+          required={required || false}
+        />
+      )}
 
       {isLoading?.[name] && (
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <DataLoader size="sm" />
         </div>
       )}
-    </>
+      <InputError
+        errorMsg={
+          (error?.[name]?.message as string) ||
+          (error as any)?.message ||
+          (error?.[name] && error?.[name][0])
+        }
+      />
+    </div>
   );
 };
 
