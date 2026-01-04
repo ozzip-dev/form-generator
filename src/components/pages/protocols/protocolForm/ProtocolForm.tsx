@@ -125,7 +125,7 @@ const ProtocolForm = (props: Props) => {
           errorMsg={errors}
           variant="horizontal"
         />
-        <div className="mt-6">
+        <div className="mt-8">
           <CheckboxGroupField
             groupLabel="Przyczyna rozpoczęcia sporu:"
             control={control}

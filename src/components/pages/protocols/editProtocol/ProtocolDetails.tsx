@@ -33,12 +33,8 @@ const ProtocolDetails = (props: Props) => {
     .join(", ");
 
   const safeDisplayDate = (date?: string) => {
-    const transformed = date ? formatDateAndTime(date).split(",")[0] : "—";
-
-    return transformed;
+    return date ? formatDateAndTime(date).split(",")[0] : "—";
   };
-
-  console.log("safeDisplayDate", safeDisplayDate(disputeStartDate));
 
   // TODO: przerobic
 
@@ -69,24 +65,25 @@ const ProtocolDetails = (props: Props) => {
 
   return (
     <Card>
-      <div className="">
-        <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
-        {protocolDetails.map(({ staticLabel, value }, idx) => {
+      <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
+      <div className="flex flex-col gap-2">
+        {protocolDetails.map(({ staticLabel, value }) => {
           return <DetailsPrinter label={staticLabel} value={value} />;
         })}
-        <div className="flex gap-4">
-          {editionDetails.map(({ staticLabel, value }, idx) => {
-            return <DetailsPrinter label={staticLabel} value={value} />;
-          })}
-        </div>
+      </div>
 
-        <div className="w-fit m-auto">
-          <Button
-            message="Edytuj"
-            type="button"
-            onClickAction={props.handlePrintForm}
-          />{" "}
-        </div>
+      <div className="flex gap-4">
+        {editionDetails.map(({ staticLabel, value }) => {
+          return <DetailsPrinter label={staticLabel} value={value} />;
+        })}
+      </div>
+
+      <div className="w-fit m-auto">
+        <Button
+          message="Edytuj"
+          type="button"
+          onClickAction={props.handlePrintForm}
+        />{" "}
       </div>
     </Card>
   );
