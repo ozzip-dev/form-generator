@@ -74,24 +74,15 @@ const InputFields = (props: Props) => {
                   default={props.default}
                 />
               ) : (
-                <div className="block">
-                  <InputField
-                    inputData={inputData}
-                    register={props.register}
-                    onChange={props.onChange}
-                    isLoading={props.isLoading}
-                    default={props.default}
-                    variant={props.variant}
-                  />
-
-                  <InputError
-                    errorMsg={
-                      (props.errorMsg?.[name]?.message as string) ||
-                      (props.errorMsg as any)?.message ||
-                      (props.errorMsg?.[name] && props.errorMsg?.[name][0])
-                    }
-                  />
-                </div>
+                // <div className="block">
+                <InputField
+                  inputData={inputData}
+                  register={props.register}
+                  onChange={props.onChange}
+                  isLoading={props.isLoading}
+                  default={props.default}
+                  variant={props.variant}
+                />
               )}
 
               {floatingLabel && (
@@ -101,6 +92,13 @@ const InputFields = (props: Props) => {
                   required={required || false}
                 />
               )}
+              <InputError
+                errorMsg={
+                  (props.errorMsg?.[name]?.message as string) ||
+                  (props.errorMsg as any)?.message ||
+                  (props.errorMsg?.[name] && props.errorMsg?.[name][0])
+                }
+              />
             </div>
           </div>
         );
