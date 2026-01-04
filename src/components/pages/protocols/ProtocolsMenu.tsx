@@ -18,7 +18,11 @@ const ProtocolsMenu = () => {
         ...protocolBasicItems,
       ];
 
-  return <NavMenu links={dataNavLinks} icon="protocols" />;
+  return (
+    <div className="py-8">
+      <NavMenu links={dataNavLinks} icon="protocols" />
+    </div>
+  );
 };
 
 export default ProtocolsMenu;

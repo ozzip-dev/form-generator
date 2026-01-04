@@ -19,7 +19,10 @@ const EditFormPage = async (props: Props) => {
   return (
     <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
-      <SuspenseErrorBoundary size="sm" errorMessage="Błąd pubilacji formularza">
+      <SuspenseErrorBoundary
+        size="sm"
+        errorMessage="Błąd publikacji formularza"
+      >
         <PublishForm form={formSerialized} />
       </SuspenseErrorBoundary>
 

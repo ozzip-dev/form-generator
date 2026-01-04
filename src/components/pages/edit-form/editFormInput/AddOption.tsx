@@ -104,13 +104,15 @@ const AddOption = (props: Props) => {
 
         return (
           <div key={field.id} className="relative">
-            <div className="w-full ">
+            <div className="w-full">
               <InputFields
                 inputsData={[
                   {
                     type: "text",
                     name: `options.${idx}.label`,
-                    label: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                    floatingLabel: isOtherOption
+                      ? "Edytuj inne"
+                      : "Edytuj opcję",
                     // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
                   },
                 ]}

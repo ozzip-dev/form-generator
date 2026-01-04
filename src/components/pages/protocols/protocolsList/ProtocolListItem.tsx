@@ -20,11 +20,10 @@ import { Button } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
 type Props = {
-  setPending: Dispatch<SetStateAction<boolean>>;
   protocol: ProtocolSerialized;
 };
 
-const ProtocolListItem = ({ setPending, protocol }: Props) => {
+const ProtocolListItem = (props: Props) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
     null
   );
@@ -50,7 +49,7 @@ const ProtocolListItem = ({ setPending, protocol }: Props) => {
   );
 
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
-    protocol;
+    props.protocol;
 
   return (
     <>

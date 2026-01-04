@@ -14,9 +14,8 @@ import {
   useActionState,
 } from "react";
 
-const topicInputData: { label: string; name: string; type: string }[] = [
-  { label: "Treść", name: "content", type: "text" },
-];
+const topicInputData: { floatingLabel: string; name: string; type: string }[] =
+  [{ floatingLabel: "Treść", name: "content", type: "text" }];
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 

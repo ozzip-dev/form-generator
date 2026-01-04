@@ -48,7 +48,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
       key={id}
       inputsData={[
         {
-          label: header,
+          floatingLabel: header,
           name: id!,
           // placeholder,
           type: inputType,

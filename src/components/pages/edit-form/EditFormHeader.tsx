@@ -2,6 +2,7 @@
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
@@ -26,13 +27,13 @@ const resultVisibilityOptions: {
 
 const dataInputsFormTitle = [
   {
-    label: "Edytuj tytuł formularza",
+    floatingLabel: "Edytuj tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
     type: "text",
   },
   {
-    label: "Edytuj opis formularza",
+    floatingLabel: "Edytuj opis formularza",
     name: "description",
     placeholder: "Edytuj opis formularza",
     type: "textarea",
@@ -81,48 +82,46 @@ export default function EditFormHeader(props: Props) {
   const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   return (
-    <>
+    <Card>
       {/* {loadingForm && <FullscreenLoader />} */}
 
-      <div className="p-4">
-        <FormProvider {...methods}>
-          <form className="mt-4 shadow-border-box">
-            <div className="w-80 !mb-10">
-              <SelectFieldControler
-                name="type"
-                defaultValue=""
-                label="Wybierz kategorię formularza"
-                placeholder="Wybierz kategorię formularza"
-                options={dataSelectOptions}
-                onChangeAction={(name, value) => {
-                  handleEdit(name, value);
-                }}
-              />
-            </div>
-
-            <div className="w-fit">
-              <SelectFieldControler
-                name="resultVisibility"
-                defaultValue=""
-                label="Wybierz typ głosowania"
-                placeholder="Wybierz typ głosowania"
-                options={resultVisibilityOptions}
-                onChangeAction={(name, value) => {
-                  handleEdit(name, value);
-                }}
-              />
-            </div>
-
-            <InputFields
-              inputsData={dataInputsFormTitle}
-              register={register}
-              errorMsg={errors}
-              onChange={handleEdit}
-              // isLoading={isLoading}
+      <FormProvider {...methods}>
+        <form className=" flex flex-col gap-14">
+          <div>
+            <SelectFieldControler
+              name="type"
+              defaultValue=""
+              label="Wybierz kategorię formularza"
+              placeholder="Wybierz kategorię formularza"
+              options={dataSelectOptions}
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
+              }}
             />
-          </form>
-        </FormProvider>
-      </div>
-    </>
+          </div>
+
+          <div className="">
+            <SelectFieldControler
+              name="resultVisibility"
+              defaultValue=""
+              label="Wybierz typ głosowania"
+              placeholder="Wybierz typ głosowania"
+              options={resultVisibilityOptions}
+              onChangeAction={(name, value) => {
+                handleEdit(name, value);
+              }}
+            />
+          </div>
+
+          <InputFields
+            inputsData={dataInputsFormTitle}
+            register={register}
+            errorMsg={errors}
+            onChange={handleEdit}
+            // isLoading={isLoading}
+          />
+        </form>
+      </FormProvider>
+    </Card>
   );
 }

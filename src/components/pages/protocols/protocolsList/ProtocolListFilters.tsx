@@ -14,14 +14,14 @@ type Props = {
   setFilters: (filters: ProtocolFilters) => void;
 };
 
-const dateFilters: { key: "fromDate" | "toDate"; label: string }[] = [
+const dateFilters: { key: "fromDate" | "toDate"; staticLabel: string }[] = [
   {
     key: "fromDate",
-    label: "Spory od:",
+    staticLabel: "Spory od:",
   },
   {
     key: "toDate",
-    label: "Spory do:",
+    staticLabel: "Spory do:",
   },
 ];
 
@@ -56,10 +56,10 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
       </label>
 
       <div className="grid grid-cols-[repeat(2,1fr)_150px_1fr] gap-6 items-center">
-        {dateFilters.map(({ key, label }, i) => (
+        {dateFilters.map(({ key, staticLabel }, i) => (
           <div key={i}>
             <div>
-              {label} {filters[key]}
+              {staticLabel} {filters[key]}
             </div>
             <input type="date" onChange={(e) => onFilterChange(e, key)} />
           </div>

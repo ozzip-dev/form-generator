@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import ModalWrapper from "@/components/shared/ModalWrapper";
 import { createContext, useState, ReactNode, useContext } from "react";
 
@@ -53,15 +54,22 @@ export const ModalContextProvider = (props: Props) => {
 
   return (
     <ModalContext.Provider value={{ openModal }}>
-      <ModalWrapper isOpen={isOpen} onClose={open}>
-        <div>{header}</div>
-        <div className="flex gap-3">
-          <Button message={"Anuluj"} onClickAction={close} />
-          <Button
-            message={"Potwierdź"}
-            onClickAction={handleConfirm}
-            isLoading={isloading}
-          />
+      <ModalWrapper isOpen={isOpen} onClose={close}>
+        <div>
+          <div className="text-center text-xl mb-10">{header}</div>
+          <div className="flex justify-between">
+            <Button
+              message={"Anuluj"}
+              onClickAction={close}
+              className="!bg-white !px-0 text-center !text-accent_opacity border border-accent_opacity w-[45%]"
+            />
+            <Button
+              message={"Potwierdź"}
+              onClickAction={handleConfirm}
+              isLoading={isloading}
+              className="w-[45%] !px-0 text-center"
+            />
+          </div>
         </div>
       </ModalWrapper>
       {props.children}

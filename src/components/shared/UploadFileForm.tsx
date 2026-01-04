@@ -7,6 +7,7 @@ import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 import { useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import Card from "./Card";
 
 type Props = {
   category: ProtocolFileCategory;
@@ -96,22 +97,19 @@ const UploadFileForm = ({ category, protocol }: Props) => {
   });
 
   return (
-    <>
-      <div className="flex justify-center items-center flex-col mt-4">
+    <div className="flex justify-center items-center flex-col mt-16">
+      <Card className="!p-0 w-1/2 overflow-hidden">
         <div
           {...getRootProps()}
-          className="
-            shadow-border-box 
-            p-md 
-            *:flex *:flex-col *:items-center *:gap-[30px] *:text-center
-          "
-          style={{
-            borderColor: isDragActive ? "blue" : "",
-            backgroundColor: isDragActive ? "lightblue" : "",
-          }}
+          className={`
+              relative py-4 px-32 h-[20rem] transition-colors
+              border border-default 
+              ${isDragActive ? "bg-accent_opacity" : "bg-transparent"}
+              *:flex *:flex-col *:items-center *:gap-8 *:text-center
+            `}
         >
           {isPending && (
-            <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center">
+            <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center z-10">
               <DataLoader />
             </div>
           )}
@@ -138,8 +136,8 @@ const UploadFileForm = ({ category, protocol }: Props) => {
             )}
           </div>
         </div>
-      </div>
-    </>
+      </Card>
+    </div>
   );
 };
 

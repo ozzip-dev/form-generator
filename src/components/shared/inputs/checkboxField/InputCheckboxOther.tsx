@@ -1,3 +1,5 @@
+import InputField from "../inputFields/InputField";
+
 type Props = {
   label?: string;
   name: string;
@@ -11,7 +13,7 @@ const InputCheckboxOther = (props: Props) => {
 
   return (
     <>
-      <label htmlFor={props.name}>
+      <label htmlFor={props.name} className="font-bold">
         {props.label ? props.label : props.name}
       </label>
 
@@ -26,7 +28,7 @@ const InputCheckboxOther = (props: Props) => {
             [props.name]: e.target.value,
           });
         }}
-        className="border px-2 py-1"
+        className="rounded-sm border p-3 focus:outline-none focus:border-accent w-fit"
       />
     </>
   );

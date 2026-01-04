@@ -3,6 +3,8 @@ import { useProtocol } from "@/context/ProtocolContext";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
 import { mapDisputeReason } from "../utils";
+import Card from "@/components/shared/Card";
+import DetailsPrinter from "@/components/shared/DetailsPrinter";
 
 type Props = {
   handlePrintForm: () => void;
@@ -30,45 +32,72 @@ const ProtocolDetails = (props: Props) => {
     .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
-  const safeDisplayDate = (date?: string) =>
-    date ? formatDateAndTime(date) : "—";
+  const safeDisplayDate = (date?: string) => {
+    return date ? formatDateAndTime(date).split(",")[0] : "—";
+  };
 
   // TODO: przerobic
 
   const protocolDetails = [
-    { label: "Branza:", value: branch },
-    { label: "Powod sporu:", value: displayDisputeReasons },
-    { label: "Nazwa związku:", value: tradeUnionName },
-    { label: "Nazwa zakładu:", value: workplaceName },
     {
-      label: "Data rozpoczęcia sporu:",
+      staticLabel: "Data rozpoczęcia sporu:",
       value: safeDisplayDate(disputeStartDate),
     },
-    { label: "Data dodania protokołu:", value: safeDisplayDate(uploadedAt) },
-    { label: "Data ostatniej edycji:", value: safeDisplayDate(lastModifiedAt) },
+    { staticLabel: "Branża:", value: branch },
+    { staticLabel: "Nazwa związku:", value: tradeUnionName },
+    { staticLabel: "Nazwa przedsiębiorstwa:", value: workplaceName },
+    {
+      staticLabel: "Przyczyna rozpoczęcia sporu:",
+      value: displayDisputeReasons,
+    },
+  ];
+
+  const editionDetails = [
+    {
+      staticLabel: "Data dodania protokołu:",
+      value: safeDisplayDate(uploadedAt),
+    },
+    {
+      staticLabel: "Data ostatniej edycji:",
+      value: safeDisplayDate(lastModifiedAt),
+    },
   ];
 
   return (
-    <div className="shadow-border-box p-lg">
-      <div className="grid grid-cols-2 *:pb-md">
-        <div className="text-lg font-black col-span-2">
-          Dane sporu zbiorowego:
-        </div>
-        {protocolDetails.map(({ label, value }) => {
+    <Card>
+      <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
+      <div className="flex flex-col gap-2">
+        {protocolDetails.map(({ staticLabel, value }) => {
           return (
-            <div key={label}>
-              <span className="font-black">{label} </span>
-              {value}
-            </div>
+            <DetailsPrinter
+              key={staticLabel}
+              label={staticLabel}
+              value={value}
+            />
           );
         })}
       </div>
-      <Button
-        message="Edytuj"
-        type="button"
-        onClickAction={props.handlePrintForm}
-      />{" "}
-    </div>
+
+      <div className="flex gap-4">
+        {editionDetails.map(({ staticLabel, value }) => {
+          return (
+            <DetailsPrinter
+              key={staticLabel}
+              label={staticLabel}
+              value={value}
+            />
+          );
+        })}
+      </div>
+
+      <div className="w-fit m-auto">
+        <Button
+          message="Edytuj"
+          type="button"
+          onClickAction={props.handlePrintForm}
+        />{" "}
+      </div>
+    </Card>
   );
 };
 

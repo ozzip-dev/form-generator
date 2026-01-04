@@ -21,7 +21,7 @@ const dataInputsheader = [
     name: "header",
     placeholder: "Pytanie",
     type: "text",
-    label: "Podaj pytanie",
+    floatingLabel: "Podaj pytanie",
   },
 ];
 

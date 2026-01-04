@@ -4,7 +4,7 @@ import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBound
 
 const EditProtocolPage = async () => {
   return (
-    <div className="p-4">
+    <div className="p-4 pb-16">
       <SuspenseErrorBoundary size="lg" errorMessage="Brak danych protokołu">
         <EditProtocol />
       </SuspenseErrorBoundary>

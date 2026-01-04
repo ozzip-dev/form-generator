@@ -4,9 +4,11 @@ import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
 import { DataLoader, InputError } from "../../index";
 import TextareaField from "./TextareaField";
 import InputField from "./InputField";
+import FloatingLabel from "./FloatingLabel";
 
 type TypeInputData = {
-  label?: string;
+  staticLabel?: string;
+  floatingLabel?: string;
   name: string;
   // placeholder?: string;
   type: string;
@@ -27,67 +29,73 @@ type Props = {
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
   default?: Record<string, string>;
+  variant?: "horizontal";
 };
 
 const InputFields = (props: Props) => {
   return (
-    <div className="flex flex-col gap-14">
+    <div className={`flex flex-col ${props.variant ? "gap-2" : "gap-8"}`}>
       {props.inputsData.map((inputData) => {
-        const { label, required, description, name, type } = inputData;
+        const {
+          staticLabel,
+          floatingLabel,
+          required,
+          description,
+          name,
+          type,
+        } = inputData;
 
         return (
           <div key={name} className="relative">
-            {description && <div className="text-sm">{description}</div>}
-
-            {type === "textarea" ? (
-              <TextareaField
-                inputData={inputData}
-                register={props.register}
-                onChange={props.onChange}
-                isLoading={props.isLoading}
-                default={props.default}
-              />
-            ) : (
-              <InputField
-                inputData={inputData}
-                register={props.register}
-                onChange={props.onChange}
-                isLoading={props.isLoading}
-                default={props.default}
-              />
-            )}
-
-            <label
-              htmlFor={name}
-              className={`
-                bg-white px-1
-                pointer-events-none absolute left-3
-                origin-left transition-all duration-200
-
-                // empty not focus
-                peer-placeholder-shown:top-3
-                peer-placeholder-shown:text-base
-
-                // focus - label up 
-                peer-focus:-top-3
-                peer-focus:text-xs
-                peer-focus:text-accent
-
-                // not focus - label up
-                -top-3 text-xs 
-            `}
+            <div
+              className={`${
+                props.variant === "horizontal" ? "flex gap-2 items-center" : ""
+              }`}
             >
-              {label}
-              {required && <span className="text-red ml-0.5">*</span>}
-            </label>
+              <div>
+                {staticLabel && (
+                  <label
+                    htmlFor={name}
+                    className="block text-sm font-bold mb-1"
+                  >
+                    {staticLabel}
+                    {required && <span className="text-red ml-0.5">*</span>}
+                  </label>
+                )}
+                {description && <div className="text-sm">{description}</div>}
+              </div>
 
-            <InputError
-              errorMsg={
-                (props.errorMsg?.[name]?.message as string) ||
-                (props.errorMsg as any)?.message ||
-                (props.errorMsg?.[name] && props.errorMsg?.[name][0])
-              }
-            />
+              {type === "textarea" ? (
+                <TextareaField
+                  inputData={inputData}
+                  register={props.register}
+                  onChange={props.onChange}
+                  isLoading={props.isLoading}
+                  default={props.default}
+                  error={props.errorMsg}
+                  floatingLabel={floatingLabel}
+                />
+              ) : (
+                <InputField
+                  inputData={inputData}
+                  register={props.register}
+                  onChange={props.onChange}
+                  isLoading={props.isLoading}
+                  default={props.default}
+                  variant={props.variant}
+                  error={props.errorMsg}
+                  floatingLabel={floatingLabel}
+                />
+              )}
+
+              {/* {floatingLabel && (
+                <FloatingLabel
+                  name={name}
+                  floatingLabel={floatingLabel}
+                  required={required || false}
+                />
+              )} */}
+            </div>
           </div>
         );
       })}

@@ -11,27 +11,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
+import Card from "@/components/shared/Card";
 
 const dataInputsProtocolForm = [
   {
-    label: "Data rozpoczęcia sporu zbiorowego",
+    staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
   },
   {
-    label: "Branża",
+    staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
     type: "text",
   },
   {
-    label: "Nazwa związku",
+    staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: "text",
   },
   {
-    label: "Nazwa przedsiębiorstwa",
+    staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "firma",
     type: "text",
@@ -56,7 +57,7 @@ const dataCheckboxOptions = [
     name: "workStandards",
   },
   {
-    checkboxLabel: "Inne",
+    checkboxLabel: "Inna",
     name: OPTION_OTHER,
     optionId: OPTION_OTHER,
   },
@@ -115,33 +116,37 @@ const ProtocolForm = (props: Props) => {
   };
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit(onFormSubmit)}
-        className="shadow-border-box p-lg"
-      >
+    <Card>
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}
           errorMsg={errors}
+          variant="horizontal"
         />
-        <CheckboxGroupField
-          groupLabel="Przyczyna rozpoczęcia sporu"
-          control={control}
-          name="disputeReason"
-          options={dataCheckboxOptions}
-        />
+        <div className="mt-8">
+          <CheckboxGroupField
+            groupLabel="Przyczyna rozpoczęcia sporu:"
+            control={control}
+            name="disputeReason"
+            options={dataCheckboxOptions}
+          />
+        </div>
 
-        <Button message="Zapisz" isLoading={isSubmitting} />
+        <div className="flex justify-center  gap-16">
+          {props.handlePrintForm && (
+            <Button
+              type="button"
+              message="Anuluj"
+              onClickAction={props.handlePrintForm}
+            />
+          )}
+
+          <Button message="Zapisz" isLoading={isSubmitting} />
+        </div>
       </form>
-      {props.handlePrintForm && (
-        <Button
-          type="button"
-          message="Anuluj"
-          onClickAction={props.handlePrintForm}
-        />
-      )}
-    </>
+    </Card>
   );
 };
 

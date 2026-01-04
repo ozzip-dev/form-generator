@@ -16,26 +16,26 @@ import { useUser } from "@/context/UserContextProvider";
 
 const dataInputscommittee = [
   {
-    label: "Nazwa związku zawodowego",
+    staticLabel: "Nazwa związku zawodowego",
     name: "committeeUnion",
     placeholder: "Związek",
     defaultValue: "aoooo",
     type: "text",
   },
   {
-    label: "Nazwa struktury związku",
+    staticLabel: "Nazwa struktury związku",
     name: "committeeName",
     placeholder: "Komisja",
     type: "text",
   },
   {
-    label: "Telefon kontaktowy struktury",
+    staticLabel: "Telefon kontaktowy struktury",
     name: "committeePhone",
     placeholder: "+48 123 456 789",
     type: "text",
   },
   {
-    label: "Email kontaktowy struktury",
+    staticLabel: "Email kontaktowy struktury",
     name: "committeeEmail",
     placeholder: "kamil@ip.com",
     type: "email",

@@ -2,6 +2,7 @@
 
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useUser } from "@/context/UserContextProvider";
 import {
   userDetailsSchema,
@@ -10,15 +11,23 @@ import {
 import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee = [
-  { label: "Nazwa związku zawodowego", name: "committeeUnion", type: "text" },
-  { label: "Nazwa struktury związku", name: "committeeName", type: "text" },
   {
-    label: "Telefon kontaktowy struktury",
+    staticLabel: "Nazwa związku zawodowego:",
+    name: "committeeUnion",
+    type: "text",
+  },
+  {
+    staticLabel: "Nazwa struktury związku:",
+    name: "committeeName",
+    type: "text",
+  },
+  {
+    staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: "text",
   },
   {
-    label: "Email kontaktowy struktury",
+    staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: "email",
   },
@@ -75,28 +84,34 @@ const UserForm = (props: Props) => {
   const defaultValues = state?.inputs ? state?.inputs : initialValues;
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-4">
-      <form action={formAction} className="w-full max-w-lg space-y-4">
-        <InputFields
-          errorMsg={state.errors}
-          inputsData={dataInputscommittee}
-          default={defaultValues}
-        />
-        <Button
-          isLoading={isAction.current && isPending}
-          message="Zapisz"
-          type="submit"
-        />
+    <>
+      <form action={formAction}>
+        <Card>
+          <div className="font-bold mb-7">Dane kontaktowe</div>
+          <InputFields
+            errorMsg={state.errors}
+            inputsData={dataInputscommittee}
+            default={defaultValues}
+            variant="horizontal"
+          />{" "}
+        </Card>
+        <div className="flex justify-center mt-16 gap-16">
+          <Button
+            message="Anuluj"
+            onClickAction={() => {
+              props.handlePrintForm();
+            }}
+            type="button"
+          />
+
+          <Button
+            isLoading={isAction.current && isPending}
+            message="Zapisz"
+            type="submit"
+          />
+        </div>
       </form>
-      <div className="w-4/5 mt-4">
-        <Button
-          message="Anuluj"
-          onClickAction={() => {
-            props.handlePrintForm();
-          }}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 export default UserForm;

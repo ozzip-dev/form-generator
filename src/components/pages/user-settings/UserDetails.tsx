@@ -1,4 +1,6 @@
 import { Button } from "@/components/shared";
+import Card from "@/components/shared/Card";
+import DetailsPrinter from "@/components/shared/DetailsPrinter";
 import { useUser } from "@/context/UserContextProvider";
 import React, { use } from "react";
 
@@ -15,34 +17,34 @@ const UserDetails = (props: Props) => {
 
   const dataUserDetails: { header: string; detail: string }[] = [
     {
-      header: "Nazwa związku zawodowego",
+      header: "Nazwa związku zawodowego:",
       detail: committeeUnion,
     },
-    { header: "Nazwa struktury związku", detail: committeeName },
-    { header: "Telefon kontaktowy struktury", detail: committeePhone },
-    { header: "Email kontaktowy struktury", detail: committeeEmail },
+    { header: "Nazwa struktury związku:", detail: committeeName },
+    { header: "Telefon kontaktowy struktury:", detail: committeePhone },
+    { header: "Email kontaktowy struktury:", detail: committeeEmail },
   ];
 
   return (
     <>
-      <div className="flex justify-center ">
-        <div className="w-4/5">
-          {dataUserDetails.map(({ header, detail }) => {
-            return (
-              <React.Fragment key={header}>
-                <div className="text-lg block text-xl !important">{header}</div>
-                <div className="w-full border-b-2 border-transparent px-2 py-1 mb-4">
-                  {detail ? detail : <span className="text-red-500">Brak</span>}
-                </div>{" "}
-              </React.Fragment>
-            );
-          })}
-          <Button
-            message="Edytuj dane kontaktowe"
-            type="button"
-            onClickAction={props.handlePrintForm}
-          />{" "}
-        </div>
+      <div className="flex flex-col gap-2">
+        <Card>
+          <div className="font-bold mb-7">Dane kontaktowe</div>
+          <div className="flex flex-col gap-2">
+            {dataUserDetails.map(({ header, detail }) => {
+              return (
+                <DetailsPrinter key={header} label={header} value={detail} />
+              );
+            })}
+          </div>
+        </Card>
+
+        <Button
+          message="Edytuj"
+          type="button"
+          onClickAction={props.handlePrintForm}
+          className="m-auto mt-16"
+        />
       </div>
     </>
   );

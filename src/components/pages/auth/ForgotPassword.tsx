@@ -12,7 +12,7 @@ import { useActionState, useRef } from "react";
 
 const dataInputsForgotPassword = [
   {
-    label: "Podaj swój email",
+    floatingLabel: "Podaj swój email",
     name: "email",
     placeholder: "kamil@ozzip.com",
     type: "email",

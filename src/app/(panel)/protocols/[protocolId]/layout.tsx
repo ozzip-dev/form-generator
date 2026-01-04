@@ -25,7 +25,7 @@ export default async function EditProtocolLayout(props: Props) {
       protocolPromise={protocolPromise}
       filesPromise={filesPromise}
     >
-      <section>{props.children}</section>
+      <div className="h-full">{props.children}</div>
     </ProtocolContextProvider>
   );
 }

@@ -1,23 +1,10 @@
-import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
-import {
-  Button,
-  FullscreenLoader,
-  IconTrash,
-  InputFields,
-} from "../../../shared";
 
-const dataInputDescription = [
-  {
-    type: "textarea",
-    name: `description`,
-    placeholder: "Opis",
-    label: "Edytuj opis pytania",
-  },
-];
+import { Button, IconTrash, InputFields } from "../../../shared";
+import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 
 type Props = {
   inputId: string;
@@ -27,11 +14,18 @@ type Props = {
 };
 
 const EditFormDescriptionInput = (props: Props) => {
-  const [isDeleting, setDeleting] = useState(false);
-
   const [isDescriptionInput, setDescriptionInput] = useState(
     !!props.description
   );
+
+  const dataInputDescription = [
+    {
+      type: "textarea",
+      name: `description`,
+      placeholder: "Opis",
+      floatingLabel: props.isParagraph ? "Edytuj tekst" : "Edytuj opis pytania",
+    },
+  ];
 
   const formId = useSafeURLParam("formId");
   const {
@@ -53,51 +47,47 @@ const EditFormDescriptionInput = (props: Props) => {
 
   const printDescriptionInput = () => {
     setDescriptionInput((prev) => !prev);
-    setDeleting(false);
   };
+
   const handleRemoveDescriptionInput = () => {
-    setDeleting(true);
+    setDescriptionInput((prev) => !prev);
+
+    if (!props.description) return;
+
     handleEditLabel("description", "");
   };
 
-  const isRemoveLoading = isDeleting && isLoading?.description === true;
-
-  useEffect(() => {
-    if (isRemoveLoading) {
-      setDescriptionInput((prev) => !prev);
-    }
-  }, [isRemoveLoading]);
+  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   const hasDescription = !!props.description;
   const shouldShowInput = hasDescription || isDescriptionInput;
   const canAddDescription = !props.isParagraph && !shouldShowInput;
 
   const descriptionInput = (
-    <InputFields
-      inputsData={dataInputDescription}
-      register={register}
-      errorMsg={errors.header as any}
-      onChange={handleEditLabel}
-    />
+    <div className="relative">
+      <div className="w-full">
+        <InputFields
+          inputsData={dataInputDescription}
+          register={register}
+          errorMsg={errors.header as any}
+          onChange={handleEditLabel}
+        />
+      </div>
+
+      <div className="w-fit absolute -right-10 top-3">
+        <Button
+          type="button"
+          icon={<IconTrash />}
+          variant="icon"
+          onClickAction={handleRemoveDescriptionInput}
+        />
+      </div>
+    </div>
   );
 
   return (
     <>
-      {isRemoveLoading && <FullscreenLoader />}
-
-      {shouldShowInput && (
-        <div className="flex gap-2">
-          {descriptionInput}
-          <div className="w-fit flex items-center">
-            <Button
-              type="button"
-              icon={<IconTrash size={27} />}
-              variant="icon"
-              onClickAction={handleRemoveDescriptionInput}
-            />
-          </div>
-        </div>
-      )}
+      {shouldShowInput && descriptionInput}
 
       {canAddDescription && (
         <Button
