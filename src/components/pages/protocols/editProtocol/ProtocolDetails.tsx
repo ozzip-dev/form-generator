@@ -54,11 +54,11 @@ const ProtocolDetails = (props: Props) => {
 
   const editionDetails = [
     {
-      staticLabel: "Data dodania protokołu:",
+      staticLabel: "Dodano:",
       value: safeDisplayDate(uploadedAt),
     },
     {
-      staticLabel: "Data ostatniej edycji:",
+      staticLabel: "Edytowano:",
       value: safeDisplayDate(lastModifiedAt),
     },
   ];
@@ -66,19 +66,14 @@ const ProtocolDetails = (props: Props) => {
   return (
     <Card>
       <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
-      <div className="flex flex-col gap-2">
-        {protocolDetails.map(({ staticLabel, value }) => {
-          return (
-            <DetailsPrinter
-              key={staticLabel}
-              label={staticLabel}
-              value={value}
-            />
-          );
-        })}
-      </div>
 
-      <div className="flex gap-4">
+      {protocolDetails.map(({ staticLabel, value }) => {
+        return (
+          <DetailsPrinter key={staticLabel} label={staticLabel} value={value} />
+        );
+      })}
+
+      <div className="md:flex gap-4">
         {editionDetails.map(({ staticLabel, value }) => {
           return (
             <DetailsPrinter

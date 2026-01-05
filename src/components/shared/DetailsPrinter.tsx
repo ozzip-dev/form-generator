@@ -20,9 +20,13 @@ type Props = {
 
 const DetailsPrinter = (props: Props) => {
   return (
-    <div key={props.label} className="text-sm flex items-center gap-2">
-      <div className="font-bold mb-1">{props.label}</div>
-      <div className="p-3 border border-transparent mt-3 mb-4">
+    <div
+      key={props.label}
+      className="flex flex-col md:flex-row items-center text-sm mb-8 mx-auto md:mx-0 w-fit"
+    >
+      <div className="font-bold mb-1 md:mr-4">{props.label}</div>
+
+      <div className="min-w-[22ch] border p-3 ">
         {isValidDateDMY(props.value) && <div className="h-[2px]"> </div>}
         {props.value}
       </div>

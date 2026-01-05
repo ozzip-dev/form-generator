@@ -20,7 +20,7 @@ const ProtocolsMenu = () => {
 
   return (
     <div className="py-8">
-      <NavMenu links={dataNavLinks} icon="protocols" />
+      <NavMenu links={dataNavLinks} icon="protocols" level="sub" />
     </div>
   );
 };

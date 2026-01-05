@@ -114,7 +114,7 @@ const InputField = ({
   const { name, label, type, required } = inputData;
 
   return (
-    <div>
+    <div className="relative">
       <input
         id={name}
         name={name}
@@ -128,11 +128,11 @@ const InputField = ({
         className={`
          peer  rounded-sm border
          p-3 
-        text-sm
+      w-full
          focus:outline-none focus:border-accent
           ${error ? "border-red" : "border-default"}
           ${isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
-          ${variant ? "mt-3" : "w-full"}
+        
 
         `}
         {...(register && register(name))}
