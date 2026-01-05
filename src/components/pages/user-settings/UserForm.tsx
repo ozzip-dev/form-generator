@@ -97,7 +97,7 @@ const UserForm = (props: Props) => {
             variant="horizontal"
           />{" "}
         </Card>
-        <div className="flex justify-center mt-16 gap-16">
+        <div className="flex flex-col sm:flex-row justify-center mt-16 gap-10 sm:gap-16">
           <Button
             message="Anuluj"
             onClickAction={() => {

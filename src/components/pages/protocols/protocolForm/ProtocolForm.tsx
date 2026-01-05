@@ -121,15 +121,15 @@ const ProtocolForm = (props: Props) => {
         <div className="text-center md:text-left text-lg font-bold mb-6">
           Dane sporu zbiorowego
         </div>
-        <div className="min-w-[22ch]">
-          <InputFields
-            inputsData={dataInputsProtocolForm}
-            register={register}
-            errorMsg={errors}
-            variant="horizontal"
-          />
-        </div>
-        <div className="md:mt-[2.7rem] flex justify-center md:justify-start">
+
+        <InputFields
+          inputsData={dataInputsProtocolForm}
+          register={register}
+          errorMsg={errors}
+          variant="horizontal"
+        />
+
+        <div className="md:mt-[2.7rem]">
           <CheckboxGroupField
             groupLabel="Przyczyna rozpoczęcia sporu:"
             control={control}
@@ -138,7 +138,7 @@ const ProtocolForm = (props: Props) => {
           />
         </div>
 
-        <div className="flex justify-center mt-10  gap-16">
+        <div className="flex flex-col sm:flex-row justify-center mt-10 gap-10 sm:gap-16">
           {props.handlePrintForm && (
             <Button
               type="button"

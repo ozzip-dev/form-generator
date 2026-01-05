@@ -34,7 +34,7 @@ type Props = {
 
 const InputFields = (props: Props) => {
   return (
-    <div>
+    <>
       {props.inputsData.map((inputData) => {
         const {
           staticLabel,
@@ -50,19 +50,17 @@ const InputFields = (props: Props) => {
             key={name}
             className={`relative text-sm mb-8 ${
               props.variant === "horizontal"
-                ? "flex flex-col md:flex-row items-center"
+                ? "flex flex-col md:flex-row md:items-center"
                 : ""
             }`}
           >
-            <div>
-              {staticLabel && (
-                <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
-                  {staticLabel}
-                  {required && <span className="text-red ml-0.5">*</span>}
-                </label>
-              )}
-              {description && <div className="">{description}</div>}
-            </div>
+            {staticLabel && (
+              <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
+                {staticLabel}
+                {required && <span className="text-red ml-0.5">*</span>}
+              </label>
+            )}
+            {description && <div className="">{description}</div>}
 
             {type === "textarea" ? (
               <TextareaField
@@ -89,7 +87,7 @@ const InputFields = (props: Props) => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

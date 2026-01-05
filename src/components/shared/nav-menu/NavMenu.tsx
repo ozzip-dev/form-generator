@@ -21,8 +21,6 @@ const NavMenu = (props: Props) => {
   const pathSegments = getPathnameSegments(pathname) || [];
   const { depth = pathSegments.length } = props;
 
-  console.log("pathSegments", depth);
-
   const getValidatedSegments = (segments: string[]): string =>
     segments.slice(0, depth).join("/");
 
