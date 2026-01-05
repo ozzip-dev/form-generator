@@ -7,7 +7,7 @@ const Card = (props: Props) => {
   return (
     <div
       className={`
-          py-16 px-32
+          py-8 px-16 sm:py-16 sm:px-32
           border border-default
           shadow-default
           rounded-md

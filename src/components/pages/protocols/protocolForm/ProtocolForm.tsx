@@ -118,7 +118,9 @@ const ProtocolForm = (props: Props) => {
   return (
     <Card>
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
+        <div className="text-center md:text-left text-lg font-bold mb-6">
+          Dane sporu zbiorowego
+        </div>
         <div className="min-w-[22ch]">
           <InputFields
             inputsData={dataInputsProtocolForm}
@@ -127,7 +129,7 @@ const ProtocolForm = (props: Props) => {
             variant="horizontal"
           />
         </div>
-        <div className="md:mt-[0.7rem] flex justify-center md:justify-start">
+        <div className="md:mt-[2.7rem] flex justify-center md:justify-start">
           <CheckboxGroupField
             groupLabel="Przyczyna rozpoczęcia sporu:"
             control={control}

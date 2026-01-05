@@ -65,7 +65,9 @@ const ProtocolDetails = (props: Props) => {
 
   return (
     <Card>
-      <div className="text-lg font-bold mb-6">Dane sporu zbiorowego</div>
+      <div className="text-center md:text-left text-lg font-bold mb-6">
+        Dane sporu zbiorowego
+      </div>
 
       {protocolDetails.map(({ staticLabel, value }) => {
         return (

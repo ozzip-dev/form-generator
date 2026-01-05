@@ -87,7 +87,9 @@ const UserForm = (props: Props) => {
     <>
       <form action={formAction}>
         <Card>
-          <div className="font-bold mb-7">Dane kontaktowe</div>
+          <div className="text-center md:text-left text-lg font-bold mb-6">
+            Dane kontaktowe
+          </div>
           <InputFields
             errorMsg={state.errors}
             inputsData={dataInputscommittee}
