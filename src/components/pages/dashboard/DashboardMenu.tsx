@@ -34,7 +34,7 @@ const DashboardMenu = () => {
     <div className="flex items-center gap-4">
       <Button
         type="button"
-        className="md:hidden"
+        className="lg:hidden"
         icon={
           isMenuOpen ? (
             <Icon color="white" icon="xmark" size={20} />
@@ -48,7 +48,7 @@ const DashboardMenu = () => {
 
       <div
         className={`
-          md:hidden
+          lg:hidden
           fixed top-20 left-0 h-full w-4/5 max-w-xs
           bg-accent
           z-40
@@ -63,12 +63,12 @@ const DashboardMenu = () => {
 
       {isMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 z-30"
+          className="lg:hidden fixed inset-0 z-30"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
 
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <NavMenu links={links} depth={1} />
       </div>
     </div>

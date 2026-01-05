@@ -10,15 +10,15 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="relative container py-6 flex justify-between items-center">
+    <div className="relative container py-6 flex items-center">
       <DashboardMenu />
 
-      <div className="flex items-center gap-6">
-        <div className="hidden sm:block">
-          <span>{user?.role}: </span>
-          <span className="font-bold">{user?.name}</span>
-        </div>
+      <div className="ml-16 lg:ml-auto mr-10">
+        <span>{user?.role}: </span>
+        <span className="font-bold">{user?.name}</span>
+      </div>
 
+      <div className="ml-auto lg:ml-0">
         <LogoutButton />
       </div>
     </div>
