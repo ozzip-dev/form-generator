@@ -20,7 +20,7 @@ export default async function DashboardLayout({
         <UserContextProvider userPromise={userPromise}>
           {user && isModerator(user) && <IsUserModal />}
           <div className="h-full flex flex-col">
-            <header className="shrink-0 bg-accent_opacity">
+            <header className="shrink-0 bg-accent">
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
                 <DashboardTopBar />
               </SuspenseErrorBoundary>

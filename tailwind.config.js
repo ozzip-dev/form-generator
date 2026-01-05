@@ -12,12 +12,10 @@ module.exports = {
     extend: {
       colors: {
         accent: "var(--color-accent)",
-        accent_opacity: "var(--color-accent_opacity)",
         accent_dark: "var(--color-accent_dark)",
+        accent_light: "var(--color-accent_light)",
 
         bg_dark: "var(--color-bg_dark)",
-        bg_light: "var(--color-bg_light)",
-
         bg_light: "var(--color-bg_light)",
 
         // TODO: dodajmy te kolory do .css
@@ -52,9 +50,9 @@ module.exports = {
       },
 
       spacing: {
-        sm: '2rem',
-        md: '3.5rem',
-        lg: '5rem',
+        sm: "2rem",
+        md: "3.5rem",
+        lg: "5rem",
       },
 
       borderRadius: {
@@ -73,9 +71,9 @@ module.exports = {
       },
 
       screens: {
-        sm: "400px",
-        md: "500px",
-        lg: "750px",
+        sm: "500px",
+        md: "750px",
+        lg: "950px",
       },
       keyframes: {
         "toast-in": {

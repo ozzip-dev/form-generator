@@ -9,6 +9,8 @@ type Props = {
   links: NavMenuLink[];
   icon?: string;
   depth?: number;
+  variant?: "desktop" | "mobile";
+  level?: "root" | "sub";
 };
 
 const getPathnameSegments = (pathname: string): string[] =>
@@ -18,6 +20,8 @@ const NavMenu = (props: Props) => {
   const pathname = usePathname();
   const pathSegments = getPathnameSegments(pathname) || [];
   const { depth = pathSegments.length } = props;
+
+  console.log("pathSegments", depth);
 
   const getValidatedSegments = (segments: string[]): string =>
     segments.slice(0, depth).join("/");
@@ -29,28 +33,44 @@ const NavMenu = (props: Props) => {
   };
 
   return (
-    <div className="flex justify-between items-center">
-      <div>
-        {props.icon && (
-          <Icon
-            icon={props.icon}
-            size={47}
-            color="var(--color-accent_opacity)"
-          />
-        )}
-      </div>
-      <div>
-        <ul className="flex items-center gap-[40px]">
-          {props.links.map(({ text, link }, idx) => (
-            <MenuLink
-              key={idx}
-              {...{ text, link }}
-              isActive={isLinkActive(link)}
-            />
-          ))}
-        </ul>
-      </div>
-    </div>
+    <>
+      {props.variant === "mobile" ? (
+        <div className="p-4">
+          <ul className="flex flex-col gap-8">
+            {props.links.map(({ text, link }) => (
+              <MenuLink
+                key={link}
+                {...{ text, link }}
+                isActive={isLinkActive(link)}
+              />
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className="flex justify-center md:justify-between items-center">
+          <div>
+            {props.icon && (
+              <Icon
+                icon={props.icon}
+                size={47}
+                color="var(--color-accent)"
+                className="hidden md:block"
+              />
+            )}
+          </div>
+          <ul className="flex items-center gap-10">
+            {props.links.map(({ text, link }) => (
+              <MenuLink
+                key={link}
+                {...{ text, link }}
+                level={props.level}
+                isActive={isLinkActive(link)}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 };
 

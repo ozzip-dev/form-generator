@@ -104,7 +104,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
           className={`
               relative py-4 px-32 h-[20rem] transition-colors
               border border-default 
-              ${isDragActive ? "bg-accent_opacity" : "bg-transparent"}
+              ${isDragActive ? "bg-accent" : "bg-transparent"}
               *:flex *:flex-col *:items-center *:gap-8 *:text-center
             `}
         >

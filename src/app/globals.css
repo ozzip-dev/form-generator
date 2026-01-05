@@ -5,7 +5,7 @@
 :root {
   --fs-xs: 1.2rem;
   --fs-sm: 1.4rem;
-  --fs-md: 1.6rem;
+  --fs-md: 1.2rem;
   --fs-lg: 2rem;
   --fs-xl: 2.2rem;
   --fs-2xl: 3.8rem;
@@ -14,9 +14,9 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: rgba(159, 193, 255, 1);
-  --color-accent_opacity: rgba(159, 193, 255, 0.64);
+  --color-accent: rgb(194, 215, 255);
   --color-accent_dark: rgba(101, 130, 255, 1);
+  --color-accent_light: rgba(159, 193, 255, 1);
 
   --color-grey_secondary: rgba(193, 193, 193, 1);
 
@@ -30,6 +30,7 @@
 
 @media (min-width: 500px) {
   :root {
+    --fs-md: 1.6rem;
     --fs-xl: 3.2rem;
     --fs-2xl: 4.8rem;
   }
@@ -51,17 +52,17 @@ body {
 
 /* util classes */
 .shadow-border-box {
-  @apply space-y-2 rounded-md shadow-default border border-default bg-bg_light
+  @apply space-y-2 rounded-md shadow-default border border-default bg-bg_light;
 }
 
 .btn {
-  @apply text-white bg-accent_opacity hover:bg-accent
+  @apply text-white bg-accent hover:bg-accent;
 }
 
 .btn-primary {
-  @apply rounded-lg px-16 py-2 text-lg
+  @apply rounded-lg px-16 py-2 text-lg;
 }
 
 .btn-primary-rounded {
-  @apply rounded-full px-4 py-1 text-sm
+  @apply rounded-full px-4 py-1 text-sm;
 }
