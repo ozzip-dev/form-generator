@@ -2,6 +2,7 @@ import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
 import FloatingLabel from "./FloatingLabel";
+import { useState } from "react";
 
 type Props = {
   inputData: {
@@ -22,6 +23,10 @@ type Props = {
 
 const TextareaField = (props: Props) => {
   const { name, placeholder, type, required } = props.inputData;
+  const [charCount, setCharCount] = useState(
+    props.default?.[name]?.length ?? 0
+  );
+
   return (
     <div className="">
       <textarea
@@ -39,7 +44,11 @@ const TextareaField = (props: Props) => {
         // placeholder={placeholder}
         {...(props.register
           ? props.register(name, {
-              onChange: (e) => props.onChange?.(name, e.target.value),
+              onChange: (e) => {
+                const value = e.target.value;
+                setCharCount(value.length);
+                props.onChange?.(name, value);
+              },
             })
           : {})}
       />
@@ -50,6 +59,8 @@ const TextareaField = (props: Props) => {
           required={required || false}
         />
       )}
+
+      {/* <div className="mt-1 text-xs text-right">{charCount} / 2000</div> */}
 
       <InputError
         errorMsg={

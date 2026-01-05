@@ -47,7 +47,7 @@ const PublishForm = ({ form }: Props) => {
             type="button"
             variant="primary-rounded"
           />
-          <div className="w-fit bg-accent_opacity rounded-full text-white text-sm py-1 px-6">
+          <div className="w-fit bg-accent rounded-full text-white text-sm py-1 px-6">
             <ButtonLink
               message="Przejdź do formularza"
               link={formUrl}

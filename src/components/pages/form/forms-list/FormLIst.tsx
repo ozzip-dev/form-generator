@@ -1,5 +1,7 @@
 import { getSerializedFormList } from "@/services/form-service";
 import FormLink from "./FormLink";
+import { SuspenseErrorBoundary } from "@/components/shared";
+import FormTrigger from "../FormTrigger";
 
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();
@@ -9,12 +11,14 @@ const FormsLIst = async () => {
   }
 
   return (
-    <>
-      <div>twoje formularze (maksymalnie 10 formularzy)</div>
+    <ul className="flex flex-wrap gap-4 ">
+      <SuspenseErrorBoundary errorMessage="Błąd tworzenia formularza" size="sm">
+        <FormTrigger />
+      </SuspenseErrorBoundary>
       {forms.map((form) => {
         return <FormLink form={form} key={form._id} />;
       })}
-    </>
+    </ul>
   );
 };
 

@@ -1,23 +1,24 @@
 "use client";
 
 import { useUser } from "@/context/UserContextProvider";
-import LogoutButton from "./LogoutButton";
 import { use } from "react";
 import DashboardMenu from "../DashboardMenu";
+import LogoutButton from "./LogoutButton";
 
 const DashboardTopBar = () => {
   const { userPromise } = useUser();
   const user = use(userPromise);
 
   return (
-    <div className="flex justify-between items-center container py-6">
+    <div className="relative container py-6 flex items-center">
       <DashboardMenu />
-      <div className="w-1/3 flex justify-between items-center ">
-        <div>
-          <span>{user?.role}: </span>
-          <span className="font-bold">{user?.name}</span>
-        </div>
 
+      <div className="ml-16 lg:ml-auto mr-10">
+        <span>{user?.role}: </span>
+        <span className="font-bold">{user?.name}</span>
+      </div>
+
+      <div className="ml-auto lg:ml-0">
         <LogoutButton />
       </div>
     </div>

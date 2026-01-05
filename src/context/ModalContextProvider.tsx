@@ -61,7 +61,7 @@ export const ModalContextProvider = (props: Props) => {
             <Button
               message={"Anuluj"}
               onClickAction={close}
-              className="!bg-white !px-0 text-center !text-accent_opacity border border-accent_opacity w-[45%]"
+              className="!bg-white !px-0 text-center !text-accent border border-accent w-[45%]"
             />
             <Button
               message={"Potwierdź"}

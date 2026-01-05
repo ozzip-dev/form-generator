@@ -18,11 +18,16 @@ const FormTemplateTrigger = (props: Props) => {
   };
 
   return (
-    <Button
-      message={props.templateName}
-      onClickAction={handleCreateForm}
-      isLoading={isPending}
-    />
+    <>
+      <Button
+        onClickAction={handleCreateForm}
+        isLoading={isPending}
+        variant="ghost"
+        className=" flex justify-center items-center w-[20rem] h-[20rem]
+         rounded-md border  hover:bg-accent transition"
+      />
+      <h3 className="mt-8 text-center truncate">{props.templateName}</h3>
+    </>
   );
 };
 

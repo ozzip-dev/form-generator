@@ -6,7 +6,7 @@ export default async function SettingsLayout(props: Props) {
   return (
     <div className="h-full flex flex-col">
       <div className="shrink-0 container py-8">
-        <Icon icon="gear" size={47} color="var(--color-accent_opacity)" />
+        <Icon icon="gear" size={47} color="var(--color-accent)" />
       </div>
 
       <section className="flex-1 overflow-y-auto pb-16">

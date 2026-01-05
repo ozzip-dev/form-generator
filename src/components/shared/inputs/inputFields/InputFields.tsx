@@ -34,7 +34,7 @@ type Props = {
 
 const InputFields = (props: Props) => {
   return (
-    <div className={`flex flex-col ${props.variant ? "gap-2" : "gap-8"}`}>
+    <>
       {props.inputsData.map((inputData) => {
         const {
           staticLabel,
@@ -46,60 +46,48 @@ const InputFields = (props: Props) => {
         } = inputData;
 
         return (
-          <div key={name} className="relative">
-            <div
-              className={`${
-                props.variant === "horizontal" ? "flex gap-2 items-center" : ""
-              }`}
-            >
-              <div>
-                {staticLabel && (
-                  <label
-                    htmlFor={name}
-                    className="block text-sm font-bold mb-1"
-                  >
-                    {staticLabel}
-                    {required && <span className="text-red ml-0.5">*</span>}
-                  </label>
-                )}
-                {description && <div className="text-sm">{description}</div>}
-              </div>
+          <div
+            key={name}
+            className={`relative text-sm mb-8 ${
+              props.variant === "horizontal"
+                ? "flex flex-col md:flex-row md:items-center"
+                : ""
+            }`}
+          >
+            {staticLabel && (
+              <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
+                {staticLabel}
+                {required && <span className="text-red ml-0.5">*</span>}
+              </label>
+            )}
+            {description && <div className="">{description}</div>}
 
-              {type === "textarea" ? (
-                <TextareaField
-                  inputData={inputData}
-                  register={props.register}
-                  onChange={props.onChange}
-                  isLoading={props.isLoading}
-                  default={props.default}
-                  error={props.errorMsg}
-                  floatingLabel={floatingLabel}
-                />
-              ) : (
-                <InputField
-                  inputData={inputData}
-                  register={props.register}
-                  onChange={props.onChange}
-                  isLoading={props.isLoading}
-                  default={props.default}
-                  variant={props.variant}
-                  error={props.errorMsg}
-                  floatingLabel={floatingLabel}
-                />
-              )}
-
-              {/* {floatingLabel && (
-                <FloatingLabel
-                  name={name}
-                  floatingLabel={floatingLabel}
-                  required={required || false}
-                />
-              )} */}
-            </div>
+            {type === "textarea" ? (
+              <TextareaField
+                inputData={inputData}
+                register={props.register}
+                onChange={props.onChange}
+                isLoading={props.isLoading}
+                default={props.default}
+                error={props.errorMsg}
+                floatingLabel={floatingLabel}
+              />
+            ) : (
+              <InputField
+                inputData={inputData}
+                register={props.register}
+                onChange={props.onChange}
+                isLoading={props.isLoading}
+                default={props.default}
+                variant={props.variant}
+                error={props.errorMsg}
+                floatingLabel={floatingLabel}
+              />
+            )}
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

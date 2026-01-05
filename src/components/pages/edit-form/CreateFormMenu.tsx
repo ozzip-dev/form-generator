@@ -10,12 +10,12 @@ const CreateFormMenu = ({ formId }: Props) => {
     { text: "Edycja", link: `/forms/${formId}/edit` },
     { text: "Podgląd", link: `/forms/${formId}/preview` },
     { text: "Wyniki", link: `/forms/${formId}/results/summary` },
-    { text: "Kontakty organizacji", link: `/forms/${formId}/contacts` },
+    { text: "Kontakty", link: `/forms/${formId}/contacts` },
   ];
 
   return (
-    <div className="py-8">
-      <NavMenu links={dataNavLinks} icon="edit-form" depth={3} />
+    <div className="py-8 ">
+      <NavMenu links={dataNavLinks} icon="edit-form" depth={3} level="sub" />
     </div>
   );
 };

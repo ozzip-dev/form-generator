@@ -100,13 +100,13 @@ const SelectField = (props: Props) => {
               role="option"
               aria-selected={option.value === selectedValue}
               onClick={() => !option.disabled && handleSelect(option.value)}
-              className={` px-3 py-2 text-sm hover:bg-accent_opacity transition
+              className={` px-3 py-2 text-sm hover:bg-accent transition
                 ${
                   option.disabled
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
                 }
-                ${option.value === selectedValue ? "bg-accent_opacity" : ""}
+                ${option.value === selectedValue ? "bg-accent" : ""}
                 ${props.optionClassName}`}
             >
               {option.label}

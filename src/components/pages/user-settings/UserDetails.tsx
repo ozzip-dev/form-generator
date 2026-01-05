@@ -29,14 +29,15 @@ const UserDetails = (props: Props) => {
     <>
       <div className="flex flex-col gap-2">
         <Card>
-          <div className="font-bold mb-7">Dane kontaktowe</div>
-          <div className="flex flex-col gap-2">
-            {dataUserDetails.map(({ header, detail }) => {
-              return (
-                <DetailsPrinter key={header} label={header} value={detail} />
-              );
-            })}
+          <div className="text-center md:text-left text-lg font-bold mb-6">
+            Dane kontaktowe
           </div>
+
+          {dataUserDetails.map(({ header, detail }) => {
+            return (
+              <DetailsPrinter key={header} label={header} value={detail} />
+            );
+          })}
         </Card>
 
         <Button

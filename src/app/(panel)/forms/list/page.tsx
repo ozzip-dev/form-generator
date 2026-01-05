@@ -5,19 +5,17 @@ import { SuspenseErrorBoundary } from "@/components/shared";
 
 const FormListPage = async () => {
   return (
-    <div className="mb-10">
-      <SuspenseErrorBoundary errorMessage="Błąd tworzenia formularza" size="sm">
-        <div className="size-fit">
-          <FormTrigger />
-        </div>
-      </SuspenseErrorBoundary>
-      <SuspenseErrorBoundary
-        errorMessage="Błąd ładowania listy formularzy"
-        loadingMessage="Ładowanie listy formularzy"
-        size="lg"
-      >
-        <FormsLIst />
-      </SuspenseErrorBoundary>
+    <div className="mb-10 container">
+      <div>twoje formularze (maksymalnie 10 formularzy)</div>
+      <div className="flex gap-4">
+        <SuspenseErrorBoundary
+          errorMessage="Błąd ładowania listy formularzy"
+          loadingMessage="Ładowanie listy formularzy"
+          size="lg"
+        >
+          <FormsLIst />
+        </SuspenseErrorBoundary>
+      </div>{" "}
       <FormsTemplatesList />
     </div>
   );
