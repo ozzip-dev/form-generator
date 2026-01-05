@@ -24,10 +24,10 @@ const adminNavLinks: NavMenuLink[] = [
 
 const DashboardMenu = () => {
   const { userPromise } = useUser();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = use(userPromise);
   if (!user) return;
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const links = isModerator(user) ? moderatorNavLinks : adminNavLinks;
 
   return (
