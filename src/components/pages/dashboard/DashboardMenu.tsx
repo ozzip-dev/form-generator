@@ -50,8 +50,7 @@ const DashboardMenu = () => {
         className={`
           lg:hidden
           fixed top-20 left-0 h-full w-4/5 max-w-xs
-          bg-accent
-          z-40
+          bg-accent z-40
           transform transition-transform duration-300 ease-in-out
           ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
         `}
@@ -63,7 +62,7 @@ const DashboardMenu = () => {
 
       {isMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-30"
+          className="lg:hidden fixed inset-0 top-24 z-10 backdrop-blur-sm"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

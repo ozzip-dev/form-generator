@@ -10,7 +10,7 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="relative container py-6 flex items-center">
+    <div className="relative container py-6 flex items-center ">
       <DashboardMenu />
 
       <div className="ml-16 lg:ml-auto mr-10">
