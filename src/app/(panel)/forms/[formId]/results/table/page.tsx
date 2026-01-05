@@ -1,16 +1,21 @@
 import DownloadResultsButton from "@/components/pages/results/DownloadResultsButton";
+import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import ResultsTable from "@/components/pages/results/ResultsTable";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { isFormSecret } from "@/helpers/formHelpers";
 import { isInputSubmittable } from "@/helpers/inputHelpers";
 import { getFormById } from "@/services/form-service";
-import { getAllSubmissions } from "@/services/result-service";
+import { formHasResults, getAllSubmissions } from "@/services/result-service";
 import { Answers, Submission } from "@/types/result";
 
 type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsTablePage = async (props: Props) => {
   const { formId } = await props.params;
+
+  const hasResults = await formHasResults(formId);
+  if (!hasResults) return <NoResultsInfo />;
+
   const form = await getFormById(formId);
   const submissions: Submission[] = await getAllSubmissions(formId);
   const submittableInputs = form.inputs.filter(isInputSubmittable);

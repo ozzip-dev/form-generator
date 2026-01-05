@@ -85,6 +85,11 @@ export async function createResult(
   return result.insertedId as ObjectId;
 }
 
+export async function formHasResults(formId: string): Promise<boolean> {
+  const result: Result | null = await findOne<Result>(db, "result", { formId });
+  return !!result?.submissions.length;
+}
+
 export async function getAllSubmissions(formId: string): Promise<Submission[]> {
   const result: Result | null = await findOne<Result>(db, "result", { formId });
   if (!result) throw new Error("No submissions");

@@ -1,8 +1,9 @@
+import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import Results from "@/components/pages/results/Results";
 import { isInputSubmittable } from "@/helpers/inputHelpers";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
 import { getFormById } from "@/services/form-service";
-import { getAllSubmissions } from "@/services/result-service";
+import { formHasResults, getAllSubmissions } from "@/services/result-service";
 import { Answers, GroupedAnswer, Submission } from "@/types/result";
 
 type Props = { params: Promise<{ formId: string }> };
@@ -16,6 +17,9 @@ const FormResultsPage = async (props: Props) => {
     type,
     createdAt,
   } = await getFormById(formId);
+  const hasResults = await formHasResults(formId);
+  if (!hasResults) return <NoResultsInfo />;
+
   const submittableInputs = inputs.filter(isInputSubmittable);
 
   const displayResults = async (
