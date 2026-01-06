@@ -94,7 +94,7 @@ const AddFormField = () => {
         <Button
           icon={<Icon icon="plus-solid-full" size={30} color="white" />}
           variant="ghost"
-          className="bg-accent rounded-full p-1 w-fit m-auto md:m-0 md:ml-auto md:mb-auto"
+          className="bg-accent rounded-full p-1 w-fit m-auto md:m-0 md:ml-auto md:mb-auto hover:bg-accent_light"
         />
       </form>
     </FormProvider>

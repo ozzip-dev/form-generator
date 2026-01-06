@@ -30,28 +30,30 @@ const PublishForm = ({ form }: Props) => {
   };
 
   return (
-    <div className="my-16 *:flex *:items-center *:gap-3">
+    <div className="my-16">
       {isStateDraft ? (
-        <div className="flex-col sm:flex-row">
+        <div className="flex flex-col sm:flex-row">
           <div>Formularz jest szkicem</div>
           <PublishFormButton form={form} />
         </div>
       ) : (
-        <div className="mb-8">
-          <div>Opublikowano:</div>
-          <div className="font-bold">{formUrl}</div>
-
-          <Button
-            onClickAction={copyUrl}
-            message="Kopiuj"
-            type="button"
-            variant="primary-rounded"
-          />
-          <div className="w-fit bg-accent rounded-full text-white text-sm py-1 px-6">
+        <div className="mb-8 flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col gap-2 md:flex-row text-center">
+            <div>Opublikowano:</div>
+            <div className="font-bold">{formUrl}</div>{" "}
+          </div>
+          <div className="flex justify-center gap-4 md:ml-8">
+            <Button
+              onClickAction={copyUrl}
+              message="Kopiuj"
+              type="button"
+              variant="primary-rounded"
+            />
             <ButtonLink
               message="Przejdź do formularza"
               link={formUrl}
               target="_blank"
+              className="w-fit bg-accent rounded-full text-white text-sm py-1 px-6 hover:bg-accent_light"
             />{" "}
           </div>
         </div>

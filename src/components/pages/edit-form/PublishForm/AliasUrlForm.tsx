@@ -48,26 +48,26 @@ export default function AliasUrlForm(form: FormSerialized) {
   };
 
   return (
-    <div className="flex gap-8">
-      <form onSubmit={handleSubmit(setAlias)} className="flex gap-8 w-2/3">
-        <div className="w-full">
-          <InputFields
-            inputsData={dataInputUrl}
-            register={register}
-            errorMsg={errors}
-          />
-        </div>
+    <form
+      onSubmit={handleSubmit(setAlias)}
+      className="md:flex md:gap-16 md:items-center"
+    >
+      <div className="md:w-1/2">
+        <InputFields
+          inputsData={dataInputUrl}
+          register={register}
+          errorMsg={errors}
+        />
+      </div>
 
-        <div className="mt-2">
-          <Button
-            message="Zapisz"
-            isLoading={isSubmitting}
-            variant="primary-rounded"
-          />
-        </div>
-      </form>
-
-      <RemoveAliasButton form={form} />
-    </div>
+      <div className="flex justify-center gap-4 -mt-4 md:mt-3 md:mb-auto">
+        <Button
+          message="Zapisz"
+          isLoading={isSubmitting}
+          variant="primary-rounded"
+        />
+        <RemoveAliasButton form={form} />
+      </div>
+    </form>
   );
 }

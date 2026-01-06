@@ -5,13 +5,14 @@ type Props = {
   link: string;
   target?: string;
   rel?: string;
+  className?: string;
 };
 
 export default function ButtonLink(props: Props) {
   return (
     <Link
       href={props.link}
-      className="block"
+      className={`block ${props.className}`}
       target={props.target}
       rel={props.rel}
     >
