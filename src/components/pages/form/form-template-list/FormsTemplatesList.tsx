@@ -1,3 +1,4 @@
+import SectionHeader from "@/components/shared/SectionHeader";
 import FormTemplateTrigger from "./FormTemplateTrigger";
 
 const formsTemplates = ["favourite-color", "membership"];
@@ -5,7 +6,7 @@ const formsTemplates = ["favourite-color", "membership"];
 const FormsTemplatesList = () => {
   return (
     <>
-      <div>przykładowe formularze</div>
+      <SectionHeader message="Przykładowe formularze" />
       <div className="flex">
         {formsTemplates.map((templateName, idx) => {
           return (

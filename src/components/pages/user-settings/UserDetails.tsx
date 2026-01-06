@@ -1,6 +1,7 @@
 import { Button } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import DetailsPrinter from "@/components/shared/DetailsPrinter";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { useUser } from "@/context/UserContextProvider";
 import React, { use } from "react";
 
@@ -29,9 +30,7 @@ const UserDetails = (props: Props) => {
     <>
       <div className="flex flex-col gap-2">
         <Card>
-          <div className="text-center md:text-left text-lg font-bold mb-6">
-            Dane kontaktowe
-          </div>
+          <SectionHeader message="Dane kontaktowe" />
 
           {dataUserDetails.map(({ header, detail }) => {
             return (

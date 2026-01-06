@@ -1,7 +1,7 @@
 import { SuspenseErrorBoundary } from "@/components/shared";
 import FormTrigger from "../FormTrigger";
 import FormsTemplatesList from "../form-template-list/FormsTemplatesList";
-import FormsLIst from "./FormLIst";
+import FormsLIst from "./FormsLIst";
 
 const FormListPage = async () => {
   return (

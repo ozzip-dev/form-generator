@@ -5,6 +5,7 @@ import { use } from "react";
 import { mapDisputeReason } from "../utils";
 import Card from "@/components/shared/Card";
 import DetailsPrinter from "@/components/shared/DetailsPrinter";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 type Props = {
   handlePrintForm: () => void;
@@ -65,16 +66,12 @@ const ProtocolDetails = (props: Props) => {
 
   return (
     <Card>
-      <div className="text-center md:text-left text-lg font-bold mb-6">
-        Dane sporu zbiorowego
-      </div>
-
+      <SectionHeader message="Dane sporu zbiorowego" />
       {protocolDetails.map(({ staticLabel, value }) => {
         return (
           <DetailsPrinter key={staticLabel} label={staticLabel} value={value} />
         );
       })}
-
       <div className="md:flex gap-4">
         {editionDetails.map(({ staticLabel, value }) => {
           return (
@@ -86,7 +83,6 @@ const ProtocolDetails = (props: Props) => {
           );
         })}
       </div>
-
       <div className="w-fit m-auto">
         <Button
           message="Edytuj"

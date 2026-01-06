@@ -3,6 +3,7 @@
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { useUser } from "@/context/UserContextProvider";
 import {
   userDetailsSchema,
@@ -87,9 +88,7 @@ const UserForm = (props: Props) => {
     <>
       <form action={formAction}>
         <Card>
-          <div className="text-center md:text-left text-lg font-bold mb-6">
-            Dane kontaktowe
-          </div>
+          <SectionHeader message="Dane kontaktowe" />
           <InputFields
             errorMsg={state.errors}
             inputsData={dataInputscommittee}

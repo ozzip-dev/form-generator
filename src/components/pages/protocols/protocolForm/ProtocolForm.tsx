@@ -12,6 +12,7 @@ import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
 import Card from "@/components/shared/Card";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 const dataInputsProtocolForm = [
   {
@@ -118,10 +119,7 @@ const ProtocolForm = (props: Props) => {
   return (
     <Card>
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <div className="text-center md:text-left text-lg font-bold mb-6">
-          Dane sporu zbiorowego
-        </div>
-
+        <SectionHeader message="Dane sporu zbiorowego" />
         <InputFields
           inputsData={dataInputsProtocolForm}
           register={register}
