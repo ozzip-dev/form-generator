@@ -59,7 +59,7 @@ export const SelectFieldControler = <T extends FieldValues>(
             field.onChange(val);
             props.onChangeAction?.(props.name, val);
           }}
-          variant={props.variant}
+          // variant={props.variant}
         />
       )}
     />

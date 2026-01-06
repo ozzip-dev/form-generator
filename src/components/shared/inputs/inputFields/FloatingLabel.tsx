@@ -12,7 +12,7 @@ const FloatingLabel = (props: Props) => (
 
                  // empty not focus
                  peer-placeholder-shown:top-3
-                 peer-placeholder-shown:text-base
+                 peer-placeholder-shown:text-sm
 
                 // focus - label up 
                  peer-focus:-top-3

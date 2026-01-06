@@ -16,14 +16,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
-  { label: "-- wybierz --", value: "" },
+  { label: "Wybierz", value: "" },
   ...formTypesWithLabels,
 ];
 
 const resultVisibilityOptions: {
   label: string;
   value: FormResultVisibility | "";
-}[] = [{ label: "-- wybierz --", value: "" }, ...formVisibilityData];
+}[] = [{ label: "Wybierz", value: "" }, ...formVisibilityData];
 
 const dataInputsFormTitle = [
   {
@@ -86,8 +86,8 @@ export default function EditFormHeader(props: Props) {
       {/* {loadingForm && <FullscreenLoader />} */}
 
       <FormProvider {...methods}>
-        <form className=" flex flex-col gap-14">
-          <div>
+        <form className="">
+          <div className="sm:w-[30rem] md:w-[50rem]">
             <SelectFieldControler
               name="type"
               defaultValue=""
@@ -100,7 +100,7 @@ export default function EditFormHeader(props: Props) {
             />
           </div>
 
-          <div className="">
+          <div className="sm:w-[30rem] md:w-[50rem]">
             <SelectFieldControler
               name="resultVisibility"
               defaultValue=""

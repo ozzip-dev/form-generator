@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import InputError from "../InputError";
-import { useFormContext } from "react-hook-form";
 import Icon from "@/components/shared/icons/Icon";
+import InputError from "../InputError";
 
 export type Option = {
   label: string;
@@ -11,32 +10,39 @@ export type Option = {
   disabled?: boolean;
 };
 
-export type Props = {
+type Props = {
   name: string;
   options: Option[];
   value?: string;
   defaultValue?: string;
-  onChange?: (value: string) => void | Promise<void>;
+  onChange?: (value: string) => void;
   label?: string;
   placeholder?: string;
   disabled?: boolean;
   errorMsg?: string;
   className?: string;
-  optionClassName?: string;
-  variant?: string;
 };
 
-const SelectField = (props: Props) => {
+const SelectField = ({
+  name,
+  options,
+  value,
+  defaultValue,
+  onChange,
+  label,
+  placeholder = "Wybierz",
+  disabled,
+  errorMsg,
+  className,
+}: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const selectedValue = props.value ?? props.defaultValue ?? "";
-  const selectedOption = props.options.find(
-    (option) => option.value === selectedValue
-  );
+  const selectedValue = value ?? defaultValue ?? "";
+  const selectedOption = options.find((o) => o.value === selectedValue);
 
   const handleSelect = (val: string) => {
-    props.onChange?.(val);
+    onChange?.(val);
     setOpen(false);
   };
 
@@ -46,77 +52,83 @@ const SelectField = (props: Props) => {
         setOpen(false);
       }
     };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <div
-      className={`w-full h-[38px] ${props.className || ""} ${
-        // props.variant ? "flex" : ""
-        ""
-      }`}
-      ref={ref}
-    >
-      <div className="flex items-center justify-between">
-        {props.label && (
-          <label htmlFor={props.name} className="block mb-1 mr-6">
-            {props.label}
-          </label>
-        )}
-
-        <button
-          id={props.name}
-          type="button"
-          disabled={props.disabled}
-          aria-haspopup="listbox"
-          aria-expanded={open}
-          onClick={() => !props.disabled && setOpen((o) => !o)}
-          className={`w-[20rem] flex justify-between items-center border rounded-sm p-3 text-sm
-          focus:outline-none 
-          ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
-          ${props.errorMsg ? "border-red-500" : "border-gray-300"}`}
+    <div ref={ref} className={`w-full mb-10 md:flex items-center`}>
+      {label && (
+        <label
+          htmlFor={name}
+          className="block w-full mb-1 md:mr-4 text-sm font-medium"
         >
-          <span className={`${!selectedOption ? "text-gray-400" : ""}`}>
-            {selectedOption ? selectedOption.label : props.placeholder}
-          </span>
-          <Icon
-            icon="chevron-down-solid-full"
-            size={15}
-            className="h-4 w-4"
-            color="#000"
-          />
-        </button>
-      </div>
-      {open && (
-        <ul
-          role="listbox"
-          tabIndex={-1}
-          className="w-[20rem] relative -top-[50%]  translate-y-[-50%] z-10 mb-4 ml-auto max-fit  overflow-auto rounded-lg border border-gray-200 bg-white shadow-md"
-        >
-          {props.options.map((option) => (
-            <li
-              key={option.value}
-              role="option"
-              aria-selected={option.value === selectedValue}
-              onClick={() => !option.disabled && handleSelect(option.value)}
-              className={` px-3 py-2 text-sm hover:bg-accent transition
-                ${
-                  option.disabled
-                    ? "opacity-50 cursor-not-allowed"
-                    : "cursor-pointer"
-                }
-                ${option.value === selectedValue ? "bg-accent" : ""}
-                ${props.optionClassName}`}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
+          {label}
+        </label>
       )}
 
-      <InputError errorMsg={props.errorMsg} />
+      <div className="relative w-full">
+        <button
+          id={name}
+          type="button"
+          disabled={disabled}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          onClick={() => !disabled && setOpen((o) => !o)}
+          className={`
+            w-full bg-white flex justify-between items-center
+            border rounded-sm p-3 text-sm
+            focus:outline-none
+            ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+          `}
+        >
+          <span className={!selectedOption ? "text-gray-400" : ""}>
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
+
+          <Icon
+            icon="chevron-down-solid-full"
+            size={14}
+            className={`transition-transform ${open ? "rotate-180" : ""}`}
+          />
+        </button>
+
+        {open && (
+          <ul
+            role="listbox"
+            className="
+              absolute left-0 top-1/2 -translate-y-1/2
+              z-10 w-full
+              rounded-lg border
+              bg-white shadow-md
+            "
+          >
+            {options.map((option) => (
+              <li
+                key={option.value}
+                role="option"
+                aria-selected={option.value === selectedValue}
+                onClick={() => !option.disabled && handleSelect(option.value)}
+                className={`
+                  px-3 py-2 text-sm transition
+                  ${
+                    option.disabled
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer hover:bg-accent"
+                  }
+                  ${option.value === selectedValue ? "bg-accent" : ""}
+                `}
+              >
+                {option.label}
+              </li>
+            ))}
+          </ul>
+        )}
+        <InputError errorMsg={errorMsg} />
+      </div>
     </div>
   );
 };
+
 export default SelectField;

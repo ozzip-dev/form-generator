@@ -33,7 +33,7 @@ const PublishForm = ({ form }: Props) => {
     <div className="my-16 *:flex *:items-center *:gap-3">
       {isStateDraft ? (
         <div className="*:flex-shrink-0">
-          <div>Formularz jest szkicem.</div>
+          <div>Formularz jest szkicem</div>
           <PublishFormButton form={form} />
         </div>
       ) : (

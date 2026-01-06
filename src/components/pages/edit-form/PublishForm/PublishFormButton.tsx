@@ -33,7 +33,7 @@ const PublishFormButton = ({ form }: Props) => {
   return (
     <>
       <Button
-        message="Publikuj"
+        message="Opublikuj"
         onClickAction={handlePublishForm}
         isLoading={isPending}
       />

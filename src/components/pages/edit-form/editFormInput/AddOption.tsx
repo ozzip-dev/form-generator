@@ -97,7 +97,7 @@ const AddOption = (props: Props) => {
   const isDisabled = isRemoveOptionPending || isAddOptionPending;
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="sm:w-5/6 md:w-3/6">
       {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
@@ -139,7 +139,7 @@ const AddOption = (props: Props) => {
       })}
 
       <div className="flex gap-2">
-        <div className="w-fit">
+        <div className="w-fit mb-10">
           <Button
             message={"Dodaj opcję"}
             type="button"

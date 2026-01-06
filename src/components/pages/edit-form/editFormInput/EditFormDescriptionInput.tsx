@@ -64,15 +64,15 @@ const EditFormDescriptionInput = (props: Props) => {
   const canAddDescription = !props.isParagraph && !shouldShowInput;
 
   const descriptionInput = (
-    <div className="relative">
-      <div className="w-full">
-        <InputFields
-          inputsData={dataInputDescription}
-          register={register}
-          errorMsg={errors.header as any}
-          onChange={handleEditLabel}
-        />
-      </div>
+    <div className="relative md:w-4/6 ">
+      {/* <div className="w-full"> */}
+      <InputFields
+        inputsData={dataInputDescription}
+        register={register}
+        errorMsg={errors.header as any}
+        onChange={handleEditLabel}
+      />
+      {/* </div> */}
 
       <div className="w-fit absolute -right-10 top-3">
         <Button
@@ -95,6 +95,7 @@ const EditFormDescriptionInput = (props: Props) => {
           message="Dodaj opis pytania"
           onClickAction={printDescriptionInput}
           variant="primary-rounded"
+          className="w-full md:w-4/6  mb-10"
         />
       )}
 

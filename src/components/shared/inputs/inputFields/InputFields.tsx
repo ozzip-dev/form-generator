@@ -48,11 +48,11 @@ const InputFields = (props: Props) => {
         return (
           <div
             key={name}
-            className={`relative text-sm mb-8 ${
+            className={`relative text-sm ${
               props.variant === "horizontal"
                 ? "flex flex-col md:flex-row md:items-center"
                 : ""
-            }`}
+            } ${staticLabel ? "mb-8" : "mb-10"}`}
           >
             {staticLabel && (
               <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
