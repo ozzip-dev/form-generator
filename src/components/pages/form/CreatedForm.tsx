@@ -130,7 +130,7 @@ const CreatedForm = (props: Props) => {
     .map((input) => {
       const renderer = fieldRenderers[input.type];
       return (
-        <Card>
+        <Card key={input.id}>
           {renderer({
             input,
             errors,
