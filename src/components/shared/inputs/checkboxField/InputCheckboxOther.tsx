@@ -28,7 +28,8 @@ const InputCheckboxOther = (props: Props) => {
             [props.name]: e.target.value,
           });
         }}
-        className="rounded-sm border p-3 focus:outline-none focus:border-accent w-fit"
+        className="rounded-sm border p-3 
+        focus:outline-none focus:border-accent w-full"
       />
     </>
   );
