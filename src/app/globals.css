@@ -58,11 +58,11 @@ body {
 }
 
 .btn {
-  @apply text-white bg-accent hover:bg-accent;
+  @apply text-white bg-accent hover:bg-accent_light;
 }
 
 .btn-primary {
-  @apply rounded-lg px-16 py-2 text-lg;
+  @apply rounded-lg px-16 py-2 text-lg bg-accent_dark hover:bg-accent;
 }
 
 .btn-primary-rounded {

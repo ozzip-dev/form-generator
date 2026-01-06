@@ -133,82 +133,78 @@ const EditFormInput = (props: Props) => {
   return (
     <Card>
       <FormProvider {...methods}>
-        <form className="">
-          <div className="">
-            {/* 1st row */}
-            <div className="md:flex md:intems-center">
-              {/* bin */}
-              <div className="flex flex-col gap-14 order-last md:ml-auto">
-                <div className="flex gap-8 mb-14 h-fit">
-                  <div className="ml-auto flex gap-4">
-                    {order > 0 && (
-                      <MoveInputUpBtn inputId={inputId as string} />
-                    )}
-                    {!props.isLastInput && (
-                      <MoveInputDownBtn inputId={inputId as string} />
-                    )}
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex-1 w-px  bg-font_light" />
-                  </div>
-
-                  <div className="mb-auto">
-                    <RemoveInputBtn inputId={inputId as string} />
-                  </div>
-                </div>
-              </div>
-
-              {/* inputs */}
-
-              <div className="md:w-4/6 md:flex justify-between">
-                <div className="md:w-[45%]">
-                  {!isInputTypeParagraph(props.input) && (
-                    <InputFields
-                      inputsData={dataInputLabel}
-                      register={register}
-                      errorMsg={errors.header as any}
-                      onChange={handleEditLabel}
-                      // isLoading={isLoadingLabel}
-                    />
+        <form>
+          {/* 1st row */}
+          <div className="md:flex md:intems-center">
+            {/* bin */}
+            <div className="flex flex-col gap-14 order-last md:ml-auto">
+              <div className="flex gap-8 mb-14 h-fit">
+                <div className="ml-auto flex gap-4">
+                  {order > 0 && <MoveInputUpBtn inputId={inputId as string} />}
+                  {!props.isLastInput && (
+                    <MoveInputDownBtn inputId={inputId as string} />
                   )}
                 </div>
-                <div className="md:w-[45%] md:max-w-[22rem]">
-                  <SelectFieldControler
-                    name={`type`}
-                    defaultValue={type}
-                    options={dataSelectOptions}
-                    onChangeAction={(name, value) => {
-                      handleEditType(value as InputType);
-                    }}
-                  />
+                <div className="flex flex-col">
+                  <div className="flex-1 w-px  bg-font_light" />
+                </div>
+
+                <div className="mb-auto">
+                  <RemoveInputBtn inputId={inputId as string} />
                 </div>
               </div>
             </div>
 
-            {/* 2nd row */}
-            <div className="relative">
-              <EditFormDescriptionInput
-                inputId={inputId as string}
-                inputIdx={props.inputIdx}
-                description={description ?? ""}
-                isParagraph={isInputTypeParagraph(props.input)}
-              />
+            {/* inputs */}
 
-              {isInputWithOptions(props.input) && (
-                <AddOption
-                  inputIdx={props.inputIdx}
-                  input={props.input}
-                  header={header}
+            <div className="md:w-4/6 md:flex justify-between">
+              <div className="md:w-[45%]">
+                {!isInputTypeParagraph(props.input) && (
+                  <InputFields
+                    inputsData={dataInputLabel}
+                    register={register}
+                    errorMsg={errors.header as any}
+                    onChange={handleEditLabel}
+                    // isLoading={isLoadingLabel}
+                  />
+                )}
+              </div>
+              <div className="md:w-[45%] md:max-w-[22rem]">
+                <SelectFieldControler
+                  name={`type`}
+                  defaultValue={type}
+                  options={dataSelectOptions}
+                  onChangeAction={(name, value) => {
+                    handleEditType(value as InputType);
+                  }}
                 />
-              )}
-
-              {!isInputTypeParagraph(props.input) && (
-                <div className="flex flex-col gap-4 lg:absolute top-0 right-0">
-                  <RequiredToggleSwitch input={props.input} />
-                  <UniqueToggleSwitch input={props.input} />
-                </div>
-              )}
+              </div>
             </div>
+          </div>
+
+          {/* 2nd row */}
+          <div className="relative">
+            <EditFormDescriptionInput
+              inputId={inputId as string}
+              inputIdx={props.inputIdx}
+              description={description ?? ""}
+              isParagraph={isInputTypeParagraph(props.input)}
+            />
+
+            {isInputWithOptions(props.input) && (
+              <AddOption
+                inputIdx={props.inputIdx}
+                input={props.input}
+                header={header}
+              />
+            )}
+
+            {!isInputTypeParagraph(props.input) && (
+              <div className="flex flex-col gap-4 lg:absolute top-0 right-0">
+                <RequiredToggleSwitch input={props.input} />
+                <UniqueToggleSwitch input={props.input} />
+              </div>
+            )}
           </div>
         </form>
       </FormProvider>

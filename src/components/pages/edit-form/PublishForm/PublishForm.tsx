@@ -32,7 +32,7 @@ const PublishForm = ({ form }: Props) => {
   return (
     <div className="my-16 *:flex *:items-center *:gap-3">
       {isStateDraft ? (
-        <div className="*:flex-shrink-0">
+        <div className="flex-col sm:flex-row">
           <div>Formularz jest szkicem</div>
           <PublishFormButton form={form} />
         </div>

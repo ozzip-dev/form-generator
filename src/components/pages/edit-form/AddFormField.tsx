@@ -69,12 +69,12 @@ const AddFormField = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex justify-between items-center mb-10 px-32"
+        className="md:flex md:intems-center mb-32 px-32"
       >
         {isSubmitting && <FullscreenLoader />}
 
-        <div className="flex justify-between w-2/3">
-          <div className=" w-3/6">
+        <div className="md:w-4/6 md:flex justify-between">
+          <div className="md:w-[45%]">
             <InputFields
               inputsData={dataInputsheader}
               register={register}
@@ -82,7 +82,7 @@ const AddFormField = () => {
             />
           </div>
 
-          <div className="w-2/6">
+          <div className="md:w-[45%] md:max-w-[22rem]">
             <SelectFieldControler
               name="type"
               defaultValue="text"
@@ -94,7 +94,7 @@ const AddFormField = () => {
         <Button
           icon={<Icon icon="plus-solid-full" size={30} color="white" />}
           variant="ghost"
-          className="bg-accent rounded-full p-1 w-fit mb-auto"
+          className="bg-accent rounded-full p-1 w-fit m-auto md:m-0 md:ml-auto md:mb-auto"
         />
       </form>
     </FormProvider>
