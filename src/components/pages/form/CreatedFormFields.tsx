@@ -41,6 +41,8 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
   };
   const placeholder = placeholderTexts[type] || "Odpowiedź";
 
+  console.log("placeholder", placeholder);
+
   const inputType = type === "superText" ? "textarea" : type;
 
   return (
@@ -48,9 +50,9 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
       key={id}
       inputsData={[
         {
-          floatingLabel: header,
+          staticLabel: header,
           name: id!,
-          // placeholder,
+          placeholder,
           type: inputType,
           description,
           required,

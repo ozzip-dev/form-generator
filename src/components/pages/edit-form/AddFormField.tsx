@@ -69,7 +69,7 @@ const AddFormField = () => {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="md:flex md:intems-center mb-32 px-32"
+        className="md:flex md:items-center py-8 px-16 sm:py-16 sm:px-32"
       >
         {isSubmitting && <FullscreenLoader />}
 

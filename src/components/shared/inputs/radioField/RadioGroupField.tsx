@@ -4,6 +4,7 @@ import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import InputRadioOther from "./InputRadioOther";
+import InputDescription from "../InputDescription";
 
 type Option = {
   label: string;
@@ -38,17 +39,19 @@ const RadioGroupField = (props: Props) => {
   const isRadioValue = radioLabels.includes(value);
 
   return (
-    <div className="flex flex-col py-5">
+    <div className="flex flex-col py-5  text-sm">
       {props.label && (
-        <label className="text-xl">
+        <label className="font-bold">
           {props.label}
           {props.required && <span className="text-red-600">*</span>}
         </label>
       )}
 
-      {props.description && <div className="text-sm">{props.description}</div>}
+      {props.description && (
+        <InputDescription description={props.description} />
+      )}
 
-      <div className={props.className}>
+      <div className={`relative ${props.className}`}>
         {props.options.map((option) => {
           const isOther = option.value === OPTION_OTHER;
           const isChecked = !isOther && value === option.label;
@@ -83,15 +86,15 @@ const RadioGroupField = (props: Props) => {
             </div>
           );
         })}
-      </div>
 
-      <InputError
-        errorMsg={
-          props.errorMsg?.[props.name]?.message ||
-          (props.errorMsg as any)?.message ||
-          errorMsg
-        }
-      />
+        <InputError
+          errorMsg={
+            props.errorMsg?.[props.name]?.message ||
+            (props.errorMsg as any)?.message ||
+            errorMsg
+          }
+        />
+      </div>
     </div>
   );
 };

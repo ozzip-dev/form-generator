@@ -5,6 +5,7 @@ import InputError from "../InputError";
 import InputCheckboxOther from "./InputCheckboxOther";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import Checkbox from "./Checkbox";
+import InputDescription from "../InputDescription";
 
 type CheckboxOption = {
   name: string;
@@ -44,7 +45,7 @@ export default function CheckboxGroupField(props: Props) {
         };
 
         return (
-          <div className="flex flex-col gap-3 text-sm">
+          <div className=" flex flex-col gap-3 text-sm">
             {props.groupLabel && (
               <div className="font-bold">
                 {props.groupLabel}
@@ -52,39 +53,42 @@ export default function CheckboxGroupField(props: Props) {
               </div>
             )}
 
-            {props.groupDescription && <div>{props.groupDescription}</div>}
+            {props.groupDescription && (
+              <InputDescription description={props.groupDescription} />
+            )}
+            <div className="relative">
+              {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
+                if (optionId === OPTION_OTHER) {
+                  return (
+                    <InputCheckboxOther
+                      key={name}
+                      label={checkboxLabel}
+                      name={name}
+                      selectedValues={selectedValues}
+                      onChange={field.onChange}
+                    />
+                  );
+                }
 
-            {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
-              if (optionId === OPTION_OTHER) {
                 return (
-                  <InputCheckboxOther
+                  <Checkbox
                     key={name}
-                    label={checkboxLabel}
+                    checkboxLabel={checkboxLabel}
                     name={name}
-                    selectedValues={selectedValues}
-                    onChange={field.onChange}
+                    onChange={() => toggle(name)}
+                    checkedValue={selectedValues[name]}
                   />
                 );
-              }
+              })}
 
-              return (
-                <Checkbox
-                  key={name}
-                  checkboxLabel={checkboxLabel}
-                  name={name}
-                  onChange={() => toggle(name)}
-                  checkedValue={selectedValues[name]}
-                />
-              );
-            })}
-
-            <InputError
-              errorMsg={
-                fieldState.error?.message ||
-                (props.errorMsg?.[props.name]?.message as string) ||
-                (props.errorMsg as any)?.message
-              }
-            />
+              <InputError
+                errorMsg={
+                  fieldState.error?.message ||
+                  (props.errorMsg?.[props.name]?.message as string) ||
+                  (props.errorMsg as any)?.message
+                }
+              />
+            </div>
           </div>
         );
       }}

@@ -5,12 +5,13 @@ import { DataLoader, InputError } from "../../index";
 import TextareaField from "./TextareaField";
 import InputField from "./InputField";
 import FloatingLabel from "./FloatingLabel";
+import InputDescription from "../InputDescription";
 
 type TypeInputData = {
   staticLabel?: string;
   floatingLabel?: string;
   name: string;
-  // placeholder?: string;
+  placeholder?: string;
   type: string;
   defaultValue?: string;
   description?: string;
@@ -57,10 +58,10 @@ const InputFields = (props: Props) => {
             {staticLabel && (
               <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
                 {staticLabel}
-                {required && <span className="text-red ml-0.5">*</span>}
+                {required && <span className="text-error ml-0.5">*</span>}
               </label>
             )}
-            {description && <div className="">{description}</div>}
+            {description && <InputDescription description={description} />}
 
             {type === "textarea" ? (
               <TextareaField

@@ -26,7 +26,13 @@ const FormPage = async (props: Props) => {
       errorMessage="Błąd ładowania formularza"
       loadingMessage="Ładowanie formularza"
     >
-      <CreatedForm form={serializeForm(form as Form)} />
+      <section className="h-screen overflow-hidden">
+        <div className="h-full overflow-y-auto">
+          <div className="container my-16">
+            <CreatedForm form={serializeForm(form as Form)} />
+          </div>
+        </div>
+      </section>
     </SuspenseErrorBoundary>
   );
 };

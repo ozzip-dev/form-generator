@@ -23,6 +23,7 @@ import {
   isInputSubmittable,
   isInputTypeCheckbox,
 } from "@/helpers/inputHelpers";
+import Card from "@/components/shared/Card";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -128,51 +129,57 @@ const CreatedForm = (props: Props) => {
     .sort((a, b) => a.order - b.order)
     .map((input) => {
       const renderer = fieldRenderers[input.type];
-      return renderer({
-        input,
-        errors,
-        register,
-        control,
-      });
+      return (
+        <Card>
+          {renderer({
+            input,
+            errors,
+            register,
+            control,
+          })}
+        </Card>
+      );
     });
 
   return (
-    <div className="flex justify-center ">
+    <>
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
-      <div className="w-4/5">
-        <h1 className="text-4xl">{title}</h1>
-        {description && (
-          <h2 className="text-2xl whitespace-pre-wrap">{description}</h2>
-        )}
-        <div className="text-red-600 text-sm mb-6">* Odpowiedź wymagana</div>
+      <div className="">
+        <Card className="mb-10">
+          <h1 className="text-xl">{title}</h1>
+          {description && (
+            <h2 className="my-6 whitespace-pre-wrap">{description}</h2>
+          )}
+          <div className="text-error text-xs">* Odpowiedź wymagana</div>
+          <div className="text-error text-xs">! Odpowiedź jednorazowa </div>
+        </Card>
+
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="w-4/5 bg-zinc-100 p-4 my-4"
+            className="flex flex-col gap-10"
           >
             {formFields}
-            <div className="flex justify-between">
-              <div className="w-fit">
-                <Button
-                  message="Wyczyść formularz"
-                  type="button"
-                  onClickAction={handleCleanForm}
-                />
-              </div>
+            <div className=" flex flex-col gap-8 items-center md:flex-row justify-between">
+              <Button
+                message="Wyczyść"
+                type="button"
+                onClickAction={handleCleanForm}
+                className="w-fit !text-accent_dark !bg-white outline outline-1 outline-accent_dark"
+              />
 
-              <div className="w-fit">
-                <Button
-                  message="Zatwierdź"
-                  disabled={props.isPreview ? true : false}
-                  type="submit"
-                  isLoading={isSubmitting}
-                />
-              </div>
+              <Button
+                message="Zatwierdź"
+                disabled={props.isPreview ? true : false}
+                type="submit"
+                isLoading={isSubmitting}
+                className="w-fit"
+              />
             </div>
           </form>
         </FormProvider>
       </div>
-    </div>
+    </>
   );
 };
 

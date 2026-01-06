@@ -10,6 +10,7 @@ type Props = {
     type: string;
     required?: boolean;
     dataAttribut?: string;
+    placeholder?: string;
   };
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string) => void;
@@ -30,7 +31,7 @@ const InputField = ({
   variant,
   floatingLabel,
 }: Props) => {
-  const { name, label, type, required } = inputData;
+  const { name, label, type, required, placeholder } = inputData;
 
   return (
     <div className="relative">
@@ -38,7 +39,7 @@ const InputField = ({
         id={name}
         name={name}
         type={type}
-        placeholder=" "
+        placeholder={floatingLabel ? " " : placeholder}
         defaultValue={defaultValues?.[name] ?? ""}
         disabled={isLoading?.[name]}
         aria-required={required}
