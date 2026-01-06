@@ -5,20 +5,24 @@ import { SuspenseErrorBoundary } from "@/components/shared";
 
 const FormListPage = async () => {
   return (
-    <div className="mb-10 container">
+    <>
       <section>
-        <SuspenseErrorBoundary
-          errorMessage="Błąd ładowania listy formularzy"
-          loadingMessage="Ładowanie listy formularzy"
-          size="lg"
-        >
-          <FormsLIst />
-        </SuspenseErrorBoundary>
+        <div className="py-16 container">
+          <SuspenseErrorBoundary
+            errorMessage="Błąd ładowania listy formularzy"
+            loadingMessage="Ładowanie listy formularzy"
+            size="lg"
+          >
+            <FormsLIst />
+          </SuspenseErrorBoundary>
+        </div>
       </section>
-      <section>
-        <FormsTemplatesList />
+      <section className="bg-bg_dark mb-10">
+        <div className="py-16 container">
+          <FormsTemplatesList />
+        </div>
       </section>
-    </div>
+    </>
   );
 };
 

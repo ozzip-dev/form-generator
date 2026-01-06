@@ -1,13 +1,13 @@
 import SectionHeader from "@/components/shared/SectionHeader";
 import FormTemplateTrigger from "./FormTemplateTrigger";
 
-const formsTemplates = ["favourite-color", "membership"];
+const formsTemplates = ["Favourite-color", "Membership"];
 
 const FormsTemplatesList = () => {
   return (
     <>
       <SectionHeader message="Przykładowe formularze" />
-      <div className="flex">
+      <div className="flex flex-wrap justify-center gap-4">
         {formsTemplates.map((templateName, idx) => {
           return (
             <div className="size-fit mr-2" key={idx}>

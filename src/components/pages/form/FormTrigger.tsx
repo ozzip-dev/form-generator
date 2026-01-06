@@ -19,7 +19,7 @@ const FormTrigger = () => {
         onClickAction={handleCreateForm}
         isLoading={isPending}
         variant="ghost"
-        className="bg-accent_light flex justify-center items-center w-[20rem] h-[20rem] rounded-md border border-accent"
+        className="bg-accent_light flex justify-center items-center w-[15rem] h-[15rem] rounded-md border border-accent"
         icon={
           <Icon
             icon="plus-solid-full"
@@ -29,7 +29,7 @@ const FormTrigger = () => {
           />
         }
       />
-      <h3 className="mt-8 text-center truncate">Nowy formularz</h3>
+      <h3 className="mt-4 text-center truncate">Nowy formularz</h3>
     </>
   );
 };
