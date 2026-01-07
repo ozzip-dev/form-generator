@@ -62,7 +62,7 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
             register={register}
             onChange={onFilterChange}
           />
-          <div className="sm:flex sm:flex-wrap gap-2 sm:items-center sm:justify-center">
+          <div className="sm:flex sm:flex-wrap gap-2 lg:gap-8 sm:items-center sm:justify-center">
             <InputFields
               inputsData={dataDatesInputs}
               register={register}
@@ -80,7 +80,7 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
               message="Resetuj filtry"
               variant="primary-rounded"
               onClickAction={() => setFilters(filtersDefault)}
-              className="w-full sm:w-fit sm:mt-3 sm:mb-auto"
+              className="w-full sm:w-fit sm:mb-auto !py-3"
             />
           </div>{" "}
           {/* <div className="sm:flex sm:flex-wrap gap-2 md:items-center"></div> */}

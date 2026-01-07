@@ -39,7 +39,7 @@ const ProtocolList = ({
 
   return (
     <div className="text-sm">
-      <div className="hidden md:flex md:w-4/6">
+      <div className="hidden md:flex md:w-4/6 sticky top-0">
         {headers.map((header, idx) => (
           <div key={idx} className="font-bold flex-1">
             {header}
