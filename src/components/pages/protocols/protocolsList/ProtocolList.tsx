@@ -11,7 +11,7 @@ type Props = {
   protocols: ProtocolSerialized[];
 };
 
-const headers = ["Branza", "Nazwa związku", "Nazwa zakładu", "Data sporu", ""];
+const headers = ["Branża", "Nazwa związku", "Nazwa zakładu", "Data sporu"];
 
 const ProtocolList = ({
   filters: { text = "", fromDate, toDate, sortOrder },
@@ -38,17 +38,18 @@ const ProtocolList = ({
     );
 
   return (
-    <div className="grid grid-cols-[repeat(4,1fr)_auto] items-center gap-4">
-      {isPending && <FullscreenLoader />}
-      {headers.map((header, idx) => (
-        <div key={idx} className="font-black">
-          {header}
-        </div>
-      ))}
+    <div className="text-sm">
+      <div className="hidden md:flex md:w-4/6">
+        {headers.map((header, idx) => (
+          <div key={idx} className="font-bold flex-1">
+            {header}
+          </div>
+        ))}
+      </div>
 
-      {filteredResults.map((protocol, idx) => (
-        <ProtocolListItem key={idx} protocol={protocol} />
-      ))}
+      {filteredResults.map((protocol, idx) => {
+        return <ProtocolListItem key={idx} protocol={protocol} />;
+      })}
     </div>
   );
 };

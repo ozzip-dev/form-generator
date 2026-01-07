@@ -16,7 +16,7 @@ import {
 } from "react";
 
 import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetailsAction";
-import { Button } from "@/components/shared";
+import { Button, ButtonLink } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
 type Props = {
@@ -53,24 +53,42 @@ const ProtocolListItem = (props: Props) => {
 
   return (
     <>
-      <div className="contents">
-        <div>{branch}</div>
-        <div>{tradeUnionName}</div>
-        <div>{workplaceName}</div>
-        <div>{formatDateAndTime(disputeStartDate)}</div>
-        <div className="flex gap-2">
+      <div className="md:flex">
+        <div className="md:flex md:w-4/6">
+          <div className="flex md:flex-1">
+            <div className="w-1/2 md:hidden font-bold">Branża</div>{" "}
+            <div>{branch}</div>
+          </div>
+          <div className="flex md:flex-1">
+            <div className="w-1/2 md:hidden font-bold">Nazwa związku</div>{" "}
+            <div>{tradeUnionName}</div>
+          </div>
+          <div className="flex md:flex-1">
+            <div className="w-1/2 md:hidden font-bold">Nazwa zakładu</div>{" "}
+            <div>{workplaceName}</div>
+          </div>
+          <div className="flex md:flex-1">
+            <div className="w-1/2 md:hidden font-bold">Data sporu</div>{" "}
+            <div>{formatDateAndTime(disputeStartDate)}</div>
+          </div>
+        </div>
+        <div className="flex justify-between gap-2">
           <Button
             message={isOpen ? "Ukryj info" : "Pokaż info"}
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
+            variant="primary-rounded"
           />
-          <Link className="btn btn-primary m-auto" href={`/protocols/${_id}`}>
-            Edytuj
-          </Link>
+
+          <ButtonLink
+            message={"Edytuj"}
+            link={`/protocols/${_id}`}
+            className="btn-primary btn-primary-rounded text-white !bg-accent"
+          />
         </div>
       </div>
 
-      <div className="col-span-full">
+      <div className="">
         <div
           className={`
           grid overflow-hidden transition-all 
