@@ -199,7 +199,10 @@ const RadioGroupField = (props: Props) => {
                   className="relative w-8 h-8 mb-3
                             border rounded-full
                             py-2 cursor-pointer hover:bg-gray-100 
-                            data-[checked=true]:bg-accent"
+                            data-[checked=true]:bg-accent 
+                            data-[checked=true]:border-accent 
+                            data-[checked=true]:shadow-[inset_0_0_0_2px_white]
+                            "
                 >
                   <input
                     type="radio"
