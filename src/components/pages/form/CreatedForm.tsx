@@ -68,8 +68,6 @@ const CreatedForm = (props: Props) => {
     setError,
   } = methods;
 
-  console.log("", props.form);
-
   // useEffect(() => {
   //   console.log("FORM VALUES", methods.getValues());
   // }, [methods.watch()]);

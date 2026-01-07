@@ -3,6 +3,7 @@ import {
   InputFields,
   RadioGroupField,
 } from "@/components/shared";
+import InputDescription from "@/components/shared/inputs/InputDescription";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
@@ -27,7 +28,6 @@ export const renderRadio = ({ input, errors }: RendererParams) => {
       unique={unique}
       options={options}
       errorMsg={errors}
-      optionClass="flex w-fit px-4 mb-1 justify-center items-center border rounded-lg py-2 cursor-pointer hover:bg-gray-100 data-[checked=true]:bg-blue-500 data-[checked=true]:text-white"
     />
   );
 };
@@ -41,8 +41,6 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
     date: "",
   };
   const placeholder = placeholderTexts[type] || "Odpowiedź";
-
-  console.log("placeholder", placeholder);
 
   const inputType = type === "superText" ? "textarea" : type;
 
@@ -90,5 +88,5 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
 };
 
 export const renderParagraph = ({ input }: RendererParams) => {
-  return <div key={input.id}>{input.description}</div>;
+  return <InputDescription key={input.id} description={input.description} />;
 };

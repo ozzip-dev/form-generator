@@ -1,9 +1,11 @@
 type Props = {
-  description: string;
+  description?: string;
 };
 
 const InputDescription = (props: Props) => {
-  return <div className="mb-1 text-font_light">{props.description}</div>;
+  return (
+    <div className="mb-1 text-sm text-font_light">{props.description}</div>
+  );
 };
 
 export default InputDescription;

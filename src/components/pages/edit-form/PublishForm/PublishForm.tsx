@@ -32,8 +32,8 @@ const PublishForm = ({ form }: Props) => {
   return (
     <div className="my-16">
       {isStateDraft ? (
-        <div className="flex flex-col sm:flex-row">
-          <div>Formularz jest szkicem</div>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div className="text-center">Formularz jest szkicem</div>
           <PublishFormButton form={form} />
         </div>
       ) : (

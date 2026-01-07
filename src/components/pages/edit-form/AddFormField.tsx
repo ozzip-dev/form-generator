@@ -15,6 +15,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 import { dataSelectOptions } from "./editFormData";
 import Icon from "@/components/shared/icons/Icon";
+import Card from "@/components/shared/Card";
 
 const dataInputsheader = [
   {
@@ -67,35 +68,33 @@ const AddFormField = () => {
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="md:flex md:items-center py-8 px-16 sm:py-16 sm:px-32"
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         {isSubmitting && <FullscreenLoader />}
+        <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center">
+          <div className="md:w-4/6 md:flex justify-between">
+            <div className="md:w-[45%]">
+              <InputFields
+                inputsData={dataInputsheader}
+                register={register}
+                errorMsg={errors}
+              />
+            </div>
 
-        <div className="md:w-4/6 md:flex justify-between">
-          <div className="md:w-[45%]">
-            <InputFields
-              inputsData={dataInputsheader}
-              register={register}
-              errorMsg={errors}
-            />
+            <div className="md:w-[45%] md:max-w-[22rem]">
+              <SelectFieldControler
+                name="type"
+                defaultValue="text"
+                options={dataSelectOptions}
+              />
+            </div>
           </div>
 
-          <div className="md:w-[45%] md:max-w-[22rem]">
-            <SelectFieldControler
-              name="type"
-              defaultValue="text"
-              options={dataSelectOptions}
-            />
-          </div>
-        </div>
-
-        <Button
-          icon={<Icon icon="plus-solid-full" size={30} color="white" />}
-          variant="ghost"
-          className="bg-accent rounded-full p-1 w-fit m-auto md:m-0 md:ml-auto md:mb-auto hover:bg-accent_light"
-        />
+          <Button
+            icon={<Icon icon="plus-solid-full" size={30} color="white" />}
+            variant="ghost"
+            className="bg-accent rounded-full p-1 w-fit m-auto md:m-0 md:ml-auto md:mb-auto hover:bg-accent_light"
+          />
+        </Card>
       </form>
     </FormProvider>
   );
