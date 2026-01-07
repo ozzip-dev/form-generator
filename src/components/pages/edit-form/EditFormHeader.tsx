@@ -86,7 +86,7 @@ export default function EditFormHeader(props: Props) {
       {/* {loadingForm && <FullscreenLoader />} */}
 
       <FormProvider {...methods}>
-        <form className="">
+        <form>
           <div className="sm:w-[30rem] md:w-[50rem]">
             <SelectFieldControler
               name="type"

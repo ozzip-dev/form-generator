@@ -1,91 +1,92 @@
 "use client";
 
-import { ChangeEvent } from "react";
-import {
-  filtersDefault,
-  mapSortOrder,
-  ProtocolFilters,
-  SortOrder,
-} from "../utils";
-import { Button } from "@/components/shared";
+import { Button, InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
+import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { FormProvider, useForm } from "react-hook-form";
+import { filtersDefault, ProtocolFilters } from "../utils";
+import InputField from "@/components/shared/inputs/inputFields/InputField";
+
+const dataSearchInput = [
+  {
+    floatingLabel: "Szukaj:",
+    name: "text",
+    type: "text",
+  },
+];
+
+const dataDatesInputs = [
+  {
+    floatingLabel: "Spory od:",
+    name: "fromDate",
+    type: "date",
+  },
+  {
+    floatingLabel: "Spory do:",
+    name: "toDate",
+    type: "date",
+  },
+];
+
+const dataSelectOptions = [
+  { label: "Od najstarszych", value: "ascending" },
+  { label: "Od najnowszych", value: "descending" },
+];
 
 type Props = {
   filters: ProtocolFilters;
   setFilters: (filters: ProtocolFilters) => void;
 };
 
-const dateFilters: { key: "fromDate" | "toDate"; staticLabel: string }[] = [
-  {
-    key: "fromDate",
-    staticLabel: "Spory od:",
-  },
-  {
-    key: "toDate",
-    staticLabel: "Spory do:",
-  },
-];
-
 const ProtocolListFilters = ({ filters, setFilters }: Props) => {
-  const onFilterChange = (
-    e: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
-    key: keyof ProtocolFilters
-  ): void => {
+  const methods = useForm({
+    defaultValues: {},
+  });
+
+  const { register } = methods;
+
+  const onFilterChange = (name: string, value: string): void => {
     setFilters({
       ...filters,
-      [key]: e.target.value,
+      [name]: value,
     });
   };
 
   return (
-    <div
-      className="
-        shadow-border-box p-md
-        mb-md
-      "
-    >
-      <div className="text-center">Filtry</div>
-
-      <label className="flex w-full" htmlFor={filters.text}>
-        <div>Szukaj</div>
-        <input
-          className="w-full"
-          type="text"
-          value={filters.text}
-          onChange={(e) => onFilterChange(e, "text")}
-        />
-      </label>
-
-      <div className="grid grid-cols-[repeat(2,1fr)_150px_1fr] gap-6 items-center">
-        {dateFilters.map(({ key, staticLabel }, i) => (
-          <div key={i}>
-            <div>
-              {staticLabel} {filters[key]}
+    <Card>
+      <div className="text-center font-bold mb-6">Filtry</div>
+      <FormProvider {...methods}>
+        <form>
+          <InputFields
+            inputsData={dataSearchInput}
+            register={register}
+            onChange={onFilterChange}
+          />
+          <div className="sm:flex sm:flex-wrap gap-2 sm:items-center sm:justify-center">
+            <InputFields
+              inputsData={dataDatesInputs}
+              register={register}
+              onChange={onFilterChange}
+            />{" "}
+            <div className="sm:w-[15rem]">
+              <SelectFieldControler
+                name="sortOrder"
+                defaultValue="ascending"
+                options={dataSelectOptions}
+                onChangeAction={onFilterChange}
+              />
             </div>
-            <input type="date" onChange={(e) => onFilterChange(e, key)} />
-          </div>
-        ))}
-
-        <Button
-          message="Resetuj filtry"
-          className="btn btn-primary-rounded !py-3 !px-6"
-          onClickAction={() => setFilters(filtersDefault)}
-        ></Button>
-
-        <label className="block" htmlFor="sortOrder">
-          <select
-            name="sortOrder"
-            id="sortOrder"
-            onChange={(e) => onFilterChange(e, "sortOrder")}
-          >
-            {[SortOrder.Ascending, SortOrder.Descending].map((order, i) => (
-              <option value={order} key={i}>
-                {mapSortOrder[order]}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-    </div>
+            <Button
+              message="Resetuj filtry"
+              variant="primary-rounded"
+              onClickAction={() => setFilters(filtersDefault)}
+              className="w-full sm:w-fit sm:mt-3 sm:mb-auto"
+            />
+          </div>{" "}
+          {/* <div className="sm:flex sm:flex-wrap gap-2 md:items-center"></div> */}
+        </form>
+      </FormProvider>
+    </Card>
   );
 };
 

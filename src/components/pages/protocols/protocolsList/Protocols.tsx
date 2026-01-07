@@ -15,7 +15,7 @@ const Protocols = ({ protocols }: Props) => {
   const [filters, setFilters] = useState<ProtocolFilters>(filtersDefault);
 
   return (
-    <div className="p-8">
+    <div className="container">
       <ProtocolListFilters filters={filters} setFilters={setFilters} />
       <SuspenseErrorBoundary
         size="lg"

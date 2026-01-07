@@ -14,7 +14,6 @@ const dataInputsForgotPassword = [
   {
     floatingLabel: "Podaj swój email",
     name: "email",
-    placeholder: "kamil@ozzip.com",
     type: "email",
   },
 ];
