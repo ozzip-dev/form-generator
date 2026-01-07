@@ -68,6 +68,8 @@ const CreatedForm = (props: Props) => {
     setError,
   } = methods;
 
+  console.log("", props.form);
+
   // useEffect(() => {
   //   console.log("FORM VALUES", methods.getValues());
   // }, [methods.watch()]);
@@ -97,7 +99,6 @@ const CreatedForm = (props: Props) => {
       setSuccess(true);
       reset();
     } catch (e) {
-      console.log("blad ", e);
       const err = e as Error;
       const title =
         err.message == uniqueErrorMessage
@@ -128,6 +129,8 @@ const CreatedForm = (props: Props) => {
   const formFields = inputs
     .sort((a, b) => a.order - b.order)
     .map((input) => {
+      console.log("");
+
       const renderer = fieldRenderers[input.type];
       return (
         <Card key={input.id}>
@@ -160,12 +163,12 @@ const CreatedForm = (props: Props) => {
             className="flex flex-col gap-10"
           >
             {formFields}
-            <div className=" flex flex-col gap-8 items-center md:flex-row justify-between">
+            <div className=" flex flex-col gap-8 md:gap-16 items-center md:flex-row ">
               <Button
                 message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
-                className="w-fit !text-accent_dark !bg-white outline outline-1 outline-accent_dark"
+                className="w-full md:w-fit md:ml-auto !text-accent_dark !bg-white outline outline-1 outline-accent_dark"
               />
 
               <Button
@@ -173,7 +176,7 @@ const CreatedForm = (props: Props) => {
                 disabled={props.isPreview ? true : false}
                 type="submit"
                 isLoading={isSubmitting}
-                className="w-fit"
+                className="w-full md:w-fit"
               />
             </div>
           </form>

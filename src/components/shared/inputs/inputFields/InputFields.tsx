@@ -6,6 +6,7 @@ import TextareaField from "./TextareaField";
 import InputField from "./InputField";
 import FloatingLabel from "./FloatingLabel";
 import InputDescription from "../InputDescription";
+import InputIndicators from "../InputIndicators";
 
 type TypeInputData = {
   staticLabel?: string;
@@ -16,6 +17,7 @@ type TypeInputData = {
   defaultValue?: string;
   description?: string;
   required?: boolean;
+  unique?: boolean;
   dataAttribut?: string;
 };
 
@@ -41,6 +43,7 @@ const InputFields = (props: Props) => {
           staticLabel,
           floatingLabel,
           required,
+          unique,
           description,
           name,
           type,
@@ -58,7 +61,7 @@ const InputFields = (props: Props) => {
             {staticLabel && (
               <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
                 {staticLabel}
-                {required && <span className="text-error ml-0.5">*</span>}
+                <InputIndicators {...{ required, unique }} />
               </label>
             )}
             {description && <InputDescription description={description} />}

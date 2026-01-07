@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import InputRadioOther from "./InputRadioOther";
 import InputDescription from "../InputDescription";
+import InputIndicators from "../InputIndicators";
 
 type Option = {
   label: string;
@@ -16,6 +17,7 @@ type Props = {
   label?: string;
   description?: string;
   required?: boolean;
+  unique?: boolean;
   options: Option[];
   className?: string;
   optionClass?: string;
@@ -43,7 +45,7 @@ const RadioGroupField = (props: Props) => {
       {props.label && (
         <label className="font-bold">
           {props.label}
-          {props.required && <span className="text-red-600">*</span>}
+          <InputIndicators required={props.required} unique={props.unique} />
         </label>
       )}
 

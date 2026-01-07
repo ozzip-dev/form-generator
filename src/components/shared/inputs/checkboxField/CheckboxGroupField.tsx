@@ -6,6 +6,7 @@ import InputCheckboxOther from "./InputCheckboxOther";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import Checkbox from "./Checkbox";
 import InputDescription from "../InputDescription";
+import InputIndicators from "../InputIndicators";
 
 type CheckboxOption = {
   name: string;
@@ -17,6 +18,7 @@ type Props = {
   groupLabel?: string;
   groupDescription?: string;
   required?: boolean;
+  unique?: boolean;
   name: string;
   control: Control<any>;
   options: CheckboxOption[];
@@ -49,7 +51,10 @@ export default function CheckboxGroupField(props: Props) {
             {props.groupLabel && (
               <div className="font-bold">
                 {props.groupLabel}
-                {props.required && <span className="text-red-600">*</span>}
+                <InputIndicators
+                  required={props.required}
+                  unique={props.unique}
+                />
               </div>
             )}
 
