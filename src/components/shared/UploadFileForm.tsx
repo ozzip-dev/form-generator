@@ -98,12 +98,11 @@ const UploadFileForm = ({ category, protocol }: Props) => {
 
   return (
     <div className="flex justify-center items-center flex-col mt-16">
-      <Card className="!p-0 w-1/2 overflow-hidden">
+      <Card className="!p-0 w-full md:w-2/3 overflow-hidden">
         <div
           {...getRootProps()}
           className={`
-              relative py-4 px-32 h-[20rem] transition-colors
-              border border-default 
+              relative h-[20rem] transition-colors flex justify-center items-center
               ${isDragActive ? "bg-accent" : "bg-transparent"}
               *:flex *:flex-col *:items-center *:gap-8 *:text-center
             `}
@@ -117,16 +116,19 @@ const UploadFileForm = ({ category, protocol }: Props) => {
           <input {...getInputProps()} />
 
           <div>
-            <p className="text-lg font-black">
+            <p className="font-bold">
               {isDragActive ? "Upuść plik w tym miejscu" : "Upuść plik"}
             </p>
 
             {!isDragActive && (
               <>
-                <Button message="Wybierz z komputera" />
+                <Button
+                  message="Wybierz z komputera"
+                  variant="primary-rounded"
+                />
 
                 {/* TODO: jaki max rozmiar? Czy chcemy wiekszy? */}
-                <div>
+                <div className="text-sm">
                   <div>
                     Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
                   </div>

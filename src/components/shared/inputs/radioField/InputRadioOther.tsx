@@ -13,7 +13,7 @@ type Props = {
 const InputRadioOther = (props: Props) => {
   return (
     <div className="w-full">
-      <label className="block font-bold">{props.label}</label>
+      <label className="block">{props.label}</label>
       <input
         type="text"
         value={props.isRadioValue ? "" : props.value || ""}

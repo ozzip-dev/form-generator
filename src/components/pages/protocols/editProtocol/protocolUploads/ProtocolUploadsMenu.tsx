@@ -10,7 +10,7 @@ type Props = {
 
 const ProtocolUploadsMenu = (props: Props) => {
   return (
-    <ul className="flex flex-wrap gap-4 pb-8">
+    <ul className="flex justify-center md:justify-start flex-wrap gap-4 pb-8">
       {fileCategories.map((category) => (
         <li key={category}>
           <Button
