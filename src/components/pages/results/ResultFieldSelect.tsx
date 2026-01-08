@@ -1,35 +1,36 @@
 import { FormInputSelectable } from "@/types/input";
 
 type Props = {
-  inputs: FormInputSelectable[]
+  inputs: FormInputSelectable[];
   setInputs: (inputs: FormInputSelectable[]) => void;
-}
+};
 
 const ResultFieldSelect = (props: Props) => {
-  const formInputs: FormInputSelectable[] = props.inputs
+  const formInputs: FormInputSelectable[] = props.inputs;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.setInputs([
-      ...formInputs.map((input) => (input.id == e.target.value ? {
-        ...input,
-        selected: !input.selected
-      } : input))
-    ])
-  }
+      ...formInputs.map((input) =>
+        input.id == e.target.value
+          ? {
+              ...input,
+              selected: !input.selected,
+            }
+          : input
+      ),
+    ]);
+  };
 
   return (
     <div>
-      <div><b>Wybierz pola do wyników</b></div>
+      <div className="font-bold">Wyświetl odpowiedzi na zazanczone pytania</div>
       {formInputs.map(({ id, header }) => (
-        <div
-          key={id}
-          className="flex gap-2"  
-        >
+        <div key={id} className="flex gap-2">
           <label className="block" htmlFor={id}>
             {header}
           </label>
 
-          <input 
+          <input
             type="checkbox"
             id={id}
             className="pl-2"

@@ -34,7 +34,7 @@ const FormResultsTablePage = async (props: Props) => {
   const headerValues: string[] = submittableInputs.map(({ header }) => header);
   const inputHeaders: string[] = isFormSecret(form)
     ? headerValues
-    : ["Data wysłania", ...headerValues];
+    : ["Wysłany", ...headerValues];
 
   const getAnswerValues = (answers: Answers): string[] =>
     Object.entries(answers).map(([_, value]) => getAnswerDisplay(value));
@@ -49,12 +49,12 @@ const FormResultsTablePage = async (props: Props) => {
   );
 
   return (
-    <>
+    <div className="container">
       <ResultsTable {...{ inputHeaders, submissionValues }} />
       <DownloadResultsButton
         {...{ inputHeaders, submissionValues, formTitle: form.title }}
       />
-    </>
+    </div>
   );
 };
 
