@@ -4,7 +4,7 @@ import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormIn
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
-import PublishForm from "@/components/pages/edit-form/PublishForm/PublishForm";
+import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
 
@@ -23,7 +23,7 @@ const EditFormPage = async (props: Props) => {
         size="sm"
         errorMessage="Błąd publikacji formularza"
       >
-        <PublishForm form={formSerialized} />
+        <FormActions form={formSerialized} />
       </SuspenseErrorBoundary>
 
       {/* {state === "active" && <FormActiveInfo />} */}

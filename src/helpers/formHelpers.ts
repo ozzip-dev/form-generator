@@ -9,7 +9,10 @@ export function isActive(form: Form | FormCreated | FormSerialized): boolean {
   return form.state === "active";
 }
 
-export function isUserAuthor(form: FormSerialized, userId: string): boolean {
+export function isUserAuthor(
+  form: Form | FormSerialized,
+  userId: string
+): boolean {
   return form.createdBy?.toString() === userId;
 }
 
