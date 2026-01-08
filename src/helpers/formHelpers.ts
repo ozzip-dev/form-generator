@@ -29,7 +29,10 @@ export const formVisibilityData: {
   value: FormResultVisibility;
 }[] = [
   { label: "Jawne", value: FormResultVisibility.Open },
-  { label: "Tajne", value: FormResultVisibility.Secret },
+  {
+    label: "Tajne",
+    value: FormResultVisibility.Secret,
+  },
 ];
 
 export const formStateWithLabels: Record<string, string> = {

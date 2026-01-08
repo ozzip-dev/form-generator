@@ -136,15 +136,17 @@ const Results = (props: Props) => {
   return (
     <div className="p-8">
       <div>
-        <div className="text-3xl">{title}</div>
-        <div className="text-2xl mb-4">{description}</div>
+        <div className="text-xl">
+          <span className="font-bold">Tytuł formularza: </span>
+          {title}
+        </div>
       </div>
       <div className=" w-fit p-4 border">
         <ResultFieldSelect {...{ inputs, setInputs }} />
 
         <Button
           onClickAction={onDisplayAnswers}
-          message="Pokaż wyniki"
+          message="Wyświetl odpowiedzi"
           className="!w-auto my-4"
         />
       </div>

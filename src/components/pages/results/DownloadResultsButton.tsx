@@ -34,7 +34,7 @@ const DownloadResultsButton = (props: Props) => {
     <Button
       message="Pobierz wyniki"
       onClickAction={downloadResults}
-      className="!w-64"
+      className="!w-64 my-6"
     />
   );
 };

@@ -104,7 +104,7 @@ export default function EditFormHeader(props: Props) {
             <SelectFieldControler
               name="resultVisibility"
               defaultValue=""
-              label="Wybierz typ głosowania"
+              label="Widoczność wyników"
               placeholder="Wybierz typ głosowania"
               options={resultVisibilityOptions}
               onChangeAction={(name, value) => {
