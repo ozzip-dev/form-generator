@@ -52,11 +52,11 @@ const ProtocolListItem = (props: Props) => {
   };
 
   return (
-    <>
+    <div className="relative">
       <div className=" md:flex items-center">
         <ResponsiveList listItems={dataProtocolsList} />
 
-        <div className="flex justify-between gap-2 mt-8">
+        <div className="flex justify-between gap-2 mt-8 md:mt-0">
           <Button
             message={isOpen ? "Ukryj" : "Pokaż"}
             onClickAction={() => startTransition(fetchDetails)}
@@ -85,7 +85,8 @@ const ProtocolListItem = (props: Props) => {
           </div>
         </div>
       </div>
-    </>
+      <div className="absolute border-b w-full -bottom-2 left-0"></div>
+    </div>
   );
 };
 

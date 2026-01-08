@@ -62,7 +62,7 @@ const DashboardMenu = () => {
 
       {isMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 top-24 z-10 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 top-24 z-20 backdrop-blur-sm"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

@@ -2,9 +2,9 @@ type Props = {
   headers: string[];
 };
 
-const ListHeader = (props: Props) => {
+const ResponsiveListHeader = (props: Props) => {
   return (
-    <div className="hidden md:flex md:w-4/5 sticky top-0 bg-white">
+    <div className="hidden md:flex md:w-full">
       {props.headers.map((header, idx) => (
         <div key={idx} className="font-bold flex-1">
           {header}
@@ -14,4 +14,4 @@ const ListHeader = (props: Props) => {
   );
 };
 
-export default ListHeader;
+export default ResponsiveListHeader;

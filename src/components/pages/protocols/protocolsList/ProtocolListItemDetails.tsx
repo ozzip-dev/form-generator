@@ -17,7 +17,7 @@ const ProtocolListItemDetails = ({
     <div className="col-span-5 shadow-border-box p-md mb-md">
       <div className="flex gap-8 pb-sm text-grey_secondary text-sm">
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
-        <div>Modyfikowano: {formatDateAndTime(lastModifiedAt)}</div>
+        <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
       <div>
         <div className="text-lg font-black pb-2">Pliki</div>

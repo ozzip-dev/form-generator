@@ -3,7 +3,7 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
-import ListHeader from "@/components/shared/responsiveList/ListHeader";
+import ResponsiveListHeader from "@/components/shared/responsiveList/ResponsiveListHeader";
 const headers = ["Branża", "Nazwa związku", "Nazwa zakładu", "Początek sporu"];
 
 type Props = {
@@ -35,7 +35,12 @@ const ProtocolList = ({
 
   return (
     <>
-      <ListHeader headers={headers} />
+      <div className="bg-white w-full sticky top-0 z-10">
+        <div className="md:w-4/5">
+          <ResponsiveListHeader headers={headers} />
+        </div>
+      </div>
+
       <div className="my-8 text-sm flex-1 flex flex-col gap-4 ">
         {filteredResults.map((protocol, idx) => {
           return <ProtocolListItem key={idx} protocol={protocol} />;
