@@ -5,18 +5,11 @@ import {
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
-import Link from "next/link";
-import {
-  Dispatch,
-  SetStateAction,
-  startTransition,
-  useActionState,
-  useRef,
-  useState,
-} from "react";
+import { startTransition, useActionState, useRef, useState } from "react";
 
 import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetailsAction";
 import { Button, ButtonLink } from "@/components/shared";
+import ResponsiveList from "@/components/shared/responsiveList/ResponsiveList";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 
 type Props = {
@@ -51,30 +44,21 @@ const ProtocolListItem = (props: Props) => {
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
     props.protocol;
 
+  const dataProtocolsList = {
+    "Branża:": branch,
+    "Nazwa związku:": tradeUnionName,
+    "Nazwa zakładu:": workplaceName,
+    "Data sporu:": formatDateAndTime(disputeStartDate),
+  };
+
   return (
     <>
-      <div className="md:flex">
-        <div className="md:flex md:w-4/6">
-          <div className="flex md:flex-1">
-            <div className="w-1/2 md:hidden font-bold">Branża</div>{" "}
-            <div>{branch}</div>
-          </div>
-          <div className="flex md:flex-1">
-            <div className="w-1/2 md:hidden font-bold">Nazwa związku</div>{" "}
-            <div>{tradeUnionName}</div>
-          </div>
-          <div className="flex md:flex-1">
-            <div className="w-1/2 md:hidden font-bold">Nazwa zakładu</div>{" "}
-            <div>{workplaceName}</div>
-          </div>
-          <div className="flex md:flex-1">
-            <div className="w-1/2 md:hidden font-bold">Data sporu</div>{" "}
-            <div>{formatDateAndTime(disputeStartDate)}</div>
-          </div>
-        </div>
-        <div className="flex justify-between gap-2">
+      <div className=" md:flex items-center">
+        <ResponsiveList listItems={dataProtocolsList} />
+
+        <div className="flex justify-between gap-2 mt-8">
           <Button
-            message={isOpen ? "Ukryj info" : "Pokaż info"}
+            message={isOpen ? "Ukryj" : "Pokaż"}
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
             variant="primary-rounded"

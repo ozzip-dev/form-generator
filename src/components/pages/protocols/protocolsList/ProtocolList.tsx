@@ -3,8 +3,6 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
-import { FullscreenLoader } from "@/components/shared";
-import { useState } from "react";
 
 type Props = {
   filters: ProtocolFilters;
@@ -15,8 +13,6 @@ const ProtocolList = ({
   filters: { text = "", fromDate, toDate, sortOrder },
   protocols,
 }: Props) => {
-  const [isPending, setPending] = useState(false);
-
   const getDisputeTime = (protocol: ProtocolSerialized) =>
     new Date(protocol.disputeStartDate).getTime();
 
@@ -36,12 +32,10 @@ const ProtocolList = ({
     );
 
   return (
-    <div className="text-sm ">
-      <div className="flex-1  overflow-y-auto">
-        {filteredResults.map((protocol, idx) => {
-          return <ProtocolListItem key={idx} protocol={protocol} />;
-        })}
-      </div>
+    <div className="my-8 text-sm flex-1 flex flex-col gap-4 ">
+      {filteredResults.map((protocol, idx) => {
+        return <ProtocolListItem key={idx} protocol={protocol} />;
+      })}
     </div>
   );
 };

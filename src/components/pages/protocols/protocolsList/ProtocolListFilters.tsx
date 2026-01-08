@@ -53,7 +53,7 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   };
 
   return (
-    <Card>
+    <Card className="mb-10">
       <div className="text-center font-bold mb-6">Filtry</div>
       <FormProvider {...methods}>
         <form>
