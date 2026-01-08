@@ -11,7 +11,7 @@ const ResultsNavMenu = ({ formId }: Props) => {
     { text: "Tabela", link: `/forms/${formId}/results/table` },
   ];
 
-  return <NavMenu links={resultsNavLinks} />;
+  return <NavMenu links={resultsNavLinks} level="sub" />;
 };
 
 export default ResultsNavMenu;
