@@ -1,6 +1,7 @@
 import { Collection, Db, ObjectId } from "mongodb";
 import {
   db,
+  deleteById,
   findAll,
   findById,
   getCollection,
@@ -101,6 +102,14 @@ export async function removeFileFromProtocol({
       [pullQuery]: fileId,
     },
   });
+}
+
+export async function removeProtocol({
+  protocolId,
+}: {
+  protocolId: string;
+}): Promise<void> {
+  await deleteById(db, "protocol", new ObjectId(protocolId));
 }
 
 export async function mapFilesToProtocol(
