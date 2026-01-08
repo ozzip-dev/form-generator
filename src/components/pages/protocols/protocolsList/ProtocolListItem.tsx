@@ -7,7 +7,7 @@ import {
 } from "@/types/protocol";
 import { startTransition, use, useActionState, useRef, useState } from "react";
 
-import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetailsAction";
+import { getProtocolDetailsAction } from "@/actions/protocol";
 import { Button, ButtonLink } from "@/components/shared";
 import ResponsiveList from "@/components/shared/responsiveList/ResponsiveList";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
