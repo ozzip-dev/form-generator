@@ -48,7 +48,7 @@ const ProtocolListItem = (props: Props) => {
     "Branża:": branch,
     "Nazwa związku:": tradeUnionName,
     "Nazwa zakładu:": workplaceName,
-    "Data sporu:": formatDateAndTime(disputeStartDate),
+    "Data sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
   };
 
   return (

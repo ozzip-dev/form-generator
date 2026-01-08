@@ -3,6 +3,8 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
+import ListHeader from "@/components/shared/responsiveList/ListHeader";
+const headers = ["Branża", "Nazwa związku", "Nazwa zakładu", "Początek sporu"];
 
 type Props = {
   filters: ProtocolFilters;
@@ -32,11 +34,14 @@ const ProtocolList = ({
     );
 
   return (
-    <div className="my-8 text-sm flex-1 flex flex-col gap-4 ">
-      {filteredResults.map((protocol, idx) => {
-        return <ProtocolListItem key={idx} protocol={protocol} />;
-      })}
-    </div>
+    <>
+      <ListHeader headers={headers} />
+      <div className="my-8 text-sm flex-1 flex flex-col gap-4 ">
+        {filteredResults.map((protocol, idx) => {
+          return <ProtocolListItem key={idx} protocol={protocol} />;
+        })}
+      </div>
+    </>
   );
 };
 
