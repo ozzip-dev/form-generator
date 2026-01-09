@@ -26,8 +26,8 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   };
 
   return (
-    <div className="flex items-center gap-10 w-fit">
-      <span>{file?.name || "-"}</span>
+    <div className="flex items-center gap-10">
+      <span className="truncate w-4/6">{file?.name || "-"}</span>
       {file?.data && (
         <div className="contents">
           {file.type === "application/pdf" ? (
@@ -43,10 +43,13 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
               loading="lazy"
             />
           )}
-          <Button
-            onClickAction={() => handleDownload(file)}
-            message="Pobierz"
-          />
+          <div className="hidden sm:block">
+            <Button
+              onClickAction={() => handleDownload(file)}
+              message="Pobierz"
+              variant="primary-rounded"
+            />
+          </div>
         </div>
       )}
     </div>

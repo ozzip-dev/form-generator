@@ -7,6 +7,7 @@ import {
 } from "@/types/protocol";
 import { mapFileCategory } from "../utils";
 import ProtocolAttachedFileCategory from "./ProtocolAttachedFileCategory";
+import Card from "@/components/shared/Card";
 
 const ProtocolListItemDetails = ({
   files,
@@ -14,13 +15,13 @@ const ProtocolListItemDetails = ({
   uploadedAt,
 }: ProtocolWithFilesSerialized) => {
   return (
-    <div className="col-span-5 shadow-border-box p-md mb-md">
-      <div className="flex gap-8 pb-sm text-grey_secondary text-sm">
+    <Card>
+      <div className="hidden sm:flex gap-8 pb-sm text-grey_secondary text-sm">
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
         <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
       <div>
-        <div className="text-lg font-black pb-2">Pliki</div>
+        <div className="text-md font-bold pb-2">Pliki</div>
         {Object.entries(mapFileCategory).map(([key, value]) => (
           <ProtocolAttachedFileCategory
             key={key}
@@ -30,7 +31,7 @@ const ProtocolListItemDetails = ({
           />
         ))}
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -80,7 +80,7 @@ const ProtocolListItem = (props: Props) => {
           ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
         `}
         >
-          <div className="min-h-0">
+          <div className="min-h-0 py-4">
             {details && <ProtocolListItemDetails {...details} />}
           </div>
         </div>
