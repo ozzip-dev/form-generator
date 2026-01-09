@@ -55,19 +55,20 @@ export const ModalContextProvider = (props: Props) => {
   return (
     <ModalContext.Provider value={{ openModal }}>
       <ModalWrapper isOpen={isOpen} onClose={close}>
-        <div>
-          <div className="text-center text-xl mb-10">{header}</div>
-          <div className="flex justify-between">
+        <div className="p-8">
+          <div className="text-center text-lg mb-10">{header}</div>
+          <div className="flex flex-col sm:flex-row gap-8">
             <Button
               message={"Anuluj"}
               onClickAction={close}
-              className="!bg-white !px-0 text-center !text-accent border border-accent w-[45%]"
+              className="!bg-white 
+              !text-accent border border-accent"
             />
             <Button
               message={"Potwierdź"}
               onClickAction={handleConfirm}
               isLoading={isloading}
-              className="w-[45%] !px-0 text-center"
+              className=""
             />
           </div>
         </div>

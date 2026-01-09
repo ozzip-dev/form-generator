@@ -2,6 +2,8 @@
 
 import { removeProtocolAction } from "@/actions/protocol";
 import { Button, FullscreenLoader, IconTrash } from "@/components/shared";
+import { useModal } from "@/context/ModalContextProvider";
+import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
 import { startTransition, useActionState } from "react";
 
@@ -10,16 +12,11 @@ type Props = {
 };
 
 function RemoveProtocolBtn(props: Props) {
+  const { openModal } = useModal();
+
   const [_, deleteProtocol, isPending] = useActionState(async () => {
     await removeProtocolAction(props.ProtocolId);
   }, null);
-
-  const handleDeleteProtocol = () => {
-    confirmAction({
-      action: () => startTransition(deleteProtocol),
-      confirmText: "Usunąć protokół?",
-    });
-  };
 
   return (
     <>
@@ -29,7 +26,12 @@ function RemoveProtocolBtn(props: Props) {
         type="button"
         icon={<IconTrash />}
         variant="primary-rounded"
-        onClickAction={handleDeleteProtocol}
+        onClickAction={() =>
+          openModal({
+            action: () => startTransition(deleteProtocol),
+            header: "Usunąć protokuł?",
+          })
+        }
         className="!bg-error"
       />
     </>
