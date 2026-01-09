@@ -54,6 +54,9 @@ const EditFormDescriptionInput = (props: Props) => {
   }, [isLoading?.description]);
 
   useAutoLoader(isRemovingRef.current);
+  const isDescriptionLoading = [...Object.values(isLoading)].some(Boolean);
+
+  useAutoLoader(isDescriptionLoading, "small");
 
   const printDescriptionInput = () => {
     setDescriptionInput((prev) => !prev);

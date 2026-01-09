@@ -29,6 +29,7 @@ import {
   isInputWithOptions,
 } from "@/helpers/inputHelpers";
 import Card from "@/components/shared/Card";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 const dataInputLabel = [
   {
@@ -118,6 +119,10 @@ const EditFormInput = (props: Props) => {
     null
   );
 
+  useAutoLoader(isPending);
+  const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
+  useAutoLoader(isAnyLoading, "small");
+
   const handleEditType = (type: InputType) => {
     startTransition(() => {
       editType(type);
@@ -127,8 +132,6 @@ const EditFormInput = (props: Props) => {
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
-
-  const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
 
   return (
     <Card>

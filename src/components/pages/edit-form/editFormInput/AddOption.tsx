@@ -71,6 +71,9 @@ const AddOption = (props: Props) => {
     setError,
   });
 
+  const isAnyLoading = [...Object.values(isLoading ?? {})].some(Boolean);
+  useAutoLoader(isAnyLoading, "small");
+
   const getInsertIndex = () => {
     const otherIndex = fields.findIndex(
       (field) => (field as any).value === OPTION_OTHER

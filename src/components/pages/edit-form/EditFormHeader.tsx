@@ -4,6 +4,7 @@ import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
@@ -79,12 +80,16 @@ export default function EditFormHeader(props: Props) {
     setError,
   });
 
-  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
+  const isSelectLoading =
+    isLoading?.type === true || isLoading?.resultVisibility === true;
+  useAutoLoader(isSelectLoading);
+
+  const isTextLoading =
+    isLoading?.description === true || isLoading?.title === true;
+  useAutoLoader(isTextLoading, "small");
 
   return (
     <Card>
-      {/* {loadingForm && <FullscreenLoader />} */}
-
       <FormProvider {...methods}>
         <form>
           <div className="sm:w-[30rem] md:w-[50rem]">

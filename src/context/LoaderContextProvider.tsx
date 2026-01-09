@@ -1,4 +1,5 @@
 "use client";
+
 import { FullscreenLoader } from "@/components/shared";
 import {
   createContext,
@@ -10,8 +11,10 @@ import {
   useState,
 } from "react";
 
+type LoaderVariant = "fullscreen" | "small";
+
 type LoaderContextType = {
-  setLoading: (loading: boolean) => void;
+  setLoading: (variant: LoaderVariant, loading: boolean) => void;
 };
 
 export const LoaderContext = createContext<LoaderContextType | undefined>(
@@ -22,28 +25,40 @@ type Props = {
   children: ReactNode;
 };
 
-export const LoaderContextProvider = (props: Props) => {
-  const loadingCountRef = useRef(0);
-  const [isLoading, setIsLoading] = useState(false);
+export const LoaderContextProvider = ({ children }: Props) => {
+  const counters = useRef<Record<LoaderVariant, number>>({
+    fullscreen: 0,
+    small: 0,
+  });
 
-  const setLoading = useCallback((loading: boolean) => {
+  const [visible, setVisible] = useState<Record<LoaderVariant, boolean>>({
+    fullscreen: false,
+    small: false,
+  });
+
+  const setLoading = useCallback((variant: LoaderVariant, loading: boolean) => {
+    const next = counters.current;
+
     if (loading) {
-      loadingCountRef.current += 1;
-      if (loadingCountRef.current === 1) {
-        setIsLoading(true);
-      }
+      next[variant] += 1;
     } else {
-      loadingCountRef.current = Math.max(0, loadingCountRef.current - 1);
-      if (loadingCountRef.current === 0) {
-        setIsLoading(false);
-      }
+      next[variant] = Math.max(0, next[variant] - 1);
     }
+
+    setVisible((prev) => ({
+      ...prev,
+      [variant]: next[variant] > 0,
+    }));
   }, []);
 
   return (
     <LoaderContext.Provider value={{ setLoading }}>
-      {isLoading && <FullscreenLoader />}
-      {props.children}
+      {visible.fullscreen && <FullscreenLoader />}
+
+      <div className="text-xs text-white absolute left-1/2 -translate-x-1/2 ">
+        {visible.small ? "Zapis danych..." : "Dane formularza zapisane"}
+      </div>
+      {children}
     </LoaderContext.Provider>
   );
 };
@@ -51,20 +66,24 @@ export const LoaderContextProvider = (props: Props) => {
 export const useLoader = () => {
   const ctx = useContext(LoaderContext);
   if (!ctx) {
-    throw new Error("useLoader must be used inside <LoaderContextProvider>");
+    throw new Error("useLoader must be used inside LoaderContextProvider");
   }
   return ctx;
 };
 
-export const useAutoLoader = (isPending: boolean) => {
+export const useAutoLoader = (
+  isPending: boolean,
+  variant: "fullscreen" | "small" = "fullscreen"
+) => {
   const { setLoading } = useLoader();
 
   useEffect(() => {
-    setLoading(isPending);
+    setLoading(variant, isPending);
+
     return () => {
       if (isPending) {
-        setLoading(false);
+        setLoading(variant, false);
       }
     };
-  }, [isPending, setLoading]);
+  }, [isPending, variant, setLoading]);
 };
