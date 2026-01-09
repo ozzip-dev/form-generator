@@ -16,6 +16,7 @@ import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
 import { dataSelectOptions } from "./editFormData";
 import Icon from "@/components/shared/icons/Icon";
 import Card from "@/components/shared/Card";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 const dataInputsheader = [
   {
@@ -45,6 +46,8 @@ const AddFormField = () => {
     reset,
   } = methods;
 
+  useAutoLoader(isSubmitting);
+
   const { showBoundary } = useErrorBoundary();
 
   const onSubmit = async (data: AddFormFieldSchema) => {
@@ -69,7 +72,6 @@ const AddFormField = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isSubmitting && <FullscreenLoader />}
         <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center">
           <div className="md:w-4/6 md:flex justify-between">
             <div className="md:w-[45%]">

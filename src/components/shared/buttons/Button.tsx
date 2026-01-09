@@ -7,6 +7,8 @@ const VARIANTS = {
   icon: "",
 };
 
+// disabled:opacity-70 disabled:cursor-not-allowed
+// transition-colors duration-200
 type Props = {
   variant?: "primary" | "primary-rounded" | "ghost" | "icon";
   isLoading?: boolean;
@@ -25,10 +27,17 @@ const Button = (props: Props) => {
       onClick={props.onClickAction}
       disabled={props.disabled || props.isLoading}
       className={`
-        relative
-        disabled:opacity-70 disabled:cursor-not-allowed
-        transition-colors duration-200
-        block
+                relative
+                block
+                cursor-pointer
+                select-none
+                transition-all duration-150 ease-out
+                hover:brightness-95
+                active:brightness-90
+                active:scale-[0.98]
+                disabled:opacity-60
+                disabled:pointer-events-none
+
         ${VARIANTS[props.variant || "primary"]}
         ${props.className}
       `}

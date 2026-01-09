@@ -7,6 +7,7 @@ import { FormInput } from "@/types/input";
 import { startTransition, useActionState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FullscreenLoader } from "../../../shared/index";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 // TODO: zrobic wspolny komponent z RequiredToggleSwitch
 
@@ -23,14 +24,14 @@ export default function UniqueToggleSwitch(props: Props) {
     await toggleUniqueAction(formId, props.input.id);
   }, null);
 
+  useAutoLoader(isPending);
+
   const handleSwitch = () => {
     startTransition(switchToggle);
   };
 
   return (
-    <div className="flex gap-2 items-center mb-auto text-sm">
-      {isPending && <FullscreenLoader />}
-
+    <div className="text-sm">
       <CheckboxSwitch
         label="Odpowiedź unikalna"
         name={`unique`}

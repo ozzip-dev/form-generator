@@ -3,6 +3,7 @@ import { Button, FullscreenLoader } from "../../../shared";
 import { moveInputUpAction } from "@/actions/edit-form/editFormInput/moveInputActions";
 import { startTransition, useActionState } from "react";
 import Icon from "@/components/shared/icons/Icon";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 type Props = {
   inputId: string;
@@ -11,30 +12,25 @@ type Props = {
 const MoveInputUpBtn = ({ inputId }: Props) => {
   const { formId } = useParams();
 
-  const [state, moveUp, isPending] = useActionState(async () => {
+  const [_, moveUp, isPending] = useActionState(async () => {
     return await moveInputUpAction(formId as string, inputId);
   }, null);
+
+  useAutoLoader(isPending);
 
   const handleMoveUp = () => {
     startTransition(moveUp);
   };
 
   return (
-    <>
-      {isPending && <FullscreenLoader />}
-      <Button
-        type="button"
-        onClickAction={handleMoveUp}
-        icon={
-          <Icon
-            icon="chevron-down-solid-full"
-            size={20}
-            className="rotate-180"
-          />
-        }
-        variant="icon"
-      />
-    </>
+    <Button
+      type="button"
+      onClickAction={handleMoveUp}
+      icon={
+        <Icon icon="chevron-down-solid-full" size={20} className="rotate-180" />
+      }
+      variant="icon"
+    />
   );
 };
 export default MoveInputUpBtn;

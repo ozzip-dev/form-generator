@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 
 import { Button, IconTrash, InputFields } from "../../../shared";
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 type Props = {
   inputId: string;
@@ -44,20 +45,28 @@ const EditFormDescriptionInput = (props: Props) => {
     mode: "inputLabel",
     setError,
   });
+  const isRemovingRef = useRef(false);
+
+  useEffect(() => {
+    if (isRemovingRef.current) {
+      isRemovingRef.current = false;
+    }
+  }, [isLoading?.description]);
+
+  useAutoLoader(isRemovingRef.current);
 
   const printDescriptionInput = () => {
     setDescriptionInput((prev) => !prev);
   };
 
-  const handleRemoveDescriptionInput = () => {
+  const handleRemoveDescriptionInput = async () => {
     setDescriptionInput((prev) => !prev);
 
     if (!props.description) return;
 
+    isRemovingRef.current = true;
     handleEditLabel("description", "");
   };
-
-  const loadingForm = [...Object.values(isLoading ?? {})].some(Boolean);
 
   const hasDescription = !!props.description;
   const shouldShowInput = hasDescription || isDescriptionInput;
@@ -65,14 +74,12 @@ const EditFormDescriptionInput = (props: Props) => {
 
   const descriptionInput = (
     <div className="relative md:w-4/6 ">
-      {/* <div className="w-full"> */}
       <InputFields
         inputsData={dataInputDescription}
         register={register}
         errorMsg={errors.header as any}
         onChange={handleEditLabel}
       />
-      {/* </div> */}
 
       <div className="w-fit absolute -right-10 top-3">
         <Button

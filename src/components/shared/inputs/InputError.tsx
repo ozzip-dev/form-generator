@@ -25,7 +25,9 @@ type Props = {
 
 const InputError = (props: Props) => {
   return (
-    <div className="text-xs text-error h-4 absolute">{props?.errorMsg}</div>
+    <div className="text-xs text-error absolute left-2 -bottom-6">
+      {props?.errorMsg}
+    </div>
   );
 };
 

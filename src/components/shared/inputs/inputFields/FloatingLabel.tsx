@@ -7,7 +7,7 @@ type Props = {
 const FloatingLabel = (props: Props) => (
   <label
     htmlFor={props.name}
-    className="bg-white px-1 pointer-events-none absolute left-3
+    className="bg-white px-1 pointer-events-none absolute left-2
                  origin-left transition-all duration-200
 
                  // empty not focus
@@ -15,12 +15,12 @@ const FloatingLabel = (props: Props) => (
                  peer-placeholder-shown:text-sm
 
                 // focus - label up 
-                 peer-focus:-top-3
+                 peer-focus:-top-4
                  peer-focus:text-xs
                  peer-focus:text-accent
 
                 // not focus - label up
-                 -top-3 text-xs"
+                 -top-4 text-xs"
   >
     {props.floatingLabel}
     {props.required && <span className="text-red ml-0.5">*</span>}

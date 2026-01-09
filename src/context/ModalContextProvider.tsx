@@ -1,8 +1,13 @@
 "use client";
 import { Button } from "@/components/shared";
-import Card from "@/components/shared/Card";
 import ModalWrapper from "@/components/shared/ModalWrapper";
-import { createContext, useState, ReactNode, useContext } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 
 type ConfirmAction = () => void | Promise<void>;
 
@@ -31,14 +36,13 @@ export const ModalContextProvider = (props: Props) => {
     null
   );
 
-  const open = () => setOpen(true);
   const close = () => setOpen(false);
 
-  const openModal = (config: ConfirmModalConfig) => {
+  const openModal = useCallback((config: ConfirmModalConfig) => {
     setConfirmAction(() => config.action);
     setOpen(true);
     setHeader(config.header);
-  };
+  }, []);
 
   const handleConfirm = async () => {
     if (!confirmAction) return;

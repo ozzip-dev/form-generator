@@ -1,6 +1,7 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import IsUserModal from "@/components/shared/IsUserModal";
+import { LoaderContextProvider } from "@/context/LoaderContextProvider";
 import { ModalContextProvider } from "@/context/ModalContextProvider";
 import { UserContextProvider } from "@/context/UserContextProvider";
 import { isModerator } from "@/lib/utils";
@@ -15,7 +16,7 @@ export default async function DashboardLayout({
   const user = await userPromise;
 
   return (
-    <>
+    <LoaderContextProvider>
       <ModalContextProvider>
         <UserContextProvider userPromise={userPromise}>
           {user && isModerator(user) && <IsUserModal />}
@@ -30,6 +31,6 @@ export default async function DashboardLayout({
           </div>
         </UserContextProvider>
       </ModalContextProvider>
-    </>
+    </LoaderContextProvider>
   );
 }

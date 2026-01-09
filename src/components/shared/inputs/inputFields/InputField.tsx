@@ -47,7 +47,7 @@ const InputField = ({
         aria-describedby={error ? `${name}-error` : undefined}
         className={`
          peer  rounded-sm border
-         p-3 w-full
+         p-2 w-full
          focus:outline-none focus:border-accent
           ${error ? "border-red" : "border-default"}
           ${isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}

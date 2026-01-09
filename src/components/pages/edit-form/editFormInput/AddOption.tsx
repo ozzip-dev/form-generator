@@ -17,6 +17,7 @@ import {
   OPTION_OTHER,
 } from "@/helpers/inputHelpers";
 import { FormInput, FormOption } from "@/types/input";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 type Props = {
   inputIdx: number;
@@ -36,7 +37,7 @@ const AddOption = (props: Props) => {
     null
   );
 
-  const [__, addOtherOption, isAddOptionPending] = useActionState<null>(
+  const [__, addOtherOption, isAddOptionOtherPending] = useActionState<null>(
     async (_state) => {
       await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER, true);
       return null;
@@ -56,6 +57,10 @@ const AddOption = (props: Props) => {
     control,
     name: `options`,
   });
+
+  const isPending = isRemoveOptionPending || isAddOptionOtherPending;
+
+  useAutoLoader(isPending);
 
   const { handleEdit, isLoading } = useEditForm({
     formId,
@@ -94,11 +99,8 @@ const AddOption = (props: Props) => {
     });
   };
 
-  const isDisabled = isRemoveOptionPending || isAddOptionPending;
-
   return (
     <div className="sm:w-5/6 md:w-3/6">
-      {isDisabled && <FullscreenLoader />}
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 

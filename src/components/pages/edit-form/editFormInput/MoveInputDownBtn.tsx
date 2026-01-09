@@ -1,8 +1,9 @@
-import { useParams } from "next/navigation";
-import { Button, FullscreenLoader } from "@/components/shared";
 import { moveInputDownAction } from "@/actions/edit-form/editFormInput/moveInputActions";
-import { startTransition, useActionState } from "react";
+import { Button } from "@/components/shared";
 import Icon from "@/components/shared/icons/Icon";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useParams } from "next/navigation";
+import { startTransition, useActionState } from "react";
 
 type Props = {
   inputId: string;
@@ -15,20 +16,19 @@ const MoveInputDownBtn = (props: Props) => {
     await moveInputDownAction(formId as string, props.inputId);
   }, null);
 
+  useAutoLoader(isPending);
+
   const handleMoveDown = () => {
     startTransition(moveDown);
   };
 
   return (
-    <>
-      {isPending && <FullscreenLoader />}
-      <Button
-        type="button"
-        icon={<Icon icon="chevron-down-solid-full" size={20} />}
-        variant="icon"
-        onClickAction={handleMoveDown}
-      />
-    </>
+    <Button
+      type="button"
+      icon={<Icon icon="chevron-down-solid-full" size={20} />}
+      variant="icon"
+      onClickAction={handleMoveDown}
+    />
   );
 };
 

@@ -14,8 +14,8 @@ const ProtocolsMenu = () => {
   const dataNavLinks = !protocolId
     ? protocolBasicItems
     : [
-        { text: "Edycja", link: `/protocols/${protocolId}` },
         ...protocolBasicItems,
+        { text: "Edycja", link: `/protocols/${protocolId}` },
       ];
 
   return (
