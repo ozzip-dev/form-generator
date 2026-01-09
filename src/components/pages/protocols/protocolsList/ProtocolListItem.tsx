@@ -5,12 +5,16 @@ import {
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
-import { startTransition, useActionState, useRef, useState } from "react";
+import { startTransition, use, useActionState, useRef, useState } from "react";
 
-import { getProtocolDetailsAction } from "@/actions/protocol/getProtocolDetailsAction";
+import { getProtocolDetailsAction } from "@/actions/protocol";
 import { Button, ButtonLink } from "@/components/shared";
 import ResponsiveList from "@/components/shared/responsiveList/ResponsiveList";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
+import { isProtocolAuthor } from "@/helpers/protocolHelpers";
+import { UserSerialized } from "@/types/user";
+import { useUser } from "@/context/UserContextProvider";
+import RemoveProtocolBtn from "./RemoveProtocolBtn";
 
 type Props = {
   protocol: ProtocolSerialized;
@@ -22,6 +26,9 @@ const ProtocolListItem = (props: Props) => {
   );
   const [isOpen, setIsOpen] = useState(false);
   const isFetching = useRef(false);
+
+  const { userPromise } = useUser();
+  const user: UserSerialized | null = use(userPromise);
 
   const toggleProtocolDetails = async () => {
     setIsOpen((prev) => !prev);
@@ -51,6 +58,8 @@ const ProtocolListItem = (props: Props) => {
     "Data sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
   };
 
+  const isAuthor = user && isProtocolAuthor(user, props.protocol);
+
   return (
     <div className="relative">
       <div className=" md:flex items-center">
@@ -64,11 +73,17 @@ const ProtocolListItem = (props: Props) => {
             variant="primary-rounded"
           />
 
-          <ButtonLink
-            message={"Edytuj"}
-            link={`/protocols/${_id}`}
-            className="btn-primary btn-primary-rounded text-white !bg-accent"
-          />
+          {isAuthor && (
+            <>
+              <ButtonLink
+                message={"Edytuj"}
+                link={`/protocols/${_id}`}
+                className="btn-primary btn-primary-rounded text-white !bg-accent"
+              />
+
+              <RemoveProtocolBtn ProtocolId={props.protocol._id} />
+            </>
+          )}
         </div>
       </div>
 

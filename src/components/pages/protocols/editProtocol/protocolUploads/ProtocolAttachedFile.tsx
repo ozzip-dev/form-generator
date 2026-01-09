@@ -1,4 +1,4 @@
-import { removeProtocolFileAction } from "@/actions/protocol/removeProtocolFileAction";
+import { removeProtocolFileAction } from "@/actions/protocol";
 import { Button, IconTrash } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";

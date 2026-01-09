@@ -1,7 +1,7 @@
 "use client";
 
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
-import { addProtocolFileAction } from "@/actions/protocol/addProtocolFileAction";
+import { addProtocolFileAction } from "@/actions/protocol";
 import { Button, DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";

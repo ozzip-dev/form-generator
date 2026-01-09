@@ -1,5 +1,13 @@
 import { FormType } from "@/enums/form";
-import { db, find, findById, findOne, insert, updateById } from "@/lib/mongo";
+import {
+  db,
+  deleteById,
+  find,
+  findById,
+  findOne,
+  insert,
+  updateById,
+} from "@/lib/mongo";
 import { Form, FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
@@ -188,4 +196,8 @@ export async function getFormById(formId: string): Promise<Form> {
 export async function getFormsByType(type: FormType): Promise<Form[]> {
   const forms = await find<Form>(db, "form", { type });
   return forms;
+}
+
+export async function removeForm(formId: string): Promise<void> {
+  await deleteById(db, "form", new ObjectId(formId));
 }

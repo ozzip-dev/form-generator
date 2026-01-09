@@ -28,7 +28,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/actions/protocol/createProtocolAction.ts"
   ],
   "exclude": ["node_modules"]
 }

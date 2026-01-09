@@ -1,6 +1,6 @@
 "use client";
 
-import { createProtocolAction } from "@/actions/protocol/createProtocolAction";
+import { createProtocolAction } from "@/actions/protocol";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 import { UseFormSetError } from "react-hook-form";

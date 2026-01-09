@@ -1,4 +1,4 @@
-import { editProtocolAction } from "@/actions/protocol/editProtocolAction";
+import { editProtocolAction } from "@/actions/protocol";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { ProtocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
 import { UseFormSetError } from "react-hook-form";
@@ -17,8 +17,7 @@ export const handleEditProtocol = async (
   } = data;
 
   try {
-    const resp = await editProtocolAction(protocolId,
-      {
+    const resp = await editProtocolAction(protocolId, {
       branch,
       disputeReason,
       tradeUnionName,
