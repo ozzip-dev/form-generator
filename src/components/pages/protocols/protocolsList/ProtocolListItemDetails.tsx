@@ -20,17 +20,16 @@ const ProtocolListItemDetails = ({
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
         <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
-      <div>
-        <div className="text-md font-bold pb-2">Pliki</div>
-        {Object.entries(mapFileCategory).map(([key, value]) => (
-          <ProtocolAttachedFileCategory
-            key={key}
-            files={files}
-            category={key as ProtocolFileCategory}
-            header={value}
-          />
-        ))}
-      </div>
+
+      <div className="text-md font-bold pb-2">Pliki</div>
+      {Object.entries(mapFileCategory).map(([key, value]) => (
+        <ProtocolAttachedFileCategory
+          key={key}
+          files={files}
+          category={key as ProtocolFileCategory}
+          header={value}
+        />
+      ))}
     </Card>
   );
 };
