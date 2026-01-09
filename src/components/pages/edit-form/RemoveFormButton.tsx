@@ -2,6 +2,7 @@
 
 import { removeFormAction } from "@/actions/edit-form/editFormInput/removeFormAction";
 import { Button, FullscreenLoader } from "@/components/shared";
+import { useModal } from "@/context/ModalContextProvider";
 import { confirmAction } from "@/helpers/confirmAction";
 import { startTransition, useActionState } from "react";
 
@@ -10,16 +11,10 @@ type Props = {
 };
 
 function RemoveFormButton(props: Props) {
+  const { openModal } = useModal();
   const [_, deleteForm, isPending] = useActionState(async () => {
     await removeFormAction(props.formId);
   }, null);
-
-  const handleDeleteForm = () => {
-    confirmAction({
-      action: () => startTransition(deleteForm),
-      confirmText: "Usunąć formularz?",
-    });
-  };
 
   return (
     <>
@@ -29,7 +24,12 @@ function RemoveFormButton(props: Props) {
         message="Usuń formularz"
         type="button"
         variant="primary-rounded"
-        onClickAction={handleDeleteForm}
+        onClickAction={() =>
+          openModal({
+            action: () => startTransition(deleteForm),
+            header: "Usunąć formularz?",
+          })
+        }
         className="!bg-error"
       />
     </>
