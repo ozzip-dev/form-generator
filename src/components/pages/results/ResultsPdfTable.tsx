@@ -122,7 +122,7 @@ const ResultsPdfTable = dynamic(
           );
         });
 
-        pdf.save("grid-table.pdf");
+        pdf.save(`Wyniki_${props.title}.pdf`);
       }
       return (
         <>
