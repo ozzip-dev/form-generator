@@ -1,5 +1,6 @@
 import DownloadResultsButton from "@/components/pages/results/DownloadResultsButton";
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
+import ResultsPdfTable from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { isFormSecret } from "@/helpers/formHelpers";
@@ -34,7 +35,7 @@ const FormResultsTablePage = async (props: Props) => {
   const headerValues: string[] = submittableInputs.map(({ header }) => header);
   const inputHeaders: string[] = isFormSecret(form)
     ? headerValues
-    : ["Wysłany", ...headerValues];
+    : ["Wyslany", ...headerValues];
 
   const getAnswerValues = (answers: Answers): string[] =>
     Object.entries(answers).map(([_, value]) => getAnswerDisplay(value));
@@ -50,7 +51,14 @@ const FormResultsTablePage = async (props: Props) => {
 
   return (
     <div className="container">
-      <ResultsTable {...{ inputHeaders, submissionValues }} />
+      {/* <ResultsTable {...{ inputHeaders, submissionValues }} /> */}
+      <ResultsPdfTable
+        {...{
+          inputHeaders,
+          submissionValues,
+          title: form.title || "formularz",
+        }}
+      />
       <DownloadResultsButton
         {...{ inputHeaders, submissionValues, formTitle: form.title }}
       />
