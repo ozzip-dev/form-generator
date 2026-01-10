@@ -2,6 +2,8 @@
 
 import { publishFormAction } from "@/actions/edit-form/publishForm/publishFormAction";
 import { Button } from "@/components/shared";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useModal } from "@/context/ModalContextProvider";
 import { useUser } from "@/context/UserContextProvider";
 import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
 import { FormSerialized } from "@/types/form";
@@ -14,6 +16,7 @@ type Props = {
 const PublishFormButton = ({ form }: Props) => {
   const { userPromise } = useUser();
   const user = use(userPromise);
+  const { openModal } = useModal();
 
   const areUserDetails = hasCompleteCommitteeData(user);
 
@@ -29,12 +32,17 @@ const PublishFormButton = ({ form }: Props) => {
     }
     startTransition(publishForm);
   };
-
+  useAutoLoader(isPending);
   return (
     <>
       <Button
         message="Opublikuj"
-        onClickAction={handlePublishForm}
+        onClickAction={() =>
+          openModal({
+            action: handlePublishForm,
+            header: "Publikacja formularza zablokuje jego dalszą edycję",
+          })
+        }
         isLoading={isPending}
       />
     </>

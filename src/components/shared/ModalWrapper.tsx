@@ -27,7 +27,7 @@ export default function ModalWrapper({
       onClick={handleOverlayClick}
       className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-[100]"
     >
-      <Card className="relative">
+      <Card className="relative mx-4">
         <button
           onClick={onClose}
           className="absolute top-4 right-8 hover:text-gray-900 text-lg"
