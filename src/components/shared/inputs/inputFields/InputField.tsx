@@ -16,7 +16,7 @@ type Props = {
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string) => void;
   isLoading?: Record<string, boolean>;
-  isSubmiting?: boolean;
+  isSubmitting?: boolean;
   default?: Record<string, string>;
   error?: any;
   variant?: string;
@@ -35,7 +35,7 @@ const InputField = (props: Props) => {
         type={type}
         placeholder={props.floatingLabel ? " " : placeholder}
         defaultValue={defaultValue ?? ""}
-        disabled={props.isLoading?.[name] || props.isSubmiting}
+        disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}

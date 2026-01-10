@@ -134,6 +134,7 @@ const ProtocolForm = (props: Props) => {
             control={control}
             name="disputeReason"
             options={dataCheckboxOptions}
+            isSubmitting={isSubmitting}
           />
         </div>
 

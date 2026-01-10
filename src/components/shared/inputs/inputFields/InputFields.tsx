@@ -30,7 +30,7 @@ type Props = {
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
-  isSubmiting?: boolean;
+  isSubmitting?: boolean;
   default?: Record<string, string>;
   variant?: "horizontal";
 };
@@ -82,7 +82,7 @@ const InputFields = (props: Props) => {
                 register={props.register}
                 onChange={props.onChange}
                 isLoading={props.isLoading}
-                isSubmiting={props.isSubmiting}
+                isSubmitting={props.isSubmitting}
                 default={props.default}
                 variant={props.variant}
                 error={props.errorMsg}

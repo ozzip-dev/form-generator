@@ -3,15 +3,21 @@ type Props = {
   onChange: any;
   checkedValue: string | boolean;
   checkboxLabel?: string;
+  isSubmitting?: boolean;
 };
 
 const Checkbox = (props: Props) => {
   return (
-    <label className="flex items-center gap-3 cursor-pointer">
+    <label
+      className={`flex items-center gap-3 cursor-pointer ${
+        props.isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+      }`}
+    >
       <div className="relative inline-block w-12 h-6">
         <input
           type="checkbox"
           checked={!!props.checkedValue}
+          disabled={props.isSubmitting}
           onChange={props.onChange}
           className="peer sr-only"
         />

@@ -24,6 +24,7 @@ type Props = {
   options: CheckboxOption[];
   className?: string;
   errorMsg?: any;
+  isSubmitting?: boolean;
 };
 
 export default function CheckboxGroupField(props: Props) {
@@ -71,6 +72,7 @@ export default function CheckboxGroupField(props: Props) {
                       name={name}
                       selectedValues={selectedValues}
                       onChange={field.onChange}
+                      isSubmitting={props.isSubmitting}
                     />
                   );
                 }
@@ -82,6 +84,7 @@ export default function CheckboxGroupField(props: Props) {
                     name={name}
                     onChange={() => toggle(name)}
                     checkedValue={selectedValues[name]}
+                    isSubmitting={props.isSubmitting}
                   />
                 );
               })}
