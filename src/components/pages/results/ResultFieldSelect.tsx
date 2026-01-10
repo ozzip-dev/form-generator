@@ -1,3 +1,4 @@
+import { Button } from "@/components/shared";
 import { FormInputSelectable } from "@/types/input";
 
 type Props = {
@@ -21,9 +22,27 @@ const ResultFieldSelect = (props: Props) => {
     ]);
   };
 
+  const setAllInputs = (selected: boolean): void => {
+    props.setInputs([...formInputs.map((input) => ({ ...input, selected }))]);
+  };
+
   return (
     <div>
       <div className="font-bold">Wyświetl odpowiedzi na zazanczone pytania</div>
+      <div className="flex gap-8 my-4">
+        <Button
+          variant="primary-rounded"
+          type="button"
+          onClickAction={() => setAllInputs(true)}
+          message="Zaznacz wszystko"
+        />
+        <Button
+          variant="primary-rounded"
+          type="button"
+          onClickAction={() => setAllInputs(false)}
+          message="Odznacz wszystko"
+        />
+      </div>
       {formInputs.map(({ id, header }) => (
         <div key={id} className="flex gap-2">
           <label className="block" htmlFor={id}>
