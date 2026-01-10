@@ -60,13 +60,13 @@ export const ModalContextProvider = (props: Props) => {
       setOpen(false);
       setConfirmAction(null);
     } finally {
+      setOpen(false);
       setLoading(false);
     }
   };
 
   return (
     <ModalContext.Provider value={{ openModal }}>
-      <div className="inset-0 z-50 bg-error"></div>
       <ModalWrapper isOpen={isOpen} onClose={close}>
         {isloading && <div className="fixed inset-0 z-50"></div>}
         <div className="p-8">

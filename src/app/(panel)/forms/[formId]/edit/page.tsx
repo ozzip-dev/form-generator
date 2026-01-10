@@ -26,10 +26,10 @@ const EditFormPage = async (props: Props) => {
         <FormActions form={formSerialized} />
       </SuspenseErrorBoundary>
 
-      {/* {state === "active" && <FormActiveInfo />} */}
+      {state === "active" && <FormActiveInfo />}
 
-      {/* {state !== "active" && ( */}
-      {state && (
+      {state !== "active" && (
+        /* {state && ( */
         <div className="flex flex-col gap-16">
           <SuspenseErrorBoundary
             size="lg"

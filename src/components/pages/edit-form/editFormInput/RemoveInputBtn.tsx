@@ -27,7 +27,7 @@ function RemoveInputBtn(props: Props) {
       <Button
         type="button"
         icon={<IconTrash />}
-        variant="icon"
+        variant="ghost"
         onClickAction={handleDeleteInput}
       />
     </>

@@ -57,7 +57,7 @@ const TopicPostItem = (props: Props) => {
           <Button
             type="button"
             icon={<IconTrash />}
-            variant="icon"
+            variant="ghost"
             className="!w-12 !bg-red-600"
             onClickAction={onRemovePost}
           />

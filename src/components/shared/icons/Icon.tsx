@@ -8,7 +8,7 @@ type Props = {
 const Icon = ({
   icon,
   size = 30,
-  color = "var(--color-grey_secondary)",
+  color = "var(--color-font_light)",
   className,
 }: Props) => {
   const src = `/icons/${icon}.svg`;

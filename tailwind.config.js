@@ -18,12 +18,8 @@ module.exports = {
         bg_dark: "var(--color-bg_dark)",
         bg_light: "var(--color-bg_light)",
 
-        // TODO: dodajmy te kolory do .css
-        grey_primary: "rgba(217, 217, 217, 1)",
-        grey_secondary: "var(--color-grey_secondary)",
-
-        font_dark: "rgba(66, 66, 66, 1)",
-        font_light: "rgba(193, 193, 193, 1)",
+        font_dark: "var(--color-font_dark)",
+        font_light: "var(--color-font_light)",
 
         error: "var(--color-error)",
       },

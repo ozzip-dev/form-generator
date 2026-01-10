@@ -26,8 +26,8 @@ const MoveInputDownBtn = (props: Props) => {
     <Button
       type="button"
       icon={<Icon icon="chevron-down-solid-full" size={20} />}
-      variant="icon"
       onClickAction={handleMoveDown}
+      variant="ghost"
     />
   );
 };

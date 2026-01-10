@@ -4,13 +4,10 @@ const VARIANTS = {
   primary: "btn btn-primary",
   "primary-rounded": "btn btn-primary-rounded",
   ghost: "",
-  icon: "",
 };
 
-// disabled:opacity-70 disabled:cursor-not-allowed
-// transition-colors duration-200
 type Props = {
-  variant?: "primary" | "primary-rounded" | "ghost" | "icon";
+  variant?: "primary" | "primary-rounded" | "ghost";
   isLoading?: boolean;
   message?: string;
   icon?: React.ReactNode;
@@ -32,11 +29,11 @@ const Button = (props: Props) => {
                 cursor-pointer
                 select-none
                 transition-all duration-150 ease-out
-                hover:brightness-95
                 active:brightness-90
                 active:scale-[0.98]
                 disabled:opacity-60
                 disabled:pointer-events-none
+                disabled:cursor-not-allowed
 
         ${VARIANTS[props.variant || "primary"]}
         ${props.className}

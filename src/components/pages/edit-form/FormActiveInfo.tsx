@@ -1,5 +1,9 @@
 const FormActiveInfo = () => {
-  return <div>Formularz opublikowany, nie można jego edytować</div>;
+  return (
+    <div className="text-center text-lg font-bold">
+      Formularz opublikowany - edycja niedostępna.
+    </div>
+  );
 };
 
 export default FormActiveInfo;

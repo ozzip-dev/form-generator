@@ -18,14 +18,13 @@
   --color-accent_dark: rgba(101, 130, 255, 1);
   --color-accent_light: rgba(226, 236, 255, 1);
 
-  --color-grey_secondary: rgba(193, 193, 193, 1);
-
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);
 
-  --color-error: rgba(255, 87, 87, 1);
+  --color-font_dark: rgba(66, 66, 66, 1);
+  --color-font_light: rgba(193, 193, 193, 1);
 
-  --color-text-base: rgba(66, 66, 66, 1);
+  --color-error: rgba(255, 87, 87, 1);
 }
 
 @media (min-width: 500px) {
@@ -40,7 +39,7 @@
 
 @layer base {
   body {
-    color: var(--color-text-base);
+    color: var(--color-font_dark);
   }
 }
 

@@ -42,8 +42,8 @@ const DashboardMenu = () => {
             <Icon color="white" icon="hamburger" size={20} />
           )
         }
-        variant="icon"
         onClickAction={() => setIsMenuOpen((prev) => !prev)}
+        variant="ghost"
       />
 
       <div

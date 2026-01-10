@@ -46,7 +46,7 @@ const ProtocolAttachedFile = (props: Props) => {
       <Button
         type="button"
         icon={<IconTrash size={27} />}
-        variant="icon"
+        variant="ghost"
         onClickAction={() =>
           openModal({ action: printModal, header: "Usunąć dokument?" })
         }
