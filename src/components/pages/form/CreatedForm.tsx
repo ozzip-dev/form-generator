@@ -146,8 +146,21 @@ const CreatedForm = (props: Props) => {
       // </Card>
     });
 
+  const hasErrors = Object.keys(errors).length > 0;
+
   return (
     <>
+      {
+        <div
+          className={`w-screen z-20 py-4 bg-accent_light 
+            text-error text-center absolute left-0 -top-24
+          transition-transform duration-700 ease-in-out
+          ${hasErrors ? "translate-y-24" : "translate-y-0"}
+        `}
+        >
+          Wypełnij wymagane pola formularza
+        </div>
+      }
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="">
         <Card className="mb-10">

@@ -41,6 +41,7 @@ const PublishFormButton = ({ form }: Props) => {
           openModal({
             action: handlePublishForm,
             header: "Publikacja formularza zablokuje jego dalszą edycję",
+            confirmBtnMessage: "Opublikuj",
           })
         }
         isLoading={isPending}

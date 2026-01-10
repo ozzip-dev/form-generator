@@ -14,6 +14,7 @@ type ConfirmAction = () => void | Promise<void>;
 type ConfirmModalConfig = {
   action: ConfirmAction;
   header: string;
+  confirmBtnMessage?: string;
 };
 
 type ModalContextType = {
@@ -31,7 +32,10 @@ type Props = {
 export const ModalContextProvider = (props: Props) => {
   const [isOpen, setOpen] = useState(false);
   const [isloading, setLoading] = useState(false);
-  const [header, setHeader] = useState("");
+  const [config, setConfig] = useState({
+    header: "",
+    confirmBtnMessage: "Potwierdź",
+  });
   const [confirmAction, setConfirmAction] = useState<ConfirmAction | null>(
     null
   );
@@ -41,7 +45,11 @@ export const ModalContextProvider = (props: Props) => {
   const openModal = useCallback((config: ConfirmModalConfig) => {
     setConfirmAction(() => config.action);
     setOpen(true);
-    setHeader(config.header);
+    setConfig({
+      ...config,
+      confirmBtnMessage: config.confirmBtnMessage || "Potwierdź",
+      header: config.header,
+    });
   }, []);
 
   const handleConfirm = async () => {
@@ -62,7 +70,7 @@ export const ModalContextProvider = (props: Props) => {
       <ModalWrapper isOpen={isOpen} onClose={close}>
         {isloading && <div className="fixed inset-0 z-50"></div>}
         <div className="p-8">
-          <div className="text-center text-lg mb-10">{header}</div>
+          <div className="text-center text-lg mb-10">{config.header}</div>
           <div className="flex flex-col sm:flex-row justify-center gap-8">
             <Button
               message={"Anuluj"}
@@ -71,10 +79,9 @@ export const ModalContextProvider = (props: Props) => {
               !text-accent border border-accent"
             />
             <Button
-              message={"Potwierdź"}
+              message={config.confirmBtnMessage}
               onClickAction={handleConfirm}
               isLoading={isloading}
-              className=""
             />
           </div>
         </div>
