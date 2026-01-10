@@ -8,7 +8,7 @@ import FloatingLabel from "./FloatingLabel";
 import InputDescription from "../InputDescription";
 import InputIndicators from "../InputIndicators";
 
-type TypeInputData = {
+type InputData = {
   staticLabel?: string;
   floatingLabel?: string;
   name: string;
@@ -22,15 +22,15 @@ type TypeInputData = {
 };
 
 type Props = {
-  inputsData: TypeInputData[];
+  inputsData: InputData[];
   // errorMsg?: FieldErrors<any> & {
   //   server?: Record<string, { message: string }>;
   // };
-
   errorMsg?: any;
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
+  isSubmiting?: boolean;
   default?: Record<string, string>;
   variant?: "horizontal";
 };
@@ -82,6 +82,7 @@ const InputFields = (props: Props) => {
                 register={props.register}
                 onChange={props.onChange}
                 isLoading={props.isLoading}
+                isSubmiting={props.isSubmiting}
                 default={props.default}
                 variant={props.variant}
                 error={props.errorMsg}

@@ -11,27 +11,21 @@ type Props = {
     required?: boolean;
     dataAttribut?: string;
     placeholder?: string;
+    defaultValue?: string;
   };
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string) => void;
   isLoading?: Record<string, boolean>;
+  isSubmiting?: boolean;
   default?: Record<string, string>;
   error?: any;
   variant?: string;
   floatingLabel?: string;
 };
 
-const InputField = ({
-  inputData,
-  register,
-  onChange,
-  isLoading,
-  default: defaultValues,
-  error,
-  variant,
-  floatingLabel,
-}: Props) => {
-  const { name, label, type, required, placeholder } = inputData;
+const InputField = (props: Props) => {
+  const { name, label, type, required, placeholder, defaultValue } =
+    props.inputData;
 
   return (
     <div className="relative">
@@ -39,45 +33,45 @@ const InputField = ({
         id={name}
         name={name}
         type={type}
-        placeholder={floatingLabel ? " " : placeholder}
-        defaultValue={defaultValues?.[name] ?? ""}
-        disabled={isLoading?.[name]}
+        placeholder={props.floatingLabel ? " " : placeholder}
+        defaultValue={defaultValue ?? ""}
+        disabled={props.isLoading?.[name] || props.isSubmiting}
         aria-required={required}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${name}-error` : undefined}
+        aria-invalid={!!props.error}
+        aria-describedby={props.error ? `${name}-error` : undefined}
         className={`
          peer  rounded-sm border
          p-2 w-full
          focus:outline-none focus:border-accent
-          ${error ? "border-red" : "border-default"}
-          ${isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
+          ${props.error ? "border-red" : "border-default"}
+          ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
         
 
         `}
-        {...(register && register(name))}
+        {...(props.register && props.register(name))}
         onChange={(e) => {
-          register?.(name).onChange(e);
-          onChange?.(name, e.target.value);
+          props.register?.(name).onChange(e);
+          props.onChange?.(name, e.target.value);
         }}
       />
-      {floatingLabel && (
+      {props.floatingLabel && (
         <FloatingLabel
           name={name}
-          floatingLabel={floatingLabel}
+          floatingLabel={props.floatingLabel}
           required={required || false}
         />
       )}
 
-      {isLoading?.[name] && (
+      {props.isLoading?.[name] && (
         <div className="absolute right-3 top-1/2 -translate-y-1/2">
           <DataLoader size="sm" />
         </div>
       )}
       <InputError
         errorMsg={
-          (error?.[name]?.message as string) ||
-          (error as any)?.message ||
-          (error?.[name] && error?.[name][0])
+          (props.error?.[name]?.message as string) ||
+          (props.error as any)?.message ||
+          (props.error?.[name] && props.error?.[name][0])
         }
       />
     </div>

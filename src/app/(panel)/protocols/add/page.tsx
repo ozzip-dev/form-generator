@@ -8,7 +8,7 @@ const AddProtocolPage = () => {
   return (
     <>
       <SuspenseErrorBoundary size="lg" errorMessage="Brak danych protokołu">
-        <div className="container">
+        <div className="container mb-16">
           <div className="text-xl pb-sm">Krok 1: uzupełnij dane</div>
           <ProtocolForm mode="addProtocol" onSubmit={handleAddProtocol} />
         </div>

@@ -72,7 +72,7 @@ const AddFormField = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center">
+        <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center mb-16">
           <div className="md:w-4/6 md:flex justify-between">
             <div className="md:w-[45%]">
               <InputFields

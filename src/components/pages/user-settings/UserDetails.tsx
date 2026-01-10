@@ -28,7 +28,7 @@ const UserDetails = (props: Props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-2">
+      <div className="">
         <Card>
           <SectionHeader message="Dane kontaktowe" />
 
@@ -43,7 +43,7 @@ const UserDetails = (props: Props) => {
           message="Edytuj"
           type="button"
           onClickAction={props.handlePrintForm}
-          className="m-auto mt-16"
+          className="m-auto w-full sm:w-fit mt-10"
         />
       </div>
     </>

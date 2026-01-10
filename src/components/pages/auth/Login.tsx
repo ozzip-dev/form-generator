@@ -29,11 +29,17 @@ const ToastsData: ModelToast[] = [
 ];
 
 const dataInputsLogin = [
-  { floatingLabel: "Email", name: "email", type: "email" },
+  {
+    floatingLabel: "Email",
+    name: "email",
+    type: "email",
+    defaultValue: "aaaaa",
+  },
   {
     floatingLabel: "Hasło",
     name: "password",
     type: "password",
+    defaultValue: "123123123",
   },
 ];
 
@@ -106,7 +112,7 @@ const Login = () => {
         <InputFields
           inputsData={dataInputsLogin}
           errorMsg={state.errors}
-          default={defaultValues}
+          // default={defaultValues}
         />
         <div className="text-end my-4">
           <Link

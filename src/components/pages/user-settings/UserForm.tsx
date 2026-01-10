@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
 import { Button, InputFields } from "@/components/shared";
@@ -33,24 +33,20 @@ const dataInputscommittee = [
     type: "email",
   },
 ];
+
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
 type Props = { handlePrintForm: () => void };
 
 const UserForm = (props: Props) => {
   const { userPromise } = useUser();
-  const userData: any = use(userPromise);
+  const userDetails: any = use(userPromise);
   const isAction = useRef(false);
 
-  const initialValues = [
-    "committeeUnion",
-    "committeeName",
-    "committeePhone",
-    "committeeEmail",
-  ].reduce((acu: Record<string, string>, key: string) => {
-    acu[key] = userData[key];
-    return acu;
-  }, {});
+  const inputsWithDefaults = dataInputscommittee.map((input) => ({
+    ...input,
+    defaultValue: userDetails?.[input.name] ?? "",
+  }));
 
   const editUserDetails = async (
     prevState: State,
@@ -82,8 +78,6 @@ const UserForm = (props: Props) => {
     initialState
   );
 
-  const defaultValues = state?.inputs ? state?.inputs : initialValues;
-
   return (
     <>
       <form action={formAction}>
@@ -91,12 +85,11 @@ const UserForm = (props: Props) => {
           <SectionHeader message="Dane kontaktowe" />
           <InputFields
             errorMsg={state.errors}
-            inputsData={dataInputscommittee}
-            default={defaultValues}
+            inputsData={inputsWithDefaults}
             variant="horizontal"
           />{" "}
         </Card>
-        <div className="flex flex-col sm:flex-row justify-center mt-16 gap-10 sm:gap-16">
+        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-10 sm:gap-16">
           <Button
             message="Anuluj"
             onClickAction={() => {

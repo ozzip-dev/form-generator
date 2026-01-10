@@ -27,7 +27,7 @@ const DetailsPrinter = (props: Props) => {
       <div className="font-bold mb-1 md:mr-4">{props.label}</div>
 
       <div className=" border border-transparent p-2 min-w-[22ch] ">
-        {isValidDateDMY(props.value) && <div className="h-[1px]"> </div>}
+        {isValidDateDMY(props.value) && <div className="h-[2px]"> </div>}
         {props.value}
       </div>
     </div>

@@ -35,7 +35,7 @@ const dataInputsProtocolForm = [
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
-    placeholder: "firma",
+    placeholder: "Firma",
     type: "text",
   },
 ];
@@ -125,6 +125,7 @@ const ProtocolForm = (props: Props) => {
           register={register}
           errorMsg={errors}
           variant="horizontal"
+          isSubmiting={isSubmitting}
         />
 
         <div className="md:mt-[2.7rem]">
