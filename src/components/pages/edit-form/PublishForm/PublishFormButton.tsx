@@ -17,7 +17,7 @@ const PublishFormButton = ({ form }: Props) => {
 
   const areUserDetails = hasCompleteCommitteeData(user);
 
-  const [state, publishForm, isPending] = useActionState(async () => {
+  const [_, publishForm, isPending] = useActionState(async () => {
     const url = await publishFormAction(form);
     window.open(url, "_blank");
   }, null);
@@ -36,7 +36,6 @@ const PublishFormButton = ({ form }: Props) => {
         message="Opublikuj"
         onClickAction={handlePublishForm}
         isLoading={isPending}
-        variant="primary"
       />
     </>
   );

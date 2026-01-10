@@ -16,21 +16,25 @@ const dataInputscommittee = [
     staticLabel: "Nazwa związku zawodowego:",
     name: "committeeUnion",
     type: "text",
+    placeholder: "Związek",
   },
   {
     staticLabel: "Nazwa struktury związku:",
     name: "committeeName",
     type: "text",
+    placeholder: "Komisja",
   },
   {
     staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: "text",
+    placeholder: "111-111-111",
   },
   {
     staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: "email",
+    placeholder: "email@zzz.pl",
   },
 ];
 

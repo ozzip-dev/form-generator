@@ -7,10 +7,6 @@ import SectionHeader from "@/components/shared/SectionHeader";
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();
 
-  if (!forms || forms.length === 0) {
-    return <div>Brak zapisanych formularzy</div>;
-  }
-
   return (
     <>
       <div className="w-full md:flex items-center ">
@@ -27,7 +23,7 @@ const FormsLIst = async () => {
         >
           <FormTrigger />
         </SuspenseErrorBoundary>
-        {forms.map((form) => {
+        {forms?.map((form) => {
           return <FormLink form={form} key={form._id} />;
         })}
       </ul>

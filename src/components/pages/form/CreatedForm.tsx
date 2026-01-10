@@ -130,16 +130,20 @@ const CreatedForm = (props: Props) => {
       console.log("");
 
       const renderer = fieldRenderers[input.type];
-      return (
-        <Card key={input.id}>
-          {renderer({
-            input,
-            errors,
-            register,
-            control,
-          })}
-        </Card>
-      );
+      return renderer({
+        input,
+        errors,
+        register,
+        control,
+      });
+      // <Card key={input.id}>
+      //   {renderer({
+      //     input,
+      //     errors,
+      //     register,
+      //     control,
+      //   })}
+      // </Card>
     });
 
   return (
@@ -160,7 +164,8 @@ const CreatedForm = (props: Props) => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-10"
           >
-            {formFields}
+            <Card className="mb-10 flex flex-col gap-10">{formFields}</Card>
+
             <div className=" flex flex-col gap-8 md:gap-16 items-center md:flex-row ">
               <Button
                 message="Wyczyść"

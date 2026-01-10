@@ -2,12 +2,15 @@
 
 import { createFormDraftAction } from "@/actions/create-form/createFormDraftAction";
 import { Button, Icon } from "@/components/shared";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { startTransition, useActionState } from "react";
 
 const FormTrigger = () => {
-  const [state, createForm, isPending] = useActionState(async () => {
+  const [_, createForm, isPending] = useActionState(async () => {
     await createFormDraftAction("empty");
   }, null);
+
+  useAutoLoader(isPending);
 
   const handleCreateForm = () => {
     startTransition(createForm);
@@ -17,7 +20,6 @@ const FormTrigger = () => {
     <>
       <Button
         onClickAction={handleCreateForm}
-        isLoading={isPending}
         variant="ghost"
         className="bg-accent_light flex justify-center items-center w-[15rem] h-[15rem] rounded-md border border-accent"
         icon={

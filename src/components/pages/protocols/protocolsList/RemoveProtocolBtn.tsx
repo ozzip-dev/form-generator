@@ -1,10 +1,9 @@
 "use client";
 
 import { removeProtocolAction } from "@/actions/protocol";
-import { Button, FullscreenLoader, IconTrash } from "@/components/shared";
+import { Button, IconTrash } from "@/components/shared";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
-import { useToast } from "@/context/ToastProvider";
-import { confirmAction } from "@/helpers/confirmAction";
 import { startTransition, useActionState } from "react";
 
 type Props = {
@@ -18,23 +17,21 @@ function RemoveProtocolBtn(props: Props) {
     await removeProtocolAction(props.ProtocolId);
   }, null);
 
-  return (
-    <>
-      {isPending && <FullscreenLoader />}
+  useAutoLoader(isPending);
 
-      <Button
-        type="button"
-        icon={<IconTrash />}
-        variant="primary-rounded"
-        onClickAction={() =>
-          openModal({
-            action: () => startTransition(deleteProtocol),
-            header: "Usunąć protokuł?",
-          })
-        }
-        className="!bg-error"
-      />
-    </>
+  return (
+    <Button
+      type="button"
+      icon={<IconTrash />}
+      variant="primary-rounded"
+      onClickAction={() =>
+        openModal({
+          action: () => startTransition(deleteProtocol),
+          header: "Usunąć protokuł?",
+        })
+      }
+      className="!bg-error"
+    />
   );
 }
 

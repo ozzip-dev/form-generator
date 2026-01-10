@@ -125,7 +125,7 @@ const ProtocolForm = (props: Props) => {
           register={register}
           errorMsg={errors}
           variant="horizontal"
-          isSubmiting={isSubmitting}
+          isSubmitting={isSubmitting}
         />
 
         <div className="md:mt-[2.7rem]">

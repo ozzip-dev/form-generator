@@ -4,7 +4,7 @@ type Props = {
 
 const ResponsiveList = (props: Props) => {
   return (
-    <ul className="md:flex md:flex-row md:w-4/5">
+    <ul className="md:flex md:flex-row">
       {Object.entries(props.listItems).map(([key, value]) => {
         return (
           <li

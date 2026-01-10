@@ -1,4 +1,5 @@
-const isValidDateDMY = (value: string): boolean => {
+const isValidDateDMY = (value: string): boolean | undefined => {
+  if (!value) return;
   const match = value.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
   if (!match) return false;
 
@@ -28,7 +29,7 @@ const DetailsPrinter = (props: Props) => {
 
       <div className=" border border-transparent p-2 min-w-[22ch] ">
         {isValidDateDMY(props.value) && <div className="h-[2px]"> </div>}
-        {props.value}
+        {props.value ? props.value : <span className="text-error">Brak</span>}
       </div>
     </div>
   );

@@ -22,7 +22,11 @@ const ContactsPage = async (props: Props) => {
     })
   );
 
-  return <Contacts committees={userCommittees} type={type as FormType} />;
+  return (
+    <div className="container">
+      <Contacts committees={userCommittees} type={type as FormType} />
+    </div>
+  );
 };
 
 export default ContactsPage;

@@ -17,7 +17,7 @@ export const userDetailsSchema = z.object({
     .min(8, { message: "Min. 8 znaków" })
     .refine(
       (value) => /^(\+48)?\s?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/.test(value),
-      "Nieprawidłowy numer telefonu"
+      "Błędny numer"
     ),
   committeeEmail: z.string().trim().email({ message: "Format email" }),
 });

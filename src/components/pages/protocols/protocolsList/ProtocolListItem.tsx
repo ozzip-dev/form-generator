@@ -63,7 +63,9 @@ const ProtocolListItem = (props: Props) => {
   return (
     <div className="relative">
       <div className="md:flex items-center">
-        <ResponsiveList listItems={dataProtocolsList} />
+        <div className="md:w-4/5">
+          <ResponsiveList listItems={dataProtocolsList} />
+        </div>
 
         <div className="flex justify-between gap-2 mt-8 mb-2 md:mt-0">
           <Button

@@ -14,6 +14,13 @@ type Props = {
 const Protocols = ({ protocols }: Props) => {
   const [filters, setFilters] = useState<ProtocolFilters>(filtersDefault);
 
+  if (!protocols || protocols.length == 0)
+    return (
+      <div className="text-error text-center container">
+        Brak zapisanych protokołów
+      </div>
+    );
+
   return (
     <div className="container h-full flex flex-col">
       <div className="shrink-0">

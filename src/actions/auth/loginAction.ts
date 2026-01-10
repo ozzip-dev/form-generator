@@ -32,7 +32,7 @@ export async function loginAction(
   } catch (err: any) {
     const msg =
       err?.status == "UNAUTHORIZED"
-        ? "Nieprawidłowy email lub hasło"
+        ? "Błędny email lub hasło"
         : err?.message || "błąd";
     return {
       success: false,

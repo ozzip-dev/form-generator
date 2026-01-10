@@ -44,7 +44,11 @@ const InputField = (props: Props) => {
          p-2 w-full
          focus:outline-none focus:border-accent
           ${props.error ? "border-red" : "border-default"}
-          ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
+          ${
+            props.isLoading?.[name] || props.isSubmitting
+              ? "opacity-50 cursor-not-allowed"
+              : ""
+          }
         
 
         `}

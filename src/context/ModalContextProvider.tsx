@@ -58,7 +58,9 @@ export const ModalContextProvider = (props: Props) => {
 
   return (
     <ModalContext.Provider value={{ openModal }}>
+      <div className="inset-0 z-50 bg-error"></div>
       <ModalWrapper isOpen={isOpen} onClose={close}>
+        {isloading && <div className="fixed inset-0 z-50"></div>}
         <div className="p-8">
           <div className="text-center text-lg mb-10">{header}</div>
           <div className="flex flex-col sm:flex-row gap-8">

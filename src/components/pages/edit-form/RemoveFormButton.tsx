@@ -1,9 +1,9 @@
 "use client";
 
 import { removeFormAction } from "@/actions/edit-form/editFormInput/removeFormAction";
-import { Button, FullscreenLoader } from "@/components/shared";
+import { Button } from "@/components/shared";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
-import { confirmAction } from "@/helpers/confirmAction";
 import { startTransition, useActionState } from "react";
 
 type Props = {
@@ -16,23 +16,21 @@ function RemoveFormButton(props: Props) {
     await removeFormAction(props.formId);
   }, null);
 
-  return (
-    <>
-      {isPending && <FullscreenLoader />}
+  useAutoLoader(isPending);
 
-      <Button
-        message="Usuń formularz"
-        type="button"
-        variant="primary-rounded"
-        onClickAction={() =>
-          openModal({
-            action: () => startTransition(deleteForm),
-            header: "Usunąć formularz?",
-          })
-        }
-        className="!bg-error"
-      />
-    </>
+  return (
+    <Button
+      message="Usuń formularz"
+      type="button"
+      variant="primary-rounded"
+      onClickAction={() =>
+        openModal({
+          action: () => startTransition(deleteForm),
+          header: "Usunąć formularz?",
+        })
+      }
+      className="!bg-error"
+    />
   );
 }
 
