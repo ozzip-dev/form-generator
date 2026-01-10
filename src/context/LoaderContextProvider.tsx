@@ -1,6 +1,7 @@
 "use client";
 
 import { FullscreenLoader } from "@/components/shared";
+import { usePathname } from "next/navigation";
 import {
   createContext,
   ReactNode,
@@ -26,6 +27,10 @@ type Props = {
 };
 
 export const LoaderContextProvider = ({ children }: Props) => {
+  const pathname = usePathname();
+  const showSmallLoaderInfo =
+    pathname?.startsWith("/forms/") && pathname?.endsWith("/edit");
+
   const counters = useRef<Record<LoaderVariant, number>>({
     fullscreen: 0,
     small: 0,
@@ -54,10 +59,12 @@ export const LoaderContextProvider = ({ children }: Props) => {
   return (
     <LoaderContext.Provider value={{ setLoading }}>
       {visible.fullscreen && <FullscreenLoader />}
+      {showSmallLoaderInfo && (
+        <div className="text-xs text-white absolute left-1/2 -translate-x-1/2 ">
+          {visible.small ? "Zapisywanie danych..." : "Dane formularza zapisane"}
+        </div>
+      )}
 
-      <div className="text-xs text-white absolute left-1/2 -translate-x-1/2 ">
-        {visible.small ? "Zapis danych..." : "Dane formularza zapisane"}
-      </div>
       {children}
     </LoaderContext.Provider>
   );

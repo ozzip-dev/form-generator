@@ -108,37 +108,33 @@ const AddOption = (props: Props) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
-          <div key={field.id} className="relative">
-            <div className="w-full">
-              <InputFields
-                inputsData={[
-                  {
-                    type: "text",
-                    name: `options.${idx}.label`,
-                    floatingLabel: isOtherOption
-                      ? "Edytuj inne"
-                      : "Edytuj opcję",
-                    // placeholder: isOtherOption ? "Inne" : `Opcja ${idx + 1}`,
-                  },
-                ]}
-                register={register}
-                errorMsg={(errors.options as any)?.[idx]?.label}
-                onChange={(name, value) => {
-                  handleEdit(name, value, isOtherOption);
-                }}
-                // isLoading={isLoading}
-              />
-            </div>
-            <div className="w-fit absolute -right-10 top-3">
-              <Button
-                type="button"
-                icon={<IconTrash />}
-                onClickAction={() =>
-                  handleDeleteOption(`option.${idx}.${props.header}`, idx)
-                }
-                variant="icon"
-              />
-            </div>
+          <div
+            key={field.id}
+            className="w-[calc(100%-3rem)] sm:w-full relative"
+          >
+            <InputFields
+              inputsData={[
+                {
+                  type: "text",
+                  name: `options.${idx}.label`,
+                  floatingLabel: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                },
+              ]}
+              register={register}
+              errorMsg={(errors.options as any)?.[idx]?.label}
+              onChange={(name, value) => {
+                handleEdit(name, value, isOtherOption);
+              }}
+            />
+            <Button
+              type="button"
+              icon={<IconTrash />}
+              onClickAction={() =>
+                handleDeleteOption(`option.${idx}.${props.header}`, idx)
+              }
+              variant="ghost"
+              className="w-fit !absolute top-2 -right-10"
+            />
           </div>
         );
       })}

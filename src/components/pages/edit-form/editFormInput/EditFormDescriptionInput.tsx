@@ -76,7 +76,7 @@ const EditFormDescriptionInput = (props: Props) => {
   const canAddDescription = !props.isParagraph && !shouldShowInput;
 
   const descriptionInput = (
-    <div className="relative md:w-4/6 ">
+    <div className="relative w-[calc(100%-3rem)] md:w-4/6 ">
       <InputFields
         inputsData={dataInputDescription}
         register={register}
@@ -84,14 +84,13 @@ const EditFormDescriptionInput = (props: Props) => {
         onChange={handleEditLabel}
       />
 
-      <div className="w-fit absolute -right-10 top-3">
-        <Button
-          type="button"
-          icon={<IconTrash />}
-          variant="icon"
-          onClickAction={handleRemoveDescriptionInput}
-        />
-      </div>
+      <Button
+        type="button"
+        icon={<IconTrash />}
+        onClickAction={handleRemoveDescriptionInput}
+        variant="ghost"
+        className="w-fit !absolute top-2 -right-10"
+      />
     </div>
   );
 
