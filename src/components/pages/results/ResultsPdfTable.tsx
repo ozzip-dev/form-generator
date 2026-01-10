@@ -4,7 +4,14 @@ import { Button } from "@/components/shared";
 import jsPDF from "jspdf";
 import { autoTable, RowInput } from "jspdf-autotable";
 import dynamic from "next/dynamic";
-import { addFonts, addNumberedPageHeader, setFontFamilyRegular } from "./utils";
+import {
+  addFonts,
+  addNumberedPageHeader,
+  getAvailablePageWidth,
+  MARGIN_H,
+  pxToMm,
+  setFontFamilyRegular,
+} from "./utils";
 
 type Props = {
   title: string;
@@ -36,15 +43,15 @@ const ResultsPdfTable = dynamic(
         return rows;
       }
 
-      const PX_TO_MM = 25.4 / 96;
+      function buildScaledColumnStyles(
+        widthsPx: number[],
+        availableWidthMm: number
+      ) {
+        const totalPx = widthsPx.reduce((a, b) => a + b, 0);
+        const scale = availableWidthMm / pxToMm(totalPx);
 
-      function pxToMm(px: number) {
-        return px * PX_TO_MM;
-      }
-
-      function buildColumnStyles(widthsPx: number[]) {
         return Object.fromEntries(
-          widthsPx.map((w, idx) => [idx, { cellWidth: pxToMm(w) }])
+          widthsPx.map((w, idx) => [idx, { cellWidth: pxToMm(w) * scale }])
         );
       }
 
@@ -68,15 +75,18 @@ const ResultsPdfTable = dynamic(
         autoTable(pdf, {
           head,
           body,
-          styles: { font: "RobotoRegular", fontSize: 9 },
+          styles: { cellWidth: "wrap", font: "RobotoRegular", fontSize: 9 },
           headStyles: {
             cellWidth: "wrap",
-            overflow: "visible",
             font: "RobotoBold",
+            valign: "middle",
             fillColor: "#4a4a4a",
           },
-          columnStyles: buildColumnStyles(columnWidthsPx),
-          margin: { top: 25, left: 0.2 },
+          columnStyles: buildScaledColumnStyles(
+            columnWidthsPx,
+            getAvailablePageWidth(pdf)
+          ),
+          margin: { top: 25, left: MARGIN_H },
 
           rowPageBreak: "avoid",
 

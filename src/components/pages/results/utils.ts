@@ -66,7 +66,7 @@ export const addNumberedHeaderText = (
   pdf.text(
     `wyniki wygenerowano: ${formatDateAndTime(
       new Date().toISOString()
-    )} ${" "}${" "} strona: (${page}/${pageCount}) ${" "}${" "} wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
+    )}                        strona: (${page}/${pageCount})                        wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
     5,
     17
   );
@@ -100,3 +100,15 @@ export const addFonts = (pdf: jsPDF): void => {
   pdf.addFont("RobotoRegular-normal.ttf", "RobotoRegular", "normal");
   pdf.addFont("RobotoRegular-bold.ttf", "RobotoBold", "bold");
 };
+
+/* PDF size, margins */
+export const MARGIN_H = 0.2;
+const MARGINS = MARGIN_H * 2;
+const PX_TO_MM = 25.4 / 96;
+
+const getPageWidth = (pdf: jsPDF): number => pdf.internal.pageSize.getWidth();
+
+export const getAvailablePageWidth = (pdf: jsPDF): number =>
+  getPageWidth(pdf) - MARGINS;
+
+export const pxToMm = (px: number): number => px * PX_TO_MM;
