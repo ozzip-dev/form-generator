@@ -5,7 +5,7 @@ type Props = {
 
 const ResultsTable = async (props: Props) => {
   return (
-    <div className="max-h-[calc(100vh-280px)] overflow-y-auto overflow-x-auto">
+    <div className="max-h-[calc(100vh-280px)] overflow-y-auto overflow-x-auto mt-4">
       <table className="min-w-max w-full text-sm border-collapse">
         <thead className="sticky top-0 bg-white z-10">
           <tr className="*:p-2">

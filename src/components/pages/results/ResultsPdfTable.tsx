@@ -90,14 +90,11 @@ const ResultsPdfTable = dynamic(
           },
         });
 
-        console.log(rowsPerPage);
-
         const totalPages = pdf.getNumberOfPages();
         const totalRecords = body.length;
 
         Object.entries(rowsPerPage).forEach(([pageStr, rows]) => {
           const page = Number(pageStr);
-
           const firstRecord = rows[0] + 1;
           const lastRecord = rows[rows.length - 1] + 1;
 
@@ -121,7 +118,7 @@ const ResultsPdfTable = dynamic(
         <>
           <div
             id="results"
-            className="grid justify-start gap-4 w-full"
+            className="invisible absolute grid justify-start gap-4 w-full z-0"
             style={{
               gridTemplateColumns: `repeat(${props.inputHeaders.length},minmax(70px,auto))`,
             }}
@@ -135,7 +132,7 @@ const ResultsPdfTable = dynamic(
           </div>
           <Button
             onClickAction={exportGridToPDF}
-            message="PDF"
+            message="Pobierz wyniki (.pdf)"
             className="!w-auto my-4"
           />
         </>

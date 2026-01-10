@@ -151,7 +151,8 @@ const Results = (props: Props) => {
         />
       </div>
 
-      <div className="w-fit mt-4 p-4 border">
+      {/* TODO: Zamienic na export pdf pojedynczych inputów? */}
+      {/* <div className="w-fit mt-4 p-4 border">
         <ResultDiagramSelect {...{ diagrams, setDiagrams }} />
 
         <Button
@@ -160,7 +161,7 @@ const Results = (props: Props) => {
           className="!w-auto my-4"
           disabled={!displayedResults.results.length}
         />
-      </div>
+      </div> */}
 
       <div id="results" className="w-fit p-4">
         {displayedResults.results.map((result, i) => (

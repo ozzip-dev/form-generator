@@ -21,9 +21,9 @@ export const addOzzipLogo = (pdf: jsPDF, size: number = 20): void => {
   pdf.addImage(img, "PNG", getPdfWidth(pdf) - 20, 0, size, size);
 };
 
-export const drawHeader = (pdf: jsPDF): void => {
+export const drawHeader = (pdf: jsPDF, size: number = 20): void => {
   pdf.setFillColor("#c7c7c7");
-  pdf.rect(0, 0, getPdfWidth(pdf), 20, "F");
+  pdf.rect(0, 0, getPdfWidth(pdf), size, "F");
 };
 
 export const addHeaderText = (title: string, pdf: jsPDF): void => {
@@ -42,7 +42,7 @@ export const addHeaderText = (title: string, pdf: jsPDF): void => {
 };
 
 export const addPageHeader = (title: string, pdf: jsPDF): void => {
-  drawHeader(pdf);
+  drawHeader(pdf, 50);
   addOzzipLogo(pdf, 50);
   addHeaderText(title, pdf);
 };

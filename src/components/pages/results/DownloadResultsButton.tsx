@@ -32,9 +32,9 @@ const DownloadResultsButton = (props: Props) => {
 
   return (
     <Button
-      message="Pobierz wyniki"
+      message="Pobierz wyniki (.xls)"
       onClickAction={downloadResults}
-      className="!w-64 my-6"
+      className="my-6"
     />
   );
 };
