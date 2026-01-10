@@ -1,24 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { Button } from "@/components/shared";
 import { DiagramType, GroupedAnswer } from "@/types/result";
 import { AnswerResults } from "./answers";
 import { FormInput, FormInputSelectable } from "@/types/input";
 import ResultFieldSelect from "./ResultFieldSelect";
-import ResultDiagramSelect from "./ResultDiagramSelect";
-import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormType } from "@/enums/form";
-import { dataSelectOptions } from "../edit-form/editFormData";
-import {
-  addFonts,
-  addPageHeader,
-  getPdfWidth,
-  setFontFamilyBold,
-  setFontFamilyRegular,
-} from "./utils";
 
 type Props = {
   inputs: FormInput[];
@@ -46,10 +34,6 @@ export const diagramTypes: DiagramType[] = [
   },
 ];
 
-// TODO: refactor!
-// Wydzielic funkcje do renderowania elementow, poczekac na ustalony design,
-// raczej podzielic na jeden inpupt - jedna strona.
-// zmienic odstepy w px na zmienne
 const Results = (props: Props) => {
   const [displayedResults, setDisplayedResults] = useState<{
     results: GroupedAnswer[];
@@ -60,7 +44,7 @@ const Results = (props: Props) => {
     props.inputs.map((el) => ({ ...el, selected: true }))
   );
 
-  const { title, description, createdAt, type } = props.formData;
+  const { title } = props.formData;
 
   const onDisplayAnswers = async () => {
     const inputIds = inputs
@@ -68,69 +52,6 @@ const Results = (props: Props) => {
       .map(({ id }) => id!);
     const { results, submissionCount } = await props.displayResults(inputIds);
     setDisplayedResults({ results, submissionCount });
-  };
-
-  const addFormDetailsText = (pdf: jsPDF): void => {
-    setFontFamilyBold(pdf);
-
-    pdf.setFontSize(30);
-    pdf.text("Dane formularza", 10, 95);
-
-    setFontFamilyRegular(pdf);
-    pdf.setFontSize(20);
-    pdf.text(
-      [
-        `nazwa: ${title}`,
-        `opis: ${description}`,
-        `utworzono: ${formatDateAndTime(createdAt)}`,
-      ],
-      10,
-      115
-    );
-
-    setFontFamilyBold(pdf);
-    pdf.setFontSize(30);
-    pdf.text("Szczegóły", 10, 200);
-
-    setFontFamilyRegular(pdf);
-    pdf.setFontSize(20);
-    pdf.text([`Pola formularza (${inputs.length}):`], 10, 220);
-    inputs.forEach((input, idx) => {
-      const inputType = dataSelectOptions.find(
-        ({ value }) => value == input.type
-      )?.label;
-      pdf.text(`${input.header} (${inputType})`, 10, 240 + idx * 20);
-    });
-
-    pdf.text(
-      `Liczba wysłanych odpowiedzi: ${displayedResults.submissionCount}`,
-      10,
-      240 + inputs.length * 20 + 40
-    );
-  };
-
-  const exportPdf = () => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-
-    html2canvas(document.querySelector("#results")!).then((canvas) => {
-      const pdf = new jsPDF({
-        unit: "px",
-      });
-      addFonts(pdf);
-
-      /* title page */
-      addPageHeader(title, pdf);
-      addFormDetailsText(pdf);
-
-      /* results page */
-      const imgData = canvas.toDataURL("image/png");
-      pdf.addPage();
-      addPageHeader(title, pdf);
-      pdf.addImage(imgData, "PNG", 0, 80, getPdfWidth(pdf), 0, "SLOW");
-
-      pdf.save("download.pdf");
-    });
   };
 
   return (
@@ -151,20 +72,9 @@ const Results = (props: Props) => {
         />
       </div>
 
-      <div className="w-fit mt-4 p-4 border">
-        <ResultDiagramSelect {...{ diagrams, setDiagrams }} />
-
-        <Button
-          onClickAction={exportPdf}
-          message="Pobierz"
-          className="!w-auto my-4"
-          disabled={!displayedResults.results.length}
-        />
-      </div>
-
       <div id="results" className="w-fit p-4">
         {displayedResults.results.map((result, i) => (
-          <AnswerResults {...{ result, diagrams }} key={i} />
+          <AnswerResults {...{ result, diagrams, title }} key={i} />
         ))}
       </div>
     </div>
