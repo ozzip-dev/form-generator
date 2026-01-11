@@ -8,12 +8,14 @@ import { useUser } from "@/context/UserContextProvider";
 import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
 import { FormSerialized } from "@/types/form";
 import { startTransition, use, useActionState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   form: FormSerialized;
 };
 
 const PublishFormButton = ({ form }: Props) => {
+  const router = useRouter();
   const { userPromise } = useUser();
   const user = use(userPromise);
   const { openModal } = useModal();
@@ -23,6 +25,7 @@ const PublishFormButton = ({ form }: Props) => {
   const [_, publishForm, isPending] = useActionState(async () => {
     const url = await publishFormAction(form);
     window.open(url, "_blank");
+    router.refresh();
   }, null);
 
   const handlePublishForm = () => {
