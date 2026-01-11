@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "../buttons/Button";
+
 type Props = {
   error: Error;
   reset: () => void;
@@ -13,12 +15,12 @@ const LoadingPageError = (props: Props) => {
         {props.message ? props.message : "Błąd ładowania danych"}
       </h2>
       <p className="text-gray-700 mb-6">{props.error.message}</p>
-      <button
-        onClick={() => props.reset()}
-        className="px-6 py-2 bg-red-600 text-white font-semibold rounded-md shadow hover:bg-red-700 transition"
-      >
-        Odśwież stronę
-      </button>
+      <Button
+        onClickAction={() => window.location.reload()}
+        className="bg-error text-white"
+        variant="ghost"
+        message="Odśwież"
+      />
     </div>
   );
 };

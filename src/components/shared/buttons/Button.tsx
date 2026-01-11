@@ -26,6 +26,8 @@ const Button = (props: Props) => {
       className={`
                 relative
                 block
+                rounded-sm
+                px-[2%]
                 cursor-pointer
                 select-none
                 transition-all duration-150 ease-out
