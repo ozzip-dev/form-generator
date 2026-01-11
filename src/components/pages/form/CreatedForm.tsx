@@ -152,7 +152,7 @@ const CreatedForm = (props: Props) => {
     <>
       {
         <div
-          className={`w-screen z-20 py-4 bg-accent_light 
+          className={`w-screen z-20 py-6 bg-accent_light 
             text-error text-center absolute left-0 -top-24
           transition-transform duration-700 ease-in-out
           ${hasErrors ? "translate-y-24" : "translate-y-0"}

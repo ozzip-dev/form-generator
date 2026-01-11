@@ -24,6 +24,7 @@ module.exports = {
         error: "var(--color-error)",
       },
       fontSize: {
+        "2xs": ["var(--fs-2xs)", { fontWeight: "var(--fw-base)" }],
         xs: ["var(--fs-xs)", { fontWeight: "var(--fw-base)" }],
         sm: ["var(--fs-sm)", { fontWeight: "var(--fw-base)" }],
         base: ["var(--fs-md)", { fontWeight: "var(--fw-base)" }],

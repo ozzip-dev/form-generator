@@ -6,8 +6,12 @@ import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { startTransition, useActionState } from "react";
 
 const FormTrigger = () => {
-  const [_, createForm, isPending] = useActionState(async () => {
-    await createFormDraftAction("empty");
+  const [state, createForm, isPending] = useActionState<
+    Promise<null | {
+      error: string;
+    }>
+  >(async () => {
+    return await createFormDraftAction("empty");
   }, null);
 
   useAutoLoader(isPending);
@@ -31,7 +35,14 @@ const FormTrigger = () => {
           />
         }
       />
-      <h3 className="mt-4 text-center truncate">Nowy formularz</h3>
+      {state?.error ? (
+        <div className="text-error text-center">
+          <div className="mt-4">{state.error}</div>
+          <div className="text-2xs">formularzy</div>
+        </div>
+      ) : (
+        <div className="mt-4 px-4 text-center">Nowy formularz</div>
+      )}
     </>
   );
 };

@@ -19,21 +19,26 @@ const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
   return formsCount >= MAX_FORMS_PER_USER;
 };
 
-const checkFormLimitError = async (userId: ObjectId): Promise<boolean> => {
+const checkFormLimitError = async (
+  userId: ObjectId
+): Promise<string | null> => {
   if (await hasReachedFormLimit(userId)) {
-    throw new Error(
-      `Osiągnięto limit, maksymalnie ${MAX_FORMS_PER_USER} formularzy.`
-    );
+    return `Maksymalnie ${MAX_FORMS_PER_USER}`;
   }
-  return false;
+  return null;
 };
 
-export async function createFormDraftAction(templateId: string) {
+export async function createFormDraftAction(
+  templateId: string
+): Promise<null | { error: string }> {
   const user = await requireUser();
 
   const userId = new ObjectId(user.id);
 
-  await checkFormLimitError(userId);
+  const limitError = await checkFormLimitError(userId);
+  if (limitError) {
+    return { error: limitError };
+  }
 
   const empty = isEmpty(templateId);
 

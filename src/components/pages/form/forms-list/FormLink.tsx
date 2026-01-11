@@ -14,10 +14,10 @@ export default function FormLink(props: Props) {
         className="block border rounded-md h-[15rem] w-full bg-bg_light hover:bg-accent transition"
       />
 
-      <h3 className="mt-4 px-4 text-center truncate">
+      <div className="mt-4 px-4 text-center truncate">
         {props.form.title ? props.form.title : "Brak tytułu"}
-      </h3>
-      <p className="mt-1 text-xs text-center truncate">Edycja {formatted}</p>
+      </div>
+      <p className="mt-1 text-2xs text-center truncate">Edycja {formatted}</p>
     </li>
   );
 }

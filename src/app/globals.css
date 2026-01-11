@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --fs-2xs: 1rem;
   --fs-xs: 1.2rem;
   --fs-sm: 1.2rem;
   --fs-md: 1.4rem;
