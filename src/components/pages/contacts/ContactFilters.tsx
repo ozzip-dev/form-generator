@@ -31,11 +31,6 @@ const ContactFilters = (props: Props) => {
         register={register}
         onChange={onFilterChange}
       />
-
-      <Button
-        message="Wyczyść"
-        onClickAction={() => props.setFilterText("")}
-      ></Button>
     </Card>
   );
 };

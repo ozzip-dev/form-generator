@@ -11,7 +11,8 @@ export default function FormLink(props: Props) {
     <li className="w-[15rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className="block border rounded-md h-[15rem] w-full bg-bg_light hover:bg-accent transition"
+        className="block border !rounded-md h-[15rem] w-full 
+        bg-bg_light hover:bg-accent transition"
       />
 
       <div className="mt-4 px-4 text-center truncate">

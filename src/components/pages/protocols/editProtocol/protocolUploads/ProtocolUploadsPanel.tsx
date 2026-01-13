@@ -32,6 +32,7 @@ const ProtocolUploadsPanel = (props: Props) => {
           <div className="pb-sm">
             liczba załączników: {protocol.fileIds[category]?.length || 0}
           </div>
+          
           {protocol.fileIds[category]?.map((fileId) => (
             <ProtocolAttachedFile
               key={fileId}

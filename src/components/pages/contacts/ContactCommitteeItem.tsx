@@ -34,18 +34,11 @@ const ContactCommitteeItem = ({ committee, getForms }: Props) => {
   };
 
   return (
-    <div className="md:flex items-center w-full">
-      <div className="md:w-4/5">
-        <ResponsiveList listItems={dataOrganizations} />
-      </div>
+    <div className=" w-full">
+      <ResponsiveList listItems={dataOrganizations} />
 
-      <Button
-        onClickAction={onShowForms}
-        message={showDetails ? "Ukryj formularze" : "Pokaz formularze"}
-        variant="primary-rounded"
-      />
-
-      {showDetails && <FormsOfTypeList forms={forms} />}
+      {/* To do forms links */}
+      {/* {showDetails && <FormsOfTypeList forms={forms} />} */}
     </div>
   );
 };

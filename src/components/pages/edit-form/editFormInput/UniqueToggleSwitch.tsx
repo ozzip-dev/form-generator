@@ -2,12 +2,11 @@
 
 import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
-import { startTransition, useActionState } from "react";
+import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
-import { FullscreenLoader } from "../../../shared/index";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 // TODO: zrobic wspolny komponent z RequiredToggleSwitch
 
@@ -17,23 +16,22 @@ interface Props {
 
 export default function UniqueToggleSwitch(props: Props) {
   const formId = useSafeURLParam("formId");
+  const [isPending, startTransition] = useTransition();
   const { control } = useFormContext();
-
-  const [_, switchToggle, isPending] = useActionState(async () => {
-    if (!formId || !props.input.id) return;
-    await toggleUniqueAction(formId, props.input.id);
-  }, null);
 
   useAutoLoader(isPending);
 
   const handleSwitch = () => {
-    startTransition(switchToggle);
+    startTransition(async () => {
+      if (!formId || !props.input.id) return;
+      await toggleUniqueAction(formId, props.input.id);
+    });
   };
 
   return (
     <div className="text-sm">
       <CheckboxSwitch
-        label="Odpowiedź unikalna"
+        label="Odpowiedź jednorazowa"
         name={`unique`}
         control={control}
         onChangeAction={async () => {

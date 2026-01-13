@@ -1,22 +1,31 @@
 "use client";
 
-import { FormInput } from "@/types/input";
-import { FormProvider, useForm } from "react-hook-form";
-
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
 import UniqueToggleSwitch from "@/components/pages/edit-form/editFormInput/UniqueToggleSwitch";
 import { InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { InputType } from "@/enums";
+import {
+  isInputTypeParagraph,
+  isInputWithOptions,
+} from "@/helpers/inputHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import {
   editInputFormSchema,
   EditInputFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
+import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, useActionState, useEffect, useMemo } from "react";
+import {
+  useEffect,
+  useMemo,
+  useTransition
+} from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
@@ -24,12 +33,6 @@ import MoveInputDownBtn from "./MoveInputDownBtn";
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import RequiredToggleSwitch from "./RequiredToggleSwitch";
-import {
-  isInputTypeParagraph,
-  isInputWithOptions,
-} from "@/helpers/inputHelpers";
-import Card from "@/components/shared/Card";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 const dataInputLabel = [
   {
@@ -37,15 +40,6 @@ const dataInputLabel = [
     name: `header`,
     placeholder: "Pytanie",
     floatingLabel: "Edytuj pytanie",
-  },
-];
-
-const dataInputTextarea = [
-  {
-    name: `description`,
-    placeholder: "Opis",
-    floatingLabel: "Edytuj opis",
-    type: "textarea",
   },
 ];
 
@@ -57,6 +51,7 @@ type Props = {
 
 const EditFormInput = (props: Props) => {
   const formId = useSafeURLParam("formId");
+  const [isPending, startTransition] = useTransition();
 
   const {
     id: inputId,
@@ -110,24 +105,16 @@ const EditFormInput = (props: Props) => {
       setError,
     });
 
-  const [_, editType, isPending] = useActionState<null, InputType>(
-    async (_state, type) => {
-      if (!formId || !props.input.id) return null;
+  const handleEditType = (type: InputType) => {
+    startTransition(async () => {
+      if (!formId || !props.input.id) return;
       await editInputTypeAction(formId, props.input.id, type);
-      return null;
-    },
-    null
-  );
+    });
+  };
 
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
-
-  const handleEditType = (type: InputType) => {
-    startTransition(() => {
-      editType(type);
-    });
-  };
 
   useEffect(() => {
     reset(defaultValues);

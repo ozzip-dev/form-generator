@@ -32,7 +32,7 @@ const Contacts = async ({ committees, type }: Props) => {
   return (
     <>
       <div className="my-6 text-lg">
-        <span>Organizacje, które utworzyły formularz typu:</span>{" "}
+        <span>Organizacje, które utworzyły formularz typu</span>{" "}
         <span className="font-bold">{getTypeLabel(type)}</span>
       </div>
 

@@ -1,9 +1,9 @@
-import { useParams } from "next/navigation";
-import { Button, FullscreenLoader } from "../../../shared";
 import { moveInputUpAction } from "@/actions/edit-form/editFormInput/moveInputActions";
-import { startTransition, useActionState } from "react";
 import Icon from "@/components/shared/icons/Icon";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useParams } from "next/navigation";
+import { useTransition } from "react";
+import { Button } from "../../../shared";
 
 type Props = {
   inputId: string;
@@ -11,15 +11,14 @@ type Props = {
 
 const MoveInputUpBtn = ({ inputId }: Props) => {
   const { formId } = useParams();
-
-  const [_, moveUp, isPending] = useActionState(async () => {
-    return await moveInputUpAction(formId as string, inputId);
-  }, null);
+  const [isPending, startTransition] = useTransition();
 
   useAutoLoader(isPending);
 
   const handleMoveUp = () => {
-    startTransition(moveUp);
+    startTransition(async () => {
+      await moveInputUpAction(formId as string, inputId);
+    });
   };
 
   return (

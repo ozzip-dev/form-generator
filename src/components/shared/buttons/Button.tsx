@@ -1,8 +1,8 @@
 import Loader from "../loaders/Loader";
 
 const VARIANTS = {
-  primary: "btn btn-primary",
-  "primary-rounded": "btn btn-primary-rounded",
+  primary: "btn-primary",
+  "primary-rounded": "btn-primary-rounded",
   ghost: "",
 };
 
@@ -27,7 +27,7 @@ const Button = (props: Props) => {
                 relative
                 block
                 rounded-sm
-                px-[2%]
+                text-white
                 cursor-pointer
                 select-none
                 transition-all duration-150 ease-out

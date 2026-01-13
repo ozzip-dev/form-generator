@@ -98,6 +98,7 @@ const CreatedForm = (props: Props) => {
       reset();
     } catch (e) {
       const err = e as Error;
+
       const title =
         err.message == uniqueErrorMessage
           ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
@@ -152,10 +153,10 @@ const CreatedForm = (props: Props) => {
     <>
       {
         <div
-          className={`w-screen z-20 py-6 bg-accent_light 
+          className={`w-screen z-20 py-8 bg-accent_light 
             text-error text-center absolute left-0 -top-24
           transition-transform duration-700 ease-in-out
-          ${hasErrors ? "translate-y-24" : "translate-y-0"}
+          ${hasErrors ? "translate-y-26" : "-translate-y-2"}
         `}
         >
           Wypełnij wymagane pola formularza

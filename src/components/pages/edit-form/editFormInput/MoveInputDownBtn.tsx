@@ -3,7 +3,7 @@ import { Button } from "@/components/shared";
 import Icon from "@/components/shared/icons/Icon";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
-import { startTransition, useActionState } from "react";
+import { useTransition } from "react";
 
 type Props = {
   inputId: string;
@@ -11,15 +11,14 @@ type Props = {
 
 const MoveInputDownBtn = (props: Props) => {
   const { formId } = useParams();
-
-  const [_, moveDown, isPending] = useActionState(async () => {
-    await moveInputDownAction(formId as string, props.inputId);
-  }, null);
+  const [isPending, startTransition] = useTransition();
 
   useAutoLoader(isPending);
 
   const handleMoveDown = () => {
-    startTransition(moveDown);
+    startTransition(async () => {
+      await moveInputDownAction(formId as string, props.inputId);
+    });
   };
 
   return (

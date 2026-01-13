@@ -5,7 +5,7 @@ import { addProtocolFileAction } from "@/actions/protocol";
 import { Button, DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useTransition } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import Card from "./Card";
 
@@ -16,35 +16,33 @@ type Props = {
 
 const UploadFileForm = ({ category, protocol }: Props) => {
   const { toast } = useToast();
-  const [isPending, setPending] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const uploadFile = useCallback(
     async (file: File) => {
-      setPending(true);
+      startTransition(async () => {
+        try {
+          const insertedId = await uploadFileAction(file);
 
-      try {
-        const insertedId = await uploadFileAction(file);
+          await addProtocolFileAction({
+            protocolId: protocol._id,
+            fileId: insertedId,
+            fileCategory: category!,
+          });
 
-        await addProtocolFileAction({
-          protocolId: protocol._id,
-          fileId: insertedId,
-          fileCategory: category!,
-        });
-
-        toast({
-          title: "Sukces",
-          description: "Dokument dodany",
-          variant: "success",
-        });
-      } catch (error) {
-        toast({
-          title: "Błąd",
-          description: `Dokument nie został zapisany. ${error}`,
-          variant: "error",
-        });
-      } finally {
-        setPending(false);
-      }
+          toast({
+            title: "Sukces",
+            description: "Dokument dodany",
+            variant: "success",
+          });
+        } catch (error) {
+          toast({
+            title: "Błąd",
+            description: `Dokument nie został zapisany. ${error}`,
+            variant: "error",
+          });
+        }
+      });
     },
     [toast, category, protocol._id]
   );
@@ -66,7 +64,6 @@ const UploadFileForm = ({ category, protocol }: Props) => {
       });
 
       const fileTooLarge = rejectedFiles.find((file) => {
-        console.log("fileTooLarge", file.errors[0].code);
         return file.errors[0].code === "file-too-large";
       });
 

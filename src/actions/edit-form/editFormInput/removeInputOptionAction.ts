@@ -11,6 +11,8 @@ const removeInputOptionAction = async (
   inputId: string,
   optionName: string
 ): Promise<void> => {
+  // throw new Error("llllllll");
+
   const index: number = Number(optionName.split(".")[1]);
   const formId = new ObjectId(formIdString);
 

@@ -48,7 +48,7 @@ const LogoutButton = () => {
       isLoading={pending}
       message="Wyloguj"
       variant="ghost"
-      className="bg-white rounded-full text-accent py-1 px-4  w-fit"
+      className="bg-white !rounded-full !text-accent py-1 px-4 w-fit"
     />
   );
 };

@@ -3,19 +3,19 @@
 import { removeAliasUrlAction } from "@/actions/edit-form/publishForm/removeAliasUrlAction";
 import { Button } from "@/components/shared";
 import { FormSerialized } from "@/types/form";
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useTransition } from "react";
 
 type Props = {
   form: FormSerialized;
 };
 
 const RemoveAliasButton = ({ form }: Props) => {
-  const [_, removeAliasUrl, isPending] = useActionState(async () => {
-    await removeAliasUrlAction(form);
-  }, null);
+  const [isPending, startTransition] = useTransition();
 
   const handleRemoveAliasUrl = () => {
-    startTransition(removeAliasUrl);
+    startTransition(async () => {
+      await removeAliasUrlAction(form);
+    });
   };
 
   return (

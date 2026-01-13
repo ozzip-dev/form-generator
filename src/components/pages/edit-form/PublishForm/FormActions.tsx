@@ -45,10 +45,7 @@ const FormActions = ({ form }: Props) => {
       )}
 
       {isStateDraft ? (
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <div className="text-center">Formularz jest szkicem</div>
-          <PublishFormButton form={form} />
-        </div>
+        <PublishFormButton form={form} />
       ) : (
         <>
           <div className="mb-8 flex flex-col md:flex-row gap-4">

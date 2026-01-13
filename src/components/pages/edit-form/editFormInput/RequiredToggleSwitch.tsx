@@ -6,7 +6,7 @@ import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwi
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
@@ -15,17 +15,16 @@ interface Props {
 
 export default function RequiredToggleSwitch(props: Props) {
   const formId = useSafeURLParam("formId");
+  const [isPending, startTransition] = useTransition();
   const { control } = useFormContext();
-
-  const [_, switchToggle, isPending] = useActionState(async () => {
-    if (!formId || !props.input.id) return;
-    await toggleRequiredAction(formId, props.input.id);
-  }, null);
 
   useAutoLoader(isPending);
 
   const handleSwitch = () => {
-    startTransition(switchToggle);
+    startTransition(async () => {
+      if (!formId || !props.input.id) return;
+      await toggleRequiredAction(formId, props.input.id);
+    });
   };
 
   return (

@@ -1,23 +1,18 @@
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { useEditForm } from "@/hooks/useEditForm";
 import { editInputOptionAction } from "@/actions/edit-form/editFormInput/editInputOptionAction";
-import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { startTransition, useActionState, useState } from "react";
 import removeInputOptionAction from "@/actions/edit-form/editFormInput/removeInputOptionAction";
-import {
-  Button,
-  FullscreenLoader,
-  InputFields,
-  IconTrash,
-} from "@/components/shared";
+import { Button, IconTrash, InputFields } from "@/components/shared";
+import { useEditForm } from "@/hooks/useEditForm";
+import { useSafeURLParam } from "@/hooks/useSafeURLParam";
+import { useTransition } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import {
   inputHasOther,
   isOptionOther,
   OPTION_OTHER,
 } from "@/helpers/inputHelpers";
 import { FormInput, FormOption } from "@/types/input";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 type Props = {
   inputIdx: number;
@@ -26,24 +21,9 @@ type Props = {
 };
 
 const AddOption = (props: Props) => {
+  const [isPending, startTransition] = useTransition();
   const inputId = props.input.id!;
   const formId = useSafeURLParam("formId");
-
-  const [_, removeOption, isRemoveOptionPending] = useActionState<null, string>(
-    async (_state, optionName) => {
-      await removeInputOptionAction(formId!, inputId, optionName);
-      return null;
-    },
-    null
-  );
-
-  const [__, addOtherOption, isAddOptionOtherPending] = useActionState<null>(
-    async (_state) => {
-      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER, true);
-      return null;
-    },
-    null
-  );
 
   const {
     register,
@@ -57,8 +37,6 @@ const AddOption = (props: Props) => {
     control,
     name: `options`,
   });
-
-  const isPending = isRemoveOptionPending || isAddOptionOtherPending;
 
   useAutoLoader(isPending);
 
@@ -89,16 +67,16 @@ const AddOption = (props: Props) => {
   };
 
   const handleAddOther = () => {
-    startTransition(() => {
-      addOtherOption();
+    startTransition(async () => {
+      await editInputOptionAction(formId!, inputId, "Inne", OPTION_OTHER, true);
       append({ value: OPTION_OTHER, label: "Inne" });
     });
   };
 
   const handleDeleteOption = (optionName: string, idx: number) => {
-    remove(idx);
-    startTransition(() => {
-      removeOption(optionName);
+    startTransition(async () => {
+      await removeInputOptionAction(formId!, inputId, optionName);
+      remove(idx);
     });
   };
 

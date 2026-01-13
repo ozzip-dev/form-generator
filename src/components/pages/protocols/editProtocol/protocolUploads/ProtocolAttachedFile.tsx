@@ -15,10 +15,10 @@ type Props = {
 const ProtocolAttachedFile = (props: Props) => {
   const { toast } = useToast();
   const { openModal } = useModal();
+  const { protocolId, file, fileCategory } = props;
 
-  const printModal = async () => {
+  const removeFile = async () => {
     try {
-      const { protocolId, file, fileCategory } = props;
       // TODO: przemyslec czy nie przeniesść toast do confirm modal
       // i dać opcjonalne propsy z tekstem
       await removeProtocolFileAction(
@@ -48,7 +48,10 @@ const ProtocolAttachedFile = (props: Props) => {
         icon={<IconTrash size={27} />}
         variant="ghost"
         onClickAction={() =>
-          openModal({ action: printModal, header: "Usunąć dokument?" })
+          openModal({
+            action: removeFile,
+            header: "Usunąć dokument?",
+          })
         }
       />
     </div>

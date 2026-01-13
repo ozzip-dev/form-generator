@@ -13,12 +13,6 @@ type Props = {
 function RemoveProtocolBtn(props: Props) {
   const { openModal } = useModal();
 
-  const [_, deleteProtocol, isPending] = useActionState(async () => {
-    await removeProtocolAction(props.ProtocolId);
-  }, null);
-
-  useAutoLoader(isPending);
-
   return (
     <Button
       type="button"
@@ -26,7 +20,7 @@ function RemoveProtocolBtn(props: Props) {
       variant="primary-rounded"
       onClickAction={() =>
         openModal({
-          action: () => startTransition(deleteProtocol),
+          action: () => removeProtocolAction(props.ProtocolId),
           header: "Usunąć protokuł?",
         })
       }

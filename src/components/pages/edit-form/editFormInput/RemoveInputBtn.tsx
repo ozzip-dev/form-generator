@@ -4,7 +4,7 @@ import { removeInputFromDraftAction } from "@/actions/edit-form/editFormInput/re
 import { Button, IconTrash } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
-import { startTransition, useActionState } from "react";
+import { useTransition } from "react";
 
 type Props = {
   inputId: string;
@@ -12,14 +12,13 @@ type Props = {
 
 function RemoveInputBtn(props: Props) {
   const { formId } = useParams();
-  const [_, deleteInput, isPending] = useActionState(async () => {
-    await removeInputFromDraftAction(formId as string, props.inputId);
-  }, null);
-
+  const [isPending, startTransition] = useTransition();
   useAutoLoader(isPending);
 
   const handleDeleteInput = () => {
-    startTransition(deleteInput);
+    startTransition(async () => {
+      await removeInputFromDraftAction(formId as string, props.inputId);
+    });
   };
 
   return (

@@ -18,7 +18,9 @@ function RemoveFormButton(props: Props) {
       variant="primary-rounded"
       onClickAction={() =>
         openModal({
-          action: () => removeFormAction(props.formId),
+          action: () => {
+            removeFormAction(props.formId);
+          },
           header: "Usunąć formularz?",
         })
       }

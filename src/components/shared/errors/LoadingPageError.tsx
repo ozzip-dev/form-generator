@@ -17,7 +17,7 @@ const LoadingPageError = (props: Props) => {
       <p className="text-gray-700 mb-6">{props.error.message}</p>
       <Button
         onClickAction={() => window.location.reload()}
-        className="bg-error text-white"
+        className="bg-error text-white px-2"
         variant="ghost"
         message="Odśwież"
       />
