@@ -1,12 +1,12 @@
 "use client";
 
 import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
-import { FullscreenLoader } from "@/components/shared";
+import { Icon } from "@/components/shared";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
-import { startTransition, useActionState, useTransition } from "react";
+import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
@@ -28,7 +28,7 @@ export default function RequiredToggleSwitch(props: Props) {
   };
 
   return (
-    <div className="text-sm">
+    <div className="text-sm flex items-center gap-2">
       <CheckboxSwitch
         label="Odpowiedź wymagana"
         name={`required`}
@@ -37,6 +37,25 @@ export default function RequiredToggleSwitch(props: Props) {
           handleSwitch();
         }}
       />
+
+      <div className="relative group">
+        <Icon
+          icon="info-circle"
+          size={20}
+          className="group"
+          color="var(--color-accent)"
+        />
+        <div
+          className="absolute text-sm right-[50%] bottom-[100%] p-2 
+            w-[20rem]
+         bg-bg_dark text-xs
+         rounded rounted-sm border opacity-0 
+         group-hover:opacity-100 transition-opacity"
+        >
+          Bez zaznaczenia tej odpowiedzi obublikowany formularz nie zostanie
+          wysłany
+        </div>
+      </div>
     </div>
   );
 }

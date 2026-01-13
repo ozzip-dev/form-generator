@@ -1,6 +1,7 @@
 "use client";
 
 import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
+import { Icon } from "@/components/shared";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
@@ -29,7 +30,7 @@ export default function UniqueToggleSwitch(props: Props) {
   };
 
   return (
-    <div className="text-sm">
+    <div className="text-sm flex items-center gap-2">
       <CheckboxSwitch
         label="Odpowiedź jednorazowa"
         name={`unique`}
@@ -38,6 +39,24 @@ export default function UniqueToggleSwitch(props: Props) {
           handleSwitch();
         }}
       />
+
+      <div className="relative group">
+        <Icon
+          icon="info-circle"
+          size={20}
+          className="group"
+          color="var(--color-accent)"
+        />
+        <div
+          className="absolute text-sm right-[50%] top-[100%] p-2 
+            w-[20rem]
+         bg-bg_dark text-xs
+         rounded rounted-sm border opacity-0 
+         group-hover:opacity-100 transition-opacity"
+        >
+          Taką samą odpowiedź będzie można wysłać tylko raz
+        </div>
+      </div>
     </div>
   );
 }
