@@ -48,13 +48,21 @@ export default function UniqueToggleSwitch(props: Props) {
           color="var(--color-accent)"
         />
         <div
-          className="absolute text-sm right-[50%] top-[100%] p-2 
-            w-[20rem]
-         bg-bg_dark text-xs
-         rounded rounted-sm border opacity-0 
-         group-hover:opacity-100 transition-opacity"
+          className="
+           absolute 
+           top-full sm:-top-1/2 lg:top-full
+           left-1/2 sm:left-[120%] lg:left-1/2
+           -translate-x-1/2 sm:translate-x-0 lg:-translate-x-1/2
+           w-[20rem]
+           bg-bg_dark  text-xs
+           p-2 rounded-sm border
+           transition-opacity
+           pointer-events-none
+           z-50
+            opacity-0 group-hover:opacity-100 
+         "
         >
-          Taką samą odpowiedź będzie można wysłać tylko raz
+          Odpowiedź może zostać wysłana tylko jeden raz
         </div>
       </div>
     </div>
