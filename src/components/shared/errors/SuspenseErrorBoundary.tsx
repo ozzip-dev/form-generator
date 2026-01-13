@@ -2,7 +2,6 @@
 
 import { ErrorBoundary } from "react-error-boundary";
 import { Suspense, useState } from "react";
-import { useRouter } from "next/navigation";
 import LoadingError from "./LoadingError";
 import DataLoader from "../loaders/DataLoader";
 
@@ -12,24 +11,14 @@ type Props = {
   loadingMessage?: string;
   size: "sm" | "lg";
 };
- 
 
 const SuspenseErrorBoundary = (props: Props) => {
-  const router = useRouter();
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const handleRefresh = () => {
-    setRefreshKey((prev) => prev + 1);
-    router.refresh();
-  };
-
   return (
     <ErrorBoundary
       FallbackComponent={(errorProps) => (
         <LoadingError
           {...errorProps}
           message={props.errorMessage}
-          onRefresh={handleRefresh}
           size={props.size}
         />
       )}
@@ -39,7 +28,7 @@ const SuspenseErrorBoundary = (props: Props) => {
           <DataLoader message={props.loadingMessage} size={props.size} />
         }
       >
-        <div key={refreshKey}>{props.children}</div>
+        <div>{props.children}</div>
       </Suspense>
     </ErrorBoundary>
   );
