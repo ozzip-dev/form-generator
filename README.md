@@ -7,17 +7,48 @@ A  full-stack application to support trade union organizations with digital tool
 **Moderator** – after logging in, gains access to the following tools:
 
 #### Voting forms
-- Generate voting forms available under a unique public URLs.
-- Collect responses directly from employees.
-- Manage and view all submissions in the moderator dashboard. 
-- Export results to PDF for reporting and archiving. 
+- Generate voting forms.
+  
+  <img 
+    src="https://github.com/user-attachments/assets/3d29f9aa-7fef-404c-ad07-5b1a1899e9eb" 
+    alt="" 
+    width="400" 
+    height="800"
+    />
+    
+- Collect responses directly from employees from form available under a unique public URLs.
+    <img 
+    src="https://github.com/user-attachments/assets/3ef9f914-c501-4f8d-9874-1b054744ed6e" 
+    alt="" 
+    width="400" 
+    height="200"
+  />
+  
+- Manage and view all submissions in the moderator dashboard.
+  
+  <img 
+    src="https://github.com/user-attachments/assets/cf3467ff-db17-462b-920b-6c5083e6bc90" 
+    alt="" 
+    width="400" 
+    height="200"
+  />
+  
+- Export results to PDF for reporting and archiving.
+
 
 #### Contact database
 - Build and maintain a network of other trade union commissions.  
 - Share and discover initiatives across organizations.
 
 #### Archive
-- Store and access protocols and documentation from collective disputes.  
+- Store and access protocols and documentation from collective disputes.
+
+  <img 
+    src="https://github.com/user-attachments/assets/89b4b1ae-c955-4695-acdb-1db299eee476" 
+    alt="" 
+    width="400" 
+    height="200"
+  />
 
 #### Discussion forum
 - Connect with other union members.  
@@ -86,7 +117,7 @@ The application was developed with grant support received in the grant competiti
 
 
 ## Hooks
-* use, useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useQueryState, useCallback, useContext, custom hooks
+* use, useState, useEffect, useRouter, useActionState, useForm, useFormContext, useFieldArray, useParams, useSearchParams, useCallback, useContext, custom hooks
 
 ## Prerequisites
 * Before getting started, make sure you have the Node.js and npm or yarn
