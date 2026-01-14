@@ -270,7 +270,7 @@ export async function updateFormInputType(
     updatedAt: new Date(),
   };
 
-  if (isInputWithOptions({ type } as Input)) {
+  if (!isInputWithOptions({ type } as Input)) {
     updateObject = {
       ...updateObject,
       "inputs.$.options": [],
