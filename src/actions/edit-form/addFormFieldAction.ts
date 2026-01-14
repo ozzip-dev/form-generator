@@ -38,6 +38,11 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   };
 }
 
+const maxInputCount = Number(process.env.MAX_INPUTS_PER_FORM) || 20;
+
+const hasReachedInputLimit = (form: Form): boolean =>
+  form.inputs.length >= maxInputCount;
+
 export async function addFormFieldAction(
   formId: string,
   input: Input
@@ -47,6 +52,10 @@ export async function addFormFieldAction(
 
   if (!draft) {
     throw new Error("Nie znaleziono formularza");
+  }
+
+  if (hasReachedInputLimit(draft)) {
+    throw new Error("Osiągnięto maksymalną liczbę pól w formularzu");
   }
 
   if (!isUserAuthor(draft, user.id))

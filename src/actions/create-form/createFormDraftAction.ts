@@ -7,7 +7,7 @@ import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 
-const MAX_FORMS_PER_USER = 10;
+const maxFormCount = Number(process.env.MAX_FORMS_PER_USER) || 10;
 
 const isEmpty = (templateId: string) => templateId === "empty";
 
@@ -16,14 +16,14 @@ const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
     createdBy: userId,
   });
 
-  return formsCount >= MAX_FORMS_PER_USER;
+  return formsCount >= maxFormCount;
 };
 
 const checkFormLimitError = async (
   userId: ObjectId
 ): Promise<string | null> => {
   if (await hasReachedFormLimit(userId)) {
-    return `Maksymalnie ${MAX_FORMS_PER_USER}`;
+    return `Maksymalnie ${maxFormCount}`;
   }
   return null;
 };

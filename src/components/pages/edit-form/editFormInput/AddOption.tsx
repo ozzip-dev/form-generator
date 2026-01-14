@@ -80,6 +80,9 @@ const AddOption = (props: Props) => {
     });
   };
 
+  const hasReachedOptionLimit =
+    fields?.length >= Number(process.env.maxOptionsPerInput || 20);
+
   return (
     <div className="sm:w-5/6 md:w-3/6">
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
@@ -122,7 +125,7 @@ const AddOption = (props: Props) => {
           <Button
             message={"Dodaj opcję"}
             type="button"
-            disabled={!!errors.options}
+            disabled={!!errors.options || hasReachedOptionLimit}
             onClickAction={handleAddOption}
             variant="primary-rounded"
           />
@@ -132,6 +135,7 @@ const AddOption = (props: Props) => {
             <Button
               message="Dodaj inne"
               type="button"
+              disabled={hasReachedOptionLimit}
               onClickAction={handleAddOther}
               variant="primary-rounded"
             />

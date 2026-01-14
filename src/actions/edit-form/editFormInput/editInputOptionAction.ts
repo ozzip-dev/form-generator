@@ -11,8 +11,14 @@ import { editInputFormSchema } from "@/lib/zodSchema/editFormSchemas/editFormInp
 import { getFormById } from "@/services/form-service";
 import { checkInputHasOtherOption } from "@/services/input-service";
 import { requireUser } from "@/services/user-service";
+import { FormInput } from "@/types/input";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
+
+const maxOptionCount = Number(process.env.MAX_OPTIONS_PER_INPUT) || 20;
+
+const hasReachedOptionLimit = (input: FormInput): boolean =>
+  input.options?.length >= maxOptionCount;
 
 export const editInputOptionAction = async (
   formIdString: string,
@@ -27,6 +33,10 @@ export const editInputOptionAction = async (
   const form = await getFormById(formId.toString());
   const input = form.inputs.find((i) => i.id === inputId);
   if (!input) return;
+
+  if (hasReachedOptionLimit(input)) {
+    throw new Error("Osiągnięto maksymalną liczbę opcji");
+  }
 
   const optionIndex = Number(inputName.split(".")[1]);
 
