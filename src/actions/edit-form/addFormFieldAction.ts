@@ -38,7 +38,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   };
 }
 
-const maxInputCount = Number(process.env.MAX_INPUTS_PER_FORM) || 20;
+const maxInputCount = Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM) || 20;
 
 const hasReachedInputLimit = (form: Form): boolean =>
   form.inputs.length >= maxInputCount;

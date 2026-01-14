@@ -15,7 +15,8 @@ import { FormInput } from "@/types/input";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
-const maxOptionCount = Number(process.env.MAX_OPTIONS_PER_INPUT) || 20;
+const maxOptionCount =
+  Number(process.env.NEXT_PUBLIC_MAX_OPTIONS_PER_INPUT) || 20;
 
 const hasReachedOptionLimit = (input: FormInput): boolean =>
   input.options?.length >= maxOptionCount;

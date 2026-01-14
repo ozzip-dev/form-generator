@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  env: {
-    MAX_OPTIONS_PER_INPUT: '20',
-    MAX_INPUTS_PER_FORM: '20'
-  },
   redirects() {
     return [
       {

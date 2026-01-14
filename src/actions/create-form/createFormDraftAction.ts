@@ -7,7 +7,7 @@ import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 
-const maxFormCount = Number(process.env.MAX_FORMS_PER_USER) || 10;
+const maxFormCount = Number(process.env.NEXT_PUBLIC_MAX_FORMS_PER_USER) || 10;
 
 const isEmpty = (templateId: string) => templateId === "empty";
 
