@@ -62,7 +62,7 @@ export default function UniqueToggleSwitch(props: Props) {
             opacity-0 group-hover:opacity-100 
          "
         >
-          Odpowiedź może zostać wysłana tylko jeden raz
+          Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz
         </div>
       </div>
     </div>
