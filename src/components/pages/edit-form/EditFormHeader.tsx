@@ -1,7 +1,7 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { InputFields } from "@/components/shared";
+import { Icon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
@@ -65,6 +65,8 @@ export default function EditFormHeader(props: Props) {
     mode: "all",
   });
 
+  console.log("", resultVisibility);
+
   const {
     register,
     formState: { errors },
@@ -96,7 +98,7 @@ export default function EditFormHeader(props: Props) {
             <SelectFieldControler
               name="type"
               defaultValue=""
-              label="Wybierz kategorię formularza"
+              label="Kategoria formularza"
               placeholder="Wybierz kategorię formularza"
               options={dataSelectOptions}
               onChangeAction={(name, value) => {
@@ -105,17 +107,36 @@ export default function EditFormHeader(props: Props) {
             />
           </div>
 
-          <div className="sm:w-[30rem] md:w-[50rem]">
+          <div className="sm:w-[30rem] md:w-[50rem] flex items-center relative">
             <SelectFieldControler
               name="resultVisibility"
               defaultValue=""
-              label="Widoczność wyników"
+              label="Tryb dostępności wyników"
               placeholder="Wybierz typ głosowania"
               options={resultVisibilityOptions}
               onChangeAction={(name, value) => {
                 handleEdit(name, value);
               }}
             />
+            {/* <div className="absolute">
+              {resultVisibility === "secret" && (
+                <div
+                  className=" p-2 
+                    w-[20rem] text-2xs z-10"
+                >
+                  Wyniki w formie podsumowania odpowiedzi
+                </div>
+              )}
+              {resultVisibility === "open" && (
+                <div
+                  className=" p-2 
+               w-[20rem] text-2xs z-10"
+                >
+                  Wyniki w formie podsumowania odpowiedzi i odpowiedzi z każdego
+                  pojedynczego formularza
+                </div>
+              )}
+            </div> */}
           </div>
 
           <InputFields
