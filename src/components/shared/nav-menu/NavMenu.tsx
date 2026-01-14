@@ -56,7 +56,7 @@ const NavMenu = (props: Props) => {
               />
             )}
           </div>
-          <ul className="flex items-center gap-10">
+          <ul className="flex items-center gap-6 sm:gap-10">
             {props.links.map(({ text, link }) => (
               <MenuLink
                 key={link}

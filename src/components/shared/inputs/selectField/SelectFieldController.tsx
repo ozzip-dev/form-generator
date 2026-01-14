@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Controller,
-  Control,
-  FieldValues,
-  Path,
-  useFormContext,
-} from "react-hook-form";
+import { Controller, FieldValues, Path, useFormContext } from "react-hook-form";
 import SelectField from "./SelectField";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/shared";
@@ -59,7 +53,6 @@ export const SelectFieldControler = <T extends FieldValues>(
             field.onChange(val);
             props.onChangeAction?.(props.name, val);
           }}
-          // variant={props.variant}
         />
       )}
     />
