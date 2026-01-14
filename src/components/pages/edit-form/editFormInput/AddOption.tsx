@@ -81,7 +81,7 @@ const AddOption = (props: Props) => {
   };
 
   const hasReachedOptionLimit =
-    fields?.length >= Number(process.env.maxOptionsPerInput || 20);
+    fields?.length >= Number(process.env.MAX_OPTIONS_PER_INPUT || 20);
 
   return (
     <div className="sm:w-5/6 md:w-3/6">

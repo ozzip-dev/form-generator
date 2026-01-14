@@ -2,8 +2,8 @@
 const nextConfig = {
   output: "standalone",
   env: {
-    maxOptionsPerInput: 20,
-    maxInputsPerForm: 20,
+    MAX_OPTIONS_PER_INPUT: '20',
+    MAX_INPUTS_PER_FORM: '20'
   },
   redirects() {
     return [

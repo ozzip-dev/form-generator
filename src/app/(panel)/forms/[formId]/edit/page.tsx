@@ -17,7 +17,7 @@ const EditFormPage = async (props: Props) => {
   const { inputs, createdAt, updatedAt, state } = formSerialized;
 
   const hasReachedInputLimit =
-    form.inputs?.length >= Number(process.env.maxInputsPerForm || 20);
+    form.inputs?.length >= Number(process.env.MAX_INPUTS_PER_FORM || 20);
 
   return (
     <div className="container">
