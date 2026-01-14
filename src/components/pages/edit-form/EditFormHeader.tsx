@@ -65,8 +65,6 @@ export default function EditFormHeader(props: Props) {
     mode: "all",
   });
 
-  console.log("", resultVisibility);
-
   const {
     register,
     formState: { errors },
