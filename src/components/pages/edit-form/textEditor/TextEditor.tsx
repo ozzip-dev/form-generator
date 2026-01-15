@@ -9,6 +9,9 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { startTransition, useActionState, useState } from "react";
 import MenuBar from "./MenuBar";
+import CharacterCount from "@tiptap/extension-character-count";
+
+const MAX_CHARS = 2000;
 
 type Props = {
   formId: string;
@@ -19,10 +22,6 @@ type Props = {
 
 const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description);
-
-  console.log("description", props.description);
-
-  console.log("editorContent", editorContent);
 
   const editor = useEditor({
     extensions: [
@@ -38,6 +37,9 @@ const TextEditor = (props: Props) => {
       //   TextAlign.configure({
       //     types: ["heading", "paragraph"],
       //   }),
+      CharacterCount.configure({
+        limit: MAX_CHARS,
+      }),
     ],
     editorProps: {
       attributes: {
@@ -53,12 +55,14 @@ const TextEditor = (props: Props) => {
     },
   });
 
-  const [state, editDescription, isPending] = useActionState(async () => {
+  const [_, editDescription, isPending] = useActionState(async () => {
     await editInputLabelAction(props.formId, props.inputId, {
       description: editorContent,
     });
     props.printDescriptionInput();
   }, undefined);
+
+  const characters = editor?.storage.characterCount.characters() ?? 0;
 
   const handleEditDescription = () => {
     startTransition(() => {
@@ -82,13 +86,24 @@ const TextEditor = (props: Props) => {
           className="texEditorPlaceholder text-sm bg-white"
         />
       </div>
-
+      <div className="flex justify-end text-xs mt-1">
+        <span
+          className={
+            characters >= MAX_CHARS
+              ? "text-red-500 font-semibold"
+              : "text-gray-500"
+          }
+        >
+          {characters}/{MAX_CHARS}
+        </span>
+      </div>
       <Button
         type="button"
         message="Zatwierdż"
         variant="primary-rounded"
         className="ml-auto"
         onClickAction={handleEditDescription}
+        disabled={characters === 0 || characters > MAX_CHARS}
       />
     </>
   );

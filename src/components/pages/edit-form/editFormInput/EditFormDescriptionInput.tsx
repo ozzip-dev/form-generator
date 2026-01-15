@@ -133,12 +133,6 @@ const EditFormDescriptionInput = (props: Props) => {
       )}
 
       {props.isParagraph && !shouldShowInput && descriptionInput}
-
-      {/* <TextEditor
-        formId={formId}
-        inputId={props.inputId}
-        description={props.description}
-      /> */}
     </>
   );
 };

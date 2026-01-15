@@ -64,6 +64,11 @@ const MenuBar = ({ editor }: Props) => {
       btnName: "un-link",
       icon: "un-link",
     },
+    {
+      onClick: () => editor.chain().focus().unsetLink().run(),
+      btnName: "un-link",
+      icon: "highlighter",
+    },
   ];
 
   return (
@@ -74,7 +79,7 @@ const MenuBar = ({ editor }: Props) => {
             key={idx}
             type="button"
             onClickAction={onClick}
-            className={`px-3 py-1  ${
+            className={`p-1 px-2 ${
               editorState[btnName as keyof typeof editorState]
                 ? "text-font_dark"
                 : ""
