@@ -79,7 +79,7 @@ const TextEditor = (props: Props) => {
       >
         <EditorContent
           editor={editor}
-          className="texEditorPlaceholder text-sm"
+          className="texEditorPlaceholder text-sm bg-white"
         />
       </div>
 
