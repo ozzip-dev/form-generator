@@ -1,13 +1,14 @@
-import { Suspense } from "react";
 import { db } from "@/lib/mongo";
 import { isDraft } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import { getFormBySlug } from "@/services/form-service";
-import { DataLoader, SuspenseErrorBoundary } from "@/components/shared";
-import { serializeForm } from "@/lib/serialize-utils";
+import { SuspenseErrorBoundary } from "@/components/shared";
+import { serializeFile, serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/form/CreatedForm";
+import { getFileById } from "@/services/file-service";
+import { File } from "@/types/file";
 // Adres roboczy. Strona z formularzem do wypełnienia, dostępna dla wszystkich
 
 type Props = { params: Promise<{ formId: string; url: string }> };
@@ -20,6 +21,10 @@ const FormPage = async (props: Props) => {
   if (!form) redirect("/dashboard");
   if (isDraft(form)) redirect(`/forms/${formId}/edit`);
 
+  const file: File | null = form.headerFileId
+    ? await getFileById(form.headerFileId)
+    : null;
+
   return (
     <SuspenseErrorBoundary
       size="lg"
@@ -29,7 +34,10 @@ const FormPage = async (props: Props) => {
       <section className="h-screen overflow-hidden">
         <div className="h-full overflow-y-auto">
           <div className="container my-16">
-            <CreatedForm form={serializeForm(form as Form)} />
+            <CreatedForm
+              form={serializeForm(form as Form)}
+              headerFileData={file ? serializeFile(file)?.data : null}
+            />
           </div>
         </div>
       </section>
