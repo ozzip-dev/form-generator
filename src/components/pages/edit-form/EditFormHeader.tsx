@@ -15,6 +15,7 @@ import {
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
+import FormHeaderImageUpload from "./FormHeaderImageUpload";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -43,6 +44,7 @@ const dataInputsFormTitle = [
 
 type Props = {
   form: FormSerialized;
+  headerFileData?: any;
 };
 
 export default function EditFormHeader(props: Props) {
@@ -144,6 +146,8 @@ export default function EditFormHeader(props: Props) {
             onChange={handleEdit}
             // isLoading={isLoading}
           />
+
+          <FormHeaderImageUpload {...props} />
         </form>
       </FormProvider>
     </Card>

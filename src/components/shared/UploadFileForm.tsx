@@ -76,7 +76,7 @@ const UploadFileForm = ({
   });
 
   return (
-    <div className="flex justify-center items-center flex-col mt-16">
+    <div className="flex justify-center items-center flex-col">
       <Card className="!p-0 w-full md:w-2/3 overflow-hidden">
         <div
           {...getRootProps()}
@@ -102,6 +102,7 @@ const UploadFileForm = ({
             {!isDragActive && (
               <>
                 <Button
+                  type="button"
                   message="Wybierz z komputera"
                   variant="primary-rounded"
                 />

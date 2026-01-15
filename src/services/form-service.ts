@@ -16,6 +16,7 @@ import { redirect } from "next/navigation";
 import { serializeForm } from "@/lib/serialize-utils";
 import { requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
+import { removeFile } from "./file-service";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
@@ -227,4 +228,61 @@ export async function addFieldToForm(
   }
 
   return result;
+}
+
+export async function addFormHeaderFile(
+  formId: string,
+  fileId: string
+): Promise<void> {
+  const form = await getFormById(formId);
+  const oldHeaderFileId = form.headerFileId;
+
+  try {
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+        lastModifiedAt: new Date(),
+      },
+    });
+
+    if (!oldHeaderFileId) return;
+
+    await removeFile(oldHeaderFileId);
+  } catch (e) {
+    /* Reset to old file if sth gfoes wrong (?) */
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+      },
+    });
+  }
+}
+
+export async function removeFormHeaderFile(formId: string): Promise<void> {
+  const form = await getFormById(formId);
+  const fileId = form.headerFileId;
+
+  if (!fileId) {
+    throw new Error("Formularz nie ma obrazka nagłówku");
+  }
+
+  try {
+    await updateById(db, "form", new ObjectId(formId), {
+      $unset: {
+        headerFileId: 1,
+      },
+      $set: {
+        lastModifiedAt: new Date(),
+      },
+    });
+
+    await removeFile(fileId);
+  } catch (e) {
+    /* Reset to old file if sth gfoes wrong (?) */
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+      },
+    });
+  }
 }

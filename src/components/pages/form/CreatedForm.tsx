@@ -25,6 +25,7 @@ import {
 } from "@/helpers/inputHelpers";
 import Card from "@/components/shared/Card";
 import CreatedFormTopBar from "./CreatedFormTopBar";
+import Image from "next/image";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -45,6 +46,7 @@ const defaultValues = (inputs: FormInput[]) => {
 
 type Props = {
   form: FormSerialized;
+  headerFileData?: any;
   isPreview?: boolean;
 };
 
@@ -169,6 +171,16 @@ const CreatedForm = (props: Props) => {
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="">
         <Card className="mb-10">
+          {props.headerFileData && (
+            <Image
+              src={`data:image/png;base64,${props.headerFileData}`}
+              alt="form header"
+              width={450}
+              height={450}
+              className="max-w-[450px] max-h-[250px] w-auto h-auto m-auto my-8"
+            />
+          )}
+
           <h1 className="text-xl">{title}</h1>
           {description && (
             <h2 className="my-6 whitespace-pre-wrap">{description}</h2>

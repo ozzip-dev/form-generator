@@ -39,12 +39,14 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
   };
 
   return (
-    <UploadFileForm
-      {...{
-        onFileUploaded,
-        text: "Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF",
-      }}
-    />
+    <div className="mt-16">
+      <UploadFileForm
+        {...{
+          onFileUploaded,
+          text: "Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF",
+        }}
+      />
+    </div>
   );
 };
 
