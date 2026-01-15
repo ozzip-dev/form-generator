@@ -1,15 +1,14 @@
 "use server";
 
-import { InputType } from "@/enums";
+import { isUserAuthor } from "@/helpers/formHelpers";
 import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { isInputTypeParagraph } from "@/helpers/inputHelpers";
-import { db, findById, updateById } from "@/lib/mongo";
 import { makeId } from "@/lib/utils";
 import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
+import { addFieldToForm, getFormById } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { FormInput, Input } from "@/types/input";
-import { Document, ObjectId, WithId } from "mongodb";
 import { revalidateTag } from "next/cache";
 
 /* If form is empty, add index 0. If form has inputs add last one + 1 */
@@ -39,11 +38,28 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   };
 }
 
+const maxInputCount = Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM) || 20;
+
+const hasReachedInputLimit = (form: Form): boolean =>
+  form.inputs.length >= maxInputCount;
+
 export async function addFormFieldAction(
   formId: string,
   input: Input
 ): Promise<void | { validationErrors: ValidationErrors }> {
-  await requireUser();
+  const user = await requireUser();
+  const draft = await getFormById(formId);
+
+  if (!draft) {
+    throw new Error("Nie znaleziono formularza");
+  }
+
+  if (hasReachedInputLimit(draft)) {
+    throw new Error("Osiągnięto maksymalną liczbę pól w formularzu");
+  }
+
+  if (!isUserAuthor(draft, user.id))
+    throw new Error("Jedynie autor/-ka może może edytować alias");
 
   const { header, type, ...res } = input;
   const validationResult = addFormFieldSchema.safeParse({ header, type });
@@ -52,38 +68,14 @@ export async function addFormFieldAction(
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
-  const draft = await findById<Form>(db, "form", new ObjectId(formId));
-  if (!draft) {
-    throw new Error("Nie znaleziono formularza");
-  }
-
-  console.log("input", input);
-
   const newInput = isInputTypeParagraph(input)
     ? { description: header, header: "", type, ...res }
     : input;
 
-  const order = getNextOrder(draft as Form);
+  const order = getNextOrder(draft);
   const inputData = mapInputDocToFormInputData(newInput, order);
 
-  const result: WithId<Document> | null = await updateById(
-    db,
-    "form",
-    new ObjectId(formId),
-    {
-      $push: {
-        inputs: {
-          ...inputData,
-        },
-      },
-      $set: {
-        updatedAt: new Date(),
-      },
-    }
-  );
+  await addFieldToForm(formId, inputData);
 
-  if (!result) {
-    throw new Error("Nie udało się dodać pola formularza");
-  }
   revalidateTag(`form-${formId}`);
 }

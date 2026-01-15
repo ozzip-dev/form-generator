@@ -16,6 +16,10 @@ const EditFormPage = async (props: Props) => {
   const formSerialized = serializeForm(form);
   const { inputs, createdAt, updatedAt, state } = formSerialized;
 
+  const hasReachedInputLimit =
+    form.inputs?.length >=
+    Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
+
   return (
     <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
@@ -57,12 +61,18 @@ const EditFormPage = async (props: Props) => {
               );
             })}
 
-          <SuspenseErrorBoundary
-            errorMessage="Błąd tworzenia pól formularza"
-            size="sm"
-          >
-            <AddFormField />
-          </SuspenseErrorBoundary>
+          {hasReachedInputLimit ? (
+            <div className="pb-6 m-auto text-lg">
+              Osiągnięto maksymalną liczbę pól w formularzu
+            </div>
+          ) : (
+            <SuspenseErrorBoundary
+              errorMessage="Błąd tworzenia pól formularza"
+              size="sm"
+            >
+              <AddFormField />
+            </SuspenseErrorBoundary>
+          )}
         </div>
       )}
     </div>

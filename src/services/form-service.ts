@@ -201,3 +201,30 @@ export async function getFormsByType(type: FormType): Promise<Form[]> {
 export async function removeForm(formId: string): Promise<void> {
   await deleteById(db, "form", new ObjectId(formId));
 }
+
+export async function addFieldToForm(
+  formId: string,
+  inputData: FormInput
+): Promise<Form> {
+  const result: WithId<Form> | null = await updateById<Form>(
+    db,
+    "form",
+    new ObjectId(formId),
+    {
+      $push: {
+        inputs: {
+          ...inputData,
+        },
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    }
+  );
+
+  if (!result) {
+    throw new Error("Nie udało się dodać pola formularza");
+  }
+
+  return result;
+}
