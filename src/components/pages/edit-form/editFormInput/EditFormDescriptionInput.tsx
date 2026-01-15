@@ -6,6 +6,7 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { Button, IconTrash, InputFields } from "../../../shared";
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import TextEditor from "../textEditor/TextEditor";
 
 type Props = {
   inputId: string;
@@ -109,6 +110,8 @@ const EditFormDescriptionInput = (props: Props) => {
       )}
 
       {props.isParagraph && !shouldShowInput && descriptionInput}
+
+      <TextEditor />
     </>
   );
 };

@@ -150,22 +150,10 @@ const CreatedForm = (props: Props) => {
 
   const hasErrors = Object.keys(errors).length > 0;
 
-  // ${hasErrors ? "translate-y-26" : "-translate-y-2"}
-
   return (
     <>
       <CreatedFormTopBar isError={hasErrors} />
-      {/* {
-        <div
-          className={`w-screen z-20 py-8 bg-accent_light 
-            text-error text-center absolute left-0 -top-[6rem]
-          transition-transform duration-700 ease-in-out
-           ${hasErrors ? "translate-y-[6rem]" : "translate-y-0"}
-        `}
-        >
-          Wypełnij wymagane pola formularza
-        </div>
-      } */}
+
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="">
         <Card className="mb-10">
