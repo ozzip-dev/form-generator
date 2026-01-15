@@ -7,6 +7,7 @@ import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
 import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
+import { isActive } from "@/helpers/formHelpers";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -30,9 +31,9 @@ const EditFormPage = async (props: Props) => {
         <FormActions form={formSerialized} />
       </SuspenseErrorBoundary>
 
-      {state === "active" && <FormActiveInfo />}
-
-      {state !== "active" && (
+      {isActive(form) ? (
+        <FormActiveInfo />
+      ) : (
         /* {state && ( */
         <div className="flex flex-col gap-16">
           <SuspenseErrorBoundary
