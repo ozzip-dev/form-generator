@@ -1,50 +1,32 @@
 "use client";
 
-import { uploadFileAction } from "@/actions/file/uploadFileAction";
-import { addProtocolFileAction } from "@/actions/protocol";
 import { Button, DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
-import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
-import { useCallback, useState, useTransition } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
+import { useCallback, useTransition } from "react";
+import { Accept, FileRejection, useDropzone } from "react-dropzone";
 import Card from "./Card";
 
 type Props = {
-  category: ProtocolFileCategory;
-  protocol: ProtocolSerialized;
+  onFileUploaded: (file: File) => Promise<void>;
+  text: string;
+  acceptedExtentions?: Accept;
 };
 
-const UploadFileForm = ({ category, protocol }: Props) => {
+const UploadFileForm = ({
+  onFileUploaded,
+  text,
+  acceptedExtentions = { "image/*": [], "application/pdf": [] },
+}: Props) => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
 
   const uploadFile = useCallback(
     async (file: File) => {
       startTransition(async () => {
-        try {
-          const insertedId = await uploadFileAction(file);
-
-          await addProtocolFileAction({
-            protocolId: protocol._id,
-            fileId: insertedId,
-            fileCategory: category!,
-          });
-
-          toast({
-            title: "Sukces",
-            description: "Dokument dodany",
-            variant: "success",
-          });
-        } catch (error) {
-          toast({
-            title: "Błąd",
-            description: `Dokument nie został zapisany. ${error}`,
-            variant: "error",
-          });
-        }
+        onFileUploaded(file);
       });
     },
-    [toast, category, protocol._id]
+    [onFileUploaded]
   );
 
   const onDrop = useCallback(
@@ -90,7 +72,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
     onDropRejected,
     maxFiles: 5,
     maxSize: 1024 * 1024 * 5,
-    accept: { "image/*": [], "application/pdf": [] },
+    accept: acceptedExtentions,
   });
 
   return (
@@ -126,9 +108,7 @@ const UploadFileForm = ({ category, protocol }: Props) => {
 
                 {/* TODO: jaki max rozmiar? Czy chcemy wiekszy? */}
                 <div className="text-sm">
-                  <div>
-                    Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF{" "}
-                  </div>
+                  <div>{text} </div>
                   <div>Maksymalny rozmiar: 1 MB</div>
                 </div>
               </>
