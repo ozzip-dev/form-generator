@@ -61,9 +61,10 @@ const MenuBar = ({ editor }: Props) => {
   return (
     <div className="control-group">
       <div className="button-group flex gap-2">
-        {createBtnsData(editor).map(({ onClick, btnName }) => {
+        {createBtnsData(editor).map(({ onClick, btnName }, idx) => {
           return (
             <button
+              key={idx}
               type="button"
               onClick={onClick}
               className={editorState[btnName] ? "bg-accent_light" : ""}

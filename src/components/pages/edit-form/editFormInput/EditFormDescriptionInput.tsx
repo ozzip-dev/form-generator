@@ -20,6 +20,8 @@ const EditFormDescriptionInput = (props: Props) => {
     !!props.description
   );
 
+  console.log("props.description", props.description);
+
   const dataInputDescription = [
     {
       type: "textarea",
@@ -29,7 +31,7 @@ const EditFormDescriptionInput = (props: Props) => {
     },
   ];
 
-  const formId = useSafeURLParam("formId");
+  const formId = useSafeURLParam("formId") || "";
   const {
     register,
     formState: { errors },
@@ -111,7 +113,11 @@ const EditFormDescriptionInput = (props: Props) => {
 
       {props.isParagraph && !shouldShowInput && descriptionInput}
 
-      <TextEditor />
+      <TextEditor
+        formId={formId}
+        inputId={props.inputId}
+        description={props.description}
+      />
     </>
   );
 };

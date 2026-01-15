@@ -3,8 +3,12 @@ type Props = {
 };
 
 const InputDescription = (props: Props) => {
+  if (!props.description) return null;
   return (
-    <div className="mb-1 text-sm text-font_light">{props.description}</div>
+    <div
+      className="mb-1 text-sm text-font_light"
+      dangerouslySetInnerHTML={{ __html: props.description }}
+    />
   );
 };
 
