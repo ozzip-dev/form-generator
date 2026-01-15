@@ -7,6 +7,7 @@ import { Button, IconTrash, InputFields } from "../../../shared";
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import TextEditor from "../textEditor/TextEditor";
+import TextEditorPrinter from "../textEditor/TextEditorPrinter";
 
 type Props = {
   inputId: string;
@@ -19,6 +20,8 @@ const EditFormDescriptionInput = (props: Props) => {
   const [isDescriptionInput, setDescriptionInput] = useState(
     !!props.description
   );
+
+  const [isDescriptionEditor, setDescriptionEditor] = useState(false);
 
   console.log("props.description", props.description);
 
@@ -65,6 +68,10 @@ const EditFormDescriptionInput = (props: Props) => {
     setDescriptionInput((prev) => !prev);
   };
 
+  const printDescriptionEditor = () => {
+    setDescriptionEditor((prev) => !prev);
+  };
+
   const handleRemoveDescriptionInput = async () => {
     setDescriptionInput((prev) => !prev);
 
@@ -80,12 +87,26 @@ const EditFormDescriptionInput = (props: Props) => {
 
   const descriptionInput = (
     <div className="relative w-[calc(100%-3rem)] md:w-4/6 ">
-      <InputFields
+      {/* <InputFields
         inputsData={dataInputDescription}
         register={register}
         errorMsg={errors.header as any}
         onChange={handleEditLabel}
-      />
+      /> */}
+
+      {isDescriptionEditor ? (
+        <TextEditor
+          formId={formId}
+          inputId={props.inputId}
+          description={props.description}
+          printDescriptionInput={printDescriptionEditor}
+        />
+      ) : (
+        <TextEditorPrinter
+          description={props.description}
+          printDescriptionInput={printDescriptionEditor}
+        />
+      )}
 
       <Button
         type="button"
@@ -113,11 +134,11 @@ const EditFormDescriptionInput = (props: Props) => {
 
       {props.isParagraph && !shouldShowInput && descriptionInput}
 
-      <TextEditor
+      {/* <TextEditor
         formId={formId}
         inputId={props.inputId}
         description={props.description}
-      />
+      /> */}
     </>
   );
 };

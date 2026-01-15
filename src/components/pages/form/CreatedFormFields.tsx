@@ -3,7 +3,7 @@ import {
   InputFields,
   RadioGroupField,
 } from "@/components/shared";
-import InputDescription from "@/components/shared/inputs/InputDescription";
+import FormDescription from "@/components/shared/inputs/FormDescription";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
@@ -88,5 +88,5 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
 };
 
 export const renderParagraph = ({ input }: RendererParams) => {
-  return <InputDescription key={input.id} description={input.description} />;
+  return <FormDescription key={input.id} description={input.description} />;
 };

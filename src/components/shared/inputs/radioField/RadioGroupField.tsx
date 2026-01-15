@@ -130,7 +130,7 @@ import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import { useFormContext } from "react-hook-form";
 import InputError from "../InputError";
 import InputRadioOther from "./InputRadioOther";
-import InputDescription from "../InputDescription";
+import InputDescription from "../FormDescription";
 
 type Option = {
   label: string;

@@ -5,7 +5,7 @@ import { DataLoader, InputError } from "../../index";
 import TextareaField from "./TextareaField";
 import InputField from "./InputField";
 import FloatingLabel from "./FloatingLabel";
-import InputDescription from "../InputDescription";
+import InputDescription from "../FormDescription";
 import InputIndicators from "../InputIndicators";
 
 type InputData = {

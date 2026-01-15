@@ -14,6 +14,7 @@ type Props = {
   formId: string;
   inputId: string;
   description: string;
+  printDescriptionInput: () => void;
 };
 
 const TextEditor = (props: Props) => {
@@ -56,10 +57,13 @@ const TextEditor = (props: Props) => {
     await editInputLabelAction(props.formId, props.inputId, {
       description: editorContent,
     });
+    props.printDescriptionInput();
   }, undefined);
 
   const handleEditDescription = () => {
-    startTransition(editDescription);
+    startTransition(() => {
+      editDescription();
+    });
   };
 
   useAutoLoader(isPending);
@@ -67,10 +71,18 @@ const TextEditor = (props: Props) => {
   return (
     <>
       <MenuBar editor={editor} />
-      <EditorContent
-        editor={editor}
-        className="textEditorLink texEditorPlaceholder text-sm"
-      />
+      <div
+        className="
+        [&_h3]:text-lg
+        [&_a]:text-accent_dark
+        [&_a]:underline"
+      >
+        <EditorContent
+          editor={editor}
+          className="texEditorPlaceholder text-sm"
+        />
+      </div>
+
       <Button
         type="button"
         message="Zatwierdż"

@@ -5,7 +5,7 @@ import InputError from "../InputError";
 import InputCheckboxOther from "./InputCheckboxOther";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import Checkbox from "./Checkbox";
-import InputDescription from "../InputDescription";
+import InputDescription from "../FormDescription";
 import InputIndicators from "../InputIndicators";
 
 type CheckboxOption = {

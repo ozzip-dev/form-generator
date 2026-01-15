@@ -2,18 +2,19 @@ type Props = {
   description?: string;
 };
 
-const InputDescription = (props: Props) => {
+const FormDescription = (props: Props) => {
   if (!props.description) return null;
   return (
     <div
       className="mb-1 text-sm text-font_light
-        [&_p]:mt-4
+        [&_p]:mt-3
         [&_a]:text-accent_dark
         [&_a]:underline
+        [&_h3]:text-lg
       "
       dangerouslySetInnerHTML={{ __html: props.description }}
     />
   );
 };
 
-export default InputDescription;
+export default FormDescription;
