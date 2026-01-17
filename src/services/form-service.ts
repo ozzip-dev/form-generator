@@ -73,8 +73,8 @@ export async function createDraft(
   return insertedId;
 }
 
-export async function getFormTemplates(database: Db): Promise<Form[]> {
-  const forms = await find<Form>(database, "form", { state: "template" });
+export async function getFormTemplates(): Promise<Form[]> {
+  const forms = await find<Form>(db, "form", { state: "template" });
   return forms;
 }
 

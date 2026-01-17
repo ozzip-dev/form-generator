@@ -2,10 +2,11 @@
 
 import { createFormDraftAction } from "@/actions/create-form/createFormDraftAction";
 import { Button } from "@/components/shared";
-import { startTransition, useActionState, useTransition } from "react";
+import { useTransition } from "react";
 
 type Props = {
-  templateName: string;
+  id: string;
+  title: string;
 };
 
 const FormTemplateTrigger = (props: Props) => {
@@ -13,7 +14,7 @@ const FormTemplateTrigger = (props: Props) => {
 
   const handleCreateForm = () => {
     startTransition(async () => {
-      await createFormDraftAction(props.templateName);
+      await createFormDraftAction(props.id);
     });
   };
 
@@ -26,7 +27,7 @@ const FormTemplateTrigger = (props: Props) => {
         className=" flex justify-center items-center w-[15rem] h-[15rem]
          !rounded-md border bg-bg_light  hover:bg-accent transition"
       />
-      <h3 className="mt-4 text-center truncate">{props.templateName}</h3>
+      <h3 className="mt-4 text-center truncate">{props.title}</h3>
     </>
   );
 };
