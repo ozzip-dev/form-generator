@@ -6,7 +6,7 @@
 */
 
 import { InputType } from "@/enums";
-import { FormType } from "@/enums/form";
+import { FormResultVisibility, FormType } from "@/enums/form";
 import { Form } from "@/types/form";
 
 const getCreatedUpdatedDates = (): {
@@ -25,7 +25,7 @@ export const formTemplates: Form[] = [
   {
     id: "membership",
     type: FormType.Other,
-    resultVisibility: "open",
+    resultVisibility: FormResultVisibility.Open,
     title: "Członkostwo",
     description: "Dołącz do nas",
     ...getCreatedUpdatedDates(),
@@ -65,7 +65,7 @@ export const formTemplates: Form[] = [
   {
     id: "favourite-color",
     type: FormType.Other,
-    resultVisibility: "open",
+    resultVisibility: FormResultVisibility.Open,
     title: "Ulubiony kolor",
     description: "Jaki jest Twój ulubiony kolor?",
     ...getCreatedUpdatedDates(),

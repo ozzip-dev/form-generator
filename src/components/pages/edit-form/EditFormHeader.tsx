@@ -4,7 +4,7 @@ import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { Icon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
@@ -16,6 +16,9 @@ import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import FormHeaderImageUpload from "./FormHeaderImageUpload";
+import CheckboxSwitch from "@/components/shared/inputs/CheckboxSwitch";
+import { startTransition } from "react";
+import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -54,6 +57,7 @@ export default function EditFormHeader(props: Props) {
     description,
     type,
     resultVisibility,
+    displayAuthorEmail,
   } = props.form;
 
   const methods = useForm<EditFormHeaderSchema>({
@@ -63,11 +67,13 @@ export default function EditFormHeader(props: Props) {
       description,
       type,
       resultVisibility,
+      displayAuthorEmail,
     },
     mode: "all",
   });
 
   const {
+    control,
     register,
     formState: { errors },
     trigger,
@@ -82,6 +88,8 @@ export default function EditFormHeader(props: Props) {
     setError,
   });
 
+  const { setLoading } = useLoader();
+
   const isSelectLoading =
     isLoading?.type === true || isLoading?.resultVisibility === true;
   useAutoLoader(isSelectLoading);
@@ -89,6 +97,15 @@ export default function EditFormHeader(props: Props) {
   const isTextLoading =
     isLoading?.description === true || isLoading?.title === true;
   useAutoLoader(isTextLoading, "small");
+
+  const handleSwitch = () => {
+    setLoading("fullscreen", true);
+    startTransition(async () => {
+      if (!formId) return;
+      await toggleDisplayAuthorEmailAction(formId);
+      setLoading("fullscreen", false);
+    });
+  };
 
   return (
     <Card>
@@ -137,6 +154,15 @@ export default function EditFormHeader(props: Props) {
                 </div>
               )}
             </div> */}
+          </div>
+
+          <div className="pb-16">
+            <CheckboxSwitch
+              label="Wyświetl email autora/autorki"
+              name="displayAuthorEmail"
+              control={control}
+              onChangeAction={handleSwitch}
+            />
           </div>
 
           <InputFields
