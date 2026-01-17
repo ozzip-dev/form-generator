@@ -16,5 +16,7 @@ export { default as InputFields } from "./inputs/inputFields/InputFields";
 
 export { default as UploadFileForm } from "./UploadFileForm";
 
+export { default as InfoIcon } from "./InfoIcon";
+
 export { default as Icon } from "./icons/Icon";
 export { default as IconTrash } from "./icons/IconTrash";

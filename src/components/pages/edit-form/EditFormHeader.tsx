@@ -1,7 +1,7 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { Icon, InputFields } from "@/components/shared";
+import { InfoIcon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
@@ -118,42 +118,34 @@ export default function EditFormHeader(props: Props) {
               label="Kategoria formularza"
               placeholder="Wybierz kategorię formularza"
               options={dataSelectOptions}
-              onChangeAction={(name, value) => {
-                handleEdit(name, value);
-              }}
+              onChangeAction={handleEdit}
             />
-          </div>
 
-          <div className="sm:w-[30rem] md:w-[50rem] flex items-center relative">
-            <SelectFieldControler
-              name="resultVisibility"
-              defaultValue=""
-              label="Tryb dostępności wyników"
-              placeholder="Wybierz typ głosowania"
-              options={resultVisibilityOptions}
-              onChangeAction={(name, value) => {
-                handleEdit(name, value);
-              }}
-            />
-            {/* <div className="absolute">
-              {resultVisibility === "secret" && (
-                <div
-                  className=" p-2 
-                    w-[20rem] text-2xs z-10"
-                >
-                  Wyniki w formie podsumowania odpowiedzi
-                </div>
-              )}
-              {resultVisibility === "open" && (
-                <div
-                  className=" p-2 
-               w-[20rem] text-2xs z-10"
-                >
-                  Wyniki w formie podsumowania odpowiedzi i odpowiedzi z każdego
-                  pojedynczego formularza
-                </div>
-              )}
-            </div> */}
+            <div className="flex gap-2 items-end my-10">
+              <SelectFieldControler
+                name="resultVisibility"
+                defaultValue=""
+                label="Tryb dostępności wyników"
+                placeholder="Wybierz typ głosowania"
+                options={resultVisibilityOptions}
+                onChangeAction={handleEdit}
+              />
+              <InfoIcon>
+                <>
+                  <div>
+                    <span className="font-black">Jawne: </span>
+                    <span>
+                      Wyniki w formie podsumowania odpowiedzi i odpowiedzi z
+                      każdego pojedynczego formularza
+                    </span>
+                  </div>
+                  <div className="pt-4">
+                    <span className="font-black">Tajne: </span>
+                    <span>Wyniki w formie podsumowania odpowiedzi</span>
+                  </div>
+                </>
+              </InfoIcon>
+            </div>
           </div>
 
           <div className="pb-16">

@@ -5,7 +5,6 @@ import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, ProtocolFilters } from "../utils";
-import InputField from "@/components/shared/inputs/inputFields/InputField";
 
 const dataSearchInput = [
   {
@@ -73,6 +72,7 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
                 defaultValue="ascending"
                 options={dataSelectOptions}
                 onChangeAction={onFilterChange}
+                className="mb-8"
               />
             </div>
             <Button
