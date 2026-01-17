@@ -1,20 +1,29 @@
 "use client";
 
-import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 import { Icon } from "@/components/shared";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
-import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { FormInput } from "@/types/input";
 import { useTransition } from "react";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
   input: FormInput;
+  formId: string;
+  action: (formIdString: string, inputId: string) => Promise<void>;
+  name: string;
+  label: string;
+  infoText?: string;
 }
 
-export default function RequiredToggleSwitch(props: Props) {
-  const formId = useSafeURLParam("formId");
+export default function InputDataToggleSwitch({
+  input,
+  formId,
+  action,
+  name,
+  label,
+  infoText,
+}: Props) {
   const [isPending, startTransition] = useTransition();
   const { control } = useFormContext();
 
@@ -22,20 +31,16 @@ export default function RequiredToggleSwitch(props: Props) {
 
   const handleSwitch = () => {
     startTransition(async () => {
-      if (!formId || !props.input.id) return;
-      await toggleRequiredAction(formId, props.input.id);
+      if (!formId || !input.id) return;
+      await action(formId, input.id);
     });
   };
 
   return (
     <div className="text-sm flex items-center gap-2">
       <CheckboxSwitch
-        label="Odpowiedź wymagana"
-        name={`required`}
-        control={control}
-        onChangeAction={async () => {
-          handleSwitch();
-        }}
+        {...{ name, label, control }}
+        onChangeAction={handleSwitch}
       />
 
       <div className="relative">
@@ -62,7 +67,7 @@ export default function RequiredToggleSwitch(props: Props) {
            opacity-0 group-hover:opacity-100 
         "
           >
-            Bez wypełnienia pola formularz nie zostanie wysłany
+            {infoText}
           </div>
         </div>
       </div>
