@@ -15,7 +15,7 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: rgb(194, 215, 255);
+  --color-accent: rgba(159, 193, 255, 1);
   --color-accent_dark: rgba(101, 130, 255, 1);
   --color-accent_light: rgba(226, 236, 255, 1);
 
@@ -58,7 +58,7 @@ body {
 }
 
 .btn-primary {
-  @apply text-lg bg-accent_dark px-12 py-2;
+  @apply text-lg bg-accent px-12 py-2;
 }
 
 .btn-primary-rounded {

@@ -15,7 +15,7 @@ const ProtocolUploadsMenu = (props: Props) => {
         <li key={category}>
           <Button
             className={`w-[178px] h-[110px] rounded-sm !px-8 !text-base ${
-              category == props.visibleCategory ? "bg-accent_dark" : ""
+              category == props.visibleCategory ? "!bg-accent_dark" : ""
             }`}
             message={mapFileCategory[category]}
             onClickAction={() => props.setVisibleCategory(category)}
