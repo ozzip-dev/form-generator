@@ -17,9 +17,13 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
     category,
   } = topic;
   return (
-    <>
+    <div className="px-8 py-12">
       <Link href={"/forum"}>
-        <Button message="<< Powrót do listy" className="!w-60 mb-8" />
+        <Button
+          message="<< Powrót do listy"
+          variant="primary-rounded"
+          className="mb-8"
+        />
       </Link>
       <div className="w-full mb-8 bg-slate-200 p-4">
         <div className="flex gap-4 font-black text-lg">
@@ -40,7 +44,7 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
         <TopicPosts posts={posts} />
         <TopicActions {...topic} />
       </div>
-    </>
+    </div>
   );
 };
 

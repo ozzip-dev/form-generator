@@ -16,13 +16,13 @@ const TopicPosts = (props: Props) => {
     <div>
       <Button
         message={
-          showPosts ? "Ukryj posty" : `Pokaz posty (${props.posts?.length})`
+          showPosts ? "Ukryj posty" : `Pokaż posty (${props.posts?.length})`
         }
         onClickAction={() => {
           setShowPosts(!showPosts);
         }}
-        className="!w-48"
         disabled={!props.posts?.length}
+        className="mt-8 mb4"
       />
       {showPosts && <TopicPostList posts={props.posts} />}
     </div>

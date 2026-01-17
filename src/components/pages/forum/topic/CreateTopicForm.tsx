@@ -9,11 +9,13 @@ import {
   CreateTopicSchema,
 } from "@/lib/zodSchema/forumSchemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
+import Card from "@/components/shared/Card";
 
-const topicInputData: { floatingLabel: string; name: string; type: string }[] = [
-  { floatingLabel: "Temat", name: "title", type: "text" },
-  { floatingLabel: "Opis", name: "description", type: "text" },
-];
+const topicInputData: { floatingLabel: string; name: string; type: string }[] =
+  [
+    { floatingLabel: "Temat", name: "title", type: "text" },
+    { floatingLabel: "Opis", name: "description", type: "text" },
+  ];
 
 const categorySelectOptions = [
   { floatingLabel: "Formularz", value: TopicCategory.FORM },
@@ -65,8 +67,9 @@ const CreateTopicForm = () => {
   });
 
   return (
-    <>
+    <Card className="mb-12">
       {isPending && <FullscreenLoader />}
+      <div className="text-lg font-black pb-8">Utwórz nowy temat</div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -74,7 +77,6 @@ const CreateTopicForm = () => {
             createNewTopic(new FormData(e.currentTarget));
           });
         }}
-        className="mb-12"
       >
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
@@ -86,9 +88,9 @@ const CreateTopicForm = () => {
           ))}
         </select>
 
-        <Button message="Utwórz" className="!w-32" />
+        <Button message="Utwórz" className="mt-6" />
       </form>
-    </>
+    </Card>
   );
 };
 
