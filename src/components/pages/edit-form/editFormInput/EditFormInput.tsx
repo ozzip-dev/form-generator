@@ -157,7 +157,7 @@ const EditFormInput = (props: Props) => {
                 </div>
                 <div className="md:w-[45%] md:max-w-[22rem]">
                   <SelectFieldControler
-                    name={`type`}
+                    name="type"
                     defaultValue={type}
                     options={dataSelectOptions}
                     onChangeAction={(name, value) => {
