@@ -34,13 +34,13 @@ export async function getUsersWithFormType(type: FormType): Promise<IUser[]> {
   const user = await requireUser();
   const forms: Form[] = await getFormsByType(type);
   const authorIds: (ObjectId | undefined)[] = forms.map(
-    ({ createdBy }) => createdBy
+    ({ createdBy }) => createdBy,
   );
   const authorsIdsUnique: ObjectId[] = [
     ...new Set(
       authorIds
         /* filter out currently logged in user */
-        .filter((id) => id && id.toString() != user.id)
+        .filter((id) => id && id.toString() != user.id),
     ),
   ] as ObjectId[];
 
@@ -48,10 +48,16 @@ export async function getUsersWithFormType(type: FormType): Promise<IUser[]> {
 }
 
 export async function getCommitteeMembers(
-  committee: UserCommitteeInfo
+  committee: UserCommitteeInfo,
 ): Promise<UserSerialized[]> {
   const users = await find<IUser>(db, "user", {
     committeeEmail: committee.committeeEmail,
   });
   return users.map((user) => serializeUser(user));
+}
+
+export async function getUserById(userId: string): Promise<IUser> {
+  const user = await findById<IUser>(db, "user", new ObjectId(userId));
+  if (!user) throw new Error("Invalid user id");
+  return user;
 }

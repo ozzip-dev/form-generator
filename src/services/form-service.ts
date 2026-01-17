@@ -14,10 +14,11 @@ import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 import { cache } from "react";
 import { redirect } from "next/navigation";
-import { serializeForm } from "@/lib/serialize-utils";
-import { requireUser } from "./user-service";
+import { serializeFile, serializeForm } from "@/lib/serialize-utils";
+import { getUserById, requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
-import { removeFile } from "./file-service";
+import { getFileById, removeFile } from "./file-service";
+import { File } from "@/types/file";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
@@ -307,4 +308,23 @@ export async function toggleDisplayAuthorEmail(
       },
     },
   );
+}
+
+/* returns header image data and author email */
+export async function getFormAdditionalData(formId: string): Promise<{
+  headerFileData?: string;
+  authorEmail: string;
+}> {
+  const form = await getFormById(formId);
+  const file: File | null = form.headerFileId
+    ? await getFileById(form.headerFileId)
+    : null;
+
+  const authorId = form.createdBy?.toString();
+  const formAuthor = await getUserById(authorId as string);
+
+  return {
+    headerFileData: file ? serializeFile(file)?.data : undefined,
+    authorEmail: formAuthor.email,
+  };
 }

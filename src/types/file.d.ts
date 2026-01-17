@@ -1,4 +1,4 @@
-export type FileCategory = 'protocol' | 'post' /* ? */ | 'avatar' /* ? */
+export type FileCategory = "protocol" | "post" /* ? */ | "avatar"; /* ? */
 
 interface FileData extends Document {
   name: string;
@@ -18,7 +18,7 @@ export interface File extends FileData {
 
 export interface FileSerialized extends FileData {
   _id: string;
-  data: any;
+  data: string;
   lastModifiedAt: string;
   uploadedAt: string;
 }

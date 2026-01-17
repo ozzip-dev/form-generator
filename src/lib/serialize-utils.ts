@@ -21,7 +21,7 @@ export function serializeFile(file: File): FileSerialized {
   const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file;
 
   /* server only */
-  const base64 = Buffer.from(file.data.buffer).toString("base64");
+  const base64 = Buffer.from(data.buffer).toString("base64");
 
   return {
     ...file,
@@ -79,7 +79,7 @@ export function serializeTopic(topic: Topic): TopicSerialized {
   };
 }
 export function serializeResultSubmission(
-  submission: Submission
+  submission: Submission,
 ): SubmissionSerialized {
   return {
     ...submission,

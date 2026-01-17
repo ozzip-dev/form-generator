@@ -46,12 +46,13 @@ const defaultValues = (inputs: FormInput[]) => {
 
 type Props = {
   form: FormSerialized;
-  headerFileData?: any;
+  headerFileData?: string;
+  authorEmail?: string;
   isPreview?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs } = props.form;
+  const { title, description, inputs, displayAuthorEmail } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
@@ -82,7 +83,7 @@ const CreatedForm = (props: Props) => {
     try {
       const submittableInputs = inputs.filter(isInputSubmittable);
       const submittableInputIds: string[] = submittableInputs.map(
-        ({ id }) => id!
+        ({ id }) => id!,
       );
 
       for (const key of Object.keys(data)) {
@@ -187,6 +188,13 @@ const CreatedForm = (props: Props) => {
           )}
           <div className="text-error text-xs">* Odpowiedź wymagana</div>
           <div className="text-error text-xs">! Odpowiedź jednorazowa </div>
+
+          {displayAuthorEmail && (
+            <div className="pt-10">
+              <span>Kontakt do autora/autorki formularza: </span>
+              <span className="font-black">{props.authorEmail}</span>
+            </div>
+          )}
         </Card>
 
         <FormProvider {...methods}>
