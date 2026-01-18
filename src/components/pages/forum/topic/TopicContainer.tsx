@@ -37,7 +37,8 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
         </div>
 
         <div>
-          Ostatnia modyfikacja: <b>{formatDateAndTime(updatedAt)}</b>
+          Ostatnio modyfikowano/komentowano:{" "}
+          <b>{formatDateAndTime(updatedAt)}</b>
         </div>
 
         <div>{description}</div>

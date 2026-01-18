@@ -10,6 +10,7 @@ import {
 } from "@/lib/zodSchema/forumSchemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
 import Card from "@/components/shared/Card";
+import { redirect } from "next/navigation";
 
 const topicInputData: { floatingLabel: string; name: string; type: string }[] =
   [
@@ -50,13 +51,16 @@ const CreateTopicForm = () => {
         description: "Utworzono temat",
         variant: "success",
       });
-    } catch (e) {
+    } catch (e: unknown) {
       toast({
         title: "Błąd",
         description: "Nie udało się stworzyć tematu",
         variant: "error",
       });
+      return { errors: { message: [(e as Error)?.message || "Błąd"] } };
     }
+
+    redirect("/forum/list");
 
     return { errors: { message: [] } };
   };

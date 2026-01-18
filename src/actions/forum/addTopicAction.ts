@@ -9,7 +9,7 @@ import { revalidateTag } from "next/cache";
 export async function addTopicAction(
   title: string,
   category: TopicCategory,
-  description?: string
+  description?: string,
 ): Promise<void | { error: ModelFieldErrors }> {
   const user = await requireUser();
 
