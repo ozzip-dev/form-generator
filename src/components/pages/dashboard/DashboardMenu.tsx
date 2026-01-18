@@ -13,7 +13,7 @@ const moderatorNavLinks: NavMenuLink[] = [
   dashboardLink,
   { text: "Formularze", link: "/forms/list" },
   { text: "Protokoły", link: "/protocols/add" },
-  { text: "Forum", link: "/forum" },
+  { text: "Forum", link: "/forum/list" },
   { text: "Ustawienia", link: "/user-settings" },
 ];
 

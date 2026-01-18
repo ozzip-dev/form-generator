@@ -1,4 +1,3 @@
-import CreateTopicForm from "./topic/CreateTopicForm";
 import TopicList from "./topic/TopicList";
 import { getTopicIds, getTopicWithPostCount } from "@/services/forum-service";
 
@@ -8,8 +7,7 @@ const Forum = async () => {
     topicIds.map(getTopicWithPostCount),
   );
   return (
-    <div className="px-8 py-12">
-      <CreateTopicForm />
+    <div className="p-8">
       <TopicList topics={topicsWithPostCount} />
     </div>
   );

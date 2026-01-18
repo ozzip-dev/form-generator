@@ -19,10 +19,11 @@ const TopicList = (props: Props) => {
   const displayedTopics = props.topics.filter(
     ({ category }) => category == selectedCategory,
   );
-  // TODO: move to separate components
+  // TODO: rozplanować układ komponentów gdy będzie design
   return (
     <div>
-      <div className="flex w-fit gap-8 py-4 m-auto">
+      <div className="flex w-fit items-center gap-8 py-4 m-auto">
+        <div>Kategorie tematów: </div>
         {Object.values(TopicCategory).map((category) => (
           <Button
             key={category}

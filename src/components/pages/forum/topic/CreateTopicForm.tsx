@@ -67,7 +67,7 @@ const CreateTopicForm = () => {
   });
 
   return (
-    <Card className="mb-12">
+    <Card className="mx-8">
       {isPending && <FullscreenLoader />}
       <div className="text-lg font-black pb-8">Utwórz nowy temat</div>
       <form
@@ -81,6 +81,9 @@ const CreateTopicForm = () => {
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
         <select name="category">
+          <option key="empty" value="">
+            Wybierz
+          </option>
           {categorySelectOptions.map(({ value, floatingLabel }) => (
             <option key={value} value={value}>
               {floatingLabel}

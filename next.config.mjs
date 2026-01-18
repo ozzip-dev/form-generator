@@ -13,6 +13,11 @@ const nextConfig = {
         destination: '/protocols/add',
         permanent: true,
       },
+            {
+        source: '/forum',
+        destination: '/forum/list',
+        permanent: true,
+      },
     ]
   }
 };

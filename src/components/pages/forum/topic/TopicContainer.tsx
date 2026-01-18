@@ -17,7 +17,7 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
     category,
   } = topic;
   return (
-    <div className="px-8 py-12">
+    <div className="px-8">
       <Link href={"/forum"}>
         <Button
           message="<< Powrót do listy"
