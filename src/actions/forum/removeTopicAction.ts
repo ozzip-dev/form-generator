@@ -7,6 +7,7 @@ import { requireUser } from "@/services/user-service";
 import { Topic } from "@/types/forum";
 import { ObjectId } from "mongodb";
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function removeTopicAction(topicId: string): Promise<void> {
   const user = await requireUser();
@@ -25,4 +26,6 @@ export async function removeTopicAction(topicId: string): Promise<void> {
   } catch (_) {
     throw new Error("Failed to remove topic");
   }
+
+  redirect("/forum/list");
 }

@@ -12,7 +12,12 @@ import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
 import { useRouter } from "next/navigation";
 
-const TopicActionButtons = (topic: TopicSerialized) => {
+type Props = {
+  topic: TopicSerialized;
+  handlePrintForm: () => void;
+};
+
+const TopicActionButtons = (props: Props) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showPostForm, setShowPostForm] = useState<boolean>(false);
@@ -21,7 +26,7 @@ const TopicActionButtons = (topic: TopicSerialized) => {
   const user: UserSerialized | null = use(userPromise);
   const router = useRouter();
 
-  const isAuthor = !!(user && isItemAuthor(user, topic));
+  const isAuthor = !!(user && isItemAuthor(user, props.topic));
 
   const successToast = (text: string) =>
     toast({
@@ -47,17 +52,15 @@ const TopicActionButtons = (topic: TopicSerialized) => {
     },
     {
       text: "Edytuj",
-      action: () => {},
+      action: props.handlePrintForm,
       isDisplayed: isAuthor,
       errorText: "Błąd edycji tematu",
     },
     {
       text: "Usuń",
       action: async () => {
-        await removeTopicAction(topic._id);
+        await removeTopicAction(props.topic._id);
         successToast("Temat usunięty");
-        // TODO: moze inaczej? jest moment zawiechy miedzy usunieciem a redirectem
-        router.push("/forum");
       },
       isDisplayed: isAuthor,
       errorText: "Błąd usuwania tematu",
@@ -69,7 +72,7 @@ const TopicActionButtons = (topic: TopicSerialized) => {
     action: (id: string) => void | Promise<void>,
     id: string,
     errorText: string,
-    confirmText: string
+    confirmText: string,
   ) => {
     setIsLoading(true);
     try {
@@ -108,14 +111,17 @@ const TopicActionButtons = (topic: TopicSerialized) => {
               key={idx}
               message={text}
               onClickAction={() =>
-                triggerAction(action, topic._id, errorText, confirmText)
+                triggerAction(action, props.topic._id, errorText, confirmText)
               }
             />
           ))}
       </div>
 
       {showPostForm && (
-        <AddPostForm topicId={topic._id} setShowPostForm={setShowPostForm} />
+        <AddPostForm
+          topicId={props.topic._id}
+          setShowPostForm={setShowPostForm}
+        />
       )}
     </div>
   );
