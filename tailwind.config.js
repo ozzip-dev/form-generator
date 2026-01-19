@@ -54,7 +54,8 @@ module.exports = {
 
       borderRadius: {
         sm: "1rem",
-        md: "3.5rem",
+        md: "1.8rem",
+        lg: "3.5rem",
       },
       borderColor: {
         default: "rgba(217, 217, 217, 1)",
