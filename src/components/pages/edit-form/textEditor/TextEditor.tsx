@@ -10,6 +10,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { startTransition, useActionState, useState } from "react";
 import MenuBar from "./MenuBar";
 import CharacterCount from "@tiptap/extension-character-count";
+import Highlight from "@tiptap/extension-highlight";
 
 const MAX_CHARS = 2000;
 
@@ -33,10 +34,12 @@ const TextEditor = (props: Props) => {
       Placeholder.configure({
         placeholder: "Wpisz treść...",
       }),
-      //   Highlight,
-      //   TextAlign.configure({
-      //     types: ["heading", "paragraph"],
-      //   }),
+
+      Highlight.configure({
+        HTMLAttributes: {
+          class: "my-custom-class",
+        },
+      }),
       CharacterCount.configure({
         limit: MAX_CHARS,
       }),

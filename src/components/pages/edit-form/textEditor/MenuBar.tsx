@@ -20,6 +20,7 @@ const MenuBar = ({ editor }: Props) => {
     bold: editor.isActive("bold"),
     italic: editor.isActive("italic"),
     link: editor.isActive("link"),
+    highlight: editor.isActive("highlight"),
   };
 
   const createBtnsData = [
@@ -65,8 +66,9 @@ const MenuBar = ({ editor }: Props) => {
       icon: "un-link",
     },
     {
-      onClick: () => editor.chain().focus().unsetLink().run(),
-      btnName: "un-link",
+      onClick: () =>
+        editor.chain().focus().toggleHighlight({ color: "#ffc078" }).run(),
+      btnName: "highlight",
       icon: "highlighter",
     },
   ];

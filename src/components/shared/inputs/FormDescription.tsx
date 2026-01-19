@@ -7,7 +7,7 @@ const FormDescription = (props: Props) => {
   return (
     <div
       className="mb-1 text-sm text-font_light
-        [&_p]:mt-3
+        [&_p]:mt-2
         [&_a]:text-accent_dark
         [&_a]:underline
         [&_h3]:text-lg

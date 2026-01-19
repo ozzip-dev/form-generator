@@ -14,6 +14,7 @@ const TextEditorPrinter = (props: Props) => {
         message="Edytuj"
         variant="primary-rounded"
         onClickAction={props.printDescriptionInput}
+        className="ml-auto"
       />
     </div>
   );
