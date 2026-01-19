@@ -25,6 +25,7 @@ import {
 } from "@/helpers/inputHelpers";
 import Card from "@/components/shared/Card";
 import CreatedFormTopBar from "./CreatedFormTopBar";
+import Image from "next/image";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -45,11 +46,13 @@ const defaultValues = (inputs: FormInput[]) => {
 
 type Props = {
   form: FormSerialized;
+  headerFileData?: string;
+  authorEmail?: string;
   isPreview?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs } = props.form;
+  const { title, description, inputs, displayAuthorEmail } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
@@ -80,7 +83,7 @@ const CreatedForm = (props: Props) => {
     try {
       const submittableInputs = inputs.filter(isInputSubmittable);
       const submittableInputIds: string[] = submittableInputs.map(
-        ({ id }) => id!
+        ({ id }) => id!,
       );
 
       for (const key of Object.keys(data)) {
@@ -157,12 +160,29 @@ const CreatedForm = (props: Props) => {
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
       <div className="">
         <Card className="mb-10">
+          {props.headerFileData && (
+            <Image
+              src={`data:image/png;base64,${props.headerFileData}`}
+              alt="form header"
+              width={450}
+              height={450}
+              className="max-w-[450px] max-h-[250px] w-auto h-auto m-auto my-8"
+            />
+          )}
+
           <h1 className="text-xl">{title}</h1>
           {description && (
             <h2 className="my-6 whitespace-pre-wrap">{description}</h2>
           )}
           <div className="text-error text-xs">* Odpowiedź wymagana</div>
           <div className="text-error text-xs">! Odpowiedź jednorazowa </div>
+
+          {displayAuthorEmail && (
+            <div className="pt-10">
+              <span>Kontakt do autora/autorki formularza: </span>
+              <span className="font-black">{props.authorEmail}</span>
+            </div>
+          )}
         </Card>
 
         <FormProvider {...methods}>

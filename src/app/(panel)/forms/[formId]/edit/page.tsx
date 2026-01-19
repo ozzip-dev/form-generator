@@ -2,11 +2,14 @@ import AddFormField from "@/components/pages/edit-form/AddFormField";
 import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo";
 import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import { serializeForm } from "@/lib/serialize-utils";
+import { serializeFile, serializeForm } from "@/lib/serialize-utils";
 import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
 import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
+import { isActive } from "@/helpers/formHelpers";
+import { getFileById } from "@/services/file-service";
+import { File } from "@/types/file";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -14,7 +17,10 @@ const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
   const formSerialized = serializeForm(form);
-  const { inputs, createdAt, updatedAt, state } = formSerialized;
+  const { inputs, createdAt, updatedAt, headerFileId } = formSerialized;
+  const file: File | null = headerFileId
+    ? await getFileById(headerFileId)
+    : null;
 
   const hasReachedInputLimit =
     form.inputs?.length >=
@@ -30,9 +36,9 @@ const EditFormPage = async (props: Props) => {
         <FormActions form={formSerialized} />
       </SuspenseErrorBoundary>
 
-      {state === "active" && <FormActiveInfo />}
-
-      {state !== "active" && (
+      {isActive(form) ? (
+        <FormActiveInfo />
+      ) : (
         /* {state && ( */
         <div className="flex flex-col gap-16">
           <SuspenseErrorBoundary
@@ -40,7 +46,10 @@ const EditFormPage = async (props: Props) => {
             errorMessage="Błąd edycji nagłówka formularza"
             loadingMessage="Ładowanie danych formularza"
           >
-            <EditFormHeader form={formSerialized} />
+            <EditFormHeader
+              form={formSerialized}
+              headerFileData={file ? serializeFile(file)?.data : null}
+            />
           </SuspenseErrorBoundary>
 
           {inputs

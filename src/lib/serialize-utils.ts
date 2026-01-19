@@ -19,7 +19,9 @@ export function serializeForm(form: Form): FormSerialized {
 
 export function serializeFile(file: File): FileSerialized {
   const { _id, data, uploadedAt, uploadedBy, lastModifiedAt } = file;
-  const base64 = btoa(String.fromCharCode(...data.buffer));
+
+  /* server only */
+  const base64 = Buffer.from(data.buffer).toString("base64");
 
   return {
     ...file,
@@ -77,7 +79,7 @@ export function serializeTopic(topic: Topic): TopicSerialized {
   };
 }
 export function serializeResultSubmission(
-  submission: Submission
+  submission: Submission,
 ): SubmissionSerialized {
   return {
     ...submission,

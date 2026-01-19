@@ -1,3 +1,5 @@
+"use client";
+
 import { TopicSerializedDetailed } from "@/types/forum";
 import TopicActions from "./TopicActions";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
@@ -5,42 +7,56 @@ import TopicPosts from "../post/TopicPosts";
 import Link from "next/link";
 import { Button } from "@/components/shared";
 import { mapTopicCategory } from "../utils";
+import { useState } from "react";
+import TopicForm from "./TopicForm";
+import { SuspenseErrorBoundary } from "@/components/shared";
 
 const TopicContainer = (topic: TopicSerializedDetailed) => {
-  const {
-    authorName,
-    createdAt,
-    updatedAt,
-    description,
-    title,
-    posts,
-    category,
-  } = topic;
+  const [isFormPrinted, setFormPrinted] = useState(false);
+
+  const handlePrintForm = () => {
+    setFormPrinted((prev) => !prev);
+  };
+
   return (
-    <>
+    <div className="px-8">
       <Link href={"/forum"}>
-        <Button message="<< Powrót do listy" className="!w-60 mb-8" />
+        <Button
+          message="<< Powrót do listy"
+          variant="primary-rounded"
+          className="mb-8"
+        />
       </Link>
-      <div className="w-full mb-8 bg-slate-200 p-4">
-        <div className="flex gap-4 font-black text-lg">
-          <div>{title}</div>
-          <div>({mapTopicCategory[category]})</div>
-        </div>
 
-        <div>
-          Utworzono: <b>{formatDateAndTime(createdAt)}</b> przez:{" "}
-          <b>{authorName}</b>
-        </div>
+      {!isFormPrinted && (
+        <div className="w-full mb-8 bg-slate-200 p-4">
+          <div className="flex gap-4 font-black text-lg">
+            <div>{topic.title}</div>
+            <div>({mapTopicCategory[topic.category]})</div>
+          </div>
 
-        <div>
-          Ostatnia modyfikacja: <b>{formatDateAndTime(updatedAt)}</b>
-        </div>
+          <div>
+            Utworzono: <b>{formatDateAndTime(topic.createdAt)}</b> przez:{" "}
+            <b>{topic.authorName}</b>
+          </div>
 
-        <div>{description}</div>
-        <TopicPosts posts={posts} />
-        <TopicActions {...topic} />
-      </div>
-    </>
+          <div>
+            Ostatnio modyfikowano/komentowano:{" "}
+            <b>{formatDateAndTime(topic.updatedAt)}</b>
+          </div>
+
+          <div>{topic.description}</div>
+          <TopicPosts posts={topic.posts} />
+          <TopicActions topic={topic} handlePrintForm={handlePrintForm} />
+        </div>
+      )}
+
+      {isFormPrinted && (
+        <SuspenseErrorBoundary size="lg" errorMessage="Błąd edycji tematu">
+          <TopicForm topic={topic} handlePrintForm={handlePrintForm} />
+        </SuspenseErrorBoundary>
+      )}
+    </div>
   );
 };
 

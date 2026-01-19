@@ -7,12 +7,14 @@ import SectionHeader from "@/components/shared/SectionHeader";
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();
 
+  const formCountLimit = process.env.NEXT_PUBLIC_MAX_FORMS_PER_USER;
+
   return (
     <>
       <div className="w-full md:flex items-center ">
         <SectionHeader message="Twoje formularze" />
         <div className="text-center md:text-left md:ml-4 text-xs mb-6">
-          (maks. 10 formularzy)
+          maks. {formCountLimit} formularzy
         </div>
       </div>
 

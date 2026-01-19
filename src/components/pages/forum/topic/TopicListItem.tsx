@@ -2,11 +2,12 @@ import { Button } from "@/components/shared";
 import { TopicSerializedWithPostCount } from "@/types/forum";
 import Link from "next/link";
 import { mapTopicCategory } from "../utils";
+import Card from "@/components/shared/Card";
 
 const TopicListItem = (topic: TopicSerializedWithPostCount) => {
   const { _id, title, description, postCount, category } = topic;
   return (
-    <div className="w-full mb-8 bg-slate-200 p-4">
+    <Card className="mb-8">
       <div className="flex gap-4 font-black text-lg">
         <div>{title}</div>
         <div>({mapTopicCategory[category]})</div>
@@ -14,9 +15,9 @@ const TopicListItem = (topic: TopicSerializedWithPostCount) => {
       <div>{description}</div>
       <div>({postCount} odpowiedzi)</div>
       <Link href={`/forum/${_id}`}>
-        <Button message="Otwórz" className="!w-40" />
+        <Button message="Otwórz" className="mt-6" />
       </Link>
-    </div>
+    </Card>
   );
 };
 

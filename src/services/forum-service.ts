@@ -38,7 +38,7 @@ export const getTopic = cache(async (topicId: string): Promise<Topic> => {
   const topic: Topic | null = await findById<Topic>(
     db,
     "topic",
-    new ObjectId(topicId)
+    new ObjectId(topicId),
   );
 
   if (!topic) {
@@ -62,7 +62,7 @@ export const getTopicWithPostCount = cache(
       ...serializeTopic(topic),
       postCount,
     };
-  }
+  },
 );
 
 export const getDetailedTopic = cache(
@@ -89,12 +89,12 @@ export const getDetailedTopic = cache(
       posts: posts.map((post) => getDetailedPost(post, users)),
       authorName: author?.name || "[ autor tematu ]",
     };
-  }
+  },
 );
 
 export const getDetailedPost = (
   post: Post,
-  users: IUser[]
+  users: IUser[],
 ): PostSerializedDetailed => {
   const authorName =
     users.find(({ _id }) => _id == post.createdBy.toString())?.name ||
@@ -110,7 +110,7 @@ export async function createTopic(
   userId: string,
   title: string,
   category: TopicCategory,
-  description?: string
+  description?: string,
 ): Promise<ObjectId> {
   const now: Date = new Date();
   const insertData: Partial<Topic> = {
@@ -134,7 +134,7 @@ export async function removeTopic(topicId: string): Promise<DeleteResult> {
 export async function addPost(
   userId: string,
   topicId: string,
-  content: string
+  content: string,
 ): Promise<string> {
   const now: Date = new Date();
   const insertData: Partial<Post> = {
@@ -153,13 +153,13 @@ export async function addPost(
 }
 
 export async function getPostsByTopicId(
-  topicId: string
+  topicId: string,
 ): Promise<PostSerialized[]> {
   const posts = await find<Post>(
     db,
     "post",
     { topicId: new ObjectId(topicId) },
-    { createdAt: 1 }
+    { createdAt: 1 },
   );
   return posts.map(serializePost);
 }
@@ -169,7 +169,7 @@ export async function removePost(postId: string): Promise<DeleteResult> {
 }
 
 export async function updateTopicModifiedDate(
-  topicId: ObjectId
+  topicId: ObjectId,
 ): Promise<void> {
   await update(
     db,
@@ -181,6 +181,29 @@ export async function updateTopicModifiedDate(
       $set: {
         updatedAt: new Date(),
       },
-    }
+    },
+  );
+}
+
+export async function updateTopic(
+  topicId: string,
+  title: string,
+  category: TopicCategory,
+  description?: string,
+): Promise<void> {
+  await update(
+    db,
+    "topic",
+    {
+      _id: new ObjectId(topicId),
+    },
+    {
+      $set: {
+        title,
+        description,
+        category,
+        updatedAt: new Date(),
+      },
+    },
   );
 }

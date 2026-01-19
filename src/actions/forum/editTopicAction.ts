@@ -1,20 +1,25 @@
 "use server";
 
 import { TopicCategory } from "@/enums/forum";
+import { isItemAuthor } from "@/helpers/forumHelpers";
 import { ModelFieldErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { createTopic } from "@/services/forum-service";
+import { getTopic, updateTopic } from "@/services/forum-service";
 import { requireUser } from "@/services/user-service";
 import { revalidateTag } from "next/cache";
 
-export async function addTopicAction(
+export async function editTopicAction(
+  topicId: string,
   title: string,
   category: TopicCategory,
   description?: string,
 ): Promise<void | { error: ModelFieldErrors }> {
   const user = await requireUser();
+  const post = await getTopic(topicId);
 
-  const id = await createTopic(user.id, title, category, description);
-  if (!id) throw new Error("Blad przy tworzeniu tematu");
+  const isAuthor = !!(user && isItemAuthor(user, post));
+  if (!isAuthor) throw new Error("Only author can edit a topic");
+
+  await updateTopic(topicId, title, category, description);
 
   revalidateTag("topics");
 }

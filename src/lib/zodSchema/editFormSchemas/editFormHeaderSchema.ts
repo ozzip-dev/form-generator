@@ -16,6 +16,7 @@ export const editFormHeaderSchema = z.object({
     .string()
     .trim()
     .nonempty({ message: "Podaj typ widoczności wyników" }),
+  displayAuthorEmail: z.boolean(),
 });
 
 export type EditFormHeaderSchema = z.infer<typeof editFormHeaderSchema>;

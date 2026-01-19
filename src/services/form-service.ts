@@ -6,6 +6,7 @@ import {
   findById,
   findOne,
   insert,
+  update,
   updateById,
 } from "@/lib/mongo";
 import { Form, FormSerialized } from "@/types/form";
@@ -13,9 +14,11 @@ import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 import { cache } from "react";
 import { redirect } from "next/navigation";
-import { serializeForm } from "@/lib/serialize-utils";
-import { requireUser } from "./user-service";
+import { serializeFile, serializeForm } from "@/lib/serialize-utils";
+import { getUserById, requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
+import { getFileById, removeFile } from "./file-service";
+import { File } from "@/types/file";
 
 export const getForm = cache(async (formId: string): Promise<Form> => {
   await requireUser();
@@ -23,7 +26,7 @@ export const getForm = cache(async (formId: string): Promise<Form> => {
   const form: Form | null = await findById<Form>(
     db,
     "form",
-    new ObjectId(formId)
+    new ObjectId(formId),
   );
 
   if (!form) {
@@ -37,7 +40,7 @@ export const getForm = cache(async (formId: string): Promise<Form> => {
 export async function formHasInputWithId(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<boolean> {
   const form = await findById<Form>(db, "form", formId);
   if (!form) return false;
@@ -49,7 +52,7 @@ export async function createDraft(
   userId: ObjectId,
   title?: string,
   description?: string,
-  inputs: FormInput[] = []
+  inputs: FormInput[] = [],
 ): Promise<ObjectId> {
   const now: Date = new Date();
   const insertData: Form = {
@@ -62,6 +65,7 @@ export async function createDraft(
     state: "draft",
     type: "",
     resultVisibility: "",
+    displayAuthorEmail: false,
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);
@@ -69,15 +73,15 @@ export async function createDraft(
   return insertedId;
 }
 
-export async function getFormTemplates(database: Db): Promise<Form[]> {
-  const forms = await find<Form>(database, "form", { state: "template" });
+export async function getFormTemplates(): Promise<Form[]> {
+  const forms = await find<Form>(db, "form", { state: "template" });
   return forms;
 }
 
 export async function updateForm(
   db: Db,
   formId: ObjectId,
-  updates: { title?: string; description?: string; type?: FormType }
+  updates: { title?: string; description?: string; type?: FormType },
 ): Promise<WithId<Form> | null> {
   return await updateById<Form>(db, "form", formId, {
     $set: {
@@ -98,7 +102,7 @@ export async function publishForm(db: Db, formId: string): Promise<void> {
 
 export async function getFormBySlug(
   db: Db,
-  slug: string
+  slug: string,
 ): Promise<Form | null> {
   /* first look for form with url as slug */
   const formByUrl = await findOne<Form>(db, "form", {
@@ -117,7 +121,7 @@ export async function getFormBySlug(
 export async function setAliasUrl(
   db: Db,
   formId: string,
-  url: string
+  url: string,
 ): Promise<void> {
   const form = await getFormBySlug(db, url);
   const formIdObj = new ObjectId(formId);
@@ -155,11 +159,11 @@ export async function getSerializedFormList(): Promise<
       db,
       "form",
       { createdBy: new ObjectId(user.id) },
-      { updatedAt: -1 }
+      { updatedAt: -1 },
     );
 
     const serializedForms: FormSerialized[] = forms.map((form) =>
-      serializeForm(form)
+      serializeForm(form),
     );
 
     return serializedForms;
@@ -170,7 +174,7 @@ export async function getSerializedFormList(): Promise<
 
 // TODO Pawel: nazwe moze zmienic? Aale sama logika chyba ok
 export const getFormByAuthor = async (
-  formId: string
+  formId: string,
 ): Promise<FormSerialized> => {
   const user = await requireUser();
   const form = await getForm(formId);
@@ -204,7 +208,7 @@ export async function removeForm(formId: string): Promise<void> {
 
 export async function addFieldToForm(
   formId: string,
-  inputData: FormInput
+  inputData: FormInput,
 ): Promise<Form> {
   const result: WithId<Form> | null = await updateById<Form>(
     db,
@@ -219,7 +223,7 @@ export async function addFieldToForm(
       $set: {
         updatedAt: new Date(),
       },
-    }
+    },
   );
 
   if (!result) {
@@ -227,4 +231,100 @@ export async function addFieldToForm(
   }
 
   return result;
+}
+
+export async function addFormHeaderFile(
+  formId: string,
+  fileId: string,
+): Promise<void> {
+  const form = await getFormById(formId);
+  const oldHeaderFileId = form.headerFileId;
+
+  try {
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+        lastModifiedAt: new Date(),
+      },
+    });
+
+    if (!oldHeaderFileId) return;
+
+    await removeFile(oldHeaderFileId);
+  } catch (e) {
+    /* Reset to old file if sth gfoes wrong (?) */
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+      },
+    });
+  }
+}
+
+export async function removeFormHeaderFile(formId: string): Promise<void> {
+  const form = await getFormById(formId);
+  const fileId = form.headerFileId;
+
+  if (!fileId) {
+    throw new Error("Formularz nie ma obrazka nagłówku");
+  }
+
+  try {
+    await updateById(db, "form", new ObjectId(formId), {
+      $unset: {
+        headerFileId: 1,
+      },
+      $set: {
+        lastModifiedAt: new Date(),
+      },
+    });
+
+    await removeFile(fileId);
+  } catch (e) {
+    /* Reset to old file if sth gfoes wrong (?) */
+    await updateById(db, "form", new ObjectId(formId), {
+      $set: {
+        headerFileId: fileId,
+      },
+    });
+  }
+}
+
+export async function toggleDisplayAuthorEmail(
+  formId: ObjectId,
+): Promise<void> {
+  const form = (await findById(db, "form", formId)) as Form;
+
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: form._id,
+    },
+    {
+      $set: {
+        displayAuthorEmail: !form.displayAuthorEmail,
+        updatedAt: new Date(),
+      },
+    },
+  );
+}
+
+/* returns header image data and author email */
+export async function getFormAdditionalData(formId: string): Promise<{
+  headerFileData?: string;
+  authorEmail: string;
+}> {
+  const form = await getFormById(formId);
+  const file: File | null = form.headerFileId
+    ? await getFileById(form.headerFileId)
+    : null;
+
+  const authorId = form.createdBy?.toString();
+  const formAuthor = await getUserById(authorId as string);
+
+  return {
+    headerFileData: file ? serializeFile(file)?.data : undefined,
+    authorEmail: formAuthor.email,
+  };
 }

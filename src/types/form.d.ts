@@ -1,6 +1,6 @@
 import { Document, ObjectId } from "mongodb";
 import { FormInput } from "./input";
-import { FormType } from "@/enums/form";
+import { FormResultVisibility, FormType } from "@/enums/form";
 
 export type FormState =
   | "draft"
@@ -9,27 +9,25 @@ export type FormState =
   | "removed"
   | "template";
 
-// export type FormResultVisibility = "secret" | "open" | "";
-
 export interface FormTemplate extends Document {
   _id?: ObjectId;
   id?: string; // TODO Pawel: id + state 'template': too much?
   type: FormType | "";
-  resultVisibility: FormResultVisibility;
+  resultVisibility: FormResultVisibility | "";
   title?: string;
+  headerFileId?: string;
   description?: string;
   inputs: FormInput[];
+  displayAuthorEmail?: boolean;
 }
 
-// TODO: think of better name for non-template forms
 interface FormCreated extends FormTemplate {
-  url?: string; // or urls: string[] ? maybe one's enough
+  url?: string;
   state?: FormState;
 }
 
-// TODO Pawel: divide into FormInsert etc.
 export interface Form extends FormCreated {
-  createdBy?: ObjectId; // if template form, no author needed
+  createdBy?: ObjectId; /* if template form, no author needed */
   createdAt: Date;
   updatedAt: Date;
 }

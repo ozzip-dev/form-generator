@@ -18,7 +18,7 @@ export async function uploadFileAction(uploadedFile: File): Promise<string> {
     data: new Binary(buffer),
   });
 
-  revalidateTag('files')
+  revalidateTag("files");
 
   return insertedId.toString();
 }

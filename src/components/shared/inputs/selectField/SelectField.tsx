@@ -58,7 +58,7 @@ const SelectField = ({
   }, []);
 
   return (
-    <div ref={ref} className={`w-full mb-10 md:flex items-center`}>
+    <div ref={ref} className={`w-full md:flex items-center ${className}`}>
       {label && (
         <label
           htmlFor={name}

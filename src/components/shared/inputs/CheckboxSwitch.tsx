@@ -6,11 +6,9 @@ type Props = {
   label?: string;
   name: string;
   control: any;
-  // onChangeAction?: (
-  //   values: { name: string; value: boolean | string }[]
-  // ) => void;
-
-  onChangeAction?: any;
+  onChangeAction?: (
+    values?: { name: string; value: boolean | string }[],
+  ) => void;
 };
 
 const CheckboxSwitch = (props: Props) => {

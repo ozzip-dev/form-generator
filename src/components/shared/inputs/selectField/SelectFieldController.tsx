@@ -15,10 +15,11 @@ type Props<T extends FieldValues> = {
   defaultValue?: string;
   onChangeAction?: (name: string, value: string) => void | Promise<void>;
   variant?: "horizontal";
+  className?: string;
 };
 
 export const SelectFieldControler = <T extends FieldValues>(
-  props: Props<T>
+  props: Props<T>,
 ) => {
   const { control } = useFormContext();
 
@@ -49,6 +50,7 @@ export const SelectFieldControler = <T extends FieldValues>(
           options={props.options}
           placeholder={props.placeholder}
           errorMsg={fieldState.error?.message}
+          className={props.className}
           onChange={(val: any) => {
             field.onChange(val);
             props.onChangeAction?.(props.name, val);

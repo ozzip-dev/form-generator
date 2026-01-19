@@ -7,7 +7,7 @@ export const createTopicSchema = z.object({
     .string()
     .trim()
     .min(3, "Min. 3 znaki")
-    .max(50, "Max. 50 znaków")
+    .max(500, "Max. 500 znaków")
     .optional(),
   category: z.enum(Object.values(TopicCategory) as [string, ...string[]]),
 });

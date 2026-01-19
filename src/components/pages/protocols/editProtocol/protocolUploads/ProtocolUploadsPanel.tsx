@@ -1,9 +1,9 @@
-import UploadFileForm from "@/components/shared/UploadFileForm";
 import { useProtocol } from "@/context/ProtocolContext";
 import { ProtocolFileCategory } from "@/types/protocol";
 import { use } from "react";
 import { fileCategories, mapFileCategory } from "../../utils";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
+import ProtocolUploadFileForm from "@/components/pages/protocols/editProtocol/protocolUploads/ProtocolUploadFileForm";
 
 type Props = {
   visibleCategory: ProtocolFileCategory;
@@ -32,7 +32,7 @@ const ProtocolUploadsPanel = (props: Props) => {
           <div className="pb-sm">
             liczba załączników: {protocol.fileIds[category]?.length || 0}
           </div>
-          
+
           {protocol.fileIds[category]?.map((fileId) => (
             <ProtocolAttachedFile
               key={fileId}
@@ -41,8 +41,9 @@ const ProtocolUploadsPanel = (props: Props) => {
               fileCategory={category}
             />
           ))}
+
           {!!protocol ? (
-            <UploadFileForm {...{ category, protocol }} />
+            <ProtocolUploadFileForm {...{ category, protocol }} />
           ) : (
             <div>Nie znaleziono protokołu</div>
           )}
