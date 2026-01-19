@@ -1,5 +1,6 @@
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { Form, FormCreated, FormSerialized } from "@/types/form";
+import { FormInput } from "@/types/input";
 
 export function isDraft(form: Form | FormCreated | FormSerialized): boolean {
   return form.state === "draft";
@@ -11,7 +12,7 @@ export function isActive(form: Form | FormCreated | FormSerialized): boolean {
 
 export function isUserAuthor(
   form: Form | FormSerialized,
-  userId: string
+  userId: string,
 ): boolean {
   return form.createdBy?.toString() === userId;
 }
@@ -49,3 +50,6 @@ export const formStateWithLabels: Record<string, string> = {
 export const getTypeLabel = (type: FormType): string =>
   formTypesWithLabels.find(({ value }) => value == type)?.label ||
   (type as string);
+
+export const getSortedInputs = (form: Form | FormSerialized): FormInput[] =>
+  form.inputs.sort((a, b) => a.order - b.order);
