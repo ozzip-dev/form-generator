@@ -11,7 +11,7 @@ import { FormType } from "@/enums/form";
 type Props = {
   inputs: FormInput[];
   displayResults: (
-    selectedInputIds: string[]
+    selectedInputIds: string[],
   ) => Promise<{ results: GroupedAnswer[]; submissionCount: number }>;
   formData: {
     title: string;
@@ -41,7 +41,7 @@ const Results = (props: Props) => {
   }>({ results: [], submissionCount: 0 });
   const [diagrams, setDiagrams] = useState<DiagramType[]>(diagramTypes);
   const [inputs, setInputs] = useState<FormInputSelectable[]>(
-    props.inputs.map((el) => ({ ...el, selected: true }))
+    props.inputs.map((el) => ({ ...el, selected: true })),
   );
 
   const { title } = props.formData;
@@ -58,11 +58,11 @@ const Results = (props: Props) => {
     <div className="p-8">
       <div>
         <div className="text-xl">
-          <span className="font-bold">Tytuł formularza: </span>
-          {title}
+          <span>Tytuł formularza: </span>
+          <span className="font-bold">{title}</span>
         </div>
       </div>
-      <div className=" w-fit p-4 border">
+      <div className="w-fit p-4 border rounded-sm">
         <ResultFieldSelect {...{ inputs, setInputs }} />
 
         <Button
