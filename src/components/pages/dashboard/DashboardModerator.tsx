@@ -4,8 +4,8 @@ const DashboardModerator = async () => {
   const user = await requireUser();
 
   return (
-    <div>
-      Moderator dashboard: <span className="font-black">{user.name}</span>
+    <div className="m-4">
+      Witaj, <span className="font-black">{user.name}</span>
     </div>
   );
 };

@@ -4,13 +4,11 @@ import Image from "next/image";
 const Home = () => {
   return (
     <>
-      <Link
-        href="/login"
-        className="text-end block items-center justify-items-center m-2"
-      >
-        zaloguj
-      </Link>
-      <div className="flex items-center justify-items-center p-8 ">home</div>
+      <div className="text-end block items-center justify-items-center m-4">
+        <Link href="/login" className=" btn-primary-rounded text-xl">
+          zaloguj
+        </Link>
+      </div>
       <footer className="flex justify-center items-center p-2">
         <Image
           src="/images/UELogos.webp"
