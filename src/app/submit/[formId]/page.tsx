@@ -17,7 +17,9 @@ const FormPage = async (props: Props) => {
   if (!form) redirect("/dashboard");
   if (isDraft(form)) redirect(`/forms/${formId}/edit`);
 
-  const { authorEmail, headerFileData } = await getFormAdditionalData(formId);
+  const { authorEmail, headerFileData } = await getFormAdditionalData(
+    form._id?.toString() as string,
+  );
 
   return (
     <SuspenseErrorBoundary
