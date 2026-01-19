@@ -156,7 +156,7 @@ const CreatedForm = (props: Props) => {
   // ${hasErrors ? "translate-y-26" : "-translate-y-2"}
 
   return (
-    <>
+    <div className="container my-4">
       <CreatedFormTopBar isError={hasErrors} />
       {/* {
         <div
@@ -223,7 +223,7 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-    </>
+    </div>
   );
 };
 
