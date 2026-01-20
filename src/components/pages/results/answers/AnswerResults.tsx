@@ -72,14 +72,14 @@ const AnswerResults = (props: Props) => {
         90,
         getPdfWidth(pdf) - 2 * MARGIN_IMG,
         0,
-        "SLOW"
+        "SLOW",
       );
 
       pdf.save(`Wyniki_${props.title}_${header}.pdf`);
     });
   };
   return (
-    <div className="flex gap-8 mb-12">
+    <div className="flex gap-8 mb-20">
       <div>
         <div className="font-black">{header}</div>
         <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />

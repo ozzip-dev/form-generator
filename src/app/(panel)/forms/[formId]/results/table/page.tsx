@@ -3,7 +3,7 @@ import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import ResultsPdfTable from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { isFormSecret } from "@/helpers/formHelpers";
+import { getSortedInputs, isFormSecret } from "@/helpers/formHelpers";
 import { isInputSubmittable } from "@/helpers/inputHelpers";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
@@ -19,7 +19,7 @@ const FormResultsTablePage = async (props: Props) => {
 
   const form = await getFormById(formId);
   const submissions: Submission[] = await getAllSubmissions(formId);
-  const submittableInputs = form.inputs.filter(isInputSubmittable);
+  const submittableInputs = getSortedInputs(form).filter(isInputSubmittable);
 
   const getAnswerDisplay = (value: string | Record<string, string>): string => {
     if (typeof value == "string") return value;
@@ -46,7 +46,7 @@ const FormResultsTablePage = async (props: Props) => {
         : [
             formatDateAndTime(submittedAt!.toISOString()),
             ...getAnswerValues(answers),
-          ]
+          ],
   );
 
   return (

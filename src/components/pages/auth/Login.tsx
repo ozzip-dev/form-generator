@@ -56,10 +56,7 @@ const Login = () => {
   useOneTimeToast(ToastsData);
   const isAction = useRef(false);
 
-  const loginUser = async (
-    prevState: State,
-    formData: FormData
-  ): Promise<State> => {
+  const loginUser = async (_: State, formData: FormData): Promise<State> => {
     const data = Object.fromEntries(formData.entries()) as LoginSchema;
 
     const validationResult = loginSchema.safeParse(data);
@@ -93,7 +90,7 @@ const Login = () => {
 
   const [state, formAction, isPending] = useActionState(
     loginUser,
-    initialState
+    initialState,
   );
 
   return (
@@ -107,7 +104,7 @@ const Login = () => {
          md:border md:border-default
         md:shadow-default
         md:bg-bg_dark
-        md:rounded-md"
+        !sm:rounded-md !md:rounded-lg"
       >
         <InputFields
           inputsData={dataInputsLogin}

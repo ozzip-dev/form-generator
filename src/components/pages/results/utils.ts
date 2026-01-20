@@ -37,7 +37,7 @@ export const addHeaderText = (title: string, pdf: jsPDF): void => {
   pdf.text(
     `(wyniki wygenerowano: ${formatDateAndTime(new Date().toISOString())})`,
     5,
-    40
+    40,
   );
 };
 
@@ -59,7 +59,7 @@ export const addNumberedHeaderText = (
   pageCount: number,
   recordFrom: number,
   recordTo: number,
-  recordCount: number
+  recordCount: number,
 ): void => {
   setFontFamilyBold(pdf);
 
@@ -70,10 +70,10 @@ export const addNumberedHeaderText = (
   pdf.setFontSize(11);
   pdf.text(
     `wyniki wygenerowano: ${formatDateAndTime(
-      new Date().toISOString()
+      new Date().toISOString(),
     )}                        strona: (${page}/${pageCount})                        wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
     5,
-    17
+    17,
   );
 };
 
@@ -84,7 +84,7 @@ export const addNumberedPageHeader = (
   pageCount: number,
   recordFrom: number,
   recordTo: number,
-  recordCount: number
+  recordCount: number,
 ): void => {
   drawHeader(pdf);
   addOzzipLogo(pdf);
@@ -95,7 +95,7 @@ export const addNumberedPageHeader = (
     pageCount,
     recordFrom,
     recordTo,
-    recordCount
+    recordCount,
   );
 };
 
@@ -108,7 +108,7 @@ export const addFonts = (pdf: jsPDF): void => {
 
 /* PDF size, margins */
 export const MARGIN_H = 0.2;
-export const MARGIN_IMG = 5;
+export const MARGIN_IMG = 60;
 const MARGINS = MARGIN_H * 2;
 const PX_TO_MM = 25.4 / 96;
 

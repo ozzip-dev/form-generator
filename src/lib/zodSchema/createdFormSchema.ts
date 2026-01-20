@@ -9,7 +9,7 @@ export const createdFormSchema = (inputs: any[]) => {
     switch (input.type) {
       case "text":
         shape[fieldName] = input.required
-          ? z.string().trim().min(2, "Min. 2 znaki").max(60, "Maks. 60 znaków")
+          ? z.string().trim().min(1, "Min. 1 znak").max(60, "Maks. 60 znaków")
           : z.string().optional();
         break;
       case "superText":
@@ -17,7 +17,7 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .trim()
-              .min(2, "Min. 2 znaki")
+              .min(1, "Min. 1 znak")
               .max(2000, "Maks. 2000 znaków")
           : z.string().optional();
         break;
@@ -120,7 +120,7 @@ export const createdFormSchema = (inputs: any[]) => {
               .nullable()
               .refine(
                 (value) => value !== null && value !== "",
-                "Pole wymagane"
+                "Pole wymagane",
               )
           : z.string().optional();
         break;

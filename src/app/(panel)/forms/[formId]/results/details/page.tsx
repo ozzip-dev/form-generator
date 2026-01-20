@@ -1,5 +1,6 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import Results from "@/components/pages/results/Results";
+import { getSortedInputs } from "@/helpers/formHelpers";
 import { isInputSubmittable } from "@/helpers/inputHelpers";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
 import { getFormById } from "@/services/form-service";
@@ -10,20 +11,16 @@ type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
-  const {
-    inputs,
-    title = "",
-    description = "",
-    type,
-    createdAt,
-  } = await getFormById(formId);
+  const form = await getFormById(formId);
+  const { title = "", description = "", type, createdAt } = form;
+
   const hasResults = await formHasResults(formId);
   if (!hasResults) return <NoResultsInfo />;
 
-  const submittableInputs = inputs.filter(isInputSubmittable);
+  const submittableInputs = getSortedInputs(form).filter(isInputSubmittable);
 
   const displayResults = async (
-    selectedInputIds: string[]
+    selectedInputIds: string[],
   ): Promise<{
     results: GroupedAnswer[];
     submissionCount: number;
@@ -31,17 +28,17 @@ const FormResultsPage = async (props: Props) => {
     "use server";
     const submissions: Submission[] = await getAllSubmissions(formId);
     const filteredInputs = submittableInputs.filter((input) =>
-      selectedInputIds.includes(input.id!)
+      selectedInputIds.includes(input.id!),
     );
 
     const answers: Answers[] = getAnonymousAnswers(
       submissions,
-      selectedInputIds
+      selectedInputIds,
     );
 
     const groupedResults: GroupedAnswer[] = getGroupedAnswersResults(
       filteredInputs,
-      answers
+      answers,
     );
 
     return { results: groupedResults, submissionCount: submissions.length };

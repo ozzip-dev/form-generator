@@ -154,7 +154,7 @@ const CreatedForm = (props: Props) => {
   const hasErrors = Object.keys(errors).length > 0;
 
   return (
-    <>
+    <div className="container my-4">
       <CreatedFormTopBar isError={hasErrors} />
 
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
@@ -211,7 +211,7 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-    </>
+    </div>
   );
 };
 

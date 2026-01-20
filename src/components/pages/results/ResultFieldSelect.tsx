@@ -17,7 +17,7 @@ const ResultFieldSelect = (props: Props) => {
               ...input,
               selected: !input.selected,
             }
-          : input
+          : input,
       ),
     ]);
   };
@@ -28,7 +28,7 @@ const ResultFieldSelect = (props: Props) => {
 
   return (
     <div>
-      <div className="font-bold">Wyświetl odpowiedzi na zazanczone pytania</div>
+      <div>Wyświetl odpowiedzi na zazanczone pytania</div>
       <div className="flex gap-8 my-4">
         <Button
           variant="primary-rounded"

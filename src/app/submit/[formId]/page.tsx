@@ -17,7 +17,9 @@ const FormPage = async (props: Props) => {
   if (!form) redirect("/dashboard");
   if (isDraft(form)) redirect(`/forms/${formId}/edit`);
 
-  const { authorEmail, headerFileData } = await getFormAdditionalData(formId);
+  const { authorEmail, headerFileData } = await getFormAdditionalData(
+    form._id?.toString() as string,
+  );
 
   return (
     <SuspenseErrorBoundary
@@ -27,12 +29,10 @@ const FormPage = async (props: Props) => {
     >
       <section className="h-screen overflow-hidden">
         <div className="h-full overflow-y-auto">
-          <div className="container my-16">
-            <CreatedForm
-              form={serializeForm(form as Form)}
-              {...{ authorEmail, headerFileData }}
-            />
-          </div>
+          <CreatedForm
+            form={serializeForm(form as Form)}
+            {...{ authorEmail, headerFileData }}
+          />
         </div>
       </section>
     </SuspenseErrorBoundary>
