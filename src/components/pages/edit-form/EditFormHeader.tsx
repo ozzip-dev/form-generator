@@ -108,47 +108,49 @@ export default function EditFormHeader(props: Props) {
   };
 
   return (
-    <Card>
-      <FormProvider {...methods}>
-        <form>
-          <div className="sm:w-[30rem] md:w-[50rem]">
-            <SelectFieldControler
-              name="type"
-              defaultValue=""
-              label="Kategoria formularza"
-              placeholder="Wybierz kategorię formularza"
-              options={dataSelectOptions}
-              onChangeAction={handleEdit}
-            />
+    <FormProvider {...methods}>
+      <form className="flex flex-col gap-16">
+        <Card className="flex flex-col pr-12">
+          <div className="sm:flex gap-8 lg:gap-24 mb-4">
+            <div className="sm:w-[20rem] md:w-[31rem]">
+              <SelectFieldControler
+                name="type"
+                defaultValue=""
+                label="Kategoria"
+                options={dataSelectOptions}
+                onChangeAction={handleEdit}
+              />
+            </div>
 
-            <div className="flex gap-2 items-end my-10">
+            <div className="flex gap-2 items-end sm:w-[20rem] md:w-[31rem] relative">
               <SelectFieldControler
                 name="resultVisibility"
                 defaultValue=""
-                label="Tryb dostępności wyników"
-                placeholder="Wybierz typ głosowania"
+                label="Tryb wyników"
                 options={resultVisibilityOptions}
                 onChangeAction={handleEdit}
               />
-              <InfoIcon>
-                <>
-                  <div>
-                    <span className="font-black">Jawne: </span>
-                    <span>
-                      Wyniki w formie podsumowania odpowiedzi i odpowiedzi z
-                      każdego pojedynczego formularza
-                    </span>
-                  </div>
-                  <div className="pt-4">
-                    <span className="font-black">Tajne: </span>
-                    <span>Wyniki w formie podsumowania odpowiedzi</span>
-                  </div>
-                </>
-              </InfoIcon>
+              <div className="absolute left-full ml-2">
+                <InfoIcon>
+                  <>
+                    <div>
+                      <span className="font-black">Jawne: </span>
+                      <span>
+                        Wyniki w formie podsumowania odpowiedzi i odpowiedzi z
+                        każdego pojedynczego formularza
+                      </span>
+                    </div>
+                    <div className="pt-4">
+                      <span className="font-black">Tajne: </span>
+                      <span>Wyniki w formie podsumowania odpowiedzi</span>
+                    </div>
+                  </>
+                </InfoIcon>
+              </div>
             </div>
           </div>
 
-          <div className="pb-16">
+          <div className="">
             <CheckboxSwitch
               label="Wyświetl email autora/autorki"
               name="displayAuthorEmail"
@@ -156,18 +158,21 @@ export default function EditFormHeader(props: Props) {
               onChangeAction={handleSwitch}
             />
           </div>
+        </Card>
+
+        <Card>
+          <div className="mb-8">
+            <FormHeaderImageUpload {...props} />
+          </div>
 
           <InputFields
             inputsData={dataInputsFormTitle}
             register={register}
             errorMsg={errors}
             onChange={handleEdit}
-            // isLoading={isLoading}
           />
-
-          <FormHeaderImageUpload {...props} />
-        </form>
-      </FormProvider>
-    </Card>
+        </Card>
+      </form>
+    </FormProvider>
   );
 }

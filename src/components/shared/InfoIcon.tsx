@@ -20,9 +20,8 @@ export default function InfoIcon(props: Props) {
         <div
           className="
             absolute 
-            bottom-full sm:-bottom-1/2 lg:bottom-full
-            left-1/2 sm:left-[120%] lg:left-1/2
-            -translate-x-1/2 sm:translate-x-0 lg:-translate-x-1/2
+            -left-[18rem] lg:left-[50%] top-10
+             lg:-translate-x-1/2
             w-[20rem]
             bg-bg_dark  text-xs
             p-2 rounded-sm border

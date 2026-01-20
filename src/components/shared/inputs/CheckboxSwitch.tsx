@@ -7,7 +7,7 @@ type Props = {
   name: string;
   control: any;
   onChangeAction?: (
-    values?: { name: string; value: boolean | string }[],
+    values?: { name: string; value: boolean | string }[]
   ) => void;
 };
 
@@ -17,8 +17,6 @@ const CheckboxSwitch = (props: Props) => {
       name={props.name}
       control={props.control}
       render={({ field }) => {
-        console.log("field.value", field.value);
-
         const handleToggle = (e: ChangeEvent<HTMLInputElement>) => {
           field.onChange(e.target.checked);
           props.onChangeAction?.();
