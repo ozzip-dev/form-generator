@@ -8,14 +8,16 @@ type Props = {
 
 const TextEditorPrinter = (props: Props) => {
   return (
-    <div>
-      <FormDescription description={props.description} />
-      <Button
-        message="Edytuj"
-        variant="primary-rounded"
+    <div className="mt-8">
+       <Button
+        type="button"
+        message="Edytuj opis"
+        variant="ghost"
         onClickAction={props.printDescriptionInput}
-        className="ml-auto"
+        className="ml-auto !text-font_dark !text-sm"
       />
+      <FormDescription description={props.description} />
+     
     </div>
   );
 };

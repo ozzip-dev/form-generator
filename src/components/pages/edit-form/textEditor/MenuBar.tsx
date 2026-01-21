@@ -7,9 +7,10 @@ import { Button, Icon } from "@/components/shared";
 
 type Props = {
   editor: Editor | null;
+  handleEditDescription: ()=>void
 };
 
-const MenuBar = ({ editor }: Props) => {
+const MenuBar = ({ editor,handleEditDescription }: Props) => {
   const { openModal } = useModal();
 
   if (!editor) return null;
@@ -74,7 +75,7 @@ const MenuBar = ({ editor }: Props) => {
   ];
 
   return (
-    <div className="control-group">
+    <div className="control-group flex items-center">
       <div className="button-group flex gap-2">
         {createBtnsData.map(({ onClick, btnName, icon }, idx) => (
           <Button
@@ -101,6 +102,14 @@ const MenuBar = ({ editor }: Props) => {
           />
         ))}
       </div>
+
+         <Button
+          message="Zapisz"
+          type="button"
+          onClickAction={handleEditDescription}
+          className="ml-auto !text-font_dark !text-sm"
+          variant="ghost"
+          />
     </div>
   );
 };

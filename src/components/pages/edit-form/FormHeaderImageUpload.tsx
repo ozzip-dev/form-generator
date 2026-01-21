@@ -65,7 +65,7 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
           {...{
             onFileUploaded,
             acceptedExtentions: { "image/*": [] },
-            text: "Wstaw grafikę na szczycie formularza",
+            text: "Dodaj obraz nad tytułem formularza",
           }}
         />
       </div>

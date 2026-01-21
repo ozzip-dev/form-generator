@@ -8,12 +8,17 @@ type Props = {
   inputId: string;
   isFirstInput: boolean;
   isLastInput: boolean;
+  setDescription:any;
+  setEditor:any
+  isDescription: any
 };
 
 function FormInputMoveRemoveButtons(props: Props) {
+
+
   return (
-    <div className="flex flex-col gap-14 order-last md:ml-auto">
-      <div className="flex gap-8 mb-14 h-fit">
+   
+      <div className="flex gap-8 mb-8">
         <div className="ml-auto flex gap-4">
           {!props.isFirstInput && <MoveInputUpBtn inputId={props.inputId} />}
           {!props.isLastInput && <MoveInputDownBtn inputId={props.inputId} />}
@@ -26,7 +31,7 @@ function FormInputMoveRemoveButtons(props: Props) {
           <RemoveInputBtn inputId={props.inputId} />
         </div>
       </div>
-    </div>
+    
   );
 }
 

@@ -2,7 +2,7 @@
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-import { InputFields } from "@/components/shared";
+import { Button, Icon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
@@ -19,7 +19,7 @@ import {
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
@@ -61,8 +61,6 @@ type Props = {
 
 const EditFormInput = (props: Props) => {
   const formId = useSafeURLParam("formId");
-  const [isPending, startTransition] = useTransition();
-
   const {
     id: inputId,
     required,
@@ -73,6 +71,15 @@ const EditFormInput = (props: Props) => {
     options,
     unique,
   } = props.input;
+
+  const [isPending, startTransition] = useTransition();
+
+  const [isDescription, setDescription] = useState(
+    !!description
+  );
+  const [isEditor, setEditor] = useState(false);
+
+ 
 
   const defaultValues = useMemo(
     () => ({
@@ -117,6 +124,11 @@ const EditFormInput = (props: Props) => {
     });
   };
 
+  const printDescriptionInput = () => {
+    setDescription(true);
+    setEditor(true)
+  }
+
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
@@ -126,36 +138,54 @@ const EditFormInput = (props: Props) => {
   }, [defaultValues, reset]);
 
   return (
-    <Card>
+    <Card className="pr-12 sm:pr-24">
       {!inputId ? (
         <div>Błąd pola fomrularza, skontankuj się z administratorem</div>
       ) : (
         <FormProvider {...methods}>
           <form>
-            {/* 1st row */}
-            <div className="md:flex md:intems-center">
-              <FormInputMoveRemoveButtons
+            <FormInputMoveRemoveButtons
                 {...{
                   inputId,
                   isFirstInput: order == 0,
                   isLastInput: props.isLastInput,
+                  setDescription,
+                  setEditor,
+                  isDescription
                 }}
               />
-
-              {/* inputs */}
-              <div className="md:w-4/6 md:flex justify-between">
-                <div className="md:w-[45%]">
+            {/* 1st row */}
+            <div className="md:flex md:intems-center md:gap-16">
+                          
+                <div className="flex-1 relative">
                   {!isInputTypeParagraph(props.input) && (
+
                     <InputFields
                       inputsData={dataInputLabel}
                       register={register}
                       errorMsg={errors.header as any}
                       onChange={handleEditLabel}
-                      // isLoading={isLoadingLabel}
                     />
                   )}
+
+                  {!isDescription && (
+                    <div className="absolute top-3 left-full ml-2">
+                     <Button 
+                     variant="ghost" 
+                     className=" !rounded-full border border-accent
+                     p-1"
+                     icon={
+                      <Icon icon="plus-solid-full" size={12} color="var(--color-accent)" />
+                    }
+                     onClickAction={printDescriptionInput}/>
+                    </div>
+                 
+                    
+                    )
+                   }
+
                 </div>
-                <div className="md:w-[45%] md:max-w-[22rem]">
+                <div className="w-[20rem] md:ml-auto">
                   <SelectFieldControler
                     name="type"
                     defaultValue={type}
@@ -166,7 +196,7 @@ const EditFormInput = (props: Props) => {
                   />
                 </div>
               </div>
-            </div>
+          
 
             {/* 2nd row */}
             <div className="relative">
@@ -175,6 +205,10 @@ const EditFormInput = (props: Props) => {
                 inputIdx={props.inputIdx}
                 description={description ?? ""}
                 isParagraph={isInputTypeParagraph(props.input)}
+                setEditor = {setEditor}
+                setDescription= {setDescription}
+                isEditor = {isEditor}
+                isDescription = {isDescription}
               />
 
               {isInputWithOptions(props.input) && (

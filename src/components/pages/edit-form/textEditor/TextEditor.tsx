@@ -19,6 +19,7 @@ type Props = {
   inputId: string;
   description: string;
   printDescriptionInput: () => void;
+  
 };
 
 const TextEditor = (props: Props) => {
@@ -32,7 +33,7 @@ const TextEditor = (props: Props) => {
         autolink: false,
       }),
       Placeholder.configure({
-        placeholder: "Wpisz treść...",
+        placeholder: "Edytuj opis pod pytaniem",
       }),
 
       Highlight.configure({
@@ -47,7 +48,7 @@ const TextEditor = (props: Props) => {
     editorProps: {
       attributes: {
         class:
-          "border rounded-sm focus:outline-none focus:border-accent min-h-[8rem] p-2",
+          "border rounded-sm focus:outline-none focus:border-accent min-h-[3rem] p-2",
       },
     },
 
@@ -77,7 +78,7 @@ const TextEditor = (props: Props) => {
 
   return (
     <>
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} handleEditDescription = {handleEditDescription} />
       <div
         className="
         [&_h3]:text-lg
@@ -100,14 +101,7 @@ const TextEditor = (props: Props) => {
           {characters}/{MAX_CHARS}
         </span>
       </div>
-      <Button
-        type="button"
-        message="Zatwierdż"
-        variant="primary-rounded"
-        className="ml-auto"
-        onClickAction={handleEditDescription}
-        disabled={characters === 0 || characters > MAX_CHARS}
-      />
+      
     </>
   );
 };

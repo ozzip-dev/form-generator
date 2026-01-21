@@ -81,7 +81,7 @@ const SelectField = ({
           onClick={() => !disabled && setOpen((o) => !o)}
           className={`
             w-full bg-white flex justify-between items-center
-            border rounded-sm p-3 text-sm
+            border rounded-sm p-2 text-sm
             focus:outline-none
             ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           `}
@@ -103,8 +103,9 @@ const SelectField = ({
             className="
               absolute left-0 top-1/2 -translate-y-1/2
               z-10 w-full
-              rounded-lg border
+              rounded-sm border
               bg-white shadow-md
+              overflow-hidden
             "
           >
             {options.map((option) => (

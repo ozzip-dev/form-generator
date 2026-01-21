@@ -14,25 +14,19 @@ type Props = {
   inputIdx: number;
   description: string;
   isParagraph: boolean;
+  setDescription:any;
+  setEditor:any;
+  isDescription: any
+  isEditor: any
 };
 
 const EditFormDescriptionInput = (props: Props) => {
-  const [isDescriptionInput, setDescriptionInput] = useState(
-    !!props.description
-  );
+  // const [isDescription, setDescription] = useState(
+  //   !!props.description
+  // );
+  // const [isEditor, setEditor] = useState(false);
+  const isRemovingDescriptionRef = useRef(false);
 
-  const [isDescriptionEditor, setDescriptionEditor] = useState(false);
-
-  console.log("props.description", props.description);
-
-  const dataInputDescription = [
-    {
-      type: "textarea",
-      name: `description`,
-      placeholder: "Opis",
-      floatingLabel: props.isParagraph ? "Edytuj tekst" : "Edytuj opis pytania",
-    },
-  ];
 
   const formId = useSafeURLParam("formId") || "";
   const {
@@ -47,54 +41,55 @@ const EditFormDescriptionInput = (props: Props) => {
     inputId: props.inputId,
     inputIdx: props.inputIdx,
     trigger,
-    action: editInputLabelAction,
+    action:  editInputLabelAction,
     mode: "inputLabel",
     setError,
   });
-  const isRemovingRef = useRef(false);
+  
+ 
 
   useEffect(() => {
-    if (isRemovingRef.current) {
-      isRemovingRef.current = false;
+    if (isRemovingDescriptionRef.current) {
+      isRemovingDescriptionRef.current = false;
+      props.setDescription(false);
     }
   }, [isLoading?.description]);
 
-  useAutoLoader(isRemovingRef.current);
-  const isDescriptionLoading = [...Object.values(isLoading)].some(Boolean);
+  useAutoLoader(isRemovingDescriptionRef.current);
 
-  useAutoLoader(isDescriptionLoading, "small");
 
   const printDescriptionInput = () => {
-    setDescriptionInput((prev) => !prev);
-  };
+    props.setDescription(true);
+    props.setEditor(true)
+  }
 
   const printDescriptionEditor = () => {
-    setDescriptionEditor((prev) => !prev);
+    props.setEditor((prev) => !prev);
   };
 
   const handleRemoveDescriptionInput = async () => {
-    setDescriptionInput((prev) => !prev);
-
-    if (!props.description) return;
-
-    isRemovingRef.current = true;
+    if (!props.description) {
+      props.setDescription(false);
+      props.setEditor(false)
+      return
+    };
+    isRemovingDescriptionRef.current = true;
     handleEditLabel("description", "");
   };
 
   const hasDescription = !!props.description;
-  const shouldShowInput = hasDescription || isDescriptionInput;
-  const canAddDescription = !props.isParagraph && !shouldShowInput;
+  // const shouldShowInput = hasDescription || isDescription;
+  // const canAddDescription = !props.isParagraph && !shouldShowInput;
+
+
+
+  // console.log('isDescriptionInput',!isDescription)
+  // console.log('isEditor',isEditor)
 
   const descriptionInput = (
-    <div className="relative w-[calc(100%-3rem)] md:w-4/6 ">
-      {/* <InputFields
-        inputsData={dataInputDescription}
-        register={register}
-        errorMsg={errors.header as any}
-        onChange={handleEditLabel}
-      /> */}
-
-      {isDescriptionEditor ? (
+    <div className="relative w-[calc(100%-3rem)] md:w-4/6 mt-8">
+   
+      {!props.isDescription || props.isEditor? (
         <TextEditor
           formId={formId}
           inputId={props.inputId}
@@ -105,6 +100,7 @@ const EditFormDescriptionInput = (props: Props) => {
         <TextEditorPrinter
           description={props.description}
           printDescriptionInput={printDescriptionEditor}
+       
         />
       )}
 
@@ -120,19 +116,21 @@ const EditFormDescriptionInput = (props: Props) => {
 
   return (
     <>
-      {shouldShowInput && descriptionInput}
+      {/* {shouldShowInput && descriptionInput} */}
 
-      {canAddDescription && (
+      {props.isDescription && descriptionInput}
+
+      {/* {!props.isDescription && (
         <Button
           type="button"
-          message="Dodaj opis pytania"
+          message="Edytuj opis"
           onClickAction={printDescriptionInput}
           variant="primary-rounded"
           className="w-full md:w-4/6  mb-10"
         />
-      )}
+      )} */}
 
-      {props.isParagraph && !shouldShowInput && descriptionInput}
+      {/* {props.isParagraph && !shouldShowInput && descriptionInput} */}
     </>
   );
 };
