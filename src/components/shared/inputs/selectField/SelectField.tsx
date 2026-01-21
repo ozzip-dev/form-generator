@@ -100,7 +100,8 @@ const SelectField = ({
             className="
               absolute left-0 top-1/2 -translate-y-1/2
               z-10 w-full
-              rounded-lg border
+              rounded-md border
+              overflow-hidden
               bg-white shadow-md
             "
           >
