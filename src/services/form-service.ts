@@ -96,6 +96,7 @@ export async function publishForm(db: Db, formId: string): Promise<void> {
     $set: {
       state: "active",
       updatedAt: new Date(),
+      publishedAt: new Date(),
     },
   });
 }
