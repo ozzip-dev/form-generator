@@ -8,7 +8,7 @@ import Card from "./Card";
 
 type Props = {
   onFileUploaded: (file: File) => Promise<void>;
-  text: string;
+  text?: string;
   acceptedExtentions?: Accept;
 };
 
@@ -76,48 +76,48 @@ const UploadFileForm = ({
   });
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <Card className="!p-0 w-full md:w-2/3 overflow-hidden">
-        <div
-          {...getRootProps()}
-          className={`
-              relative h-[20rem] transition-colors flex justify-center items-center
-              ${isDragActive ? "bg-accent" : "bg-transparent"}
-              *:flex *:flex-col *:items-center *:gap-8 *:text-center
-            `}
-        >
-          {isPending && (
-            <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center z-10">
-              <DataLoader />
-            </div>
-          )}
-
-          <input {...getInputProps()} />
-
-          <div>
-            <p className="font-bold">
-              {isDragActive ? "Upuść plik w tym miejscu" : "Upuść plik"}
-            </p>
-
-            {!isDragActive && (
-              <>
-                <Button
-                  type="button"
-                  message="Wybierz z komputera"
-                  variant="primary-rounded"
-                />
-
-                {/* TODO: jaki max rozmiar? Czy chcemy wiekszy? */}
-                <div className="text-sm">
-                  <div>{text} </div>
-                  <div>Maksymalny rozmiar: 1 MB</div>
-                </div>
-              </>
-            )}
+    <>
+      <div
+        {...getRootProps()}
+        className={`w-full h-full 
+                    relative group transition-colors 
+                    flex justify-center items-center
+                    ${isDragActive ? "bg-accent" : "bg-transparent"}`}
+      >
+        {isPending && (
+          <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center z-10">
+            <DataLoader size="sm" />
           </div>
+        )}
+
+        <input {...getInputProps()} />
+
+        {isDragActive && <p> Upuść plik w tym miejscu </p>}
+
+        {!isDragActive && (
+          <Button
+            type="button"
+            message="Wybierz / upuść plik z komputera"
+            variant="primary-rounded"
+          />
+        )}
+
+        <div
+          className="
+          pointer-events-none
+          absolute bottom-[110%] right-0
+           p-2 rounded-sm border
+           bg-bg_dark
+          text-xs
+          z-20
+          opacity-0 group-hover:opacity-100 transition-opacity
+          "
+        >
+          {text && <div>{text} </div>}
+          <div>Maksymalny rozmiar: 1 MB</div>
         </div>
-      </Card>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -8,14 +8,9 @@ interface Props {
 
 export default function InfoIcon(props: Props) {
   return (
-    <div className="relative">
+    <div className="relative cursor-help">
       <div className="group inline-block">
-        <Icon
-          icon="info-circle"
-          size={20}
-          className="cursor-pointer"
-          color="var(--color-accent)"
-        />
+        <Icon icon="info-circle" size={20} color="var(--color-accent)" />
 
         <div
           className="

@@ -3,6 +3,7 @@
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { addProtocolFileAction } from "@/actions/protocol";
 import { UploadFileForm } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 
@@ -39,14 +40,14 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
   };
 
   return (
-    <div className="mt-16">
+    <Card className="!p-0 h-[20rem] w-full md:w-2/3 mt-16 mx-auto">
       <UploadFileForm
         {...{
           onFileUploaded,
-          text: "Obsługiwane formaty: JPG, PNG, GIF, WEBP, SVG, BMP oraz PDF",
+          text: "Formaty: JPG, PNG, GIF, WEBP, SVG, BMP, PDF",
         }}
       />
-    </div>
+    </Card>
   );
 };
 

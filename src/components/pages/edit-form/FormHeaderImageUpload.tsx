@@ -2,6 +2,7 @@ import { addHeaderFileAction } from "@/actions/edit-form/addHeaderFileAction";
 import { removeHeaderFileAction } from "@/actions/edit-form/removeHeaderFileAction";
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { Button, Icon, UploadFileForm } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { FormSerialized } from "@/types/form";
@@ -59,12 +60,12 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
 
   return (
     <div className="">
-      <div className="">
+      <div className="h-[3.4rem] !rounded-sm border bg-white">
         <UploadFileForm
           {...{
             onFileUploaded,
             acceptedExtentions: { "image/*": [] },
-            text: "Załaduj plik graficzny",
+            text: "Wstaw grafikę na szczycie formularza",
           }}
         />
       </div>
@@ -79,7 +80,7 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
               className="object-contain"
             />
           </div>
-          <div className="absolute top-0 -right-10 z-50">
+          <div className="absolute top-0 -right-10 ">
             <Button
               onClickAction={handlePublishForm}
               type="button"
