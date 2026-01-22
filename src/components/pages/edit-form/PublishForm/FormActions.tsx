@@ -38,35 +38,40 @@ const FormActions = ({ form }: Props) => {
 
   return (
     <div className="my-16">
-      {isAuthor && (
-        <div className="flex justify-end">
-          {_id && <RemoveFormButton formId={_id} />}
-        </div>
-      )}
+     
 
       {isStateDraft ? (
         <PublishFormButton form={form} />
       ) : (
         <>
-          <div className="mb-8 flex flex-col md:flex-row gap-4">
+          <div className="mb-8 flex flex-col md:flex-row md:items-center gap-4">
             <div className="flex flex-col gap-2 md:flex-row text-center">
-              <div>Opublikowano:</div>
+              <div>Aders:</div>
               <div className="font-bold">{formUrl}</div>
             </div>
-            <div className="flex justify-center gap-4 md:ml-8">
+            <div className="flex justify-center gap-4 md:ml-auto">
               <Button
                 onClickAction={copyUrl}
                 message="Kopiuj"
                 type="button"
                 variant="primary-rounded"
+                className="h-fit"
               />
               <ButtonLink
                 message="Przejdź do formularza"
                 link={formUrl}
                 target="_blank"
-                className="w-fit bg-accent rounded-full text-white text-sm py-1 px-6 hover:bg-accent_light"
+                className="w-fit h-fit bg-accent rounded-full 
+                text-white text-sm py-2 px-6 hover:bg-accent_light"
               />{" "}
             </div>
+
+            {isAuthor && _id && <div className="w-fit m-auto md:m-0 ">
+                   <RemoveFormButton formId={_id} />
+            </div>
+            }
+                
+               
           </div>
           <AliasUrlForm {...form} />
         </>

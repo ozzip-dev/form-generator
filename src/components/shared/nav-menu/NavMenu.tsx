@@ -50,7 +50,7 @@ const NavMenu = (props: Props) => {
             {props.icon && (
               <Icon
                 icon={props.icon}
-                size={47}
+                size={27}
                 color="var(--color-accent)"
                 className="hidden md:block"
               />

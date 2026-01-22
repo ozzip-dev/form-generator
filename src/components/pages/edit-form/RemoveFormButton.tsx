@@ -1,7 +1,7 @@
 "use client";
 
 import { removeFormAction } from "@/actions/edit-form/editFormInput/removeFormAction";
-import { Button } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 
 type Props = {
@@ -13,9 +13,12 @@ function RemoveFormButton(props: Props) {
 
   return (
     <Button
-      message="Usuń formularz"
+
       type="button"
-      variant="primary-rounded"
+      variant="ghost"
+      icon={
+        <Icon icon="trash-can-regular-full" size={25} className="" />
+      }
       onClickAction={() =>
         openModal({
           action: () => {
@@ -24,7 +27,6 @@ function RemoveFormButton(props: Props) {
           header: "Usunąć formularz?",
         })
       }
-      className="!bg-error"
     />
   );
 }

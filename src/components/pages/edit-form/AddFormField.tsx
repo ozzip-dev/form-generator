@@ -18,14 +18,7 @@ import Icon from "@/components/shared/icons/Icon";
 import Card from "@/components/shared/Card";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 
-const dataInputsheader = [
-  {
-    name: "header",
-    placeholder: "Pytanie",
-    type: "text",
-    floatingLabel: "Podaj pytanie",
-  },
-];
+
 
 const AddFormField = () => {
   const { formId } = useParams();
@@ -44,7 +37,12 @@ const AddFormField = () => {
     setError,
     formState: { errors, isSubmitting },
     reset,
+    watch,
   } = methods;
+
+  const selectedType = watch("type");
+
+  console.log('selectedType',selectedType)
 
   useAutoLoader(isSubmitting);
 
@@ -69,6 +67,17 @@ const AddFormField = () => {
     }
   };
 
+  const dataInputsHeader = [
+    {
+      name: "header",
+      placeholder: "Pytanie",
+      type: "text",
+      floatingLabel: selectedType === "paragraph" ? "Podaj opis":"Podaj pytanie",
+    },
+  ];
+
+
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +85,7 @@ const AddFormField = () => {
           <div className="md:w-4/6 md:flex justify-between">
             <div className="md:w-[45%]">
               <InputFields
-                inputsData={dataInputsheader}
+                inputsData={dataInputsHeader}
                 register={register}
                 errorMsg={errors}
               />
@@ -95,7 +104,7 @@ const AddFormField = () => {
             icon={<Icon icon="plus-solid-full" size={30} color="white" />}
             variant="ghost"
             className="bg-accent !rounded-full
-             p-2 m-auto 
+             p-2 m-auto mt-8
              md:m-0 md:ml-auto md:mb-auto"
           />
         </Card>
