@@ -92,7 +92,7 @@ const AddOption = (props: Props) => {
         return (
           <div
             key={field.id}
-            className="flex w-full"
+            className="flex w-full sm:w-4/5"
           >
             <div className="flex-1">
 

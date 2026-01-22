@@ -22,11 +22,6 @@ type Props = {
 };
 
 const EditFormDescriptionInput = (props: Props) => {
-  // const [isDescription, setDescription] = useState(
-  //   !!props.description
-  // );
-  // const [isEditor, setEditor] = useState(false);
-  const isRemovingDescriptionRef = useRef(false);
 
 
   const formId = useSafeURLParam("formId") || "";
@@ -37,16 +32,7 @@ const EditFormDescriptionInput = (props: Props) => {
     setError,
   } = useFormContext();
 
-  // const { handleEdit: handleEditLabel, isLoading } = useEditForm({
-  //   formId,
-  //   inputId: props.inputId,
-  //   inputIdx: props.inputIdx,
-  //   trigger,
-  //   action:  editInputLabelAction,
-  //   mode: "inputLabel",
-  //   setError,
-  // });
-  
+
  
   const [_, editDescription, isPending] = useActionState(async () => {
 
@@ -54,21 +40,11 @@ const EditFormDescriptionInput = (props: Props) => {
     await editInputLabelAction(props.formId, props.inputId, {
       description: "",
     });
- 
+    props.setDescription(false);
+    props.setEditor(false)
   }, undefined);
 
 
-  // useEffect(() => {
-  //   if (isRemovingDescriptionRef.current) {
-  //     isRemovingDescriptionRef.current = false;
-  //     props.setDescription(false);
-  //   }
-  // }, [isLoading?.description]);
-
-  // useAutoLoader(isRemovingDescriptionRef.current);
-  // const isDescriptionLoading = [...Object.values(isLoading)].some(Boolean);
-
-  // useAutoLoader(isDescriptionLoading, "small");
 
   useAutoLoader(isPending);
 
@@ -77,19 +53,15 @@ const EditFormDescriptionInput = (props: Props) => {
     props.setEditor((prev) => !prev);
   };
 
-  // const handleRemoveDescriptionInput = async () => {
-  //   if (!props.description) {
-  //     props.setDescription(false);
-  //     props.setEditor(false)
-  //     return
-  //   };
-  //   isRemovingDescriptionRef.current = true;
-  //   handleEditLabel("description", "");
-  // };
+
 
 
   const handleRemoveDescriptionInput = () =>{
-  
+    if (!props.description) {
+          props.setDescription(false);
+          props.setEditor(false)
+          return
+        };
   startTransition( ()=>{
     editDescription()
   }
@@ -105,9 +77,11 @@ const EditFormDescriptionInput = (props: Props) => {
   // console.log('isDescriptionInput',!isDescription)
   // console.log('isEditor',isEditor)
 
+  useAutoLoader(isPending);
+  
   const descriptionInput = (
     <div className="flex">
-   <div className="w-full mb-8 pr-2">
+   <div className="w-full mb-8">
 
     {!props.isDescription || props.isEditor? (
         <TextEditor
@@ -126,14 +100,13 @@ const EditFormDescriptionInput = (props: Props) => {
    </div>
       
 
-      <Button
+      {  !props.isParagraph && <Button
         type="button"
-        // icon={<IconTrash />}
+        icon={<IconTrash />}
         onClickAction={handleRemoveDescriptionInput}
         variant="ghost"
-        className="w-fit !bg-red !text-error"
-        message="K"
-      />
+        className="w-fit h-fir !bg-red !text-error mb-auto mt-10"
+      />}
     </div>
   );
 
@@ -141,7 +114,7 @@ const EditFormDescriptionInput = (props: Props) => {
     <>
       {/* {shouldShowInput && descriptionInput} */}
 
-      {props.isDescription && descriptionInput}
+      {(props.isDescription || props.isParagraph) && descriptionInput}
 
       {/* {!props.isDescription && (
         <Button

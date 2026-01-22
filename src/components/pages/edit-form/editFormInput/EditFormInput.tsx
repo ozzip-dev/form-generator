@@ -79,7 +79,9 @@ const EditFormInput = (props: Props) => {
   );
   const [isEditor, setEditor] = useState(false);
 
- 
+  console.log('isDescriptionInput',!isDescription)
+  console.log('isEditor',isEditor)
+
 
   const defaultValues = useMemo(
     () => ({
@@ -130,8 +132,7 @@ const EditFormInput = (props: Props) => {
   }
 
   useAutoLoader(isPending);
-  const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
-  useAutoLoader(isAnyLoading, "small");
+
 
   useEffect(() => {
     reset(defaultValues);
@@ -169,7 +170,7 @@ const EditFormInput = (props: Props) => {
                     </div>
                   )}
 
-                  {!isDescription ? (
+                  { !isInputTypeParagraph(props.input) &&  (!isDescription  ? (
                     <div className="w-fit h-fit mt-3 ml-1">
                      <Button 
                      variant="ghost" 
@@ -183,7 +184,7 @@ const EditFormInput = (props: Props) => {
                     ) : (
                       <div className="w-[2rem] h-1"></div>
                     )
-                      
+                  )
                     
                    }
 

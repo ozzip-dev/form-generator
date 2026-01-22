@@ -69,6 +69,14 @@ const TextEditor = (props: Props) => {
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
   const handleEditDescription = () => {
+    if (!editor) return;
+
+    const text = editor.getText().trim();
+  
+    if (text.length === 0) {
+      return
+    }
+ 
     startTransition(() => {
       editDescription();
     });
