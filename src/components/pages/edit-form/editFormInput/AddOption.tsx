@@ -85,16 +85,18 @@ const AddOption = (props: Props) => {
     Number(process.env.NEXT_PUBLIC_MAX_OPTIONS_PER_INPUT || 20);
 
   return (
-    <div className="sm:w-5/6 md:w-3/6">
+    <>
       {(fields as Record<"id" | "value", string>[]).map((field, idx) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
           <div
             key={field.id}
-            className="w-[calc(100%-3rem)] sm:w-full relative"
+            className="flex w-full"
           >
-            <InputFields
+            <div className="flex-1">
+
+                <InputFields
               inputsData={[
                 {
                   type: "text",
@@ -108,6 +110,8 @@ const AddOption = (props: Props) => {
                 handleEdit(name, value, isOtherOption);
               }}
             />
+            </div>
+          
             <Button
               type="button"
               icon={<IconTrash />}
@@ -115,7 +119,7 @@ const AddOption = (props: Props) => {
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }
               variant="ghost"
-              className="w-fit !absolute top-2 -right-10"
+              className="w-fit h-fit mt-3"
             />
           </div>
         );
@@ -143,7 +147,7 @@ const AddOption = (props: Props) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

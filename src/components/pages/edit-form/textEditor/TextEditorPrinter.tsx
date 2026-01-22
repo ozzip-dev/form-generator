@@ -8,7 +8,7 @@ type Props = {
 
 const TextEditorPrinter = (props: Props) => {
   return (
-    <div className="mt-8">
+    <div className="mb-[1.8rem]">
        <Button
         type="button"
         message="Edytuj opis"

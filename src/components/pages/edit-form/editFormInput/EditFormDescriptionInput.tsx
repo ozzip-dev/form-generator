@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
@@ -10,6 +10,7 @@ import TextEditor from "../textEditor/TextEditor";
 import TextEditorPrinter from "../textEditor/TextEditorPrinter";
 
 type Props = {
+  formId?: string;
   inputId: string;
   inputIdx: number;
   description: string;
@@ -36,47 +37,65 @@ const EditFormDescriptionInput = (props: Props) => {
     setError,
   } = useFormContext();
 
-  const { handleEdit: handleEditLabel, isLoading } = useEditForm({
-    formId,
-    inputId: props.inputId,
-    inputIdx: props.inputIdx,
-    trigger,
-    action:  editInputLabelAction,
-    mode: "inputLabel",
-    setError,
-  });
+  // const { handleEdit: handleEditLabel, isLoading } = useEditForm({
+  //   formId,
+  //   inputId: props.inputId,
+  //   inputIdx: props.inputIdx,
+  //   trigger,
+  //   action:  editInputLabelAction,
+  //   mode: "inputLabel",
+  //   setError,
+  // });
   
  
+  const [_, editDescription, isPending] = useActionState(async () => {
 
-  useEffect(() => {
-    if (isRemovingDescriptionRef.current) {
-      isRemovingDescriptionRef.current = false;
-      props.setDescription(false);
-    }
-  }, [isLoading?.description]);
-
-  useAutoLoader(isRemovingDescriptionRef.current);
+    if (!props.formId) return
+    await editInputLabelAction(props.formId, props.inputId, {
+      description: "",
+    });
+ 
+  }, undefined);
 
 
-  const printDescriptionInput = () => {
-    props.setDescription(true);
-    props.setEditor(true)
-  }
+  // useEffect(() => {
+  //   if (isRemovingDescriptionRef.current) {
+  //     isRemovingDescriptionRef.current = false;
+  //     props.setDescription(false);
+  //   }
+  // }, [isLoading?.description]);
+
+  // useAutoLoader(isRemovingDescriptionRef.current);
+  // const isDescriptionLoading = [...Object.values(isLoading)].some(Boolean);
+
+  // useAutoLoader(isDescriptionLoading, "small");
+
+  useAutoLoader(isPending);
+
 
   const printDescriptionEditor = () => {
     props.setEditor((prev) => !prev);
   };
 
-  const handleRemoveDescriptionInput = async () => {
-    if (!props.description) {
-      props.setDescription(false);
-      props.setEditor(false)
-      return
-    };
-    isRemovingDescriptionRef.current = true;
-    handleEditLabel("description", "");
-  };
+  // const handleRemoveDescriptionInput = async () => {
+  //   if (!props.description) {
+  //     props.setDescription(false);
+  //     props.setEditor(false)
+  //     return
+  //   };
+  //   isRemovingDescriptionRef.current = true;
+  //   handleEditLabel("description", "");
+  // };
 
+
+  const handleRemoveDescriptionInput = () =>{
+  
+  startTransition( ()=>{
+    editDescription()
+  }
+
+  )
+  }
   const hasDescription = !!props.description;
   // const shouldShowInput = hasDescription || isDescription;
   // const canAddDescription = !props.isParagraph && !shouldShowInput;
@@ -87,9 +106,10 @@ const EditFormDescriptionInput = (props: Props) => {
   // console.log('isEditor',isEditor)
 
   const descriptionInput = (
-    <div className="relative w-[calc(100%-3rem)] md:w-4/6 mt-8">
-   
-      {!props.isDescription || props.isEditor? (
+    <div className="flex">
+   <div className="w-full mb-8 pr-2">
+
+    {!props.isDescription || props.isEditor? (
         <TextEditor
           formId={formId}
           inputId={props.inputId}
@@ -102,14 +122,17 @@ const EditFormDescriptionInput = (props: Props) => {
           printDescriptionInput={printDescriptionEditor}
        
         />
-      )}
+      )} 
+   </div>
+      
 
       <Button
         type="button"
-        icon={<IconTrash />}
+        // icon={<IconTrash />}
         onClickAction={handleRemoveDescriptionInput}
         variant="ghost"
-        className="w-fit !absolute top-2 -right-10"
+        className="w-fit !bg-red !text-error"
+        message="K"
       />
     </div>
   );

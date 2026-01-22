@@ -138,7 +138,7 @@ const EditFormInput = (props: Props) => {
   }, [defaultValues, reset]);
 
   return (
-    <Card className="pr-12 sm:pr-24">
+    <Card className="">
       {!inputId ? (
         <div>Błąd pola fomrularza, skontankuj się z administratorem</div>
       ) : (
@@ -154,38 +154,41 @@ const EditFormInput = (props: Props) => {
                   isDescription
                 }}
               />
-            {/* 1st row */}
-            <div className="md:flex md:intems-center md:gap-16">
+     
+            <div className="md:flex md:gap-10">
                           
-                <div className="flex-1 relative">
+                <div className="flex flex-1">
                   {!isInputTypeParagraph(props.input) && (
-
+                 <div className="w-full">
                     <InputFields
                       inputsData={dataInputLabel}
                       register={register}
                       errorMsg={errors.header as any}
                       onChange={handleEditLabel}
                     />
+                    </div>
                   )}
 
-                  {!isDescription && (
-                    <div className="absolute top-3 left-full ml-2">
+                  {!isDescription ? (
+                    <div className="w-fit h-fit mt-3 ml-1">
                      <Button 
                      variant="ghost" 
                      className=" !rounded-full border border-accent
-                     p-1"
+                     p-[0.2rem]"
                      icon={
                       <Icon icon="plus-solid-full" size={12} color="var(--color-accent)" />
                     }
                      onClickAction={printDescriptionInput}/>
                     </div>
-                 
-                    
+                    ) : (
+                      <div className="w-[2rem] h-1"></div>
                     )
+                      
+                    
                    }
 
                 </div>
-                <div className="w-[20rem] md:ml-auto">
+                <div className="w-[23rem] mb-8">
                   <SelectFieldControler
                     name="type"
                     defaultValue={type}
@@ -199,8 +202,13 @@ const EditFormInput = (props: Props) => {
           
 
             {/* 2nd row */}
-            <div className="relative">
-              <EditFormDescriptionInput
+            <div className="md:flex md:gap-10">
+
+              
+              <div className="md:flex-1">
+
+                <EditFormDescriptionInput
+                  formId = {formId} 
                 inputId={inputId as string}
                 inputIdx={props.inputIdx}
                 description={description ?? ""}
@@ -211,6 +219,7 @@ const EditFormInput = (props: Props) => {
                 isDescription = {isDescription}
               />
 
+              
               {isInputWithOptions(props.input) && (
                 <AddOption
                   inputIdx={props.inputIdx}
@@ -218,9 +227,12 @@ const EditFormInput = (props: Props) => {
                   header={header}
                 />
               )}
+              </div>
+          
+
 
               {!isInputTypeParagraph(props.input) && (
-                <div className="flex flex-col gap-4 lg:absolute top-0 right-0">
+                <div className="flex flex-col gap-4 md:w-[23rem] md:ml-auto">
                   {toggleSwitchesData.map(
                     ({ name, label, action, infoText }, idx) => (
                       <InputDataToggleSwitch

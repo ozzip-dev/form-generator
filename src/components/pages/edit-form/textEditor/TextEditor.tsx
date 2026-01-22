@@ -90,7 +90,7 @@ const TextEditor = (props: Props) => {
           className="texEditorPlaceholder text-sm bg-white"
         />
       </div>
-      <div className="flex justify-end text-xs mt-1">
+      <div className="flex justify-end text-xs">
         <span
           className={
             characters >= MAX_CHARS
