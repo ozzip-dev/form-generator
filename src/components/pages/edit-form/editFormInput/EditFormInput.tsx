@@ -79,8 +79,7 @@ const EditFormInput = (props: Props) => {
   );
   const [isEditor, setEditor] = useState(false);
 
-  console.log('isDescriptionInput',!isDescription)
-  console.log('isEditor',isEditor)
+
 
 
   const defaultValues = useMemo(
@@ -138,6 +137,9 @@ const EditFormInput = (props: Props) => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
+  const canShowAddDescriptionBtn =
+  !isInputTypeParagraph(props.input) && !isDescription;
+
   return (
     <Card className="">
       {!inputId ? (
@@ -169,25 +171,29 @@ const EditFormInput = (props: Props) => {
                     />
                     </div>
                   )}
+                  {!isInputTypeParagraph(props.input) && (
+  isDescription ? (
+    <div className="w-[2rem] h-1" />
+  ) : (
+    <div className="w-fit h-fit mt-3 ml-1">
+      <Button
+        variant="ghost"
+        className="!rounded-full border border-accent p-[0.2rem]"
+        icon={
+          <Icon
+            icon="plus-solid-full"
+            size={12}
+            color="var(--color-accent)"
+          />
+        }
+        onClickAction={printDescriptionInput}
+      />
+    </div>
+  )
+)}
 
-                  { !isInputTypeParagraph(props.input) &&  (!isDescription  ? (
-                    <div className="w-fit h-fit mt-3 ml-1">
-                     <Button 
-                     variant="ghost" 
-                     className=" !rounded-full border border-accent
-                     p-[0.2rem]"
-                     icon={
-                      <Icon icon="plus-solid-full" size={12} color="var(--color-accent)" />
-                    }
-                     onClickAction={printDescriptionInput}/>
-                    </div>
-                    ) : (
-                      <div className="w-[2rem] h-1"></div>
-                    )
-                  )
-                    
-                   }
 
+                  
                 </div>
                 <div className="w-[23rem] mb-8">
                   <SelectFieldControler

@@ -1,16 +1,15 @@
 "use client";
 
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
-import { Button } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import CharacterCount from "@tiptap/extension-character-count";
+import Highlight from "@tiptap/extension-highlight";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { startTransition, useActionState, useState } from "react";
+import { useState, useTransition } from "react";
 import MenuBar from "./MenuBar";
-import CharacterCount from "@tiptap/extension-character-count";
-import Highlight from "@tiptap/extension-highlight";
 
 const MAX_CHARS = 2000;
 
@@ -24,6 +23,7 @@ type Props = {
 
 const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description);
+  const [isPending, startTransition] = useTransition();
 
   const editor = useEditor({
     extensions: [
@@ -38,7 +38,7 @@ const TextEditor = (props: Props) => {
 
       Highlight.configure({
         HTMLAttributes: {
-          class: "my-custom-class",
+          class: "bg-accent",
         },
       }),
       CharacterCount.configure({
@@ -59,12 +59,7 @@ const TextEditor = (props: Props) => {
     },
   });
 
-  const [_, editDescription, isPending] = useActionState(async () => {
-    await editInputLabelAction(props.formId, props.inputId, {
-      description: editorContent,
-    });
-    props.printDescriptionInput();
-  }, undefined);
+
 
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
@@ -77,9 +72,13 @@ const TextEditor = (props: Props) => {
       return
     }
  
-    startTransition(() => {
-      editDescription();
-    });
+    startTransition( async () => {
+          await editInputLabelAction(props.formId, props.inputId, {
+            description: editorContent,
+          });
+          props.printDescriptionInput();
+        },
+    );
   };
 
   useAutoLoader(isPending);

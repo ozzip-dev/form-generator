@@ -68,7 +68,7 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
     },
     {
       onClick: () =>
-        editor.chain().focus().toggleHighlight({ color: "#ffc078" }).run(),
+        editor.chain().focus().toggleHighlight({ color: "var(--color-accent)" }).run(),
       btnName: "highlight",
       icon: "highlighter",
     },
