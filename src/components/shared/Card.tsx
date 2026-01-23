@@ -7,7 +7,7 @@ const Card = (props: Props) => {
   return (
     <div
       className={`
-          py-8 px-4 sm:px-8 md:py-12 md:px-24
+          py-8 px-4 sm:px-8 md:px-24
           border border-default
           shadow-default
           rounded-md md:rounded-lg

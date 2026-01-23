@@ -216,7 +216,7 @@ const EditFormInput = (props: Props) => {
 
 
               </div>
-              <div className="w-[23rem]">
+              <div className="w-[23rem] md:pt-[1.7rem] lg:pt-0">
                 <SelectFieldControler
                   name="type"
                   defaultValue={type}

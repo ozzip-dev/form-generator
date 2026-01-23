@@ -132,62 +132,58 @@ const CreatedForm = (props: Props) => {
   const formFields = inputs
     .sort((a, b) => a.order - b.order)
     .map((input) => {
-      console.log("");
+
 
       const renderer = fieldRenderers[input.type];
-      return renderer({
-        input,
-        errors,
-        register,
-        control,
-      });
-      // <Card key={input.id}>
-      //   {renderer({
-      //     input,
-      //     errors,
-      //     register,
-      //     control,
-      //   })}
-      // </Card>
+      // return renderer({
+      //   input,
+      //   errors,
+      //   register,
+      //   control,
+      // });
+
+      return <Card key={input.id}>
+        {renderer({
+          input,
+          errors,
+          register,
+          control,
+        })}
+      </Card>
     });
 
   const hasErrors = Object.keys(errors).length > 0;
 
   return (
-    <> 
-    <div className="container my-4">
-      <CreatedFormTopBar isError={hasErrors} />
-      {isSuccess && <SuccesMsg setSucces={setSuccess} />}
-     {props.headerFileData &&
-            <CreatedFormTopImage  headerFileData = {props.headerFileData}/>
+    <>
+      <div className="container !max-w-[800px] my-4">
+        <CreatedFormTopBar isError={hasErrors} />
+        {isSuccess && <SuccesMsg setSucces={setSuccess} />}
+        {props.headerFileData &&
+          <CreatedFormTopImage headerFileData={props.headerFileData} />
         }
 
-    
 
-
-      
-      <div className="">
-        <Card className="mb-10">
-      
-
+        <Card className="mb-8">
           <h1 className="text-xl">{title}</h1>
           {description && (
-            <h2 className="my-4 whitespace-pre-wrap">{description}</h2>
+            <h2 className="whitespace-pre-wrap">{description}</h2>
           )}
-          <div className="text-error text-xs">* Odpowiedź wymagana</div>
-          <div className="text-error text-xs">! Odpowiedź jednorazowa </div>
+          <div className="text-error text-2xs">* Odpowiedź wymagana</div>
+          <div className="text-error text-2xs">! Odpowiedź jednorazowa </div>
 
-    
+
         </Card>
 
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-10"
+            className="flex flex-col gap-8"
           >
-            <Card className="mb-10 flex flex-col gap-10">{formFields}</Card>
 
-            <div className=" flex flex-col gap-8 md:gap-16 items-center md:flex-row ">
+            {formFields}
+
+            <div className=" flex flex-col gap-8 sm:gap-16 items-center sm:flex-row ">
               <Button
                 message="Wyczyść"
                 type="button"
@@ -206,17 +202,16 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-    </div>
 
-    {displayAuthorEmail && (
-            <footer className="container py-10 flex justify-center">
-              <div>
-                  <span>Kontakt twórcy formularza: </span>
-                  <span className="font-bold">{props.authorEmail}</span>
-              </div>
-          
-            </footer>
-          )}
+      {displayAuthorEmail && (
+        <footer className="container py-10 flex justify-center">
+          <div>
+            <span>Kontakt twórcy formularza: </span>
+            <span className="font-bold">{props.authorEmail}</span>
+          </div>
+
+        </footer>
+      )}
     </>
   );
 };
