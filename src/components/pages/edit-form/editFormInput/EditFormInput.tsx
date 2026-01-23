@@ -245,7 +245,6 @@ const EditFormInput = (props: Props) => {
                   setDescription={setDescription}
                   isEditor={isEditor}
                   isDescription={isDescription}
-                // isLastInput = {isLastInput}
                 />
 
 

@@ -37,7 +37,7 @@ export default function InputDataToggleSwitch({
   };
 
   return (
-    <div className="text-sm flex items-center gap-2">
+    <div className="text-sm flex items-center">
       <CheckboxSwitch
         {...{ name, label, control }}
         onChangeAction={handleSwitch}

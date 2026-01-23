@@ -73,7 +73,7 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
           />
         </div>
 
-        <div className="absolute top-3 -right-10">
+        <div className="absolute top-[0.5rem] -right-12">
           <InfoIcon>
             <div>
               Dodaj obraz nad tytułem formularza <br />Maksymalny rozmiar: 1 MB

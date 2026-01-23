@@ -27,7 +27,7 @@ const AddFormField = () => {
   const searchParams = useSearchParams();
 
   const methods = useForm<AddFormFieldSchema>({
-    // resolver: zodResolver(addFormFieldSchema),
+    resolver: zodResolver(addFormFieldSchema),
     defaultValues: {
       type: "text",
     },
@@ -79,7 +79,7 @@ const AddFormField = () => {
       } else {
         router.refresh();
       }
-      
+
       reset();
     } catch (err) {
       showBoundary(err);
@@ -91,7 +91,7 @@ const AddFormField = () => {
       name: "header",
       placeholder: "Pytanie",
       type: "text",
-      floatingLabel: selectedType === "paragraph" ? "Podaj opis":"Podaj pytanie",
+      floatingLabel: selectedType === "paragraph" ? "Podaj opis" : "Podaj pytanie",
     },
   ];
 
@@ -103,7 +103,7 @@ const AddFormField = () => {
 
 
 
-    
+
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center mb-16">
@@ -129,8 +129,7 @@ const AddFormField = () => {
             icon={<Icon icon="plus-solid-full" size={30} color="white" />}
             variant="ghost"
             className="bg-accent !rounded-full
-             p-2 m-auto mt-8
-             md:m-0 md:ml-auto md:mb-auto"
+             p-2 m-auto mt-8 md:m-0 md:ml-auto"
           />
         </Card>
       </form>
@@ -141,12 +140,5 @@ const AddFormField = () => {
 export default AddFormField;
 
 
-    
 
-{/* <EditFormInput  input={  {id: "9999",
-                      type: "text",
-                      header: "aaa",                
-                      validation: {},
-                      options: []}}
-                    inputIdx={5}
-                    isLastInput={true}  autoSave={false} /> */}
+

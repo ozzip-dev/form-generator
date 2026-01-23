@@ -110,19 +110,19 @@ export default function EditFormHeader(props: Props) {
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-6">
-        <Card className="flex flex-col pr-12">
-          <div className="sm:flex gap-8 lg:gap-24">
-            <div className="sm:w-[20rem] md:w-[31rem]">
+        <Card>
+          <div className="sm:flex gap-8 lg:gap-[15%]">
+            <div className="flex-1">
               <SelectFieldControler
                 name="type"
                 defaultValue=""
-                label="Kategoria"
+                label="Kategoria formularza"
                 options={dataSelectOptions}
                 onChangeAction={handleEdit}
               />
             </div>
 
-            <div className="flex gap-2 items-center sm:w-[20rem] md:w-[31rem] relative">
+            <div className="flex items-center flex-1">
               <SelectFieldControler
                 name="resultVisibility"
                 defaultValue=""
@@ -130,23 +130,23 @@ export default function EditFormHeader(props: Props) {
                 options={resultVisibilityOptions}
                 onChangeAction={handleEdit}
               />
-              <div className=" ml-2">
-                <InfoIcon>
-                  <>
-                    <div>
-                      <span className="font-black">Jawny: </span>
-                      <span>
-                        Podsumowanie wszystkich odpowiedzi oraz odpowiedzi z
-                        każdego pojedynczego formularza
-                      </span>
-                    </div>
-                    <div className="pt-4">
-                      <span className="font-black">Tajny: </span>
-                      <span>Podsumowanie wszystkich odpowiedzi</span>
-                    </div>
-                  </>
-                </InfoIcon>
-              </div>
+
+              <InfoIcon>
+                <>
+                  <div>
+                    <span className="font-black">Jawny: </span>
+                    <span>
+                      Podsumowanie wszystkich odpowiedzi oraz odpowiedzi z
+                      każdego pojedynczego formularza
+                    </span>
+                  </div>
+                  <div className="pt-4">
+                    <span className="font-black">Tajny: </span>
+                    <span>Podsumowanie wszystkich odpowiedzi</span>
+                  </div>
+                </>
+              </InfoIcon>
+
             </div>
           </div>
 
@@ -164,8 +164,6 @@ export default function EditFormHeader(props: Props) {
 
 
         <Card>
-
-
           <InputFields
             inputsData={dataInputsFormTitle}
             register={register}
