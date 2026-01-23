@@ -25,8 +25,6 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
     "clear-formatting":  editor.isActive("clear-formatting"),
   };
 
-  console.log('',editorState)
-
   const createBtnsData = [
     {
       onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
@@ -63,11 +61,6 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
       },
       btnName: "link",
       icon: "link",
-    },
-    {
-      onClick: () => editor.chain().focus().unsetLink().run(),
-      btnName: "un-link",
-      icon: "un-link",
     },
     {
   
