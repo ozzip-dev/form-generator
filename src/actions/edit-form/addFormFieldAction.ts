@@ -46,7 +46,7 @@ const hasReachedInputLimit = (form: Form): boolean =>
 export async function addFormFieldAction(
   formId: string,
   input: Input
-): Promise<void | { validationErrors: ValidationErrors }> {
+): Promise<void | { validationErrors: ValidationErrors } | { inputId: string | undefined }> {
   const user = await requireUser();
   const draft = await getFormById(formId);
 
@@ -78,4 +78,6 @@ export async function addFormFieldAction(
   await addFieldToForm(formId, inputData);
 
   revalidateTag(`form-${formId}`);
+  
+  return { inputId: inputData.id };
 }

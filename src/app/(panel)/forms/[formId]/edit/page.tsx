@@ -39,7 +39,7 @@ const EditFormPage = async (props: Props) => {
       {isActive(form) ? (
         <FormActiveInfo />
       ) : (
-        /* {state && ( */
+      
         <div className="flex flex-col gap-16">
           <SuspenseErrorBoundary
             size="lg"

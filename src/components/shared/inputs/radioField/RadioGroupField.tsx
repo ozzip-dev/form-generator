@@ -175,7 +175,7 @@ const RadioGroupField = (props: Props) => {
       )}
 
       {props.description && (
-        <InputDescription description={props.description} />
+        <InputDescription description={props.description} variant="published"/>
       )}
 
       <div className={`relative ${props.className}`}>

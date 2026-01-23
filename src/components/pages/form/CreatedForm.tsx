@@ -25,7 +25,7 @@ import {
 } from "@/helpers/inputHelpers";
 import Card from "@/components/shared/Card";
 import CreatedFormTopBar from "./CreatedFormTopBar";
-import Image from "next/image";
+import CreatedFormTopImage from "./CreatedFormTopImage";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -154,35 +154,30 @@ const CreatedForm = (props: Props) => {
   const hasErrors = Object.keys(errors).length > 0;
 
   return (
+    <> 
     <div className="container my-4">
       <CreatedFormTopBar isError={hasErrors} />
-
       {isSuccess && <SuccesMsg setSucces={setSuccess} />}
+     {props.headerFileData &&
+            <CreatedFormTopImage  headerFileData = {props.headerFileData}/>
+        }
+
+    
+
+
+      
       <div className="">
         <Card className="mb-10">
-          {props.headerFileData && (
-            <Image
-              src={`data:image/png;base64,${props.headerFileData}`}
-              alt="form header"
-              width={450}
-              height={450}
-              className="max-w-[450px] max-h-[250px] w-auto h-auto m-auto my-8"
-            />
-          )}
+      
 
           <h1 className="text-xl">{title}</h1>
           {description && (
-            <h2 className="my-6 whitespace-pre-wrap">{description}</h2>
+            <h2 className="my-4 whitespace-pre-wrap">{description}</h2>
           )}
           <div className="text-error text-xs">* Odpowiedź wymagana</div>
           <div className="text-error text-xs">! Odpowiedź jednorazowa </div>
 
-          {displayAuthorEmail && (
-            <div className="pt-10">
-              <span>Kontakt do autora/autorki formularza: </span>
-              <span className="font-black">{props.authorEmail}</span>
-            </div>
-          )}
+    
         </Card>
 
         <FormProvider {...methods}>
@@ -212,6 +207,17 @@ const CreatedForm = (props: Props) => {
         </FormProvider>
       </div>
     </div>
+
+    {displayAuthorEmail && (
+            <footer className="container py-10 flex justify-center">
+              <div>
+                  <span>Kontakt twórcy formularza: </span>
+                  <span className="font-bold">{props.authorEmail}</span>
+              </div>
+          
+            </footer>
+          )}
+    </>
   );
 };
 

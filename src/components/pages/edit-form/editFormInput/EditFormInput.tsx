@@ -28,6 +28,7 @@ import InputDataToggleSwitch from "./InputDataToggleSwitch";
 import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
 import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const dataInputLabel = [
   {
@@ -61,6 +62,8 @@ type Props = {
 
 const EditFormInput = (props: Props) => {
   const formId = useSafeURLParam("formId");
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const {
     id: inputId,
     required,
@@ -74,11 +77,15 @@ const EditFormInput = (props: Props) => {
 
   const [isPending, startTransition] = useTransition();
 
-  const [isDescription, setDescription] = useState(
-    !!description
-  );
-  const [isEditor, setEditor] = useState(false);
+  // Check if this is a newly added field
+  const newInputId = searchParams.get('newInputId');
+  const isNewlyAdded = newInputId === inputId;
+  const isParagraph = isInputTypeParagraph(props.input);
 
+  const [isDescription, setDescription] = useState(!!description);
+  // If it's a newly added paragraph field, show editor by default
+  const [isEditor, setEditor] = useState(isNewlyAdded && isParagraph);
+  // const [isEditor, setEditor] = useState(isInputTypeParagraph(props.input));
 
 
 
@@ -131,11 +138,25 @@ const EditFormInput = (props: Props) => {
   }
 
   useAutoLoader(isPending);
+  const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
+  useAutoLoader(isAnyLoading, "small");
 
 
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
+
+  // Remove newInputId from URL after component mounts if this is the newly added field
+  useEffect(() => {
+    if (isNewlyAdded) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete('newInputId');
+      const newUrl = params.toString() 
+        ? `${window.location.pathname}?${params.toString()}` 
+        : window.location.pathname;
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [isNewlyAdded, searchParams, router]);
 
   const canShowAddDescriptionBtn =
   !isInputTypeParagraph(props.input) && !isDescription;
@@ -224,6 +245,7 @@ const EditFormInput = (props: Props) => {
                 setDescription= {setDescription}
                 isEditor = {isEditor}
                 isDescription = {isDescription}
+                // isLastInput = {isLastInput}
               />
 
               

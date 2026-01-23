@@ -9,7 +9,7 @@ import {
   AddFormFieldSchema,
 } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useErrorBoundary } from "react-error-boundary";
 import { FormProvider, useForm } from "react-hook-form";
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
@@ -22,6 +22,8 @@ import { useAutoLoader } from "@/context/LoaderContextProvider";
 
 const AddFormField = () => {
   const { formId } = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const methods = useForm<AddFormFieldSchema>({
     resolver: zodResolver(addFormFieldSchema),
@@ -57,10 +59,26 @@ const AddFormField = () => {
         options: [],
       });
 
-      if (resp?.validationErrors) {
+      if (!resp) {
+        reset();
+        return;
+      }
+
+      if ("validationErrors" in resp) {
         setClientErrors(resp.validationErrors, setError);
         return;
       }
+
+      if ('inputId' in resp) {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("newInputId", resp.inputId ?? "");
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        router.replace(newUrl, { scroll: false });
+        router.refresh();
+      } else {
+        router.refresh();
+      }
+      
       reset();
     } catch (err) {
       showBoundary(err);

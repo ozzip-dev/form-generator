@@ -64,7 +64,7 @@ const InputFields = (props: Props) => {
                 <InputIndicators {...{ required, unique }} />
               </label>
             )}
-            {description && <InputDescription description={description} />}
+            {description && <InputDescription description={description} variant="published" />}
 
             {type === "textarea" ? (
               <TextareaField

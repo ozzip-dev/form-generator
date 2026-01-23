@@ -88,5 +88,5 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
 };
 
 export const renderParagraph = ({ input }: RendererParams) => {
-  return <FormDescription key={input.id} description={input.description} />;
+  return <FormDescription key={input.id} description={input.description} variant="published"/>;
 };

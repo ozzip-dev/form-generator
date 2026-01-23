@@ -17,6 +17,7 @@ type Props = {
   setEditor: Dispatch<SetStateAction<boolean>>;
   isDescription: boolean
   isEditor: boolean
+  // isLastInput: boolean
 };
 
 const EditFormDescriptionInput = (props: Props) => {
@@ -65,17 +66,57 @@ const EditFormDescriptionInput = (props: Props) => {
 
   useAutoLoader(isPending);
   
+  const shouldShowEditor =
+  props.isParagraph || !props.isDescription || props.isEditor;
 
+
+
+console.log('props.isDescription',props.isDescription)
+console.log('props.isEditor',props.isEditor)
 
   return (
     <>
+
+
+
+{/* {(props.isDescription || props.isParagraph) && (
+  <div className="flex">
+    <div className="w-full mb-8">
+      {shouldShowEditor ? (
+        <TextEditor
+          formId={formId}
+          inputId={props.inputId}
+          description={props.description}
+          printDescriptionInput={printDescriptionEditor}
+        />
+      ) : (
+        <TextEditorPrinter
+          description={props.description}
+          printDescriptionInput={printDescriptionEditor}
+        />
+      )}
+    </div>
+
+    {!props.isParagraph && (
+      <Button
+        type="button"
+        icon={<IconTrash />}
+        onClickAction={handleRemoveDescriptionInput}
+        variant="ghost"
+        className="w-fit h-fit !bg-red !text-error mb-auto mt-10"
+      />
+    )}
+  </div>
+)} */}
+
+
     
       {(props.isDescription || props.isParagraph) && (
 
 <div className="flex">
 <div className="w-full mb-8">
 
- {!props.isDescription || props.isEditor? (
+ {!props.isDescription || props.isEditor ? (
      <TextEditor
        formId={formId}
        inputId={props.inputId}

@@ -16,7 +16,7 @@ const TextEditorPrinter = (props: Props) => {
         onClickAction={props.printDescriptionInput}
         className="ml-auto !text-font_dark !text-sm"
       />
-      <FormDescription description={props.description} />
+      <FormDescription description={props.description} variant="edit" />
      
     </div>
   );

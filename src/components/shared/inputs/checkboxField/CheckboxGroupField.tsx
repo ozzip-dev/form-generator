@@ -60,7 +60,7 @@ export default function CheckboxGroupField(props: Props) {
             )}
 
             {props.groupDescription && (
-              <InputDescription description={props.groupDescription} />
+              <InputDescription description={props.groupDescription} variant="published" />
             )}
             <div className="relative">
               {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
