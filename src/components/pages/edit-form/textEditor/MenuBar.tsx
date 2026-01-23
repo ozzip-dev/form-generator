@@ -22,7 +22,10 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
     italic: editor.isActive("italic"),
     link: editor.isActive("link"),
     highlight: editor.isActive("highlight"),
+    "clear-formatting":  editor.isActive("clear-formatting"),
   };
+
+  console.log('',editorState)
 
   const createBtnsData = [
     {
@@ -67,11 +70,27 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
       icon: "un-link",
     },
     {
-      onClick: () =>
-        editor.chain().focus().toggleHighlight({ color: "var(--color-accent)" }).run(),
+  
+      onClick: () => {
+        editor.chain().focus();
+    
+        if (editor.isActive("highlight")) {
+          editor.chain().unsetHighlight().run();
+        } else {
+          editor
+            .chain()
+            .setHighlight({ color: "var(--color-accent)" })
+            .run();
+        }
+      },
       btnName: "highlight",
       icon: "highlighter",
     },
+    {
+      onClick:  () => editor.chain().focus().unsetAllMarks().clearNodes().run(),
+      btnName: "clear-formatting",
+      icon: "text-slash",
+    }
   ];
 
   return (
