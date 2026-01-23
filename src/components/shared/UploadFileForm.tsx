@@ -79,7 +79,7 @@ const UploadFileForm = ({
     <>
       <div
         {...getRootProps()}
-        className={`w-full h-full 
+        className={`w-full h-full
                     relative group transition-colors 
                     flex justify-center items-center
                     ${isDragActive ? "bg-accent" : "bg-transparent"}`}
@@ -101,21 +101,6 @@ const UploadFileForm = ({
             variant="primary-rounded"
           />
         )}
-
-        <div
-          className="
-          pointer-events-none
-          absolute bottom-[110%] right-0
-           p-2 rounded-sm border
-           bg-bg_dark
-          text-xs
-          z-20
-          opacity-0 group-hover:opacity-100 transition-opacity
-          "
-        >
-          {text && <div>{text} </div>}
-          <div>Maksymalny rozmiar: 1 MB</div>
-        </div>
       </div>
     </>
   );

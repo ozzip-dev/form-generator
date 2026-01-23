@@ -92,26 +92,26 @@ const AddOption = (props: Props) => {
         return (
           <div
             key={field.id}
-            className="flex w-full sm:w-4/5"
+            className="flex items-center w-full sm:w-4/5"
           >
             <div className="flex-1">
 
-                <InputFields
-              inputsData={[
-                {
-                  type: "text",
-                  name: `options.${idx}.label`,
-                  floatingLabel: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
-                },
-              ]}
-              register={register}
-              errorMsg={(errors.options as any)?.[idx]?.label}
-              onChange={(name, value) => {
-                handleEdit(name, value, isOtherOption);
-              }}
-            />
+              <InputFields
+                inputsData={[
+                  {
+                    type: "text",
+                    name: `options.${idx}.label`,
+                    floatingLabel: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                  },
+                ]}
+                register={register}
+                errorMsg={(errors.options as any)?.[idx]?.label}
+                onChange={(name, value) => {
+                  handleEdit(name, value, isOtherOption);
+                }}
+              />
             </div>
-          
+
             <Button
               type="button"
               icon={<IconTrash />}
@@ -119,7 +119,7 @@ const AddOption = (props: Props) => {
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }
               variant="ghost"
-              className="w-fit h-fit mt-3"
+              className="w-fit h-fit ml-4"
             />
           </div>
         );

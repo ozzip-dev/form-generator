@@ -1,7 +1,7 @@
 import { addHeaderFileAction } from "@/actions/edit-form/addHeaderFileAction";
 import { removeHeaderFileAction } from "@/actions/edit-form/removeHeaderFileAction";
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
-import { Button, Icon, UploadFileForm } from "@/components/shared";
+import { Button, Icon, InfoIcon, UploadFileForm } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useToast } from "@/context/ToastProvider";
@@ -36,7 +36,7 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
       });
     }
   };
-  const [_, publishForm, isPending] = useActionState(async () => {
+  const [_, removeFileAction, isPending] = useActionState(async () => {
     try {
       await removeHeaderFileAction(form._id as string);
       toast({
@@ -54,21 +54,36 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
   }, null);
 
   const handlePublishForm = () => {
-    startTransition(publishForm);
+    startTransition(removeFileAction);
   };
   useAutoLoader(isPending);
 
   return (
     <div className="">
-      <div className="h-[3.4rem] !rounded-sm border bg-white">
-        <UploadFileForm
-          {...{
-            onFileUploaded,
-            acceptedExtentions: { "image/*": [] },
-            text: "Dodaj obraz nad tytułem formularza",
-          }}
-        />
+      <div className="relative w-fit m-auto">
+
+
+        <div className="h-[3.3rem] w-[27.1rem] overflow-hidden rounded-full m-auto">
+          <UploadFileForm
+            {...{
+              onFileUploaded,
+              acceptedExtentions: { "image/*": [] },
+              text: "Dodaj obraz nad tytułem formularza",
+            }}
+          />
+        </div>
+
+        <div className="absolute top-3 -right-10">
+          <InfoIcon>
+            <div>
+              Dodaj obraz nad tytułem formularza <br />Maksymalny rozmiar: 1 MB
+            </div>
+          </InfoIcon>
+        </div>
+
+
       </div>
+
 
       {!!headerFileData && (
         <div className="w-fit mx-auto my-4 relative">

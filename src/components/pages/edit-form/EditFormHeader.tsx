@@ -109,9 +109,9 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="flex flex-col gap-16">
+      <form className="flex flex-col gap-6">
         <Card className="flex flex-col pr-12">
-          <div className="sm:flex gap-8 lg:gap-24 mb-4">
+          <div className="sm:flex gap-8 lg:gap-24">
             <div className="sm:w-[20rem] md:w-[31rem]">
               <SelectFieldControler
                 name="type"
@@ -122,7 +122,7 @@ export default function EditFormHeader(props: Props) {
               />
             </div>
 
-            <div className="flex gap-2 items-end sm:w-[20rem] md:w-[31rem] relative">
+            <div className="flex gap-2 items-center sm:w-[20rem] md:w-[31rem] relative">
               <SelectFieldControler
                 name="resultVisibility"
                 defaultValue=""
@@ -130,7 +130,7 @@ export default function EditFormHeader(props: Props) {
                 options={resultVisibilityOptions}
                 onChangeAction={handleEdit}
               />
-              <div className="absolute left-full ml-2">
+              <div className=" ml-2">
                 <InfoIcon>
                   <>
                     <div>
@@ -160,10 +160,11 @@ export default function EditFormHeader(props: Props) {
           </div>
         </Card>
 
+        <FormHeaderImageUpload {...props} />
+
+
         <Card>
-          <div className="mb-8">
-            <FormHeaderImageUpload {...props} />
-          </div>
+
 
           <InputFields
             inputsData={dataInputsFormTitle}

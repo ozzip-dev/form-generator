@@ -23,7 +23,7 @@ export default function InfoIcon(props: Props) {
             transition-opacity
             pointer-events-none
             z-50
-            opacity-0 group-hover:opacity-100 
+          opacity-0 group-hover:opacity-100 
           "
         >
           {props.children}
@@ -32,3 +32,4 @@ export default function InfoIcon(props: Props) {
     </div>
   );
 }
+  

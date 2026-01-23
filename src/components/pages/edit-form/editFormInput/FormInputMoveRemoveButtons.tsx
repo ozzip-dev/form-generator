@@ -18,7 +18,7 @@ function FormInputMoveRemoveButtons(props: Props) {
 
   return (
    
-      <div className="flex gap-8 mb-8">
+      <div className="flex gap-4 mb-8">
         <div className="ml-auto flex gap-4">
           {!props.isFirstInput && <MoveInputUpBtn inputId={props.inputId} />}
           {!props.isLastInput && <MoveInputDownBtn inputId={props.inputId} />}

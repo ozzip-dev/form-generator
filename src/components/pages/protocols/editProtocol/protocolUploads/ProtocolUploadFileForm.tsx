@@ -40,7 +40,7 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
   };
 
   return (
-    <Card className="!p-0 h-[20rem] w-full md:w-2/3 mt-16 mx-auto">
+    <Card className="!p-0 h-[20rem] w-full md:w-2/3 mt-16 mx-auto overflow-hidden">
       <UploadFileForm
         {...{
           onFileUploaded,

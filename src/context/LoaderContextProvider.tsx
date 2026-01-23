@@ -60,10 +60,13 @@ export const LoaderContextProvider = ({ children }: Props) => {
     <LoaderContext.Provider value={{ setLoading }}>
       {visible.fullscreen && <FullscreenLoader />}
       {showSmallLoaderInfo && (
-        <div className="text-xs text-accent absolute top-[6rem] md:top-[7rem]
+        <div className="container relative">
+          <div className="text-xs text-accent absolute top-[6rem] md:top-[7rem]
          left-1/2 -translate-x-1/2 md:left-[14rem]">
-          {visible.small ? "Zapisywanie danych..." : "Dane formularza zapisane"}
+            {visible.small ? "Zapisywanie danych..." : "Dane formularza zapisane"}
+          </div>
         </div>
+
       )}
 
       {children}

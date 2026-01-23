@@ -15,7 +15,7 @@ export const editFormHeaderSchema = z.object({
   resultVisibility: z
     .string()
     .trim()
-    .nonempty({ message: "Podaj typ widoczności wyników" }),
+    .nonempty({ message: "Podaj tryb wyników" }),
   displayAuthorEmail: z.boolean(),
 });
 

@@ -23,12 +23,10 @@ type Props = {
 
 const TextareaField = (props: Props) => {
   const { name, placeholder, type, required } = props.inputData;
-  const [charCount, setCharCount] = useState(
-    props.default?.[name]?.length ?? 0
-  );
+
 
   return (
-    <div className="">
+    <div className="relative">
       <textarea
         id={name}
         disabled={props.isLoading?.[name]}
@@ -44,12 +42,11 @@ const TextareaField = (props: Props) => {
         // placeholder={placeholder}
         {...(props.register
           ? props.register(name, {
-              onChange: (e) => {
-                const value = e.target.value;
-                setCharCount(value.length);
-                props.onChange?.(name, value);
-              },
-            })
+            onChange: (e) => {
+              const value = e.target.value;
+              props.onChange?.(name, value);
+            },
+          })
           : {})}
       />
       {props.floatingLabel && (
@@ -60,7 +57,6 @@ const TextareaField = (props: Props) => {
         />
       )}
 
-      {/* <div className="mt-1 text-xs text-right">{charCount} / 2000</div> */}
 
       <InputError
         errorMsg={

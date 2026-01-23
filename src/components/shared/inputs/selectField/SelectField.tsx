@@ -65,13 +65,13 @@ const SelectField = ({
       {label && (
         <label
           htmlFor={name}
-          className=" block mb-1 md:mr-4 text-sm font-medium md:w-[35%] shrink-0"
+          className=" block mb-1 md:mr-4  text-sm font-medium md:w-[35%] shrink-0"
         >
           {label}
         </label>
       )}
 
-      <div className="relative w-full">
+      <div className="relative w-full pb-[1.7rem] md:mt-[1.7rem]">
         <button
           id={name}
           type="button"
@@ -116,10 +116,9 @@ const SelectField = ({
                 onClick={() => !option.disabled && handleSelect(option.value)}
                 className={`
                   px-3 py-2 text-sm transition
-                  ${
-                    option.disabled
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer hover:bg-accent"
+                  ${option.disabled
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer hover:bg-accent"
                   }
                   ${option.value === selectedValue ? "bg-accent" : ""}
                 `}

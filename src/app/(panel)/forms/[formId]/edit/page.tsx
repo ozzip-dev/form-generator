@@ -39,8 +39,8 @@ const EditFormPage = async (props: Props) => {
       {isActive(form) ? (
         <FormActiveInfo />
       ) : (
-      
-        <div className="flex flex-col gap-16">
+
+        <div className="flex flex-col gap-10">
           <SuspenseErrorBoundary
             size="lg"
             errorMessage="Błąd edycji nagłówka formularza"

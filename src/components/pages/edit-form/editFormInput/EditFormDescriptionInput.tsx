@@ -71,43 +71,14 @@ const EditFormDescriptionInput = (props: Props) => {
 
 
 
-console.log('props.isDescription',props.isDescription)
-console.log('props.isEditor',props.isEditor)
+// console.log('props.isDescription',props.isDescription)
+// console.log('props.isEditor',props.isEditor)
 
   return (
     <>
 
 
 
-{/* {(props.isDescription || props.isParagraph) && (
-  <div className="flex">
-    <div className="w-full mb-8">
-      {shouldShowEditor ? (
-        <TextEditor
-          formId={formId}
-          inputId={props.inputId}
-          description={props.description}
-          printDescriptionInput={printDescriptionEditor}
-        />
-      ) : (
-        <TextEditorPrinter
-          description={props.description}
-          printDescriptionInput={printDescriptionEditor}
-        />
-      )}
-    </div>
-
-    {!props.isParagraph && (
-      <Button
-        type="button"
-        icon={<IconTrash />}
-        onClickAction={handleRemoveDescriptionInput}
-        variant="ghost"
-        className="w-fit h-fit !bg-red !text-error mb-auto mt-10"
-      />
-    )}
-  </div>
-)} */}
 
 
     

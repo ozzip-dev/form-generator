@@ -28,7 +28,7 @@ const InputField = (props: Props) => {
     props.inputData;
 
   return (
-    <div className="relative">
+    <div className={`relative`}>
       <input
         id={name}
         name={name}
@@ -44,10 +44,9 @@ const InputField = (props: Props) => {
          p-2 w-full
          focus:outline-none focus:border-accent
           ${props.error ? "border-red" : "border-default"}
-          ${
-            props.isLoading?.[name] || props.isSubmitting
-              ? "opacity-50 cursor-not-allowed"
-              : ""
+          ${props.isLoading?.[name] || props.isSubmitting
+            ? "opacity-50 cursor-not-allowed"
+            : ""
           }
         
 
@@ -59,11 +58,14 @@ const InputField = (props: Props) => {
         }}
       />
       {props.floatingLabel && (
+
         <FloatingLabel
           name={name}
           floatingLabel={props.floatingLabel}
           required={required || false}
         />
+
+
       )}
 
       {props.isLoading?.[name] && (

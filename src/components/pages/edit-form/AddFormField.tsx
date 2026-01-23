@@ -17,6 +17,7 @@ import { dataSelectOptions } from "./editFormData";
 import Icon from "@/components/shared/icons/Icon";
 import Card from "@/components/shared/Card";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import EditFormInput from "./editFormInput/EditFormInput";
 
 
 
@@ -26,7 +27,7 @@ const AddFormField = () => {
   const searchParams = useSearchParams();
 
   const methods = useForm<AddFormFieldSchema>({
-    resolver: zodResolver(addFormFieldSchema),
+    // resolver: zodResolver(addFormFieldSchema),
     defaultValues: {
       type: "text",
     },
@@ -44,7 +45,7 @@ const AddFormField = () => {
 
   const selectedType = watch("type");
 
-  console.log('selectedType',selectedType)
+
 
   useAutoLoader(isSubmitting);
 
@@ -97,6 +98,12 @@ const AddFormField = () => {
 
 
   return (
+
+
+
+
+
+    
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="!bg-white !border-0 !shadow-none md:flex md:items-center mb-16">
@@ -132,3 +139,14 @@ const AddFormField = () => {
 };
 
 export default AddFormField;
+
+
+    
+
+{/* <EditFormInput  input={  {id: "9999",
+                      type: "text",
+                      header: "aaa",                
+                      validation: {},
+                      options: []}}
+                    inputIdx={5}
+                    isLastInput={true}  autoSave={false} /> */}

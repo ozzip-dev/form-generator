@@ -7,7 +7,7 @@ type Props = {
 const FloatingLabel = (props: Props) => (
   <label
     htmlFor={props.name}
-    className=" px-1 pointer-events-none absolute left-2
+    className=" px-1 !font-medium pointer-events-none absolute left-2
                  origin-left transition-all duration-200
 
                  // empty not focus
