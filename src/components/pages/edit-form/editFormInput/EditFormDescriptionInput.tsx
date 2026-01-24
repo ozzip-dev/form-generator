@@ -6,13 +6,11 @@ import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { Button, IconTrash } from "../../../shared";
 import TextEditor from "../textEditor/TextEditor";
 import TextEditorPrinter from "../textEditor/TextEditorPrinter";
+import { useInputData } from "@/context/InputDataContextProvider";
+import { isInputTypeParagraph } from "@/helpers/inputHelpers";
 
 type Props = {
-  formId?: string;
-  inputId: string;
-  inputIdx: number;
   description: string;
-  isParagraph: boolean;
   setDescription: Dispatch<SetStateAction<boolean>>;
   setEditor: Dispatch<SetStateAction<boolean>>;
   isDescription: boolean
@@ -21,10 +19,10 @@ type Props = {
 };
 
 const EditFormDescriptionInput = (props: Props) => {
+  const { formId, input, inputIdx } = useInputData()
   const [isPending, startTransition] = useTransition();
 
-  
-  const formId = useSafeURLParam("formId") || "";
+
   const {
     register,
     formState: { errors },
@@ -43,36 +41,36 @@ const EditFormDescriptionInput = (props: Props) => {
 
 
 
-  const handleRemoveDescriptionInput = () =>{
+  const handleRemoveDescriptionInput = () => {
     if (!props.description) {
-          props.setDescription(false);
-          props.setEditor(false)
-          return
-        };
-  startTransition( async () => {
+      props.setDescription(false);
+      props.setEditor(false)
+      return
+    };
+    startTransition(async () => {
 
-      if (!props.formId) return
-      await editInputLabelAction(props.formId, props.inputId, {
+      if (!formId) return
+      await editInputLabelAction(formId, input.id!, {
         description: "",
       });
       props.setDescription(false);
       props.setEditor(false)
     }
-  
 
-  )
+
+    )
   }
- 
+
 
   useAutoLoader(isPending);
-  
+  const isParagraph = isInputTypeParagraph(input)
   const shouldShowEditor =
-  props.isParagraph || !props.isDescription || props.isEditor;
+    props.isParagraph || !props.isDescription || props.isEditor;
 
 
 
-// console.log('props.isDescription',props.isDescription)
-// console.log('props.isEditor',props.isEditor)
+  // console.log('props.isDescription',props.isDescription)
+  // console.log('props.isEditor',props.isEditor)
 
   return (
     <>
@@ -81,40 +79,40 @@ const EditFormDescriptionInput = (props: Props) => {
 
 
 
-    
-      {(props.isDescription || props.isParagraph) && (
 
-<div className="flex">
-<div className="w-full mb-8">
+      {(props.isDescription || isParagraph) && (
 
- {!props.isDescription || props.isEditor ? (
-     <TextEditor
-       formId={formId}
-       inputId={props.inputId}
-       description={props.description}
-       printDescriptionInput={printDescriptionEditor}
-     />
-   ) : (
-     <TextEditorPrinter
-       description={props.description}
-       printDescriptionInput={printDescriptionEditor}
-    
-     />
-   )} 
-</div>
-   
+        <div className="flex">
+          <div className="w-full mb-8">
 
-   {  !props.isParagraph && <Button
-     type="button"
-     icon={<IconTrash />}
-     onClickAction={handleRemoveDescriptionInput}
-     variant="ghost"
-     className="w-fit h-fir !bg-red !text-error mb-auto mt-10"
-   />}
- </div>
+            {!props.isDescription || props.isEditor ? (
+              <TextEditor
+                formId={formId}
+                inputId={input.id!}
+                description={props.description}
+                printDescriptionInput={printDescriptionEditor}
+              />
+            ) : (
+              <TextEditorPrinter
+                description={props.description}
+                printDescriptionInput={printDescriptionEditor}
+
+              />
+            )}
+          </div>
+
+
+          {!isParagraph && <Button
+            type="button"
+            icon={<IconTrash />}
+            onClickAction={handleRemoveDescriptionInput}
+            variant="ghost"
+            className="w-fit h-fir !bg-red !text-error mb-auto mt-10"
+          />}
+        </div>
       )}
 
-  
+
     </>
   );
 };

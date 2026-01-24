@@ -20,7 +20,8 @@ import { isUserAuthor } from "@/helpers/formHelpers";
 import { getFileById, removeFile } from "./file-service";
 import { File } from "@/types/file";
 
-export const getForm = cache(async (formId: string): Promise<Form> => {
+
+export const getForm = cache(async (formId: string): Promise<FormSerialized> => {
   await requireUser();
 
   const form: Form | null = await findById<Form>(
@@ -34,7 +35,7 @@ export const getForm = cache(async (formId: string): Promise<Form> => {
     redirect("/dashboard-moderator");
   }
 
-  return form;
+  return serializeForm(form);
 });
 
 export async function formHasInputWithId(
@@ -183,7 +184,7 @@ export const getFormByAuthor = async (
     throw new Error("Formularz nie istnieje");
   }
 
-  const serializedForm = serializeForm(form);
+  const serializedForm = form;
 
   if (!isUserAuthor(serializedForm, user._id))
     throw new Error("Nie jesteś autorem tego formularza");

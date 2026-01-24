@@ -3,32 +3,29 @@
 import MoveInputUpBtn from "./MoveInputUpBtn";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
+import { useInputData } from "@/context/InputDataContextProvider";
 
-type Props = {
-  inputId: string;
-  isFirstInput: boolean;
-  isLastInput: boolean;
-  setDescription: any;
-  setEditor: any
-  isDescription: any
-};
 
-function FormInputMoveRemoveButtons(props: Props) {
+
+function FormInputMoveRemoveButtons() {
+  const { input, isLastInput } = useInputData()
+  const inputId = input.id!
+  const isFirstInput = input.order === 0
 
 
   return (
 
     <div className="flex gap-4 mb-4">
       <div className="ml-auto flex gap-4">
-        {!props.isFirstInput && <MoveInputUpBtn inputId={props.inputId} />}
-        {!props.isLastInput && <MoveInputDownBtn inputId={props.inputId} />}
+        {!isFirstInput && <MoveInputUpBtn inputId={inputId} />}
+        {!isLastInput && <MoveInputDownBtn inputId={inputId} />}
       </div>
       <div className="flex flex-col">
         <div className="flex-1 w-px  bg-font_light" />
       </div>
 
       <div className="mb-auto">
-        <RemoveInputBtn inputId={props.inputId} />
+        <RemoveInputBtn inputId={inputId} />
       </div>
     </div>
 

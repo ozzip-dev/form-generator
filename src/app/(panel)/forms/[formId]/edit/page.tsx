@@ -10,14 +10,14 @@ import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
 import { isActive } from "@/helpers/formHelpers";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
+import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
-  const formSerialized = serializeForm(form);
-  const { inputs, createdAt, updatedAt, headerFileId } = formSerialized;
+  const { inputs, createdAt, updatedAt, headerFileId } = form;
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
     : null;
@@ -33,7 +33,7 @@ const EditFormPage = async (props: Props) => {
         size="sm"
         errorMessage="Błąd publikacji formularza"
       >
-        <FormActions form={formSerialized} />
+        <FormActions form={form} />
       </SuspenseErrorBoundary>
 
       {isActive(form) ? (
@@ -60,11 +60,14 @@ const EditFormPage = async (props: Props) => {
                   size="sm"
                   errorMessage="Błąd edycji pól formularza"
                 >
-                  <EditFormInput
+                  <InputDataContextProvider
                     input={input}
                     inputIdx={idx}
                     isLastInput={inputs.length === idx + 1}
-                  />
+                    formId={form.id!}>
+                    <EditFormInput />
+                  </InputDataContextProvider>
+
                 </SuspenseErrorBoundary>
               );
             })}

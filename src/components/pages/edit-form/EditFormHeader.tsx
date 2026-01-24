@@ -67,7 +67,7 @@ export default function EditFormHeader(props: Props) {
     type,
     resultVisibility,
     displayAuthorEmail,
-  } = serializeForm(form);
+  } = form;
 
 
 

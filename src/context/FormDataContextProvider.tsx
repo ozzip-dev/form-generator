@@ -5,13 +5,13 @@ import { Form, FormSerialized } from "@/types/form";
 
 
 type FormDataContext = {
-    formDataPromise: Promise<Form | null>
+    formDataPromise: Promise<FormSerialized | null>
 }
 
 const FormDataContext = createContext<FormDataContext | null>(null)
 
 type Props = {
-    formDataPromise: Promise<Form | null>
+    formDataPromise: Promise<FormSerialized | null>
     children: React.ReactNode;
 }
 
@@ -27,7 +27,7 @@ export const FormDataContextProvider = (props: Props) => {
 export const useFormData = () => {
     const context = useContext(FormDataContext)
     if (!context) {
-        throw new Error("useContext must be used within a UserProvider");
+        throw new Error("useContext must be used within a FormDataContextProvider");
     }
     return context;
 }

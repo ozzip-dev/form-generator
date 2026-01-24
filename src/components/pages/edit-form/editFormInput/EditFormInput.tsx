@@ -29,6 +29,7 @@ import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniq
 import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useInputData } from "@/context/InputDataContextProvider";
 
 const dataInputLabel = [
   {
@@ -54,14 +55,11 @@ const toggleSwitchesData = [
   },
 ];
 
-type Props = {
-  input: FormInput;
-  inputIdx: number;
-  isLastInput: boolean;
-};
 
-const EditFormInput = (props: Props) => {
-  const formId = useSafeURLParam("formId");
+
+const EditFormInput = () => {
+  const { formId, input, inputIdx } = useInputData()
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const {
@@ -73,13 +71,13 @@ const EditFormInput = (props: Props) => {
     description,
     options,
     unique,
-  } = props.input;
+  } = input;
 
   const [isPending, startTransition] = useTransition();
 
   const newInputId = searchParams.get('newInputId');
   const isNewlyAdded = newInputId === inputId;
-  const isParagraph = isInputTypeParagraph(props.input);
+  const isParagraph = isInputTypeParagraph(input);
 
   const [isDescription, setDescription] = useState(!!description);
 
@@ -119,7 +117,7 @@ const EditFormInput = (props: Props) => {
     useEditForm({
       formId,
       inputId,
-      inputIdx: props.inputIdx,
+      inputIdx: inputIdx,
       trigger,
       action: editInputLabelAction,
       mode: "inputLabel",
@@ -128,8 +126,8 @@ const EditFormInput = (props: Props) => {
 
   const handleEditType = (type: InputType) => {
     startTransition(async () => {
-      if (!formId || !props.input.id) return;
-      await editInputTypeAction(formId, props.input.id, type);
+      if (!formId || !inputId) return;
+      await editInputTypeAction(formId, inputId, type);
     });
   };
 
@@ -159,7 +157,7 @@ const EditFormInput = (props: Props) => {
   }, [isNewlyAdded, searchParams, router]);
 
   const canShowAddDescriptionBtn =
-    !isInputTypeParagraph(props.input) && !isDescription;
+    !isInputTypeParagraph(input) && !isDescription;
 
   return (
     <Card className="">
@@ -168,21 +166,12 @@ const EditFormInput = (props: Props) => {
       ) : (
         <FormProvider {...methods}>
           <form>
-            <FormInputMoveRemoveButtons
-              {...{
-                inputId,
-                isFirstInput: order == 0,
-                isLastInput: props.isLastInput,
-                setDescription,
-                setEditor,
-                isDescription
-              }}
-            />
+            <FormInputMoveRemoveButtons />
 
             <div className="md:flex items-center md:gap-10">
 
               <div className="flex flex-1 items-center">
-                {!isInputTypeParagraph(props.input) && (
+                {!isInputTypeParagraph(input) && (
                   <div className="w-full">
                     <InputFields
                       inputsData={dataInputLabel}
@@ -192,7 +181,7 @@ const EditFormInput = (props: Props) => {
                     />
                   </div>
                 )}
-                {!isInputTypeParagraph(props.input) && (
+                {!isInputTypeParagraph(input) && (
                   isDescription ? (
                     <div className="w-[2rem] h-1" />
                   ) : (
@@ -236,11 +225,7 @@ const EditFormInput = (props: Props) => {
               <div className="md:flex-1">
 
                 <EditFormDescriptionInput
-                  formId={formId}
-                  inputId={inputId as string}
-                  inputIdx={props.inputIdx}
                   description={description ?? ""}
-                  isParagraph={isInputTypeParagraph(props.input)}
                   setEditor={setEditor}
                   setDescription={setDescription}
                   isEditor={isEditor}
@@ -248,10 +233,10 @@ const EditFormInput = (props: Props) => {
                 />
 
 
-                {isInputWithOptions(props.input) && (
+                {isInputWithOptions(input) && (
                   <AddOption
-                    inputIdx={props.inputIdx}
-                    input={props.input}
+                    inputIdx={inputIdx}
+                    input={input}
                     header={header}
                   />
                 )}
@@ -259,13 +244,13 @@ const EditFormInput = (props: Props) => {
 
 
 
-              {!isInputTypeParagraph(props.input) && (
+              {!isInputTypeParagraph(input) && (
                 <div className="flex flex-col gap-4 md:w-[23rem] md:ml-auto">
                   {toggleSwitchesData.map(
                     ({ name, label, action, infoText }, idx) => (
                       <InputDataToggleSwitch
                         formId={formId as string}
-                        input={props.input}
+                        input={input}
                         {...{ action, label, name, infoText }}
                         key={idx}
                       />
