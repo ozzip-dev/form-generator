@@ -17,8 +17,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import FormHeaderImageUpload from "./FormHeaderImageUpload";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
-import { startTransition } from "react";
+import { startTransition, use } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
+import { useFormData } from "@/context/FormDataContextProvider";
+import { serializeForm } from "@/lib/serialize-utils";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -46,11 +48,18 @@ const dataInputsFormTitle = [
 ];
 
 type Props = {
-  form: FormSerialized;
   headerFileData?: any;
 };
 
 export default function EditFormHeader(props: Props) {
+
+
+
+  const { formDataPromise } = useFormData();
+  const form = use(formDataPromise);
+
+  if (!form) return
+
   const {
     _id: formId,
     title,
@@ -58,7 +67,9 @@ export default function EditFormHeader(props: Props) {
     type,
     resultVisibility,
     displayAuthorEmail,
-  } = props.form;
+  } = serializeForm(form);
+
+
 
   const methods = useForm<EditFormHeaderSchema>({
     resolver: zodResolver(editFormHeaderSchema),
@@ -160,7 +171,7 @@ export default function EditFormHeader(props: Props) {
           </div>
         </Card>
 
-        <FormHeaderImageUpload {...props} />
+        <FormHeaderImageUpload formId={formId} headerFileData={props.headerFileData} />
 
 
         <Card>

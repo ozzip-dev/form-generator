@@ -2,7 +2,6 @@ import { addHeaderFileAction } from "@/actions/edit-form/addHeaderFileAction";
 import { removeHeaderFileAction } from "@/actions/edit-form/removeHeaderFileAction";
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { Button, Icon, InfoIcon, UploadFileForm } from "@/components/shared";
-import Card from "@/components/shared/Card";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { FormSerialized } from "@/types/form";
@@ -10,18 +9,19 @@ import Image from "next/image";
 import { startTransition, useActionState } from "react";
 
 type Props = {
-  form: FormSerialized;
   headerFileData?: any;
+  formId?: string
 };
 
-const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
+const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   const { toast } = useToast();
+  if (!formId) return
 
   const onFileUploaded = async (file: File) => {
     try {
       const insertedId = await uploadFileAction(file);
 
-      await addHeaderFileAction(form._id as string, insertedId);
+      await addHeaderFileAction(formId, insertedId);
 
       toast({
         title: "Sukces",
@@ -36,9 +36,10 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
       });
     }
   };
+
   const [_, removeFileAction, isPending] = useActionState(async () => {
     try {
-      await removeHeaderFileAction(form._id as string);
+      await removeHeaderFileAction(formId);
       toast({
         title: "Sukces",
         description: "Usunięto plik",
@@ -59,10 +60,8 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
   useAutoLoader(isPending);
 
   return (
-    <div className="">
+    <>
       <div className="relative w-fit m-auto">
-
-
         <div className="h-[3.3rem] w-[27.1rem] overflow-hidden rounded-full m-auto">
           <UploadFileForm
             {...{
@@ -80,8 +79,6 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
             </div>
           </InfoIcon>
         </div>
-
-
       </div>
 
 
@@ -105,7 +102,7 @@ const FormHeaderImageUpload = ({ form, headerFileData }: Props) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

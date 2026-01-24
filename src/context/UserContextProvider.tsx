@@ -9,7 +9,7 @@ type UserContextType = {
 
 type UserClient = UserSerialized;
 
-export const UserContext = createContext<UserContextType | null>(null);
+const UserContext = createContext<UserContextType | null>(null);
 
 export function UserContextProvider({
   userPromise,

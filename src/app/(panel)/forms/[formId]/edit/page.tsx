@@ -47,7 +47,6 @@ const EditFormPage = async (props: Props) => {
             loadingMessage="Ładowanie danych formularza"
           >
             <EditFormHeader
-              form={formSerialized}
               headerFileData={file ? serializeFile(file)?.data : null}
             />
           </SuspenseErrorBoundary>

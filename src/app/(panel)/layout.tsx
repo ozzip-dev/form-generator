@@ -15,6 +15,8 @@ export default async function DashboardLayout({
   const userPromise = getUser();
   const user = await userPromise;
 
+
+
   return (
     <LoaderContextProvider>
       <ModalContextProvider>
