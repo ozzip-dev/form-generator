@@ -1,4 +1,4 @@
-import CreatedForm from "@/components/pages/form/CreatedForm";
+import CreatedForm from "@/components/pages/form/created-form/CreatedForm";
 import { serializeForm } from "@/lib/serialize-utils";
 import { getForm, getFormAdditionalData } from "@/services/form-service";
 

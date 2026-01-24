@@ -2,7 +2,7 @@ type Props = {
   isError: boolean;
 };
 
-const CreatedFormTopBar = (props: Props) => {
+const CreatedFormTopError = (props: Props) => {
   return (
     <div
       className={`w-screen z-20 py-8 bg-accent 
@@ -16,4 +16,4 @@ const CreatedFormTopBar = (props: Props) => {
   );
 };
 
-export default CreatedFormTopBar;
+export default CreatedFormTopError;

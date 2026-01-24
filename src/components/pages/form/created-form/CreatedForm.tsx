@@ -24,8 +24,9 @@ import {
   isInputTypeCheckbox,
 } from "@/helpers/inputHelpers";
 import Card from "@/components/shared/Card";
-import CreatedFormTopBar from "./CreatedFormTopBar";
+import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
+import CreatedFormFooter from "./CreatedFormFooter";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -157,7 +158,7 @@ const CreatedForm = (props: Props) => {
   return (
     <>
       <div className="container !max-w-[800px] my-4">
-        <CreatedFormTopBar isError={hasErrors} />
+        <CreatedFormTopError isError={hasErrors} />
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
         {props.headerFileData &&
           <CreatedFormTopImage headerFileData={props.headerFileData} />
@@ -203,14 +204,8 @@ const CreatedForm = (props: Props) => {
         </FormProvider>
       </div>
 
-      {displayAuthorEmail && (
-        <footer className="container py-10 flex justify-center">
-          <div>
-            <span>Kontakt twórcy formularza: </span>
-            <span className="font-bold">{props.authorEmail}</span>
-          </div>
-
-        </footer>
+      {displayAuthorEmail && props.authorEmail && (
+        <CreatedFormFooter authorEmail={props.authorEmail} />
       )}
     </>
   );

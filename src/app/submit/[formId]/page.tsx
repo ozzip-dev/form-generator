@@ -6,7 +6,7 @@ import { getFormAdditionalData, getFormBySlug } from "@/services/form-service";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
-import CreatedForm from "@/components/pages/form/CreatedForm";
+import CreatedForm from "@/components/pages/form/created-form/CreatedForm";
 
 type Props = { params: Promise<{ formId: string; url: string }> };
 
