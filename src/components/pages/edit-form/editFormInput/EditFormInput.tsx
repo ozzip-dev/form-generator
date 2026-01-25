@@ -24,12 +24,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
-import InputDataToggleSwitch from "./InputDataToggleSwitch";
+import InputDataToggleSwitch from "./toggle-inputs/InputDataToggleSwitch";
 import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
 import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useInputData } from "@/context/InputDataContextProvider";
+import ToggleInputs from "./toggle-inputs/ToggleInputs";
+
 
 const dataInputLabel = [
   {
@@ -37,21 +39,6 @@ const dataInputLabel = [
     name: `header`,
     placeholder: "Pytanie",
     floatingLabel: "Edytuj pytanie",
-  },
-];
-
-const toggleSwitchesData = [
-  {
-    name: "required",
-    label: `Odpowiedź wymagana`,
-    infoText: "Bez wypełnienia pola formularz nie zostanie wysłany",
-    action: toggleRequiredAction,
-  },
-  {
-    name: "unique",
-    label: `Odpowiedź unikalna`,
-    infoText: "Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz",
-    action: toggleUniqueAction,
   },
 ];
 
@@ -82,8 +69,6 @@ const EditFormInput = () => {
   const [isDescription, setDescription] = useState(!!description);
 
   const [isEditor, setEditor] = useState(isNewlyAdded && isParagraph);
-
-
 
 
   const defaultValues = useMemo(
@@ -201,10 +186,9 @@ const EditFormInput = () => {
                     </div>
                   )
                 )}
-
-
-
               </div>
+
+
               <div className="w-[23rem] md:pt-[1.7rem] lg:pt-0">
                 <SelectFieldControler
                   name="type"
@@ -225,7 +209,7 @@ const EditFormInput = () => {
               <div className="md:flex-1">
 
                 <EditFormDescriptionInput
-                  description={description ?? ""}
+                  // description={description ?? ""}
                   setEditor={setEditor}
                   setDescription={setDescription}
                   isEditor={isEditor}
@@ -242,21 +226,8 @@ const EditFormInput = () => {
                 )}
               </div>
 
-
-
               {!isInputTypeParagraph(input) && (
-                <div className="flex flex-col gap-4 md:w-[23rem] md:ml-auto">
-                  {toggleSwitchesData.map(
-                    ({ name, label, action, infoText }, idx) => (
-                      <InputDataToggleSwitch
-                        formId={formId as string}
-                        input={input}
-                        {...{ action, label, name, infoText }}
-                        key={idx}
-                      />
-                    ),
-                  )}
-                </div>
+                <ToggleInputs />
               )}
             </div>
           </form>
@@ -269,267 +240,3 @@ const EditFormInput = () => {
 export default EditFormInput;
 
 
-// "use client";
-
-// import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
-// import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInputTypeAction";
-// import { Button, Icon, InputFields } from "@/components/shared";
-// import Card from "@/components/shared/Card";
-// import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
-// import { useAutoLoader } from "@/context/LoaderContextProvider";
-// import { InputType } from "@/enums";
-// import {
-//   isInputTypeParagraph,
-//   isInputWithOptions,
-// } from "@/helpers/inputHelpers";
-// import { useEditForm } from "@/hooks/useEditForm";
-// import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-// import {
-//   editInputFormSchema,
-//   EditInputFormSchema,
-// } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
-// import { FormInput } from "@/types/input";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useEffect, useMemo, useState, useTransition } from "react";
-// import { FormProvider, useForm } from "react-hook-form";
-// import { dataSelectOptions } from "../editFormData";
-// import AddOption from "./AddOption";
-// import EditFormDescriptionInput from "./EditFormDescriptionInput";
-// import InputDataToggleSwitch from "./InputDataToggleSwitch";
-// import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
-// import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
-// import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
-// import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
-
-// type Props = {
-//   input: FormInput;
-//   inputIdx: number;
-//   isLastInput: boolean;
-//   autoSave?: boolean; // 👈 TRYB DZIAŁANIA
-// };
-
-// const EditFormInput = ({
-//   input,
-//   inputIdx,
-//   isLastInput,
-//   autoSave = true,
-// }: Props) => {
-//   const formId = useSafeURLParam("formId");
-
-//   const {
-//     id: inputId,
-//     required,
-//     order,
-//     type,
-//     header,
-//     description,
-//     options,
-//     unique,
-//   } = input;
-
-//   const isParagraph = isInputTypeParagraph(input);
-
-//   const [isPending, startTransition] = useTransition();
-//   const [isDescription, setDescription] = useState(!!description);
-//   const [isEditor, setEditor] = useState(false);
-
-//   const defaultValues = useMemo(
-//     () => ({
-//       header: header ?? "",
-//     description: description ?? "",
-//     options: options ?? [],
-//     required: required ?? false,
-//     unique: unique ?? false,
-//     type
-//     }),
-//     [header, description, options, required, unique, type]
-//   );
-
-//   const methods = useForm<EditInputFormSchema>({
-//     // resolver: zodResolver(editInputFormSchema),
-//     defaultValues,
-//     mode: "all",
-//   });
-
-//   const {
-//     register,
-//     reset,
-//     formState: { errors },
-//     trigger,
-//     setError,
-//     handleSubmit,
-//   } = methods;
-
-//   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
-//     useEditForm({
-//       formId,
-//       inputId,
-//       inputIdx,
-//       trigger,
-//       action: editInputLabelAction,
-//       mode: "inputLabel",
-//       setError,
-//     });
-
-//   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
-
-//   useAutoLoader(isPending || isAnyLoading, "small");
-
-//   useEffect(() => {
-//     reset(defaultValues);
-//   }, [defaultValues, reset]);
-
-
-//   const onSubmit = async (data: EditInputFormSchema) => {
-
-//     console.log('////////',data)
-//     if (!formId || !inputId) return;
-
-//     startTransition(async () => {
-//       await addFormFieldAction(formId,  {
-//         ...data,
-//         type: data.type as InputType,
-//         validation: {},
-//         options: [],
-//       });
-//     });
-//   };
-
-//   const handleEditType = (type: InputType) => {
-//     startTransition(async () => {
-//       if (!formId || !inputId) return;
-//       await editInputTypeAction(formId, inputId, type);
-//     });
-//   };
-
-// console.log('!autoSave',autoSave)
-
-//   return (
-//     <Card>
-//       <FormProvider {...methods}>
-//         <form onSubmit={!autoSave ? handleSubmit(onSubmit) : undefined}>
-//           {/* <FormInputMoveRemoveButtons
-//             {...{
-//               inputId,
-//               isFirstInput: order === 0,
-//               isLastInput,
-//               setDescription,
-//               setEditor,
-//               isDescription,
-//             }}
-//           /> */}
-
-//           <div className="md:flex md:gap-10">
-//             <div className="flex flex-1">
-//               {!isParagraph && (
-//                 <div className="w-full">
-//                   <InputFields
-//                     inputsData={[
-//                       {
-//                         type: "text",
-//                         name: "header",
-//                         placeholder: "Pytanie",
-//                         floatingLabel: "Edytuj pytanie",
-//                       },
-//                     ]}
-//                     register={register}
-//                     errorMsg={errors.header as any}
-//                     onChange={autoSave ? handleEditLabel : undefined}
-//                   />
-//                 </div>
-//               )}
-
-//               {!isParagraph && !isDescription && (
-//                 <div className="w-fit h-fit mt-3 ml-1">
-//                   <Button
-//                     variant="ghost"
-//                     className="!rounded-full border border-accent p-[0.2rem]"
-//                     icon={
-//                       <Icon
-//                         icon="plus-solid-full"
-//                         size={12}
-//                         color="var(--color-accent)"
-//                       />
-//                     }
-//                     onClickAction={() => {
-//                       setDescription(true);
-//                       setEditor(true);
-//                     }}
-//                   />
-//                 </div>
-//               )}
-//             </div>
-
-//             <div className="w-[23rem] mb-8">
-//               <SelectFieldControler
-//                 name="type"
-//                 defaultValue={type}
-//                 options={dataSelectOptions}
-//                 onChangeAction={(name, value) =>
-//                   handleEditType(value as InputType)
-//                 }
-//               />
-//             </div>
-//           </div>
-
-//           <EditFormDescriptionInput
-//             formId={formId}
-//             inputId={inputId!}
-//             inputIdx={inputIdx}
-//             description={description ?? ""}
-//             isParagraph={isParagraph}
-//             setEditor={setEditor}
-//             setDescription={setDescription}
-//             isEditor={isEditor}
-//             isDescription={isDescription}
-//           />
-
-//           {isInputWithOptions(input) && (
-//             <AddOption
-//               inputIdx={inputIdx}
-//               input={input}
-//               header={header}
-//             />
-//           )}
-
-//           {!isParagraph && (
-//             <div className="flex flex-col gap-4 md:w-[23rem] md:ml-auto">
-//               {[
-//                 {
-//                   name: "required",
-//                   label: "Odpowiedź wymagana",
-//                   infoText:
-//                     "Bez wypełnienia pola formularz nie zostanie wysłany",
-//                   action: toggleRequiredAction,
-//                 },
-//                 {
-//                   name: "unique",
-//                   label: "Odpowiedź unikalna",
-//                   infoText:
-//                     "Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz",
-//                   action: toggleUniqueAction,
-//                 },
-//               ].map((props, idx) => (
-//                 <InputDataToggleSwitch
-//                   key={idx}
-//                   formId={formId as string}
-//                   input={input}
-//                   {...props}
-//                 />
-//               ))}
-//             </div>
-//           )}
-
-
-//           {!autoSave && (
-//             <div className="flex justify-end mt-6">
-//               <Button type="submit" message="Zapisz zmiany" />
-//             </div>
-//           )}
-//         </form>
-//       </FormProvider>
-//     </Card>
-//   );
-// };
-
-// export default EditFormInput;

@@ -2,7 +2,7 @@ import AddFormField from "@/components/pages/edit-form/AddFormField";
 import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo";
 import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import { serializeFile, serializeForm } from "@/lib/serialize-utils";
+import { serializeFile } from "@/lib/serialize-utils";
 import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
 import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
 import { getForm } from "@/services/form-service";
@@ -15,12 +15,14 @@ import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
+
   const { formId } = await props.params;
   const form = await getForm(formId);
   const { inputs, createdAt, updatedAt, headerFileId } = form;
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
     : null;
+
 
   const hasReachedInputLimit =
     form.inputs?.length >=
@@ -64,7 +66,7 @@ const EditFormPage = async (props: Props) => {
                     input={input}
                     inputIdx={idx}
                     isLastInput={inputs.length === idx + 1}
-                    formId={form.id!}>
+                    formId={form._id!}>
                     <EditFormInput />
                   </InputDataContextProvider>
 

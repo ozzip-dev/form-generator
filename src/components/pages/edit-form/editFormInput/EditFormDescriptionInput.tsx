@@ -10,18 +10,15 @@ import { useInputData } from "@/context/InputDataContextProvider";
 import { isInputTypeParagraph } from "@/helpers/inputHelpers";
 
 type Props = {
-  description: string;
   setDescription: Dispatch<SetStateAction<boolean>>;
   setEditor: Dispatch<SetStateAction<boolean>>;
   isDescription: boolean
   isEditor: boolean
-  // isLastInput: boolean
 };
 
 const EditFormDescriptionInput = (props: Props) => {
-  const { formId, input, inputIdx } = useInputData()
+  const { formId, input } = useInputData()
   const [isPending, startTransition] = useTransition();
-
 
   const {
     register,
@@ -42,13 +39,13 @@ const EditFormDescriptionInput = (props: Props) => {
 
 
   const handleRemoveDescriptionInput = () => {
-    if (!props.description) {
+
+    if (!input.description) {
       props.setDescription(false);
       props.setEditor(false)
       return
     };
     startTransition(async () => {
-
       if (!formId) return
       await editInputLabelAction(formId, input.id!, {
         description: "",
@@ -65,7 +62,7 @@ const EditFormDescriptionInput = (props: Props) => {
   useAutoLoader(isPending);
   const isParagraph = isInputTypeParagraph(input)
   const shouldShowEditor =
-    props.isParagraph || !props.isDescription || props.isEditor;
+    isParagraph || !props.isDescription || props.isEditor;
 
 
 
@@ -74,12 +71,6 @@ const EditFormDescriptionInput = (props: Props) => {
 
   return (
     <>
-
-
-
-
-
-
       {(props.isDescription || isParagraph) && (
 
         <div className="flex">
@@ -89,12 +80,12 @@ const EditFormDescriptionInput = (props: Props) => {
               <TextEditor
                 formId={formId}
                 inputId={input.id!}
-                description={props.description}
+                description={input.description || ""}
                 printDescriptionInput={printDescriptionEditor}
               />
             ) : (
               <TextEditorPrinter
-                description={props.description}
+                description={input.description || ""}
                 printDescriptionInput={printDescriptionEditor}
 
               />

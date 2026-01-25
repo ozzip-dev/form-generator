@@ -229,6 +229,8 @@ export async function updateFormInputTexts(
   inputId: string,
   data: { header?: string; description?: string }
 ): Promise<void> {
+
+
   const form = (await findById(db, "form", formId)) as Form;
   const { header, description } = data;
 
