@@ -4,14 +4,22 @@ import { Editor } from "@tiptap/react";
 import { useModal } from "@/context/ModalContextProvider";
 import EditLinkModalContent from "./EditLinkModalContent";
 import { Button, Icon } from "@/components/shared";
+import { useState } from "react";
 
 type Props = {
   editor: Editor | null;
-  handleEditDescription: ()=>void
+  handleEditDescription: () => void
 };
 
-const MenuBar = ({ editor,handleEditDescription }: Props) => {
+const MenuBar = ({ editor, handleEditDescription }: Props) => {
   const { openModal } = useModal();
+  const [_, forceUpdate] = useState(false);
+
+  const handleClick = (action: () => void) => {
+    action();
+    forceUpdate(prev => !prev);
+  };
+
 
   if (!editor) return null;
 
@@ -20,9 +28,7 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
     paragraph: editor.isActive("paragraph"),
     bold: editor.isActive("bold"),
     italic: editor.isActive("italic"),
-    link: editor.isActive("link"),
     highlight: editor.isActive("highlight"),
-    "clear-formatting":  editor.isActive("clear-formatting"),
   };
 
   const createBtnsData = [
@@ -37,12 +43,14 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
       icon: "paragraph",
     },
     {
-      onClick: () => editor.chain().focus().toggleBold().run(),
+      onClick: () => handleClick(() =>
+        editor.chain().focus().toggleBold().run()
+      ),
       btnName: "bold",
       icon: "bold",
     },
     {
-      onClick: () => editor.chain().focus().toggleItalic().run(),
+      onClick: () => handleClick(() => editor.chain().focus().toggleItalic().run()),
       btnName: "italic",
       icon: "italic",
     },
@@ -63,10 +71,10 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
       icon: "link",
     },
     {
-  
-      onClick: () => {
+
+      onClick: () => handleClick(() => {
         editor.chain().focus();
-    
+
         if (editor.isActive("highlight")) {
           editor.chain().unsetHighlight().run();
         } else {
@@ -75,12 +83,13 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
             .setHighlight({ color: "var(--color-accent)" })
             .run();
         }
-      },
+      }),
       btnName: "highlight",
       icon: "highlighter",
     },
     {
-      onClick:  () => editor.chain().focus().unsetAllMarks().clearNodes().run(),
+
+      onClick: () => editor.chain().focus().unsetAllMarks().clearNodes().run(),
       btnName: "clear-formatting",
       icon: "text-slash",
     }
@@ -94,18 +103,12 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
             key={idx}
             type="button"
             onClickAction={onClick}
-            className={`p-1 px-2 ${
-              editorState[btnName as keyof typeof editorState]
-                ? "text-font_dark"
-                : ""
-            }`}
-            icon={
+            className="p-1 px-2" icon={
               <Icon
-                color={`${
-                  editorState[btnName as keyof typeof editorState]
-                    ? "var( --color-font_dark)"
-                    : "var(--color-font_light)"
-                }`}
+                color={`${editorState[btnName as keyof typeof editorState]
+                  ? "var( --color-font_dark)"
+                  : "var(--color-font_light)"
+                  }`}
                 icon={icon as string}
                 size={15}
               />
@@ -115,13 +118,13 @@ const MenuBar = ({ editor,handleEditDescription }: Props) => {
         ))}
       </div>
 
-         <Button
-          message="Zapisz"
-          type="button"
-          onClickAction={handleEditDescription}
-          className="ml-auto !text-font_dark !text-sm"
-          variant="ghost"
-          />
+      <Button
+        message="Zapisz"
+        type="button"
+        onClickAction={handleEditDescription}
+        className="ml-auto !text-font_dark !text-sm"
+        variant="ghost"
+      />
     </div>
   );
 };
