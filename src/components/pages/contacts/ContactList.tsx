@@ -70,18 +70,26 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
           <span className="font-bold">{getTypeLabel(activeType)}</span>
         </div>
 
-        <ContactFilters {...{ filterText, setFilterText }} />
+        {!committees || !committees.length ? (
+          <div className="text-error text-center pt-2">
+            Brak kontaktów organizacji
+          </div>
+        ) : (
+          <div>
+            <ContactFilters {...{ filterText, setFilterText }} />
 
-        <div className=" flex flex-col gap-6">
-          <ResponsiveListHeader headers={headers} />
+            <div className=" flex flex-col gap-6">
+              <ResponsiveListHeader headers={headers} />
 
-          {filteredCommittees.map((committee, i) => (
-            <ContactCommitteeItem
-              {...{ committee, getForms, type: activeType }}
-              key={committee.committeeEmail}
-            />
-          ))}
-        </div>
+              {filteredCommittees.map((committee, i) => (
+                <ContactCommitteeItem
+                  {...{ committee, getForms, type: activeType }}
+                  key={committee.committeeEmail}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </Card>
     </div>
   );
