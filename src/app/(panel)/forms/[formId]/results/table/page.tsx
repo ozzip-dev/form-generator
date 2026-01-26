@@ -1,4 +1,3 @@
-import DownloadResultsButton from "@/components/pages/results/DownloadResultsButton";
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import ResultsPdfTable from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
@@ -58,9 +57,6 @@ const FormResultsTablePage = async (props: Props) => {
           submissionValues,
           title: form.title || "formularz",
         }}
-      />
-      <DownloadResultsButton
-        {...{ inputHeaders, submissionValues, formTitle: form.title }}
       />
     </div>
   );

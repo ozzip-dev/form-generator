@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/shared";
 import jsPDF from "jspdf";
 import { autoTable, RowInput } from "jspdf-autotable";
 import dynamic from "next/dynamic";
@@ -12,6 +11,7 @@ import {
   pxToMm,
   setFontFamilyRegular,
 } from "./utils";
+import ResultsTableActions from "./ResultsTableActions";
 
 type Props = {
   title: string;
@@ -36,7 +36,7 @@ const ResultsPdfTable = dynamic(
           rows.push(
             cells
               .slice(i, i + columnCount)
-              .map((cell) => cell.textContent.trim())
+              .map((cell) => cell.textContent.trim()),
           );
         }
 
@@ -45,17 +45,17 @@ const ResultsPdfTable = dynamic(
 
       function buildScaledColumnStyles(
         widthsPx: number[],
-        availableWidthMm: number
+        availableWidthMm: number,
       ) {
         const totalPx = widthsPx.reduce((a, b) => a + b, 0);
         const scale = availableWidthMm / pxToMm(totalPx);
 
         return Object.fromEntries(
-          widthsPx.map((w, idx) => [idx, { cellWidth: pxToMm(w) * scale }])
+          widthsPx.map((w, idx) => [idx, { cellWidth: pxToMm(w) * scale }]),
         );
       }
 
-      function exportGridToPDF() {
+      function exportGridToPDF(): void {
         const gridEl = document.getElementById("results");
         if (!gridEl) return;
 
@@ -84,7 +84,7 @@ const ResultsPdfTable = dynamic(
           },
           columnStyles: buildScaledColumnStyles(
             columnWidthsPx,
-            getAvailablePageWidth(pdf)
+            getAvailablePageWidth(pdf),
           ),
           margin: { top: 25, left: MARGIN_H },
 
@@ -118,7 +118,7 @@ const ResultsPdfTable = dynamic(
             totalPages,
             firstRecord,
             lastRecord,
-            totalRecords
+            totalRecords,
           );
         });
 
@@ -140,16 +140,20 @@ const ResultsPdfTable = dynamic(
               <div key={`val-${idx}`}>{value}</div>
             ))}
           </div>
-          <Button
-            onClickAction={exportGridToPDF}
-            message="Pobierz wyniki (.pdf)"
-            className="!w-auto my-4"
+
+          <ResultsTableActions
+            {...{
+              inputHeaders: props.inputHeaders,
+              submissionValues: props.submissionValues,
+              title: props.title,
+              exportGridToPDF,
+            }}
           />
         </>
       );
     };
   },
-  { ssr: false }
+  { ssr: false },
 );
 
 export default function ResultsPdfTableClient(args: Props) {

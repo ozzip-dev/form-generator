@@ -25,7 +25,7 @@ const DownloadResultsButton = (props: Props) => {
   const downloadResults = async () => {
     const xlsData = await makeXlsDownloadData(
       props.inputHeaders,
-      props.submissionValues
+      props.submissionValues,
     );
     downloadXls(xlsData);
   };
@@ -34,7 +34,7 @@ const DownloadResultsButton = (props: Props) => {
     <Button
       message="Pobierz wyniki (.xls)"
       onClickAction={downloadResults}
-      className="my-6"
+      variant="primary-rounded"
     />
   );
 };

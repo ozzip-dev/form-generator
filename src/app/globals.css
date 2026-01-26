@@ -66,6 +66,10 @@ body {
   @apply rounded-full text-sm bg-accent py-2 px-4 md:px-8;
 }
 
+.table-highlighted tr:nth-child(even) {
+  background-color: var(--color-bg_dark);
+}
+
 /* text editor */
 .textEditorLink a {
   @apply text-blue-600 underline;
@@ -74,3 +78,4 @@ body {
   @apply text-font_light text-sm;
   content: attr(data-placeholder);
 }
+
