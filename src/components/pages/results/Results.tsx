@@ -58,7 +58,7 @@ const Results = (props: Props) => {
   return (
     <div className="p-8">
       <Card>
-        <div className="w-fit text-xl m-auto">
+        <div className="w-fit text-xl m-auto pb-2">
           <span>Tytuł formularza: </span>
           <span className="font-bold">{title}</span>
         </div>
