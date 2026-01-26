@@ -1,9 +1,7 @@
 "use client";
 
-import { ChangeEvent } from "react";
-import { Button, InputFields } from "@/components/shared";
+import { InputFields } from "@/components/shared";
 import { useForm } from "react-hook-form";
-import Card from "@/components/shared/Card";
 
 const dataSearchInput = [
   {
@@ -25,13 +23,13 @@ const ContactFilters = (props: Props) => {
   };
 
   return (
-    <Card>
+    <div className="my-md">
       <InputFields
         inputsData={dataSearchInput}
         register={register}
         onChange={onFilterChange}
       />
-    </Card>
+    </div>
   );
 };
 

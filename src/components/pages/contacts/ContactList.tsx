@@ -4,69 +4,85 @@ import { CommitteeInfoKey, UserCommitteeInfo } from "@/types/user";
 import ContactCommitteeItem from "./ContactCommitteeItem";
 import ContactFilters from "./ContactFilters";
 import { FormSerialized } from "@/types/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResponsiveListHeader from "@/components/shared/responsiveList/ResponsiveListHeader";
-import { mapDisputeReason } from "../protocols/utils";
 import { FormType } from "@/enums/form";
-import { formTypesWithLabels } from "@/helpers/formHelpers";
+import { formTypesWithLabels, getTypeLabel } from "@/helpers/formHelpers";
+import Card from "@/components/shared/Card";
+import { Button } from "@/components/shared";
 
 const headers = ["Związek", "Struktura", "Telefon", "Email"];
 
 type Props = {
-  committees: UserCommitteeInfo[];
-  getForms: (committee: UserCommitteeInfo) => Promise<FormSerialized[]>;
+  type: FormType;
+  getUserCommittees: (formType: FormType) => Promise<UserCommitteeInfo[]>;
+  getForms: (
+    committee: UserCommitteeInfo,
+    formType: FormType,
+  ) => Promise<FormSerialized[]>;
 };
 
-const ContactList = ({ committees, getForms }: Props) => {
+const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
   const [filterText, setFilterText] = useState<string>("");
-  const [visibleCategory, setVisibleCategory] = useState(
-    formTypesWithLabels[0].value
-  );
+  const [activeType, setActiveType] = useState<FormType>(type);
+  const [committees, setCommittees] = useState<UserCommitteeInfo[]>([]);
+
+  const handleReasonSelect = async (formType: FormType) => {
+    setActiveType(formType);
+    const userCommittees = await getUserCommittees(formType);
+
+    setCommittees(userCommittees);
+  };
 
   const filteredCommittees = committees.filter((committee) => {
     const keys = Object.keys(committee);
     return keys.some((key) =>
       committee[key as CommitteeInfoKey]
         .toLowerCase()
-        .includes(filterText.toLowerCase())
+        .includes(filterText.toLowerCase()),
     );
   });
 
-  const handleReasonSelect = () => {
-    return;
-  };
-
-  const formsReasons = formTypesWithLabels.map(({ label }) => {
-    return label;
-  });
-
-  if (!committees || committees.length === 0)
-    return (
-      <div className="text-error text-center">Brak kontaktów organizacji</div>
-    );
+  useEffect(() => {
+    handleReasonSelect(type);
+  }, []);
 
   return (
     <div>
-      <ul className="flex gap-8">
-        {formsReasons.map((reason) => {
-          return (
-            <li key={reason} onClick={handleReasonSelect}>
-              {reason}
-            </li>
-          );
-        })}
-      </ul>
-      <ContactFilters {...{ filterText, setFilterText }} />
-      <div className=" flex flex-col gap-6">
-        <ResponsiveListHeader headers={headers} />
-
-        {filteredCommittees.map((committee, i) => (
-          <ContactCommitteeItem
-            {...{ committee, getForms }}
-            key={committee.committeeEmail}
+      {/* TODO: Te same filtry co w Forum. Zmienić/ostylowc w obu */}
+      <div className="flex w-fit items-center gap-8 py-4 m-auto">
+        <div>Typy formularzy: </div>
+        {formTypesWithLabels.map(({ label, value }) => (
+          <Button
+            key={value}
+            className={`!px-8 !text-base ${
+              value != activeType ? "!bg-accent_dark" : ""
+            }`}
+            message={label}
+            onClickAction={() => handleReasonSelect(value)}
           />
         ))}
       </div>
+
+      <Card>
+        <div className="my-6 text-lg">
+          <span>Organizacje, które utworzyły formularz typu</span>{" "}
+          <span className="font-bold">{getTypeLabel(activeType)}</span>
+        </div>
+
+        <ContactFilters {...{ filterText, setFilterText }} />
+
+        <div className=" flex flex-col gap-6">
+          <ResponsiveListHeader headers={headers} />
+
+          {filteredCommittees.map((committee, i) => (
+            <ContactCommitteeItem
+              {...{ committee, getForms, type: activeType }}
+              key={committee.committeeEmail}
+            />
+          ))}
+        </div>
+      </Card>
     </div>
   );
 };

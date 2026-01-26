@@ -1,44 +1,58 @@
-import { UserCommitteeInfo, UserSerialized } from "@/types/user";
+import { IUser, UserCommitteeInfo, UserSerialized } from "@/types/user";
 import { FormType } from "@/enums/form";
-import { getTypeLabel } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { getFormsByType } from "@/services/form-service";
-import { getCommitteeMembers } from "@/services/user-service";
+import {
+  getCommitteeMembers,
+  getUsersWithFormType,
+} from "@/services/user-service";
 import { serializeForm } from "@/lib/serialize-utils";
 import ContactList from "./ContactList";
 
 type Props = {
-  committees: UserCommitteeInfo[];
   type: FormType;
 };
 
-const Contacts = async ({ committees, type }: Props) => {
+const Contacts = async ({ type }: Props) => {
   const getForms = async (
-    committee: UserCommitteeInfo
+    committee: UserCommitteeInfo,
+    formType: FormType,
   ): Promise<FormSerialized[]> => {
     "use server";
-    const committeeUsers: UserSerialized[] = await getCommitteeMembers(
-      committee
-    );
+    const committeeUsers: UserSerialized[] =
+      await getCommitteeMembers(committee);
+
     const userIds: string[] = committeeUsers.map(({ _id }) => _id.toString());
-    const forms = await getFormsByType(type);
+    const forms = await getFormsByType(formType);
+
     return forms
       .map((form) => serializeForm(form))
       .filter(
-        ({ createdBy }) => createdBy && userIds.includes(createdBy.toString())
+        ({ createdBy }) => createdBy && userIds.includes(createdBy.toString()),
       );
   };
 
-  return (
-    <>
-      <div className="my-6 text-lg">
-        <span>Organizacje, które utworzyły formularz typu</span>{" "}
-        <span className="font-bold">{getTypeLabel(type)}</span>
-      </div>
+  const getUserCommittees = async (
+    formType: FormType,
+  ): Promise<UserCommitteeInfo[]> => {
+    "use server";
+    const usersWithSameTypeForms: IUser[] = await getUsersWithFormType(
+      formType as FormType,
+    );
 
-      <ContactList {...{ committees, getForms }} />
-    </>
-  );
+    const userCommittees: UserCommitteeInfo[] = usersWithSameTypeForms.map(
+      ({ committeeEmail, committeeName, committeePhone, committeeUnion }) => ({
+        committeeEmail,
+        committeeName,
+        committeePhone,
+        committeeUnion,
+      }),
+    );
+
+    return userCommittees;
+  };
+
+  return <ContactList {...{ getUserCommittees, getForms, type }} />;
 };
 
 export default Contacts;
