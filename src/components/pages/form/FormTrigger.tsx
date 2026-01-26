@@ -27,7 +27,10 @@ const FormTrigger = () => {
         variant="ghost"
         className="
           bg-accent_light flex justify-center items-center 
-          w-[15rem] h-[15rem] sm:rounded-md md:rounded-lg border border-accent
+          w-[13rem] h-[13rem] 
+          sm:rounded-md md:rounded-lg 
+          border border-accent
+           shadow-default
         "
         icon={
           <Icon

@@ -60,18 +60,18 @@ const SelectField = ({
   return (
     <div
       ref={ref}
-      className={`w-full lg:flex items-center  ${className ? className : ""}`}
+      className={`w-full relative mt-[1.7rem] pb-[1.7rem] lg:flex items-center  ${className ? className : ""}`}
     >
       {label && (
         <label
           htmlFor={name}
-          className=" block mb-1 md:mr-4  text-sm font-medium shrink-0"
+          className=" block md:mr-4 absolute lg:static -top-[2rem] text-sm font-medium shrink-0"
         >
           {label}
         </label>
       )}
 
-      <div className="relative w-full pb-[1.7rem] lg:mt-[1.7rem] ">
+      <div className="relative w-full ">
         <button
           id={name}
           type="button"

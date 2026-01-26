@@ -15,7 +15,7 @@ const FormsTemplatesList = async () => {
           ) /* filter out invalid records */
           .map(({ id, title }, idx) => {
             return (
-              <div className="size-fit mr-2" key={idx}>
+              <div className="size-fit mr-2 text-sm" key={idx}>
                 <FormTemplateTrigger
                   id={id as string}
                   title={title as string}

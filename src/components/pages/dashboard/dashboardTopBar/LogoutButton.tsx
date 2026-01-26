@@ -47,8 +47,8 @@ const LogoutButton = () => {
       onClickAction={handleSignOut}
       isLoading={pending}
       message="Wyloguj"
-      variant="ghost"
-      className="bg-white !rounded-full !text-accent py-1 px-4 w-fit"
+      variant="primary-rounded"
+      className="!bg-white !text-accent w-fit !px-8"
     />
   );
 };

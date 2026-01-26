@@ -25,7 +25,7 @@ const FormTemplateTrigger = (props: Props) => {
         isLoading={isPending}
         variant="ghost"
         className="
-          flex justify-center items-center w-[15rem] h-[15rem]
+          flex justify-center items-center w-[13rem] h-[13rem]
           rounded-md md:rounded-lg border bg-bg_light  hover:bg-accent transition
         "
       />

@@ -15,9 +15,10 @@ type Props = {
 
 const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   const { toast } = useToast();
-  if (!formId) return
+
 
   const onFileUploaded = async (file: File) => {
+    if (!formId) return
     try {
       const insertedId = await uploadFileAction(file);
 
@@ -38,6 +39,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   };
 
   const [_, removeFileAction, isPending] = useActionState(async () => {
+    if (!formId) return
     try {
       await removeHeaderFileAction(formId);
       toast({

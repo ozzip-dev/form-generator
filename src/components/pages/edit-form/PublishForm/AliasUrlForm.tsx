@@ -60,7 +60,7 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
       </div>
 
-      <div className="flex justify-center gap-4  md:mb-auto md:ml-auto">
+      <div className="flex justify-center gap-4 ">
         <Button
           message="Zapisz"
           isLoading={isSubmitting}

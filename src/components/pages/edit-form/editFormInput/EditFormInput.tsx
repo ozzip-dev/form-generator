@@ -5,6 +5,7 @@ import { editInputTypeAction } from "@/actions/edit-form/editFormInput/editInput
 import { Button, Icon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { InputType } from "@/enums";
 import {
@@ -12,24 +13,18 @@ import {
   isInputWithOptions,
 } from "@/helpers/inputHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
-import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import {
   editInputFormSchema,
   EditInputFormSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormInputSchema";
-import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
-import InputDataToggleSwitch from "./toggle-inputs/InputDataToggleSwitch";
-import { toggleUniqueAction } from "@/actions/edit-form/editFormInput/toggleUniqueAction";
-import { toggleRequiredAction } from "@/actions/edit-form/editFormInput/toggleRequiredAction";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useInputData } from "@/context/InputDataContextProvider";
 import ToggleInputs from "./toggle-inputs/ToggleInputs";
 
 
@@ -188,8 +183,7 @@ const EditFormInput = () => {
                 )}
               </div>
 
-
-              <div className="w-[23rem] md:pt-[1.7rem] lg:pt-0">
+              <div className="w-[23rem]">
                 <SelectFieldControler
                   name="type"
                   defaultValue={type}
@@ -201,22 +195,14 @@ const EditFormInput = () => {
               </div>
             </div>
 
-
-
             <div className="md:flex md:gap-10">
-
-
               <div className="md:flex-1">
-
                 <EditFormDescriptionInput
-                  // description={description ?? ""}
                   setEditor={setEditor}
                   setDescription={setDescription}
                   isEditor={isEditor}
                   isDescription={isDescription}
                 />
-
-
                 {isInputWithOptions(input) && (
                   <AddOption
                     inputIdx={inputIdx}
@@ -225,7 +211,6 @@ const EditFormInput = () => {
                   />
                 )}
               </div>
-
               {!isInputTypeParagraph(input) && (
                 <ToggleInputs />
               )}

@@ -53,32 +53,21 @@ type Props = {
 
 export default function EditFormHeader(props: Props) {
 
-
-
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
 
-  if (!form) return
 
-  const {
-    _id: formId,
-    title,
-    description,
-    type,
-    resultVisibility,
-    displayAuthorEmail,
-  } = form;
 
 
 
   const methods = useForm<EditFormHeaderSchema>({
     resolver: zodResolver(editFormHeaderSchema),
     defaultValues: {
-      title,
-      description,
-      type,
-      resultVisibility,
-      displayAuthorEmail,
+      title: form?.title ?? "",
+      description: form?.description ?? "",
+      type: form?.type ?? "",
+      resultVisibility: form?.resultVisibility ?? "",
+      displayAuthorEmail: form?.displayAuthorEmail ?? false,
     },
     mode: "all",
   });
@@ -91,6 +80,7 @@ export default function EditFormHeader(props: Props) {
     setError,
   } = methods;
 
+  const formId = form?._id;
   const { handleEdit, isLoading } = useEditForm({
     formId,
     trigger,
@@ -133,7 +123,7 @@ export default function EditFormHeader(props: Props) {
               />
             </div>
 
-            <div className="flex items-center flex-1">
+            <div className=" flex-1 flex items-center">
               <SelectFieldControler
                 name="resultVisibility"
                 defaultValue=""
