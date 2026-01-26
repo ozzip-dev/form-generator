@@ -15,9 +15,10 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: rgba(159, 193, 255, 1);
+  --color-accent: #99b7ef;
   --color-accent_dark: rgba(101, 130, 255, 1);
   --color-accent_light: rgba(226, 236, 255, 1);
+  --color-accent_opacity: rgba(101, 130, 255, 0.3);
 
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);

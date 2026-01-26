@@ -14,6 +14,7 @@ module.exports = {
         accent: "var(--color-accent)",
         accent_dark: "var(--color-accent_dark)",
         accent_light: "var(--color-accent_light)",
+        accent_opacity: "var(--color-accent_opacity)",
 
         bg_dark: "var(--color-bg_dark)",
         bg_light: "var(--color-bg_light)",
