@@ -10,9 +10,9 @@ type Props = {
 
 const PieChart = ({
   data = [],
-  width = 250,
-  height = 250,
-  innerRadius = 50,
+  width = 170,
+  height = 170,
+  innerRadius = 30,
 }: Props) => {
   const radius = Math.min(width, height) / 2;
   const pie = d3.pie<DataObject>().value((d) => d.value);
@@ -44,7 +44,8 @@ const PieChart = ({
           const { value, label } = d.data;
           const percentLabel =
             total > 0 ? `${Math.round((value / total) * 100)}%` : "0%";
-          const text = label ? `${label}: ${percentLabel}` : percentLabel;
+          // const text = label ? `${label}: ${percentLabel}` : percentLabel; // TODO
+          const text = percentLabel;
 
           return (
             <g key={i}>

@@ -79,13 +79,13 @@ const AnswerResults = (props: Props) => {
     });
   };
   return (
-    <div className="flex gap-8 mb-20">
+    <div className="grid grid-cols-[30%_1fr_auto] items-center gap-lg mb-lg">
       <div>
-        <div className="font-black">{header}</div>
+        <div className="font-black mb-sm">{header}</div>
         <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
       </div>
 
-      <div className="flex gap-8" id={`results-${id}`}>
+      <div className="flex gap-md" id={`results-${id}`}>
         {charts
           .filter(({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id))
           .map(({ Component, id, props = {} }) => (
@@ -96,7 +96,8 @@ const AnswerResults = (props: Props) => {
       <Button
         onClickAction={exportPdf}
         message="Pobierz .pdf"
-        className="h-fit"
+        className="size-fit"
+        variant="primary-rounded"
       />
     </div>
   );

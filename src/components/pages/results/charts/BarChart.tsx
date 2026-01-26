@@ -11,7 +11,7 @@ type Props = {
   type?: InputType;
 };
 
-const BarChart = ({ data = [], width = 250, height = 250, type }: Props) => {
+const BarChart = ({ data = [], width = 350, height = 200, type }: Props) => {
   const total = data.map((a) => a.value).reduce((a, b) => a + b, 0);
 
   const isPercent = !isInputTypeCheckbox({ type } as FormInput);
@@ -61,7 +61,8 @@ const BarChart = ({ data = [], width = 250, height = 250, type }: Props) => {
           const barHeight = innerHeight - y(d.value);
           const barWidth = x.bandwidth();
           const percent = total > 0 ? Math.round((d.value / total) * 100) : 0;
-          const text = isPercent ? `${percent}%` : d.value;
+          const text = `${percent}%`;
+          // const text = isPercent ? `${percent}%` : d.value; // TODO
           return (
             <g key={i} transform={`translate(${xPos}, 0)`}>
               <rect
@@ -81,7 +82,7 @@ const BarChart = ({ data = [], width = 250, height = 250, type }: Props) => {
               >
                 {text}
               </text>
-              <text
+              {/* <text
                 x={barWidth / 2}
                 y={innerHeight + 14}
                 fontSize={11}
@@ -89,7 +90,7 @@ const BarChart = ({ data = [], width = 250, height = 250, type }: Props) => {
                 fill="#333"
               >
                 {label}
-              </text>
+              </text> */}
             </g>
           );
         })}

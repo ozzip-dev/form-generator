@@ -1,4 +1,5 @@
 import { Button } from "@/components/shared";
+import Checkbox from "@/components/shared/inputs/checkboxField/Checkbox";
 import { FormInputSelectable } from "@/types/input";
 
 type Props = {
@@ -9,10 +10,10 @@ type Props = {
 const ResultFieldSelect = (props: Props) => {
   const formInputs: FormInputSelectable[] = props.inputs;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (id: string) => {
     props.setInputs([
       ...formInputs.map((input) =>
-        input.id == e.target.value
+        input.id == id
           ? {
               ...input,
               selected: !input.selected,
@@ -28,14 +29,30 @@ const ResultFieldSelect = (props: Props) => {
 
   return (
     <div>
-      <div>Wyświetl odpowiedzi na zazanczone pytania</div>
-      <div className="flex gap-8 my-4">
+      <div className="font-black">
+        Wyświetl odpowiedzi na zazanczone pytania
+      </div>
+
+      <div className="grid grid-rows-8 grid-flow-col gap-y-sm py-sm gap-x-[100px] w-fit">
+        {formInputs.map(({ id, header }) => (
+          <div key={id}>
+            <Checkbox
+              name={header}
+              onChange={() => onChange(id as string)}
+              checkedValue={!!formInputs.find((el) => el.id == id)?.selected}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex gap-md my-sm">
         <Button
           variant="primary-rounded"
           type="button"
           onClickAction={() => setAllInputs(true)}
           message="Zaznacz wszystko"
         />
+
         <Button
           variant="primary-rounded"
           type="button"
@@ -43,22 +60,6 @@ const ResultFieldSelect = (props: Props) => {
           message="Odznacz wszystko"
         />
       </div>
-      {formInputs.map(({ id, header }) => (
-        <div key={id} className="flex gap-2">
-          <label className="block" htmlFor={id}>
-            {header}
-          </label>
-
-          <input
-            type="checkbox"
-            id={id}
-            className="pl-2"
-            onChange={onChange}
-            checked={formInputs.find((el) => el.id == id)?.selected}
-            value={id}
-          />
-        </div>
-      ))}
     </div>
   );
 };

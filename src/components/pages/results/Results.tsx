@@ -7,6 +7,7 @@ import { AnswerResults } from "./answers";
 import { FormInput, FormInputSelectable } from "@/types/input";
 import ResultFieldSelect from "./ResultFieldSelect";
 import { FormType } from "@/enums/form";
+import Card from "@/components/shared/Card";
 
 type Props = {
   inputs: FormInput[];
@@ -56,19 +57,19 @@ const Results = (props: Props) => {
 
   return (
     <div className="p-8">
-      <div>
-        <div className="text-xl">
+      <Card>
+        <div className="w-fit text-xl m-auto">
           <span>Tytuł formularza: </span>
           <span className="font-bold">{title}</span>
         </div>
-      </div>
-      <div className="w-fit p-4 border rounded-sm">
-        <ResultFieldSelect {...{ inputs, setInputs }} />
 
+        <ResultFieldSelect {...{ inputs, setInputs }} />
+      </Card>
+
+      <div className="w-fit mx-auto mt-md mb-lg">
         <Button
           onClickAction={onDisplayAnswers}
           message="Wyświetl odpowiedzi"
-          className="!w-auto my-4"
         />
       </div>
 
