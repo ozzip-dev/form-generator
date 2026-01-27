@@ -43,9 +43,6 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
     );
   });
 
-  useEffect(() => {
-    handleReasonSelect(type);
-  }, []);
 
   return (
     <div>
@@ -55,9 +52,8 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
         {formTypesWithLabels.map(({ label, value }) => (
           <Button
             key={value}
-            className={`!px-8 !text-base ${
-              value != activeType ? "!bg-accent_dark" : ""
-            }`}
+            className={`!px-8 !text-base ${value != activeType ? "!bg-accent_dark" : ""
+              }`}
             message={label}
             onClickAction={() => handleReasonSelect(value)}
           />

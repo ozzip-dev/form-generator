@@ -1,4 +1,6 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
+import UserSettings from "@/components/pages/user-settings/UserSettings";
+import UserSettingsMenu from "@/components/pages/user-settings/UserSettingsMenu";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import BottomShadow from "@/components/shared/BottomShadow";
 import IsUserModal from "@/components/shared/IsUserModal";

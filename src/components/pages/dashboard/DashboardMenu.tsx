@@ -14,7 +14,7 @@ const moderatorNavLinks: NavMenuLink[] = [
   { text: "Formularze", link: "/forms/list" },
   { text: "Protokoły", link: "/protocols/add" },
   { text: "Forum", link: "/forum/list" },
-  { text: "Ustawienia", link: "/user-settings" },
+  { text: "Ustawienia", link: "/settings/user-settings" },
 ];
 
 const adminNavLinks: NavMenuLink[] = [
