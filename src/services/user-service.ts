@@ -1,4 +1,4 @@
-import { db, find, findById } from "@/lib/mongo";
+import { db, find, findById, updateById } from "@/lib/mongo";
 import { IUser, UserCommitteeInfo, UserSerialized } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { cache } from "react";
@@ -12,9 +12,14 @@ import { Form } from "@/types/form";
 
 export const requireUser = cache(async (): Promise<IUser> => {
   const session = await auth.api.getSession({ headers: await headers() });
-  if (!session) {
-    redirect("/login");
-  }
+  if (!session) redirect("/login");
+
+  // TODO: Pawel
+  /* Always get up-to-date user data */
+  const user = await getUserById(session.user.id);
+  const { privacyPolicyConfirmed } = user;
+
+  if (!privacyPolicyConfirmed) redirect("/privacy");
 
   return session.user;
 });
@@ -60,4 +65,17 @@ export async function getUserById(userId: string): Promise<IUser> {
   const user = await findById<IUser>(db, "user", new ObjectId(userId));
   if (!user) throw new Error("Invalid user id");
   return user;
+}
+
+export async function confirmPrivacyPolicy(userId: string): Promise<void> {
+  /* throw error if incorrect */
+  await findById<IUser>(db, "user", new ObjectId(userId));
+
+  console.log(123);
+
+  await updateById(db, "user", new ObjectId(userId), {
+    $set: {
+      privacyPolicyConfirmed: true,
+    },
+  });
 }

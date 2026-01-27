@@ -12,31 +12,35 @@ export const auth = betterAuth({
       role: {
         type: "string",
         defaultValue: UserRole.MODERATOR as string,
-        input:
-          false /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */,
+        input: false /* may add other roles than 'admin' and 'moderator' later (eg. 'user' for reports only?)  */,
       },
       // TODO: consider changing to 'committeeId' and adding a committee collection
       committeeName: {
-        type: 'string',
+        type: "string",
         required: true,
-        defaultValue: ''
+        defaultValue: "",
       },
       committeeEmail: {
-        type: 'string',
+        type: "string",
         required: true,
-        defaultValue: ''
+        defaultValue: "",
       },
       committeePhone: {
-        type: 'string',
+        type: "string",
         required: true,
-        defaultValue: ''
+        defaultValue: "",
       },
       committeeUnion: {
-        type: 'string',
+        type: "string",
         required: true,
-        defaultValue: ''
-      }
-    }
+        defaultValue: "",
+      },
+      privacyPolicyConfirmed: {
+        type: "boolean",
+        required: true,
+        defaultValue: false,
+      },
+    },
   },
   emailAndPassword: {
     enabled: true,
