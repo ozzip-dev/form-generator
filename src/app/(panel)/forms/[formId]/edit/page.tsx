@@ -83,7 +83,7 @@ const EditFormPage = async (props: Props) => {
               errorMessage="Błąd tworzenia pól formularza"
               size="sm"
             >
-              <AddFormField />
+              <AddFormField formId={formId} idx={inputs.length + 1} />
             </SuspenseErrorBoundary>
           )}
         </div>

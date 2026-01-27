@@ -130,3 +130,4 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
 };
 
 export default MenuBar;
+
