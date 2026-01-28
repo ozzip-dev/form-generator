@@ -57,6 +57,8 @@ const Login = () => {
   const isAction = useRef(false);
 
   const loginUser = async (_: State, formData: FormData): Promise<State> => {
+
+
     const data = Object.fromEntries(formData.entries()) as LoginSchema;
 
     const validationResult = loginSchema.safeParse(data);
@@ -109,7 +111,7 @@ const Login = () => {
         <InputFields
           inputsData={dataInputsLogin}
           errorMsg={state.errors}
-          // default={defaultValues}
+        // default={defaultValues}
         />
         <div className="text-end my-4">
           <Link

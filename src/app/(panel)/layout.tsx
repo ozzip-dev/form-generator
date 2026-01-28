@@ -3,6 +3,7 @@ import UserSettings from "@/components/pages/user-settings/UserSettings";
 import UserSettingsMenu from "@/components/pages/user-settings/UserSettingsMenu";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import BottomShadow from "@/components/shared/BottomShadow";
+import Header from "@/components/shared/Header";
 import IsUserModal from "@/components/shared/IsUserModal";
 import { LoaderContextProvider } from "@/context/LoaderContextProvider";
 import { ModalContextProvider } from "@/context/ModalContextProvider";
@@ -26,13 +27,11 @@ export default async function DashboardLayout({
         <UserContextProvider userPromise={userPromise}>
           {user && isModerator(user) && <IsUserModal />}
           <div className="h-full flex flex-col">
-            <header className="shrink-0 bg-accent relative">
+            <Header>
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
                 <DashboardTopBar />
               </SuspenseErrorBoundary>
-              < BottomShadow />
-            </header>
-
+            </Header>
             <main className="flex-1 overflow-y-auto">{children}</main>
           </div>
         </UserContextProvider>

@@ -1,5 +1,6 @@
 import { ButtonLink } from "@/components/shared";
 import BottomShadow from "@/components/shared/BottomShadow";
+import Header from "@/components/shared/Header";
 
 export default function AuthLayout({
   children,
@@ -8,14 +9,13 @@ export default function AuthLayout({
 }>) {
   return (
     <div className="h-full flex flex-col">
-      <header className="shrink-0 bg-accent py-6 relative">
+      <Header>
         <div className="container">
           <div className="w-fit bg-white rounded-full text-accent py-1 px-4">
             <ButtonLink message="Strona główna" link="/" />
           </div>
         </div>
-        < BottomShadow />
-      </header>
+      </Header>
 
       <main className="flex-1 overflow-y-auto">{children}</main>
     </div>
