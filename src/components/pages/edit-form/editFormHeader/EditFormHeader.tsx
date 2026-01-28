@@ -21,9 +21,10 @@ import { startTransition, use, useState } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { serializeForm } from "@/lib/serialize-utils";
-import TextEditor from "./textEditor/TextEditor";
-import EditFormDescriptionInput from "./editFormInput/EditFormDescriptionInput";
+import TextEditor from "../textEditor/TextEditor";
+import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionInput";
 import EditHeaderDescription from "./EditHeaderDescription";
+import AddTextEditorBtn from "../AddTextEditorBtn";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -53,7 +54,7 @@ export default function EditFormHeader(props: Props) {
 
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
-  const [showDescription, setShowDescription] = useState(false);
+  const [showDescription, setShowDescription] = useState(!!form?.description);
 
 
 
@@ -175,19 +176,16 @@ export default function EditFormHeader(props: Props) {
             </div>
 
             <div className="w-fit h-fit ml-1">
-              <Button
-                type="button"
-                variant="ghost"
-                className="!rounded-full border border-2 p-[0.2rem] ml-2"
-                icon={
-                  <Icon
-                    icon="plus-solid-full"
-                    size={12}
 
-                  />
-                }
-                onClickAction={() => setShowDescription(true)}
-              />
+              {showDescription ? (
+                <div className="w-[2rem] h-1" />
+              ) : (
+                <div className="w-fit h-fit ml-1">
+                  <AddTextEditorBtn action={() => setShowDescription(true)} />
+                </div>
+              )}
+
+
             </div>
           </div>
 

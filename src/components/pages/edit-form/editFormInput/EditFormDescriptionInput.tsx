@@ -8,6 +8,7 @@ import TextEditor from "../textEditor/TextEditor";
 import TextEditorPrinter from "../textEditor/TextEditorPrinter";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { isInputTypeParagraph } from "@/helpers/inputHelpers";
+import RemoveTextEditorBtn from "../textEditor/RemoveTextEditorBtn";
 
 type Props = {
   setDescription: Dispatch<SetStateAction<boolean>>;
@@ -92,13 +93,12 @@ const EditFormDescriptionInput = (props: Props) => {
           </div>
 
 
-          {!isParagraph && <Button
-            type="button"
-            icon={<IconTrash />}
-            onClickAction={handleRemoveDescriptionInput}
-            variant="ghost"
-            className="w-fit h-fir !bg-red !text-error mb-auto mt-10"
-          />}
+          {!isParagraph &&
+            <RemoveTextEditorBtn handleRemoveDescription={handleRemoveDescriptionInput} />
+          }
+
+
+
         </div>
       )}
 

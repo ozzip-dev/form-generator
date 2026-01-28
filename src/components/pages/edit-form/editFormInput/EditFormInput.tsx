@@ -26,6 +26,7 @@ import AddOption from "./AddOption";
 import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
 import ToggleInputs from "./toggle-inputs/ToggleInputs";
+import AddTextEditorBtn from "../AddTextEditorBtn";
 
 
 const dataInputLabel = [
@@ -154,18 +155,7 @@ const EditFormInput = () => {
                     <div className="w-[2rem] h-1" />
                   ) : (
                     <div className="w-fit h-fit ml-1">
-                      <Button
-                        variant="ghost"
-                        className="!rounded-full border border-2 p-[0.2rem] ml-2"
-                        icon={
-                          <Icon
-                            icon="plus-solid-full"
-                            size={12}
-
-                          />
-                        }
-                        onClickAction={printDescriptionInput}
-                      />
+                      <AddTextEditorBtn action={printDescriptionInput} />
                     </div>
                   )
                 )}

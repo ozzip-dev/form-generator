@@ -3,7 +3,7 @@ import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo"
 import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeFile } from "@/lib/serialize-utils";
-import EditFormHeader from "@/components/pages/edit-form/EditFormHeader";
+import EditFormHeader from "@/components/pages/edit-form/editFormHeader/EditFormHeader";
 import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";

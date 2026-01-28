@@ -5,8 +5,9 @@ import { useFormData } from "@/context/FormDataContextProvider";
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { Button, IconTrash } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
-import TextEditor from "./textEditor/TextEditor";
-import TextEditorPrinter from "./textEditor/TextEditorPrinter";
+import TextEditor from "../textEditor/TextEditor";
+import TextEditorPrinter from "../textEditor/TextEditorPrinter";
+import RemoveTextEditorBtn from "../textEditor/RemoveTextEditorBtn";
 
 type Props = {
     onClose: () => void;
@@ -53,14 +54,7 @@ const EditHeaderDescription = ({ onClose }: Props) => {
                     />
                 )}
             </div>
-
-            <Button
-                type="button"
-                variant="ghost"
-                className="!bg-red !text-error h-fit mt-2"
-                icon={<IconTrash />}
-                onClickAction={handleRemove}
-            />
+            <RemoveTextEditorBtn handleRemoveDescription={handleRemove} />
         </div>
     );
 };
