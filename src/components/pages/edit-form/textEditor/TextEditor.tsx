@@ -1,6 +1,5 @@
 "use client";
 
-import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import CharacterCount from "@tiptap/extension-character-count";
 import Highlight from "@tiptap/extension-highlight";
@@ -15,14 +14,15 @@ const MAX_CHARS = 2000;
 
 type Props = {
   formId: string;
-  inputId: string;
-  description: string;
-  printDescriptionInput: () => void;
-  
+  inputId?: string;
+  description?: string;
+  printDescriptionInput?: () => void;
+  editAction?: any;
+
 };
 
 const TextEditor = (props: Props) => {
-  const [editorContent, setEditorContent] = useState(props.description);
+  const [editorContent, setEditorContent] = useState(props.description ?? "");
   const [isPending, startTransition] = useTransition();
 
   const editor = useEditor({
@@ -67,17 +67,31 @@ const TextEditor = (props: Props) => {
     if (!editor) return;
 
     const text = editor.getText().trim();
-  
+
     if (text.length === 0) {
       return
     }
- 
-    startTransition( async () => {
-          await editInputLabelAction(props.formId, props.inputId, {
-            description: editorContent,
-          });
-          props.printDescriptionInput();
-        },
+
+    startTransition(async () => {
+
+
+      if (props.inputId) {
+        await props?.editAction(
+          props.formId,
+          props.inputId,
+          { description: editorContent }
+        );
+      } else {
+
+        if (!props?.editAction) return
+        await props?.editAction(
+          props.formId,
+          { description: editorContent }
+        );
+      }
+
+      props.printDescriptionInput && props.printDescriptionInput();
+    },
     );
   };
 
@@ -85,12 +99,9 @@ const TextEditor = (props: Props) => {
 
   return (
     <>
-      <MenuBar editor={editor} handleEditDescription = {handleEditDescription} />
+      <MenuBar editor={editor} handleEditDescription={handleEditDescription} />
       <div
-        className="
-        [&_h3]:text-lg
-        [&_a]:text-accent_dark
-        [&_a]:underline"
+        className="textEditorTags"
       >
         <EditorContent
           editor={editor}
@@ -108,7 +119,7 @@ const TextEditor = (props: Props) => {
           {characters}/{MAX_CHARS}
         </span>
       </div>
-      
+
     </>
   );
 };

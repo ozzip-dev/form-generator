@@ -74,6 +74,11 @@ body {
 .textEditorLink a {
   @apply text-blue-600 underline;
 }
+
+.textEditorTags {
+  @apply [&_h3]:text-lg [&_a]:text-accent_dark [&_a]:underline
+}
+
 .texEditorPlaceholder p.is-editor-empty:first-child::before {
   @apply text-font_light text-sm;
   content: attr(data-placeholder);

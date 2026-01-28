@@ -14,6 +14,7 @@ type Props = {
   setEditor: Dispatch<SetStateAction<boolean>>;
   isDescription: boolean
   isEditor: boolean
+  variant: "header" | "input"
 };
 
 const EditFormDescriptionInput = (props: Props) => {
@@ -61,13 +62,10 @@ const EditFormDescriptionInput = (props: Props) => {
 
   useAutoLoader(isPending);
   const isParagraph = isInputTypeParagraph(input)
-  const shouldShowEditor =
-    isParagraph || !props.isDescription || props.isEditor;
 
 
 
-  // console.log('props.isDescription',props.isDescription)
-  // console.log('props.isEditor',props.isEditor)
+
 
   return (
     <>
@@ -79,9 +77,10 @@ const EditFormDescriptionInput = (props: Props) => {
             {!props.isDescription || props.isEditor ? (
               <TextEditor
                 formId={formId}
-                inputId={input.id!}
+                inputId={props.variant === "input" ? input.id! : undefined}
                 description={input.description || ""}
                 printDescriptionInput={printDescriptionEditor}
+                editAction={editInputLabelAction}
               />
             ) : (
               <TextEditorPrinter

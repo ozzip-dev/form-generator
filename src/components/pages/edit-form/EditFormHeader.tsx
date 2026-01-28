@@ -1,7 +1,7 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { InfoIcon, InputFields } from "@/components/shared";
+import { Button, Icon, InfoIcon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
 import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
@@ -17,10 +17,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import FormHeaderImageUpload from "./FormHeaderImageUpload";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
-import { startTransition, use } from "react";
+import { startTransition, use, useState } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { serializeForm } from "@/lib/serialize-utils";
+import TextEditor from "./textEditor/TextEditor";
+import EditFormDescriptionInput from "./editFormInput/EditFormDescriptionInput";
+import EditHeaderDescription from "./EditHeaderDescription";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -39,12 +42,6 @@ const dataInputsFormTitle = [
     placeholder: "Tytuł formularza",
     type: "text",
   },
-  {
-    floatingLabel: "Edytuj opis formularza",
-    name: "description",
-    placeholder: "Edytuj opis formularza",
-    type: "textarea",
-  },
 ];
 
 type Props = {
@@ -53,10 +50,10 @@ type Props = {
 
 export default function EditFormHeader(props: Props) {
 
+
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
-
-
+  const [showDescription, setShowDescription] = useState(false);
 
 
 
@@ -64,7 +61,6 @@ export default function EditFormHeader(props: Props) {
     resolver: zodResolver(editFormHeaderSchema),
     defaultValues: {
       title: form?.title ?? "",
-      description: form?.description ?? "",
       type: form?.type ?? "",
       resultVisibility: form?.resultVisibility ?? "",
       displayAuthorEmail: form?.displayAuthorEmail ?? false,
@@ -107,6 +103,9 @@ export default function EditFormHeader(props: Props) {
       setLoading("fullscreen", false);
     });
   };
+
+
+
 
   return (
     <FormProvider {...methods}>
@@ -165,12 +164,40 @@ export default function EditFormHeader(props: Props) {
 
 
         <Card>
-          <InputFields
-            inputsData={dataInputsFormTitle}
-            register={register}
-            errorMsg={errors}
-            onChange={handleEdit}
-          />
+          <div className="flex items-center">
+            <div className="w-full">
+              <InputFields
+                inputsData={dataInputsFormTitle}
+                register={register}
+                errorMsg={errors}
+                onChange={handleEdit}
+              />
+            </div>
+
+            <div className="w-fit h-fit ml-1">
+              <Button
+                type="button"
+                variant="ghost"
+                className="!rounded-full border border-2 p-[0.2rem] ml-2"
+                icon={
+                  <Icon
+                    icon="plus-solid-full"
+                    size={12}
+
+                  />
+                }
+                onClickAction={() => setShowDescription(true)}
+              />
+            </div>
+          </div>
+
+
+          {showDescription && (
+            <EditHeaderDescription
+              onClose={() => setShowDescription(false)}
+            />
+          )}
+
         </Card>
       </form>
     </FormProvider>

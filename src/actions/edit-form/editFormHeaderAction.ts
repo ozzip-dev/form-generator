@@ -16,7 +16,6 @@ export async function editFormHeaderAction(
   await requireUser();
 
   const validationResult = editFormHeaderSchema.partial().safeParse(updateData);
-
   if (!validationResult.success) {
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
@@ -26,6 +25,8 @@ export async function editFormHeaderAction(
     new ObjectId(formId),
     updateData
   );
+
+
 
   if (!result) {
     throw new Error("Nie udało się zaktualizować formularza");

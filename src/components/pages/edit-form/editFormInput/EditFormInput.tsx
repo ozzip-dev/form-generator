@@ -43,7 +43,7 @@ const EditFormInput = () => {
   const { formId, input, inputIdx } = useInputData()
 
   const searchParams = useSearchParams();
-  const router = useRouter();
+
   const {
     id: inputId,
     required,
@@ -57,13 +57,11 @@ const EditFormInput = () => {
 
   const [isPending, startTransition] = useTransition();
 
-  const newInputId = searchParams.get('newInputId');
-  const isNewlyAdded = newInputId === inputId;
   const isParagraph = isInputTypeParagraph(input);
 
   const [isDescription, setDescription] = useState(!!description);
 
-  const [isEditor, setEditor] = useState(isNewlyAdded && isParagraph);
+  const [isEditor, setEditor] = useState(isParagraph);
 
 
   const defaultValues = useMemo(
@@ -125,16 +123,6 @@ const EditFormInput = () => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  useEffect(() => {
-    if (isNewlyAdded) {
-      const params = new URLSearchParams(searchParams.toString());
-      params.delete('newInputId');
-      const newUrl = params.toString()
-        ? `${window.location.pathname}?${params.toString()}`
-        : window.location.pathname;
-      router.replace(newUrl, { scroll: false });
-    }
-  }, [isNewlyAdded, searchParams, router]);
 
   const canShowAddDescriptionBtn =
     !isInputTypeParagraph(input) && !isDescription;
@@ -168,12 +156,12 @@ const EditFormInput = () => {
                     <div className="w-fit h-fit ml-1">
                       <Button
                         variant="ghost"
-                        className="!rounded-full border border-accent p-[0.2rem] ml-2"
+                        className="!rounded-full border border-2 p-[0.2rem] ml-2"
                         icon={
                           <Icon
                             icon="plus-solid-full"
                             size={12}
-                            color="var(--color-accent)"
+
                           />
                         }
                         onClickAction={printDescriptionInput}
@@ -202,6 +190,7 @@ const EditFormInput = () => {
                   setDescription={setDescription}
                   isEditor={isEditor}
                   isDescription={isDescription}
+                  variant="input"
                 />
                 {isInputWithOptions(input) && (
                   <AddOption
