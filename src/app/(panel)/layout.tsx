@@ -1,6 +1,4 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
-import UserSettings from "@/components/pages/user-settings/UserSettings";
-import UserSettingsMenu from "@/components/pages/user-settings/UserSettingsMenu";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import BottomShadow from "@/components/shared/BottomShadow";
 import IsUserModal from "@/components/shared/IsUserModal";
@@ -18,8 +16,6 @@ export default async function DashboardLayout({
   const userPromise = getUser();
   const user = await userPromise;
 
-
-
   return (
     <LoaderContextProvider>
       <ModalContextProvider>
@@ -30,7 +26,7 @@ export default async function DashboardLayout({
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
                 <DashboardTopBar />
               </SuspenseErrorBoundary>
-              < BottomShadow />
+              <BottomShadow />
             </header>
 
             <main className="flex-1 overflow-y-auto">{children}</main>
