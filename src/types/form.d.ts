@@ -30,6 +30,7 @@ export interface Form extends FormCreated {
   createdBy?: ObjectId; /* if template form, no author needed */
   createdAt: Date;
   updatedAt: Date;
+  publishedAt?: Date;
 }
 
 export interface FormSerialized extends FormCreated {
@@ -37,4 +38,5 @@ export interface FormSerialized extends FormCreated {
   createdBy?: string;
   createdAt: string;
   updatedAt: string;
+  publishedAt?: string;
 }

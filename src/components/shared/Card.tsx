@@ -3,6 +3,7 @@ type Props = {
   className?: string;
 };
 
+// TODO: add export to index.ts and update imports
 const Card = (props: Props) => {
   return (
     <div

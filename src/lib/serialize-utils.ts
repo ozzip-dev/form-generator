@@ -6,7 +6,7 @@ import { Submission, SubmissionSerialized } from "@/types/result";
 import { IUser, UserSerialized } from "@/types/user";
 
 export function serializeForm(form: Form): FormSerialized {
-  const { _id, createdAt, createdBy, updatedAt } = form;
+  const { _id, createdAt, createdBy, updatedAt, publishedAt } = form;
 
   return {
     ...form,
@@ -14,6 +14,7 @@ export function serializeForm(form: Form): FormSerialized {
     createdBy: createdBy?.toString(),
     createdAt: createdAt?.toISOString(),
     updatedAt: updatedAt?.toISOString(),
+    publishedAt: publishedAt?.toISOString(),
   };
 }
 
