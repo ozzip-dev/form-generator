@@ -43,17 +43,17 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
     );
   });
 
-
   return (
     <div>
       {/* TODO: Te same filtry co w Forum. Zmienić/ostylowc w obu */}
-      <div className="flex w-fit items-center gap-8 py-4 m-auto">
+      <div className="flex flex-wrap w-fit items-center gap-x-8 gap-y-4 py-4 m-auto">
         <div>Typy formularzy: </div>
         {formTypesWithLabels.map(({ label, value }) => (
           <Button
             key={value}
-            className={`!px-8 !text-base ${value != activeType ? "!bg-accent_dark" : ""
-              }`}
+            className={`!px-8 !text-base ${
+              value != activeType ? "!bg-accent_dark" : ""
+            }`}
             message={label}
             onClickAction={() => handleReasonSelect(value)}
           />

@@ -22,7 +22,8 @@ const TopicPosts = (props: Props) => {
           setShowPosts(!showPosts);
         }}
         disabled={!props.posts?.length}
-        className="mt-8 mb4"
+        className="my-8"
+        variant="primary-rounded"
       />
       {showPosts && <TopicPostList posts={props.posts} />}
     </div>
