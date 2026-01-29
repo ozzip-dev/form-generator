@@ -33,7 +33,7 @@ const ResultFieldSelect = (props: Props) => {
         Wyświetl odpowiedzi na zazanczone pytania
       </div>
 
-      <div className="grid grid-rows-8 grid-flow-col gap-y-sm py-sm gap-x-[100px] w-fit">
+      <div className="w-fit max-h-[380px] flex flex-col flex-wrap gap-y-sm py-sm gap-x-[100px] *:h-[40px]">
         {formInputs.map(({ id, header }) => (
           <div key={id}>
             <Checkbox
