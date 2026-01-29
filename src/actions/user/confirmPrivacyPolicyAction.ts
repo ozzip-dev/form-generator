@@ -1,6 +1,7 @@
 "use server";
 
 import { auth } from "@/lib/auth/auth";
+import { isModerator } from "@/lib/utils";
 import { confirmPrivacyPolicy } from "@/services/user-service";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -18,5 +19,7 @@ export async function confirmPrivacyPolicyAction(): Promise<void> {
 
   await confirmPrivacyPolicy(user.id.toString());
 
-  redirect("/dashboard");
+  // TODO: przemyśleć dashbaord
+  if (isModerator(user)) redirect("/forms/list");
+  else redirect("/dashboard");
 }

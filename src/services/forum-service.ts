@@ -43,7 +43,8 @@ export const getTopic = cache(async (topicId: string): Promise<Topic> => {
 
   if (!topic) {
     console.error(`Topic not found: ${topicId}`);
-    redirect("/dashboard-moderator");
+    // TODO: przemyśleć dashbaord
+    redirect("/forms/list");
   }
 
   return topic;
