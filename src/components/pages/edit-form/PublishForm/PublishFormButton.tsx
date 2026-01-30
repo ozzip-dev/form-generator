@@ -16,7 +16,7 @@ type Props = {
 };
 
 const PublishFormButton = ({ form }: Props) => {
-  const [error, setError] = useState<FormPublishError | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { userPromise } = useUser();
   const user = use(userPromise);
@@ -25,12 +25,12 @@ const PublishFormButton = ({ form }: Props) => {
   const areUserDetails = hasCompleteCommitteeData(user);
 
   const [_, publishForm, isPending] = useActionState(async () => {
-    const url: string | FormPublishError = await publishFormAction(form);
-    if (typeof url == "string") {
-      window.open(url, "_blank");
+    const { success, msg } = await publishFormAction(form);
+    if (success) {
+      window.open(msg, "_blank");
       router.refresh();
     } else {
-      setError(url);
+      setError(msg);
     }
   }, null);
 
@@ -62,10 +62,10 @@ const PublishFormButton = ({ form }: Props) => {
         className="mb-8"
       />
 
-      {error && (
+      {!!error && (
         <div className="py-sm">
           <div className="text-red-600">Błąd przy publikacji formularza</div>
-          <div>{error.message}</div>
+          <div>{error}</div>
         </div>
       )}
     </>

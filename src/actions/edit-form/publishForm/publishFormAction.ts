@@ -33,7 +33,7 @@ const getFormEmptyRequiredData = (form: FormSerialized): string[] => {
 
 export async function publishFormAction(
   form: FormSerialized,
-): Promise<string | FormPublishError> {
+): Promise<{ success: boolean; msg: string }> {
   const user = await requireUser();
 
   if (!isUserAuthor(form, user.id))
@@ -41,10 +41,17 @@ export async function publishFormAction(
 
   const missingData = getFormEmptyRequiredData(form);
   if (missingData.length)
-    return new FormPublishError(`${missingData.join(", ")}`);
+    return {
+      success: false,
+      msg: `${missingData.join(", ")}`,
+    };
 
   const formId: string = form._id!;
 
   await publishForm(db, formId);
-  return `/${form.url ? form.url : formId}`;
+
+  return {
+    success: true,
+    msg: `${missingData.join(", ")}`,
+  };
 }
