@@ -28,66 +28,73 @@ const EditFormPage = async (props: Props) => {
     form.inputs?.length >=
     Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
 
+  const isFormActive = isActive(form);
+
+
   return (
     <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
-      <SuspenseErrorBoundary
-        size="sm"
-        errorMessage="Błąd publikacji formularza"
-      >
-        <FormActions form={form} />
-      </SuspenseErrorBoundary>
-
-      {isActive(form) ? (
+      {isFormActive && (
         <FormActiveInfo />
-      ) : (
-
-        <div className="flex flex-col gap-10">
-          <SuspenseErrorBoundary
-            size="lg"
-            errorMessage="Błąd edycji nagłówka formularza"
-            loadingMessage="Ładowanie danych formularza"
-          >
-            <EditFormHeader
-              headerFileData={file ? serializeFile(file)?.data : null}
-            />
-          </SuspenseErrorBoundary>
-
-          {inputs
-            .sort((a, b) => a.order - b.order)
-            .map((input, idx) => {
-              return (
-                <SuspenseErrorBoundary
-                  key={input.id}
-                  size="sm"
-                  errorMessage="Błąd edycji pól formularza"
-                >
-                  <InputDataContextProvider
-                    input={input}
-                    inputIdx={idx}
-                    isLastInput={inputs.length === idx + 1}
-                    formId={form._id!}>
-                    <EditFormInput />
-                  </InputDataContextProvider>
-
-                </SuspenseErrorBoundary>
-              );
-            })}
-
-          {hasReachedInputLimit ? (
-            <div className="pb-6 m-auto text-lg">
-              Osiągnięto maksymalną liczbę pól w formularzu
-            </div>
-          ) : (
-            <SuspenseErrorBoundary
-              errorMessage="Błąd tworzenia pól formularza"
-              size="sm"
-            >
-              <AddFormField formId={formId} idx={inputs.length + 1} />
-            </SuspenseErrorBoundary>
-          )}
-        </div>
       )}
+      {!isFormActive &&
+        <>
+          <SuspenseErrorBoundary
+            size="sm"
+            errorMessage="Błąd publikacji formularza"
+          >
+            <FormActions form={form} />
+          </SuspenseErrorBoundary>
+          <div className="flex flex-col gap-10">
+            <SuspenseErrorBoundary
+              size="lg"
+              errorMessage="Błąd edycji nagłówka formularza"
+              loadingMessage="Ładowanie danych formularza"
+            >
+              <EditFormHeader
+                headerFileData={file ? serializeFile(file)?.data : null}
+              />
+            </SuspenseErrorBoundary>
+
+            {inputs
+              .sort((a, b) => a.order - b.order)
+              .map((input, idx) => {
+                return (
+                  <SuspenseErrorBoundary
+                    key={input.id}
+                    size="sm"
+                    errorMessage="Błąd edycji pól formularza"
+                  >
+                    <InputDataContextProvider
+                      input={input}
+                      inputIdx={idx}
+                      isLastInput={inputs.length === idx + 1}
+                      formId={form._id!}>
+                      <EditFormInput />
+                    </InputDataContextProvider>
+
+                  </SuspenseErrorBoundary>
+                );
+              })}
+
+            {hasReachedInputLimit ? (
+              <div className="pb-6 m-auto text-lg">
+                Osiągnięto maksymalną liczbę pól w formularzu
+              </div>
+            ) : (
+              <SuspenseErrorBoundary
+                errorMessage="Błąd tworzenia pól formularza"
+                size="sm"
+              >
+                <AddFormField formId={formId} idx={inputs.length + 1} />
+              </SuspenseErrorBoundary>
+            )}
+          </div>
+        </>
+
+      }
+
+
     </div>
   );
 };

@@ -14,13 +14,14 @@ import { useActionState } from "react";
 import ModalWrapper from "@/components/shared/ModalWrapper";
 import { Button } from "@/components/shared";
 
+
 type ModalConfig = {
   action?: (...args: any[]) => void | Promise<void>;
-  header: string;
+  header: ReactNode;
   confirmBtnMessage?: string;
   component?:
-    | ((props: { close: () => void }) => React.ReactNode)
-    | React.ReactNode;
+  | ((props: { close: () => void }) => React.ReactNode)
+  | React.ReactNode;
 };
 
 type ModalContextType = {

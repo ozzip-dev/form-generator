@@ -20,7 +20,7 @@ const getFormEmptyRequiredData = (form: FormSerialized): string[] => {
     },
     {
       value: !!inputs?.length,
-      name: "Brak pól w formularzu",
+      name: "Brak pytań w formularzu",
     },
     {
       value: !!resultVisibility,
@@ -43,6 +43,7 @@ export async function publishFormAction(form: FormSerialized): Promise<string> {
 
   const formId: string = form._id!;
 
+
   await publishForm(db, formId);
-  return `/submit/${formId}`;
+  return `/${form.url ? form.url :formId}`;
 }

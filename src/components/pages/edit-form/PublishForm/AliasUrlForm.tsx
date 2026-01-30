@@ -13,7 +13,7 @@ import RemoveAliasButton from "./RemoveAliasButton";
 const dataInputUrl = [
   {
     name: "url",
-    floatingLabel: "Wpisz adres formularza",
+    floatingLabel: "Wpisz własny adres formularza",
     placeholder: "www:formularz",
     type: "text",
   },

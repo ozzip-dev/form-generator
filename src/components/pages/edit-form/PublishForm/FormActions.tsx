@@ -1,24 +1,24 @@
 "use client";
 
-import { FormSerialized } from "@/types/form";
-import PublishFormButton from "./PublishFormButton";
-import { isDraft, isUserAuthor } from "@/helpers/formHelpers";
-import AliasUrlForm from "./AliasUrlForm";
 import { Button, ButtonLink } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { FormSerialized } from "@/types/form";
+import AliasUrlForm from "./AliasUrlForm";
+import PublishFormButton from "./PublishFormButton";
 import RemoveFormButton from "../RemoveFormButton";
 import { useUser } from "@/context/UserContextProvider";
 import { UserSerialized } from "@/types/user";
 import { use } from "react";
+import { isUserAuthor } from "@/helpers/formHelpers";
 
 type Props = {
   form: FormSerialized;
 };
 
 const FormActions = ({ form }: Props) => {
-  const isStateDraft: boolean = isDraft(form);
+
   const { _id, url } = form;
-  const formUrl: string = `/submit/${url || _id}`;
+  const formUrl: string = `/${url || _id}`;
 
   const { toast } = useToast();
   const getFormUrl = () => `${window.location.origin}${formUrl}`;
@@ -38,44 +38,36 @@ const FormActions = ({ form }: Props) => {
 
   return (
     <div className="my-16">
-     
-
-      {isStateDraft ? (
+      <>
         <PublishFormButton form={form} />
-      ) : (
-        <>
-          <div className="mb-8 flex flex-col md:flex-row md:items-center gap-4">
-            <div className="flex flex-col gap-2 md:flex-row text-center">
-              <div>Aders:</div>
-              <div className="font-bold">{formUrl}</div>
-            </div>
-            <div className="flex justify-center gap-4 md:ml-auto">
-              <Button
-                onClickAction={copyUrl}
-                message="Kopiuj"
-                type="button"
-                variant="primary-rounded"
-                className="h-fit"
-              />
-              <ButtonLink
-                message="Przejdź do formularza"
-                link={formUrl}
-                target="_blank"
-                className="w-fit h-fit bg-accent rounded-full 
-                text-white text-sm py-2 px-6 hover:bg-accent_light"
-              />{" "}
-            </div>
-
-            {isAuthor && _id && <div className="w-fit m-auto md:m-0 ">
-                   <RemoveFormButton formId={_id} />
-            </div>
-            }
-                
-               
+        <div className="mb-8 flex flex-col md:flex-row md:items-center gap-4">
+          <div className="flex flex-col gap-2 md:flex-row text-center">
+            <div>Aders:</div>
+            <div className="font-bold">{formUrl}</div>
           </div>
-          <AliasUrlForm {...form} />
-        </>
-      )}
+          <div className="flex justify-center gap-4 md:ml-auto">
+            <Button
+              onClickAction={copyUrl}
+              message="Kopiuj"
+              type="button"
+              variant="primary-rounded"
+              className="h-fit"
+            />
+            <ButtonLink
+              message="Przejdź do formularza"
+              link={formUrl}
+              target="_blank"
+              className="w-fit h-fit bg-accent rounded-full 
+                text-white text-sm py-2 px-6 hover:bg-accent_light"
+            />{" "}
+          </div>
+
+          {isAuthor && _id && <div className="w-fit m-auto md:m-0 ">
+            <RemoveFormButton formId={_id} />  </div>
+          }
+        </div>
+        <AliasUrlForm {...form} />
+      </>
     </div>
   );
 };

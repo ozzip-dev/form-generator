@@ -38,7 +38,7 @@ const Button = (props: Props) => {
                 disabled:cursor-not-allowed
 
         ${VARIANTS[props.variant || "primary"]}
-        ${props.className}
+        ${props.className ? props.className : ""}
       `}
     >
       <span className={props.isLoading ? "opacity-0" : "opacity-100"}>

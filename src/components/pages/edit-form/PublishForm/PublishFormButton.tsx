@@ -49,11 +49,18 @@ const PublishFormButton = ({ form }: Props) => {
         onClickAction={() =>
           openModal({
             action: handlePublishForm,
-            header: "Publikacja formularza zablokuje jego dalszą edycję",
-            confirmBtnMessage: "Opublikuj",
+            header: (
+              <>
+                Publikacja formularza zablokuje możliwość jego edycji
+                <br />
+                oraz zmiany jego adresu.
+              </>
+            )
+
           })
         }
         isLoading={isPending}
+        className="mb-8"
       />
 
       {error && (

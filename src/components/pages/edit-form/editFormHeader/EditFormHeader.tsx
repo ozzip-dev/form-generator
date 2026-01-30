@@ -15,7 +15,7 @@ import {
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import FormHeaderImageUpload from "./FormHeaderImageUpload";
+import FormHeaderImageUpload from "../FormHeaderImageUpload";
 import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { startTransition, use, useState } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
