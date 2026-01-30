@@ -13,12 +13,14 @@ import Card from "@/components/shared/Card";
 
 const FormActiveInfo = () => {
   const { formDataPromise } = useFormData();
+  const { userPromise } = useUser();
+  const user: UserSerialized | null = use(userPromise);
   const form = use(formDataPromise);
+
   if (!form) return null
 
   const { _id, title, url } = form;
-  const { userPromise } = useUser();
-  const user: UserSerialized | null = use(userPromise);
+
   const isAuthor = user && isUserAuthor(form, user._id);
 
   return (<>
