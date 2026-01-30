@@ -20,7 +20,7 @@ const ConfirmPrivacyText = () => {
       </h1>
       <div>
         1. Administrator Danych Administratorem Twoich danych osobowych jest
-        Ogulnopolski Związek Zawodowy Inicjatywa Pracownicza
+        Ogólnopolski Związek Zawodowy Inicjatywa Pracownicza
         z siedzibą w Poznaniu, ul. Kościelna 4/1a, NIP: 779-22-38-665.
         Możesz skontaktować się z nami pod adresem e-mail: ip@ozzip.pl.
       </div>
