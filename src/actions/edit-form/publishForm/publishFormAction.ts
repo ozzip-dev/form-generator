@@ -52,6 +52,6 @@ export async function publishFormAction(
 
   return {
     success: true,
-    msg: `${missingData.join(", ")}`,
+    msg: `/${form.url ?? formId}`,
   };
 }
