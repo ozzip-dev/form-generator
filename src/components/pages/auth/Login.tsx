@@ -2,6 +2,7 @@
 
 import { loginAction } from "@/actions/auth/loginAction";
 import { Button, InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useToast } from "@/context/ToastProvider";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import {
@@ -43,10 +44,6 @@ const dataInputsLogin = [
   },
 ];
 
-const defaultValues = {
-  email: "user@user.com",
-  password: "123123123",
-};
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
@@ -97,38 +94,33 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center p-4 h-full">
-      <h1 className="text-2xl text-center mb-4">Zaloguj się</h1>
+      <h1 className="text-xl text-center mb-4">Zaloguj się</h1>
+      <Card className="min-w-[29rem] max-w-[52rem] w-full">
+        <form
+          action={formAction} >
+          <InputFields
+            inputsData={dataInputsLogin}
+            errorMsg={state.errors}
+          />
+          <div className="text-end my-4">
+            <Link
+              href="/forgot-password"
+              className="text-accent_dark text-sm hover:underline hover:decoration-accent_dark"
+            >
+              Nie pamiętasz hasła?
+            </Link>
+          </div>
 
-      <form
-        action={formAction}
-        className=" px-10 py-16 w-1/2 min-w-[31rem] max-w-[52rem]
-    
-         md:border md:border-default
-        md:shadow-default
-        md:bg-bg_dark
-        !sm:rounded-md !md:rounded-lg"
-      >
-        <InputFields
-          inputsData={dataInputsLogin}
-          errorMsg={state.errors}
-        // default={defaultValues}
-        />
-        <div className="text-end my-4">
-          <Link
-            href="/forgot-password"
-            className="text-accent_dark hover:underline hover:decoration-accent_dark"
-          >
-            Nie pamiętasz hasła?
-          </Link>
-        </div>
-        <div className="flex justify-center">
           <Button
             isLoading={isAction.current && isPending}
             message="Zaloguj"
             type="submit"
+            className="!text-base !px-20 !py-4 m-auto"
           />
-        </div>
-      </form>
+
+        </form>
+      </Card>
+
     </div>
   );
 };

@@ -8,7 +8,7 @@ type Props = {
 
 export default function FormAuthFooter(props: Props) {
   return (
-    <div className="w-full text-center px-4 py-2">
+    <div className="w-full text-sm text-center px-4 py-2">
       {props.message}{" "}
       <Link
         href={props.link}

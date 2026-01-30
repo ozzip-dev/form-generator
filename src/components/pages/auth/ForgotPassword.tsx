@@ -3,6 +3,7 @@
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/Auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
+import Card from "@/components/shared/Card";
 import { useToast } from "@/context/ToastProvider";
 import {
   ForgotPasswordSchema,
@@ -76,9 +77,10 @@ const ForgotPassword = () => {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center">Nie pamiętasz hasła?</h1>
+    <div className="flex flex-col items-center justify-center p-4 h-full">
+
+      <h1 className="text-xl text-center mb-4">Nie pamiętasz hasła?</h1>
+      <Card className="min-w-[29rem] max-w-[52rem] w-full">
         <form action={formAction} className="space-y-4">
           <InputFields
             inputsData={dataInputsForgotPassword}
@@ -88,16 +90,18 @@ const ForgotPassword = () => {
           <Button
             isLoading={isAction.current && isPending}
             message="Wyślij link"
+            className="!text-base !px-20 !py-4 m-auto"
           />
         </form>
+      </Card>
 
-        <FormAuthFooter
-          message="Masz konto?"
-          messageLink="Zaloguj się"
-          link="/login"
-        />
-      </div>
+      <FormAuthFooter
+        message="Masz konto?"
+        messageLink="Zaloguj się"
+        link="/login"
+      />
     </div>
+
   );
 };
 
