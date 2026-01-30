@@ -27,6 +27,7 @@ import Card from "@/components/shared/Card";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
 import CreatedFormFooter from "./CreatedFormFooter";
+import FormDescription from "@/components/shared/inputs/FormDescription";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -168,7 +169,7 @@ const CreatedForm = (props: Props) => {
         <Card className="mb-8">
           <h1 className="text-xl">{title}</h1>
           {description && (
-            <h2 className="whitespace-pre-wrap">{description}</h2>
+            <FormDescription description={description} variant="published" />
           )}
           <div className="text-error text-2xs">* Odpowiedź wymagana</div>
           <div className="text-error text-2xs">! Odpowiedź jednorazowa </div>

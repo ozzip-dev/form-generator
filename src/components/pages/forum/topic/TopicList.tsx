@@ -22,7 +22,7 @@ const TopicList = (props: Props) => {
   // TODO: rozplanować układ komponentów gdy będzie design
   return (
     <div>
-      <div className="flex w-fit items-center gap-8 py-4 m-auto">
+      <div className="flex flex-wrap w-fit items-center gap-x-8 gap-y-4 py-4 m-auto">
         <div>Kategorie tematów: </div>
         {Object.values(TopicCategory).map((category) => (
           <Button

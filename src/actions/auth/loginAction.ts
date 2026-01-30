@@ -14,7 +14,7 @@ type ActionResult = {
 };
 
 export async function loginAction(
-  data: LoginSchema
+  data: LoginSchema,
 ): Promise<ActionResult | void> {
   const validationResult = loginSchema.safeParse(data);
 
@@ -41,5 +41,7 @@ export async function loginAction(
       catchError: `${msg}. Nieudane logowanie.`,
     };
   }
+
+  // TODO: przemyśleć dashbaord
   redirect("/dashboard?login=success");
 }

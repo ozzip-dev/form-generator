@@ -13,7 +13,6 @@ function RemoveFormButton(props: Props) {
 
   return (
     <Button
-
       type="button"
       variant="ghost"
       icon={

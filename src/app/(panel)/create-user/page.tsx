@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 const CreateUserPage = async () => {
   const user = await requireUser();
 
+  // TODO: przemyśleć dashbaord
   if (!isAdmin(user)) redirect("/dashboard");
 
   return <Signup />;

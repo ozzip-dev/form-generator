@@ -10,6 +10,7 @@ import { mapTopicCategory } from "../utils";
 import { useState } from "react";
 import TopicForm from "./TopicForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
+import Card from "@/components/shared/Card";
 
 const TopicContainer = (topic: TopicSerializedDetailed) => {
   const [isFormPrinted, setFormPrinted] = useState(false);
@@ -29,26 +30,33 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
       </Link>
 
       {!isFormPrinted && (
-        <div className="w-full mb-8 bg-slate-200 p-4">
-          <div className="flex gap-4 font-black text-lg">
-            <div>{topic.title}</div>
-            <div>({mapTopicCategory[topic.category]})</div>
+        <Card>
+          <div className="flex items-center gap-md">
+            <div className="text-sm">
+              (kategoria:{" "}
+              <span className="font-black">
+                {mapTopicCategory[topic.category]}
+              </span>
+              )
+            </div>
+
+            <div className="text-sm">
+              Ostatnio modyfikowano / komentowano:{" "}
+              <b>{formatDateAndTime(topic.updatedAt)}</b>
+            </div>
           </div>
 
-          <div>
+          <div className="my-4">
             Utworzono: <b>{formatDateAndTime(topic.createdAt)}</b> przez:{" "}
             <b>{topic.authorName}</b>
           </div>
 
-          <div>
-            Ostatnio modyfikowano/komentowano:{" "}
-            <b>{formatDateAndTime(topic.updatedAt)}</b>
-          </div>
+          <div className="font-black text-lg pb-4">{topic.title}</div>
 
           <div>{topic.description}</div>
           <TopicPosts posts={topic.posts} />
           <TopicActions topic={topic} handlePrintForm={handlePrintForm} />
-        </div>
+        </Card>
       )}
 
       {isFormPrinted && (

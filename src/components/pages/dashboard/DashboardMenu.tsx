@@ -10,7 +10,7 @@ import { use, useState } from "react";
 const dashboardLink = { text: "Strona główna", link: "/dashboard" };
 
 const moderatorNavLinks: NavMenuLink[] = [
-  dashboardLink,
+  // dashboardLink, // TODO: zostawiam dla admina, przemyśleć i ew. zmienić
   { text: "Formularze", link: "/forms/list" },
   { text: "Protokoły", link: "/protocols/add" },
   { text: "Forum", link: "/forum/list" },

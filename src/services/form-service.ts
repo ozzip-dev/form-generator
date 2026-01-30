@@ -20,23 +20,26 @@ import { isUserAuthor } from "@/helpers/formHelpers";
 import { getFileById, removeFile } from "./file-service";
 import { File } from "@/types/file";
 
+export const getForm = cache(
+  async (formId: string): Promise<FormSerialized> => {
+    await requireUser();
 
-export const getForm = cache(async (formId: string): Promise<FormSerialized> => {
-  await requireUser();
+    const form: Form | null = await findById<Form>(
+      db,
+      "form",
+      new ObjectId(formId),
+    );
 
-  const form: Form | null = await findById<Form>(
-    db,
-    "form",
-    new ObjectId(formId),
-  );
+    if (!form) {
+      console.error(`Form not found: ${formId}`);
+      // TODO: przemyśleć dashbaord
+      // redirect("/dashboard");
+      redirect("/forms/list");
+    }
 
-  if (!form) {
-    console.error(`Form not found: ${formId}`);
-    redirect("/dashboard-moderator");
-  }
-
-  return serializeForm(form);
-});
+    return serializeForm(form);
+  },
+);
 
 export async function formHasInputWithId(
   db: Db,

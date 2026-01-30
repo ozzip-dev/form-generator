@@ -51,13 +51,13 @@ const TopicActionButtons = (props: Props) => {
       errorText: "Błąd dodawania odpowiedzi",
     },
     {
-      text: "Edytuj",
+      text: "Edytuj temat",
       action: props.handlePrintForm,
       isDisplayed: isAuthor,
       errorText: "Błąd edycji tematu",
     },
     {
-      text: "Usuń",
+      text: "Usuń temat",
       action: async () => {
         await removeTopicAction(props.topic._id);
         successToast("Temat usunięty");
@@ -98,18 +98,14 @@ const TopicActionButtons = (props: Props) => {
     <div>
       {isLoading && <FullscreenLoader />}
 
-      <div
-        className="
-          w-full bg-slate-200 p-4
-          flex gap-4  
-        "
-      >
+      <div className="w-full flex gap-4 justify-around sm:justify-start">
         {buttons
           .filter(({ isDisplayed }) => isDisplayed)
           .map(({ text, action, errorText, confirmText = "" }, idx) => (
             <Button
               key={idx}
               message={text}
+              variant="primary-rounded"
               onClickAction={() =>
                 triggerAction(action, props.topic._id, errorText, confirmText)
               }

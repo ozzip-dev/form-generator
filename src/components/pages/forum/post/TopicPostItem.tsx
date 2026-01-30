@@ -7,6 +7,7 @@ import { use, useState } from "react";
 import { useUser } from "@/context/UserContextProvider";
 import { UserSerialized } from "@/types/user";
 import { isItemAuthor } from "@/helpers/forumHelpers";
+import { useModal } from "@/context/ModalContextProvider";
 
 type Props = {
   post: PostSerializedDetailed;
@@ -17,6 +18,7 @@ const TopicPostItem = (props: Props) => {
   const { toast } = useToast();
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
+  const { openModal } = useModal();
 
   const { content, createdAt, _id, authorName } = props.post;
   const onRemovePost = async () => {
@@ -58,8 +60,13 @@ const TopicPostItem = (props: Props) => {
             type="button"
             icon={<IconTrash />}
             variant="ghost"
-            className="!w-12 !bg-red-600"
-            onClickAction={onRemovePost}
+            onClickAction={() =>
+              openModal({
+                action: onRemovePost,
+                header: "Czy na pewno usunąć?",
+                confirmBtnMessage: "Usuń",
+              })
+            }
           />
         )}
       </div>

@@ -1,8 +1,5 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
-import UserSettings from "@/components/pages/user-settings/UserSettings";
-import UserSettingsMenu from "@/components/pages/user-settings/UserSettingsMenu";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import BottomShadow from "@/components/shared/BottomShadow";
 import Header from "@/components/shared/Header";
 import IsUserModal from "@/components/shared/IsUserModal";
 import { LoaderContextProvider } from "@/context/LoaderContextProvider";
@@ -18,8 +15,6 @@ export default async function DashboardLayout({
 }) {
   const userPromise = getUser();
   const user = await userPromise;
-
-
 
   return (
     <LoaderContextProvider>
