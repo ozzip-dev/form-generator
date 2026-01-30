@@ -161,7 +161,7 @@ const CreatedForm = (props: Props) => {
       <div className="container !max-w-[800px] my-4">
         <CreatedFormTopError isError={hasErrors} />
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
-        <SuccesMsg setSucces={setSuccess} />
+
         {props.headerFileData &&
           <CreatedFormTopImage headerFileData={props.headerFileData} />
         }
