@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 import ResetPasswordForm from "./ResetPasswordForm";
 import { ButtonLink } from "@/components/shared";
+import Card from "@/components/shared/Card";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
@@ -10,13 +11,15 @@ const ResetPassword = () => {
   return token ? (
     <ResetPasswordForm token={token} />
   ) : (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
-      <div className="w-full max-w-md">
-        <p className="text-muted-foreground mb-4 text-center">
-          Link do zmiany hasła jest błędny lub nieważny
-        </p>
-        <ButtonLink message="Przejdź do logowania" link="/login" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center">
+      <Card className="min-w-[29rem] max-w-[52rem] w-full">
+        <h1 className="text-lg text-center mb-4">
+          Link do zmiany hasła jest błędny lub nieważny</h1>
+
+        <ButtonLink message="Przejdź do logowania" link="/login"
+          className="w-fit h-fit m-auto bg-accent rounded-full 
+                text-white text-sm py-2 px-6 hover:bg-accent_light"/>
+      </Card>
     </div>
   );
 };
