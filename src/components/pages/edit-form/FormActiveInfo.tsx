@@ -30,7 +30,7 @@ const FormActiveInfo = () => {
       </div>
 
       <ButtonLink
-        message="Przejdź do formularza"
+        message="Przejdź do opublikowanego formularza"
         link={`/${url ? url : _id!}`}
         target="_blank"
         className="w-fit h-fit bg-accent rounded-full 
