@@ -31,7 +31,9 @@ const getFormEmptyRequiredData = (form: FormSerialized): string[] => {
   return errorFields.filter(({ value }) => !value).map(({ name }) => name);
 };
 
-export async function publishFormAction(form: FormSerialized): Promise<string> {
+export async function publishFormAction(
+  form: FormSerialized,
+): Promise<string | FormPublishError> {
   const user = await requireUser();
 
   if (!isUserAuthor(form, user.id))
@@ -39,11 +41,10 @@ export async function publishFormAction(form: FormSerialized): Promise<string> {
 
   const missingData = getFormEmptyRequiredData(form);
   if (missingData.length)
-    throw new FormPublishError(`${missingData.join(", ")}`);
+    return new FormPublishError(`${missingData.join(", ")}`);
 
   const formId: string = form._id!;
 
-
   await publishForm(db, formId);
-  return `/${form.url ? form.url :formId}`;
+  return `/${form.url ? form.url : formId}`;
 }
