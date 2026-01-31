@@ -33,7 +33,7 @@ const Button = (props: Props) => {
                 transition-all duration-150 ease-out
                 active:brightness-90
                 active:scale-[0.98]
-                disabled:opacity-60
+                disabled:opacity-50
                 disabled:pointer-events-none
                 disabled:cursor-not-allowed
                 bg-transparent

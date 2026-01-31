@@ -193,7 +193,7 @@ const CreatedForm = (props: Props) => {
                 message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
-                className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
+                className="!bg-white !text-accent hover:!bg-accent hover:!text-white w-full sm:w-fit"
               />
 
               <Button
@@ -201,7 +201,7 @@ const CreatedForm = (props: Props) => {
                 disabled={props.isPreview ? true : false}
                 type="submit"
                 isLoading={isSubmitting}
-                className="w-full md:w-fit"
+                className="w-full sm:w-fit"
               />
             </div>
           </form>
