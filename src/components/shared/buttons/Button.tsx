@@ -36,7 +36,8 @@ const Button = (props: Props) => {
                 disabled:opacity-60
                 disabled:pointer-events-none
                 disabled:cursor-not-allowed
-
+                bg-transparent
+                
         ${VARIANTS[props.variant || "primary"]}
         ${props.className ? props.className : ""}
       `}

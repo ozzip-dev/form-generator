@@ -24,7 +24,7 @@ const getFormEmptyRequiredData = (form: FormSerialized): string[] => {
     },
     {
       value: !!resultVisibility,
-      name: "Widoczność wyników",
+      name: "Tryb wyników",
     },
   ];
 

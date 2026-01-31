@@ -59,11 +59,13 @@ body {
 }
 
 .btn-primary {
-  @apply text-lg bg-accent px-12 py-2;
+  @apply text-lg bg-accent px-12 py-2 
+  border border-accent hover:!bg-white hover:text-accent
 }
 
 .btn-primary-rounded {
-  @apply rounded-full text-sm bg-accent py-2 px-4 md:px-8;
+  @apply rounded-full text-sm bg-accent py-2 px-4 md:px-8
+   border border-accent hover:bg-white hover:text-accent
 }
 
 .table-highlighted tr:nth-child(even) {

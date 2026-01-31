@@ -35,9 +35,9 @@ const FormActiveInfo = () => {
         message="Przejdź do opublikowanego formularza"
         link={`/${url ? url : _id!}`}
         target="_blank"
-        className="w-fit h-fit bg-accent rounded-full 
-                text-white text-sm py-2 px-6 hover:bg-accent_light m-auto"
-      />{" "}
+        variant="primary-rounded"
+        className="w-fit m-auto"
+      />
     </Card>
 
 

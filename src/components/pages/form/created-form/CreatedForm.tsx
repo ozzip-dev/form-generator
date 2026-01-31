@@ -186,12 +186,12 @@ const CreatedForm = (props: Props) => {
 
             {formFields}
 
-            <div className=" flex flex-col gap-8 sm:gap-16 items-center sm:flex-row ">
+            <div className=" flex flex-col sm:justify-end gap-8 sm:gap-16 items-center sm:flex-row ">
               <Button
                 message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
-                className="w-full md:w-fit md:ml-auto !text-accent_dark !bg-white outline outline-1 outline-accent_dark"
+                className="!bg-white !text-accent_dark hover:!bg-accent_dark hover:!text-white"
               />
 
               <Button

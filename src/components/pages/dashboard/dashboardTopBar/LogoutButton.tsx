@@ -48,7 +48,7 @@ const LogoutButton = () => {
       isLoading={pending}
       message="Wyloguj"
       variant="primary-rounded"
-      className="!bg-white !text-accent w-fit !px-8"
+      className="!bg-white !text-accent hover:!bg-accent hover:!text-white hover:!border-white"
     />
   );
 };

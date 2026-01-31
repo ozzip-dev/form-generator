@@ -44,7 +44,7 @@ const AddFormField = ({ formId, idx }: Props) => {
     <Button
       onClickAction={handleAddField}
       message="Dodaj pytanie"
-      variant="ghost"
+      variant="primary-rounded"
       className="bg-accent !rounded-full
              p-2 px-8 mx-auto mb-16"
     />

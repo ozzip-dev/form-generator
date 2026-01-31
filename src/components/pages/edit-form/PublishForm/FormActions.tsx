@@ -57,8 +57,7 @@ const FormActions = ({ form }: Props) => {
               message="Przejdź do formularza"
               link={formUrl}
               target="_blank"
-              className="w-fit h-fit bg-accent rounded-full 
-                text-white text-sm py-2 px-6 hover:bg-accent_light"
+              variant="primary-rounded"
             />{" "}
           </div>
 
