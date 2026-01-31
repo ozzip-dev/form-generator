@@ -26,7 +26,7 @@ const FormTemplateTrigger = (props: Props) => {
         variant="ghost"
         className="
           flex justify-center items-center w-[13rem] h-[13rem]
-          rounded-md md:rounded-lg border bg-bg_light  hover:bg-accent transition
+          rounded-md md:rounded-lg border !bg-white  hover:!bg-accent transition
         "
       />
       <h3 className="mt-4 text-center truncate">{props.title}</h3>

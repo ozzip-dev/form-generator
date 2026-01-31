@@ -26,12 +26,11 @@ const FormTrigger = () => {
         onClickAction={handleCreateForm}
         variant="ghost"
         className="
-          bg-accent_light flex justify-center items-center 
+          !bg-accent_light flex justify-center items-center 
           w-[13rem] h-[13rem] 
           sm:rounded-md md:rounded-lg 
           border border-accent
-           shadow-default
-        "
+           shadow-default"
         icon={
           <Icon
             icon="plus-solid-full"

@@ -105,6 +105,8 @@ const CreatedForm = (props: Props) => {
     } catch (e) {
       const err = e as Error;
 
+      console.log('uniqueErrorMessage', uniqueErrorMessage)
+
       const title =
         err.message == uniqueErrorMessage
           ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
@@ -191,7 +193,7 @@ const CreatedForm = (props: Props) => {
                 message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
-                className="!bg-white !text-accent_dark hover:!bg-accent_dark hover:!text-white"
+                className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
               />
 
               <Button

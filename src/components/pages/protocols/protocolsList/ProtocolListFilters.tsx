@@ -72,17 +72,15 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
                 defaultValue="ascending"
                 options={dataSelectOptions}
                 onChangeAction={onFilterChange}
-                className="mb-8"
               />
             </div>
             <Button
               message="Resetuj filtry"
               variant="primary-rounded"
               onClickAction={() => setFilters(filtersDefault)}
-              className="w-full sm:w-fit sm:mb-auto !py-3"
+              className="w-full sm:w-fit"
             />
-          </div>{" "}
-          {/* <div className="sm:flex sm:flex-wrap gap-2 md:items-center"></div> */}
+          </div>
         </form>
       </FormProvider>
     </Card>

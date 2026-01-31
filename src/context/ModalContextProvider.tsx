@@ -84,7 +84,7 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
                 message="Anuluj"
                 onClickAction={close}
                 disabled={isPending}
-                className="!bg-white !text-accent border border-accent"
+                className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
               />
 
               <Button

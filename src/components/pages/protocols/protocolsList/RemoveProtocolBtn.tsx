@@ -17,14 +17,14 @@ function RemoveProtocolBtn(props: Props) {
     <Button
       type="button"
       icon={<IconTrash />}
-      variant="primary-rounded"
+      variant="ghost"
       onClickAction={() =>
         openModal({
           action: () => removeProtocolAction(props.ProtocolId),
           header: "Usunąć protokuł?",
         })
       }
-      className="!bg-error"
+      className=""
     />
   );
 }

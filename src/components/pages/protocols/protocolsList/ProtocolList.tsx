@@ -36,8 +36,9 @@ const ProtocolList = ({
   return (
     <>
       <div className="bg-white w-full sticky top-0 z-10">
-        <div className="md:w-4/5">
+        <div className="md:flex">
           <ResponsiveListHeader headers={headers} />
+          <div className="md:w-[27rem]"></div>
         </div>
       </div>
 

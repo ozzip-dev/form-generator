@@ -1,5 +1,4 @@
 import { ButtonLink } from "@/components/shared";
-import BottomShadow from "@/components/shared/BottomShadow";
 import Header from "@/components/shared/Header";
 
 export default function AuthLayout({
@@ -11,9 +10,12 @@ export default function AuthLayout({
     <div className="h-full flex flex-col">
       <Header>
         <div className="container">
-          <div className="w-fit bg-white rounded-full text-accent py-1 px-4">
-            <ButtonLink message="Strona główna" link="/" />
-          </div>
+
+          <ButtonLink message="Strona główna" link="/"
+            variant="primary-rounded"
+            className="!bg-white !text-accent w-fit
+            hover:!bg-accent hover:!text-white hover:!border-white" />
+
         </div>
       </Header>
 
