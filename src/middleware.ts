@@ -3,10 +3,7 @@ import type { auth } from "@/lib/auth/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { isModerator } from "./lib/utils";
 import { hasCompleteCommitteeData } from "./helpers/hasCompleteCommitteeData";
-import { getUser } from "./services/user-service";
-import { db, findById } from "./lib/mongo";
-import { IUser } from "./types/user";
-import { ObjectId } from "mongodb";
+
 
 type Session = typeof auth.$Infer.Session;
 

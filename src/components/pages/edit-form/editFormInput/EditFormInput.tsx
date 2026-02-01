@@ -125,8 +125,6 @@ const EditFormInput = () => {
   }, [defaultValues, reset]);
 
 
-  const canShowAddDescriptionBtn =
-    !isInputTypeParagraph(input) && !isDescription;
 
   return (
     <Card className="">

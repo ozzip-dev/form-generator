@@ -48,8 +48,8 @@ type Props = {
 };
 
 const UserForm = (props: Props) => {
+  const userCtx = useUser();
   const isEditMode = props.mode === "edit";
-  const userCtx = isEditMode ? useUser() : null;
   const userDetails = isEditMode ? use(userCtx!.userPromise) : null;
 
 

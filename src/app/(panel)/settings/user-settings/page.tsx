@@ -3,7 +3,7 @@ import UserSettings from "@/components/pages/user-settings/UserSettings";
 const UserSettingsPage = async () => {
   return (
     <div className="container">
-      <UserSettings />
+      {/* <UserSettings /> */}
     </div>
   );
 };

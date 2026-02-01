@@ -33,7 +33,7 @@ const EditFormPage = async (props: Props) => {
 
   return (
     <div className="container">
-      <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
+      {/* <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
       {isFormActive && (
         <FormActiveInfo />
       )}
@@ -92,7 +92,7 @@ const EditFormPage = async (props: Props) => {
           </div>
         </>
 
-      }
+      } */}
 
 
     </div>

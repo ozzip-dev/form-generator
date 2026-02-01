@@ -17,7 +17,7 @@ const LoadingError = (props: Props) => {
         <p className="text-gray-700 text-sm mb-4">{props.error.message}</p>
         <Button
           onClickAction={() => window.location.reload()}
-          className="bg-error text-white px-2"
+          className="!bg-error text-white px-2"
           variant="ghost"
           message="Odśwież"
         />
@@ -35,7 +35,7 @@ const LoadingError = (props: Props) => {
         </p>
         <Button
           onClickAction={() => window.location.reload()}
-          className="bg-error text-white px-2"
+          className="!bg-error text-white px-4"
           variant="ghost"
           message="Odśwież"
         />

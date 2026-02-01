@@ -10,7 +10,8 @@ import { FormSerialized } from "@/types/form";
 import { revalidateTag } from "next/cache";
 
 export async function setAliasUrlAction(
-  form: FormSerialized,
+  // form: FormSerialized,
+  formId: string,
   alias: SetAliasSchema
 ): Promise<{ success: true } | { validationErrors: ValidationErrors }> {
   const user = await requireUser();
@@ -21,10 +22,10 @@ export async function setAliasUrlAction(
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
-  if (!isUserAuthor(form, user.id))
-    throw new Error("Jedynie autor/-ka może może edytować alias");
+  // if (!isUserAuthor(form, user.id))
+  //   throw new Error("Jedynie autor/-ka może może edytować alias");
 
-  const formId: string = form._id!;
+  // const formId: string = form._id!;
 
   await setAliasUrl(db, formId, alias.url);
   revalidateTag(`form-${formId}`);

@@ -4,7 +4,7 @@ const UerPrivacyPage = () => {
 
     return (
         <div className="container mb-16">
-            <ConfirmPrivacyText />
+            {/* <ConfirmPrivacyText /> */}
         </div>
     );
 };
