@@ -11,14 +11,12 @@ const UserFormPage = () => {
 
     return (
         <>
-
-            <div>eeeeeeee</div>
-            {/* <div className="mb-16">
+            <div className="mb-16">
                 <SectionHeader message="Wypełnij dane kontaktowe, aby przejść dalej" />
                 <div className="text-sm text-font_light">
                     Edycja danych w ustawieniach aplikacji</div>
-            </div> */}
-            {/* <SuspenseErrorBoundary
+            </div>
+            <SuspenseErrorBoundary
                 size="lg"
                 errorMessage="Błąd przesyłu danych formularza"
             >
@@ -28,10 +26,8 @@ const UserFormPage = () => {
                     </Suspense>
 
                 </UserContextProvider>
-
-            </SuspenseErrorBoundary> */}
+            </SuspenseErrorBoundary>
         </>
-
     );
 };
 

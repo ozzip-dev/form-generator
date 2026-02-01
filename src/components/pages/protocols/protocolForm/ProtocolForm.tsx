@@ -105,7 +105,7 @@ const ProtocolForm = (props: Props) => {
         variant: "success",
       });
     } catch (e) {
-      console.log(1);
+
       toast({
         title: "Błąd edycji protokołu",
         description: "Coś poszło nie tak",

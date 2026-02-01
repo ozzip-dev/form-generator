@@ -37,7 +37,6 @@ export default function AliasUrlForm(form: FormSerialized) {
     mode: "all",
   });
 
-  console.log('ssss', form)
 
 
 

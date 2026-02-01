@@ -10,7 +10,7 @@ import { ObjectId, WithId } from "mongodb";
 import { redirect } from "next/navigation";
 
 export async function removeFormAction(formId: string): Promise<void> {
-  console.log("formId", formId);
+
 
   try {
     const user: IUser = await requireUser();
@@ -26,7 +26,7 @@ export async function removeFormAction(formId: string): Promise<void> {
 
     await removeForm(formId);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     throw new Error("Failed to remove protocol");
   }
 
