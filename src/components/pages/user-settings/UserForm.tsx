@@ -39,18 +39,22 @@ const dataInputscommittee = [
 ];
 
 type State = { errors: Record<string, string[]>; inputs?: any };
+
 const initialState: State = { errors: {}, inputs: null };
-type Props = { handlePrintForm: () => void };
+
+type Props = {
+  handlePrintForm?: () => void,
+  mode?: "edit" | "create";
+};
 
 const UserForm = (props: Props) => {
-  const { userPromise } = useUser();
-  const userDetails: any = use(userPromise);
+  const isEditMode = props.mode === "edit";
+  const userCtx = isEditMode ? useUser() : null;
+  const userDetails = isEditMode ? use(userCtx!.userPromise) : null;
+
+
   const isAction = useRef(false);
 
-  const inputsWithDefaults = dataInputscommittee.map((input) => ({
-    ...input,
-    defaultValue: userDetails?.[input.name] ?? "",
-  }));
 
   const editUserDetails = async (
     prevState: State,
@@ -68,12 +72,12 @@ const UserForm = (props: Props) => {
 
     isAction.current = true;
 
-    const resp = await updateCommitteeDataAction(data);
+    const resp = await updateCommitteeDataAction(data, isEditMode);
     if (resp?.validationErrors) {
       return { errors: resp?.validationErrors, inputs: data };
     }
     isAction.current = false;
-    props.handlePrintForm();
+    isEditMode && props.handlePrintForm?.();
     return { errors: {}, inputs: data };
   };
 
@@ -81,6 +85,15 @@ const UserForm = (props: Props) => {
     editUserDetails,
     initialState
   );
+
+
+  const inputsWithDefaults = dataInputscommittee.map((input) => ({
+    ...input,
+    defaultValue:
+      state.inputs?.[input.name] ??
+      userDetails?.[input.name] ??
+      "",
+  }));
 
   return (
     <>
@@ -94,14 +107,15 @@ const UserForm = (props: Props) => {
           />{" "}
         </Card>
         <div className="mt-10 flex flex-col sm:flex-row justify-center gap-10 sm:gap-16">
-          <Button
+          {isEditMode && <Button
             message="Anuluj"
             onClickAction={() => {
-              props.handlePrintForm();
+              isEditMode && props.handlePrintForm?.();
             }}
             type="button"
+            className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
           />
-
+          }
           <Button
             isLoading={isAction.current && isPending}
             message="Zapisz"

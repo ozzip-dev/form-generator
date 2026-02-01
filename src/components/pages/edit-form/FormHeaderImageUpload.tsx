@@ -64,7 +64,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   return (
     <>
       <div className="relative w-fit m-auto">
-        <div className="h-[3.4rem] w-[28rem] overflow-hidden rounded-full m-auto">
+        <div className="h-[3.4rem] w-[22rem] md:w-[28rem] overflow-hidden rounded-full m-auto">
           <UploadFileForm
             {...{
               onFileUploaded,
@@ -77,7 +77,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
         <div className="absolute top-[0.5rem] -right-12">
           <InfoIcon>
             <div>
-              Dodaj obraz nad tytułem formularza <br />Maksymalny rozmiar: 1 MB
+              Dodaj obraz nad tytułem formularza. <br />Maksymalny rozmiar: 1 MB
             </div>
           </InfoIcon>
         </div>

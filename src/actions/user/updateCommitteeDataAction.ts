@@ -10,9 +10,11 @@ import { requireUser } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function updateCommitteeDataAction(
-  data: UserDetailsSchema
+  data: UserDetailsSchema,
+  isEditMode: boolean
 ): Promise<void | { validationErrors: Record<string, string[]> }> {
   const user = await requireUser();
 
@@ -47,4 +49,8 @@ export async function updateCommitteeDataAction(
   });
 
   revalidatePath("/user-settings");
+
+  if (isModerator(user as IUser) && !isEditMode) {
+    redirect("/forms/list");
+  }
 }

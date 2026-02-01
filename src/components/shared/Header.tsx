@@ -7,7 +7,10 @@ const Header = ({
 
   return (
     <header className="shrink-0 bg-accent relative py-6">
-      {children}
+      <div className="container">
+        {children}
+      </div>
+
       <div
         className="absolute inset-x-0 bottom-0 h-7
                   bg-gradient-to-t

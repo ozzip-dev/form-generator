@@ -1,9 +1,9 @@
 "use client";
 
+import { SuspenseErrorBoundary } from "@/components/shared";
 import { useState } from "react";
 import UserDetails from "./UserDetails";
 import UserForm from "./UserForm";
-import { SuspenseErrorBoundary } from "@/components/shared";
 
 const UserSettings = () => {
   const [isFormPrinted, setFormPrinted] = useState(false);
@@ -28,7 +28,7 @@ const UserSettings = () => {
             size="lg"
             errorMessage="Błąd przesyłu danych formularza"
           >
-            <UserForm handlePrintForm={handlePrintForm} />
+            <UserForm handlePrintForm={handlePrintForm} mode="edit" />
           </SuspenseErrorBoundary>
         </>
       )}

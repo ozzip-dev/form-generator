@@ -1,9 +1,10 @@
 import LogoutButton from "@/components/pages/dashboard/dashboardTopBar/LogoutButton";
+import Header from "@/components/shared/Header";
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function DashboardLayout({
+export default async function PrivacyLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -12,12 +13,15 @@ export default async function DashboardLayout({
   if (!session) redirect("/login");
 
   return (
-    <>
-      <header className="bg-accent flex justify-end p-6">
-        <LogoutButton />
-      </header>
-
-      <main className="h-full pb-lg overflow-y-auto">{children}</main>
-    </>
+    <div className="h-screen flex flex-col">
+      <div className="shrink-0">
+        <Header>
+          <div className="ml-auto w-fit">
+            <LogoutButton />
+          </div>
+        </Header>
+      </div>
+      <main className="flex-1 pb-md overflow-y-auto">{children}</main>
+    </div>
   );
 }

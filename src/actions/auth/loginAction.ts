@@ -18,7 +18,6 @@ export async function loginAction(
 ): Promise<ActionResult | void> {
   const validationResult = loginSchema.safeParse(data);
 
-  // const dataObject = loginSchema.safeParse(Object.fromEntries(data.entries()));
 
   if (!validationResult.success) {
     return {
