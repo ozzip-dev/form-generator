@@ -22,7 +22,7 @@ import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDispla
 import { useFormData } from "@/context/FormDataContextProvider";
 import { serializeForm } from "@/lib/serialize-utils";
 import TextEditor from "../textEditor/TextEditor";
-import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionInput";
+import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionEditor";
 import EditHeaderDescription from "./EditHeaderDescription";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 

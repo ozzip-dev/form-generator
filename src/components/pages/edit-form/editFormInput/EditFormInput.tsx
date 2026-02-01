@@ -23,10 +23,10 @@ import { useEffect, useMemo, useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
-import EditFormDescriptionInput from "./EditFormDescriptionInput";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
 import ToggleInputs from "./toggle-inputs/ToggleInputs";
 import AddTextEditorBtn from "../AddTextEditorBtn";
+import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 
 
 const dataInputLabel = [
@@ -59,10 +59,15 @@ const EditFormInput = () => {
   const [isPending, startTransition] = useTransition();
 
   const isParagraph = isInputTypeParagraph(input);
+  const shouldShowDescription = isParagraph || !!description;
 
   const [isDescription, setDescription] = useState(!!description);
+  const [showDescription, setShowDescription] = useState(shouldShowDescription);
 
-  const [isEditor, setEditor] = useState(isParagraph);
+
+  useEffect(() => {
+    setShowDescription(shouldShowDescription);
+  }, [shouldShowDescription]);
 
 
   const defaultValues = useMemo(
@@ -110,10 +115,6 @@ const EditFormInput = () => {
     });
   };
 
-  const printDescriptionInput = () => {
-    setDescription(true);
-    setEditor(true)
-  }
 
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
@@ -153,7 +154,7 @@ const EditFormInput = () => {
                     <div className="w-[2rem] h-1" />
                   ) : (
                     <div className="w-fit h-fit ml-1">
-                      <AddTextEditorBtn action={printDescriptionInput} />
+                      <AddTextEditorBtn action={() => setShowDescription(true)} />
                     </div>
                   )
                 )}
@@ -173,13 +174,13 @@ const EditFormInput = () => {
 
             <div className="md:flex md:gap-10">
               <div className="md:flex-1">
-                <EditFormDescriptionInput
-                  setEditor={setEditor}
-                  setDescription={setDescription}
-                  isEditor={isEditor}
-                  isDescription={isDescription}
-                  variant="input"
-                />
+                {showDescription && (
+                  <EditFormDescriptionEditor
+                    setDescription={setDescription}
+                    isDescription={showDescription}
+                    variant="input"
+                    onClose={() => setShowDescription(false)}
+                  />)}
                 {isInputWithOptions(input) && (
                   <AddOption
                     inputIdx={inputIdx}

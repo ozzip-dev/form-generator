@@ -64,7 +64,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   return (
     <>
       <div className="relative w-fit m-auto">
-        <div className="h-[3.4rem] w-[22rem] md:w-[28rem] overflow-hidden rounded-full m-auto">
+        <div className="h-[3.4rem] w-[22rem] sm:w-[28rem] overflow-hidden rounded-full m-auto">
           <UploadFileForm
             {...{
               onFileUploaded,

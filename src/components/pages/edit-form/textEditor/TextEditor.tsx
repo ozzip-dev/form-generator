@@ -54,10 +54,13 @@ const TextEditor = (props: Props) => {
 
     immediatelyRender: false,
     content: editorContent,
+
     onUpdate: ({ editor }) => {
       setEditorContent(editor.getHTML());
     },
   });
+
+
 
 
 

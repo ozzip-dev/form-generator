@@ -1,26 +1,24 @@
-import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { Dispatch, SetStateAction, startTransition, useActionState, useTransition } from "react";
-import { useFormContext } from "react-hook-form";
 import { editInputLabelAction } from "@/actions/edit-form/editFormInput/editInputLabelAction";
+import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
-import { Button, IconTrash } from "../../../shared";
+import { isInputTypeParagraph } from "@/helpers/inputHelpers";
+import { Dispatch, SetStateAction, useState, useTransition } from "react";
+import { useFormContext } from "react-hook-form";
+import RemoveTextEditorBtn from "../textEditor/RemoveTextEditorBtn";
 import TextEditor from "../textEditor/TextEditor";
 import TextEditorPrinter from "../textEditor/TextEditorPrinter";
-import { useInputData } from "@/context/InputDataContextProvider";
-import { isInputTypeParagraph } from "@/helpers/inputHelpers";
-import RemoveTextEditorBtn from "../textEditor/RemoveTextEditorBtn";
 
 type Props = {
-  setDescription: Dispatch<SetStateAction<boolean>>;
-  setEditor: Dispatch<SetStateAction<boolean>>;
   isDescription: boolean
-  isEditor: boolean
+  setDescription: Dispatch<SetStateAction<boolean>>
+  onClose: () => void;
   variant: "header" | "input"
 };
 
-const EditFormDescriptionInput = (props: Props) => {
+const EditFormDescriptionEditor = (props: Props) => {
   const { formId, input } = useInputData()
   const [isPending, startTransition] = useTransition();
+  const [isEditorOpen, setEditorOpen] = useState(!input.description);
 
   const {
     register,
@@ -33,18 +31,11 @@ const EditFormDescriptionInput = (props: Props) => {
   useAutoLoader(isPending);
 
 
-  const printDescriptionEditor = () => {
-    props.setEditor((prev) => !prev);
-  };
-
-
-
-
   const handleRemoveDescriptionInput = () => {
 
     if (!input.description) {
       props.setDescription(false);
-      props.setEditor(false)
+      props.onClose();
       return
     };
     startTransition(async () => {
@@ -53,18 +44,14 @@ const EditFormDescriptionInput = (props: Props) => {
         description: "",
       });
       props.setDescription(false);
-      props.setEditor(false)
+      props.onClose();
     }
 
 
     )
   }
-
-
   useAutoLoader(isPending);
   const isParagraph = isInputTypeParagraph(input)
-
-
 
 
 
@@ -75,18 +62,18 @@ const EditFormDescriptionInput = (props: Props) => {
         <div className="flex">
           <div className="w-full mb-8">
 
-            {!props.isDescription || props.isEditor ? (
+            {isEditorOpen ? (
               <TextEditor
                 formId={formId}
                 inputId={props.variant === "input" ? input.id! : undefined}
                 description={input.description || ""}
-                printDescriptionInput={printDescriptionEditor}
+                printDescriptionInput={() => setEditorOpen(false)}
                 editAction={editInputLabelAction}
               />
             ) : (
               <TextEditorPrinter
                 description={input.description || ""}
-                printDescriptionInput={printDescriptionEditor}
+                printDescriptionInput={() => setEditorOpen(true)}
 
               />
             )}
@@ -97,8 +84,6 @@ const EditFormDescriptionInput = (props: Props) => {
             <RemoveTextEditorBtn handleRemoveDescription={handleRemoveDescriptionInput} />
           }
 
-
-
         </div>
       )}
 
@@ -107,4 +92,4 @@ const EditFormDescriptionInput = (props: Props) => {
   );
 };
 
-export default EditFormDescriptionInput;
+export default EditFormDescriptionEditor;
