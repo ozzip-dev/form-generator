@@ -20,6 +20,7 @@ import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwi
 import { startTransition, use, useState } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
 import { useFormData } from "@/context/FormDataContextProvider";
+import { useHeaderPublishError } from "@/context/PublishFormErrorContextProvider";
 import { serializeForm } from "@/lib/serialize-utils";
 import TextEditor from "../textEditor/TextEditor";
 import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionEditor";
@@ -54,6 +55,7 @@ export default function EditFormHeader(props: Props) {
 
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
+  const { error: headerPublishError } = useHeaderPublishError();
   const [showDescription, setShowDescription] = useState(!!form?.description);
 
 
@@ -105,15 +107,22 @@ export default function EditFormHeader(props: Props) {
     });
   };
 
+  console.log('', headerPublishError)
 
 
 
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-6">
+        {/* {!!headerPublishError && (
+          <div className="text-error w-fit m-auto">
+            <p className="">Błąd przy publikacji formularza</p>
+            <p className="text-sm text-center">{headerPublishError}</p>
+          </div>
+        )} */}
         <Card>
-          <div className="sm:flex gap-8 lg:gap-[15%]">
-            <div className="flex-1">
+          <div className="sm:flex lg:gap-[15%]">
+            <div className="flex-1 mr-[3rem] lg:mr-0 relative">
               <SelectFieldControler
                 name="type"
                 defaultValue=""
@@ -121,16 +130,24 @@ export default function EditFormHeader(props: Props) {
                 options={dataSelectOptions}
                 onChangeAction={handleEdit}
               />
+
+              <p className="text-2xs text-error absolute bottom-0 left-2 bg-bg_light z-10 w-full">
+                {headerPublishError?.headerError?.type}</p>
             </div>
 
-            <div className=" flex-1 flex items-center">
-              <SelectFieldControler
-                name="resultVisibility"
-                defaultValue=""
-                label="Tryb wyników"
-                options={resultVisibilityOptions}
-                onChangeAction={handleEdit}
-              />
+            <div className=" flex-1 flex items-center relative">
+              <div className="w-full">
+                <SelectFieldControler
+                  name="resultVisibility"
+                  defaultValue=""
+                  label="Tryb wyników"
+                  options={resultVisibilityOptions}
+                  onChangeAction={handleEdit}
+                />
+                <p className="text-2xs text-error absolute bottom-0 left-2 bg-bg_light z-10 w-full">
+                  {headerPublishError?.headerError?.resultVisibility}</p>
+              </div>
+
 
               <InfoIcon>
                 <>
@@ -166,13 +183,15 @@ export default function EditFormHeader(props: Props) {
 
         <Card>
           <div className="flex items-center">
-            <div className="w-full">
+            <div className="w-full relative">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}
                 errorMsg={errors}
                 onChange={handleEdit}
               />
+              <p className="text-2xs bg-bg_light absolute bottom-0 left-2 text-error z-10">
+                {headerPublishError?.headerError?.title}</p>
             </div>
 
             <div className="w-fit h-fit ml-1">

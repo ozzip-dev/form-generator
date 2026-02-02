@@ -102,7 +102,7 @@ const SelectField = ({
             role="listbox"
             className="
               absolute left-0 top-1/2 -translate-y-1/2
-              z-10 w-full
+              z-20 w-full
               rounded-sm border
               bg-white shadow-md
               overflow-hidden

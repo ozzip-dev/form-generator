@@ -4,19 +4,20 @@ import { publishFormAction } from "@/actions/edit-form/publishForm/publishFormAc
 import { Button } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
+import { usePublishFormErrorSetters } from "@/context/PublishFormErrorContextProvider";
 import { useUser } from "@/context/UserContextProvider";
 import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
 import { FormSerialized } from "@/types/form";
-import { startTransition, use, useActionState, useState } from "react";
+import { startTransition, use, useActionState } from "react";
 import { useRouter } from "next/navigation";
-import { FormPublishError } from "@/components/shared/errors/FormPublishError";
 
 type Props = {
   form: FormSerialized;
 };
 
 const PublishFormButton = ({ form }: Props) => {
-  const [error, setError] = useState<string | null>(null);
+  const { setHeaderPublishError, setAddFieldPublishError } =
+    usePublishFormErrorSetters();
   const router = useRouter();
   const { userPromise } = useUser();
   const user = use(userPromise);
@@ -25,12 +26,14 @@ const PublishFormButton = ({ form }: Props) => {
   const areUserDetails = hasCompleteCommitteeData(user);
 
   const [_, publishForm, isPending] = useActionState(async () => {
-    const { success, msg } = await publishFormAction(form);
-    if (success) {
-      window.open(msg, "_blank");
+    const result = await publishFormAction(form);
+    if (result.success) {
+      window.open(result.msg, "_blank");
       router.refresh();
     } else {
-      setError(msg);
+      console.log('', result)
+      setHeaderPublishError(result);
+      setAddFieldPublishError(result.addFieldError);
     }
   }, null);
 
@@ -43,32 +46,23 @@ const PublishFormButton = ({ form }: Props) => {
   };
   useAutoLoader(isPending);
   return (
-    <>
-      <Button
-        message="Opublikuj"
-        onClickAction={() =>
-          openModal({
-            action: handlePublishForm,
-            header: (
-              <>
-                Publikacja formularza zablokuje możliwość jego edycji
-                <br />
-                oraz zmiany jego adresu.
-              </>
-            ),
-          })
-        }
-        isLoading={isPending}
-        className="mb-8"
-      />
-
-      {!!error && (
-        <div className="py-sm">
-          <div className="text-red-600">Błąd przy publikacji formularza</div>
-          <div>{error}</div>
-        </div>
-      )}
-    </>
+    <Button
+      message="Opublikuj"
+      onClickAction={() =>
+        openModal({
+          action: handlePublishForm,
+          header: (
+            <>
+              Publikacja formularza zablokuje możliwość jego edycji
+              <br />
+              oraz zmiany jego adresu.
+            </>
+          ),
+        })
+      }
+      isLoading={isPending}
+      className="mb-8"
+    />
   );
 };
 
