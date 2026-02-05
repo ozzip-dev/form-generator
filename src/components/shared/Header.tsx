@@ -6,7 +6,7 @@ const Header = ({
 }) => {
 
   return (
-    <header className="shrink-0 bg-accent relative py-6">
+    <header className="shrink-0 bg-accent relative py-7">
       <div className="container">
         {children}
       </div>

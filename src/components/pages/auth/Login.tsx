@@ -93,16 +93,16 @@ const Login = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 h-full">
+    <div className="flex flex-col items-center p-4 pt-24 h-full">
       <h1 className="text-xl text-center mb-4">Zaloguj się</h1>
-      <Card className="min-w-[29rem] max-w-[52rem] w-full">
+      <Card className="min-w-[29rem] max-w-[52rem] w-full !py-24">
         <form
           action={formAction} >
           <InputFields
             inputsData={dataInputsLogin}
             errorMsg={state.errors}
           />
-          <div className="text-end my-4">
+          <div className="my-4">
             <Link
               href="/forgot-password"
               className="text-accent_dark text-sm hover:underline hover:decoration-accent_dark"

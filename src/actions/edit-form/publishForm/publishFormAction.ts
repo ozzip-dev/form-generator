@@ -74,17 +74,17 @@ const HEADER_FIELDS: {
   {
     key: "title",
     value: (form) => !!form.title,
-    message: "wpisz tytuł",
+    message: "wpisz tytuł formularza",
   },
   {
     key: "type",
     value: (form) => !!form.type,
-    message: "wybierz kategorie",
+    message: "wybierz kategorię formularza",
   },
   {
     key: "resultVisibility",
     value: (form) => !!form.resultVisibility,
-    message: "wybierz tryb",
+    message: "wybierz tryb formularza",
   },
 ];
 
