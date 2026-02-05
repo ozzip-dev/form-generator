@@ -17,24 +17,28 @@ const dataInputscommittee = [
     name: "committeeUnion",
     type: "text",
     placeholder: "Związek",
+    labelClassName: "w-[22rem]"
   },
   {
     staticLabel: "Nazwa struktury związku:",
     name: "committeeName",
     type: "text",
     placeholder: "Komisja",
+    labelClassName: "w-[22rem]"
   },
   {
     staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: "text",
     placeholder: "111-111-111",
+    labelClassName: "w-[22rem]"
   },
   {
     staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: "email",
     placeholder: "email@zzz.pl",
+    labelClassName: "w-[22rem]"
   },
 ];
 
@@ -99,7 +103,7 @@ const UserForm = (props: Props) => {
     <>
       <form action={formAction}>
         <Card>
-          <SectionHeader message="Dane kontaktowe" />
+          <SectionHeader message="Dane kontaktowe:" />
           <InputFields
             errorMsg={state.errors}
             inputsData={inputsWithDefaults}

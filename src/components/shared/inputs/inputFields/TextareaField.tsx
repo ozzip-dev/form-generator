@@ -26,7 +26,7 @@ const TextareaField = (props: Props) => {
 
 
   return (
-    <div className="relative">
+    <div className="relative flex-1">
       <textarea
         id={name}
         disabled={props.isLoading?.[name]}

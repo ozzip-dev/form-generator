@@ -28,7 +28,7 @@ const InputField = (props: Props) => {
     props.inputData;
 
   return (
-    <div className={`relative`}>
+    <div className={`relative flex-1`}>
       <input
         id={name}
         name={name}

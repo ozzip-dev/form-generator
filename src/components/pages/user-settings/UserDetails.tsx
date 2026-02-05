@@ -30,11 +30,12 @@ const UserDetails = (props: Props) => {
     <>
       <div className="">
         <Card>
-          <SectionHeader message="Dane kontaktowe" />
+          <SectionHeader message="Dane kontaktowe:" />
 
           {dataUserDetails.map(({ header, detail }) => {
             return (
-              <DetailsPrinter key={header} label={header} value={detail} />
+              <DetailsPrinter key={header} label={header}
+                value={detail} labelClassName="w-[22rem]" />
             );
           })}
         </Card>

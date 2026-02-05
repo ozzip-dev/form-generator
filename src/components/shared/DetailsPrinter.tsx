@@ -17,17 +17,18 @@ const isValidDateDMY = (value: string): boolean | undefined => {
 type Props = {
   label: string;
   value: string;
+  labelClassName?: string
 };
 
 const DetailsPrinter = (props: Props) => {
   return (
     <div
       key={props.label}
-      className="flex flex-col md:flex-row md:items-center text-sm mb-6 "
+      className="flex flex-col md:flex-row md:items-center text-sm pb-[1.7rem] mt-[1.7rem]"
     >
-      <div className="font-bold mb-1 md:mr-4">{props.label}</div>
+      <div className={`font-bold mb-1 md:mr-4 ${props.labelClassName}`}> {props.label}</div>
 
-      <div className=" border border-transparent p-2 min-w-[22ch] ">
+      <div className="border border-transparent min-w-[22ch] flex-1 p-2">
         {isValidDateDMY(props.value) && <div className="h-[2px]"> </div>}
         {props.value ? props.value : <span className="text-error">Brak</span>}
       </div>

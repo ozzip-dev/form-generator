@@ -19,6 +19,7 @@ type InputData = {
   required?: boolean;
   unique?: boolean;
   dataAttribut?: string;
+  labelClassName?: string
 };
 
 type Props = {
@@ -47,6 +48,7 @@ const InputFields = (props: Props) => {
           description,
           name,
           type,
+          labelClassName
         } = inputData;
 
         return (
@@ -55,10 +57,10 @@ const InputFields = (props: Props) => {
             className={`relative text-sm ${props.variant === "horizontal"
               ? "flex flex-col md:flex-row md:items-center"
               : ""
-              } ${staticLabel ? "mb-6" : "pb-[1.7rem] mt-[1.7rem]"}`}
+              } ${staticLabel ? "pb-[1.7rem] mt-[1.7rem]" : "pb-[1.7rem] mt-[1.7rem]"}`}
           >
             {staticLabel && (
-              <label htmlFor={name} className="block mb-1 md:mr-4 font-bold">
+              <label htmlFor={name} className={`block mb-1 md:mr-4 font-bold ${labelClassName}`}>
                 {staticLabel}
                 <InputIndicators {...{ required, unique }} />
               </label>
