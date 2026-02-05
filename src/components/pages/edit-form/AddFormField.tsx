@@ -1,7 +1,7 @@
 "use client";
 
 import { addFormFieldAction } from "@/actions/edit-form/addFormFieldAction";
-import { Button } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useAddFieldPublishError, usePublishFormErrorSetters } from "@/context/PublishFormErrorContextProvider";
 import { InputType } from "@/enums";
@@ -44,14 +44,10 @@ const AddFormField = ({ formId, idx }: Props) => {
 
 
   return (
-    <div className="flex flex-col items-center gap-3 mb-16">
+    <div className="w-fit mx-auto mb-16 relative">
       {!!addFieldPublishError && (
-        <>
-          <p className="font-medium text-error">Błąd przy publikacji formularza</p>
-          <p className="text-sm text-error">{addFieldPublishError}</p>
-        </>
-
-
+        <Icon icon="exclamation" size={23} color="var(--color-error)"
+          className="text-error absolute -right-10 top-0 top-1/2 -translate-y-1/2" />
       )}
       <Button
         onClickAction={handleAddField}

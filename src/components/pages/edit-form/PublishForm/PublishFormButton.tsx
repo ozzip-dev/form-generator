@@ -31,7 +31,7 @@ const PublishFormButton = ({ form }: Props) => {
       window.open(result.msg, "_blank");
       router.refresh();
     } else {
-      console.log('', result)
+      console.log('button action', result)
       setHeaderPublishError(result);
       setAddFieldPublishError(result.addFieldError);
     }

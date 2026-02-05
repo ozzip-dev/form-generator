@@ -14,14 +14,14 @@ type ErrorSlice = {
   setError: (error: string | null) => void;
 };
 
-const HeaderPublishErrorContext = createContext<ErrorSlice | null>(null);
-const AddFieldPublishErrorContext = createContext<ErrorSlice | null>(null);
-
 type SettersSlice = {
   setHeaderPublishError: (error: any | null) => void;
   setAddFieldPublishError: (error: string | null) => void;
+  clearHeaderFieldError: (error: any) => void;
 };
 
+const HeaderPublishErrorContext = createContext<ErrorSlice | null>(null);
+const AddFieldPublishErrorContext = createContext<ErrorSlice | null>(null);
 const PublishFormErrorSettersContext = createContext<SettersSlice | null>(null);
 
 type Props = {
@@ -32,11 +32,31 @@ export function PublishFormErrorContextProvider(props: Props) {
   const [headerError, setHeaderErrorState] = useState<any>(null);
   const [addFieldError, setAddFieldErrorState] = useState<string | null>(null);
 
+  console.log('context', headerError)
+
   const setHeaderPublishError = useCallback((error: any | null) => {
     setHeaderErrorState(error);
   }, []);
+
+  const clearHeaderFieldError = useCallback((errorName: string) => {
+
+    setHeaderErrorState((prev: any) => {
+      if (!prev?.headerError) return prev;
+
+      return {
+        ...prev,
+        headerError: {
+          ...prev.headerError,
+          [errorName]: "",
+        },
+      };
+    });
+  }, []);
+
+
   const setAddFieldPublishError = useCallback((error: string | null) => {
     setAddFieldErrorState(error);
+
   }, []);
 
   const headerValue = useMemo<ErrorSlice>(
@@ -51,8 +71,9 @@ export function PublishFormErrorContextProvider(props: Props) {
     () => ({
       setHeaderPublishError,
       setAddFieldPublishError,
+      clearHeaderFieldError
     }),
-    [setHeaderPublishError, setAddFieldPublishError]
+    [setHeaderPublishError, setAddFieldPublishError, clearHeaderFieldError]
   );
 
   return (
@@ -66,7 +87,7 @@ export function PublishFormErrorContextProvider(props: Props) {
   );
 }
 
-/** Tylko do ustawiania błędów (np. w PublishFormButton). Nie powoduje re-renderu przy zmianie errorów. */
+/** nie powoduje re-renderu przy zmianie errorów. */
 export function usePublishFormErrorSetters() {
   const context = useContext(PublishFormErrorSettersContext);
   if (!context) {
@@ -77,7 +98,7 @@ export function usePublishFormErrorSetters() {
   return context;
 }
 
-/** Subskrybuje tylko błąd nagłówka – re-render tylko gdy zmieni się headerError. */
+/** re-render gdy zmieni headerError. */
 export function useHeaderPublishError() {
   const context = useContext(HeaderPublishErrorContext);
   if (!context) {
@@ -88,7 +109,7 @@ export function useHeaderPublishError() {
   return context;
 }
 
-/** Subskrybuje tylko błąd pól – re-render tylko gdy zmieni się addFieldError. */
+/**  re-render gdy zmieni addFieldError. */
 export function useAddFieldPublishError() {
   const context = useContext(AddFieldPublishErrorContext);
   if (!context) {

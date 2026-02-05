@@ -20,7 +20,7 @@ import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwi
 import { startTransition, use, useState } from "react";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
 import { useFormData } from "@/context/FormDataContextProvider";
-import { useHeaderPublishError } from "@/context/PublishFormErrorContextProvider";
+import { useAddFieldPublishError, useHeaderPublishError } from "@/context/PublishFormErrorContextProvider";
 import { serializeForm } from "@/lib/serialize-utils";
 import TextEditor from "../textEditor/TextEditor";
 import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionEditor";
@@ -56,6 +56,7 @@ export default function EditFormHeader(props: Props) {
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
   const { error: headerPublishError } = useHeaderPublishError();
+  const { error: addFieldPublishError } = useAddFieldPublishError();
   const [showDescription, setShowDescription] = useState(!!form?.description);
 
 
@@ -107,19 +108,30 @@ export default function EditFormHeader(props: Props) {
     });
   };
 
-  console.log('', headerPublishError)
+  console.log('d', headerPublishError)
 
+
+  const hasAnyError = Object.values(headerPublishError?.headerError ?? {}).some(value => value !== "")
 
 
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-6">
-        {/* {!!headerPublishError && (
-          <div className="text-error w-fit m-auto">
-            <p className="">Błąd przy publikacji formularza</p>
-            <p className="text-sm text-center">{headerPublishError}</p>
-          </div>
-        )} */}
+        {(!!addFieldPublishError || hasAnyError) && (
+          <Card className="text-error text-sm lg:flex">
+            <p className="text-center mb-2 mr-2">Błąd przy publikacji formularza: </p>
+            <div className="text-center">
+              {[
+                headerPublishError.headerError?.type,
+                headerPublishError.headerError?.resultVisibility,
+                headerPublishError.headerError?.title,
+                addFieldPublishError
+              ]
+                .filter(Boolean)
+                .join(", ")}
+            </div>
+          </Card>
+        )}
         <Card>
           <div className="sm:flex lg:gap-[15%]">
             <div className="flex-1 mr-[3rem] lg:mr-0 relative">
@@ -130,9 +142,10 @@ export default function EditFormHeader(props: Props) {
                 options={dataSelectOptions}
                 onChangeAction={handleEdit}
               />
-
-              <p className="text-2xs text-error absolute bottom-0 left-2 bg-bg_light z-10 w-full">
-                {headerPublishError?.headerError?.type}</p>
+              {headerPublishError?.headerError?.type && (
+                <Icon icon="exclamation" size={23} color="var(--color-error)"
+                  className="text-error absolute right-8 top-[1.5rem] sm:top-1/2 -translate-y-1/2" />
+              )}
             </div>
 
             <div className=" flex-1 flex items-center relative">
@@ -144,8 +157,10 @@ export default function EditFormHeader(props: Props) {
                   options={resultVisibilityOptions}
                   onChangeAction={handleEdit}
                 />
-                <p className="text-2xs text-error absolute bottom-0 left-2 bg-bg_light z-10 w-full">
-                  {headerPublishError?.headerError?.resultVisibility}</p>
+                {headerPublishError?.headerError?.resultVisibility && (
+                  <Icon icon="exclamation" size={23} color="var(--color-error)"
+                    className="text-error absolute right-20 top-1/2 -translate-y-1/2" />
+                )}
               </div>
 
 
@@ -190,8 +205,10 @@ export default function EditFormHeader(props: Props) {
                 errorMsg={errors}
                 onChange={handleEdit}
               />
-              <p className="text-2xs bg-bg_light absolute bottom-0 left-2 text-error z-10">
-                {headerPublishError?.headerError?.title}</p>
+              {headerPublishError?.headerError?.title && (
+                <Icon icon="exclamation" size={23} color="var(--color-error)"
+                  className="text-error absolute right-8 top-1/2 -translate-y-1/2" />
+              )}
             </div>
 
             <div className="w-fit h-fit ml-1">

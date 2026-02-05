@@ -1,5 +1,6 @@
 "use client";
 
+import { usePublishFormErrorSetters } from "@/context/PublishFormErrorContextProvider";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
@@ -26,6 +27,7 @@ export function useEditForm({
   const { showBoundary } = useErrorBoundary();
   const [isLoading, setLoading] = useState<Record<string, boolean>>({});
   const debounceMap = useRef(new Map<string, NodeJS.Timeout>());
+  const { clearHeaderFieldError } = usePublishFormErrorSetters();
 
   const handleEdit = useCallback(
     (name: string, value: string, isOtherOption?: boolean) => {
@@ -65,6 +67,11 @@ export function useEditForm({
             setClientErrors(resp.validationErrors, setError);
             return;
           }
+
+          const errorName = args[0] && Object.keys(args[0])[0];
+          console.log("args", args);
+          console.log("errorName", errorName);
+          mode === "formHeader" && clearHeaderFieldError(errorName);
         } catch (err) {
           showBoundary(err);
         } finally {

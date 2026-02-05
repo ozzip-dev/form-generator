@@ -52,8 +52,6 @@
 //   };
 // }
 
-
-
 "use server";
 
 import { db } from "@/lib/mongo";
@@ -62,13 +60,11 @@ import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
 import { requireUser } from "@/services/user-service";
 
-
 export type HeaderErrors = {
   title?: string;
   type?: string;
   resultVisibility?: string;
 };
-
 
 const HEADER_FIELDS: {
   key: keyof HeaderErrors;
@@ -78,22 +74,21 @@ const HEADER_FIELDS: {
   {
     key: "title",
     value: (form) => !!form.title,
-    message: "Tytuł wymagany do publikacji",
+    message: "wpisz tytuł",
   },
   {
     key: "type",
     value: (form) => !!form.type,
-    message: "Wymagana do publikacji",
+    message: "wybierz kategorie",
   },
   {
     key: "resultVisibility",
     value: (form) => !!form.resultVisibility,
-    message: "Wymagany do publikacji",
+    message: "wybierz tryb",
   },
 ];
 
-const ADD_FIELD_ERROR = "Brak pytań w formularzu";
-
+const ADD_FIELD_ERROR = "dodaj pytanie";
 
 export type PublishFormActionResult =
   | {
@@ -106,16 +101,14 @@ export type PublishFormActionResult =
       addFieldError: string | null;
     };
 
-
 export async function publishFormAction(
-  form: FormSerialized,
+  form: FormSerialized
 ): Promise<PublishFormActionResult> {
   const user = await requireUser();
 
   if (!isUserAuthor(form, user.id)) {
     throw new Error("Jedynie autor/-ka może opublikować swój formularz");
   }
-
 
   const headerErrorObj: HeaderErrors = {};
 
@@ -130,7 +123,6 @@ export async function publishFormAction(
 
   const addFieldError = form.inputs?.length ? null : ADD_FIELD_ERROR;
 
- 
   if (headerError || addFieldError) {
     return {
       success: false,
@@ -138,7 +130,6 @@ export async function publishFormAction(
       addFieldError,
     };
   }
-
 
   const formId: string = form._id!;
   await publishForm(db, formId);
