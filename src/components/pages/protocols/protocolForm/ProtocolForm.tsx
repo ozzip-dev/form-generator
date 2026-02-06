@@ -19,24 +19,28 @@ const dataInputsProtocolForm = [
     staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
+    labelClassName: "w-[22rem] md:text-right"
   },
   {
     staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
     type: "text",
+    labelClassName: "w-[22rem] md:text-right"
   },
   {
     staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: "text",
+    labelClassName: "w-[22rem] md:text-right"
   },
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
     type: "text",
+    labelClassName: "w-[22rem] md:text-right"
   },
 ];
 
@@ -128,7 +132,7 @@ const ProtocolForm = (props: Props) => {
           isSubmitting={isSubmitting}
         />
 
-        <div className="md:mt-[2.7rem]">
+        <div className="md:mt-[2.2rem] w-[22rem] flex md:justify-end">
           <CheckboxGroupField
             groupLabel="Przyczyna rozpoczęcia sporu:"
             control={control}
@@ -144,10 +148,11 @@ const ProtocolForm = (props: Props) => {
               type="button"
               message="Anuluj"
               onClickAction={props.handlePrintForm}
+              variant="primary-rounded"
             />
           )}
 
-          <Button message="Zapisz" isLoading={isSubmitting} />
+          <Button message="Zapisz" isLoading={isSubmitting} variant="primary-rounded" />
         </div>
       </form>
     </Card>

@@ -24,7 +24,7 @@ const DetailsPrinter = (props: Props) => {
   return (
     <div
       key={props.label}
-      className="flex flex-col md:flex-row md:items-center text-sm pb-[1.7rem] mt-[1.7rem]"
+      className="flex flex-col md:flex-row md:items-center text-sm pb-[1.7rem] md:mt-[1.7rem]"
     >
       <div className={`font-bold mb-1 md:mr-4 ${props.labelClassName}`}> {props.label}</div>
 

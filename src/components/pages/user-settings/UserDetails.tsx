@@ -45,6 +45,7 @@ const UserDetails = (props: Props) => {
           type="button"
           onClickAction={props.handlePrintForm}
           className="m-auto w-full sm:w-fit mt-10"
+          variant="primary-rounded"
         />
       </div>
     </>

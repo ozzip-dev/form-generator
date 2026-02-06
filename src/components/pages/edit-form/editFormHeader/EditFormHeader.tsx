@@ -183,7 +183,7 @@ export default function EditFormHeader(props: Props) {
             </div>
           </div>
 
-          <div className="text-sm">
+          <div className="text-sm w-fit">
             <CheckboxSwitch
               label="Wyświetl email autora/autorki"
               name="displayAuthorEmail"

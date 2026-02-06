@@ -41,55 +41,52 @@ const ProtocolDetails = (props: Props) => {
 
   const protocolDetails = [
     {
-      staticLabel: "Data rozpoczęcia sporu:",
+      label: "Data rozpoczęcia sporu:",
       value: safeDisplayDate(disputeStartDate),
+      labelClassName: "w-[22rem] md:text-right"
     },
-    { staticLabel: "Branża:", value: branch },
-    { staticLabel: "Nazwa związku:", value: tradeUnionName },
-    { staticLabel: "Nazwa przedsiębiorstwa:", value: workplaceName },
     {
-      staticLabel: "Przyczyna rozpoczęcia sporu:",
+      label: "Branża:",
+      value: branch,
+      labelClassName: "w-[22rem] md:text-right"
+    },
+    {
+      label: "Nazwa związku:",
+      value: tradeUnionName,
+      labelClassName: "w-[22rem] md:text-right"
+    },
+    {
+      label: "Nazwa przedsiębiorstwa:",
+      value: workplaceName,
+      labelClassName: "w-[22rem] md:text-right"
+    },
+    {
+      label: "Przyczyna rozpoczęcia sporu:",
       value: displayDisputeReasons,
+      labelClassName: "w-[22rem] md:text-right"
     },
   ];
 
-  const editionDetails = [
-    {
-      staticLabel: "Dodano:",
-      value: safeDisplayDate(uploadedAt),
-    },
-    {
-      staticLabel: "Edytowano:",
-      value: safeDisplayDate(lastModifiedAt),
-    },
-  ];
+
 
   return (
     <Card>
       <SectionHeader message="Dane sporu zbiorowego" />
-      {protocolDetails.map(({ staticLabel, value }) => {
+      {protocolDetails.map((item, idx) => {
         return (
-          <DetailsPrinter key={staticLabel} label={staticLabel} value={value} />
+          <DetailsPrinter key={idx} {...item} />
         );
       })}
-      <div className="md:flex gap-4">
-        {editionDetails.map(({ staticLabel, value }) => {
-          return (
-            <DetailsPrinter
-              key={staticLabel}
-              label={staticLabel}
-              value={value}
-            />
-          );
-        })}
-      </div>
-      <div className="w-fit m-auto">
-        <Button
-          message="Edytuj"
-          type="button"
-          onClickAction={props.handlePrintForm}
-        />{" "}
-      </div>
+
+
+      <Button
+        message="Edytuj"
+        type="button"
+        variant="primary-rounded"
+        onClickAction={props.handlePrintForm}
+        className="m-auto w-full sm:w-fit"
+      />{" "}
+
     </Card>
   );
 };
