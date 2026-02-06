@@ -11,11 +11,14 @@ const FormPreviewPage = async (props: Props) => {
   const { authorEmail, headerFileData } = await getFormAdditionalData(formId);
 
   return (
-    <CreatedForm
-      form={form}
-      isPreview={true}
-      {...{ authorEmail, headerFileData }}
-    />
+    <div className="h-full flex flex-col justify-between">
+      <CreatedForm
+        form={form}
+        isPreview={true}
+        {...{ authorEmail, headerFileData }}
+      />
+    </div>
+
   );
 };
 

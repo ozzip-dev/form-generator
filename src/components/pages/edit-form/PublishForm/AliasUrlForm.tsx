@@ -37,9 +37,6 @@ export default function AliasUrlForm(form: FormSerialized) {
     mode: "all",
   });
 
-
-
-
   const { handleEdit: handleEditLabel, isLoading: isLoadingLabel } =
     useEditForm({
       formId: form._id!,
@@ -52,11 +49,9 @@ export default function AliasUrlForm(form: FormSerialized) {
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
 
-
   useEffect(() => {
     reset({ url: form.url ? form.url : form._id! });
   }, [reset, form.url, form._id]);
-
 
   // const setAlias = async (data: SetAliasSchema) => {
   //   try {
@@ -77,9 +72,9 @@ export default function AliasUrlForm(form: FormSerialized) {
   return (
     <form
       // onSubmit={handleSubmit(setAlias)}
-      className="md:flex md:gap-16 md:items-center"
+      className="md:flex md:items-center md:justify-between md:gap-16"
     >
-      <div className="md:w-1/2">
+      <div className="w-full sm:w-[30rem]">
         <InputFields
           inputsData={dataInputUrl}
           register={register}
@@ -88,14 +83,12 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
       </div>
 
-      <div className="flex justify-center gap-4 ">
-        {/* <Button
+      {/* <Button
           message="Zapisz"
           isLoading={isSubmitting}
           variant="primary-rounded"
         /> */}
-        <RemoveAliasButton form={form} />
-      </div>
+      <RemoveAliasButton form={form} />
     </form>
   );
 }

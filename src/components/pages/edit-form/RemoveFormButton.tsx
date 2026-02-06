@@ -14,17 +14,15 @@ function RemoveFormButton(props: Props) {
   const { openModal } = useModal();
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
-  if (!form) return null
+  if (!form) return null;
 
   const { _id, title, url } = form;
 
   return (
     <Button
       type="button"
-      variant="ghost"
-      icon={
-        <Icon icon="trash-can-regular-full" size={25} className="" />
-      }
+      variant="primary"
+      message="Usuń formularz"
       onClickAction={() =>
         openModal({
           action: () => {
@@ -36,7 +34,8 @@ function RemoveFormButton(props: Props) {
               Usunąć formularz?
               <br />
               {title}
-            </>)
+            </>
+          ),
         })
       }
     />

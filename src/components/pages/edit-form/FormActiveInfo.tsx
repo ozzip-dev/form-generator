@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ButtonLink } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
@@ -9,44 +9,42 @@ import { use } from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import Card from "@/components/shared/Card";
 
-
-
 const FormActiveInfo = () => {
   const { formDataPromise } = useFormData();
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
   const form = use(formDataPromise);
 
-  if (!form) return null
+  if (!form) return null;
 
   const { _id, title, url } = form;
 
   const isAuthor = user && isUserAuthor(form, user._id);
 
-  return (<>
-    <Card className="my-16">
-      <div className="text-center text-font_light text-lg font-bold my-16">
-        Opublikowany formularz <br /> <span className="text-font_dark">{title}</span>
-        <br /> <span className="text-sm">Edycja niedostępna
-        </span>
-      </div>
+  return (
+    <>
+      <Card className="my-16">
+        <div className="my-16 text-center text-lg font-bold text-font_light">
+          Opublikowany formularz <br />{" "}
+          <span className="text-font_dark">{title}</span>
+          <br /> <span className="text-sm">Edycja niedostępna</span>
+        </div>
 
-      <ButtonLink
-        message="Przejdź do opublikowanego formularza"
-        link={`/${url ? url : _id!}`}
-        target="_blank"
-        variant="primary-rounded"
-        className="w-fit m-auto"
-      />
-    </Card>
+        <ButtonLink
+          message="Przejdź do opublikowanego formularza"
+          link={`/${url ? url : _id!}`}
+          target="_blank"
+          variant="primary-rounded"
+          className="m-auto w-fit"
+        />
+      </Card>
 
-
-    {
-      isAuthor && _id && <div className="w-fit m-auto md:m-0 ">
-        <RemoveFormButton formId={_id} />
-      </div>
-    }
-  </>
+      {isAuthor && _id && (
+        <div className="ml-auto w-fit">
+          <RemoveFormButton formId={_id} />
+        </div>
+      )}
+    </>
   );
 };
 

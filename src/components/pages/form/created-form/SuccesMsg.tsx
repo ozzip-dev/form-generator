@@ -13,21 +13,25 @@ const SuccesMsg = (props: Props) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-white z-[9999] flex flex-col h-full">
+    <div className="fixed inset-0 z-[9999] flex h-full flex-col bg-white">
       <div className="shrink-0">
-        <Header><div className="text-transparent">e</div></Header>
+        <Header>
+          <div className="text-transparent">e</div>
+        </Header>
       </div>
 
-      <div className="flex flex-col flex-1 items-center justify-center gap-4">
-
-        <Card>
-          <div className="text-center font-bold mb-10">Formularz został przesłany</div>
-          <div className="w-fit">
-            <Button message="Wróć do formularza" onClickAction={closeSucces} />
+      <div className="flex flex-1 flex-col items-center gap-4">
+        <Card className="mt-48 !px-12 !py-16 sm:!px-36">
+          <div className="mb-10 text-center text-lg font-bold">
+            Formularz został przesłany
           </div>
+          <Button
+            message="Wróć do formularza"
+            onClickAction={closeSucces}
+            className="m-auto"
+          />
         </Card>
       </div>
-
     </div>
   );
 };

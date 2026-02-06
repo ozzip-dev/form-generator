@@ -173,8 +173,11 @@ const CreatedForm = (props: Props) => {
           {description && (
             <FormDescription description={description} variant="published" />
           )}
-          <div className="text-error text-2xs">* Odpowiedź wymagana</div>
-          <div className="text-error text-2xs">! Odpowiedź jednorazowa </div>
+          <div className="flex gap-8">
+            <div className="text-error text-2xs">* Odpowiedź wymagana</div>
+            <div className="text-error text-2xs">! Odpowiedź jednorazowa </div>
+          </div>
+
 
 
         </Card>
@@ -187,7 +190,7 @@ const CreatedForm = (props: Props) => {
 
             {formFields}
 
-            <div className=" flex flex-col sm:justify-end gap-8 sm:gap-16 items-center sm:flex-row ">
+            <div className="mt-16 flex flex-col sm:justify-end gap-8 sm:gap-16 items-center sm:flex-row ">
               <Button
                 message="Wyczyść"
                 type="button"

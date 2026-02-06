@@ -31,7 +31,7 @@ const PublishFormButton = ({ form }: Props) => {
       window.open(result.msg, "_blank");
       router.refresh();
     } else {
-      console.log('button action', result)
+      console.log("button action", result);
       setHeaderPublishError(result);
       setAddFieldPublishError(result.addFieldError);
     }
@@ -61,7 +61,6 @@ const PublishFormButton = ({ form }: Props) => {
         })
       }
       isLoading={isPending}
-      className="mb-8"
     />
   );
 };

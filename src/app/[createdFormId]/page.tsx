@@ -28,7 +28,7 @@ const FormPage = async (props: Props) => {
             loadingMessage="Ładowanie formularza"
         >
             <section className="h-screen overflow-hidden">
-                <div className="h-full overflow-y-auto">
+                <div className="h-full overflow-y-auto flex flex-col justify-between">
                     <CreatedForm
                         form={serializeForm(form as Form)}
                         {...{ authorEmail, headerFileData }}

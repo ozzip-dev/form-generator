@@ -10,13 +10,13 @@ import { useUser } from "@/context/UserContextProvider";
 import { UserSerialized } from "@/types/user";
 import { use } from "react";
 import { isUserAuthor } from "@/helpers/formHelpers";
+import Card from "@/components/shared/Card";
 
 type Props = {
   form: FormSerialized;
 };
 
 const FormActions = ({ form }: Props) => {
-
   const { _id, url } = form;
   const formUrl: string = `/${url || _id}`;
 
@@ -37,35 +37,36 @@ const FormActions = ({ form }: Props) => {
   };
 
   return (
-    <div className="my-16">
+    <div className="">
       <>
-        <PublishFormButton form={form} />
-        <div className="mb-8 flex flex-col md:flex-row md:items-center gap-4">
-          <div className="flex flex-col gap-2 md:flex-row text-center">
-            <div>Aders:</div>
-            <div className="font-bold">{formUrl}</div>
-          </div>
-          <div className="flex justify-center gap-4 md:ml-auto">
-            <Button
-              onClickAction={copyUrl}
-              message="Kopiuj"
-              type="button"
-              variant="primary-rounded"
-              className="h-fit"
-            />
-            <ButtonLink
-              message="Przejdź do formularza"
-              link={formUrl}
-              target="_blank"
-              variant="primary-rounded"
-            />{" "}
-          </div>
-
-          {isAuthor && _id && <div className="w-fit m-auto md:m-0 ">
-            <RemoveFormButton formId={_id} />  </div>
-          }
+        <div className="mt-6 flex justify-between">
+          <PublishFormButton form={form} />
+          {isAuthor && _id && <RemoveFormButton formId={_id} />}
         </div>
-        <AliasUrlForm {...form} />
+        <Card className="my-6">
+          <div className="mb-20 flex flex-col gap-4 md:mb-8 md:flex-row md:items-center">
+            <div className="flex gap-2">
+              <div>Aders:</div>
+              <div className="font-bold">{formUrl}</div>
+            </div>
+            <div className="flex items-center gap-4 md:ml-auto">
+              <Button
+                onClickAction={copyUrl}
+                message="Kopiuj"
+                type="button"
+                variant="primary-rounded"
+                className="h-fit"
+              />
+              <ButtonLink
+                message="Przejdź do formularza"
+                link={formUrl}
+                target="_blank"
+                variant="primary-rounded"
+              />{" "}
+            </div>
+          </div>
+          <AliasUrlForm {...form} />
+        </Card>
       </>
     </div>
   );

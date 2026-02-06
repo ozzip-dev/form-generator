@@ -55,17 +55,15 @@ body {
 
 /* util classes */
 .shadow-border-box {
-  @apply space-y-2 rounded-md md:rounded-lg shadow-default border border-default bg-bg_light;
+  @apply space-y-2 rounded-md border border-default bg-bg_light shadow-default md:rounded-lg;
 }
 
 .btn-primary {
-  @apply text-lg bg-accent px-12 py-2 
-  border border-accent hover:!bg-white hover:text-accent
+  @apply border border-accent bg-accent px-12 py-5 hover:!bg-white hover:text-accent;
 }
 
 .btn-primary-rounded {
-  @apply rounded-full text-sm bg-accent py-2 px-4 md:px-8
-   border border-accent hover:bg-white hover:text-accent
+  @apply rounded-full border border-accent bg-accent px-4 py-2 text-sm hover:bg-white hover:text-accent md:px-8;
 }
 
 .table-highlighted tr:nth-child(even) {
@@ -78,11 +76,10 @@ body {
 }
 
 .textEditorTags {
-  @apply [&_h3]:text-lg [&_a]:text-accent_dark [&_a]:underline
+  @apply [&_a]:text-accent_dark [&_a]:underline [&_h3]:text-lg;
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {
-  @apply text-font_light text-sm;
+  @apply text-sm text-font_light;
   content: attr(data-placeholder);
 }
-
