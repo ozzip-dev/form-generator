@@ -1,10 +1,17 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { Button, Icon, InfoIcon, InputFields } from "@/components/shared";
+import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
+import { Icon, InfoIcon, InputFields } from "@/components/shared";
 import Card from "@/components/shared/Card";
+import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { SelectFieldControler } from "@/components/shared/inputs/selectField/SelectFieldController";
+import { useFormData } from "@/context/FormDataContextProvider";
 import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
+import {
+  useAddFieldPublishError,
+  useHeaderPublishError,
+} from "@/context/PublishFormErrorContextProvider";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
@@ -12,20 +19,12 @@ import {
   editFormHeaderSchema,
   EditFormHeaderSchema,
 } from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
-import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import FormHeaderImageUpload from "../FormHeaderImageUpload";
-import CheckboxSwitch from "@/components/shared/inputs/checkboxField/CheckboxSwitch";
 import { startTransition, use, useState } from "react";
-import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
-import { useFormData } from "@/context/FormDataContextProvider";
-import { useAddFieldPublishError, useHeaderPublishError } from "@/context/PublishFormErrorContextProvider";
-import { serializeForm } from "@/lib/serialize-utils";
-import TextEditor from "../textEditor/TextEditor";
-import EditFormDescriptionInput from "../editFormInput/EditFormDescriptionEditor";
-import EditHeaderDescription from "./EditHeaderDescription";
+import { FormProvider, useForm } from "react-hook-form";
 import AddTextEditorBtn from "../AddTextEditorBtn";
+import FormHeaderImageUpload from "../FormHeaderImageUpload";
+import EditHeaderDescription from "./EditHeaderDescription";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -51,15 +50,11 @@ type Props = {
 };
 
 export default function EditFormHeader(props: Props) {
-
-
   const { formDataPromise } = useFormData();
   const form = use(formDataPromise);
   const { error: headerPublishError } = useHeaderPublishError();
   const { error: addFieldPublishError } = useAddFieldPublishError();
   const [showDescription, setShowDescription] = useState(!!form?.description);
-
-
 
   const methods = useForm<EditFormHeaderSchema>({
     resolver: zodResolver(editFormHeaderSchema),
@@ -108,24 +103,24 @@ export default function EditFormHeader(props: Props) {
     });
   };
 
-  console.log('d', headerPublishError)
-
-
-  const hasAnyError = Object.values(headerPublishError?.headerError ?? {}).some(value => value !== "")
-
+  const hasAnyError = Object.values(headerPublishError?.headerError ?? {}).some(
+    (value) => value !== "",
+  );
 
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-6">
         {(!!addFieldPublishError || hasAnyError) && (
-          <Card className="text-error text-sm lg:flex">
-            <p className="text-center mb-2 mr-2">Błąd przy publikacji formularza: </p>
+          <Card className="text-sm text-error lg:flex">
+            <p className="mb-2 mr-2 text-center">
+              Błąd przy publikacji formularza:{" "}
+            </p>
             <div className="text-center">
               {[
                 headerPublishError.headerError?.type,
                 headerPublishError.headerError?.resultVisibility,
                 headerPublishError.headerError?.title,
-                addFieldPublishError
+                addFieldPublishError,
               ]
                 .filter(Boolean)
                 .join(", ")}
@@ -134,7 +129,7 @@ export default function EditFormHeader(props: Props) {
         )}
         <Card>
           <div className="sm:flex lg:gap-[15%]">
-            <div className="flex-1 mr-[3rem] lg:mr-0 relative">
+            <div className="relative mr-[3rem] flex-1 lg:mr-0">
               <SelectFieldControler
                 name="type"
                 defaultValue=""
@@ -143,12 +138,16 @@ export default function EditFormHeader(props: Props) {
                 onChangeAction={handleEdit}
               />
               {headerPublishError?.headerError?.type && (
-                <Icon icon="exclamation" size={23} color="var(--color-error)"
-                  className="text-error absolute right-8 top-[1.5rem] sm:top-1/2 -translate-y-1/2" />
+                <Icon
+                  icon="exclamation"
+                  size={23}
+                  color="var(--color-error)"
+                  className="absolute right-8 top-[1.5rem] -translate-y-1/2 text-error sm:top-1/2"
+                />
               )}
             </div>
 
-            <div className=" flex-1 flex items-center relative">
+            <div className="relative flex flex-1 items-center">
               <div className="w-full">
                 <SelectFieldControler
                   name="resultVisibility"
@@ -158,11 +157,14 @@ export default function EditFormHeader(props: Props) {
                   onChangeAction={handleEdit}
                 />
                 {headerPublishError?.headerError?.resultVisibility && (
-                  <Icon icon="exclamation" size={23} color="var(--color-error)"
-                    className="text-error absolute right-20 top-1/2 -translate-y-1/2" />
+                  <Icon
+                    icon="exclamation"
+                    size={23}
+                    color="var(--color-error)"
+                    className="absolute right-20 top-1/2 -translate-y-1/2 text-error"
+                  />
                 )}
               </div>
-
 
               <InfoIcon>
                 <>
@@ -179,11 +181,10 @@ export default function EditFormHeader(props: Props) {
                   </div>
                 </>
               </InfoIcon>
-
             </div>
           </div>
 
-          <div className="text-sm w-fit">
+          <div className="w-fit text-sm">
             <CheckboxSwitch
               label="Wyświetl email autora/autorki"
               name="displayAuthorEmail"
@@ -193,12 +194,14 @@ export default function EditFormHeader(props: Props) {
           </div>
         </Card>
 
-        <FormHeaderImageUpload formId={formId} headerFileData={props.headerFileData} />
-
+        <FormHeaderImageUpload
+          formId={formId}
+          headerFileData={props.headerFileData}
+        />
 
         <Card>
           <div className="flex items-center">
-            <div className="w-full relative">
+            <div className="relative w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}
@@ -206,32 +209,29 @@ export default function EditFormHeader(props: Props) {
                 onChange={handleEdit}
               />
               {headerPublishError?.headerError?.title && (
-                <Icon icon="exclamation" size={23} color="var(--color-error)"
-                  className="text-error absolute right-8 top-1/2 -translate-y-1/2" />
+                <Icon
+                  icon="exclamation"
+                  size={23}
+                  color="var(--color-error)"
+                  className="absolute right-8 top-1/2 -translate-y-1/2 text-error"
+                />
               )}
             </div>
 
-            <div className="w-fit h-fit ml-1">
-
+            <div className="ml-1 h-fit w-fit">
               {showDescription ? (
-                <div className="w-[2rem] h-1" />
+                <div className="h-1 w-[2rem]" />
               ) : (
-                <div className="w-fit h-fit ml-1">
+                <div className="ml-1 h-fit w-fit">
                   <AddTextEditorBtn action={() => setShowDescription(true)} />
                 </div>
               )}
-
-
             </div>
           </div>
 
-
           {showDescription && (
-            <EditHeaderDescription
-              onClose={() => setShowDescription(false)}
-            />
+            <EditHeaderDescription onClose={() => setShowDescription(false)} />
           )}
-
         </Card>
       </form>
     </FormProvider>

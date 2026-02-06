@@ -1,57 +1,3 @@
-// "use server";
-
-// import { db } from "@/lib/mongo";
-// import { publishForm } from "@/services/form-service";
-// import { isUserAuthor } from "@/helpers/formHelpers";
-// import { FormSerialized } from "@/types/form";
-// import { requireUser } from "@/services/user-service";
-
-// const HEADER_FIELDS: { value: (form: FormSerialized) => boolean; name: string }[] = [
-//   { value: (form) => !!form.title, name: "Tytuł formularza wymagany" },
-//   { value: (form) => !!form.type, name: "Kategoria formularza wymagana" },
-//   { value: (form) => !!form.resultVisibility, name: "Tryb wyników wymagany" },
-// ];
-
-// const ADD_FIELD_ERROR = "Brak pytań w formularzu";
-
-// export type PublishFormActionResult =
-//   | { success: true; msg: string }
-//   | {
-//       success: false;
-//       headerError: string | null;
-//       addFieldError: string | null;
-//     };
-
-// export async function publishFormAction(
-//   form: FormSerialized,
-// ): Promise<PublishFormActionResult> {
-//   const user = await requireUser();
-
-//   if (!isUserAuthor(form, user.id))
-//     throw new Error("Jedynie autor/-ka może opublikować swój formularz");
-
-//   const headerMissing = HEADER_FIELDS.filter((f) => !f.value(form)).map((f) => f.name);
-//   const headerError =
-//     headerMissing.length > 0 ? headerMissing.join(", ") : null;
-//   const addFieldError = form.inputs?.length ? null : ADD_FIELD_ERROR;
-
-//   if (headerError || addFieldError)
-//     return {
-//       success: false,
-//       headerError,
-//       addFieldError,
-//     };
-
-//   const formId: string = form._id!;
-
-//   await publishForm(db, formId);
-
-//   return {
-//     success: true,
-//     msg: `/${form.url ?? formId}`,
-//   };
-// }
-
 "use server";
 
 import { db } from "@/lib/mongo";
@@ -84,7 +30,7 @@ const HEADER_FIELDS: {
   {
     key: "resultVisibility",
     value: (form) => !!form.resultVisibility,
-    message: "wybierz tryb formularza",
+    message: "wybierz tryb wyśietlania wyników",
   },
 ];
 
@@ -102,7 +48,7 @@ export type PublishFormActionResult =
     };
 
 export async function publishFormAction(
-  form: FormSerialized
+  form: FormSerialized,
 ): Promise<PublishFormActionResult> {
   const user = await requireUser();
 

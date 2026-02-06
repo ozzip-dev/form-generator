@@ -19,7 +19,7 @@ type LoaderContextType = {
 };
 
 export const LoaderContext = createContext<LoaderContextType | undefined>(
-  undefined
+  undefined,
 );
 
 type Props = {
@@ -61,12 +61,12 @@ export const LoaderContextProvider = ({ children }: Props) => {
       {visible.fullscreen && <FullscreenLoader />}
       {showSmallLoaderInfo && (
         <div className="container relative">
-          <div className="text-xs text-accent absolute top-[6rem] md:top-[7rem]
-         left-1/2 -translate-x-1/2 md:left-[14rem]">
-            {visible.small ? "Zapisywanie danych..." : "Dane formularza zapisane"}
+          <div className="absolute left-4 top-[11.5rem] text-xs text-accent">
+            {visible.small
+              ? "Zapisywanie danych..."
+              : "Dane formularza zapisane"}
           </div>
         </div>
-
       )}
 
       {children}
@@ -84,7 +84,7 @@ export const useLoader = () => {
 
 export const useAutoLoader = (
   isPending: boolean,
-  variant: "fullscreen" | "small" = "fullscreen"
+  variant: "fullscreen" | "small" = "fullscreen",
 ) => {
   const { setLoading } = useLoader();
 
