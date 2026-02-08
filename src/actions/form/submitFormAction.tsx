@@ -23,11 +23,19 @@ export async function submitFormAction(
   if (!validationResult.success) {
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
-
+  
   const resultExists = await formResultExists(formId);
-  if (resultExists) await checkUniqueFieldsValid(formId, answers);
+  const uniqueErrorFields = await checkUniqueFieldsValid(formId, answers);
 
-  resultExists
+  if (!uniqueErrorFields.length) {
+    resultExists
     ? await addSubmission(formId, answers)
     : await createResult(formId, answers);
+
+    return
+  }
+
+  return {validationErrors: Object.fromEntries(uniqueErrorFields.map((id) => ([
+    id, ['Formularz z podaną wartością został już wysłany. Skontaktuj się z twórcą/twórczynią formularza.']
+  ])))}
 }
