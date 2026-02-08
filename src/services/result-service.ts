@@ -12,7 +12,7 @@ export async function formResultExists(formId: string): Promise<boolean> {
 
 export async function checkUniqueFieldsValid(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<void> /* return value? eg. date? */ {
   const form = await findById<Form>(db, "form", new ObjectId(formId));
   if (!form) throw new Error("Invalid form id");
@@ -24,7 +24,7 @@ export async function checkUniqueFieldsValid(
 
   for (const submission of submissions) {
     const uniqueSubmissionIds = Object.keys(submission.answers).filter((key) =>
-      uniqueInputIds.includes(key)
+      uniqueInputIds.includes(key),
     );
 
     for (const answerId of uniqueSubmissionIds) {
@@ -38,7 +38,7 @@ export async function checkUniqueFieldsValid(
 
 export async function addSubmission(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<Result | null> {
   const form = await getFormById(formId);
   const isSecret = isFormSecret(form);
@@ -61,7 +61,7 @@ export async function addSubmission(
       $push: {
         submissions: submissionRecord,
       },
-    }
+    },
   );
 
   return submission as Result | null;
@@ -69,7 +69,7 @@ export async function addSubmission(
 
 export async function createResult(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<ObjectId> {
   const result = await insert<Result>(db, "result", {
     formId,
