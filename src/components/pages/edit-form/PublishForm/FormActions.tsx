@@ -46,7 +46,7 @@ const FormActions = ({ form }: Props) => {
         <Card className="my-6">
           <div className="mb-20 flex flex-col gap-4 md:mb-8 md:flex-row md:items-center">
             <div className="flex gap-2">
-              <div>Aders:</div>
+              <div>Adres:</div>
               <div className="font-bold">{formUrl}</div>
             </div>
             <div className="flex items-center gap-4 md:ml-auto">
