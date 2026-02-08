@@ -25,6 +25,7 @@ type Props = {
   className?: string;
   errorMsg?: any;
   isSubmitting?: boolean;
+  mode?: "horizontal";
 };
 
 export default function CheckboxGroupField(props: Props) {
@@ -33,7 +34,7 @@ export default function CheckboxGroupField(props: Props) {
       name={props.name}
       control={props.control}
       defaultValue={Object.fromEntries(
-        props.options.map((option) => [option.name, ""])
+        props.options.map((option) => [option.name, ""]),
       )}
       render={({ field, fieldState }) => {
         const selectedValues = field.value;
@@ -48,7 +49,9 @@ export default function CheckboxGroupField(props: Props) {
         };
 
         return (
-          <div className=" flex flex-col gap-6 text-sm w-fit">
+          <div
+            className={`flex w-fit flex-col gap-6 text-sm ${props.mode === "horizontal" ? "md:flex-row" : ""}`}
+          >
             {props.groupLabel && (
               <div className="font-bold">
                 {props.groupLabel}
@@ -60,7 +63,10 @@ export default function CheckboxGroupField(props: Props) {
             )}
 
             {props.groupDescription && (
-              <InputDescription description={props.groupDescription} variant="published" />
+              <InputDescription
+                description={props.groupDescription}
+                variant="published"
+              />
             )}
             <div className="relative flex flex-col gap-6">
               {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
