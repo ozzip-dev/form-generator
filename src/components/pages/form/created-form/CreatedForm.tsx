@@ -3,12 +3,11 @@
 import { submitFormAction } from "@/actions/form/submitFormAction";
 import { Button } from "@/components/shared";
 import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { uniqueErrorMessage } from "@/lib/error";
 import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useEffect, useState } from "react";
+import { JSX, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   renderCheckbox,
@@ -74,10 +73,6 @@ const CreatedForm = (props: Props) => {
     setError,
   } = methods;
 
-  // useEffect(() => {
-  //   console.log("FORM VALUES", methods.getValues());
-  // }, [methods.watch()]);
-
   const onSubmit = async (data: any) => {
     const _id = props.form._id?.toString();
     if (!_id) return;
@@ -102,16 +97,9 @@ const CreatedForm = (props: Props) => {
       }
       setSuccess(true);
       reset();
-    } catch (e) {
-      const err = e as Error;
-
-
-      const title =
-        err.message == uniqueErrorMessage
-          ? "Formularz z podanymi danymi zostal juz wyslany. Skontaktuj sie z administratorem."
-          : "Blad. Sprobuj ponownie.";
+    } catch (_) {
       toast({
-        title,
+        title: 'Blad. Sprobuj ponownie',
         variant: "error",
       });
     }

@@ -82,7 +82,7 @@ export const createdFormSchema = (inputs: any[]) => {
                 if (!value || value === "") {
                   ctx.addIssue({
                     code: z.ZodIssueCode.custom,
-                    message: "Jedna opcja",
+                    message: "Min. jedna opcja wymagana",
                   });
                   return;
                 }
