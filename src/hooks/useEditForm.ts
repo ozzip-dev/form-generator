@@ -81,7 +81,16 @@ export function useEditForm({
 
       debounceMap.current.set(key, timeout);
     },
-    [formId, inputId, trigger, action, mode, setError, showBoundary],
+    [
+      formId,
+      inputId,
+      trigger,
+      action,
+      mode,
+      setError,
+      showBoundary,
+      clearHeaderFieldError,
+    ],
   );
 
   useEffect(() => {
