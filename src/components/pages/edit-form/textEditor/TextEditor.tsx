@@ -48,7 +48,7 @@ const TextEditor = (props: Props) => {
     editorProps: {
       attributes: {
         class:
-          "border rounded-sm focus:outline-none focus:border-accent min-h-[3rem] p-2",
+          "border rounded-sm focus:outline-none focus:border-accent min-h-[6rem] p-2",
       },
     },
 
