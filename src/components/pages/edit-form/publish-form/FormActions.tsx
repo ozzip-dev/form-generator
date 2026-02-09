@@ -1,6 +1,5 @@
 "use client";
 
-import Card from "@/components/shared/Card";
 import { useUser } from "@/context/UserContextProvider";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { FormSerialized } from "@/types/form";
@@ -9,6 +8,7 @@ import { use } from "react";
 import RemoveFormButton from "../RemoveFormButton";
 import AliasUrlForm from "./AliasUrlForm";
 import PublishFormButton from "./PublishFormButton";
+import { Card } from "@/components/shared";
 
 type Props = {
   form: FormSerialized;

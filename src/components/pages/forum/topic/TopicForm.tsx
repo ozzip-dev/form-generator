@@ -1,8 +1,7 @@
 "use client";
 
 import { editTopicAction } from "@/actions/forum/editTopicAction";
-import { Button, FullscreenLoader, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card, FullscreenLoader, InputFields } from "@/components/shared";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";

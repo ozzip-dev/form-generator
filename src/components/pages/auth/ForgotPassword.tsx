@@ -2,8 +2,7 @@
 
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/auth/FormAuthFooter";
-import { Button, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import {
   ForgotPasswordSchema,

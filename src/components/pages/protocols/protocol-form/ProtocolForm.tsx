@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, CheckboxGroupField, InputFields } from "@/components/shared";
+import { Button, Card, CheckboxGroupField, InputFields } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
   protocolFormSchema,
@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, UseFormSetError } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
-import Card from "@/components/shared/Card";
 import SectionHeader from "@/components/shared/SectionHeader";
 
 const dataInputsProtocolForm = [

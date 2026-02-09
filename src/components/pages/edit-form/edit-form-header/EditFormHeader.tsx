@@ -2,8 +2,7 @@
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
-import { Icon, InfoIcon, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Card, Icon, InfoIcon, InputFields } from "@/components/shared";
 import CheckboxSwitch from "@/components/shared/inputs/checkbox-field/CheckboxSwitch";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { useFormData } from "@/context/FormDataContextProvider";

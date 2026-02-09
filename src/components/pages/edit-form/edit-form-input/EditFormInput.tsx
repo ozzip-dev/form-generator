@@ -2,8 +2,7 @@
 
 import { editInputLabelAction } from "@/actions/edit-form/edit-form-input/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/edit-form-input/editInputTypeAction";
-import { Button, Icon, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";

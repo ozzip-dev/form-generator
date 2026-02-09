@@ -1,8 +1,7 @@
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import { TopicSerializedWithPostCount } from "@/types/forum";
 import Link from "next/link";
 import { mapTopicCategory } from "../utils";
-import Card from "@/components/shared/Card";
 
 const TopicListItem = (topic: TopicSerializedWithPostCount) => {
   const { _id, title, description, postCount, category } = topic;

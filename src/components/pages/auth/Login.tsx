@@ -1,8 +1,7 @@
 "use client";
 
 import { loginAction } from "@/actions/auth/loginAction";
-import { Button, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import {

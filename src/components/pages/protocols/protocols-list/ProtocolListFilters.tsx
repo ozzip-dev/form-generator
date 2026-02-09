@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, ProtocolFilters } from "../utils";

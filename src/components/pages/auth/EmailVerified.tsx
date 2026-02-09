@@ -1,5 +1,4 @@
-import { ButtonLink } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { ButtonLink, Card } from "@/components/shared";
 
 const EmailVerified = () => {
   return (

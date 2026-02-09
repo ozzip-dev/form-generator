@@ -1,5 +1,4 @@
-import { Button } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card } from "@/components/shared";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { TopicSerializedDetailed } from "@/types/forum";
 import { mapTopicCategory } from "../utils";

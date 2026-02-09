@@ -1,5 +1,4 @@
-import { Button } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card } from "@/components/shared";
 import Header from "@/components/shared/Header";
 import { Dispatch, SetStateAction } from "react";
 

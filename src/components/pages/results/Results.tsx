@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import { DiagramType, GroupedAnswer } from "@/types/result";
 import { AnswerResults } from "./answers";
 import { FormInput, FormInputSelectable } from "@/types/input";
 import ResultFieldSelect from "./ResultFieldSelect";
 import { FormType } from "@/enums/form";
-import Card from "@/components/shared/Card";
 
 type Props = {
   inputs: FormInput[];

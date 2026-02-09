@@ -1,8 +1,7 @@
 "use client";
 
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
-import { Button, InputFields } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Button, Card, InputFields } from "@/components/shared";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { useUser } from "@/context/UserContextProvider";
 import {

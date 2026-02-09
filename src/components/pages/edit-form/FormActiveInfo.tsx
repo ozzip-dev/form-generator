@@ -1,13 +1,12 @@
 "use client";
 
-import { ButtonLink } from "@/components/shared";
+import { ButtonLink, Card } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { useUser } from "@/context/UserContextProvider";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { UserSerialized } from "@/types/user";
 import { use } from "react";
 import RemoveFormButton from "./RemoveFormButton";
-import Card from "@/components/shared/Card";
 
 const FormActiveInfo = () => {
   const { formDataPromise } = useFormData();

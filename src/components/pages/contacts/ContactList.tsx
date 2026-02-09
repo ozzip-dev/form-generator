@@ -4,12 +4,11 @@ import { CommitteeInfoKey, UserCommitteeInfo } from "@/types/user";
 import ContactCommitteeItem from "./ContactCommitteeItem";
 import ContactFilters from "./ContactFilters";
 import { FormSerialized } from "@/types/form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 import { FormType } from "@/enums/form";
 import { formTypesWithLabels, getTypeLabel } from "@/helpers/formHelpers";
-import Card from "@/components/shared/Card";
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 
 const headers = ["Związek", "Struktura", "Telefon", "Email"];
 

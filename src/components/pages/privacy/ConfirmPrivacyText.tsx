@@ -1,5 +1,4 @@
-
-import Card from "@/components/shared/Card";
+import { Card } from "@/components/shared";
 
 const ConfirmPrivacyText = () => {
 

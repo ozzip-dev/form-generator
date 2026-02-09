@@ -1,9 +1,8 @@
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import { useProtocol } from "@/context/ProtocolContext";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
 import { mapDisputeReason } from "../utils";
-import Card from "@/components/shared/Card";
 import DetailsPrinter from "@/components/shared/DetailsPrinter";
 import SectionHeader from "@/components/shared/SectionHeader";
 

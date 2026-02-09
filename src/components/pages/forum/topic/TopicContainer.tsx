@@ -5,12 +5,11 @@ import TopicActions from "./TopicActions";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import TopicPosts from "../post/TopicPosts";
 import Link from "next/link";
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import { mapTopicCategory } from "../utils";
 import { useState } from "react";
 import TopicForm from "./TopicForm";
 import { SuspenseErrorBoundary } from "@/components/shared";
-import Card from "@/components/shared/Card";
 
 const TopicContainer = (topic: TopicSerializedDetailed) => {
   const [isFormPrinted, setFormPrinted] = useState(false);

@@ -7,7 +7,7 @@ import {
 } from "@/types/protocol";
 import { mapFileCategory } from "../utils";
 import ProtocolAttachedFileCategory from "./ProtocolAttachedFileCategory";
-import Card from "@/components/shared/Card";
+import { Card } from "@/components/shared";
 
 const ProtocolListItemDetails = ({
   files,

@@ -2,8 +2,7 @@
 
 import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { addProtocolFileAction } from "@/actions/protocol";
-import { UploadFileForm } from "@/components/shared";
-import Card from "@/components/shared/Card";
+import { Card, UploadFileForm } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { addTopicAction } from "@/actions/forum/addTopicAction";
-import { Button, FullscreenLoader, InputFields } from "@/components/shared";
+import { Button, Card, FullscreenLoader, InputFields } from "@/components/shared";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import {
@@ -9,7 +9,6 @@ import {
   CreateTopicSchema,
 } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
-import Card from "@/components/shared/Card";
 import { redirect } from "next/navigation";
 
 const topicInputData: { floatingLabel: string; name: string; type: string }[] =
