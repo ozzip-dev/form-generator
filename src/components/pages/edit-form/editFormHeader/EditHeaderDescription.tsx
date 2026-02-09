@@ -10,57 +10,54 @@ import TextEditorPrinter from "../textEditor/TextEditorPrinter";
 import RemoveTextEditorBtn from "../textEditor/RemoveTextEditorBtn";
 
 type Props = {
-    onClose: () => void;
+  onClose: () => void;
 };
 
 const EditHeaderDescription = ({ onClose }: Props) => {
-    const { formDataPromise } = useFormData();
-    const form = use(formDataPromise);
-    const formId = form?._id;
+  const { formDataPromise } = useFormData();
+  const form = use(formDataPromise);
+  const formId = form?._id;
 
-    const [isEditorOpen, setEditorOpen] = useState(!form?.description);
-    const [isPending, startTransition] = useTransition();
+  const [isEditorOpen, setEditorOpen] = useState(!form?.description);
+  const [isPending, startTransition] = useTransition();
 
-    useAutoLoader(isPending);
+  useAutoLoader(isPending);
 
-    const handleRemove = () => {
-        if (!form?.description) {
-            onClose();
-            return;
-        }
+  const handleRemove = () => {
+    if (!form?.description) {
+      onClose();
+      return;
+    }
 
-        startTransition(async () => {
-            if (formId) {
-                await editFormHeaderAction(formId, { description: "" });
-            }
-            onClose();
-        });
-    };
+    startTransition(async () => {
+      if (formId) {
+        await editFormHeaderAction(formId, { description: "" });
+      }
+      onClose();
+    });
+  };
 
-    return (
-        <div className="flex gap-2 mt-4">
-            <div className="flex-1">
-                {isEditorOpen ? (
-                    <TextEditor
-                        formId={formId!}
-                        description={form?.description ?? ""}
-                        editAction={editFormHeaderAction}
-                        printDescriptionInput={() => setEditorOpen(false)}
-                    />
-                ) : (
-                    <TextEditorPrinter
-                        description={form?.description ?? ""}
-                        printDescriptionInput={() => setEditorOpen(true)}
-                    />
-                )}
-            </div>
-            <RemoveTextEditorBtn handleRemoveDescription={handleRemove} />
-        </div>
-    );
+  return (
+    <div className="mt-4 flex gap-2">
+      <div className="flex-1">
+        {isEditorOpen ? (
+          <TextEditor
+            formId={formId!}
+            description={form?.description ?? ""}
+            editAction={editFormHeaderAction}
+            printDescriptionInput={() => setEditorOpen(false)}
+            placeholder="Edytuj opis pod tytułem formularza"
+          />
+        ) : (
+          <TextEditorPrinter
+            description={form?.description ?? ""}
+            printDescriptionInput={() => setEditorOpen(true)}
+          />
+        )}
+      </div>
+      <RemoveTextEditorBtn handleRemoveDescription={handleRemove} />
+    </div>
+  );
 };
 
 export default EditHeaderDescription;
-
-
-
-

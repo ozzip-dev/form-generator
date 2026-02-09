@@ -1,17 +1,15 @@
 "use client";
 
 import { setAliasUrlAction } from "@/actions/edit-form/publishForm/setAliasUrlAction";
-import { Button, InputFields } from "@/components/shared";
-import { useToast } from "@/context/ToastProvider";
-import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { InputFields } from "@/components/shared";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useEditForm } from "@/hooks/useEditForm";
 import { setAliasSchema, SetAliasSchema } from "@/lib/zodSchema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import RemoveAliasButton from "./RemoveAliasButton";
-import { useEditForm } from "@/hooks/useEditForm";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
-import { useEffect } from "react";
 
 const dataInputUrl = [
   {
@@ -23,17 +21,15 @@ const dataInputUrl = [
 ];
 
 export default function AliasUrlForm(form: FormSerialized) {
-  const { toast } = useToast();
   const {
-    handleSubmit,
     register,
-    formState: { isSubmitting, errors },
+    formState: { errors },
     setError,
     trigger,
     reset,
   } = useForm<SetAliasSchema>({
     resolver: zodResolver(setAliasSchema),
-    defaultValues: { url: form.url ? form.url : form._id! },
+    defaultValues: { url: form.url ? form.url : "" },
     mode: "all",
   });
 
@@ -50,30 +46,11 @@ export default function AliasUrlForm(form: FormSerialized) {
   useAutoLoader(isAnyLoading, "small");
 
   useEffect(() => {
-    reset({ url: form.url ? form.url : form._id! });
+    reset({ url: form.url ? form.url : "" });
   }, [reset, form.url, form._id]);
 
-  // const setAlias = async (data: SetAliasSchema) => {
-  //   try {
-  //     const resp = await setAliasUrlAction(form._id!, data);
-
-  //     if ("validationErrors" in resp) {
-  //       setClientErrors(resp.validationErrors, setError);
-  //       return;
-  //     }
-  //   } catch (e: any) {
-  //     toast({
-  //       title: e.message,
-  //       variant: "error",
-  //     });
-  //   }
-  // };
-
   return (
-    <form
-      // onSubmit={handleSubmit(setAlias)}
-      className="md:flex md:items-center md:justify-between md:gap-16"
-    >
+    <form className="max-w-[46rem] sm:flex sm:items-center sm:justify-between">
       <div className="w-full sm:w-[30rem]">
         <InputFields
           inputsData={dataInputUrl}
@@ -83,12 +60,7 @@ export default function AliasUrlForm(form: FormSerialized) {
         />
       </div>
 
-      {/* <Button
-          message="Zapisz"
-          isLoading={isSubmitting}
-          variant="primary-rounded"
-        /> */}
-      <RemoveAliasButton form={form} />
+      {form.url && <RemoveAliasButton form={form} />}
     </form>
   );
 }

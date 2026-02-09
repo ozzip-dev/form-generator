@@ -26,7 +26,8 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
 
   return {
     /* id: create from input's id + some number if ids are duplicated? or simply uuid? */
-    id: makeId(idPrefix),
+    // id: makeId(idPrefix),
+    id: new Date().toString(),
     type,
     header,
     description,
@@ -45,8 +46,12 @@ const hasReachedInputLimit = (form: Form): boolean =>
 
 export async function addFormFieldAction(
   formId: string,
-  input: Input
-): Promise<void | { validationErrors: ValidationErrors } | { inputId: string | undefined }> {
+  input: Input,
+): Promise<
+  | void
+  | { validationErrors: ValidationErrors }
+  | { inputId: string | undefined }
+> {
   const user = await requireUser();
   const draft = await getFormById(formId);
 
@@ -78,6 +83,6 @@ export async function addFormFieldAction(
   await addFieldToForm(formId, inputData);
 
   revalidateTag(`form-${formId}`);
-  
+
   return { inputId: inputData.id };
 }

@@ -18,7 +18,7 @@ type Props = {
   description?: string;
   printDescriptionInput?: () => void;
   editAction?: any;
-
+  placeholder: string;
 };
 
 const TextEditor = (props: Props) => {
@@ -33,7 +33,7 @@ const TextEditor = (props: Props) => {
         autolink: false,
       }),
       Placeholder.configure({
-        placeholder: "Edytuj opis pod pytaniem",
+        placeholder: props.placeholder,
       }),
 
       Highlight.configure({
@@ -48,7 +48,7 @@ const TextEditor = (props: Props) => {
     editorProps: {
       attributes: {
         class:
-          "border rounded-sm focus:outline-none focus:border-accent min-h-[3rem] p-2",
+          "border rounded-sm focus:outline-none focus:border-accent min-h-[6rem] p-2",
       },
     },
 
@@ -60,10 +60,6 @@ const TextEditor = (props: Props) => {
     },
   });
 
-
-
-
-
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
   const handleEditDescription = () => {
@@ -72,30 +68,21 @@ const TextEditor = (props: Props) => {
     const text = editor.getText().trim();
 
     if (text.length === 0) {
-      return
+      return;
     }
 
     startTransition(async () => {
-
-
       if (props.inputId) {
-        await props?.editAction(
-          props.formId,
-          props.inputId,
-          { description: editorContent }
-        );
+        await props?.editAction(props.formId, props.inputId, {
+          description: editorContent,
+        });
       } else {
-
-        if (!props?.editAction) return
-        await props?.editAction(
-          props.formId,
-          { description: editorContent }
-        );
+        if (!props?.editAction) return;
+        await props?.editAction(props.formId, { description: editorContent });
       }
 
       props.printDescriptionInput && props.printDescriptionInput();
-    },
-    );
+    });
   };
 
   useAutoLoader(isPending);
@@ -103,26 +90,23 @@ const TextEditor = (props: Props) => {
   return (
     <>
       <MenuBar editor={editor} handleEditDescription={handleEditDescription} />
-      <div
-        className="textEditorTags"
-      >
+      <div className="textEditorTags">
         <EditorContent
           editor={editor}
-          className="texEditorPlaceholder text-sm bg-white"
+          className="texEditorPlaceholder bg-white text-sm"
         />
       </div>
       <div className="flex justify-end text-xs">
         <span
           className={
             characters >= MAX_CHARS
-              ? "text-red-500 font-semibold"
+              ? "font-semibold text-red-500"
               : "text-gray-500"
           }
         >
           {characters}/{MAX_CHARS}
         </span>
       </div>
-
     </>
   );
 };

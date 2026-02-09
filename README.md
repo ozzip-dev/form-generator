@@ -40,6 +40,14 @@ A  full-stack application to support trade union organizations with digital tool
 - Build and maintain a network of other trade union commissions.  
 - Share and discover initiatives across organizations.
 
+
+ <img 
+  src="https://github.com/user-attachments/assets/b50796fd-86d6-4c63-b0b5-c033f241d3c8"
+    alt="" 
+    width="400" 
+    height="200"
+  />
+
 #### Archive
 - Store and access protocols and documentation from collective disputes.
 
@@ -79,8 +87,8 @@ The application was developed with grant support received in the grant competiti
 
 
 
-
-## Vesion for tests: <br> https://form-generator.sliplane.app/ <br/> 
+## Vesion for developers tests: <br> https://form-generator-test.sliplane.app/ <br/> 
+## Vesion for users tests: <br> https://form-generator.sliplane.app/ <br/> 
 ## Features
 
 * Comunication with database
@@ -113,7 +121,8 @@ The application was developed with grant support received in the grant competiti
 * react-dropzone
 * react-error-boundary
 * nodemailer
-* nuqs
+* html2canvas
+* tiptap
 
 
 ## Hooks
@@ -123,7 +132,8 @@ The application was developed with grant support received in the grant competiti
 * Before getting started, make sure you have the Node.js and npm or yarn
 * Clone this repository to your local machine
 * Navigate to the project directory: **cd .\form-generator**
-* Install the project dependencies by running **npm install** or **yarn install** 
+* Install the project dependencies by running **npm install** or **yarn install**
+* Check the environment variables in .env.example.
 * Start the development server: **cd .\form-generator npm run dev** 
 * Open your browser and visit your localhost:3000 to see the running application.
 

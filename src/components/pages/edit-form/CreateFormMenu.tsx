@@ -9,13 +9,13 @@ const CreateFormMenu = ({ formId }: Props) => {
   const dataNavLinks: NavMenuLink[] = [
     { text: "Lista", link: `/forms` },
     { text: "Edycja", link: `/forms/${formId}/edit` },
-    { text: "Podgląd", link: `/forms/${formId}/preview` },
-    { text: "Wyniki", link: `/forms/${formId}/results/table` },
-    { text: "Kontakty", link: `/forms/${formId}/contacts` },
+    { text: "Podgląd", link: `/forms/${formId}/preview`, sameTab: false },
+    { text: "Wyniki", link: `/forms/${formId}/results/table`, sameTab: false },
+    { text: "Kontakty", link: `/forms/${formId}/contacts`, sameTab: false },
   ];
 
   return (
-    <div className="py-8 ">
+    <div className="py-8">
       <NavMenu links={dataNavLinks} icon="edit-form" depth={3} level="sub" />
     </div>
   );

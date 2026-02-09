@@ -69,8 +69,7 @@ export function useEditForm({
           }
 
           const errorName = args[0] && Object.keys(args[0])[0];
-          console.log("args", args);
-          console.log("errorName", errorName);
+
           mode === "formHeader" && clearHeaderFieldError(errorName);
         } catch (err) {
           showBoundary(err);
@@ -82,7 +81,16 @@ export function useEditForm({
 
       debounceMap.current.set(key, timeout);
     },
-    [formId, inputId, trigger, action, mode, setError, showBoundary]
+    [
+      formId,
+      inputId,
+      trigger,
+      action,
+      mode,
+      setError,
+      showBoundary,
+      clearHeaderFieldError,
+    ],
   );
 
   useEffect(() => {

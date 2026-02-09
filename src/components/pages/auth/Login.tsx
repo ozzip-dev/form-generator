@@ -34,7 +34,7 @@ const dataInputsLogin = [
     floatingLabel: "Email",
     name: "email",
     type: "email",
-    defaultValue: "user@user.com",
+    defaultValue: "moderator@moderator.com",
   },
   {
     floatingLabel: "Hasło",
@@ -43,7 +43,6 @@ const dataInputsLogin = [
     defaultValue: "123123123",
   },
 ];
-
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
@@ -54,8 +53,6 @@ const Login = () => {
   const isAction = useRef(false);
 
   const loginUser = async (_: State, formData: FormData): Promise<State> => {
-
-
     const data = Object.fromEntries(formData.entries()) as LoginSchema;
 
     const validationResult = loginSchema.safeParse(data);
@@ -93,19 +90,15 @@ const Login = () => {
   );
 
   return (
-    <div className="flex flex-col items-center p-4 pt-24 h-full">
-      <h1 className="text-xl text-center mb-4">Zaloguj się</h1>
-      <Card className="min-w-[29rem] max-w-[52rem] w-full !py-24">
-        <form
-          action={formAction} >
-          <InputFields
-            inputsData={dataInputsLogin}
-            errorMsg={state.errors}
-          />
+    <div className="flex h-full flex-col items-center p-4 pt-24">
+      <h1 className="mb-4 text-center text-xl">Zaloguj się</h1>
+      <Card className="w-full min-w-[29rem] max-w-[52rem] !py-24">
+        <form action={formAction}>
+          <InputFields inputsData={dataInputsLogin} errorMsg={state.errors} />
           <div className="my-4">
             <Link
               href="/forgot-password"
-              className="text-accent_dark text-sm hover:underline hover:decoration-accent_dark"
+              className="text-sm text-accent_dark hover:underline hover:decoration-accent_dark"
             >
               Nie pamiętasz hasła?
             </Link>
@@ -115,12 +108,10 @@ const Login = () => {
             isLoading={isAction.current && isPending}
             message="Zaloguj"
             type="submit"
-            className="!text-base !px-20 !py-4 m-auto"
+            className="m-auto !px-20 !py-4 !text-base"
           />
-
         </form>
       </Card>
-
     </div>
   );
 };

@@ -28,11 +28,8 @@ import ToggleInputs from "./toggle-inputs/ToggleInputs";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 
-
 const EditFormInput = () => {
-  const { formId, input, inputIdx } = useInputData()
-
-  const searchParams = useSearchParams();
+  const { formId, input, inputIdx, inputNumber } = useInputData();
 
   const {
     id: inputId,
@@ -53,11 +50,9 @@ const EditFormInput = () => {
   const [isDescription, setDescription] = useState(!!description);
   const [showDescription, setShowDescription] = useState(shouldShowDescription);
 
-
   useEffect(() => {
     setShowDescription(shouldShowDescription);
   }, [shouldShowDescription]);
-
 
   const defaultValues = useMemo(
     () => ({
@@ -70,7 +65,6 @@ const EditFormInput = () => {
     }),
     [header, description, options, required, unique, type],
   );
-
 
   const methods = useForm<EditInputFormSchema>({
     resolver: zodResolver(editInputFormSchema),
@@ -104,26 +98,22 @@ const EditFormInput = () => {
     });
   };
 
-
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
 
-
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
-
 
   const dataInputLabel = [
     {
       type: "text",
       name: `header`,
       placeholder: "Pytanie",
-      floatingLabel: `Edytuj pytanie ${inputIdx + 1}`,
+      floatingLabel: `Edytuj pytanie ${inputNumber}`,
     },
   ];
-
 
   return (
     <Card className="">
@@ -134,8 +124,7 @@ const EditFormInput = () => {
           <form>
             <FormInputMoveRemoveButtons />
 
-            <div className="md:flex items-center md:gap-10">
-
+            <div className="items-center md:flex md:gap-10">
               <div className="flex flex-1 items-center">
                 {!isInputTypeParagraph(input) && (
                   <div className="w-full">
@@ -147,15 +136,16 @@ const EditFormInput = () => {
                     />
                   </div>
                 )}
-                {!isInputTypeParagraph(input) && (
-                  isDescription ? (
-                    <div className="w-[2rem] h-1" />
+                {!isInputTypeParagraph(input) &&
+                  (isDescription ? (
+                    <div className="h-1 w-[2rem]" />
                   ) : (
-                    <div className="w-fit h-fit ml-1">
-                      <AddTextEditorBtn action={() => setShowDescription(true)} />
+                    <div className="ml-1 h-fit w-fit">
+                      <AddTextEditorBtn
+                        action={() => setShowDescription(true)}
+                      />
                     </div>
-                  )
-                )}
+                  ))}
               </div>
 
               <div className="w-[23rem]">
@@ -178,7 +168,8 @@ const EditFormInput = () => {
                     isDescription={showDescription}
                     variant="input"
                     onClose={() => setShowDescription(false)}
-                  />)}
+                  />
+                )}
                 {isInputWithOptions(input) && (
                   <AddOption
                     inputIdx={inputIdx}
@@ -187,9 +178,7 @@ const EditFormInput = () => {
                   />
                 )}
               </div>
-              {!isInputTypeParagraph(input) && (
-                <ToggleInputs />
-              )}
+              {!isInputTypeParagraph(input) && <ToggleInputs />}
             </div>
           </form>
         </FormProvider>
@@ -199,5 +188,3 @@ const EditFormInput = () => {
 };
 
 export default EditFormInput;
-
-

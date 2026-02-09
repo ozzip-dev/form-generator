@@ -19,28 +19,28 @@ const dataInputsProtocolForm = [
     staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
-    labelClassName: "w-[22rem] md:text-right"
+    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
     type: "text",
-    labelClassName: "w-[22rem] md:text-right"
+    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: "text",
-    labelClassName: "w-[22rem] md:text-right"
+    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
     type: "text",
-    labelClassName: "w-[22rem] md:text-right"
+    labelClassName: "w-[22rem] md:text-right",
   },
 ];
 
@@ -72,7 +72,7 @@ type Props = {
   mode: "addProtocol" | "editProtocol";
   onSubmit: (
     data: ProtocolFormSchema,
-    setError: UseFormSetError<ProtocolFormSchema>
+    setError: UseFormSetError<ProtocolFormSchema>,
   ) => Promise<void>;
   protocol?: Partial<ProtocolSerialized>;
   handlePrintForm?: () => void;
@@ -88,7 +88,7 @@ const ProtocolForm = (props: Props) => {
   const methods = useForm<ProtocolFormSchema>({
     resolver: zodResolver(protocolFormSchema),
     defaultValues: getProtocolDefaultValues(
-      props.mode === "editProtocol" ? props.protocol : undefined
+      props.mode === "editProtocol" ? props.protocol : undefined,
     ),
   });
 
@@ -109,7 +109,6 @@ const ProtocolForm = (props: Props) => {
         variant: "success",
       });
     } catch (e) {
-
       toast({
         title: "Błąd edycji protokołu",
         description: "Coś poszło nie tak",
@@ -132,17 +131,18 @@ const ProtocolForm = (props: Props) => {
           isSubmitting={isSubmitting}
         />
 
-        <div className="md:mt-[2.2rem] w-[22rem] flex md:justify-end">
+        <div className="md:ml-[0.8rem] md:mt-[2.2rem]">
           <CheckboxGroupField
             groupLabel="Przyczyna rozpoczęcia sporu:"
             control={control}
             name="disputeReason"
             options={dataCheckboxOptions}
             isSubmitting={isSubmitting}
+            mode="horizontal"
           />
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center mt-10 gap-10 sm:gap-16">
+        <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           {props.handlePrintForm && (
             <Button
               type="button"
@@ -152,7 +152,11 @@ const ProtocolForm = (props: Props) => {
             />
           )}
 
-          <Button message="Zapisz" isLoading={isSubmitting} variant="primary-rounded" />
+          <Button
+            message="Zapisz"
+            isLoading={isSubmitting}
+            variant="primary-rounded"
+          />
         </div>
       </form>
     </Card>
