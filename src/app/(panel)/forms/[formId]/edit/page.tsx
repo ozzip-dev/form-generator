@@ -28,8 +28,9 @@ const EditFormPage = async (props: Props) => {
 
   const isFormActive = isActive(form);
 
-  console.log("", inputs);
+  const types = inputs.map(({ type }) => type);
 
+  let textNumber = 0;
   return (
     <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
@@ -56,6 +57,8 @@ const EditFormPage = async (props: Props) => {
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((input, idx) => {
+                const number = input.type !== "paragraph" ? ++textNumber : null;
+
                 return (
                   <SuspenseErrorBoundary
                     key={input.id}
@@ -67,6 +70,7 @@ const EditFormPage = async (props: Props) => {
                       inputIdx={idx}
                       isLastInput={inputs.length === idx + 1}
                       formId={form._id!}
+                      inputNumber={number}
                     >
                       <EditFormInput />
                     </InputDataContextProvider>

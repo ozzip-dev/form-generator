@@ -9,16 +9,18 @@ import TextEditor from "../textEditor/TextEditor";
 import TextEditorPrinter from "../textEditor/TextEditorPrinter";
 
 type Props = {
-  isDescription: boolean
-  setDescription: Dispatch<SetStateAction<boolean>>
+  isDescription: boolean;
+  setDescription: Dispatch<SetStateAction<boolean>>;
   onClose: () => void;
-  variant: "header" | "input"
+  variant: "header" | "input";
 };
 
 const EditFormDescriptionEditor = (props: Props) => {
-  const { formId, input } = useInputData()
+  const { formId, input } = useInputData();
   const [isPending, startTransition] = useTransition();
   const [isEditorOpen, setEditorOpen] = useState(!input.description);
+
+  console.log("", input.type);
 
   const {
     register,
@@ -27,41 +29,36 @@ const EditFormDescriptionEditor = (props: Props) => {
     setError,
   } = useFormContext();
 
-
   useAutoLoader(isPending);
 
-
   const handleRemoveDescriptionInput = () => {
-
     if (!input.description) {
       props.setDescription(false);
       props.onClose();
-      return
-    };
+      return;
+    }
     startTransition(async () => {
-      if (!formId) return
+      if (!formId) return;
       await editInputLabelAction(formId, input.id!, {
         description: "",
       });
       props.setDescription(false);
       props.onClose();
-    }
-
-
-    )
-  }
+    });
+  };
   useAutoLoader(isPending);
-  const isParagraph = isInputTypeParagraph(input)
+  const isParagraph = isInputTypeParagraph(input);
 
-
+  const editorPlaceholder =
+    input.type === "paragraph"
+      ? "Edytuj tekst informacyjny"
+      : "Edytuj opis pod pytaniem";
 
   return (
     <>
       {(props.isDescription || isParagraph) && (
-
         <div className="flex">
-          <div className="w-full mb-8">
-
+          <div className="mb-8 w-full">
             {isEditorOpen ? (
               <TextEditor
                 formId={formId}
@@ -69,25 +66,23 @@ const EditFormDescriptionEditor = (props: Props) => {
                 description={input.description || ""}
                 printDescriptionInput={() => setEditorOpen(false)}
                 editAction={editInputLabelAction}
+                placeholder={editorPlaceholder}
               />
             ) : (
               <TextEditorPrinter
                 description={input.description || ""}
                 printDescriptionInput={() => setEditorOpen(true)}
-
               />
             )}
           </div>
 
-
-          {!isParagraph &&
-            <RemoveTextEditorBtn handleRemoveDescription={handleRemoveDescriptionInput} />
-          }
-
+          {!isParagraph && (
+            <RemoveTextEditorBtn
+              handleRemoveDescription={handleRemoveDescriptionInput}
+            />
+          )}
         </div>
       )}
-
-
     </>
   );
 };

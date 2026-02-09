@@ -29,7 +29,7 @@ import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 
 const EditFormInput = () => {
-  const { formId, input, inputIdx } = useInputData();
+  const { formId, input, inputIdx, inputNumber } = useInputData();
 
   const {
     id: inputId,
@@ -111,7 +111,7 @@ const EditFormInput = () => {
       type: "text",
       name: `header`,
       placeholder: "Pytanie",
-      floatingLabel: `Edytuj pytanie ${inputIdx + 1}`,
+      floatingLabel: `Edytuj pytanie ${inputNumber}`,
     },
   ];
 
