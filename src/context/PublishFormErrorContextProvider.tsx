@@ -32,14 +32,11 @@ export function PublishFormErrorContextProvider(props: Props) {
   const [headerError, setHeaderErrorState] = useState<any>(null);
   const [addFieldError, setAddFieldErrorState] = useState<string | null>(null);
 
-  console.log('context', headerError)
-
   const setHeaderPublishError = useCallback((error: any | null) => {
     setHeaderErrorState(error);
   }, []);
 
   const clearHeaderFieldError = useCallback((errorName: string) => {
-
     setHeaderErrorState((prev: any) => {
       if (!prev?.headerError) return prev;
 
@@ -53,27 +50,25 @@ export function PublishFormErrorContextProvider(props: Props) {
     });
   }, []);
 
-
   const setAddFieldPublishError = useCallback((error: string | null) => {
     setAddFieldErrorState(error);
-
   }, []);
 
   const headerValue = useMemo<ErrorSlice>(
     () => ({ error: headerError, setError: setHeaderPublishError }),
-    [headerError, setHeaderPublishError]
+    [headerError, setHeaderPublishError],
   );
   const addFieldValue = useMemo<ErrorSlice>(
     () => ({ error: addFieldError, setError: setAddFieldPublishError }),
-    [addFieldError, setAddFieldPublishError]
+    [addFieldError, setAddFieldPublishError],
   );
   const settersValue = useMemo<SettersSlice>(
     () => ({
       setHeaderPublishError,
       setAddFieldPublishError,
-      clearHeaderFieldError
+      clearHeaderFieldError,
     }),
-    [setHeaderPublishError, setAddFieldPublishError, clearHeaderFieldError]
+    [setHeaderPublishError, setAddFieldPublishError, clearHeaderFieldError],
   );
 
   return (
@@ -92,7 +87,7 @@ export function usePublishFormErrorSetters() {
   const context = useContext(PublishFormErrorSettersContext);
   if (!context) {
     throw new Error(
-      "usePublishFormErrorSetters must be used within PublishFormErrorContextProvider"
+      "usePublishFormErrorSetters must be used within PublishFormErrorContextProvider",
     );
   }
   return context;
@@ -103,7 +98,7 @@ export function useHeaderPublishError() {
   const context = useContext(HeaderPublishErrorContext);
   if (!context) {
     throw new Error(
-      "useHeaderPublishError must be used within PublishFormErrorContextProvider"
+      "useHeaderPublishError must be used within PublishFormErrorContextProvider",
     );
   }
   return context;
@@ -114,7 +109,7 @@ export function useAddFieldPublishError() {
   const context = useContext(AddFieldPublishErrorContext);
   if (!context) {
     throw new Error(
-      "useAddFieldPublishError must be used within PublishFormErrorContextProvider"
+      "useAddFieldPublishError must be used within PublishFormErrorContextProvider",
     );
   }
   return context;
