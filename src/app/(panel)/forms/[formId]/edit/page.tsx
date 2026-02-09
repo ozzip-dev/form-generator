@@ -15,7 +15,6 @@ import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
-
   const { formId } = await props.params;
   const form = await getForm(formId);
   const { inputs, createdAt, updatedAt, headerFileId } = form;
@@ -23,21 +22,19 @@ const EditFormPage = async (props: Props) => {
     ? await getFileById(headerFileId)
     : null;
 
-
   const hasReachedInputLimit =
     form.inputs?.length >=
     Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
 
   const isFormActive = isActive(form);
 
+  console.log("", inputs);
 
   return (
     <div className="container">
       <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
-      {isFormActive && (
-        <FormActiveInfo />
-      )}
-      {!isFormActive &&
+      {isFormActive && <FormActiveInfo />}
+      {!isFormActive && (
         <>
           <SuspenseErrorBoundary
             size="sm"
@@ -69,16 +66,16 @@ const EditFormPage = async (props: Props) => {
                       input={input}
                       inputIdx={idx}
                       isLastInput={inputs.length === idx + 1}
-                      formId={form._id!}>
+                      formId={form._id!}
+                    >
                       <EditFormInput />
                     </InputDataContextProvider>
-
                   </SuspenseErrorBoundary>
                 );
               })}
 
             {hasReachedInputLimit ? (
-              <div className="pb-6 m-auto text-lg">
+              <div className="m-auto pb-6 text-lg">
                 Osiągnięto maksymalną liczbę pól w formularzu
               </div>
             ) : (
@@ -91,10 +88,7 @@ const EditFormPage = async (props: Props) => {
             )}
           </div>
         </>
-
-      }
-
-
+      )}
     </div>
   );
 };
