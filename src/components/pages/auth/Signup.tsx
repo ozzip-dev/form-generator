@@ -6,7 +6,7 @@ import { useToast } from "@/context/ToastProvider";
 import {
   signupSchema,
   SignupSchema,
-} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+} from "@/lib/zod-schema/zod-auth-schema/signupSchema";
 import { useActionState, useRef } from "react";
 
 const dataInputsSignup = [

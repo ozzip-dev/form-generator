@@ -1,7 +1,7 @@
 "use server";
 
 import { TopicCategory } from "@/enums/forum";
-import { ModelFieldErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { ModelFieldErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { createTopic } from "@/services/forum-service";
 import { requireUser } from "@/services/user-service";
 import { revalidateTag } from "next/cache";

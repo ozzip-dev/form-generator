@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth/auth";
 import {
   signupSchema,
   SignupSchema,
-} from "@/lib/zodSchema/zodAuthSchema/signupSchema";
+} from "@/lib/zod-schema/zod-auth-schema/signupSchema";
 
 type ActionResult<T> = {
   success: boolean;

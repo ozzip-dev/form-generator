@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/pages/dashboard/dashboardTopBar/LogoutButton";
+import LogoutButton from "@/components/pages/dashboard/dashboard-top-bar/LogoutButton";
 import Header from "@/components/shared/Header";
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";

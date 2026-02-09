@@ -8,7 +8,7 @@ import { useUser } from "@/context/UserContextProvider";
 import {
   userDetailsSchema,
   UserDetailsSchema,
-} from "@/lib/zodSchema/userDetailsShema";
+} from "@/lib/zod-schema/userDetailsShema";
 import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee = [

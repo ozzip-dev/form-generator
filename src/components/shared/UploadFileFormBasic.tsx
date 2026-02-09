@@ -7,7 +7,7 @@ import InputError from "@/components/shared/inputs/InputError";
 import {
   uploadProtocolSchema,
   UploadProtocolSchema,
-} from "@/lib/zodSchema/uploadProtocolSchema";
+} from "@/lib/zod-schema/uploadProtocolSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/shared";
 import { uploadFileAction } from "@/actions/file/uploadFileAction";

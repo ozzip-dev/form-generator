@@ -1,7 +1,7 @@
 "use client";
 
-import { handleAddProtocol } from "@/components/pages/protocols/protocolForm/handleAddProtocol";
-import ProtocolForm from "@/components/pages/protocols/protocolForm/ProtocolForm";
+import { handleAddProtocol } from "@/components/pages/protocols/protocol-form/handleAddProtocol";
+import ProtocolForm from "@/components/pages/protocols/protocol-form/ProtocolForm";
 import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
 
 const AddProtocolPage = () => {

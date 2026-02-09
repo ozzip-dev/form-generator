@@ -7,7 +7,7 @@ import { useToast } from "@/context/ToastProvider";
 import {
   createTopicSchema,
   CreateTopicSchema,
-} from "@/lib/zodSchema/forumSchemas/createTopicSchema";
+} from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
 import Card from "@/components/shared/Card";
 import { redirect } from "next/navigation";

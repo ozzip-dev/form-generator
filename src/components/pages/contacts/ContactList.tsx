@@ -5,7 +5,7 @@ import ContactCommitteeItem from "./ContactCommitteeItem";
 import ContactFilters from "./ContactFilters";
 import { FormSerialized } from "@/types/form";
 import { useEffect, useState } from "react";
-import ResponsiveListHeader from "@/components/shared/responsiveList/ResponsiveListHeader";
+import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 import { FormType } from "@/enums/form";
 import { formTypesWithLabels, getTypeLabel } from "@/helpers/formHelpers";
 import Card from "@/components/shared/Card";

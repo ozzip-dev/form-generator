@@ -2,8 +2,8 @@
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
 import { Button } from "@/components/shared";
-import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
+import { setClientErrors } from "@/helpers/helpers-validation/handleFormErrors";
+import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";

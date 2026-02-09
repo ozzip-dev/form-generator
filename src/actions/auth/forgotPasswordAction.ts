@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth/auth";
 import {
   forgotPasswordSchema,
   ForgotPasswordSchema,
-} from "@/lib/zodSchema/zodAuthSchema/forgotPasswordSchema";
+} from "@/lib/zod-schema/zod-auth-schema/forgotPasswordSchema";
 
 export async function forgotPasswordAction(data: ForgotPasswordSchema) {
   const validationResult = forgotPasswordSchema.safeParse(data);

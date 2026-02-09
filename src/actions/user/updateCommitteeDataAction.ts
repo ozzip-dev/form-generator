@@ -5,7 +5,7 @@ import { isModerator } from "@/lib/utils";
 import {
   UserDetailsSchema,
   userDetailsSchema,
-} from "@/lib/zodSchema/userDetailsShema";
+} from "@/lib/zod-schema/userDetailsShema";
 import { requireUser } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { ObjectId } from "mongodb";

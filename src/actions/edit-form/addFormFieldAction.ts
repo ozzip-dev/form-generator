@@ -1,10 +1,10 @@
 "use server";
 
 import { isUserAuthor } from "@/helpers/formHelpers";
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { isInputTypeParagraph } from "@/helpers/inputHelpers";
 import { makeId } from "@/lib/utils";
-import { addFormFieldSchema } from "@/lib/zodSchema/editFormSchemas/addFormFieldSchema";
+import { addFormFieldSchema } from "@/lib/zod-schema/edit-form-schemas/addFormFieldSchema";
 import { addFieldToForm, getFormById } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";

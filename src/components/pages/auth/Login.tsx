@@ -8,7 +8,7 @@ import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import {
   LoginSchema,
   loginSchema,
-} from "@/lib/zodSchema/zodAuthSchema/loginSchema";
+} from "@/lib/zod-schema/zod-auth-schema/loginSchema";
 import Link from "next/link";
 import { useActionState, useRef } from "react";
 

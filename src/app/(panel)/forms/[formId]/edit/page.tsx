@@ -1,10 +1,10 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
 import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo";
-import EditFormInput from "@/components/pages/edit-form/editFormInput/EditFormInput";
+import EditFormInput from "@/components/pages/edit-form/edit-form-input/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeFile } from "@/lib/serialize-utils";
-import EditFormHeader from "@/components/pages/edit-form/editFormHeader/EditFormHeader";
-import FormActions from "@/components/pages/edit-form/PublishForm/FormActions";
+import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFormHeader";
+import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
 import { isActive } from "@/helpers/formHelpers";

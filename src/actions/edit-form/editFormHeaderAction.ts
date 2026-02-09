@@ -1,8 +1,8 @@
 "use server";
 
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { db } from "@/lib/mongo";
-import { editFormHeaderSchema } from "@/lib/zodSchema/editFormSchemas/editFormHeaderSchema";
+import { editFormHeaderSchema } from "@/lib/zod-schema/edit-form-schemas/editFormHeaderSchema";
 import { updateForm } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";

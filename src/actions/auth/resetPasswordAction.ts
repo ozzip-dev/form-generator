@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth/auth";
 import {
   resetPasswordSchema,
   ResetPasswordSchema,
-} from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
+} from "@/lib/zod-schema/zod-auth-schema/resetPasswordSchema";
 import { redirect } from "next/navigation";
 
 type ActionResult = {

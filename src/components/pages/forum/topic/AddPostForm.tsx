@@ -6,7 +6,7 @@ import { useToast } from "@/context/ToastProvider";
 import {
   addPostSchema,
   AddPostSchema,
-} from "@/lib/zodSchema/forumSchemas/addPostSchema";
+} from "@/lib/zod-schema/forum-schemas/addPostSchema";
 import {
   Dispatch,
   SetStateAction,

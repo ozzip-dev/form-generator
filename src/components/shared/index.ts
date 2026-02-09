@@ -9,10 +9,10 @@ export { default as LoadingError } from "./errors/LoadingError";
 export { default as LoadingPageError } from "./errors/LoadingPageError";
 export { default as SuspenseErrorBoundary } from "./errors/SuspenseErrorBoundary";
 
-export { default as CheckboxGroupField } from "./inputs/checkboxField/CheckboxGroupField";
+export { default as CheckboxGroupField } from "./inputs/checkbox-field/CheckboxGroupField";
 export { default as InputError } from "./inputs/InputError";
-export { default as RadioGroupField } from "./inputs/radioField/RadioGroupField";
-export { default as InputFields } from "./inputs/inputFields/InputFields";
+export { default as RadioGroupField } from "./inputs/radio-field/RadioGroupField";
+export { default as InputFields } from "./inputs/input-fields/InputFields";
 
 export { default as UploadFileForm } from "./UploadFileForm";
 

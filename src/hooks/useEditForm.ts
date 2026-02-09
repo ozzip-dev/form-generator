@@ -1,7 +1,7 @@
 "use client";
 
 import { usePublishFormErrorSetters } from "@/context/PublishFormErrorContextProvider";
-import { setClientErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { setClientErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { UseFormSetError, UseFormTrigger } from "react-hook-form";

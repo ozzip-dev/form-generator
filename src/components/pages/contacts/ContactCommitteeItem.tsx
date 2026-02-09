@@ -5,7 +5,7 @@ import { UserCommitteeInfo } from "@/types/user";
 import { useState } from "react";
 import FormsOfTypeList from "./FormsOfTypeList";
 import { FormSerialized } from "@/types/form";
-import ResponsiveList from "@/components/shared/responsiveList/ResponsiveList";
+import ResponsiveList from "@/components/shared/responsive-list/ResponsiveList";
 import { FormType } from "@/enums/form";
 
 type Props = {

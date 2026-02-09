@@ -1,13 +1,13 @@
 "use client";
 
 import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
-import FormAuthFooter from "@/components/Auth/FormAuthFooter";
+import FormAuthFooter from "@/components/auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import {
   ResetPasswordSchema,
   resetPasswordSchema,
-} from "@/lib/zodSchema/zodAuthSchema/resetPasswordSchema";
+} from "@/lib/zod-schema/zod-auth-schema/resetPasswordSchema";
 import { useActionState, useRef } from "react";
 
 const dataInputsResetPassword = [

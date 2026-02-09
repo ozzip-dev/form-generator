@@ -1,5 +1,5 @@
 import { Button } from "@/components/shared";
-import Checkbox from "@/components/shared/inputs/checkboxField/Checkbox";
+import Checkbox from "@/components/shared/inputs/checkbox-field/Checkbox";
 import { FormInputSelectable } from "@/types/input";
 
 type Props = {

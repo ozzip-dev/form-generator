@@ -6,8 +6,8 @@ import { requireUser } from "@/services/user-service";
 import { ProtocolInsertData } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import { protocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
+import { protocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
+import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
 
 export async function createProtocolAction({
   branch,

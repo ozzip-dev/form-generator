@@ -1,7 +1,7 @@
 "use server";
 
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { protocolFormSchema } from "@/lib/zodSchema/protocolFormSchema";
+import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
+import { protocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
 import { editProtocol } from "@/services/protocol-service";
 import { requireUser } from "@/services/user-service";
 import { ProtocolInsertData } from "@/types/protocol";

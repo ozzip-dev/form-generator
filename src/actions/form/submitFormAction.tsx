@@ -1,7 +1,7 @@
 "use server";
 
-import { ValidationErrors } from "@/helpers/helpersValidation/handleFormErrors";
-import { createdFormSchema } from "@/lib/zodSchema/createdFormSchema";
+import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
+import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import {
   addSubmission,
   checkUniqueFieldsValid,

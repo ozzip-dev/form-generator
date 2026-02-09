@@ -9,7 +9,7 @@ import { useToast } from "@/context/ToastProvider";
 import {
   CreateTopicSchema,
   createTopicSchema,
-} from "@/lib/zodSchema/forumSchemas/createTopicSchema";
+} from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { TopicSerializedDetailed } from "@/types/forum";
 import { useActionState, useRef } from "react";
 

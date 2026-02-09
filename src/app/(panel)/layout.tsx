@@ -1,4 +1,4 @@
-import DashboardTopBar from "@/components/pages/dashboard/dashboardTopBar/DashboardTopBar";
+import DashboardTopBar from "@/components/pages/dashboard/dashboard-top-bar/DashboardTopBar";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import Header from "@/components/shared/Header";
 import IsUserModal from "@/components/shared/IsUserModal";
