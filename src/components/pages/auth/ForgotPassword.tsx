@@ -1,7 +1,7 @@
 "use client";
 
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
-import FormAuthFooter from "@/components/authyyy/FormAuthFooter";
+import FormAuthFooter from "@/components/auth/FormAuthFooter";
 import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import {

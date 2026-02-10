@@ -1,7 +1,7 @@
 "use client";
 
 import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
-import FormAuthFooter from "@/components/authyyy/FormAuthFooter";
+import FormAuthFooter from "@/components/auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import {
