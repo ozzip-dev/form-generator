@@ -19,7 +19,7 @@ const EditProtocol = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="container p-4">
       {!isFormPrinted && <ProtocolDetails handlePrintForm={handlePrintForm} />}
 
       {isFormPrinted && (
