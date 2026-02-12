@@ -20,8 +20,6 @@ const EditFormDescriptionEditor = (props: Props) => {
   const [isPending, startTransition] = useTransition();
   const [isEditorOpen, setEditorOpen] = useState(!input.description);
 
-  console.log("", input.type);
-
   const {
     register,
     formState: { errors },

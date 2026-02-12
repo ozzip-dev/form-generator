@@ -1,6 +1,7 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import ResultsPdfTable from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
+import SectionHeader from "@/components/shared/SectionHeader";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { getSortedInputs, isFormSecret } from "@/helpers/formHelpers";
 import { isInputSubmittable } from "@/helpers/inputHelpers";
@@ -47,17 +48,48 @@ const FormResultsTablePage = async (props: Props) => {
             ...getAnswerValues(answers),
           ],
   );
+  const { title = "", createdAt } = form;
 
   return (
-    <div className="container">
-      <ResultsTable {...{ inputHeaders, submissionValues }} />
-      <ResultsPdfTable
-        {...{
-          inputHeaders,
-          submissionValues,
-          title: form.title || "formularz",
-        }}
+    <div className="container flex h-full flex-col">
+      <SectionHeader
+        className="shring-0 my-6 ml-8"
+        message={
+          <div>
+            <div className="sm:flex">
+              <div className="mr-2 font-normal text-font_light">
+                Tytuł formularza:{" "}
+              </div>
+              <div>{title} </div>
+            </div>{" "}
+            <div className="text-center text-2xs text-font_light sm:text-left">
+              <span className="mr-1"> Opublikowano:</span>
+              {formatDateAndTime(createdAt.toString())}
+            </div>
+          </div>
+        }
       />
+      <div className="flex-1">
+        <thead className="sticky top-0 z-10 bg-white">
+          <tr className="*:p-sm">
+            {inputHeaders?.map((header, idx) => (
+              <th key={idx} className="text-left">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <ResultsTable {...{ inputHeaders, submissionValues }} />
+      </div>
+      <div className="shring-0">
+        <ResultsPdfTable
+          {...{
+            inputHeaders,
+            submissionValues,
+            title: form.title || "formularz",
+          }}
+        />
+      </div>
     </div>
   );
 };

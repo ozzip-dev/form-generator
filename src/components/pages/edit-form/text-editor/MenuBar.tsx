@@ -8,7 +8,7 @@ import { useState } from "react";
 
 type Props = {
   editor: Editor | null;
-  handleEditDescription: () => void
+  handleEditDescription: () => void;
 };
 
 const MenuBar = ({ editor, handleEditDescription }: Props) => {
@@ -17,9 +17,8 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
 
   const handleClick = (action: () => void) => {
     action();
-    forceUpdate(prev => !prev);
+    forceUpdate((prev) => !prev);
   };
-
 
   if (!editor) return null;
 
@@ -43,14 +42,14 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
       icon: "paragraph",
     },
     {
-      onClick: () => handleClick(() =>
-        editor.chain().focus().toggleBold().run()
-      ),
+      onClick: () =>
+        handleClick(() => editor.chain().focus().toggleBold().run()),
       btnName: "bold",
       icon: "bold",
     },
     {
-      onClick: () => handleClick(() => editor.chain().focus().toggleItalic().run()),
+      onClick: () =>
+        handleClick(() => editor.chain().focus().toggleItalic().run()),
       btnName: "italic",
       icon: "italic",
     },
@@ -71,28 +70,24 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
       icon: "link",
     },
     {
+      onClick: () =>
+        handleClick(() => {
+          editor.chain().focus();
 
-      onClick: () => handleClick(() => {
-        editor.chain().focus();
-
-        if (editor.isActive("highlight")) {
-          editor.chain().unsetHighlight().run();
-        } else {
-          editor
-            .chain()
-            .setHighlight({ color: "var(--color-accent)" })
-            .run();
-        }
-      }),
+          if (editor.isActive("highlight")) {
+            editor.chain().unsetHighlight().run();
+          } else {
+            editor.chain().setHighlight({ color: "var(--color-accent)" }).run();
+          }
+        }),
       btnName: "highlight",
       icon: "highlighter",
     },
     {
-
       onClick: () => editor.chain().focus().unsetAllMarks().clearNodes().run(),
       btnName: "clear-formatting",
       icon: "text-slash",
-    }
+    },
   ];
 
   return (
@@ -103,12 +98,14 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
             key={idx}
             type="button"
             onClickAction={onClick}
-            className="p-1 px-2" icon={
+            className="p-1 px-2"
+            icon={
               <Icon
-                color={`${editorState[btnName as keyof typeof editorState]
-                  ? "var( --color-font_dark)"
-                  : "var(--color-font_light)"
-                  }`}
+                color={`${
+                  editorState[btnName as keyof typeof editorState]
+                    ? "var( --color-font_dark)"
+                    : "var(--color-font_light)"
+                }`}
                 icon={icon as string}
                 size={15}
               />
@@ -122,7 +119,7 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
         message="Zapisz"
         type="button"
         onClickAction={handleEditDescription}
-        className="ml-auto !text-font_dark !text-sm"
+        className="!text-bold ml-auto !text-sm !text-accent"
         variant="ghost"
       />
     </div>
@@ -130,4 +127,3 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
 };
 
 export default MenuBar;
-

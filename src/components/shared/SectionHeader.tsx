@@ -1,10 +1,13 @@
 type Props = {
-  message: string;
+  message: string | React.ReactNode;
+  className?: string;
 };
 
 const SectionHeader = (props: Props) => {
   return (
-    <div className="text-center md:text-left text-lg font-bold mb-6">
+    <div
+      className={`mb-6 text-center text-lg font-bold md:text-left ${props.className ? props.className : ""}`}
+    >
       {props.message}
     </div>
   );

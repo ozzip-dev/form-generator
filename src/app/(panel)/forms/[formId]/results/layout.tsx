@@ -6,9 +6,12 @@ export default async function ResultLayout(props: Props) {
   const { formId } = await props.params;
 
   return (
-    <>
-      <ResultsNavMenu formId={formId} />
-      <section>{props.children}</section>
-    </>
+    <div className="flex h-full flex-col">
+      <div className="container shrink-0">
+        <ResultsNavMenu formId={formId} />
+      </div>
+
+      <section className="flex-1 overflow-y-auto">{props.children}</section>
+    </div>
   );
 }

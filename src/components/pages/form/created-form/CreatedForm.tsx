@@ -98,7 +98,7 @@ const CreatedForm = (props: Props) => {
       reset();
     } catch (_) {
       toast({
-        title: 'Blad. Sprobuj ponownie',
+        title: "Blad. Sprobuj ponownie",
         variant: "error",
       });
     }
@@ -122,8 +122,6 @@ const CreatedForm = (props: Props) => {
   const formFields = inputs
     .sort((a, b) => a.order - b.order)
     .map((input) => {
-
-
       const renderer = fieldRenderers[input.type];
       // return renderer({
       //   input,
@@ -132,28 +130,29 @@ const CreatedForm = (props: Props) => {
       //   control,
       // });
 
-      return <Card key={input.id}>
-        {renderer({
-          input,
-          errors,
-          register,
-          control,
-        })}
-      </Card>
+      return (
+        <Card key={input.id}>
+          {renderer({
+            input,
+            errors,
+            register,
+            control,
+          })}
+        </Card>
+      );
     });
 
   const hasErrors = Object.keys(errors).length > 0;
 
   return (
     <>
-      <div className="container !max-w-[800px] my-4">
+      <div className="container my-4 !max-w-[800px]">
         <CreatedFormTopError isError={hasErrors} />
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
 
-        {props.headerFileData &&
+        {props.headerFileData && (
           <CreatedFormTopImage headerFileData={props.headerFileData} />
-        }
-
+        )}
 
         <Card className="mb-8">
           <h1 className="text-xl">{title}</h1>
@@ -161,12 +160,9 @@ const CreatedForm = (props: Props) => {
             <FormDescription description={description} variant="published" />
           )}
           <div className="flex gap-8">
-            <div className="text-error text-2xs">* Odpowiedź wymagana</div>
-            <div className="text-error text-2xs">! Odpowiedź jednorazowa </div>
+            <div className="text-2xs text-error">* Odpowiedź wymagana</div>
+            <div className="text-2xs text-error">! Odpowiedź jednorazowa </div>
           </div>
-
-
-
         </Card>
 
         <FormProvider {...methods}>
@@ -174,15 +170,14 @@ const CreatedForm = (props: Props) => {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-8"
           >
-
             {formFields}
 
-            <div className="mt-16 flex flex-col sm:justify-end gap-8 sm:gap-16 items-center sm:flex-row ">
+            <div className="my-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
               <Button
                 message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
-                className="!bg-white !text-accent hover:!bg-accent hover:!text-white w-full sm:w-fit"
+                className="w-full !bg-white !text-accent hover:!bg-accent hover:!text-white sm:w-fit"
               />
 
               <Button
