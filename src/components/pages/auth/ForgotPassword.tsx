@@ -30,7 +30,7 @@ const ForgotPassword = () => {
 
   const sendForgotPasswordLink = async (
     prevState: State,
-    formData: FormData
+    formData: FormData,
   ): Promise<State> => {
     const data = Object.fromEntries(formData.entries()) as ForgotPasswordSchema;
 
@@ -72,14 +72,13 @@ const ForgotPassword = () => {
 
   const [state, formAction, isPending] = useActionState(
     sendForgotPasswordLink,
-    initialState
+    initialState,
   );
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 h-full">
-
-      <h1 className="text-xl text-center mb-4">Nie pamiętasz hasła?</h1>
-      <Card className="min-w-[29rem] max-w-[52rem] w-full">
+    <div className="flex h-full flex-col items-center justify-center p-4">
+      <h1 className="mb-4 text-center text-xl">Nie pamiętasz hasła?</h1>
+      <Card className="w-full min-w-[29rem] max-w-[52rem]">
         <form action={formAction} className="space-y-4">
           <InputFields
             inputsData={dataInputsForgotPassword}
@@ -89,7 +88,7 @@ const ForgotPassword = () => {
           <Button
             isLoading={isAction.current && isPending}
             message="Wyślij link"
-            className="!text-base !px-20 !py-4 m-auto"
+            className="m-auto !px-20 !py-4 !text-base"
           />
         </form>
       </Card>
@@ -100,7 +99,6 @@ const ForgotPassword = () => {
         link="/login"
       />
     </div>
-
   );
 };
 

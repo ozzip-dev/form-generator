@@ -37,7 +37,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 
   const resetPassword = async (
     prevState: State,
-    formData: FormData
+    formData: FormData,
   ): Promise<any> => {
     const data = Object.fromEntries(formData.entries()) as ResetPasswordSchema;
 
@@ -69,13 +69,13 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 
   const [state, formAction, isPending] = useActionState(
     resetPassword,
-    initialState
+    initialState,
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
+    <div className="from-background to-background/80 flex min-h-screen items-center justify-center bg-gradient-to-b p-4">
       <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center">Zmień hasło</h1>
+        <h1 className="text-center text-2xl font-bold">Zmień hasło</h1>
 
         <form action={formAction}>
           {" "}
