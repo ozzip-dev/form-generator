@@ -63,59 +63,6 @@ export const formTemplates: Form[] = [
     ],
   },
   {
-    id: "favourite-color",
-    type: FormType.Other,
-    resultVisibility: FormResultVisibility.Open,
-    title: "Ulubiony kolor",
-    description: "Jaki jest Twój ulubiony kolor?",
-    ...getCreatedUpdatedDates(),
-    inputs: [
-      {
-        id: "name-surname",
-        type: InputType.TEXT,
-        header: "Imię i nazwisko",
-        validation: {},
-        options: [],
-        required: true,
-        order: 0,
-        unique: false,
-      },
-      {
-        id: "age",
-        type: InputType.NUMBER,
-        header: "Wiek",
-        validation: {},
-        options: [],
-        required: false,
-        order: 1,
-        unique: false,
-      },
-      {
-        id: "color",
-        type: InputType.SINGLE_SELECT,
-        header: "Kolor",
-        validation: {},
-        required: true,
-        order: 2,
-        unique: false,
-        options: [
-          {
-            value: "color-123",
-            label: "żółty",
-          },
-          {
-            value: "color-456",
-            label: "zielony",
-          },
-          {
-            value: "color-789",
-            label: "czerwony",
-          },
-        ],
-      },
-    ],
-  },
-  {
     id: 'strike',
     title: 'Referendum strajkowe w [nazwa firmy]',
     description:
