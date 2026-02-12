@@ -115,4 +115,74 @@ export const formTemplates: Form[] = [
       },
     ],
   },
+  {
+    id: 'strike',
+    title: 'Referendum strajkowe w [nazwa firmy]',
+    description:
+      '<p>Oddaj głos w referendum strajkowym dla zatrudnionych przez [nazwa firmy]</p><p></p><p><mark class="bg-accent">Referendum jest anonimowe</mark></p>',
+    ...getCreatedUpdatedDates(),
+    inputs: [
+      {
+        id: 'Thu Feb 12 2026 20:24:58 GMT+0000 (Coordinated Universal Time)',
+        type: InputType.SINGLE_SELECT,
+        header: 'Czy jesteś ZA podjęciem strajku w sprawie:',
+        description: '<p>1. Żądanie<br>2. Żądanie<br>3. Żądanie</p>',
+        validation: {},
+        options: [
+          {
+            value: 'thu-feb-12-73148',
+            label: 'tak',
+          },
+          {
+            value: 'thu-feb-12-93542',
+            label: 'nie',
+          },
+        ],
+        required: true,
+        unique: false,
+        order: 0,
+      },
+      {
+        id: 'Thu Feb 12 2026 20:36:50 GMT+0000 (Coordinated Universal Time)',
+        type: InputType.NUMBER,
+        header:
+          'W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego',
+        validation: {},
+        options: [],
+        required: true,
+        unique: true,
+        order: 1,
+      },
+      {
+        id: 'Thu Feb 12 2026 20:39:11 GMT+0000 (Coordinated Universal Time)',
+        type: InputType.PARAGRAPH,
+        header: '',
+        description:
+          '<p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="wwww">media społecznościowe</a></p>',
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        order: 2,
+      },
+      {
+        id: 'Thu Feb 12 2026 20:44:06 GMT+0000 (Coordinated Universal Time)',
+        type: InputType.PARAGRAPH,
+        header: '',
+        description:
+          '<p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        order: 3,
+      },
+    ],
+    state: 'template',
+    type: FormType.Strike,
+    resultVisibility: FormResultVisibility.Secret,
+    displayAuthorEmail: true,
+    url: 'referendum-szablon',
+    headerFileId: '698e38ca2d3cca1353991f62',
+  }
 ];
