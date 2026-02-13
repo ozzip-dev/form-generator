@@ -9,6 +9,39 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useState, useTransition } from "react";
 import MenuBar from "./MenuBar";
+import Paragraph from "@tiptap/extension-paragraph";
+
+import { Mark, mergeAttributes } from "@tiptap/core";
+
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    small: {
+      toggleSmall: () => ReturnType;
+    };
+  }
+}
+
+export const Small = Mark.create({
+  name: "small",
+
+  parseHTML() {
+    return [{ tag: "small" }];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ["small", mergeAttributes(HTMLAttributes), 0];
+  },
+
+  addCommands() {
+    return {
+      toggleSmall:
+        () =>
+        ({ commands }) => {
+          return commands.toggleMark(this.name);
+        },
+    };
+  },
+});
 
 const MAX_CHARS = 2000;
 
@@ -28,6 +61,7 @@ const TextEditor = (props: Props) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Small,
       Link.configure({
         openOnClick: false,
         autolink: false,

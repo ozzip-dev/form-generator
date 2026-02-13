@@ -76,7 +76,7 @@ body {
 }
 
 .textEditorTags {
-  @apply [&_a]:text-accent_dark [&_a]:underline [&_h3]:text-lg;
+  @apply [&_a]:text-accent_dark [&_a]:underline [&_h3]:text-lg [&_p]:mb-4;
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {

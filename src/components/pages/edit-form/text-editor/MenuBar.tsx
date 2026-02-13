@@ -28,6 +28,7 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
     bold: editor.isActive("bold"),
     italic: editor.isActive("italic"),
     highlight: editor.isActive("highlight"),
+    smallText: editor.isActive("small"),
   };
 
   const createBtnsData = [
@@ -39,7 +40,13 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
     {
       onClick: () => editor.chain().focus().setParagraph().run(),
       btnName: "paragraph",
-      icon: "paragraph",
+      icon: "text-height",
+    },
+    {
+      onClick: () =>
+        handleClick(() => editor.chain().focus().toggleSmall().run()),
+      btnName: "smallText",
+      icon: "t-solid",
     },
     {
       onClick: () =>
@@ -53,6 +60,7 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
       btnName: "italic",
       icon: "italic",
     },
+
     {
       onClick: () => {
         if (!editor.state.selection.empty) {
