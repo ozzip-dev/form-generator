@@ -17,7 +17,7 @@ const ResultsTableActions = ({
   exportGridToPDF,
 }: Props) => {
   return (
-    <div className="flex gap-md mt-sm ml-sm">
+    <div className="my-sm ml-sm flex gap-md">
       <Button
         onClickAction={exportGridToPDF}
         message="Pobierz wyniki (.pdf)"

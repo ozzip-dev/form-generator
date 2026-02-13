@@ -13,7 +13,7 @@ const FormDescription = (props: Props) => {
   const styles =
     props.variant === "edit"
       ? "mb-1 p-2 text-sm border rounded-sm textEditorTags"
-      : "textEditorTags";
+      : "textEditorTags mb-3";
 
   return (
     <div

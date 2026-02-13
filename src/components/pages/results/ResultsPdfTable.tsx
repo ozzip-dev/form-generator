@@ -19,7 +19,7 @@ type Props = {
   submissionValues: string[][];
 };
 
-const ResultsPdfTable = dynamic(
+export const ResultsPdfTable = dynamic(
   async () => {
     return function Results(props: Props) {
       function getResolvedGridColumnWidths(gridEl: HTMLElement) {
@@ -128,7 +128,7 @@ const ResultsPdfTable = dynamic(
         <>
           <div
             id="results"
-            className="invisible absolute grid justify-start gap-4 w-full z-0"
+            className="invisible absolute z-0 grid w-full justify-start gap-4"
             style={{
               gridTemplateColumns: `repeat(${props.inputHeaders.length},minmax(70px,auto))`,
             }}
@@ -155,7 +155,3 @@ const ResultsPdfTable = dynamic(
   },
   { ssr: false },
 );
-
-export default function ResultsPdfTableClient(args: Props) {
-  return <ResultsPdfTable {...args} />;
-}

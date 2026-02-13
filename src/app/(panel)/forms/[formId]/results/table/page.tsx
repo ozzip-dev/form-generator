@@ -1,5 +1,5 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
-import ResultsPdfTable from "@/components/pages/results/ResultsPdfTable";
+import { ResultsPdfTable } from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
@@ -63,22 +63,13 @@ const FormResultsTablePage = async (props: Props) => {
               <div>{title} </div>
             </div>{" "}
             <div className="text-center text-2xs text-font_light sm:text-left">
-              <span className="mr-1"> Opublikowano:</span>
+              <span className="mr-1"> Opublikowany:</span>
               {formatDateAndTime(createdAt.toString())}
             </div>
           </div>
         }
       />
       <div className="flex-1">
-        <thead className="sticky top-0 z-10 bg-white">
-          <tr className="*:p-sm">
-            {inputHeaders?.map((header, idx) => (
-              <th key={idx} className="text-left">
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
         <ResultsTable {...{ inputHeaders, submissionValues }} />
       </div>
       <div className="shring-0">
