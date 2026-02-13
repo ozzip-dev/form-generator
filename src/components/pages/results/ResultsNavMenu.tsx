@@ -8,11 +8,11 @@ type Props = {
 const ResultsNavMenu = ({ formId }: Props) => {
   const resultsNavLinks: NavMenuLink[] = [
     { text: "Tabela", link: `/forms/${formId}/results/table` },
-    { text: "Szczegóły", link: `/forms/${formId}/results/details` },
+    { text: "Podsumowamie", link: `/forms/${formId}/results/details` },
   ];
 
   return (
-    <div className="container">
+    <div className="container pb-2">
       <NavMenu links={resultsNavLinks} level="sub" />
     </div>
   );

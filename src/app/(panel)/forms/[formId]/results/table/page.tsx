@@ -51,11 +51,11 @@ const FormResultsTablePage = async (props: Props) => {
   const { title = "", createdAt } = form;
 
   return (
-    <div className="container flex h-full flex-col">
+    <>
       <SectionHeader
-        className="shring-0 my-6 ml-8"
+        className="my-6 ml-8"
         message={
-          <div>
+          <>
             <div className="sm:flex">
               <div className="mr-2 font-normal text-font_light">
                 Tytuł formularza:{" "}
@@ -66,22 +66,20 @@ const FormResultsTablePage = async (props: Props) => {
               <span className="mr-1"> Opublikowany:</span>
               {formatDateAndTime(createdAt.toString())}
             </div>
-          </div>
+          </>
         }
       />
-      <div className="flex-1">
-        <ResultsTable {...{ inputHeaders, submissionValues }} />
-      </div>
-      <div className="shring-0">
-        <ResultsPdfTable
-          {...{
-            inputHeaders,
-            submissionValues,
-            title: form.title || "formularz",
-          }}
-        />
-      </div>
-    </div>
+
+      <ResultsTable {...{ inputHeaders, submissionValues }} />
+
+      <ResultsPdfTable
+        {...{
+          inputHeaders,
+          submissionValues,
+          title: form.title || "formularz",
+        }}
+      />
+    </>
   );
 };
 

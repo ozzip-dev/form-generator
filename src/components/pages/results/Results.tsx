@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card } from "@/components/shared";
 import { DiagramType, GroupedAnswer } from "@/types/result";
 import { AnswerResults } from "./answers";
 import { FormInput, FormInputSelectable } from "@/types/input";
 import ResultFieldSelect from "./ResultFieldSelect";
 import { FormType } from "@/enums/form";
+import SectionHeader from "@/components/shared/SectionHeader";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 
 type Props = {
   inputs: FormInput[];
@@ -39,12 +41,15 @@ const Results = (props: Props) => {
     results: GroupedAnswer[];
     submissionCount: number;
   }>({ results: [], submissionCount: 0 });
+
+  const [list, setList] = useState();
+
   const [diagrams, setDiagrams] = useState<DiagramType[]>(diagramTypes);
   const [inputs, setInputs] = useState<FormInputSelectable[]>(
     props.inputs.map((el) => ({ ...el, selected: true })),
   );
 
-  const { title } = props.formData;
+  const { title, createdAt } = props.formData;
 
   const onDisplayAnswers = async () => {
     const inputIds = inputs
@@ -54,27 +59,59 @@ const Results = (props: Props) => {
     setDisplayedResults({ results, submissionCount });
   };
 
+  useEffect(() => {
+    const yyy = async () => {
+      const inputIds = inputs
+        .filter(({ selected }) => selected)
+        .map(({ id }) => id!);
+      const { results, submissionCount } = await props.displayResults(inputIds);
+      setList(results);
+    };
+
+    yyy();
+  }, []);
+
   return (
-    <div className="p-8">
+    <div className="container py-4">
       <Card>
-        <div className="w-fit text-xl m-auto pb-2">
-          <span>Tytuł formularza: </span>
-          <span className="font-bold">{title}</span>
-        </div>
+        <SectionHeader
+          className="my-6"
+          message={
+            <>
+              <div className="sm:flex">
+                <div className="mr-2 font-normal text-font_light">
+                  Tytuł formularza:{" "}
+                </div>
+                <div>{title} </div>
+              </div>{" "}
+              <div className="text-center text-2xs text-font_light sm:text-left">
+                <span className="mr-1"> Opublikowany:</span>
+                {formatDateAndTime(createdAt.toString())}
+              </div>
+            </>
+          }
+        />
 
         <ResultFieldSelect {...{ inputs, setInputs }} />
       </Card>
 
-      <div className="w-fit mx-auto mt-md mb-lg">
-        <Button
-          onClickAction={onDisplayAnswers}
-          message="Wyświetl odpowiedzi"
-        />
-      </div>
+      <Button
+        onClickAction={onDisplayAnswers}
+        message="Wyświetl odpowiedzi"
+        className="mx-auto my-12"
+      />
 
-      <div id="results" className="w-fit p-4">
-        {displayedResults.results.map((result, i) => (
-          <AnswerResults {...{ result, diagrams, title }} key={i} />
+      <div id="results" className="flex flex-col gap-4">
+        {/* {displayedResults.results.map((result, idx) => (
+          <Card key={idx}>
+            <AnswerResults {...{ result, diagrams, title, idx }} />
+          </Card>
+        ))} */}
+
+        {list?.map((result, idx) => (
+          <Card key={idx}>
+            <AnswerResults {...{ result, diagrams, title, idx }} />
+          </Card>
         ))}
       </div>
     </div>

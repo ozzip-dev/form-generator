@@ -29,35 +29,37 @@ const ResultFieldSelect = (props: Props) => {
 
   return (
     <div>
-      <div className="font-black">
+      <div className="my-6 font-bold">
         Wyświetl odpowiedzi na zazanczone pytania
       </div>
 
-      <div className="w-fit max-h-[380px] flex flex-col flex-wrap gap-y-sm py-sm gap-x-[100px] *:h-[40px]">
-        {formInputs.map(({ id, header }) => (
-          <div key={id}>
+      <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-x-12">
+        {formInputs.map(({ id, header }, idx) => (
+          <div key={id} className="flex gap-2">
+            <div>{idx + 1}.</div>
             <Checkbox
               name={header}
               onChange={() => onChange(id as string)}
               checkedValue={!!formInputs.find((el) => el.id == id)?.selected}
+              labelClassName="truncate flex-grow w-[5rem]"
             />
           </div>
         ))}
       </div>
 
-      <div className="flex gap-md my-sm">
+      <div className="my-sm flex gap-md">
         <Button
           variant="primary-rounded"
           type="button"
           onClickAction={() => setAllInputs(true)}
-          message="Zaznacz wszystko"
+          message="Zaznacz wszystkie"
         />
 
         <Button
           variant="primary-rounded"
           type="button"
           onClickAction={() => setAllInputs(false)}
-          message="Odznacz wszystko"
+          message="Odznacz wszystkie"
         />
       </div>
     </div>
