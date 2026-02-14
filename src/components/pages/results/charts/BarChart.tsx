@@ -203,7 +203,7 @@ const HorizontalBarChart = ({
                 fontSize={11}
                 fill="#333"
               >
-                {label}
+                <div className="text-lg">{label}</div>
               </text>
             </g>
           );

@@ -81,21 +81,10 @@ const AnswerResults = (props: Props) => {
   };
   return (
     <>
-      <div className="mb-sm flex gap-2 font-bold">
-        <span className="mr-2">{props.idx + 1}.</span>
-        {header ? header : "Brak pytania"}
-      </div>
-      <div className="grid grid-cols-[30%_1fr_auto] items-center gap-lg">
-        <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
-
-        <div className="flex gap-md" id={`results-${id}`}>
-          {charts
-            .filter(
-              ({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id),
-            )
-            .map(({ Component, id, props = {} }) => (
-              <Component key={id} data={mappedAnswers} {...props} />
-            ))}
+      <div className="mb-sm flex justify-between gap-2 font-bold">
+        <div className={header ? "" : "text-error"}>
+          <span className="mr-2">{props.idx + 1}.</span>
+          {header ? header : "Brak pytania"}
         </div>
 
         <Button
@@ -104,6 +93,19 @@ const AnswerResults = (props: Props) => {
           className="size-fit"
           variant="primary-rounded"
         />
+      </div>
+      <div className="">
+        <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
+
+        {/* <div className="flex gap-md" id={`results-${id}`}>
+          {charts
+            .filter(
+              ({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id),
+            )
+            .map(({ Component, id, props = {} }) => (
+              <Component key={id} data={mappedAnswers} {...props} />
+            ))}
+        </div> */}
       </div>
     </>
   );
