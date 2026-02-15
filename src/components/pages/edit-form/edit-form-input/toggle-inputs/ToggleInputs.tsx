@@ -3,27 +3,30 @@ import { toggleUniqueAction } from "@/actions/edit-form/edit-form-input/toggleUn
 import { useInputData } from "@/context/InputDataContextProvider";
 import InputDataToggleSwitch from "./InputDataToggleSwitch";
 import { toggleHiddenAction } from "@/actions/edit-form/edit-form-input/toggleHiddenAction";
+import { FormInput } from "@/types/input";
 
-// TODO Pawel: jesli zostawiamy jak jest, zrobić wspolną akcje i fn mongo dla edycji
-// unique, hidden, reuquired
-const toggleSwitchesData = [
+const toggleSwitchesData = (formInput: FormInput) => [
   {
     name: "required",
     label: `Odpowiedź wymagana`,
     infoText: "Bez wypełnienia pola formularz nie zostanie wysłany",
     action: toggleRequiredAction,
+    disabled: formInput.hidden,
   },
   {
     name: "unique",
     label: `Odpowiedź unikalna`,
     infoText: "Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz",
     action: toggleUniqueAction,
+    disabled: formInput.hidden,
   },
   {
     name: "hidden",
     label: `Odpowiedź ukryta`,
-    infoText: "Dana odpowiedź nie będzie widoczna w raporcie",
+    infoText:
+      "Dana odpowiedź nie będzie widoczna w raporcie. Dotyczy unikalnych wartości.",
     action: toggleHiddenAction,
+    disabled: false,
   },
 ];
 
@@ -31,14 +34,16 @@ const ToggleInputs = () => {
   const { formId, input } = useInputData();
   return (
     <div className="flex w-[26rem] flex-col gap-4 md:ml-auto md:w-[23rem]">
-      {toggleSwitchesData.map(({ name, label, action, infoText }, idx) => (
-        <InputDataToggleSwitch
-          formId={formId as string}
-          input={input}
-          {...{ action, label, name, infoText }}
-          key={idx}
-        />
-      ))}
+      {toggleSwitchesData(input).map(
+        ({ name, label, action, infoText, disabled }, idx) => (
+          <InputDataToggleSwitch
+            formId={formId as string}
+            input={input}
+            {...{ action, label, name, infoText, disabled }}
+            key={idx}
+          />
+        ),
+      )}
     </div>
   );
 };

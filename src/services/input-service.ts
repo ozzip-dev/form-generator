@@ -231,6 +231,11 @@ export async function toggleHidden(
   const form = (await findById(db, "form", formId)) as Form;
   const input: FormInput = getFormInputById(form.inputs, inputId);
 
+  const updateData = {
+    "inputs.$.hidden": !input.hidden,
+    updatedAt: new Date(),
+  };
+
   await update<Form>(
     db,
     "form",
@@ -239,10 +244,13 @@ export async function toggleHidden(
       "inputs.id": inputId,
     },
     {
-      $set: {
-        "inputs.$.hidden": !input.hidden,
-        updatedAt: new Date(),
-      },
+      $set: !input.hidden
+        ? {
+            ...updateData,
+            "inputs.$.required": true,
+            "inputs.$.unique": true,
+          }
+        : updateData,
     },
   );
 }

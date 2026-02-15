@@ -14,6 +14,7 @@ interface Props {
   name: string;
   label: string;
   infoText?: string;
+  disabled?: boolean;
 }
 
 export default function InputDataToggleSwitch({
@@ -23,6 +24,7 @@ export default function InputDataToggleSwitch({
   name,
   label,
   infoText,
+  disabled,
 }: Props) {
   const [isPending, startTransition] = useTransition();
   const { control } = useFormContext();
@@ -39,7 +41,7 @@ export default function InputDataToggleSwitch({
   return (
     <div className="flex items-center text-sm">
       <CheckboxSwitch
-        {...{ name, label, control }}
+        {...{ name, label, control, disabled }}
         onChangeAction={handleSwitch}
       />
 
