@@ -20,7 +20,7 @@ const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
 };
 
 const checkFormLimitError = async (
-  userId: ObjectId
+  userId: ObjectId,
 ): Promise<string | null> => {
   if (await hasReachedFormLimit(userId)) {
     return `Maksymalnie ${maxFormCount}`;
@@ -29,7 +29,7 @@ const checkFormLimitError = async (
 };
 
 export async function createFormDraftAction(
-  templateId: string
+  templateId: string,
 ): Promise<null | { error: string }> {
   const user = await requireUser();
 
@@ -50,16 +50,18 @@ export async function createFormDraftAction(
     throw new Error("Nie znaleziono szablonu lub brak dostępu.");
   }
 
-  const { title, description, inputs } = empty
+  const { title, description, inputs, type, resultVisibility } = empty
     ? { title: "", description: "", inputs: [] }
     : (template as Form);
 
   const id: ObjectId = await createDraft(
     db,
     userId,
+    inputs,
     title,
     description,
-    inputs
+    type,
+    resultVisibility,
   );
 
   redirect(`/forms/${id}/edit`);
