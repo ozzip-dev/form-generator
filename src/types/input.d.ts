@@ -17,7 +17,6 @@ export interface Input extends Document {
   type: InputType;
   header: string;
   description?: string;
-  // placeholder?: string // ?
   validation: InputValidation;
   options: FormOption[];
   template?: boolean;
@@ -26,6 +25,7 @@ export interface Input extends Document {
 export interface FormInput extends Input {
   required: boolean;
   unique: boolean;
+  hidden: boolean;
   order: number;
 }
 

@@ -2,8 +2,10 @@ import { toggleRequiredAction } from "@/actions/edit-form/edit-form-input/toggle
 import { toggleUniqueAction } from "@/actions/edit-form/edit-form-input/toggleUniqueAction";
 import { useInputData } from "@/context/InputDataContextProvider";
 import InputDataToggleSwitch from "./InputDataToggleSwitch";
+import { toggleHiddenAction } from "@/actions/edit-form/edit-form-input/toggleHiddenAction";
 
-
+// TODO Pawel: jesli zostawiamy jak jest, zrobić wspolną akcje i fn mongo dla edycji
+// unique, hidden, reuquired
 const toggleSwitchesData = [
   {
     name: "required",
@@ -17,24 +19,26 @@ const toggleSwitchesData = [
     infoText: "Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz",
     action: toggleUniqueAction,
   },
+  {
+    name: "hidden",
+    label: `Odpowiedź ukryta`,
+    infoText: "Dana odpowiedź nie będzie widoczna w raporcie",
+    action: toggleHiddenAction,
+  },
 ];
 
-
-
 const ToggleInputs = () => {
-  const { formId, input } = useInputData()
+  const { formId, input } = useInputData();
   return (
-    <div className="flex flex-col gap-4 w-[26rem] md:w-[23rem] md:ml-auto">
-      {toggleSwitchesData.map(
-        ({ name, label, action, infoText }, idx) => (
-          <InputDataToggleSwitch
-            formId={formId as string}
-            input={input}
-            {...{ action, label, name, infoText }}
-            key={idx}
-          />
-        ),
-      )}
+    <div className="flex w-[26rem] flex-col gap-4 md:ml-auto md:w-[23rem]">
+      {toggleSwitchesData.map(({ name, label, action, infoText }, idx) => (
+        <InputDataToggleSwitch
+          formId={formId as string}
+          input={input}
+          {...{ action, label, name, infoText }}
+          key={idx}
+        />
+      ))}
     </div>
   );
 };

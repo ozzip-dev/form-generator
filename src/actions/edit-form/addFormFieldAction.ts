@@ -33,6 +33,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
     options,
     required: false,
     unique: false,
+    hidden: false,
     order,
   };
 }

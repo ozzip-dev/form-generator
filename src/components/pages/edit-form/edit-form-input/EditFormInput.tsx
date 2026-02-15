@@ -40,6 +40,7 @@ const EditFormInput = () => {
     description,
     options,
     unique,
+    hidden,
   } = input;
 
   const [isPending, startTransition] = useTransition();
@@ -61,9 +62,10 @@ const EditFormInput = () => {
       options,
       required,
       unique,
+      hidden,
       type,
     }),
-    [header, description, options, required, unique, type],
+    [header, description, options, required, unique, hidden, type],
   );
 
   const methods = useForm<EditInputFormSchema>({
