@@ -30,7 +30,7 @@ const FormActions = ({ form }: Props) => {
       </div>
       <Card className="my-6">
         <div className="mb-2 flex gap-2">
-          <div>Aders:</div>
+          <div>Adres:</div>
           <div className="font-bold">{formUrl}</div>
         </div>
         <AliasUrlForm {...form} />

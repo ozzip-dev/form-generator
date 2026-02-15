@@ -117,7 +117,7 @@ const EditFormInput = () => {
   return (
     <Card className="">
       {!inputId ? (
-        <div>Błąd pola fomrularza, skontankuj się z administratorem</div>
+        <div>Błąd pola fomrularza, skontanktuj się z administratorem</div>
       ) : (
         <FormProvider {...methods}>
           <form>
