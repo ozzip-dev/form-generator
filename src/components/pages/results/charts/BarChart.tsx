@@ -100,3 +100,117 @@ const BarChart = ({ data = [], width = 350, height = 200, type }: Props) => {
 };
 
 export default BarChart;
+
+// import * as d3 from "d3";
+
+// type DataObject = { value: number; label?: string };
+
+// type Props = {
+//   data?: DataObject[];
+//   width?: number;
+//   height?: number;
+// };
+
+// const HorizontalBarChart = ({
+//   data = [],
+//   width = 450,
+//   height = 250,
+// }: Props) => {
+//   const total = data.reduce((sum, d) => sum + d.value, 0);
+
+//   const margin = { top: 16, right: 24, bottom: 32, left: 120 };
+//   const innerWidth = Math.max(0, width - margin.left - margin.right);
+//   const innerHeight = Math.max(0, height - margin.top - margin.bottom);
+
+//   const maxValue = d3.max(data, (d) => d.value) ?? 0;
+
+//   // 🔹 Skala X – wartości (poziomo)
+//   const x = d3
+//     .scaleLinear()
+//     .domain([0, Math.max(maxValue, 1)])
+//     .range([0, innerWidth]);
+
+//   // 🔹 Skala Y – kategorie (pionowo)
+//   const y = d3
+//     .scaleBand()
+//     .domain(data.map((d, i) => d.label ?? String(i)))
+//     .range([0, innerHeight])
+//     .padding(0.2);
+
+//   const color = d3
+//     .scaleOrdinal<string>()
+//     .domain(data.map((_, i) => String(i)))
+//     .range(d3.schemeTableau10 as string[]);
+
+//   return (
+//     <svg
+//       width={width}
+//       height={height}
+//       viewBox={`0 0 ${width} ${height}`}
+//       role="img"
+//       aria-label="Horizontal bar chart"
+//     >
+//       <g transform={`translate(${margin.left}, ${margin.top})`}>
+//         {/*pionowa */}
+//         {x.ticks(4).map((tickValue) => (
+//           <g key={tickValue} transform={`translate(${x(tickValue)}, 0)`}>
+//             <line y1={0} y2={innerHeight} stroke="#e6e6e6" />
+//             <text
+//               y={innerHeight + 14}
+//               fontSize={10}
+//               textAnchor="middle"
+//               fill="#666"
+//             >
+//               {tickValue}
+//             </text>
+//           </g>
+//         ))}
+
+//         {/*słupy */}
+//         {data.map((d, i) => {
+//           const label = d.label ?? String(i);
+//           const percent = total > 0 ? Math.round((d.value / total) * 100) : 0;
+
+//           return (
+//             <g key={i} transform={`translate(0, ${y(label) ?? 0})`}>
+//               {/* pasek */}
+//               <rect
+//                 x={0}
+//                 y={0}
+//                 width={x(d.value)}
+//                 height={y.bandwidth()}
+//                 fill={color(String(i))}
+//                 rx={4}
+//               />
+
+//               {/* procent */}
+//               <text
+//                 x={x(d.value) + 6}
+//                 y={y.bandwidth() / 2}
+//                 dominantBaseline="middle"
+//                 fontSize={11}
+//                 fill="#333"
+//               >
+//                 {percent}%
+//               </text>
+
+//               {/* etykieta  */}
+//               <text
+//                 x={-8}
+//                 y={y.bandwidth() / 2}
+//                 textAnchor="end"
+//                 dominantBaseline="middle"
+//                 fontSize={11}
+//                 fill="#333"
+//               >
+//                 {label}
+//               </text>
+//             </g>
+//           );
+//         })}
+//       </g>
+//     </svg>
+//   );
+// };
+
+// export default HorizontalBarChart;

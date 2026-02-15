@@ -18,6 +18,7 @@ type Props = {
   result: GroupedAnswer;
   diagrams: DiagramType[];
   title: string;
+  idx: number;
 };
 
 const AnswerResults = (props: Props) => {
@@ -37,11 +38,11 @@ const AnswerResults = (props: Props) => {
   const isDiagramSelected = (id: string) => diagramIds.includes(id);
 
   const charts = [
-    {
-      id: "pieChart",
-      Component: PieChart,
-      isDisplayed: !isCheckbox,
-    },
+    // {
+    //   id: "pieChart",
+    //   Component: PieChart,
+    //   isDisplayed: !isCheckbox,
+    // },
     {
       id: "barChart",
       Component: BarChart,
@@ -79,27 +80,34 @@ const AnswerResults = (props: Props) => {
     });
   };
   return (
-    <div className="grid grid-cols-[30%_1fr_auto] items-center gap-lg mb-lg">
-      <div>
-        <div className="font-black mb-sm">{header}</div>
+    <>
+      <div className="mb-sm flex justify-between gap-2 font-bold">
+        <div className={header ? "" : "text-error"}>
+          <span className="mr-2">{props.idx + 1}.</span>
+          {header ? header : "Brak pytania"}
+        </div>
+
+        <Button
+          onClickAction={exportPdf}
+          message="Pobierz .pdf"
+          className="size-fit"
+          variant="primary-rounded"
+        />
+      </div>
+      <div className="">
         <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
-      </div>
 
-      <div className="flex gap-md" id={`results-${id}`}>
-        {charts
-          .filter(({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id))
-          .map(({ Component, id, props = {} }) => (
-            <Component key={id} data={mappedAnswers} {...props} />
-          ))}
+        {/* <div className="flex gap-md" id={`results-${id}`}>
+          {charts
+            .filter(
+              ({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id),
+            )
+            .map(({ Component, id, props = {} }) => (
+              <Component key={id} data={mappedAnswers} {...props} />
+            ))}
+        </div> */}
       </div>
-
-      <Button
-        onClickAction={exportPdf}
-        message="Pobierz .pdf"
-        className="size-fit"
-        variant="primary-rounded"
-      />
-    </div>
+    </>
   );
 };
 

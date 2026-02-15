@@ -4,17 +4,20 @@ type Props = {
   checkedValue: string | boolean;
   checkboxLabel?: string;
   isSubmitting?: boolean;
+  labelClassName?: string;
 };
 
 const Checkbox = (props: Props) => {
   return (
     <label
-      className={`w-full flex items-center justify-between gap-3 cursor-pointer ${props.isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+      className={`flex w-full cursor-pointer items-center justify-between gap-3 ${
+        props.isSubmitting ? "cursor-not-allowed opacity-50" : ""
+      }`}
     >
-
-      <span>{props.checkboxLabel ? props.checkboxLabel : props.name}</span>
-      <div className="relative inline-block w-12 h-6">
+      <span className={`${props.labelClassName ? props.labelClassName : ""}`}>
+        {props.checkboxLabel ? props.checkboxLabel : props.name}
+      </span>
+      <div className="relative inline-block h-6 w-12">
         <input
           type="checkbox"
           checked={!!props.checkedValue}
@@ -22,11 +25,9 @@ const Checkbox = (props: Props) => {
           onChange={props.onChange}
           className="peer sr-only"
         />
-        <div className="absolute top-0 left-0 w-full h-full bg-font_light rounded-full peer-checked:bg-accent transition-colors" />
-        <div className="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-6" />
+        <div className="absolute left-0 top-0 h-full w-full rounded-full bg-font_light transition-colors peer-checked:bg-accent" />
+        <div className="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform peer-checked:translate-x-6" />
       </div>
-
-
     </label>
   );
 };
