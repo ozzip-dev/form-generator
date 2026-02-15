@@ -30,11 +30,13 @@ const HEADER_FIELDS: {
   {
     key: "resultVisibility",
     value: (form) => !!form.resultVisibility,
-    message: "wybierz tryb wyśietlania wyników",
+    message: "wybierz tryb wyświetlania wyników",
   },
 ];
 
-const ADD_FIELD_ERROR = "dodaj pytanie";
+const ADD_FIELD_ERROR = "dodaj min. jedno pytanie";
+const INPUT_HEADER_ERROR_SG = "brakujący opis pytania";
+const INPUT_HEADER_ERROR_PL = "brakujące opisy pytań";
 
 export type PublishFormActionResult =
   | {
@@ -45,6 +47,7 @@ export type PublishFormActionResult =
       success: false;
       headerError: HeaderErrors | null;
       addFieldError: string | null;
+      missingHeadersError: string | null;
     };
 
 export async function publishFormAction(
@@ -69,11 +72,20 @@ export async function publishFormAction(
 
   const addFieldError = form.inputs?.length ? null : ADD_FIELD_ERROR;
 
+  const missingHeaders: number =
+    form.inputs.filter(({ header }) => !header).length || 0;
+  const getMissingHeadersError = (): string | null => {
+    if (!missingHeaders) return null;
+    if (missingHeaders == 1) return INPUT_HEADER_ERROR_SG;
+    return INPUT_HEADER_ERROR_PL;
+  };
+
   if (headerError || addFieldError) {
     return {
       success: false,
       headerError,
       addFieldError,
+      missingHeadersError: getMissingHeadersError(),
     };
   }
 

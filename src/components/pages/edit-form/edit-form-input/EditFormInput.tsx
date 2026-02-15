@@ -6,6 +6,7 @@ import { Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useFormData } from "@/context/FormDataContextProvider";
 import { InputType } from "@/enums";
 import {
   isInputTypeParagraph,
@@ -104,6 +105,13 @@ const EditFormInput = () => {
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
+
+  // TODO Krzyztof: moze masz lepszy pomysl.
+  // Musi byc reaktywne na zmiany w formie, np. dodanie/usunięcie inputu
+  const formData = useFormData();
+  useEffect(() => {
+    if (!header) setError("header", { message: "Uzupełnij pytanie" });
+  }, [header, setError, formData]);
 
   const dataInputLabel = [
     {

@@ -119,6 +119,7 @@ export default function EditFormHeader(props: Props) {
                 headerPublishError.headerError?.type,
                 headerPublishError.headerError?.resultVisibility,
                 headerPublishError.headerError?.title,
+                headerPublishError.missingHeadersError,
                 addFieldPublishError,
               ]
                 .filter(Boolean)
