@@ -1,5 +1,5 @@
 import { DiagramType, GroupedAnswer } from "@/types/result";
-import { BarChart, PieChart } from "../charts";
+import { BarChart /*, PieChart */ } from "../charts";
 import AnswersDisplayed from "./AnswersDisplayed";
 import { isInputTypeCheckbox } from "@/helpers/inputHelpers";
 import { FormInput } from "@/types/input";
@@ -51,6 +51,7 @@ const AnswerResults = (props: Props) => {
     },
   ];
 
+  // TODO Pawel: fix single input pdf display
   const exportPdf = () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
@@ -94,18 +95,9 @@ const AnswerResults = (props: Props) => {
           variant="primary-rounded"
         />
       </div>
-      <div className="">
-        <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
 
-        {/* <div className="flex gap-md" id={`results-${id}`}>
-          {charts
-            .filter(
-              ({ id, isDisplayed }) => isDisplayed && isDiagramSelected(id),
-            )
-            .map(({ Component, id, props = {} }) => (
-              <Component key={id} data={mappedAnswers} {...props} />
-            ))}
-        </div> */}
+      <div id={`results-${id}`}>
+        <AnswersDisplayed {...{ answers: sortedAnswers, isCheckbox }} />
       </div>
     </>
   );

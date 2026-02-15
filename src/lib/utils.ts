@@ -1,17 +1,16 @@
 import { UserRole } from "@/models/User";
 import { IUser, UserSerialized } from "@/types/user";
-import { User } from "better-auth/*";
 
 export const convertBToKB = (bytes: number): string => {
   return (bytes / 1024).toFixed(2);
 };
 
-export function makeId(header: string): string {
-  return `${header
+export function makeId(text: string): string {
+  return `${text
     .trim()
     .toLowerCase()
     .replaceAll(" ", "-")
-    .substring(0, 10)}-${Math.round(Math.random() * 100000).toString()}`;
+    .substring(0, 16)}-${Math.round(Math.random() * 100000).toString()}`;
 }
 
 export const downloadFile = (blob: Blob, name: string) => {
