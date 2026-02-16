@@ -44,16 +44,6 @@ export const createdFormSchema = (inputs: any[]) => {
             }
 
             values.forEach((value) => {
-              if (value.length > 0 && value.length < 2) {
-                ctx.addIssue({
-                  code: z.ZodIssueCode.too_small,
-                  minimum: 2,
-                  type: "string",
-                  inclusive: true,
-                  message: "Min. 2 znaki",
-                });
-              }
-
               if (value.length > 100) {
                 ctx.addIssue({
                   code: z.ZodIssueCode.too_big,
@@ -85,16 +75,6 @@ export const createdFormSchema = (inputs: any[]) => {
                     message: "Min. jedna opcja wymagana",
                   });
                   return;
-                }
-
-                if (value.length < 2) {
-                  ctx.addIssue({
-                    code: z.ZodIssueCode.too_small,
-                    minimum: 2,
-                    type: "string",
-                    inclusive: true,
-                    message: "Min. 2 znaki",
-                  });
                 }
 
                 if (value.length > 100) {
