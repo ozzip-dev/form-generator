@@ -7,13 +7,14 @@ import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
 import { Submission } from "@/types/result";
 import { getAllSubmissions } from "@/services/result-service";
 
-type Props = { form: FormSerialized };
+type Props = { form: Partial<FormSerialized> };
 
 export default async function FormLink(props: Props) {
   const { _id, state, updatedAt } = props.form;
+  const isFormActive = props.form && isActive(props.form as FormSerialized);
   const formattedDate = formatDateAndTime(updatedAt);
   const submissions: Submission[] = await getAllSubmissions(_id as string);
-  const backgroundColor = isActive(props.form) ? "#e4f2e4" : "#faf6cd";
+  const backgroundColor = isFormActive ? "#e4f2e4" : "#faf6cd";
 
   return (
     <li className="w-[13rem]">
@@ -26,7 +27,7 @@ export default async function FormLink(props: Props) {
           <div className="font-semibold">
             {state && formStateWithLabels[state]}
           </div>
-          {isActive(props.form) && (
+          {isFormActive && (
             <div>
               Wyniki:{" "}
               <span className="font-semibold">{submissions.length}</span>
