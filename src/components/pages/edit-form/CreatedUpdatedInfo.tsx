@@ -7,13 +7,9 @@ type Props = {
 
 export default function CreatedUpdatedInfo({ createdAt, updatedAt }: Props) {
   return (
-    <div className="mt-6 flex gap-10">
-      <div className="mt-1 text-xs text-font_light">
-        Edytowano: {formatDateAndTime(updatedAt)}
-      </div>
-      <div className="mt-1 text-xs text-font_light">
-        Utworzono: {formatDateAndTime(createdAt)}
-      </div>
+    <div className="mt-6 flex gap-10 text-2xs text-font_light">
+      <div>Edytowano: {formatDateAndTime(updatedAt)}</div>
+      <div>Utworzono: {formatDateAndTime(createdAt)}</div>
     </div>
   );
 }

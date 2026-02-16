@@ -21,8 +21,9 @@ function RemoveFormButton(props: Props) {
   return (
     <Button
       type="button"
-      variant="primary"
+      variant="primary-rounded"
       message="Usuń formularz"
+      className="h-fit"
       onClickAction={() =>
         openModal({
           action: () => {

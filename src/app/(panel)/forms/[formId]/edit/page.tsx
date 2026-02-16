@@ -28,12 +28,10 @@ const EditFormPage = async (props: Props) => {
 
   const isFormActive = isActive(form);
 
-  const types = inputs.map(({ type }) => type);
-
   let textNumber = 0;
+
   return (
     <div className="container">
-      <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
       {isFormActive && <FormActiveInfo />}
       {!isFormActive && (
         <>
@@ -43,7 +41,7 @@ const EditFormPage = async (props: Props) => {
           >
             <FormActions form={form} />
           </SuspenseErrorBoundary>
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-8">
             <SuspenseErrorBoundary
               size="lg"
               errorMessage="Błąd edycji nagłówka formularza"
