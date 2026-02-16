@@ -1,7 +1,12 @@
 "use client";
 
 import { addTopicAction } from "@/actions/forum/addTopicAction";
-import { Button, Card, FullscreenLoader, InputFields } from "@/components/shared";
+import {
+  Button,
+  Card,
+  FullscreenLoader,
+  InputFields,
+} from "@/components/shared";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import {
@@ -10,6 +15,7 @@ import {
 } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { startTransition, useActionState } from "react";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const topicInputData: { floatingLabel: string; name: string; type: string }[] =
   [
@@ -60,8 +66,6 @@ const CreateTopicForm = () => {
     }
 
     redirect("/forum/list");
-
-    return { errors: { message: [] } };
   };
 
   const [state, createNewTopic, isPending] = useActionState(addNewTopic, {
@@ -72,7 +76,7 @@ const CreateTopicForm = () => {
   return (
     <Card className="mx-8">
       {isPending && <FullscreenLoader />}
-      <div className="text-lg font-black pb-8">Utwórz nowy temat</div>
+      <div className="pb-8 text-lg font-black">Utwórz nowy temat</div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -94,7 +98,15 @@ const CreateTopicForm = () => {
           ))}
         </select>
 
-        <Button message="Utwórz" className="mt-6" />
+        <div className="mt-6 flex gap-8">
+          <Link
+            href="/forum/list"
+            className="btn-primary rounded-sm !bg-white !text-accent"
+          >
+            Wróć
+          </Link>
+          <Button message="Utwórz" />
+        </div>
       </form>
     </Card>
   );

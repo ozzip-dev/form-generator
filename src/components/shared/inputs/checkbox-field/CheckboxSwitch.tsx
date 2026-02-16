@@ -7,6 +7,7 @@ type Props = {
   name: string;
   control: any;
   onChangeAction?: () => void;
+  disabled?: boolean;
 };
 
 const CheckboxSwitch = (props: Props) => {
@@ -23,6 +24,7 @@ const CheckboxSwitch = (props: Props) => {
 
         return (
           <Checkbox
+            isSubmitting={props.disabled}
             checkboxLabel={props.label}
             name={props.name}
             checkedValue={field.value}

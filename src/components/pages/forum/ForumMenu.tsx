@@ -9,7 +9,7 @@ const ForumMenu = () => {
 
   const protocolBasicItems: NavMenuLink[] = [
     { text: "Lista tematów", link: `/forum/list` },
-    { text: "Dodaj", link: "/forum/add" },
+    { text: "Dodaj temat", link: "/forum/add" },
   ];
   const dataNavLinks = !topicId
     ? protocolBasicItems

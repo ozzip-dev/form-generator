@@ -4,7 +4,7 @@ import ResultsTable from "@/components/pages/results/ResultsTable";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { getSortedInputs, isFormSecret } from "@/helpers/formHelpers";
-import { isInputSubmittable } from "@/helpers/inputHelpers";
+import { isInputDisplayedInResults } from "@/helpers/inputHelpers";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
 import { Answers, Submission } from "@/types/result";
@@ -19,7 +19,9 @@ const FormResultsTablePage = async (props: Props) => {
 
   const form = await getFormById(formId);
   const submissions: Submission[] = await getAllSubmissions(formId);
-  const submittableInputs = getSortedInputs(form).filter(isInputSubmittable);
+  const submittableInputs = getSortedInputs(form).filter(
+    isInputDisplayedInResults,
+  );
 
   const getAnswerDisplay = (value: string | Record<string, string>): string => {
     if (typeof value == "string") return value;
@@ -39,14 +41,24 @@ const FormResultsTablePage = async (props: Props) => {
 
   const getAnswerValues = (answers: Answers): string[] =>
     Object.entries(answers).map(([_, value]) => getAnswerDisplay(value));
+
+  const getVisibleAnswers = (answers: Answers) => {
+    const hiddenInputIds = form.inputs
+      .filter(({ hidden }) => hidden)
+      .map(({ id }) => id);
+    hiddenInputIds.forEach((id) => {
+      if (id && answers[id]) delete answers[id];
+    });
+    return answers;
+  };
+
   const submissionValues: string[][] = submissions.map(
-    ({ answers, submittedAt }) =>
-      isFormSecret(form)
-        ? getAnswerValues(answers)
-        : [
-            formatDateAndTime(submittedAt!.toISOString()),
-            ...getAnswerValues(answers),
-          ],
+    ({ answers, submittedAt }) => {
+      const displayedAnswers = getAnswerValues(getVisibleAnswers(answers));
+      return isFormSecret(form)
+        ? displayedAnswers
+        : [formatDateAndTime(submittedAt!.toISOString()), ...displayedAnswers];
+    },
   );
   const { title = "", createdAt } = form;
 

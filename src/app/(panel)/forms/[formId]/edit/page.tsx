@@ -32,7 +32,9 @@ const EditFormPage = async (props: Props) => {
 
   return (
     <div className="container">
+
       {isFormActive && <FormActiveInfo />}
+
       {!isFormActive && (
         <>
           <SuspenseErrorBoundary

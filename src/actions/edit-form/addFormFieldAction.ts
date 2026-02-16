@@ -1,5 +1,6 @@
 "use server";
 
+import { v4 as uuidv4 } from "uuid";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { isInputTypeParagraph } from "@/helpers/inputHelpers";
@@ -21,13 +22,10 @@ function getNextOrder(form: Form): number {
 
 function mapInputDocToFormInputData(input: Input, order: number): FormInput {
   const { type, header, description, validation, options = [] } = input;
-
-  const idPrefix = header || description!;
+  const uuid = uuidv4();
 
   return {
-    /* id: create from input's id + some number if ids are duplicated? or simply uuid? */
-    // id: makeId(idPrefix),
-    id: new Date().toString(),
+    id: makeId(uuid),
     type,
     header,
     description,
@@ -35,6 +33,7 @@ function mapInputDocToFormInputData(input: Input, order: number): FormInput {
     options,
     required: false,
     unique: false,
+    hidden: false,
     order,
   };
 }

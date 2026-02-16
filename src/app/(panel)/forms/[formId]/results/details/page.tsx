@@ -1,7 +1,7 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import Results from "@/components/pages/results/Results";
 import { getSortedInputs } from "@/helpers/formHelpers";
-import { isInputSubmittable } from "@/helpers/inputHelpers";
+import { isInputDisplayedInResults } from "@/helpers/inputHelpers";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
@@ -17,7 +17,9 @@ const FormResultsPage = async (props: Props) => {
   const hasResults = await formHasResults(formId);
   if (!hasResults) return <NoResultsInfo />;
 
-  const submittableInputs = getSortedInputs(form).filter(isInputSubmittable);
+  const submittableInputs = getSortedInputs(form).filter(
+    isInputDisplayedInResults,
+  );
 
   const displayResults = async (
     selectedInputIds: string[],

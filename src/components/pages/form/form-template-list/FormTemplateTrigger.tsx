@@ -24,12 +24,9 @@ const FormTemplateTrigger = (props: Props) => {
         onClickAction={handleCreateForm}
         isLoading={isPending}
         variant="ghost"
-        className="
-          flex justify-center items-center w-[13rem] h-[13rem]
-          rounded-md md:rounded-lg border !bg-white  hover:!bg-accent transition
-        "
+        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white transition hover:!bg-accent md:rounded-lg"
       />
-      <h3 className="mt-4 text-center truncate">{props.title}</h3>
+      <h3 className="mt-4 line-clamp-2 text-center">{props.title}</h3>
     </>
   );
 };

@@ -21,3 +21,8 @@ export const isInputWithOptions = ({ type }: Input | FormInput) =>
 /* osobny helper gdyby więcej typów doszło */
 export const isInputSubmittable = (input: Input | FormInput) =>
   input.type !== InputType.PARAGRAPH;
+
+const isInputVisibile = (input: Input | FormInput) => !input.hidden;
+
+export const isInputDisplayedInResults = (input: Input | FormInput) =>
+  isInputSubmittable(input) && isInputVisibile(input);

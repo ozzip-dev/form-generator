@@ -17,7 +17,7 @@ function getFormInputById(inputs: FormInput[], id: string): FormInput {
 async function decreaseRemainingInputsOrder(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ) {
   const form = await findById<Form>(db, "form", formId);
   if (!form) throw new Error("Invalid form id");
@@ -25,7 +25,7 @@ async function decreaseRemainingInputsOrder(
   const { inputs } = form;
   const startingOrder: number | undefined = getFormInputById(
     form.inputs,
-    inputId!
+    inputId!,
   )?.order;
   /* if order is undefined/null or is last element. We have no inputs to update */
   if (startingOrder == undefined || startingOrder >= inputs.length - 1) return;
@@ -46,7 +46,7 @@ async function decreaseRemainingInputsOrder(
         $inc: {
           "inputs.$.order": -1,
         },
-      }
+      },
     );
   }
 }
@@ -54,7 +54,7 @@ async function decreaseRemainingInputsOrder(
 export async function removeInputFromDraft(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<WithId<Form>> {
   /* all inputs higher than removed one get their order decreased by 1 */
   await decreaseRemainingInputsOrder(db, formId, inputId);
@@ -72,7 +72,7 @@ export async function removeInputFromDraft(
 export async function moveInputUp(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<WithId<Form> | undefined> {
   const form = await findById<Form>(db, "form", formId);
   if (!form) throw new Error("Invalid form id");
@@ -80,7 +80,7 @@ export async function moveInputUp(
   const { inputs } = form;
   const updatedOrder: number | undefined = getFormInputById(
     inputs,
-    inputId!
+    inputId!,
   )?.order;
   /* if order is undefined/null or 0. We can't move up input with index 0 */
   if (!updatedOrder) return;
@@ -98,7 +98,7 @@ export async function moveInputUp(
       $inc: {
         "inputs.$.order": 1,
       },
-    }
+    },
   );
 
   await update<Form>(
@@ -115,7 +115,7 @@ export async function moveInputUp(
       $set: {
         updatedAt: new Date(),
       },
-    }
+    },
   );
 
   const updatedForm = await findById<Form>(db, "form", formId);
@@ -125,7 +125,7 @@ export async function moveInputUp(
 export async function moveInputDown(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<WithId<Form> | undefined> {
   const form = await findById<Form>(db, "form", formId);
   if (!form) throw new Error("Invalid form id");
@@ -133,7 +133,7 @@ export async function moveInputDown(
   const { inputs } = form;
   const updatedOrder: number | undefined = getFormInputById(
     inputs,
-    inputId!
+    inputId!,
   )?.order;
   /* if order is undefined/null or is last element. We can't move down last input */
   if (updatedOrder == undefined || updatedOrder >= inputs.length - 1) return;
@@ -151,7 +151,7 @@ export async function moveInputDown(
       $inc: {
         "inputs.$.order": -1,
       },
-    }
+    },
   );
 
   await update(
@@ -168,7 +168,7 @@ export async function moveInputDown(
       $set: {
         updatedAt: new Date(),
       },
-    }
+    },
   );
 
   const updatedForm = await findById<Form>(db, "form", formId);
@@ -178,7 +178,7 @@ export async function moveInputDown(
 export async function toggleRequired(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<void> {
   const form = (await findById(db, "form", formId)) as Form;
   const input: FormInput = getFormInputById(form.inputs, inputId);
@@ -195,14 +195,14 @@ export async function toggleRequired(
         "inputs.$.required": !input.required,
         updatedAt: new Date(),
       },
-    }
+    },
   );
 }
 
 export async function toggleUnique(
   db: Db,
   formId: ObjectId,
-  inputId: string
+  inputId: string,
 ): Promise<void> {
   const form = (await findById(db, "form", formId)) as Form;
   const input: FormInput = getFormInputById(form.inputs, inputId);
@@ -219,7 +219,39 @@ export async function toggleUnique(
         "inputs.$.unique": !input.unique,
         updatedAt: new Date(),
       },
-    }
+    },
+  );
+}
+
+export async function toggleHidden(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+): Promise<void> {
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
+
+  const updateData = {
+    "inputs.$.hidden": !input.hidden,
+    updatedAt: new Date(),
+  };
+
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: form._id,
+      "inputs.id": inputId,
+    },
+    {
+      $set: !input.hidden
+        ? {
+            ...updateData,
+            "inputs.$.required": true,
+            "inputs.$.unique": true,
+          }
+        : updateData,
+    },
   );
 }
 
@@ -227,10 +259,8 @@ export async function updateFormInputTexts(
   db: Db,
   formId: ObjectId,
   inputId: string,
-  data: { header?: string; description?: string }
+  data: { header?: string; description?: string },
 ): Promise<void> {
-
-
   const form = (await findById(db, "form", formId)) as Form;
   const { header, description } = data;
 
@@ -251,7 +281,7 @@ export async function updateFormInputTexts(
         ...updateData,
         updatedAt: new Date(),
       },
-    }
+    },
   );
 }
 
@@ -259,7 +289,7 @@ export async function updateFormInputType(
   db: Db,
   formId: ObjectId,
   inputId: string,
-  type?: InputType
+  type?: InputType,
 ): Promise<void> {
   if (!type) return;
 
@@ -285,13 +315,13 @@ export async function updateFormInputType(
     { _id: formId, "inputs.id": inputId },
     {
       $set: updateObject,
-    }
+    },
   );
 }
 
 export async function checkInputHasOtherOption(
   formId: string,
-  inputId: string
+  inputId: string,
 ): Promise<boolean> {
   const { inputs } = await getFormById(formId);
   const input = getFormInputById(inputs, inputId);

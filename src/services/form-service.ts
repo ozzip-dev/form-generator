@@ -1,4 +1,4 @@
-import { FormType } from "@/enums/form";
+import { FormResultVisibility, FormType } from "@/enums/form";
 import {
   db,
   deleteById,
@@ -54,11 +54,21 @@ export async function formHasInputWithId(
 export async function createDraft(
   db: Db,
   userId: ObjectId,
+  inputs: FormInput[] = [],
   title?: string,
   description?: string,
-  inputs: FormInput[] = [],
+  type?: FormType | "",
+  resultVisibility?: FormResultVisibility | "",
+  headerFileId?: string,
 ): Promise<ObjectId> {
   const now: Date = new Date();
+  if (headerFileId) {
+    try {
+      await getFileById(headerFileId);
+    } catch (e) {
+      headerFileId = undefined;
+    }
+  }
   const insertData: Form = {
     createdBy: userId,
     createdAt: now,
@@ -67,9 +77,10 @@ export async function createDraft(
     description,
     inputs,
     state: "draft",
-    type: "",
-    resultVisibility: "",
+    type: type || "",
+    resultVisibility: resultVisibility || "",
     displayAuthorEmail: false,
+    headerFileId,
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);

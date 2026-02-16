@@ -10,7 +10,6 @@ import { use, useState } from "react";
 import AddPostForm from "./AddPostForm";
 import { useToast } from "@/context/ToastProvider";
 import { confirmAction } from "@/helpers/confirmAction";
-import { useRouter } from "next/navigation";
 
 type Props = {
   topic: TopicSerialized;
@@ -24,7 +23,6 @@ const TopicActionButtons = (props: Props) => {
 
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
-  const router = useRouter();
 
   const isAuthor = !!(user && isItemAuthor(user, props.topic));
 
@@ -47,7 +45,7 @@ const TopicActionButtons = (props: Props) => {
       action: () => {
         setShowPostForm(!showPostForm);
       },
-      isDisplayed: true,
+      isDisplayed: !showPostForm,
       errorText: "Błąd dodawania odpowiedzi",
     },
     {
@@ -98,7 +96,7 @@ const TopicActionButtons = (props: Props) => {
     <div>
       {isLoading && <FullscreenLoader />}
 
-      <div className="w-full flex gap-4 justify-around sm:justify-start">
+      <div className="flex w-full justify-around gap-4 sm:justify-start">
         {buttons
           .filter(({ isDisplayed }) => isDisplayed)
           .map(({ text, action, errorText, confirmText = "" }, idx) => (

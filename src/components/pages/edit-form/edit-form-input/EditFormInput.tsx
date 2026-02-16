@@ -6,6 +6,7 @@ import { Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useFormData } from "@/context/FormDataContextProvider";
 import { InputType } from "@/enums";
 import {
   isInputTypeParagraph,
@@ -39,6 +40,7 @@ const EditFormInput = () => {
     description,
     options,
     unique,
+    hidden,
   } = input;
 
   const [isPending, startTransition] = useTransition();
@@ -60,9 +62,10 @@ const EditFormInput = () => {
       options,
       required,
       unique,
+      hidden,
       type,
     }),
-    [header, description, options, required, unique, type],
+    [header, description, options, required, unique, hidden, type],
   );
 
   const methods = useForm<EditInputFormSchema>({
@@ -105,6 +108,13 @@ const EditFormInput = () => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
+  // TODO Krzyztof: moze masz lepszy pomysl.
+  // Musi byc reaktywne na zmiany w formie, np. dodanie/usunięcie inputu
+  const formData = useFormData();
+  useEffect(() => {
+    if (!header) setError("header", { message: "Uzupełnij pytanie" });
+  }, [header, setError, formData]);
+
   const dataInputLabel = [
     {
       type: "text",
@@ -117,7 +127,7 @@ const EditFormInput = () => {
   return (
     <Card className="">
       {!inputId ? (
-        <div>Błąd pola fomrularza, skontankuj się z administratorem</div>
+        <div>Błąd pola fomrularza, skontanktuj się z administratorem</div>
       ) : (
         <FormProvider {...methods}>
           <form>

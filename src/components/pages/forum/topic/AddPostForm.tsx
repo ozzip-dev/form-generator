@@ -66,6 +66,10 @@ const AddPostForm = (props: Props) => {
     inputs: null,
   });
 
+  const onCancel = () => {
+    props.setShowPostForm(false);
+  };
+
   return (
     <>
       {isPending && <FullscreenLoader />}
@@ -76,10 +80,19 @@ const AddPostForm = (props: Props) => {
             createNewTopic(new FormData(e.currentTarget));
           });
         }}
+        className="mt-16"
       >
         <InputFields errorMsg={state.errors} inputsData={topicInputData} />
 
-        <Button message="Dodaj odpowiedz" />
+        <div className="flex gap-8">
+          <Button
+            type="button"
+            message="Anuluj"
+            onClickAction={onCancel}
+            className="!bg-white !text-accent"
+          />
+          <Button message="Dodaj odpowiedz" />
+        </div>
       </form>
     </>
   );
