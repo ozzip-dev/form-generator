@@ -1,5 +1,5 @@
 import { FormResultVisibility, FormType } from "@/enums/form";
-import { Form, FormCreated, FormSerialized } from "@/types/form";
+import { Form, FormCreated, FormSerialized, FormState } from "@/types/form";
 import { FormInput } from "@/types/input";
 
 export function isDraft(form: Form | FormCreated | FormSerialized): boolean {
@@ -39,7 +39,7 @@ export const formVisibilityData: {
   },
 ];
 
-export const formStateWithLabels: Record<string, string> = {
+export const formStateWithLabels: Record<FormState, string> = {
   draft: "Szkic",
   active: "Aktywny",
   disabled: "Nieaktywny",

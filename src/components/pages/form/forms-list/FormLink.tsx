@@ -1,24 +1,45 @@
+"use server";
+
 import Link from "next/link";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormSerialized } from "@/types/form";
+import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
+import { Submission } from "@/types/result";
+import { getAllSubmissions } from "@/services/result-service";
 
-type Props = { form: Partial<FormSerialized> };
+type Props = { form: FormSerialized };
 
-export default function FormLink(props: Props) {
-  const formatted = formatDateAndTime(props.form.updatedAt);
+export default async function FormLink(props: Props) {
+  const { _id, state, updatedAt } = props.form;
+  const formattedDate = formatDateAndTime(updatedAt);
+  const submissions: Submission[] = await getAllSubmissions(_id as string);
+  const backgroundColor = isActive(props.form) ? "#e4f2e4" : "#faf6cd";
 
   return (
     <li className="w-[13rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className="block h-[13rem] w-full rounded-md border bg-bg_light transition hover:bg-accent md:rounded-lg"
-      />
+        className="flex h-[13rem] w-full items-center justify-center rounded-md border bg-bg_light px-8 py-6 text-xs transition hover:bg-accent md:rounded-lg"
+        style={{ backgroundColor }}
+      >
+        <div>
+          <div className="font-semibold">
+            {state && formStateWithLabels[state]}
+          </div>
+          {isActive(props.form) && (
+            <div>
+              Wyniki:{" "}
+              <span className="font-semibold">{submissions.length}</span>
+            </div>
+          )}
+        </div>
+      </Link>
 
       <div className="mt-4 line-clamp-2 px-4 text-center">
         {props.form.title ? props.form.title : "Brak tytułu"}
       </div>
       <p className="mt-1 truncate text-center text-2xs text-font_light">
-        Edycja <br /> {formatted}
+        Edycja <br /> {formattedDate}
       </p>
     </li>
   );
