@@ -16,7 +16,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
   {
     name: "unique",
     label: `Odpowiedź unikalna`,
-    infoText: "Dana odpowiedź będzie mogła zostać wysłana tylko jeden raz",
+    infoText: "Odpowiedź będzie mogła zostać wysłana tylko jeden raz",
     action: toggleUniqueAction,
     disabled: formInput.hidden,
   },
@@ -24,7 +24,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
     name: "hidden",
     label: `Odpowiedź ukryta`,
     infoText:
-      "Dana odpowiedź nie będzie widoczna w raporcie. Dotyczy unikalnych wartości.",
+      "Odpowiedź nie będzie widoczna w wynikach. Dotyczy unikalnych i tajnych wartości takich jak dane osobowe, numery indentyfikacyjne idt.",
     action: toggleHiddenAction,
     disabled: false,
   },

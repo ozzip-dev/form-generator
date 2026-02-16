@@ -4,7 +4,10 @@ import { setAliasUrlAction } from "@/actions/edit-form/publish-form/setAliasUrlA
 import { InputFields } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useEditForm } from "@/hooks/useEditForm";
-import { setAliasSchema, SetAliasSchema } from "@/lib/zod-schema/setAliasSchema";
+import {
+  setAliasSchema,
+  SetAliasSchema,
+} from "@/lib/zod-schema/setAliasSchema";
 import { FormSerialized } from "@/types/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -14,7 +17,7 @@ import RemoveAliasButton from "./RemoveAliasButton";
 const dataInputUrl = [
   {
     name: "url",
-    floatingLabel: "Wpisz własny adres formularza",
+    floatingLabel: "Edytuj adres formularza",
     placeholder: "www:formularz",
     type: "text",
   },
@@ -50,8 +53,8 @@ export default function AliasUrlForm(form: FormSerialized) {
   }, [reset, form.url, form._id]);
 
   return (
-    <form className="max-w-[46rem] sm:flex sm:items-center sm:justify-between">
-      <div className="w-full sm:w-[30rem]">
+    <form className="sm:flex sm:items-center sm:justify-between lg:justify-start">
+      <div className="mr-[3rem] w-full sm:w-1/2 lg:w-[340px]">
         <InputFields
           inputsData={dataInputUrl}
           register={register}
@@ -59,8 +62,9 @@ export default function AliasUrlForm(form: FormSerialized) {
           onChange={handleEditLabel}
         />
       </div>
-
-      {form.url && <RemoveAliasButton form={form} />}
+      <div className="sm:w-1/2">
+        {form.url && <RemoveAliasButton form={form} />}
+      </div>
     </form>
   );
 }

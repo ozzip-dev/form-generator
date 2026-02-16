@@ -10,10 +10,10 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="relative container flex items-center ">
+    <div className="relative flex items-center">
       <DashboardMenu />
 
-      <div className="ml-16 lg:ml-auto mr-10">
+      <div className="ml-16 mr-10 lg:ml-auto">
         <span>{user?.role}: </span>
         <span className="font-bold">{user?.name}</span>
       </div>
