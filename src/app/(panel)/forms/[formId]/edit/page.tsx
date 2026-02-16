@@ -33,8 +33,11 @@ const EditFormPage = async (props: Props) => {
   let textNumber = 0;
   return (
     <div className="container">
-      <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
-      {isFormActive && <FormActiveInfo />}
+      {isFormActive ? (
+        <FormActiveInfo />
+      ) : (
+        <CreatedUpdatedInfo {...{ createdAt, updatedAt }} />
+      )}
       {!isFormActive && (
         <>
           <SuspenseErrorBoundary

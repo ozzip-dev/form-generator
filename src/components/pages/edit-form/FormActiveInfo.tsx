@@ -7,6 +7,7 @@ import { isUserAuthor } from "@/helpers/formHelpers";
 import { UserSerialized } from "@/types/user";
 import { use } from "react";
 import RemoveFormButton from "./RemoveFormButton";
+import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 
 const FormActiveInfo = () => {
   const { formDataPromise } = useFormData();
@@ -16,7 +17,7 @@ const FormActiveInfo = () => {
 
   if (!form) return null;
 
-  const { _id, title, url } = form;
+  const { _id, title, url, createdAt, updatedAt } = form;
 
   const isAuthor = user && isUserAuthor(form, user._id);
 
@@ -24,7 +25,15 @@ const FormActiveInfo = () => {
     <>
       <Card className="my-16">
         <div className="my-16 text-center text-lg font-bold text-font_light">
-          Opublikowany formularz <br />{" "}
+          <div>
+            Opublikowany formularz <br />{" "}
+          </div>
+          <div className="text-sm">
+            Utworzono: {formatDateAndTime(createdAt)}
+          </div>
+          <div className="text-sm">
+            Opublikowano: {formatDateAndTime(updatedAt)}
+          </div>
           <span className="text-font_dark">{title}</span>
           <br /> <span className="text-sm">Edycja niedostępna</span>
         </div>
