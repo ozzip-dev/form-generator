@@ -11,16 +11,15 @@ export default function FormLink(props: Props) {
     <li className="w-[13rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className="
-          block border rounded-md md:rounded-lg h-[13rem] w-full 
-          bg-bg_light hover:bg-accent transition
-        "
+        className="block h-[13rem] w-full rounded-md border bg-bg_light transition hover:bg-accent md:rounded-lg"
       />
 
-      <div className="mt-4 px-4 text-center truncate">
+      <div className="mt-4 line-clamp-2 px-4 text-center">
         {props.form.title ? props.form.title : "Brak tytułu"}
       </div>
-      <p className="mt-1 text-2xs text-center text-font_light truncate">Edycja <br /> {formatted}</p>
+      <p className="mt-1 truncate text-center text-2xs text-font_light">
+        Edycja <br /> {formatted}
+      </p>
     </li>
   );
 }

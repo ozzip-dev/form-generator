@@ -59,8 +59,16 @@ export async function createDraft(
   description?: string,
   type?: FormType | "",
   resultVisibility?: FormResultVisibility | "",
+  headerFileId?: string,
 ): Promise<ObjectId> {
   const now: Date = new Date();
+  if (headerFileId) {
+    try {
+      await getFileById(headerFileId);
+    } catch (e) {
+      headerFileId = undefined;
+    }
+  }
   const insertData: Form = {
     createdBy: userId,
     createdAt: now,
@@ -72,6 +80,7 @@ export async function createDraft(
     type: type || "",
     resultVisibility: resultVisibility || "",
     displayAuthorEmail: false,
+    headerFileId,
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);

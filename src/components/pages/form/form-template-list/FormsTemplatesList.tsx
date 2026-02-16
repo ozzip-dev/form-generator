@@ -8,14 +8,17 @@ const FormsTemplatesList = async () => {
   return (
     <>
       <SectionHeader message="Przykładowe formularze" />
-      <div className="flex flex-wrap justify-center md:justify-start gap-4">
+      <div className="flex flex-wrap justify-center gap-4 md:justify-start">
         {templateForms
           .filter(
             ({ id, title }) => id && title,
           ) /* filter out invalid records */
           .map(({ id, title }, idx) => {
             return (
-              <div className="size-fit mr-2 text-sm" key={idx}>
+              <div
+                className="flex h-fit w-[13rem] flex-col justify-center text-sm"
+                key={idx}
+              >
                 <FormTemplateTrigger
                   id={id as string}
                   title={title as string}
