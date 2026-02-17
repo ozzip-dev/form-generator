@@ -73,9 +73,7 @@ const TopicPostItem = (props: Props) => {
       <div>
         autor: <b>{authorName}</b>
       </div>
-      <div>
-        treść: <b>{content}</b>
-      </div>
+      <div>treść: {content}</div>
     </div>
   );
 };
