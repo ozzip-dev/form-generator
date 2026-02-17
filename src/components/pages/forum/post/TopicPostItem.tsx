@@ -47,13 +47,13 @@ const TopicPostItem = (props: Props) => {
   const isAuthor = !!(user && isItemAuthor(user, props.post));
 
   return (
-    <div className="mb-8">
+    <div className="pt-sm">
       {isPending && (
-        <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center">
+        <div className="bg-red/50 w-100 absolute inset-0 flex items-center justify-center backdrop-blur-sm">
           <DataLoader />
         </div>
       )}
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         <div className="text-sm">({formatDateAndTime(createdAt)})</div>
         {isAuthor && (
           <Button
@@ -73,9 +73,7 @@ const TopicPostItem = (props: Props) => {
       <div>
         autor: <b>{authorName}</b>
       </div>
-      <div>
-        treść: <b>{content}</b>
-      </div>
+      <div>treść: {content}</div>
     </div>
   );
 };
