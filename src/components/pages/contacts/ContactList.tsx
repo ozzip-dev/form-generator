@@ -27,6 +27,7 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
   const [committees, setCommittees] = useState<UserCommitteeInfo[]>([]);
 
   const handleReasonSelect = async (formType: FormType) => {
+    setCommittees([]);
     setActiveType(formType);
     const userCommittees = await getUserCommittees(formType);
 
