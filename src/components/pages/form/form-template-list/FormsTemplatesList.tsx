@@ -5,6 +5,16 @@ import { getFormTemplates } from "@/services/form-service";
 const FormsTemplatesList = async () => {
   const templateForms = await getFormTemplates();
 
+  // Taka kolejność
+  const templateHeders = [
+    "OUT",
+    "OUT",
+    "Ankieta pracownicza",
+    "Wybory SIP",
+    "Referendum strajkowe",
+    "Wybory prezydium komisji",
+  ];
+
   return (
     <>
       <SectionHeader message="Przykładowe formularze" />
@@ -13,7 +23,7 @@ const FormsTemplatesList = async () => {
           .filter(
             ({ id, title }) => id && title,
           ) /* filter out invalid records */
-          .map(({ id, title }, idx) => {
+          .map(({ id }, idx) => {
             return (
               <div
                 className="flex h-fit w-[13rem] flex-col justify-center text-sm"
@@ -21,7 +31,7 @@ const FormsTemplatesList = async () => {
               >
                 <FormTemplateTrigger
                   id={id as string}
-                  title={title as string}
+                  title={templateHeders[idx] as string}
                 />
               </div>
             );

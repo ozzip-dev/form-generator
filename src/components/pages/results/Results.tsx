@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button, Card } from "@/components/shared";
-import { DiagramType, GroupedAnswer } from "@/types/result";
-import { AnswerResults } from "./answers";
-import { FormInput, FormInputSelectable } from "@/types/input";
-import ResultFieldSelect from "./ResultFieldSelect";
-import { FormType } from "@/enums/form";
 import SectionHeader from "@/components/shared/SectionHeader";
+import { FormType } from "@/enums/form";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
+import { FormInput, FormInputSelectable } from "@/types/input";
+import { DiagramType, GroupedAnswer } from "@/types/result";
+import { useState } from "react";
+import { AnswerResults } from "./answers";
+import ResultFieldSelect from "./ResultFieldSelect";
 
 type Props = {
   inputs: FormInput[];
