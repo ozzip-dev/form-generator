@@ -24,29 +24,20 @@ type Props = {
 const TextareaField = (props: Props) => {
   const { name, placeholder, type, required } = props.inputData;
 
-
   return (
     <div className="relative flex-1">
       <textarea
         id={name}
         disabled={props.isLoading?.[name]}
-        className={` peer  rounded-sm border
-         p-3 
-        text-sm w-full
-         focus:outline-none focus:border-accent
-          ${props.error ? "border-red" : "border-default"}
-          ${props.isLoading?.[name] ? "opacity-50 cursor-not-allowed" : ""}
-        
-    `}
-        placeholder=" "
-        // placeholder={placeholder}
+        className={`peer w-full rounded-sm border p-3 text-sm focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
+        placeholder={placeholder}
         {...(props.register
           ? props.register(name, {
-            onChange: (e) => {
-              const value = e.target.value;
-              props.onChange?.(name, value);
-            },
-          })
+              onChange: (e) => {
+                const value = e.target.value;
+                props.onChange?.(name, value);
+              },
+            })
           : {})}
       />
       {props.floatingLabel && (
@@ -56,7 +47,6 @@ const TextareaField = (props: Props) => {
           required={required || false}
         />
       )}
-
 
       <InputError
         errorMsg={

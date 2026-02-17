@@ -5,11 +5,8 @@ export const editFormHeaderSchema = z.object({
     .string()
     .trim()
     .min(2, { message: "Min. 2 litery" })
-    .max(200, { message: "Maks. 200 liter" }),
-  description: z
-    .string()
-    .trim()
-    .max(2000, { message: "Maks. 2000 liter" }),
+    .max(100, { message: "Maks. 100 liter" }),
+  description: z.string().trim().max(2000, { message: "Maks. 2000 liter" }),
   type: z.string().trim().nonempty({ message: "Podaj kateogorię formularza" }),
   resultVisibility: z
     .string()

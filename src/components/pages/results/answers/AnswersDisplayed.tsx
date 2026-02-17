@@ -1,6 +1,6 @@
 import { ResultAnswer } from "@/types/result";
-import AnswersDisplayedSum from "./AnswersDisplayedSum";
-import AnswersDisplayedPercentage from "./AnswersDisplayedPercentage";
+import RenderAnswers from "./RenderAnswers";
+import { usePreparedAnswers } from "./usePrepareAnswers";
 
 type Props = {
   answers: ResultAnswer[];
@@ -8,15 +8,9 @@ type Props = {
 };
 
 const AnswersDisplayed = (props: Props) => {
-  return (
-    <>
-      {props.isCheckbox ? (
-        <AnswersDisplayedSum answers={props.answers} />
-      ) : (
-        <AnswersDisplayedPercentage answers={props.answers} />
-      )}
-    </>
-  );
+  const answers = usePreparedAnswers(props.answers, props.isCheckbox);
+
+  return <RenderAnswers answers={answers} />;
 };
 
 export default AnswersDisplayed;

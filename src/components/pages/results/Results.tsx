@@ -59,17 +59,17 @@ const Results = (props: Props) => {
     setDisplayedResults({ results, submissionCount });
   };
 
-  // useEffect(() => {
-  //   const yyy = async () => {
-  //     const inputIds = inputs
-  //       .filter(({ selected }) => selected)
-  //       .map(({ id }) => id!);
-  //     const { results, submissionCount } = await props.displayResults(inputIds);
-  //     setList(results);
-  //   };
+  useEffect(() => {
+    const yyy = async () => {
+      const inputIds = inputs
+        .filter(({ selected }) => selected)
+        .map(({ id }) => id!);
+      const { results, submissionCount } = await props.displayResults(inputIds);
+      setList(results);
+    };
 
-  //   yyy();
-  // }, []);
+    yyy();
+  }, []);
 
   return (
     <div className="container py-4">
@@ -102,17 +102,17 @@ const Results = (props: Props) => {
       />
 
       <div id="results" className="flex flex-col gap-4">
-        {displayedResults.results.map((result, idx) => (
-          <Card key={idx}>
-            <AnswerResults {...{ result, diagrams, title, idx }} />
-          </Card>
-        ))}
-{/* 
-        {list?.map((result, idx) => (
+        {/* {displayedResults.results.map((result, idx) => (
           <Card key={idx}>
             <AnswerResults {...{ result, diagrams, title, idx }} />
           </Card>
         ))} */}
+
+        {list?.map((result, idx) => (
+          <Card key={idx}>
+            <AnswerResults {...{ result, diagrams, title, idx }} />
+          </Card>
+        ))}
       </div>
     </div>
   );

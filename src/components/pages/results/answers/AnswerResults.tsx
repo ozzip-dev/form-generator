@@ -82,8 +82,8 @@ const AnswerResults = (props: Props) => {
   };
   return (
     <>
-      <div className="mb-sm flex justify-between gap-2 font-bold">
-        <div className={header ? "" : "text-error"}>
+      <div className="mb-sm flex items-center justify-between gap-2 font-bold">
+        <div className={`flex-1 truncate ${header ? "" : "text-error"}`}>
           <span className="mr-2">{props.idx + 1}.</span>
           {header ? header : "Brak pytania"}
         </div>
