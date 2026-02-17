@@ -4,7 +4,7 @@ import { CommitteeInfoKey, UserCommitteeInfo } from "@/types/user";
 import ContactCommitteeItem from "./ContactCommitteeItem";
 import ContactFilters from "./ContactFilters";
 import { FormSerialized } from "@/types/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 import { FormType } from "@/enums/form";
 import { formTypesWithLabels, getTypeLabel } from "@/helpers/formHelpers";
@@ -27,6 +27,7 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
   const [committees, setCommittees] = useState<UserCommitteeInfo[]>([]);
 
   const handleReasonSelect = async (formType: FormType) => {
+    setCommittees([]);
     setActiveType(formType);
     const userCommittees = await getUserCommittees(formType);
 
@@ -42,10 +43,14 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
     );
   });
 
+  useEffect(() => {
+    handleReasonSelect(type);
+  }, []);
+
   return (
     <div>
       {/* TODO: Te same filtry co w Forum. Zmienić/ostylowc w obu */}
-      <div className="flex flex-wrap w-fit items-center gap-x-8 gap-y-4 py-4 m-auto">
+      <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
         <div>Typy formularzy: </div>
         {formTypesWithLabels.map(({ label, value }) => (
           <Button
@@ -66,14 +71,14 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
         </div>
 
         {!committees || !committees.length ? (
-          <div className="text-error text-center pt-2">
+          <div className="pt-2 text-center text-error">
             Brak kontaktów organizacji
           </div>
         ) : (
           <div>
             <ContactFilters {...{ filterText, setFilterText }} />
 
-            <div className=" flex flex-col gap-6">
+            <div className="flex flex-col gap-6">
               <ResponsiveListHeader headers={headers} />
 
               {filteredCommittees.map((committee, i) => (

@@ -7,7 +7,7 @@ type Props = {
 
 const TopicPostList = (props: Props) => {
   return (
-    <div>
+    <div className="flex flex-col gap-sm divide-y divide-default pb-sm">
       {props.posts.map((post, idx) => (
         <TopicPostItem key={idx} post={post} />
       ))}
