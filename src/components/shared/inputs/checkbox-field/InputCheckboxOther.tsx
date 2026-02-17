@@ -13,10 +13,12 @@ const InputCheckboxOther = (props: Props) => {
   const inputValue = typeof rawValue === "string" ? rawValue : "";
 
   return (
-    <>
-      {/* <label htmlFor={props.name} className="block">
-        {props.label ? props.label : props.name}
-      </label> */}
+    <div>
+      {props.label && (
+        <label htmlFor={props.name} className="block">
+          {props.label}
+        </label>
+      )}
 
       <input
         id={props.name}
@@ -30,11 +32,9 @@ const InputCheckboxOther = (props: Props) => {
             [props.name]: e.target.value,
           });
         }}
-        className={`rounded-sm border p-3 
-        focus:outline-none focus:border-accent w-full   
-        ${props.isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`w-full rounded-sm border p-3 focus:border-accent focus:outline-none ${props.isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
       />
-    </>
+    </div>
   );
 };
 

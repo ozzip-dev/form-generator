@@ -12,7 +12,7 @@ type Props = {
 
 const InputRadioOther = (props: Props) => {
   return (
-    <div className="w-full">
+    <div>
       {props.label && <label className="block">{props.label}</label>}
       <input
         type="text"
@@ -24,7 +24,7 @@ const InputRadioOther = (props: Props) => {
             shouldValidate: true,
           });
         }}
-        className="w-full rounded-sm border p-3 focus:border-accent focus:outline-none"
+        className="rounded-sm border p-3 focus:border-accent focus:outline-none"
       />
     </div>
   );

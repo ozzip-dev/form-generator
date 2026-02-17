@@ -41,30 +41,25 @@ const RadioGroupField = (props: Props) => {
   const isRadioValue = radioLabels.includes(value);
 
   return (
-    <div className="flex flex-col py-5  text-sm">
+    <div className="flex flex-col gap-6 text-sm">
       {props.label && (
-        <label className="font-bold mb-3">
+        <label className="font-bold">
           <span>{props.label}</span>
-
-          <InputIndicators
-            required={props.required}
-            unique={props.unique}
-          />
+          <InputIndicators required={props.required} unique={props.unique} />
         </label>
-        
       )}
 
       {props.description && (
         <InputDescription description={props.description} variant="published" />
       )}
 
-      <div className={`relative ${props.className}`}>
+      <div className={`relative flex flex-col gap-6 ${props.className ?? ""}`}>
         {props.options.map((option) => {
           const isOther = option.value === OPTION_OTHER;
           const isChecked = !isOther && value === option.label;
 
           return (
-            <div key={option.value} className="">
+            <div key={option.value} className="flex flex-col">
               {isOther ? (
                 <InputRadioOther
                   label={option.label}
@@ -74,11 +69,7 @@ const RadioGroupField = (props: Props) => {
                   value={value}
                 />
               ) : (
-
-
-                <label
-                  className="flex items-center gap-3 mb-3 cursor-pointer"
-                >
+                <label className="flex cursor-pointer items-center gap-3">
                   <input
                     type="radio"
                     value={option.label}
@@ -92,20 +83,8 @@ const RadioGroupField = (props: Props) => {
                     }
                   />
 
-                  <span
-                    className="
-                        w-6 h-6 rounded-full border
-                        flex items-center justify-center
-                        transition
-                        peer-checked:border-accent
-                        peer-checked:bg-accent 
-                        peer-checked:shadow-[inset_0_0_0_2px_white]
-                        ">
-
-                  </span>
-                  <div className="block w-full text-sm">
-                    {option.label}
-                  </div>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full border transition peer-checked:border-accent peer-checked:bg-accent peer-checked:shadow-[inset_0_0_0_2px_white]"></span>
+                  <div className="block w-full text-sm">{option.label}</div>
                 </label>
               )}
             </div>

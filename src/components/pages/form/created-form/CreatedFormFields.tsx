@@ -71,6 +71,7 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
     options.map((option: FormOption) => ({
       name: option.label,
       optionId: option.value,
+      checkboxLabel: option.label,
     })) ?? [];
 
   return (
@@ -88,5 +89,11 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
 };
 
 export const renderParagraph = ({ input }: RendererParams) => {
-  return <FormDescription key={input.id} description={input.description} variant="published"/>;
+  return (
+    <FormDescription
+      key={input.id}
+      description={input.description}
+      variant="published"
+    />
+  );
 };

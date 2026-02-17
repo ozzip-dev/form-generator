@@ -1,6 +1,11 @@
 "use client";
 
-import { Button, Card, CheckboxGroupField, InputFields } from "@/components/shared";
+import {
+  Button,
+  Card,
+  CheckboxGroupField,
+  InputFields,
+} from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
   protocolFormSchema,
@@ -61,7 +66,6 @@ const dataCheckboxOptions = [
     name: "workStandards",
   },
   {
-    checkboxLabel: "Inna",
     name: OPTION_OTHER,
     optionId: OPTION_OTHER,
   },
