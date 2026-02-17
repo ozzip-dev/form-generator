@@ -1,5 +1,4 @@
 import { DiagramType, GroupedAnswer } from "@/types/result";
-import { BarChart /*, PieChart */ } from "../charts";
 import AnswersDisplayed from "./AnswersDisplayed";
 import { isInputTypeCheckbox } from "@/helpers/inputHelpers";
 import { FormInput } from "@/types/input";
@@ -36,20 +35,6 @@ const AnswerResults = (props: Props) => {
 
   const isCheckbox = isInputTypeCheckbox({ type } as FormInput);
   const isDiagramSelected = (id: string) => diagramIds.includes(id);
-
-  const charts = [
-    // {
-    //   id: "pieChart",
-    //   Component: PieChart,
-    //   isDisplayed: !isCheckbox,
-    // },
-    {
-      id: "barChart",
-      Component: BarChart,
-      isDisplayed: true,
-      props: { type },
-    },
-  ];
 
   // TODO Pawel: fix single input pdf display
   const exportPdf = () => {

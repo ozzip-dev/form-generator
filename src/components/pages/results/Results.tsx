@@ -59,31 +59,14 @@ const Results = (props: Props) => {
     setDisplayedResults({ results, submissionCount });
   };
 
-  useEffect(() => {
-    const yyy = async () => {
-      const inputIds = inputs
-        .filter(({ selected }) => selected)
-        .map(({ id }) => id!);
-      const { results, submissionCount } = await props.displayResults(inputIds);
-      setList(results);
-    };
-
-    yyy();
-  }, []);
-
   return (
-    <div className="container py-4">
+    <div className="container mb-16 py-4">
       <Card>
         <SectionHeader
-          className="my-6"
+          className="mx-8 my-6 min-w-max"
           message={
             <>
-              <div className="sm:flex">
-                <div className="mr-2 font-normal text-font_light">
-                  Tytuł formularza:{" "}
-                </div>
-                <div>{title} </div>
-              </div>{" "}
+              <div>{title} </div>
               <div className="text-center text-2xs text-font_light sm:text-left">
                 <span className="mr-1"> Opublikowany:</span>
                 {formatDateAndTime(createdAt.toString())}
@@ -102,13 +85,7 @@ const Results = (props: Props) => {
       />
 
       <div id="results" className="flex flex-col gap-4">
-        {/* {displayedResults.results.map((result, idx) => (
-          <Card key={idx}>
-            <AnswerResults {...{ result, diagrams, title, idx }} />
-          </Card>
-        ))} */}
-
-        {list?.map((result, idx) => (
+        {displayedResults.results.map((result, idx) => (
           <Card key={idx}>
             <AnswerResults {...{ result, diagrams, title, idx }} />
           </Card>

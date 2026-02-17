@@ -18,23 +18,27 @@ export const RenderAnswers = ({ answers }: Props) => {
         const formatted = percentage.toFixed(0);
 
         return (
-          <div key={index} className="space-y-1">
-            <div className="flex justify-between text-sm">
-              <div className="flex-1 truncate">
+          <div key={index} className="space-y-1 lg:flex lg:items-center">
+            <div className="flex flex-1 justify-between text-sm">
+              <div className="mr-3 flex-1 truncate lg:w-[60rem] lg:text-right">
                 {answer || "[ brak odpowiedzi ]"}
               </div>
 
-              <div className="ml-3 whitespace-nowrap">
+              <div className="ml-3 whitespace-nowrap lg:hidden">
                 <span className="font-bold">{count}</span>
                 <span> • {formatted}%</span>
               </div>
             </div>
 
-            <div className="h-3 w-full overflow-hidden rounded-full bg-gray-200">
+            <div className="h-3 w-full overflow-hidden rounded-full bg-bg_dark">
               <div
                 className="h-full bg-accent transition-all duration-500"
                 style={{ width: `${percentage}%` }}
               />
+            </div>
+            <div className="ml-3 hidden w-24 whitespace-nowrap lg:block">
+              <span className="font-bold">{count}</span>
+              <span> • {formatted}%</span>
             </div>
           </div>
         );

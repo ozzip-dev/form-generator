@@ -5,13 +5,13 @@ type Props = {
 
 const ResultsTable = async (props: Props) => {
   return (
-    <table className="w-full min-w-max border-collapse text-sm">
+    <table className="w-max border-collapse text-sm">
       <thead className="sticky top-0 z-10 bg-white">
         <tr className="*:p-sm">
           {props.inputHeaders?.map((header, idx) => (
             <th
               key={idx}
-              className={`text-left ${header ? "" : "text-font_light"}`}
+              className={`whitespace-normal break-normal text-left ${header ? "" : "text-font_light"}`}
             >
               {header ? header : "Brak pytania"}
             </th>
@@ -20,9 +20,12 @@ const ResultsTable = async (props: Props) => {
       </thead>
       <tbody className="table-highlighted mt-4 overflow-x-auto overflow-y-auto">
         {props.submissionValues.map((submission, idx) => (
-          <tr key={idx} className="*:max-w-[150px] *:p-sm">
+          <tr key={idx} className="*:p-sm">
             {submission.map((value, index) => (
-              <td key={index} className={value ? "" : "text-font_light"}>
+              <td
+                key={index}
+                className={`max-w-[1200px] whitespace-normal break-normal ${value ? "" : "text-font_light"}`}
+              >
                 {value ? value : "Brak odpowiedzi"}
               </td>
             ))}
