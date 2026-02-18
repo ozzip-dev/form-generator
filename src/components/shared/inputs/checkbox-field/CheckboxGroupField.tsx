@@ -53,7 +53,7 @@ export default function CheckboxGroupField(props: Props) {
             className={`flex w-fit flex-col gap-6 text-sm ${props.mode === "horizontal" ? "md:flex-row" : ""}`}
           >
             {props.groupLabel && (
-              <div className="font-bold">
+              <div className="font-semibold">
                 {props.groupLabel}
                 <InputIndicators
                   required={props.required}

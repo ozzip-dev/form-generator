@@ -10,7 +10,11 @@ const CreateFormMenu = ({ formId }: Props) => {
     { text: "Lista", link: `/forms` },
     { text: "Edycja", link: `/forms/${formId}/edit` },
     { text: "Podgląd", link: `/forms/${formId}/preview`, sameTab: false },
-    { text: "Wyniki", link: `/forms/${formId}/results/table`, sameTab: false },
+    {
+      text: "Wyniki",
+      link: `/forms/${formId}/results/details`,
+      sameTab: false,
+    },
     { text: "Kontakty", link: `/forms/${formId}/contacts`, sameTab: false },
   ];
 

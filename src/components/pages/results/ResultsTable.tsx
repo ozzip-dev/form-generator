@@ -21,6 +21,7 @@ const ResultsTable = async (props: Props) => {
       <tbody className="table-highlighted mt-4 overflow-x-auto overflow-y-auto">
         {props.submissionValues.map((submission, idx) => (
           <tr key={idx} className="*:p-sm">
+            <td>{idx + 1}</td>
             {submission.map((value, index) => (
               <td
                 key={index}

@@ -133,9 +133,9 @@ const EditFormInput = () => {
           <form>
             <FormInputMoveRemoveButtons />
 
-            <div className="items-center md:flex md:gap-10">
-              <div className="flex flex-1 items-center">
-                {!isInputTypeParagraph(input) && (
+            <div className="items-center md:flex md:gap-12">
+              <div className="flex min-w-0 flex-1 items-center">
+                {!isInputTypeParagraph(input) ? (
                   <div className="w-full">
                     <InputFields
                       inputsData={dataInputLabel}
@@ -144,10 +144,19 @@ const EditFormInput = () => {
                       onChange={handleEditLabel}
                     />
                   </div>
+                ) : (
+                  <div className="w-full">
+                    <EditFormDescriptionEditor
+                      setDescription={setDescription}
+                      isDescription={showDescription}
+                      variant="input"
+                      onClose={() => setShowDescription(false)}
+                    />
+                  </div>
                 )}
                 {!isInputTypeParagraph(input) &&
-                  (isDescription ? (
-                    <div className="h-1 w-[2rem]" />
+                  (showDescription ? (
+                    <div className="h-1 w-[3rem]" />
                   ) : (
                     <div className="ml-1 h-fit w-fit">
                       <AddTextEditorBtn
@@ -157,7 +166,7 @@ const EditFormInput = () => {
                   ))}
               </div>
 
-              <div className="w-[23rem]">
+              <div className="mb-auto mt-2 w-[23rem]">
                 <SelectFieldControler
                   name="type"
                   defaultValue={type}
@@ -170,8 +179,8 @@ const EditFormInput = () => {
             </div>
 
             <div className="md:flex md:gap-10">
-              <div className="md:flex-1">
-                {showDescription && (
+              <div className="min-w-0 md:flex-1">
+                {!isInputTypeParagraph(input) && showDescription && (
                   <EditFormDescriptionEditor
                     setDescription={setDescription}
                     isDescription={showDescription}

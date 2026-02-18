@@ -13,11 +13,19 @@ type Props = { params: Promise<{ formId: string }> };
 
 const FormResultsTablePage = async (props: Props) => {
   const { formId } = await props.params;
+  const form = await getFormById(formId);
+  const { title = "", createdAt, resultVisibility } = form;
+
+  if (resultVisibility !== "open")
+    return (
+      <div className="mt-20 text-center text-lg">
+        Tryb formularza tajny. Brak dostępu do szczegółowych wyników
+      </div>
+    );
 
   const hasResults = await formHasResults(formId);
   if (!hasResults) return <NoResultsInfo />;
 
-  const form = await getFormById(formId);
   const submissions: Submission[] = await getAllSubmissions(formId);
   const submittableInputs = getSortedInputs(form).filter(
     isInputDisplayedInResults,
@@ -33,11 +41,6 @@ const FormResultsTablePage = async (props: Props) => {
       return "[ nieprawidłowe dane ]";
     }
   };
-
-  const headerValues: string[] = submittableInputs.map(({ header }) => header);
-  const inputHeaders: string[] = isFormSecret(form)
-    ? headerValues
-    : ["Wysłany", ...headerValues];
 
   const getAnswerValues = (answers: Answers): string[] =>
     Object.entries(answers).map(([_, value]) => getAnswerDisplay(value));
@@ -60,7 +63,11 @@ const FormResultsTablePage = async (props: Props) => {
         : [formatDateAndTime(submittedAt!.toISOString()), ...displayedAnswers];
     },
   );
-  const { title = "", createdAt } = form;
+
+  const submissionsSum = submissionValues.length.toString();
+
+  const headerValues: string[] = submittableInputs.map(({ header }) => header);
+  const inputHeaders: string[] = [submissionsSum, "Wysłany", ...headerValues];
 
   return (
     <>
