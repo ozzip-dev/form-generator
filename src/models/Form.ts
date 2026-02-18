@@ -2,10 +2,10 @@ import { FieldType } from "@/enums";
 import { DbModel, Properties } from "@/types/mongo";
 
 export enum TemplateFormId {
-  MEMBERSHIP = "membership",
-  STRIKE = "strike",
-  SIP = "sip",
   SURVEY = "survey",
+  SIP = "sip",
+  STRIKE = "strike",
+  ELECTIONS = "elections",
 }
 
 enum FormField {

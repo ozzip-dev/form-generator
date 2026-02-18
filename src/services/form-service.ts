@@ -60,6 +60,7 @@ export async function createDraft(
   type?: FormType | "",
   resultVisibility?: FormResultVisibility | "",
   headerFileId?: string,
+  displayAuthorEmail?: boolean,
 ): Promise<ObjectId> {
   const now: Date = new Date();
   if (headerFileId) {
@@ -79,8 +80,8 @@ export async function createDraft(
     state: "draft",
     type: type || "",
     resultVisibility: resultVisibility || "",
-    displayAuthorEmail: false,
     headerFileId,
+    displayAuthorEmail,
   };
 
   const { insertedId } = await insert<Form>(db, "form", insertData);

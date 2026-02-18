@@ -50,8 +50,15 @@ export async function createFormDraftAction(
     throw new Error("Nie znaleziono szablonu lub brak dostępu.");
   }
 
-  const { title, description, inputs, type, resultVisibility, headerFileId } =
-    empty ? { title: "", description: "", inputs: [] } : (template as Form);
+  const {
+    title,
+    description,
+    inputs,
+    type,
+    resultVisibility,
+    headerFileId,
+    displayAuthorEmail,
+  } = empty ? { title: "", description: "", inputs: [] } : (template as Form);
 
   const id: ObjectId = await createDraft(
     db,
@@ -62,6 +69,7 @@ export async function createFormDraftAction(
     type,
     resultVisibility,
     headerFileId,
+    displayAuthorEmail,
   );
 
   redirect(`/forms/${id}/edit`);
