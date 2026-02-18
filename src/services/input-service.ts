@@ -207,6 +207,11 @@ export async function toggleUnique(
   const form = (await findById(db, "form", formId)) as Form;
   const input: FormInput = getFormInputById(form.inputs, inputId);
 
+  const updateData = {
+    "inputs.$.unique": !input.unique,
+    updatedAt: new Date(),
+  };
+
   await update<Form>(
     db,
     "form",
@@ -215,10 +220,12 @@ export async function toggleUnique(
       "inputs.id": inputId,
     },
     {
-      $set: {
-        "inputs.$.unique": !input.unique,
-        updatedAt: new Date(),
-      },
+      $set: !input.unique
+        ? {
+            ...updateData,
+            "inputs.$.required": true,
+          }
+        : updateData,
     },
   );
 }

@@ -11,7 +11,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
     label: `Odpowiedź wymagana`,
     infoText: "Bez wypełnienia pola formularz nie zostanie wysłany",
     action: toggleRequiredAction,
-    disabled: formInput.hidden,
+    disabled: formInput.hidden || formInput.unique,
   },
   {
     name: "unique",
