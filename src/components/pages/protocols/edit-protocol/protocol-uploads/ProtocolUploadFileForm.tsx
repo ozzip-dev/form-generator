@@ -15,6 +15,19 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
   const { toast } = useToast();
 
   const onFileUploaded = async (file: File) => {
+    /* 
+      To jest sprawdzane z poziomu UploadFileForm, 
+      ale gdyby kiedyś max. rozmiary miały się rónić to zostawię
+    */
+    if (file.size > 1024 * 1024) {
+      toast({
+        title: "Błąd",
+        description: "Plik jest zbyt duży (max 1MB)",
+        variant: "error",
+      });
+      return;
+    }
+
     try {
       const insertedId = await uploadFileAction(file);
 
@@ -39,11 +52,10 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
   };
 
   return (
-    <Card className="!p-0 h-[20rem] w-full md:w-2/3 mt-16 mx-auto overflow-hidden">
+    <Card className="mx-auto mt-16 h-[20rem] w-full overflow-hidden !p-0 md:w-2/3">
       <UploadFileForm
         {...{
           onFileUploaded,
-          text: "Formaty: JPG, PNG, GIF, WEBP, SVG, BMP, PDF",
         }}
       />
     </Card>

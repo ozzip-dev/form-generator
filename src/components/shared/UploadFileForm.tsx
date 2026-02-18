@@ -8,13 +8,13 @@ import Card from "./Card";
 
 type Props = {
   onFileUploaded: (file: File) => Promise<void>;
-  text?: string;
+  // text?: string;
   acceptedExtentions?: Accept;
 };
 
 const UploadFileForm = ({
   onFileUploaded,
-  text,
+  // text, // TODO: bedziemy tego uzywac?
   acceptedExtentions = { "image/*": [], "application/pdf": [] },
 }: Props) => {
   const { toast } = useToast();
@@ -26,7 +26,7 @@ const UploadFileForm = ({
         onFileUploaded(file);
       });
     },
-    [onFileUploaded]
+    [onFileUploaded],
   );
 
   const onDrop = useCallback(
@@ -34,7 +34,7 @@ const UploadFileForm = ({
       if (acceptedFiles.length === 0) return;
       acceptedFiles.forEach(uploadFile);
     },
-    [uploadFile]
+    [uploadFile],
   );
 
   const onDropRejected = useCallback(
@@ -51,27 +51,27 @@ const UploadFileForm = ({
 
       if (toManyFiles) {
         toast({
-          title: "Błąd ładowania",
-          description: "Maksymalnie 3 dokument",
+          title: "Zbyt dużo plików",
+          description: "Maksymalnie 3 pliki",
           variant: "error",
         });
       }
       if (fileTooLarge) {
         toast({
-          title: "Błąd ładowania",
-          description: "Maksymalnie 1024",
+          title: "Plik zbyt duży",
+          description: "Maksymalny rozmiar pliku to 1MB",
           variant: "error",
         });
       }
     },
-    [toast]
+    [toast],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     onDropRejected,
     maxFiles: 5,
-    maxSize: 1024 * 1024 * 5,
+    maxSize: 1024 * 1024,
     accept: acceptedExtentions,
   });
 
@@ -79,13 +79,10 @@ const UploadFileForm = ({
     <>
       <div
         {...getRootProps()}
-        className={`w-full h-full
-                    relative group transition-colors 
-                    flex justify-center items-center
-                    ${isDragActive ? "bg-accent" : "bg-transparent"}`}
+        className={`group relative flex h-full w-full items-center justify-center transition-colors ${isDragActive ? "bg-accent" : "bg-transparent"}`}
       >
         {isPending && (
-          <div className="absolute bg-red/50 backdrop-blur-sm w-100 inset-0 flex justify-center items-center z-10">
+          <div className="bg-red/50 w-100 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
             <DataLoader size="sm" />
           </div>
         )}
