@@ -12,7 +12,7 @@ const FormDescription = (props: Props) => {
 
   const styles =
     props.variant === "edit"
-      ? "mb-1 p-2 text-sm border rounded-sm textEditorTags"
+      ? "p-2 text-sm border rounded-sm textEditorTags w-full overflow-hidden"
       : "textEditorTags mb-3";
 
   return (

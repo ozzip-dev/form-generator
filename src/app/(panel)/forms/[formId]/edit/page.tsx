@@ -11,16 +11,19 @@ import { isActive } from "@/helpers/formHelpers";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
+import { getAllSubmissions } from "@/services/result-service";
+import { Submission } from "@/types/result";
 
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
-  const { inputs, createdAt, updatedAt, headerFileId } = form;
+  const { inputs, createdAt, updatedAt, headerFileId, resultVisibility } = form;
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
     : null;
+  const submissions: Submission[] = await getAllSubmissions(formId as string);
 
   const hasReachedInputLimit =
     form.inputs?.length >=
@@ -32,8 +35,7 @@ const EditFormPage = async (props: Props) => {
 
   return (
     <div className="container">
-
-      {isFormActive && <FormActiveInfo />}
+      {isFormActive && <FormActiveInfo submissionsCount={submissions.length} />}
 
       {!isFormActive && (
         <>

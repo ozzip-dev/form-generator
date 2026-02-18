@@ -13,7 +13,7 @@ const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getFormById(formId);
   const { title = "", description = "", type, createdAt } = form;
-
+  const submissions: Submission[] = await getAllSubmissions(formId as string);
   const hasResults = await formHasResults(formId);
   if (!hasResults) return <NoResultsInfo />;
 
@@ -28,7 +28,7 @@ const FormResultsPage = async (props: Props) => {
     submissionCount: number;
   }> => {
     "use server";
-    const submissions: Submission[] = await getAllSubmissions(formId);
+
     const filteredInputs = submittableInputs.filter((input) =>
       selectedInputIds.includes(input.id!),
     );
@@ -49,6 +49,7 @@ const FormResultsPage = async (props: Props) => {
   return (
     <Results
       {...{
+        submitionsNumber: submissions.length,
         inputs: submittableInputs,
         displayResults,
         formData: {

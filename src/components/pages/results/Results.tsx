@@ -11,6 +11,7 @@ import { AnswerResults } from "./answers";
 import ResultFieldSelect from "./ResultFieldSelect";
 
 type Props = {
+  submitionsNumber: number;
   inputs: FormInput[];
   displayResults: (
     selectedInputIds: string[],
@@ -63,10 +64,15 @@ const Results = (props: Props) => {
     <div className="container mb-16 py-4">
       <Card>
         <SectionHeader
-          className="mx-8 my-6 min-w-max"
+          className="my-6"
           message={
             <>
-              <div>{title} </div>
+              <div className="flex">
+                <div className="truncate">{title}</div>
+                <div className="flex">
+                  <span className="mx-4">-</span> {props.submitionsNumber}
+                </div>
+              </div>
               <div className="text-center text-2xs text-font_light sm:text-left">
                 <span className="mr-1"> Opublikowany:</span>
                 {formatDateAndTime(createdAt.toString())}

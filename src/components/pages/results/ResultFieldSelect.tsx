@@ -29,7 +29,7 @@ const ResultFieldSelect = (props: Props) => {
 
   return (
     <div>
-      <div className="my-6 font-bold">
+      <div className="my-6 font-semibold">
         Wyświetl odpowiedzi na zazanczone pytania
       </div>
 

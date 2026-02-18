@@ -9,7 +9,18 @@ import { use } from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 
-const FormActiveInfo = () => {
+const mapTypes: Record<string, string> = {
+  survey: "ankieta pracownicza",
+  inspector: "wybory SIP",
+  strike: "referendum strajkowe",
+  other: "inne",
+};
+
+type Props = {
+  submissionsCount: number;
+};
+
+const FormActiveInfo = ({ submissionsCount }: Props) => {
   const { formDataPromise } = useFormData();
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
@@ -17,25 +28,36 @@ const FormActiveInfo = () => {
 
   if (!form) return null;
 
-  const { _id, title, url, createdAt, updatedAt } = form;
+  const { _id, title, url, createdAt, updatedAt, resultVisibility, type } =
+    form;
 
   const isAuthor = user && isUserAuthor(form, user._id);
 
   return (
     <>
-      <Card className="my-16">
-        <div className="my-16 text-center text-lg font-bold text-font_light">
-          <div>
-            Opublikowany formularz <br />{" "}
-          </div>
-          <div className="text-sm">
-            Utworzono: {formatDateAndTime(createdAt)}
-          </div>
-          <div className="text-sm">
-            Opublikowano: {formatDateAndTime(updatedAt)}
-          </div>
-          <span className="text-font_dark">{title}</span>
-          <br /> <span className="text-sm">Edycja niedostępna</span>
+      <Card className="my-16 flex flex-col gap-4 text-center text-sm">
+        <div className="text-lg">Opublikowany formularz</div>
+        <div className="font-bold">{title}</div>
+        <div className="text-font_light">Edycja niedostępna</div>
+        <div className="text-font_light">
+          Kategoria formularza:{" "}
+          <span className="ml-2 font-bold text-font_dark">
+            {" "}
+            {mapTypes[type]}
+          </span>
+        </div>
+        <div className="text-font_light">
+          Tryb wyników:{" "}
+          <span className="ml-2 font-bold text-font_dark">
+            {" "}
+            {resultVisibility === "open" ? "jawny" : "tajny"}
+          </span>
+        </div>
+        <div className="text-font_light">
+          Zapisane wyniki:{" "}
+          <span className="ml-2 font-bold text-font_dark">
+            {submissionsCount}
+          </span>
         </div>
 
         <ButtonLink
@@ -43,8 +65,13 @@ const FormActiveInfo = () => {
           link={`/${url ? url : _id!}`}
           target="_blank"
           variant="primary-rounded"
-          className="m-auto w-fit"
+          className="m-auto mt-16 w-fit"
         />
+
+        <div className="text-2xs text-font_light">
+          <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
+          <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
+        </div>
       </Card>
 
       {isAuthor && _id && (

@@ -14,7 +14,7 @@ import { Answers } from "@/types/result";
 export async function submitFormAction(
   formId: string,
   answers: Answers,
-  inputs: FormInput[]
+  inputs: FormInput[],
 ): Promise<void | { validationErrors: ValidationErrors }> {
   const schema = createdFormSchema(inputs);
 
@@ -23,19 +23,24 @@ export async function submitFormAction(
   if (!validationResult.success) {
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
-  
+
   const resultExists = await formResultExists(formId);
   const uniqueErrorFields = await checkUniqueFieldsValid(formId, answers);
 
   if (!uniqueErrorFields.length) {
     resultExists
-    ? await addSubmission(formId, answers)
-    : await createResult(formId, answers);
+      ? await addSubmission(formId, answers)
+      : await createResult(formId, answers);
 
-    return
+    return;
   }
 
-  return {validationErrors: Object.fromEntries(uniqueErrorFields.map((id) => ([
-    id, ['Formularz z podaną wartością został już wysłany. Skontaktuj się z twórcą/twórczynią formularza.']
-  ])))}
+  return {
+    validationErrors: Object.fromEntries(
+      uniqueErrorFields.map((id) => [
+        id,
+        ["Formularz z podaną wartością został już wysłany"],
+      ]),
+    ),
+  };
 }

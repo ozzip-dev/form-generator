@@ -82,7 +82,7 @@ const TextEditor = (props: Props) => {
     editorProps: {
       attributes: {
         class:
-          "border rounded-sm focus:outline-none focus:border-accent min-h-[6rem] p-2",
+          "border rounded-sm focus:outline-none focus:border-accent min-h-[6rem] p-2  overflow-hidden break-words",
       },
     },
 
@@ -122,7 +122,7 @@ const TextEditor = (props: Props) => {
   useAutoLoader(isPending);
 
   return (
-    <>
+    <div className="">
       <MenuBar editor={editor} handleEditDescription={handleEditDescription} />
       <div className="textEditorTags">
         <EditorContent
@@ -141,7 +141,7 @@ const TextEditor = (props: Props) => {
           {characters}/{MAX_CHARS}
         </span>
       </div>
-    </>
+    </div>
   );
 };
 
