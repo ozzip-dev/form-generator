@@ -16,7 +16,7 @@ export type RendererParams = {
 };
 
 export const renderRadio = ({ input, errors }: RendererParams) => {
-  const { id, header, description, required, unique, options } = input;
+  const { id, header, description, required, unique, options, hidden } = input;
 
   return (
     <RadioGroupField
@@ -28,12 +28,13 @@ export const renderRadio = ({ input, errors }: RendererParams) => {
       unique={unique}
       options={options}
       errorMsg={errors}
+      hidden={hidden}
     />
   );
 };
 
 export const renderInput = ({ input, errors, register }: RendererParams) => {
-  const { id, header, description, required, unique, type } = input;
+  const { id, header, description, required, unique, type, hidden } = input;
 
   const placeholderTexts: Partial<Record<InputType, string>> = {
     number: "Numer",
@@ -56,6 +57,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
           description,
           required,
           unique,
+          hidden,
         },
       ]}
       register={register}
@@ -65,7 +67,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
 };
 
 export const renderCheckbox = ({ input, control }: RendererParams) => {
-  const { id, header, description, required, unique, options } = input;
+  const { id, header, description, required, unique, options, hidden } = input;
 
   const dataCheckboxOptions =
     options.map((option: FormOption) => ({
@@ -84,6 +86,7 @@ export const renderCheckbox = ({ input, control }: RendererParams) => {
       options={dataCheckboxOptions}
       required={required}
       unique={unique}
+      hidden={hidden}
     />
   );
 };

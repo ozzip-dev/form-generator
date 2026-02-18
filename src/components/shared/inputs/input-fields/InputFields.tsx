@@ -20,6 +20,7 @@ type InputData = {
   unique?: boolean;
   dataAttribut?: string;
   labelClassName?: string;
+  hidden?: boolean;
 };
 
 type Props = {
@@ -49,6 +50,7 @@ const InputFields = (props: Props) => {
           name,
           type,
           labelClassName,
+          hidden,
         } = inputData;
 
         return (
@@ -66,7 +68,7 @@ const InputFields = (props: Props) => {
                 className={`mb-1 block font-semibold md:mr-4 ${labelClassName}`}
               >
                 {staticLabel}
-                <InputIndicators {...{ required, unique }} />
+                <InputIndicators {...{ required, unique, hidden }} />
               </label>
             )}
             {description && (

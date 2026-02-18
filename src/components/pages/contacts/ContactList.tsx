@@ -4,7 +4,7 @@ import { CommitteeInfoKey, UserCommitteeInfo } from "@/types/user";
 import ContactCommitteeItem from "./ContactCommitteeItem";
 import ContactFilters from "./ContactFilters";
 import { FormSerialized } from "@/types/form";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 import { FormType } from "@/enums/form";
 import { formTypesWithLabels, getTypeLabel } from "@/helpers/formHelpers";
@@ -26,13 +26,15 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
   const [activeType, setActiveType] = useState<FormType>(type);
   const [committees, setCommittees] = useState<UserCommitteeInfo[]>([]);
 
-  const handleReasonSelect = async (formType: FormType) => {
-    setCommittees([]);
-    setActiveType(formType);
-    const userCommittees = await getUserCommittees(formType);
-
-    setCommittees(userCommittees);
-  };
+  const handleReasonSelect = useCallback(
+    async (formType: FormType) => {
+      setCommittees([]);
+      setActiveType(formType);
+      const userCommittees = await getUserCommittees(formType);
+      setCommittees(userCommittees);
+    },
+    [getUserCommittees],
+  );
 
   const filteredCommittees = committees.filter((committee) => {
     const keys = Object.keys(committee);
@@ -45,7 +47,7 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
 
   useEffect(() => {
     handleReasonSelect(type);
-  }, []);
+  }, [handleReasonSelect, type]);
 
   return (
     <div>

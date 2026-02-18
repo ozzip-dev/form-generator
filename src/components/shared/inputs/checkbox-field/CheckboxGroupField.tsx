@@ -26,6 +26,7 @@ type Props = {
   errorMsg?: any;
   isSubmitting?: boolean;
   mode?: "horizontal";
+  hidden?: boolean;
 };
 
 export default function CheckboxGroupField(props: Props) {
@@ -58,6 +59,7 @@ export default function CheckboxGroupField(props: Props) {
                 <InputIndicators
                   required={props.required}
                   unique={props.unique}
+                  hidden={props.hidden}
                 />
               </div>
             )}

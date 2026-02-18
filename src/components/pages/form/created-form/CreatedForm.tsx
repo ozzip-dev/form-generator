@@ -123,13 +123,6 @@ const CreatedForm = (props: Props) => {
     .sort((a, b) => a.order - b.order)
     .map((input) => {
       const renderer = fieldRenderers[input.type];
-      // return renderer({
-      //   input,
-      //   errors,
-      //   register,
-      //   control,
-      // });
-
       return (
         <Card key={input.id}>
           {renderer({
@@ -149,19 +142,23 @@ const CreatedForm = (props: Props) => {
       <div className="container my-4 !max-w-[800px]">
         <CreatedFormTopError isError={hasErrors} />
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
-
         {props.headerFileData && (
           <CreatedFormTopImage headerFileData={props.headerFileData} />
         )}
-
         <Card className="mb-8">
           <h1 className="mb-8 text-lg">{title}</h1>
           {description && (
             <FormDescription description={description} variant="published" />
           )}
-          <div className="flex gap-8">
+          <div className="flex flex-col gap-1">
             <div className="text-2xs text-error">* Odpowiedź wymagana</div>
-            <div className="text-2xs text-error">! Odpowiedź jednorazowa </div>
+            <div className="flex gap-1 text-2xs text-error">
+              ! Ponowne przekazanie tej samej odpowiedzi zablokuje wysłanie
+              formularza{" "}
+            </div>
+            <div className="flex gap-1 text-2xs text-error">
+              X Odpowiedź tajna, niewidoczna w wynikach{" "}
+            </div>
           </div>
         </Card>
 

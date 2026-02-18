@@ -1,12 +1,14 @@
 type Props = {
   required?: boolean;
   unique?: boolean;
+  hidden?: boolean;
 };
 const InputIndicators = (props: Props) => {
   return (
     <>
-      {props.required && <span className="text-error ml-0.5">*</span>}
-      {props.unique && <span className="text-error ml-0.5">!</span>}
+      {props.required && <span className="ml-0.5 text-error">*</span>}
+      {props.unique && <span className="ml-0.5 text-error">!</span>}
+      {props.hidden && <span className="ml-0.5 text-error">X</span>}
     </>
   );
 };

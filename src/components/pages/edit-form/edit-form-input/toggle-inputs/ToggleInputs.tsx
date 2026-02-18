@@ -16,7 +16,8 @@ const toggleSwitchesData = (formInput: FormInput) => [
   {
     name: "unique",
     label: `Odpowiedź unikalna`,
-    infoText: "Odpowiedź będzie mogła zostać wysłana tylko jeden raz",
+    infoText:
+      "Ponowne przekazanie tej samej odpowiedzi zablokuje wysłanie formularza.",
     action: toggleUniqueAction,
     disabled: formInput.hidden,
   },

@@ -22,6 +22,7 @@ type Props = {
   className?: string;
   optionClass?: string;
   errorMsg?: any;
+  hidden: boolean;
 };
 
 const RadioGroupField = (props: Props) => {
@@ -45,7 +46,11 @@ const RadioGroupField = (props: Props) => {
       {props.label && (
         <label className="font-bold">
           <span>{props.label}</span>
-          <InputIndicators required={props.required} unique={props.unique} />
+          <InputIndicators
+            required={props.required}
+            unique={props.unique}
+            hidden={props.hidden}
+          />
         </label>
       )}
 

@@ -61,11 +61,19 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
         </div>
 
         <ButtonLink
+          message="Przejdź do wyników"
+          link={`/forms/${_id}/results/details`}
+          target="_blank"
+          variant="primary-rounded"
+          className="m-auto mt-16 w-fit"
+        />
+
+        <ButtonLink
           message="Przejdź do opublikowanego formularza"
           link={`/${url ? url : _id!}`}
           target="_blank"
           variant="primary-rounded"
-          className="m-auto mt-16 w-fit"
+          className="m-auto w-fit"
         />
 
         <div className="text-2xs text-font_light">

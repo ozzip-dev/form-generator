@@ -13,10 +13,16 @@ const FormsTemplatesList = async () => {
       sortOrder.indexOf(a.id as TemplateFormId) -
       sortOrder.indexOf(b.id as TemplateFormId),
   );
+  const titles = [
+    "Ankieta pracownicza",
+    "Wybory SIP",
+    "Referendum strajkowe",
+    "Wybory prezydium",
+  ];
 
   return (
     <>
-      <SectionHeader message="Przykładowe formularze" />
+      <SectionHeader message="Wykorzystaj wzory przykładowych formularzy" />
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
         {sortedTemplateForms
           .filter(
@@ -30,7 +36,7 @@ const FormsTemplatesList = async () => {
               >
                 <FormTemplateTrigger
                   id={id as string}
-                  title={title as string}
+                  title={titles[idx] as string}
                 />
               </div>
             );
