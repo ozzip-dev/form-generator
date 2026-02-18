@@ -11,7 +11,7 @@ export async function formResultExists(formId: string): Promise<boolean> {
 
 export async function checkUniqueFieldsValid(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<string[]> /* return value? eg. date? */ {
   const form = await findById<Form>(db, "form", new ObjectId(formId));
   if (!form) throw new Error("Invalid form id");
@@ -21,29 +21,29 @@ export async function checkUniqueFieldsValid(
     .map(({ id }) => id!);
   const submissions = await getAllSubmissions(formId);
 
-  const uniqueErrorFields: string[] = []
+  const uniqueErrorFields: string[] = [];
 
   for (const submission of submissions) {
     const uniqueSubmissionIds = Object.keys(submission.answers).filter((key) =>
-      uniqueInputIds.includes(key)
+      uniqueInputIds.includes(key),
     );
 
     for (const answerId of uniqueSubmissionIds) {
       if (
-        submission.answers[answerId] == answers[answerId]
-          && !uniqueErrorFields.some((id) => id == answerId)
+        submission.answers[answerId] == answers[answerId] &&
+        !uniqueErrorFields.some((id) => id == answerId)
       ) {
-        uniqueErrorFields.push(answerId)
+        uniqueErrorFields.push(answerId);
       }
     }
   }
 
-  return uniqueErrorFields
+  return uniqueErrorFields;
 }
 
 export async function addSubmission(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<Result | null> {
   const form = await getFormById(formId);
   const isSecret = isFormSecret(form);
@@ -66,7 +66,7 @@ export async function addSubmission(
       $push: {
         submissions: submissionRecord,
       },
-    }
+    },
   );
 
   return submission as Result | null;
@@ -74,7 +74,7 @@ export async function addSubmission(
 
 export async function createResult(
   formId: string,
-  answers: Answers
+  answers: Answers,
 ): Promise<ObjectId> {
   const result = await insert<Result>(db, "result", {
     formId,
@@ -99,6 +99,12 @@ export async function getAllSubmissions(formId: string): Promise<Submission[]> {
   const result: Result | null = await findOne<Result>(db, "result", { formId });
   if (!result) return [];
   return result.submissions;
+}
+
+export async function getSubmissionCount(formId: string): Promise<number> {
+  const result: Result | null = await findOne<Result>(db, "result", { formId });
+  if (!result) return 0;
+  return result.submissions?.length || 0;
 }
 
 // export function getAnonymousAnswers(

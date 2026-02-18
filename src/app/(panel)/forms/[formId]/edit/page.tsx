@@ -1,5 +1,4 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
-import CreatedUpdatedInfo from "@/components/pages/edit-form/CreatedUpdatedInfo";
 import EditFormInput from "@/components/pages/edit-form/edit-form-input/EditFormInput";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { serializeFile } from "@/lib/serialize-utils";
@@ -11,8 +10,7 @@ import { isActive } from "@/helpers/formHelpers";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
-import { getAllSubmissions } from "@/services/result-service";
-import { Submission } from "@/types/result";
+import { getSubmissionCount } from "@/services/result-service";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -23,7 +21,7 @@ const EditFormPage = async (props: Props) => {
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
     : null;
-  const submissions: Submission[] = await getAllSubmissions(formId as string);
+  const submissionCount: number = await getSubmissionCount(formId as string);
 
   const hasReachedInputLimit =
     form.inputs?.length >=
@@ -35,7 +33,7 @@ const EditFormPage = async (props: Props) => {
 
   return (
     <div className="container">
-      {isFormActive && <FormActiveInfo submissionsCount={submissions.length} />}
+      {isFormActive && <FormActiveInfo submissionCount={submissionCount} />}
 
       {!isFormActive && (
         <>

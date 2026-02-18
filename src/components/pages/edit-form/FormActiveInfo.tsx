@@ -17,10 +17,10 @@ const mapTypes: Record<string, string> = {
 };
 
 type Props = {
-  submissionsCount: number;
+  submissionCount: number;
 };
 
-const FormActiveInfo = ({ submissionsCount }: Props) => {
+const FormActiveInfo = ({ submissionCount }: Props) => {
   const { formDataPromise } = useFormData();
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
@@ -56,7 +56,7 @@ const FormActiveInfo = ({ submissionsCount }: Props) => {
         <div className="text-font_light">
           Zapisane wyniki:{" "}
           <span className="ml-2 font-bold text-font_dark">
-            {submissionsCount}
+            {submissionCount}
           </span>
         </div>
 
