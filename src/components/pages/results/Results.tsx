@@ -67,10 +67,10 @@ const Results = (props: Props) => {
           className="my-6"
           message={
             <>
-              <div className="flex">
-                <div className="truncate">{title}</div>
-                <div className="flex">
-                  <span className="mx-4">-</span> {props.submitionsNumber}
+              <div className="flex gap-6">
+                <div>{title}</div>
+                <div className="font-[var(--fw-base)]">
+                  ({props.submitionsNumber} wyników)
                 </div>
               </div>
               <div className="text-center text-2xs text-font_light sm:text-left">

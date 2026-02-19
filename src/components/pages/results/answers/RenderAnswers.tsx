@@ -20,7 +20,7 @@ export const RenderAnswers = ({ answers }: Props) => {
         return (
           <div key={index} className="space-y-1 lg:flex lg:items-center">
             <div className="flex flex-1 justify-between text-sm">
-              <div className="mr-3 flex-1 truncate lg:w-[60rem] lg:text-right">
+              <div className="result-answer mr-3 flex-1 truncate lg:w-[60rem] lg:text-right">
                 {answer || "[ brak odpowiedzi ]"}
               </div>
 
