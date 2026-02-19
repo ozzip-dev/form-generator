@@ -125,7 +125,7 @@ export const formTemplates: Form[] = [
       },
       {
         id: "survey-6",
-        type: InputType.PARAGRAPH,
+        type: InputType.CHECKBOX,
         header: "Które elementy warunków pracy wymagają Twoim zdaniem poprawy?",
         validation: {},
         options: [
