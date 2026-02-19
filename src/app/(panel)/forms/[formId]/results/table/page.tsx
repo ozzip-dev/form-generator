@@ -56,18 +56,22 @@ const FormResultsTablePage = async (props: Props) => {
   };
 
   const submissionValues: string[][] = submissions.map(
-    ({ answers, submittedAt }) => {
+    ({ answers, submittedAt }, idx) => {
       const displayedAnswers = getAnswerValues(getVisibleAnswers(answers));
       return isFormSecret(form)
         ? displayedAnswers
-        : [formatDateAndTime(submittedAt!.toISOString()), ...displayedAnswers];
+        : [
+            (idx + 1).toString(),
+            formatDateAndTime(submittedAt!.toISOString()),
+            ...displayedAnswers,
+          ];
     },
   );
 
   const submissionsSum = submissionValues.length.toString();
 
   const headerValues: string[] = submittableInputs.map(({ header }) => header);
-  const inputHeaders: string[] = [submissionsSum, "Wysłany", ...headerValues];
+  const inputHeaders: string[] = ["Lp.", "Wysłany", ...headerValues];
 
   return (
     <>
@@ -75,7 +79,12 @@ const FormResultsTablePage = async (props: Props) => {
         className="mx-8 my-6 min-w-max"
         message={
           <>
-            <div>{title} </div>
+            <div className="flex gap-6">
+              <div>{title}</div>
+              <div className="font-[var(--fw-base)]">
+                ({submissionsSum} wyników)
+              </div>
+            </div>
             <div className="text-center text-2xs text-font_light sm:text-left">
               <span className="mr-1"> Opublikowany:</span>
               {formatDateAndTime(createdAt.toString())}

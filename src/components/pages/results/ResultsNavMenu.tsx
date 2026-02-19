@@ -7,8 +7,8 @@ type Props = {
 
 const ResultsNavMenu = ({ formId }: Props) => {
   const resultsNavLinks: NavMenuLink[] = [
-    { text: "Tabela", link: `/forms/${formId}/results/table` },
     { text: "Podsumowanie", link: `/forms/${formId}/results/details` },
+    { text: "Tabela", link: `/forms/${formId}/results/table` },
   ];
 
   return (

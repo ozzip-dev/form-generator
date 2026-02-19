@@ -13,7 +13,7 @@ const ResultsTable = async (props: Props) => {
               key={idx}
               className={`whitespace-normal break-normal text-left ${header ? "" : "text-font_light"}`}
             >
-              {header ? header : "Brak pytania"}
+              {header || "Brak pytania"}
             </th>
           ))}
         </tr>
@@ -21,13 +21,12 @@ const ResultsTable = async (props: Props) => {
       <tbody className="table-highlighted mt-4 overflow-x-auto overflow-y-auto">
         {props.submissionValues.map((submission, idx) => (
           <tr key={idx} className="*:p-sm">
-            <td>{idx + 1}</td>
             {submission.map((value, index) => (
               <td
                 key={index}
                 className={`max-w-[1200px] whitespace-normal break-normal ${value ? "" : "text-font_light"}`}
               >
-                {value ? value : "Brak odpowiedzi"}
+                {value || "Brak odpowiedzi"}
               </td>
             ))}
           </tr>
