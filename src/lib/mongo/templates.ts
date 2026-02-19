@@ -170,7 +170,7 @@ export const formTemplates: Form[] = [
     title:
       "Wybory Społecznego Inspektora Pracy w [nazwa przedsiębiorstwa] na kadencję [lata kadencji]",
     description:
-      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p></p><p>Wybory odbywają się w dniach [daty].</p><p></p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Wybory są anonimowe.</p>",
+      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p>Wybory odbywają się w dniach [daty].</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
@@ -231,16 +231,29 @@ export const formTemplates: Form[] = [
       {
         id: "sip-4",
         type: InputType.PARAGRAPH,
-
         header: "",
         description:
-          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p></p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">media społecznościowe</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
+          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">media społecznościowe</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
         validation: {},
         options: [],
         required: false,
         unique: false,
         hidden: false,
         order: 3,
+      },
+
+      {
+        id: "sip-5",
+        type: InputType.PARAGRAPH,
+        header: "",
+        description:
+          "<p><small>Poprzez wysłanie głosu, wyrażasz zgodę na przetwarzanie swoich danych osobowych.</small></p><p><small>I. Przetwarzamy Twój numer identyfikatora pracowniczego, co jest niezbędne w celu weryfikacji prawidłowości oddanego głosu.</small></p><p><small>II. Administratorem danych osobowych jest [nazwa centrali organizacji związkowej] z siedzibą w [miasto, ulica, numer NIP]. Kontakt pod adresem e-mail: [adres e-mail].</small></p><p><small>III. Podstawą prawną przetwarzania jest art. 6 ust. 1 lit. a i f, Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. U. UE. L. z 2016 r. Nr 119, str. 1 z późn. zm.).</small></p><p><small>IV. Odbiorcą danych jest administrator danych osobowych.</small></p><p><small>V. Twoje dane osobowe będą przetwarzane do czasu ogłoszenia wyników głosowania.</small></p><p><small>VI. Posiadasz prawo do: 1. dostępu do treści swoich danych; 2. sprostowania danych; 3. usunięcia danych; 4. ograniczenia przetwarzania; 5. przeniesienia danych; 6. wycofania zgody na przetwarzanie (nie wpływa na zgodność z prawem przetwarzania przed jej wycofaniem); 7. wniesienia sprzeciwu wobec przetwarzania; 8. wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</small></p>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 4,
       },
     ],
     state: "template",
@@ -253,7 +266,7 @@ export const formTemplates: Form[] = [
     id: TemplateFormId.STRIKE,
     title: "Referendum strajkowe w [nazwa firmy]",
     description:
-      '<p>Oddaj głos w referendum strajkowym dla zatrudnionych przez [nazwa firmy]</p><p></p><p><mark class="bg-accent">Referendum jest anonimowe</mark></p>',
+      '<p>Oddaj głos w referendum strajkowym dla zatrudnionych przez [nazwa firmy]</p><p></p><p><mark class="bg-accent">Referendum jest anonimowe.</mark> Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób.</p>',
     ...getCreatedUpdatedDates(),
     inputs: [
       {
@@ -282,6 +295,8 @@ export const formTemplates: Form[] = [
         type: InputType.NUMBER,
         header:
           "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego",
+        description:
+          '<p>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych uniemożliwi wysłanie formularza.</p>',
         validation: {},
         options: [],
         required: true,
