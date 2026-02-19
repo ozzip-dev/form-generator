@@ -16,7 +16,9 @@ const TopicPosts = (props: Props) => {
     <div>
       <Button
         message={
-          showPosts ? "Ukryj posty" : `Pokaż posty (${props.posts?.length})`
+          showPosts
+            ? "Ukryj odpowiedzi"
+            : `Pokaż odpowiedzi (${props.posts?.length})`
         }
         onClickAction={() => {
           setShowPosts(!showPosts);

@@ -43,13 +43,13 @@ export const addHeaderText = (title: string, pdf: jsPDF): void => {
 
 export const addInputPageHeader = (title: string, pdf: jsPDF): void => {
   drawHeader(pdf, 50);
-  addOzzipLogo(pdf, 50);
+  // addOzzipLogo(pdf, 50);
   addHeaderText(title, pdf);
 };
 
 export const addInputName = (inputName: string, pdf: jsPDF): void => {
   pdf.setFontSize(15);
-  pdf.text(`Wyniki dla inputu: ${inputName}`, 5, 70);
+  pdf.text(`Wyniki dla pola: ${inputName}`, 5, 70);
 };
 
 export const addNumberedHeaderText = (
@@ -87,7 +87,7 @@ export const addNumberedPageHeader = (
   recordCount: number,
 ): void => {
   drawHeader(pdf);
-  addOzzipLogo(pdf);
+  // addOzzipLogo(pdf);
   addNumberedHeaderText(
     title,
     pdf,

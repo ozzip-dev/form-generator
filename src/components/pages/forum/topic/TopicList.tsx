@@ -1,6 +1,6 @@
 "use client";
 
-import { TopicSerializedWithPostCount } from "@/types/forum";
+import { TopicSerializedDetailed } from "@/types/forum";
 import TopicListItem from "./TopicListItem";
 import { TopicCategory } from "@/enums/forum";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { Button } from "@/components/shared";
 import { mapTopicCategory } from "../utils";
 
 type Props = {
-  topics: TopicSerializedWithPostCount[];
+  topics: TopicSerializedDetailed[];
 };
 
 const TopicList = (props: Props) => {
@@ -19,11 +19,20 @@ const TopicList = (props: Props) => {
   const displayedTopics = props.topics.filter(
     ({ category }) => category == selectedCategory,
   );
-  // TODO: rozplanować układ komponentów gdy będzie design
+
+  const categoryDescriptions: Record<TopicCategory, string> = {
+    [TopicCategory.FORM]:
+      "Tematy związane z formularzami. Jeśli masz wątpliwości dotyczące pytań, które warto zamieścić, trybów tajności oraz najlepszych praktyk, to odpowiednie miejsce, aby się nimi podzielić.",
+    [TopicCategory.PROTOCOL]:
+      "Tematy związane z protokołami ze sporów zbiorowych. Jeśli masz wątpliwości, kiedy i jak tworzyć protokół, które załączniki zawrzeć, itd. otwórz odpowiedni temat, by otrzymać pomoc. ",
+    [TopicCategory.OTHER]:
+      "Miejsce na wszelkie tematy nie związane bezpośrednio z formularzami lub protokołami ze sporów zbiorowych.",
+  };
+
   return (
     <div>
-      <div className="flex flex-wrap w-fit items-center gap-x-8 gap-y-4 py-4 m-auto">
-        <div>Kategorie tematów: </div>
+      <div className="text-center text-lg">Kategorie tematów </div>
+      <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
         {Object.values(TopicCategory).map((category) => (
           <Button
             key={category}
@@ -35,6 +44,8 @@ const TopicList = (props: Props) => {
           />
         ))}
       </div>
+
+      <div className="p-4 pb-8">{categoryDescriptions[selectedCategory]}</div>
 
       <div>
         {displayedTopics?.length ? (
