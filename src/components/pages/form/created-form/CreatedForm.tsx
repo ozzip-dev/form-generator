@@ -26,6 +26,7 @@ import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
 import CreatedFormFooter from "./CreatedFormFooter";
 import FormDescription from "@/components/shared/inputs/FormDescription";
+import FieldIndicators from "./FieldIndicators";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -56,6 +57,12 @@ const CreatedForm = (props: Props) => {
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
+
+  const isRequiredInput = inputs.filter(
+    ({ required }) => required === true,
+  ).length;
+  const isUniqueInput = inputs.filter(({ unique }) => unique === true).length;
+  const isHiddenInput = inputs.filter(({ hidden }) => hidden === true).length;
 
   const methods = useForm({
     defaultValues: defaultValues(inputs),
@@ -150,16 +157,12 @@ const CreatedForm = (props: Props) => {
           {description && (
             <FormDescription description={description} variant="published" />
           )}
-          <div className="flex flex-col gap-1">
-            <div className="text-2xs text-error">* Odpowiedź wymagana</div>
-            <div className="flex gap-1 text-2xs text-error">
-              ! Ponowne przekazanie tej samej odpowiedzi zablokuje wysłanie
-              formularza{" "}
-            </div>
-            <div className="flex gap-1 text-2xs text-error">
-              X Odpowiedź tajna, niewidoczna w wynikach{" "}
-            </div>
-          </div>
+
+          <FieldIndicators
+            isRequiredInput={!!isRequiredInput}
+            isUniqueInput={!!isUniqueInput}
+            isHiddenInput={!!isHiddenInput}
+          />
         </Card>
 
         <FormProvider {...methods}>
