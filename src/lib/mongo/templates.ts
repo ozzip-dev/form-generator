@@ -170,13 +170,14 @@ export const formTemplates: Form[] = [
     title:
       "Wybory Społecznego Inspektora Pracy w [nazwa przedsiębiorstwa] na kadencję [lata kadencji]",
     description:
-      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p>Wybory odbywają się w dniach [daty].</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób.</p>",
+      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p>Wybory odbywają się w dniach [daty].</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
         id: "sip-1",
         type: InputType.SINGLE_SELECT,
-        header: "Wybierz swojego kandydata na Społecznego Inspektora Pracy",
+        header:
+          "Wybierz swojego kandydata na Społecznego Inspektora Pracy [wybór pojedynczy].",
         validation: {},
         options: [
           {
@@ -203,6 +204,35 @@ export const formTemplates: Form[] = [
       },
       {
         id: "sip-2",
+        type: InputType.CHECKBOX,
+        header:
+          "Wybierz swoich kandydatów na Społecznego Inspektora Pracy [wybór wielokrotny].",
+        validation: {},
+        options: [
+          {
+            value: "sip-1-82284",
+            label: "Jan",
+          },
+          {
+            value: "sip-1-43992",
+            label: "Maria",
+          },
+          {
+            value: "sip-1-51557",
+            label: "Tomasz",
+          },
+          {
+            value: "sip-1-428",
+            label: "Mariola",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 1,
+      },
+      {
+        id: "sip-3",
         type: InputType.PARAGRAPH,
         header: "",
         description:
@@ -212,38 +242,39 @@ export const formTemplates: Form[] = [
         required: false,
         unique: false,
         hidden: false,
-        order: 1,
+        order: 2,
       },
+
       {
-        id: "sip-3",
+        id: "sip-4",
         type: InputType.NUMBER,
         header:
           "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego.",
         description:
-          '<p>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych uniemożliwi wysłanie formularza.</p>',
+          '<p><small>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych zablokuje wysłanie formularza. Dane identyfikacyjne nie są przypisywane do treści odpowiedzi.</small></p>',
         validation: {},
         options: [],
         required: true,
         unique: true,
-        hidden: true,
-        order: 2,
+        hidden: false,
+        order: 3,
       },
       {
-        id: "sip-4",
+        id: "sip-5",
         type: InputType.PARAGRAPH,
         header: "",
         description:
-          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">media społecznościowe</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
+          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">linki</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
         validation: {},
         options: [],
         required: false,
         unique: false,
         hidden: false,
-        order: 3,
+        order: 4,
       },
 
       {
-        id: "sip-5",
+        id: "sip-6",
         type: InputType.PARAGRAPH,
         header: "",
         description:
@@ -253,7 +284,7 @@ export const formTemplates: Form[] = [
         required: false,
         unique: false,
         hidden: false,
-        order: 4,
+        order: 5,
       },
     ],
     state: "template",

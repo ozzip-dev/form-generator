@@ -11,7 +11,7 @@ const FormDescription = ({ description, variant }: Props) => {
   const styles =
     variant === "edit"
       ? "p-2 text-sm border rounded-sm textEditorTags w-full overflow-hidden"
-      : "textEditorTags mb-3";
+      : "textEditorTags";
 
   return (
     <div

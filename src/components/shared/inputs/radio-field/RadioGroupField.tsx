@@ -58,7 +58,7 @@ const RadioGroupField = (props: Props) => {
         <InputDescription description={props.description} variant="published" />
       )}
 
-      <div className={`relative flex flex-col gap-6 ${props.className ?? ""}`}>
+      <div className={`relative flex flex-col ${props.className ?? ""}`}>
         {props.options.map((option) => {
           const isOther = option.value === OPTION_OTHER;
           const isChecked = !isOther && value === option.label;

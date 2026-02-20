@@ -34,7 +34,7 @@ function RemoveFormButton(props: Props) {
             <>
               Usunąć formularz?
               <br />
-              {title}
+              <div className="font-semibold">{title} </div>
             </>
           ),
         })
