@@ -251,7 +251,7 @@ export const formTemplates: Form[] = [
         header:
           "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego.",
         description:
-          '<p><small>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych zablokuje wysłanie formularza. Dane identyfikacyjne nie są przypisywane do treści odpowiedzi.</small></p>',
+          '<p><small>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych zablokuje wysłanie formularza. Dane identyfikacyjne nie są przypisywane do treści odpowiedzi przekazanych w formularzu.</small></p>',
         validation: {},
         options: [],
         required: true,
@@ -264,7 +264,7 @@ export const formTemplates: Form[] = [
         type: InputType.PARAGRAPH,
         header: "",
         description:
-          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">linki</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
+          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">linki</a>.</p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
         validation: {},
         options: [],
         required: false,
