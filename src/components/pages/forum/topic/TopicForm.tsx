@@ -1,7 +1,12 @@
 "use client";
 
 import { editTopicAction } from "@/actions/forum/editTopicAction";
-import { Button, Card, FullscreenLoader, InputFields } from "@/components/shared";
+import {
+  Button,
+  Card,
+  FullscreenLoader,
+  InputFields,
+} from "@/components/shared";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
@@ -102,10 +107,10 @@ const TopicForm = (props: Props) => {
           <select
             name="category"
             defaultValue={topic.category}
-            className="border border-gray-300 rounded p-2 w-full mt-4"
+            className="mt-4 w-full rounded border border-gray-300 p-2"
           >
             <option key="empty" value="">
-              Wybierz
+              Wybierz kategorię
             </option>
             {categorySelectOptions.map(({ value, label }) => (
               <option key={value} value={value}>
@@ -115,7 +120,7 @@ const TopicForm = (props: Props) => {
           </select>
         </Card>
 
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-10 sm:gap-16">
+        <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           <Button
             message="Anuluj"
             onClickAction={handlePrintForm}

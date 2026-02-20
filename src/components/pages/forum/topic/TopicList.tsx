@@ -53,7 +53,7 @@ const TopicList = (props: Props) => {
             <TopicListItem key={idx} {...topic} />
           ))
         ) : (
-          <div>Brak tematów z wybranej kategorii</div>
+          <div className="px-4">Brak tematów z wybranej kategorii</div>
         )}
       </div>
     </div>

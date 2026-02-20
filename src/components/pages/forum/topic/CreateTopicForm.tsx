@@ -1,5 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { z } from "zod";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import Link from "next/link";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { addTopicAction } from "@/actions/forum/addTopicAction";
 import {
   Button,
@@ -9,17 +14,12 @@ import {
 } from "@/components/shared";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
-import {
-  createTopicSchema,
-  CreateTopicSchema,
-} from "@/lib/zod-schema/forum-schemas/createTopicSchema";
-import { startTransition, useActionState } from "react";
-import { redirect } from "next/navigation";
-import Link from "next/link";
+import { createTopicSchema } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
+import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 
 const topicInputData: { floatingLabel: string; name: string; type: string }[] =
   [
-    { floatingLabel: "Temat", name: "title", type: "text" },
+    { floatingLabel: "Tytuł", name: "title", type: "text" },
     { floatingLabel: "Opis", name: "description", type: "text" },
   ];
 
@@ -29,14 +29,23 @@ const categorySelectOptions = [
   { floatingLabel: "Inne", value: TopicCategory.OTHER },
 ];
 
-type State = { errors: Record<string, string[]>; inputs?: any };
-
 const CreateTopicForm = () => {
   const { toast } = useToast();
+  const router = useRouter();
+  const methods = useForm({
+    defaultValues: { title: "", description: "", category: "" },
+    mode: "onTouched",
+    resolver: zodResolver(createTopicSchema),
+  });
+  const {
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = methods;
 
-  const addNewTopic = async (_: State, formData: FormData): Promise<State> => {
-    const data = Object.fromEntries(formData.entries()) as CreateTopicSchema;
-
+  const onSubmit: SubmitHandler<z.infer<typeof createTopicSchema>> = async (
+    data,
+  ) => {
     const validationResult = createTopicSchema.safeParse(data);
     if (!validationResult.success) {
       toast({
@@ -44,11 +53,9 @@ const CreateTopicForm = () => {
         description: "Nieprawidłowe dane",
         variant: "error",
       });
-      return { errors: validationResult.error.formErrors.fieldErrors };
+      return;
     }
-
     const { title, category, description } = data;
-
     try {
       await addTopicAction(title, category as TopicCategory, description);
       toast({
@@ -56,58 +63,51 @@ const CreateTopicForm = () => {
         description: "Utworzono temat",
         variant: "success",
       });
+      reset();
+      router.push("/forum/list");
     } catch (e: unknown) {
       toast({
         title: "Błąd",
         description: "Nie udało się stworzyć tematu",
         variant: "error",
       });
-      return { errors: { message: [(e as Error)?.message || "Błąd"] } };
     }
-
-    redirect("/forum/list");
   };
-
-  const [state, createNewTopic, isPending] = useActionState(addNewTopic, {
-    errors: {},
-    inputs: null,
-  });
 
   return (
     <Card className="mx-8">
-      {isPending && <FullscreenLoader />}
+      {isSubmitting && <FullscreenLoader />}
       <div className="pb-8 text-lg font-black">Utwórz nowy temat</div>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          startTransition(() => {
-            createNewTopic(new FormData(e.currentTarget));
-          });
-        }}
-      >
-        <InputFields errorMsg={state.errors} inputsData={topicInputData} />
-
-        <select name="category">
-          <option key="empty" value="">
-            Wybierz
-          </option>
-          {categorySelectOptions.map(({ value, floatingLabel }) => (
-            <option key={value} value={value}>
-              {floatingLabel}
-            </option>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {topicInputData.map((input) => (
+            <div key={input.name} className="mb-4">
+              <InputFields
+                errorMsg={errors}
+                inputsData={[input]}
+                register={methods.register}
+              />
+            </div>
           ))}
-        </select>
-
-        <div className="mt-6 flex gap-8">
-          <Link
-            href="/forum/list"
-            className="btn-primary rounded-sm !bg-white !text-accent"
-          >
-            Wróć
-          </Link>
-          <Button message="Utwórz" />
-        </div>
-      </form>
+          <SelectFieldControler
+            name="category"
+            label="Wybierz kategorię"
+            options={categorySelectOptions.map(({ value, floatingLabel }) => ({
+              value,
+              label: floatingLabel,
+            }))}
+          />
+          <div className="mt-6 flex gap-8">
+            <Link
+              href="/forum/list"
+              className="btn-primary rounded-sm !bg-white !text-accent"
+            >
+              Wróć
+            </Link>
+            <Button message="Utwórz" />
+          </div>
+        </form>
+      </FormProvider>
     </Card>
   );
 };

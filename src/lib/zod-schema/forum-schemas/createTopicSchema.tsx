@@ -7,9 +7,13 @@ export const createTopicSchema = z.object({
     .string()
     .trim()
     .min(3, "Min. 3 znaki")
-    .max(500, "Max. 500 znaków")
-    .optional(),
-  category: z.enum(Object.values(TopicCategory) as [string, ...string[]]),
+    .max(500, "Max. 500 znaków"),
+  category: z.preprocess(
+    (val) => (val === "" ? undefined : val),
+    z.enum(Object.values(TopicCategory) as [string, ...string[]], {
+      required_error: "Kategoria wymagana",
+    }),
+  ),
 });
 
 export type CreateTopicSchema = z.infer<typeof createTopicSchema>;
