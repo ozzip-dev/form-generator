@@ -10,7 +10,7 @@ export const editInputFormSchema = z
       .string()
       .trim()
       .min(1, "Pole wymagane")
-      .max(100, "Maks. 100 znaków"),
+      .max(200, "Maks. 200 znaków"),
 
     description: z.string().trim().max(3000, "Maks. 3000 znaków"),
 

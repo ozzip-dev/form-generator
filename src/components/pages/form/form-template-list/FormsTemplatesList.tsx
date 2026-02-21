@@ -17,7 +17,7 @@ const FormsTemplatesList = async () => {
     "Ankieta pracownicza",
     "Wybory SIP",
     "Referendum strajkowe",
-    "Wybory prezydium",
+    "Wybory władz",
   ];
 
   return (

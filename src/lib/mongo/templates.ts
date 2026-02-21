@@ -32,7 +32,7 @@ export const formTemplates: Form[] = [
     inputs: [
       {
         id: "survey-1",
-        type: InputType.SINGLE_SELECT,
+        type: InputType.CHECKBOX,
         header: "W jakim dziale pracujesz",
         validation: {},
         options: [
@@ -50,7 +50,7 @@ export const formTemplates: Form[] = [
           },
           {
             value: "other",
-            label: "Inny",
+            label: "Inny dział",
           },
         ],
         required: true,
@@ -71,8 +71,19 @@ export const formTemplates: Form[] = [
       },
       {
         id: "survey-3",
+        type: InputType.TEXT,
+        header: "Na jakim stanowisku pracujesz?",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 2,
+      },
+      {
+        id: "survey-4",
         type: InputType.SINGLE_SELECT,
-        header: "Przez kogo jesteś zatrudniony/a?",
+        header: "Przez jaki podmiot jesteś zatrudniona/y?",
         validation: {},
         options: [
           {
@@ -89,16 +100,68 @@ export const formTemplates: Form[] = [
           },
           {
             value: "other",
-            label: "Inne",
+            label: "Inny podmiot",
           },
         ],
         required: true,
         unique: false,
         hidden: false,
-        order: 2,
+        order: 3,
       },
       {
-        id: "survey-4",
+        id: "survey-5",
+        type: InputType.SUPER_TEXT,
+        header: "Co Twoim zdaniem należy poprawić w warunkach pracy?",
+        description: "",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 4,
+      },
+      {
+        id: "survey-6",
+        type: InputType.EMAIL,
+        header:
+          "Podaj Swój adres email jeżeli chcesz otrzymywać informacje od [nazwa struktury]",
+        description: "",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 5,
+      },
+      {
+        id: "survey-7",
+        type: InputType.PARAGRAPH,
+        header: "",
+        description:
+          "<p><strong>Każda osoba pracująca w [nazwa przedsiębiorstwa] może oddać jeden głos.</strong></p>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 6,
+      },
+      {
+        id: "survey-8",
+        type: InputType.NUMBER,
+        header:
+          "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego",
+        description:
+          '<p>Każdy identyfikator może zostać użyty <mark class="bg-accent">tylko raz</mark>. Ponowne wprowadzenie tych<strong> </strong>samych danych uniemożliwi wysłanie formularza.</p>',
+        validation: {},
+        options: [],
+        required: true,
+        unique: true,
+        hidden: true,
+        order: 7,
+      },
+      {
+        id: "survey-9",
         type: InputType.PARAGRAPH,
         header: "",
         description:
@@ -108,56 +171,7 @@ export const formTemplates: Form[] = [
         required: false,
         unique: false,
         hidden: false,
-        order: 3,
-      },
-      {
-        id: "survey-5",
-        type: InputType.PARAGRAPH,
-        header: "",
-        description:
-          "<p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>",
-        validation: {},
-        options: [],
-        required: false,
-        unique: false,
-        hidden: false,
-        order: 4,
-      },
-      {
-        id: "survey-6",
-        type: InputType.CHECKBOX,
-        header: "Które elementy warunków pracy wymagają Twoim zdaniem poprawy?",
-        validation: {},
-        options: [
-          {
-            value: "survey-6-2320",
-            label: "Organizacja czasu pracy",
-          },
-          {
-            value: "survey-6-80572",
-            label: "Wyposażenie stanowiska pracy",
-          },
-          {
-            value: "survey-6-98254",
-            label: "Komunikacja z przełożonym",
-          },
-          {
-            value: "survey-6-58504",
-            label: "Poziom wynagrodzenia",
-          },
-          {
-            value: "survey-6-29066",
-            label: "Możliwości rozwoju zawodowego",
-          },
-          {
-            value: "other",
-            label: "Inne",
-          },
-        ],
-        required: true,
-        unique: false,
-        hidden: false,
-        order: 5,
+        order: 8,
       },
     ],
     state: "template",
@@ -170,14 +184,14 @@ export const formTemplates: Form[] = [
     title:
       "Wybory Społecznego Inspektora Pracy w [nazwa przedsiębiorstwa] na kadencję [lata kadencji]",
     description:
-      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p>Wybory odbywają się w dniach [daty].</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób oddających głos.</p>",
+      "<p>Weź udział w głosowaniu i wybierz osobę, która będzie reprezentować pracowników w sprawach bezpieczeństwa i warunków pracy.</p><p>Wybory odbywają się w dniach [daty].</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane kierownictwu zakładu ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
         id: "sip-1",
         type: InputType.SINGLE_SELECT,
         header:
-          "Wybierz swojego kandydata na Społecznego Inspektora Pracy [wybór pojedynczy].",
+          "Wybierz osobę kandydującą na Społecznego Inspektora Pracy [wybór pojedynczy].",
         validation: {},
         options: [
           {
@@ -206,7 +220,7 @@ export const formTemplates: Form[] = [
         id: "sip-2",
         type: InputType.CHECKBOX,
         header:
-          "Wybierz swoich kandydatów na Społecznego Inspektora Pracy [wybór wielokrotny].",
+          "Wybierz 3 osoby kandydujące na Społecznego Inspektora Pracy[wybór wielokrotny].",
         validation: {},
         options: [
           {
@@ -222,8 +236,12 @@ export const formTemplates: Form[] = [
             label: "Tomasz",
           },
           {
-            value: "sip-1-428",
+            value: "sip-1-42898",
             label: "Mariola",
+          },
+          {
+            value: "sip-1-98428",
+            label: "Łukasz",
           },
         ],
         required: true,
@@ -236,7 +254,7 @@ export const formTemplates: Form[] = [
         type: InputType.PARAGRAPH,
         header: "",
         description:
-          "<p><strong>Każdy uprawniony pracownik może oddać jeden głos.</strong></p>",
+          "<p><strong>Każda osoba zatrudniona przez [nazwa przedsiębiorstwa] może oddać jeden głos.</strong></p>",
         validation: {},
         options: [],
         required: false,
@@ -303,7 +321,7 @@ export const formTemplates: Form[] = [
     id: TemplateFormId.STRIKE,
     title: "Referendum strajkowe w [nazwa firmy]",
     description:
-      "<p>Oddaj głos w referendum strajkowym.</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób oddających głos.</p>",
+      "<p>Oddaj głos w referendum strajkowym.</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane kierownictwu zakładu ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
@@ -332,7 +350,7 @@ export const formTemplates: Form[] = [
         type: InputType.PARAGRAPH,
         header: "",
         description:
-          "<p><strong>Każdy uprawniony pracownik może oddać jeden głos.</strong></p>",
+          "<p><strong>Każda osoba zatrudniona przez [nazwa przedsiębiorstwa] może oddać jeden głos.</strong></p>",
         validation: {},
         options: [],
         required: false,
@@ -396,16 +414,15 @@ export const formTemplates: Form[] = [
   },
   {
     id: TemplateFormId.ELECTIONS,
-    title: "Wybory prezydium komisji w [nazwa przedsiębiorstwa]",
+    title: "Wybierz osoby, które zasiądą we władzach [nazwa struktury].",
     description:
-      "<p>Weź udział w głosowaniu i wybierz osob, które zasiądą w prezydium komisji</p><p></p><p>Wybory odbywają się w dniach [daty].</p><p></p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Wybory są anonimowe.</p>",
+      "<p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby należące do <strong>[nazwa struktury]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane kierownictwu zakładu ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
         id: "elections-1",
         type: InputType.SINGLE_SELECT,
-        header:
-          "Wybierz swojego kandydata na Przewodniczącego/Przewodniczącą prezydium komisji",
+        header: "Wybierz osobę na funkcję przewodniczącą [nazwa struktury]",
         validation: {},
         options: [
           {
@@ -421,8 +438,12 @@ export const formTemplates: Form[] = [
             label: "Tomasz",
           },
           {
-            value: "elections-1-428",
+            value: "elections-1-42876",
             label: "Mariola",
+          },
+          {
+            value: "elections-1-23465",
+            label: "Wstrzymuję się",
           },
         ],
         required: true,
@@ -432,19 +453,98 @@ export const formTemplates: Form[] = [
       },
       {
         id: "elections-2",
-        type: InputType.PARAGRAPH,
-        header: "",
-        description:
-          "<p><strong>Każdy uprawniony pracownik może oddać jeden głos.</strong></p>",
+        type: InputType.CHECKBOX,
+        header:
+          "Wybierz 3 osoby ubiegające się o członkostwo w prezydium [nazwa struktury].",
         validation: {},
-        options: [],
-        required: false,
+        options: [
+          {
+            value: "elections-1-97253",
+            label: "Jan",
+          },
+          {
+            value: "elections-1-43222",
+            label: "Maria",
+          },
+          {
+            value: "elections-1-57777",
+            label: "Tomasz",
+          },
+          {
+            value: "elections-1-54328",
+            label: "Mariola",
+          },
+          {
+            value: "elections-1-76122",
+            label: "Łukasz",
+          },
+          {
+            value: "elections-1-47622",
+            label: "Marcin",
+          },
+          {
+            value: "elections-1-48192",
+            label: "Wstrzymuję się",
+          },
+        ],
+        required: true,
         unique: false,
         hidden: false,
         order: 1,
       },
       {
         id: "elections-3",
+        type: InputType.CHECKBOX,
+        header:
+          "Wybierz 2 osoby ubiegające się o członkostwo w komisji rewizyjnej [nazwa struktury].",
+        validation: {},
+        options: [
+          {
+            value: "elections-1-98763",
+            label: "Jan",
+          },
+          {
+            value: "elections-1-46522",
+            label: "Maria",
+          },
+          {
+            value: "elections-1-66577",
+            label: "Tomasz",
+          },
+          {
+            value: "elections-1-59858",
+            label: "Mariola",
+          },
+          {
+            value: "elections-1-99122",
+            label: "Łukasz",
+          },
+          {
+            value: "elections-1-48887",
+            label: "Wstrzymuję się",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 2,
+      },
+
+      {
+        id: "elections-4",
+        type: InputType.PARAGRAPH,
+        header: "",
+        description:
+          "<p><strong>Każda uprawniona osoba należąca do [nazwa organizacji] może oddać jeden głos.</strong></p>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 3,
+      },
+      {
+        id: "elections-5",
         type: InputType.NUMBER,
         header:
           "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego.",
@@ -454,22 +554,41 @@ export const formTemplates: Form[] = [
         options: [],
         required: true,
         unique: true,
-        hidden: true,
-        order: 2,
+        hidden: false,
+        order: 4,
       },
       {
-        id: "elections-4",
+        id: "elections-6",
         type: InputType.PARAGRAPH,
-
         header: "",
         description:
-          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p></p><p></p><p></p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">media społecznościowe</a>.</p><p></p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
+          "<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p>",
         validation: {},
         options: [],
         required: false,
         unique: false,
         hidden: false,
-        order: 3,
+        order: 5,
+      },
+
+      {
+        id: "elections-7",
+        type: InputType.CHECKBOX,
+        header:
+          "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
+        description:
+          "<p><small>Poprzez wysłanie formularza, wyrażasz zgodę na przetwarzanie swoich danych osobowych.</small></p><p><small>I. Przetwarzamy [wymień zbierane dane osobowe, np. imię i nazwisko, numer identyfikatora], co jest niezbędne w celu weryfikacji osoby wysyłającej formularz.</small></p><p><small>II. Administratorem danych osobowych jest [nazwa, siedziba i numer NIP – centrali związku zawodowego lub innego podmiotu prawnego o osobowości prawnej, do którego przynależy autor tego formularza]. Kontakt pod adresem e-mail: [adres e-mail odpowiedniego podmiotu prawnego].</small></p><p><small>III. Podstawą prawną przetwarzania jest art. 6 ust. 1 lit. a i f [jak zbierane informacje o przynależności do związków zawodowych lub dotyczące zdrowia, to wklej w miejsce tego nawiasu: „oraz art. 9 ust. 2 lit. a, d”] Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. U. UE. L. z 2016 r. Nr 119, str. 1 z późn. zm.).</small></p><p><small>IV. Podmiotem przetwarzającym, w zakresie hostingu danych osobowych, jest [pełna nazwa organizacji] z siedzibą w [miejscowość], ul. [Nazwa ulicy i numer budynku/lokalu] </small><em><small>(ewentualnie: KRS [Numer] / informacja o wpisie do rejestru struktur związku)</small></em><small>. Kontakt: nr tel. [kontaktowy numer telefonu] e-mail [kontaktowy adres e-mail]</small></p><p><small>V. Twoje dane osobowe będą przetwarzane do czasu wniesienia sprzeciwu wobec przetwarzania Twoich danych osobowych, chyba że będziemy w stanie wykazać, że w stosunku do Twoich danych istnieją dla nas ważne prawnie uzasadnione podstawy, które są nadrzędne wobec Twoich interesów, praw i wolności lub Twoje dane będą nam niezbędne do ewentualnego ustalenia, dochodzenia lub obrony roszczeń.</small></p><p><small>VI. Posiadasz prawo do: 1. dostępu do treści swoich danych; 2. sprostowania danych; 3. usunięcia danych; 4. ograniczenia przetwarzania; 5. przeniesienia danych; 6. wycofania zgody na przetwarzanie (nie wpływa na zgodność z prawem przetwarzania przed wycofaniem zgody); 7. wniesienia sprzeciwu wobec przetwarzania; 8. wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</small></p>",
+        validation: {},
+        options: [
+          {
+            value: "elections-7-76526",
+            label: "Zatwierdzam",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 6,
       },
     ],
     state: "template",

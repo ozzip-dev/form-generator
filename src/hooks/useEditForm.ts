@@ -77,7 +77,7 @@ export function useEditForm({
           setLoading((prev) => ({ ...prev, [name]: false }));
           debounceMap.current.delete(key);
         }
-      }, 800);
+      }, 1500);
 
       debounceMap.current.set(key, timeout);
     },
