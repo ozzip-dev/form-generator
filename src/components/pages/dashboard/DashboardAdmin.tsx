@@ -1,11 +1,12 @@
-import { requireUser } from "@/services/user-service";
+import { getAllModerators } from "@/services/user-service";
+import { ModeratorList } from "./moderator-list";
 
 const DashboardAdmin = async () => {
-  const user = await requireUser();
+  const moderators = await getAllModerators();
 
   return (
-    <div>
-      Admin dashboard: <span className="font-black">{user.name}</span>
+    <div className="container">
+      <ModeratorList moderators={moderators} />
     </div>
   );
 };
