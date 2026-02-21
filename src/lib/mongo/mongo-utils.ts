@@ -19,7 +19,7 @@ export const parseObjProps = (obj: unknown) => JSON.parse(JSON.stringify(obj));
 
 const getModelValidator = (
   properties: Properties,
-  required: string[]
+  required: string[],
 ): Document => ({
   $jsonSchema: {
     // bsonType: 'object',
@@ -41,14 +41,14 @@ export const makeDbCollection = async (db: Db, model: DbModel) => {
 /* queries */
 export const getCollection = <T extends Document>(
   db: Db,
-  collectionName: string
+  collectionName: string,
 ): Collection<T> => db.collection<T>(collectionName);
 
 export async function find<T extends Document>(
   db: Db,
   collectionName: string,
   query: Filter<T>,
-  sort: Sort | string = {}
+  sort: Sort | string = {},
 ): Promise<WithId<T>[]> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const docs: WithId<T>[] = await collection.find(query).sort(sort).toArray();
@@ -59,7 +59,7 @@ export async function find<T extends Document>(
 export async function findOne<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Filter<T>
+  query: Filter<T>,
 ): Promise<WithId<T> | null> {
   const collection: Collection<T> = getCollection<T>(db, collectionName);
   const doc: WithId<T> | null = await collection.findOne(query);
@@ -69,7 +69,7 @@ export async function findOne<T extends Document>(
 export async function findById<T extends Document>(
   db: Db,
   collectionName: string,
-  _id: ObjectId
+  _id: ObjectId | string,
 ): Promise<WithId<T> | null> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const query: Filter<T> = { _id } as Filter<T>;
@@ -79,7 +79,7 @@ export async function findById<T extends Document>(
 
 export async function findAll<T extends Document>(
   db: Db,
-  collectionName: string
+  collectionName: string,
 ): Promise<WithId<T>[]> {
   return find<T>(db, collectionName, {});
 }
@@ -87,11 +87,11 @@ export async function findAll<T extends Document>(
 export async function insert<T extends Document>(
   db: Db,
   collectionName: string,
-  doc: Partial<T>
+  doc: Partial<T>,
 ): Promise<InsertOneResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const result: InsertOneResult<T> = await collection.insertOne(
-    doc as OptionalUnlessRequiredId<T>
+    doc as OptionalUnlessRequiredId<T>,
   );
   return result;
 }
@@ -99,11 +99,11 @@ export async function insert<T extends Document>(
 export async function insertMany<T extends Document>(
   db: Db,
   collectionName: string,
-  docs: Partial<T>[]
+  docs: Partial<T>[],
 ): Promise<InsertManyResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const result: InsertManyResult<T> = await collection.insertMany(
-    docs as OptionalUnlessRequiredId<T>[]
+    docs as OptionalUnlessRequiredId<T>[],
   );
   return result;
 }
@@ -112,12 +112,12 @@ export async function updateMany<T extends Document>(
   db: Db,
   collectionName: string,
   query: Filter<T>,
-  updateData: Partial<T>
+  updateData: Partial<T>,
 ): Promise<UpdateResult<T>> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const result: UpdateResult<T> = await collection.updateMany(
     query,
-    updateData
+    updateData,
   );
   return result;
 }
@@ -126,7 +126,7 @@ export async function update<T extends Document>(
   db: Db,
   collectionName: string,
   query: Document,
-  updateData: Document
+  updateData: Document,
 ): Promise<WithId<Document> | null> {
   const collection: Collection<Document> = getCollection(db, collectionName);
   const result = await collection.findOneAndUpdate(query, updateData);
@@ -137,7 +137,7 @@ export async function updateById<T extends Document>(
   db: Db,
   collectionName: string,
   _id: ObjectId,
-  updateData: Partial<T>
+  updateData: Partial<T>,
 ): Promise<WithId<T> | null> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const query: Filter<T> = { _id } as Filter<T>;
@@ -150,7 +150,7 @@ export async function updateById<T extends Document>(
 export async function deleteMany<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Filter<T>
+  query: Filter<T>,
 ): Promise<DeleteResult> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const result: DeleteResult = await collection.deleteMany(query);
@@ -160,7 +160,7 @@ export async function deleteMany<T extends Document>(
 export async function deleteById<T extends Document>(
   db: Db,
   collectionName: string,
-  _id: ObjectId
+  _id: ObjectId,
 ): Promise<DeleteResult> {
   const collection: Collection<T> = getCollection(db, collectionName);
   const query: Filter<T> = { _id } as Filter<T>;
@@ -171,7 +171,7 @@ export async function deleteById<T extends Document>(
 export async function getCount<T extends Document>(
   db: Db,
   collectionName: string,
-  query: Filter<T>
+  query: Filter<T>,
 ): Promise<number> {
   const collection: Collection<T> = getCollection(db, collectionName);
 

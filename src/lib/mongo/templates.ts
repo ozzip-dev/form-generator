@@ -198,6 +198,7 @@ export const formTemplates: Form[] = [
     type: FormType.Survey,
     resultVisibility: FormResultVisibility.Secret,
     displayAuthorEmail: false,
+    headerFileId: "ankieta",
   },
   {
     id: TemplateFormId.SIP,
@@ -244,23 +245,23 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [
           {
-            value: "sip-1-82284",
+            value: "sip-2-82284",
             label: "Jan",
           },
           {
-            value: "sip-1-43992",
+            value: "sip-2-43992",
             label: "Maria",
           },
           {
-            value: "sip-1-51557",
+            value: "sip-2-51557",
             label: "Tomasz",
           },
           {
-            value: "sip-1-42898",
+            value: "sip-2-42898",
             label: "Mariola",
           },
           {
-            value: "sip-1-98428",
+            value: "sip-2-98428",
             label: "Łukasz",
           },
         ],
@@ -335,7 +336,7 @@ export const formTemplates: Form[] = [
     type: FormType.Inspector,
     resultVisibility: FormResultVisibility.Secret,
     displayAuthorEmail: true,
-    headerFileId: "698f67880746dc0289059e74",
+    headerFileId: "wybory-sip",
   },
   {
     id: TemplateFormId.STRIKE,
@@ -352,11 +353,11 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [
           {
-            value: "thu-feb-12-73148",
+            value: "strike-1-73148",
             label: "tak",
           },
           {
-            value: "thu-feb-12-93542",
+            value: "strike-1-93542",
             label: "nie",
           },
         ],
@@ -407,7 +408,7 @@ export const formTemplates: Form[] = [
       },
 
       {
-        id: "sip-6",
+        id: "strike-6",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
@@ -416,7 +417,7 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [
           {
-            value: "sip-6-89876",
+            value: "strike-6-89876",
             label: "Zatwierdzam",
           },
         ],
@@ -430,7 +431,6 @@ export const formTemplates: Form[] = [
     type: FormType.Strike,
     resultVisibility: FormResultVisibility.Secret,
     displayAuthorEmail: true,
-    headerFileId: "698e38ca2d3cca1353991f62",
   },
   {
     id: TemplateFormId.ELECTIONS,
@@ -479,31 +479,31 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [
           {
-            value: "elections-1-97253",
+            value: "elections-2-97253",
             label: "Jan",
           },
           {
-            value: "elections-1-43222",
+            value: "elections-2-43222",
             label: "Maria",
           },
           {
-            value: "elections-1-57777",
+            value: "elections-2-57777",
             label: "Tomasz",
           },
           {
-            value: "elections-1-54328",
+            value: "elections-2-54328",
             label: "Mariola",
           },
           {
-            value: "elections-1-76122",
+            value: "elections-2-76122",
             label: "Łukasz",
           },
           {
-            value: "elections-1-47622",
+            value: "elections-2-47622",
             label: "Marcin",
           },
           {
-            value: "elections-1-48192",
+            value: "elections-2-48192",
             label: "Wstrzymuję się",
           },
         ],
@@ -520,27 +520,27 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [
           {
-            value: "elections-1-98763",
+            value: "elections-3-98763",
             label: "Jan",
           },
           {
-            value: "elections-1-46522",
+            value: "elections-3-46522",
             label: "Maria",
           },
           {
-            value: "elections-1-66577",
+            value: "elections-3-66577",
             label: "Tomasz",
           },
           {
-            value: "elections-1-59858",
+            value: "elections-3-59858",
             label: "Mariola",
           },
           {
-            value: "elections-1-99122",
+            value: "elections-3-99122",
             label: "Łukasz",
           },
           {
-            value: "elections-1-48887",
+            value: "elections-3-48887",
             label: "Wstrzymuję się",
           },
         ],

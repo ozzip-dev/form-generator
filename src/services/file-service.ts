@@ -16,13 +16,13 @@ import {
 } from "mongodb";
 
 export async function insertFile(
-  data: Partial<File>
+  data: Partial<File>,
 ): Promise<InsertOneResult<File>> {
   return await insert<File>(db, "file", data);
 }
 
 export async function insertFiles(
-  data: Partial<File>[]
+  data: Partial<File>[],
 ): Promise<InsertManyResult<File>> {
   return await insertMany<File>(db, "file", data);
 }
@@ -33,7 +33,7 @@ export async function getAllFiles(): Promise<FileSerialized[]> {
 }
 
 export async function getFilesByFileIdsNoData(
-  fileIdStrings: string[] = []
+  fileIdStrings: string[] = [],
 ): Promise<Partial<FileSerialized>[]> {
   const fileIds = fileIdStrings.map((id) => new ObjectId(id));
   const files = await db
@@ -50,7 +50,10 @@ export async function removeFile(fileId: string): Promise<DeleteResult> {
 }
 
 export async function getFileById(fileId: string): Promise<File> {
-  const file = await findById<File>(db, "file", new ObjectId(fileId));
+  const file =
+    (await findById<File>(db, "file", fileId)) ||
+    (await findById<File>(db, "file", new ObjectId(fileId)));
+
   if (!file) throw new Error("Invalid file id");
   return file;
 }
