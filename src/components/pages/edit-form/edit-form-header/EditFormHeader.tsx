@@ -169,15 +169,19 @@ export default function EditFormHeader(props: Props) {
               <InfoIcon>
                 <>
                   <div>
-                    <span className="font-black">Jawny: </span>
+                    <span className="font-semibold">Jawny: </span>
                     <span>
-                      Podsumowanie wszystkich odpowiedzi oraz odpowiedzi z
-                      każdego pojedynczego formularza
+                      Zbiorcze podsumowanie odpowiedzi oraz odpowiedzi z każdego
+                      pojedynczego formularza.
                     </span>
                   </div>
                   <div className="pt-4">
-                    <span className="font-black">Tajny: </span>
-                    <span>Podsumowanie wszystkich odpowiedzi</span>
+                    <span className="font-semibold">Tajny: </span>
+                    <span>
+                      {" "}
+                      Zbiorcze podsumowanie odpowiedzi bez powiązania ich z
+                      pojedynczymi formularzami.
+                    </span>
                   </div>
                 </>
               </InfoIcon>

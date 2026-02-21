@@ -24,9 +24,11 @@ import {
 } from "@/helpers/inputHelpers";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
-import CreatedFormFooter from "./CreatedFormFooter";
+import CreatedFormFooter from "./CreatedFormAuthor";
 import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
+import CreatedFormAuthor from "./CreatedFormAuthor";
+import ResultsMode from "./ResultsMode";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -53,10 +55,13 @@ type Props = {
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs, displayAuthorEmail } = props.form;
+  const { title, description, inputs, displayAuthorEmail, resultVisibility } =
+    props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
+
+  console.log("", props.form);
 
   const isRequiredInput = inputs.filter(
     ({ required }) => required === true,
@@ -191,10 +196,14 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-
-      {displayAuthorEmail && props.authorEmail && (
-        <CreatedFormFooter authorEmail={props.authorEmail} />
-      )}
+      <footer className="flex justify-center pb-10 text-xs">
+        <div className="container">
+          <ResultsMode resultVisibility={resultVisibility} />
+          {displayAuthorEmail && props.authorEmail && (
+            <CreatedFormAuthor authorEmail={props.authorEmail} />
+          )}
+        </div>
+      </footer>
     </>
   );
 };

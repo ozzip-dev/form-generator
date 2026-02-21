@@ -38,15 +38,15 @@ export const formTemplates: Form[] = [
         options: [
           {
             value: "survey-1-69042",
-            label: "Produkcja",
+            label: "[Dział]",
           },
           {
             value: "survey-1-18415",
-            label: "Administracja",
+            label: "[Dział]",
           },
           {
             value: "survey-1-72235",
-            label: "Logistyka",
+            label: "[Dział]",
           },
           {
             value: "other",
@@ -92,7 +92,7 @@ export const formTemplates: Form[] = [
           },
           {
             value: "survey-3-87518",
-            label: "[nazwa agencji]",
+            label: "[nazwa podwykonawcy]",
           },
           {
             value: "survey-3-65128",
@@ -169,6 +169,26 @@ export const formTemplates: Form[] = [
         validation: {},
         options: [],
         required: false,
+        unique: false,
+        hidden: false,
+        order: 8,
+      },
+
+      {
+        id: "elections-9",
+        type: InputType.CHECKBOX,
+        header:
+          "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
+        description:
+          "<p><small>Poprzez wysłanie formularza, wyrażasz zgodę na przetwarzanie swoich danych osobowych.</small></p><p><small>I. Przetwarzamy [wymień zbierane dane osobowe, np. imię i nazwisko, numer identyfikatora], co jest niezbędne w celu weryfikacji osoby wysyłającej formularz.</small></p><p><small>II. Administratorem danych osobowych jest [nazwa, siedziba i numer NIP – centrali związku zawodowego lub innego podmiotu prawnego o osobowości prawnej, do którego przynależy autor tego formularza]. Kontakt pod adresem e-mail: [adres e-mail odpowiedniego podmiotu prawnego].</small></p><p><small>III. Podstawą prawną przetwarzania jest art. 6 ust. 1 lit. a i f [jak zbierane informacje o przynależności do związków zawodowych lub dotyczące zdrowia, to wklej w miejsce tego nawiasu: „oraz art. 9 ust. 2 lit. a, d”] Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. U. UE. L. z 2016 r. Nr 119, str. 1 z późn. zm.).</small></p><p><small>IV. Podmiotem przetwarzającym, w zakresie hostingu danych osobowych, jest [pełna nazwa organizacji] z siedzibą w [miejscowość], ul. [Nazwa ulicy i numer budynku/lokalu] </small><em><small>(ewentualnie: KRS [Numer] / informacja o wpisie do rejestru struktur związku)</small></em><small>. Kontakt: nr tel. [kontaktowy numer telefonu] e-mail [kontaktowy adres e-mail]</small></p><p><small>V. Twoje dane osobowe będą przetwarzane do czasu wniesienia sprzeciwu wobec przetwarzania Twoich danych osobowych, chyba że będziemy w stanie wykazać, że w stosunku do Twoich danych istnieją dla nas ważne prawnie uzasadnione podstawy, które są nadrzędne wobec Twoich interesów, praw i wolności lub Twoje dane będą nam niezbędne do ewentualnego ustalenia, dochodzenia lub obrony roszczeń.</small></p><p><small>VI. Posiadasz prawo do: 1. dostępu do treści swoich danych; 2. sprostowania danych; 3. usunięcia danych; 4. ograniczenia przetwarzania; 5. przeniesienia danych; 6. wycofania zgody na przetwarzanie (nie wpływa na zgodność z prawem przetwarzania przed wycofaniem zgody); 7. wniesienia sprzeciwu wobec przetwarzania; 8. wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</small></p>",
+        validation: {},
+        options: [
+          {
+            value: "elections-7-76526",
+            label: "Zatwierdzam",
+          },
+        ],
+        required: true,
         unique: false,
         hidden: false,
         order: 8,
