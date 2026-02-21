@@ -279,7 +279,7 @@ export const formTemplates: Form[] = [
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
         description:
-          "<p><small>Przetwarzanie danych osobowych odbywać się będzie w celu przeprowadzenia i ustalenia wyników wyborów społecznych inspektorów pracy, o których mowa w art. 6 Ustawy z dnia 24 czerwca 1983 r. o społecznej inspekcji pracy (t.j. Dz. U. z 2024 r. poz. 1773).</small></p><p><small>Administratorem danych osobowych (uprawnionym do ich zbierania i przetwarzania) w wyżej wskazanym celu jest:</small></p><p><strong><small>[Pełna nazwa organizacji związkowej]</small></strong><small> z siedzibą w [Miejscowość], ul. [Nazwa ulicy i numer budynku/lokalu] </small><em><small>(ewentualnie: KRS [Numer] / informacja o wpisie do rejestru struktur związku)</small></em><small>.</small></p><p><small>Dane pozyskane w wyżej wskazanym celu nie będą przekazywane innym podmiotom.</small></p><p><small>Okres dalszego przetwarzania danych osobowych rozpocznie się od chwili ich przekazania wyżej wskazanemu Administratorowi i będzie trwał przez okres niezbędny do realizacji wyżej wskazanych celów (przeprowadzenia wyborów i ustalenia ich wyników), a także przez okres niezbędny do ochrony prawnie uzasadnionych interesów realizowanych przez Administratora lub przez stronę trzecią, w szczególności na wypadek ewentualnych sporów sądowych lub konieczności wykazania legalności przeprowadzonych wyborów.</small></p><p><small>Przetwarzanie danych osobowych objętych listą potwierdzającą udział w głosowaniu lub formularzem internetowym (o ile wskazano tam obligatoryjność ich podania) jest warunkiem niezbędnym do udziału w wyborach.</small></p><p><small>Przekazane nam dane osobowe będą przetwarzane na podstawie przepisów rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. Urz. UE L 119 z 04.05.2016, str. 1).</small></p><p><small>Każdej osobie, której dane osobowe są przetwarzane przez wyżej wskazanego Administratora, przysługuje prawo do ich: weryfikacji, kontroli, aktualizacji, korekty, uzyskania informacji na temat metody w jaki sposób są przechowywane, funkcji, a także odwołania od dalszego ich przetwarzania lub ograniczenia ich przetwarzania.</small></p><p><small>W celu realizacji tych uprawnień prosimy o kontakt z Administratorem:</small></p><p><small>nr tel. [kontaktowy numer telefonu] e-mail [kontaktowy adres e-mail]</small></p>",
+          "<p><small>Przetwarzanie danych osobowych odbywać się będzie w celu przeprowadzenia i ustalenia wyników wyborów społecznych inspektorów pracy, o których mowa w art. 6 Ustawy z dnia 24 czerwca 1983 r. o społecznej inspekcji pracy (t.j. Dz. U. z 2024 r. poz. 1773).</small></p><p><small>Administratorem danych osobowych (uprawnionym do ich zbierania i przetwarzania) w wyżej wskazanym celu jest:</small></p><p><strong><small>[Pełna nazwa organizacji związkowej]</small></strong><small> z siedzibą w [miejscowość], ul. [nazwa ulicy i numer budynku/lokalu] </small><em><small>(ewentualnie: KRS [Numer] / informacja o wpisie do rejestru struktur związku)</small></em><small>.</small></p><p><small>Dane pozyskane w wyżej wskazanym celu nie będą przekazywane innym podmiotom.</small></p><p><small>Okres dalszego przetwarzania danych osobowych rozpocznie się od chwili ich przekazania wyżej wskazanemu Administratorowi i będzie trwał przez okres niezbędny do realizacji wyżej wskazanych celów (przeprowadzenia wyborów i ustalenia ich wyników), a także przez okres niezbędny do ochrony prawnie uzasadnionych interesów realizowanych przez Administratora lub przez stronę trzecią, w szczególności na wypadek ewentualnych sporów sądowych lub konieczności wykazania legalności przeprowadzonych wyborów.</small></p><p><small>Przetwarzanie danych osobowych objętych listą potwierdzającą udział w głosowaniu lub formularzem internetowym (o ile wskazano tam obligatoryjność ich podania) jest warunkiem niezbędnym do udziału w wyborach.</small></p><p><small>Przekazane nam dane osobowe będą przetwarzane na podstawie przepisów rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. Urz. UE L 119 z 04.05.2016, str. 1).</small></p><p><small>Każdej osobie, której dane osobowe są przetwarzane przez wyżej wskazanego Administratora, przysługuje prawo do ich: weryfikacji, kontroli, aktualizacji, korekty, uzyskania informacji na temat metody w jaki sposób są przechowywane, funkcji, a także odwołania od dalszego ich przetwarzania lub ograniczenia ich przetwarzania.</small></p><p><small>W celu realizacji tych uprawnień prosimy o kontakt z Administratorem:</small></p><p><small>nr tel. [kontaktowy numer telefonu] e-mail [kontaktowy adres e-mail]</small></p>",
         validation: {},
         options: [
           {
@@ -303,7 +303,7 @@ export const formTemplates: Form[] = [
     id: TemplateFormId.STRIKE,
     title: "Referendum strajkowe w [nazwa firmy]",
     description:
-      '<p>Oddaj głos w referendum strajkowym dla zatrudnionych przez [nazwa firmy]</p><p></p><p><mark class="bg-accent">Referendum jest anonimowe.</mark> Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób.</p>',
+      "<p>Oddaj głos w referendum strajkowym.</p><p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby zatrudnione przez <strong>[nazwa przedsiębiorstwa]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane pracodawcy ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
@@ -328,7 +328,20 @@ export const formTemplates: Form[] = [
         order: 0,
       },
       {
-        id: "id-number",
+        id: "strike-3",
+        type: InputType.PARAGRAPH,
+        header: "",
+        description:
+          "<p><strong>Każdy uprawniony pracownik może oddać jeden głos.</strong></p>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 1,
+      },
+      {
+        id: "strike-4",
         type: InputType.NUMBER,
         header:
           "W celu weryfikacji głosu przez [nazwa organizacji związkowej] podaj Swój numer identyfikatora pracowniczego",
@@ -339,33 +352,40 @@ export const formTemplates: Form[] = [
         required: true,
         unique: true,
         hidden: false,
-        order: 1,
-      },
-      {
-        id: "trade-union-info-1",
-        type: InputType.PARAGRAPH,
-        header: "",
-        description:
-          '<p>Chcesz dowiedzieć się więcej o działalności <strong>[ nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a target="_blank" rel="noopener noreferrer nofollow" href="wwww">media społecznościowe</a></p>',
-        validation: {},
-        options: [],
-        required: false,
-        unique: false,
-        hidden: false,
         order: 2,
       },
       {
-        id: "trade-union-info-2",
+        id: "strike-5",
         type: InputType.PARAGRAPH,
         header: "",
         description:
-          "<p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>",
+          '<p>Wyniki głosowania zostaną ogłoszone [metoda ogłoszenia wyników].</p><p>Chcesz dowiedzieć się więcej o działalności <strong>[nazwa organizacji związkowej ]</strong>? Odwiedź nasze profile w <a rel="noopener noreferrer nofollow" href="https://form-generator-test.sliplane.app/forms/698e367c2d3cca1353991f60/wwww">linki</a>.</p><p>Osoby zainteresowane wstąpieniem do <strong>[nazwa organizacji związkowej] </strong>prosimy o kontakt telefoniczny: <strong>[nr telefonu] </strong>lub e-mailowy: <strong>[adres e-mail]</strong>.</p>',
         validation: {},
         options: [],
         required: false,
         unique: false,
         hidden: false,
         order: 3,
+      },
+
+      {
+        id: "sip-6",
+        type: InputType.CHECKBOX,
+        header:
+          "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
+        description:
+          "<p><small>Przetwarzanie danych osobowych odbywać się będzie w celu przeprowadzenia i ustalenia wyników wyborów społecznych inspektorów pracy, o których mowa w art. 6 Ustawy z dnia 24 czerwca 1983 r. o społecznej inspekcji pracy (t.j. Dz. U. z 2024 r. poz. 1773).</small></p><p><small>Administratorem danych osobowych (uprawnionym do ich zbierania i przetwarzania) w wyżej wskazanym celu jest:</small></p><p><strong><small>[Pełna nazwa organizacji związkowej]</small></strong><small> z siedzibą w [miejscowość], ul. [ulica i numer budynku/lokalu] </small><em><small>(ewentualnie: KRS [Numer] / informacja o wpisie do rejestru struktur związku)</small></em><small>.</small></p><p><small>Dane pozyskane w wyżej wskazanym celu nie będą przekazywane innym podmiotom.</small></p><p><small>Okres dalszego przetwarzania danych osobowych rozpocznie się od chwili ich przekazania wyżej wskazanemu Administratorowi i będzie trwał przez okres niezbędny do realizacji wyżej wskazanych celów (przeprowadzenia wyborów i ustalenia ich wyników), a także przez okres niezbędny do ochrony prawnie uzasadnionych interesów realizowanych przez Administratora lub przez stronę trzecią, w szczególności na wypadek ewentualnych sporów sądowych lub konieczności wykazania legalności przeprowadzonych wyborów.</small></p><p><small>Przetwarzanie danych osobowych objętych listą potwierdzającą udział w głosowaniu lub formularzem internetowym (o ile wskazano tam obligatoryjność ich podania) jest warunkiem niezbędnym do udziału w wyborach.</small></p><p><small>Przekazane nam dane osobowe będą przetwarzane na podstawie przepisów rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (ogólne rozporządzenie o ochronie danych) (Dz. Urz. UE L 119 z 04.05.2016, str. 1).</small></p><p><small>Każdej osobie, której dane osobowe są przetwarzane przez wyżej wskazanego Administratora, przysługuje prawo do ich: weryfikacji, kontroli, aktualizacji, korekty, uzyskania informacji na temat metody w jaki sposób są przechowywane, funkcji, a także odwołania od dalszego ich przetwarzania lub ograniczenia ich przetwarzania.</small></p><p><small>W celu realizacji tych uprawnień prosimy o kontakt z Administratorem:</small></p><p><small>nr tel. [kontaktowy numer telefonu] e-mail [kontaktowy adres e-mail]</small></p>",
+        validation: {},
+        options: [
+          {
+            value: "sip-6-89876",
+            label: "Zatwierdzam",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 5,
       },
     ],
     state: "template",
