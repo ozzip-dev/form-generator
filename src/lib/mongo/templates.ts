@@ -38,15 +38,15 @@ export const formTemplates: Form[] = [
         options: [
           {
             value: "survey-1-69042",
-            label: "[Dział]",
+            label: "[Dział 1]",
           },
           {
             value: "survey-1-18415",
-            label: "[Dział]",
+            label: "[Dział 2]",
           },
           {
             value: "survey-1-72235",
-            label: "[Dział]",
+            label: "[Dział 3]",
           },
           {
             value: "other",
