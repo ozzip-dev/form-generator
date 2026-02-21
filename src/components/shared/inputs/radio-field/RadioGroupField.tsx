@@ -42,9 +42,9 @@ const RadioGroupField = (props: Props) => {
   const isRadioValue = radioLabels.includes(value);
 
   return (
-    <div className="flex flex-col gap-6 text-sm">
+    <div className="flex flex-col text-sm">
       {props.label && (
-        <label className="font-bold">
+        <label className="mb-6 font-semibold">
           <span>{props.label}</span>
           <InputIndicators
             required={props.required}
@@ -58,7 +58,7 @@ const RadioGroupField = (props: Props) => {
         <InputDescription description={props.description} variant="published" />
       )}
 
-      <div className={`relative flex flex-col ${props.className ?? ""}`}>
+      <div className={`relative flex flex-col gap-6 ${props.className ?? ""}`}>
         {props.options.map((option) => {
           const isOther = option.value === OPTION_OTHER;
           const isChecked = !isOther && value === option.label;

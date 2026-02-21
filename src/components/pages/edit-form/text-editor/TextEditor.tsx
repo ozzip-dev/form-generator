@@ -43,7 +43,7 @@ export const Small = Mark.create({
   },
 });
 
-const MAX_CHARS = 2000;
+const MAX_CHARS = 3000;
 
 type Props = {
   formId: string;
