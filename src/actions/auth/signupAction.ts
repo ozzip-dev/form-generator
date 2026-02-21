@@ -14,7 +14,7 @@ type ActionResult<T> = {
 };
 
 export async function signupAction(
-  data: SignupSchema
+  data: SignupSchema,
 ): Promise<ActionResult<null>> {
   const validationResult = signupSchema.safeParse(data);
 
@@ -36,9 +36,15 @@ export async function signupAction(
 
     return { success: true, data: null };
   } catch (err: any) {
+    const userWithEmailExists =
+      err?.body?.code == "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL";
+    const catchError = userWithEmailExists
+      ? "Użytkownik o podanym adresie email już istnieje"
+      : `Rejestracja się nie powiodła: ${err?.message}`;
+
     return {
       success: false,
-      catchError: `${err?.message}. Rejestracja się nie powiodła.`,
+      catchError,
     };
   }
 }

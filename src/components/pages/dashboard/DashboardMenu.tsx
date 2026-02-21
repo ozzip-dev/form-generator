@@ -19,7 +19,7 @@ const moderatorNavLinks: NavMenuLink[] = [
 
 const adminNavLinks: NavMenuLink[] = [
   dashboardLink,
-  { text: "Nowy użytkownik", link: "/create-user" },
+  { text: "Dodaj użytkownika", link: "/create-user" },
 ];
 
 const DashboardMenu = () => {
@@ -47,22 +47,16 @@ const DashboardMenu = () => {
       />
 
       <div
-        className={`
-          lg:hidden
-          fixed top-20 left-0 h-full w-4/5 max-w-xs
-          bg-accent z-40
-          transform transition-transform duration-300 ease-in-out
-          ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
       >
-        <div className="pt-20 px-6">
+        <div className="px-6 pt-20">
           <NavMenu links={links} depth={1} variant="mobile" />
         </div>
       </div>
 
       {isMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 top-24 z-20 backdrop-blur-sm"
+          className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
