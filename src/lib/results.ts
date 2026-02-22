@@ -1,11 +1,11 @@
 import { InputType } from "@/enums";
 import { isInputTypeCheckbox } from "@/helpers/inputHelpers";
 import { FormInput, Input } from "@/types/input";
-import { Answers, GroupedAnswer, Submission } from "@/types/result";
+import { Answers, GroupedAnswer, SubmissionSerialized } from "@/types/result";
 
 export function getAnonymousAnswers(
-  submissions: Submission[],
-  includeFieldIds: string[] = []
+  submissions: SubmissionSerialized[],
+  includeFieldIds: string[] = [],
 ): Answers[] {
   const formAnswers: Answers[] = submissions.map(({ answers }) => answers);
 
@@ -20,7 +20,7 @@ export function getAnonymousAnswers(
 
 export function groupAnonymousAnswersByInput(
   inputs: FormInput[],
-  answers: Answers[]
+  answers: Answers[],
 ): {
   id: string;
   type: InputType;
@@ -30,11 +30,11 @@ export function groupAnonymousAnswersByInput(
   const inputIds: { id: string; type: InputType; header: string }[] =
     inputs.map(
       ({ id, type, header }) =>
-        ({ id, type, header } as {
+        ({ id, type, header }) as {
           id: string;
           type: InputType;
           header: string;
-        })
+        },
     );
   const inputAnswers: {
     id: string;
@@ -60,7 +60,7 @@ export function groupAnonymousAnswersByInput(
 // TODO Pawel: przepisz to czytelniej
 export function getGroupedAnswersResults(
   inputs: FormInput[],
-  answers: Answers[]
+  answers: Answers[],
 ): GroupedAnswer[] {
   const inputsAnswersUnique = groupAnonymousAnswersByInput(inputs, answers);
   const mappedCountResults = inputsAnswersUnique.map((item) => {
@@ -82,7 +82,7 @@ export function getGroupedAnswersResults(
       const answers = selectedAnswers.map((answer) => ({
         answer,
         count: selectedAnswers.filter(
-          (selectedAnswer) => selectedAnswer == answer
+          (selectedAnswer) => selectedAnswer == answer,
         ).length,
       }));
       return { ...item, answers };

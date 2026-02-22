@@ -3,9 +3,10 @@ import Results from "@/components/pages/results/Results";
 import { getSortedInputs } from "@/helpers/formHelpers";
 import { isInputDisplayedInResults } from "@/helpers/inputHelpers";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
+import { serializeResultSubmission } from "@/lib/serialize-utils";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
-import { Answers, GroupedAnswer, Submission } from "@/types/result";
+import { Answers, GroupedAnswer, SubmissionSerialized } from "@/types/result";
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -13,13 +14,18 @@ const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getFormById(formId);
   const { title = "", description = "", type, createdAt } = form;
-  const submissions: Submission[] = await getAllSubmissions(formId as string);
+  const submissions: SubmissionSerialized[] =
+    (await getAllSubmissions(formId as string))?.map(
+      serializeResultSubmission,
+    ) || [];
   const hasResults = await formHasResults(formId);
   if (!hasResults) return <NoResultsInfo />;
 
   const submittableInputs = getSortedInputs(form).filter(
     isInputDisplayedInResults,
   );
+
+  const submissionNumber = submissions.length;
 
   const displayResults = async (
     selectedInputIds: string[],
@@ -49,7 +55,7 @@ const FormResultsPage = async (props: Props) => {
   return (
     <Results
       {...{
-        submitionsNumber: submissions.length,
+        submissionNumber,
         inputs: submittableInputs,
         displayResults,
         formData: {

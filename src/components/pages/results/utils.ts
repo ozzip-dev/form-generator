@@ -26,16 +26,28 @@ export const drawHeader = (pdf: jsPDF, size: number = 20): void => {
   pdf.rect(0, 0, getPdfWidth(pdf), size, "F");
 };
 
+export const addformTitleText = (
+  pdf: jsPDF,
+  title: string,
+  top: number,
+): void => {
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const margin = 5;
+  const maxWidth = pageWidth - margin * 2;
+
+  pdf.setFontSize(13.5);
+  pdf.text(title, 5, top, { maxWidth: maxWidth });
+};
+
 export const addHeaderText = (title: string, pdf: jsPDF): void => {
   setFontFamilyBold(pdf);
 
-  pdf.setFontSize(25);
-  pdf.text(title, 5, 25);
+  addformTitleText(pdf, title, 16);
 
   setFontFamilyRegular(pdf);
   pdf.setFontSize(11);
   pdf.text(
-    `(wyniki wygenerowano: ${formatDateAndTime(new Date().toISOString())})`,
+    `(plik wygenerowany automatycznie: ${formatDateAndTime(new Date().toISOString())})`,
     5,
     40,
   );
@@ -63,13 +75,12 @@ export const addNumberedHeaderText = (
 ): void => {
   setFontFamilyBold(pdf);
 
-  pdf.setFontSize(22);
-  pdf.text(title, 5, 10);
+  addformTitleText(pdf, title, 6);
 
   setFontFamilyRegular(pdf);
   pdf.setFontSize(11);
   pdf.text(
-    `wyniki wygenerowano: ${formatDateAndTime(
+    `plik wygenerowany automatycznie: ${formatDateAndTime(
       new Date().toISOString(),
     )}                        strona: (${page}/${pageCount})                        wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
     5,

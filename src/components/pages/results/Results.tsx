@@ -11,7 +11,7 @@ import { AnswerResults } from "./answers";
 import ResultFieldSelect from "./ResultFieldSelect";
 
 type Props = {
-  submitionsNumber: number;
+  submissionNumber: number;
   inputs: FormInput[];
   displayResults: (
     selectedInputIds: string[],
@@ -69,8 +69,8 @@ const Results = (props: Props) => {
             <>
               <div className="flex gap-6">
                 <div>{title}</div>
-                <div className="font-[var(--fw-base)]">
-                  ({props.submitionsNumber} wyników)
+                <div className="flex-shrink-0 font-[var(--fw-base)]">
+                  ({props.submissionNumber} wyników)
                 </div>
               </div>
               <div className="text-center text-2xs text-font_light sm:text-left">
