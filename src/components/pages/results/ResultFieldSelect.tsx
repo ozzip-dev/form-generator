@@ -38,9 +38,10 @@ const ResultFieldSelect = (props: Props) => {
           <div key={id} className="flex gap-2">
             <div>{idx + 1}.</div>
             <Checkbox
-              name={header}
+              name={`result-field-${id}`}
               onChange={() => onChange(id as string)}
               checkedValue={!!formInputs.find((el) => el.id == id)?.selected}
+              checkboxLabel={header}
               labelClassName="truncate flex-grow w-[5rem]"
             />
           </div>

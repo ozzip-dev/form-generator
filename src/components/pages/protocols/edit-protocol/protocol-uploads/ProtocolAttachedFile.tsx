@@ -24,7 +24,7 @@ const ProtocolAttachedFile = (props: Props) => {
       await removeProtocolFileAction(
         protocolId,
         file._id as string,
-        fileCategory
+        fileCategory,
       );
       toast({
         title: "Sukces",
@@ -41,12 +41,13 @@ const ProtocolAttachedFile = (props: Props) => {
   };
 
   return (
-    <div className="w-fit py-2 flex gap-4 items-center">
+    <div className="flex w-fit items-center gap-4 py-2">
       <div>{props.file.name}</div>
       <Button
         type="button"
         icon={<IconTrash size={27} />}
         variant="ghost"
+        ariaLabel="Remove attachment"
         onClickAction={() =>
           openModal({
             action: removeFile,

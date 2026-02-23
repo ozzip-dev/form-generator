@@ -76,6 +76,7 @@ const SelectField = ({
           id={name}
           type="button"
           disabled={disabled}
+          aria-label={`${label || name}, current selection: ${selectedOption?.label || placeholder}`}
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => !disabled && setOpen((o) => !o)}
@@ -115,7 +116,7 @@ const SelectField = ({
             ))}
           </ul>
         )}
-        <InputError errorMsg={errorMsg} />
+        <InputError errorMsg={errorMsg} nameId={name} />
       </div>
     </div>
   );

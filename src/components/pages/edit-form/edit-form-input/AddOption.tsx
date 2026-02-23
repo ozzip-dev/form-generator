@@ -54,7 +54,7 @@ const AddOption = (props: Props) => {
 
   const getInsertIndex = () => {
     const otherIndex = fields.findIndex(
-      (field) => (field as any).value === OPTION_OTHER
+      (field) => (field as any).value === OPTION_OTHER,
     );
     return otherIndex === -1 ? fields.length : otherIndex;
   };
@@ -90,18 +90,16 @@ const AddOption = (props: Props) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
-          <div
-            key={field.id}
-            className="flex items-center w-full sm:w-4/5"
-          >
+          <div key={field.id} className="flex w-full items-center sm:w-4/5">
             <div className="flex-1">
-
               <InputFields
                 inputsData={[
                   {
                     type: "text",
                     name: `options.${idx}.label`,
-                    floatingLabel: isOtherOption ? "Edytuj inne" : "Edytuj opcję",
+                    floatingLabel: isOtherOption
+                      ? "Edytuj inne"
+                      : "Edytuj opcję",
                   },
                 ]}
                 register={register}
@@ -118,17 +116,18 @@ const AddOption = (props: Props) => {
               onClickAction={() =>
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }
+              ariaLabel="Delete option"
               variant="ghost"
-              className="w-fit h-fit ml-4"
+              className="ml-4 h-fit w-fit"
             />
           </div>
         );
       })}
 
       <div className="flex gap-2">
-        <div className="w-fit mb-10">
+        <div className="mb-10 w-fit">
           <Button
-            message={"Dodaj opcję"}
+            message="Dodaj opcję"
             type="button"
             disabled={!!errors.options || hasReachedOptionLimit}
             onClickAction={handleAddOption}

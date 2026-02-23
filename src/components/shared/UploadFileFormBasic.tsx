@@ -76,7 +76,7 @@ const UploadFileFormBasic = () => {
         <Button message="Wgraj protokół" isLoading={isSubmitting} />
       </div>
 
-      <InputError errorMsg={errors?.file?.message as string} />
+      <InputError errorMsg={errors?.file?.message as string} nameId="file" />
     </form>
   );
 };

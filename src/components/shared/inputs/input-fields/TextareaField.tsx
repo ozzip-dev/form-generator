@@ -29,6 +29,9 @@ const TextareaField = (props: Props) => {
       <textarea
         id={name}
         aria-label={`Enter ${props.inputData.label || name} details: e.g. '${props.inputData.label || name} example text'`}
+        aria-required={required}
+        aria-invalid={!!props.error}
+        aria-describedby={props.error ? `${name}-error` : undefined}
         disabled={props.isLoading?.[name]}
         className={`peer w-full rounded-sm border p-3 text-sm focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
         placeholder={placeholder}
@@ -55,6 +58,7 @@ const TextareaField = (props: Props) => {
           (props.error as any)?.message ||
           (props.error?.[name] && props.error?.[name][0])
         }
+        nameId={name}
       />
       {/* {props.isLoading?.[name] && <DataLoader size="sm" />} */}
     </div>

@@ -15,6 +15,7 @@ type Props = {
   type?: "button" | "submit";
   className?: string;
   disabled?: boolean;
+  ariaLabel?: string;
 };
 
 const Button = (props: Props) => {
@@ -23,6 +24,7 @@ const Button = (props: Props) => {
       type={props.type}
       onClick={props.onClickAction}
       disabled={props.disabled || props.isLoading}
+      aria-label={props.ariaLabel}
       className={`
                 relative
                 block

@@ -4,21 +4,19 @@ import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { Button, Icon, InfoIcon, UploadFileForm } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useToast } from "@/context/ToastProvider";
-import { FormSerialized } from "@/types/form";
 import Image from "next/image";
 import { startTransition, useActionState } from "react";
 
 type Props = {
   headerFileData?: any;
-  formId?: string
+  formId?: string;
 };
 
 const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   const { toast } = useToast();
 
-
   const onFileUploaded = async (file: File) => {
-    if (!formId) return
+    if (!formId) return;
     try {
       const insertedId = await uploadFileAction(file);
 
@@ -39,7 +37,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   };
 
   const [_, removeFileAction, isPending] = useActionState(async () => {
-    if (!formId) return
+    if (!formId) return;
     try {
       await removeHeaderFileAction(formId);
       toast({
@@ -63,8 +61,8 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
 
   return (
     <>
-      <div className="relative w-fit m-auto">
-        <div className="h-[3.4rem] w-[22rem] sm:w-[28rem] overflow-hidden rounded-full m-auto">
+      <div className="relative m-auto w-fit">
+        <div className="m-auto h-[3.4rem] w-[22rem] overflow-hidden rounded-full sm:w-[28rem]">
           <UploadFileForm
             {...{
               onFileUploaded,
@@ -74,19 +72,19 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
           />
         </div>
 
-        <div className="absolute top-[0.5rem] -right-12">
+        <div className="absolute -right-12 top-[0.5rem]">
           <InfoIcon>
             <div>
-              Dodaj obraz nad tytułem formularza. <br />Maksymalny rozmiar: 1 MB
+              Dodaj obraz nad tytułem formularza. <br />
+              Maksymalny rozmiar: 1 MB
             </div>
           </InfoIcon>
         </div>
       </div>
 
-
       {!!headerFileData && (
-        <div className="w-fit mx-auto my-4 relative">
-          <div className="relative w-64 h-32 overflow-hidden">
+        <div className="relative mx-auto my-4 w-fit">
+          <div className="relative h-32 w-64 overflow-hidden">
             <Image
               src={`data:image/png;base64,${headerFileData}`}
               alt="form header"
@@ -94,11 +92,12 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               className="object-contain"
             />
           </div>
-          <div className="absolute top-0 -right-10 ">
+          <div className="absolute -right-10 top-0">
             <Button
               onClickAction={handlePublishForm}
               type="button"
               variant="ghost"
+              ariaLabel="Remove header image"
               icon={<Icon icon="trash-can-regular-full" size={20} />}
             />
           </div>

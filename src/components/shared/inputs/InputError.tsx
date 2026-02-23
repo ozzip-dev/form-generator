@@ -21,11 +21,15 @@ export function normalizeError(error: ErrorValue): string | undefined {
 
 type Props = {
   errorMsg?: string;
+  nameId?: string;
 };
 
 const InputError = (props: Props) => {
   return (
-    <div className="text-2xs text-error absolute left-2 -bottom-[1.7rem]">
+    <div 
+      id={props.nameId ? `${props.nameId}-error` : undefined}
+      className="text-2xs text-error absolute left-2 -bottom-[1.7rem]"
+    >
       {props?.errorMsg}
     </div>
   );

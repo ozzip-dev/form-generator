@@ -29,6 +29,7 @@ const MoveInputUpBtn = ({ inputId }: Props) => {
         <Icon icon="chevron-down-solid-full" size={20} className="rotate-180" />
       }
       variant="ghost"
+      ariaLabel="Move field up"
     />
   );
 };

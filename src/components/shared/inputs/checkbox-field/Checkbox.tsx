@@ -17,9 +17,11 @@ const Checkbox = (props: Props) => {
       <div className="relative inline-block h-6 w-12">
         <input
           type="checkbox"
+          id={props.name}
           checked={!!props.checkedValue}
           disabled={props.isSubmitting}
           onChange={props.onChange}
+          aria-label={`${props.checkboxLabel || props.name}`}
           className="peer sr-only"
         />
         <div className="absolute left-0 top-0 h-full w-full rounded-full bg-font_light transition-colors peer-checked:bg-accent" />

@@ -70,6 +70,7 @@ const InputField = (props: Props) => {
           (props.error as any)?.message ||
           (props.error?.[name] && props.error?.[name][0])
         }
+        nameId={name}
       />
     </div>
   );

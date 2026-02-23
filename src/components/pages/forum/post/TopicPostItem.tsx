@@ -60,6 +60,7 @@ const TopicPostItem = (props: Props) => {
             type="button"
             icon={<IconTrash />}
             variant="ghost"
+            ariaLabel="Delete post"
             onClickAction={() =>
               openModal({
                 action: onRemovePost,
