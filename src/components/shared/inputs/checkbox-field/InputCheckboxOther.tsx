@@ -33,7 +33,7 @@ const InputCheckboxOther = (props: Props) => {
             [props.name]: e.target.value,
           });
         }}
-        className={`w-full rounded-sm border p-3 focus:border-accent focus:outline-none ${props.isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
+        className={`w-full rounded-sm border p-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${props.isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
       />
     </div>
   );
