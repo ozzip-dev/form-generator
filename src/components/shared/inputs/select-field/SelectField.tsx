@@ -84,6 +84,12 @@ const SelectField = ({
     } else if (e.key === "Escape") {
       e.preventDefault();
       setOpen(false);
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      setOpen(false);
+      if (buttonRef.current) {
+        setTimeout(() => buttonRef.current?.focus(), 0);
+      }
     }
   };
 
@@ -160,7 +166,7 @@ const SelectField = ({
                 onClick={() => !option.disabled && handleSelect(option.value)}
                 onKeyDown={(e) => handleOptionKeyDown(e, idx)}
                 onFocus={() => setFocusedIndex(idx)}
-                className={`px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${
+                className={`px-3 py-2 text-sm transition focus:outline-none ${
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
                     : "cursor-pointer hover:bg-accent"
