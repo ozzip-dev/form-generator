@@ -7,8 +7,8 @@ import { UseFormSetError } from "react-hook-form";
 
 export const handleAddProtocol = async (
   data: ProtocolFormSchema,
-  setError: UseFormSetError<ProtocolFormSchema>
-) => {
+  setError: UseFormSetError<ProtocolFormSchema>,
+): Promise<string | undefined> => {
   const {
     branch,
     tradeUnionName,
@@ -30,6 +30,7 @@ export const handleAddProtocol = async (
       setClientErrors(resp.validationErrors, setError);
       return;
     }
+    return resp?.protocolId;
   } catch (err) {
     console.error("createProtocol failed", err);
   }

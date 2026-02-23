@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   Button,
   Card,
@@ -76,12 +77,13 @@ type Props = {
   onSubmit: (
     data: ProtocolFormSchema,
     setError: UseFormSetError<ProtocolFormSchema>,
-  ) => Promise<void>;
+  ) => Promise<void | string | undefined>;
   protocol?: Partial<ProtocolSerialized>;
   handlePrintForm?: () => void;
 };
 
 const ProtocolForm = (props: Props) => {
+  const router = useRouter();
   const { toast } = useToast();
 
   if (props.mode === "editProtocol" && !props.protocol) {
@@ -105,12 +107,21 @@ const ProtocolForm = (props: Props) => {
 
   const onFormSubmit = async (data: ProtocolInsertData) => {
     try {
-      await props.onSubmit(data, setError);
-      toast({
-        title: "Sukces",
-        description: "Protokół wyedytowany",
-        variant: "success",
-      });
+      const protocolId = await props.onSubmit(data, setError);
+      if (protocolId) {
+        router.push(`/protocols/${protocolId}`);
+        toast({
+          title: "Sukces",
+          description: "Protokół dodany",
+          variant: "success",
+        });
+      } else {
+        toast({
+          title: "Sukces",
+          description: "Protokół wyedytowany",
+          variant: "success",
+        });
+      }
     } catch (e) {
       toast({
         title: "Błąd edycji protokołu",

@@ -27,7 +27,7 @@ export async function getProtocols(database: Db): Promise<Protocol[]> {
 export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
   const collection: Collection<Protocol> = getCollection<Protocol>(
     database,
-    "protocol"
+    "protocol",
   );
   const protocols = await collection.find({}).project({ data: 0 }).toArray();
   return protocols as Protocol[];
@@ -36,7 +36,7 @@ export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
 export async function addProtocol(
   database: Db,
   userId: string,
-  data: Partial<ProtocolSerialized>
+  data: Partial<ProtocolSerialized>,
 ): Promise<string> {
   const now = new Date();
   const lastModifiedAt = now;
@@ -50,16 +50,16 @@ export async function addProtocol(
     disputeStartDate,
   });
 
-  return insertedId;
+  return (insertedId as ObjectId).toString();
 }
 
 export async function getProtocolById(
-  protocolId: string
+  protocolId: string,
 ): Promise<ProtocolSerialized> {
   const protocol = await findById<Protocol>(
     db,
     "protocol",
-    new ObjectId(protocolId)
+    new ObjectId(protocolId),
   );
   if (!protocol) throw new Error("Invalid protocol id");
   return serializeProtocol(protocol);
@@ -113,7 +113,7 @@ export async function removeProtocol({
 }
 
 export async function mapFilesToProtocol(
-  protocolId: string
+  protocolId: string,
 ): Promise<ProtocolWithFilesSerialized> {
   const protocol = await getProtocolById(protocolId);
   const serialiedProtocol = protocol;
@@ -129,7 +129,7 @@ export async function mapFilesToProtocol(
     other: [],
   };
   const fileTypes: ProtocolFileCategory[] = Object.keys(
-    fileIds
+    fileIds,
   ) as ProtocolFileCategory[];
   for (const type of fileTypes) {
     for (const id of fileIds[type]) {
@@ -151,7 +151,7 @@ export async function mapFilesToProtocol(
 
 export async function editProtocol(
   protocolId: string,
-  data: ProtocolInsertData
+  data: ProtocolInsertData,
 ): Promise<void> {
   const updateData = {
     ...data,
