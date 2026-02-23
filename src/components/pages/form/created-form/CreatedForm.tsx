@@ -24,11 +24,11 @@ import {
 } from "@/helpers/inputHelpers";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
-import CreatedFormFooter from "./CreatedFormAuthor";
 import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
+import { confirmAction } from "@/helpers/confirmAction";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -116,6 +116,13 @@ const CreatedForm = (props: Props) => {
     }
   };
 
+  const confirmHandleSubmit = async (data: any) => {
+    await confirmAction({
+      action: () => onSubmit(data),
+      confirmText: "Czy na pewno wysłać wyniki?",
+    });
+  };
+
   const handleCleanForm = () => {
     reset();
   };
@@ -172,7 +179,7 @@ const CreatedForm = (props: Props) => {
 
         <FormProvider {...methods}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(confirmHandleSubmit)}
             className="flex flex-col gap-8"
           >
             {formFields}
