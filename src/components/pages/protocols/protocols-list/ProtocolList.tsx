@@ -18,31 +18,39 @@ const ProtocolList = ({
   const getDisputeTime = (protocol: ProtocolSerialized) =>
     new Date(protocol.disputeStartDate).getTime();
 
+  const isSearchTextEqual = (
+    searchText: string,
+    branch: string = "",
+    tradeUnionName: string = "",
+    workplaceName: string = "",
+  ) =>
+    [branch, tradeUnionName, workplaceName]
+      .map((protocolText) => protocolText.toLowerCase())
+      .some((protocolText) => protocolText.includes(searchText.toLowerCase()));
+
   const filteredResults = protocols
     .filter(
       ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
-        (branch.includes(text) ||
-          tradeUnionName.includes(text) ||
-          workplaceName.includes(text)) &&
+        isSearchTextEqual(text, branch, tradeUnionName, workplaceName) &&
         (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
-        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true)
+        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true),
     )
     .sort((a, b) =>
       isAscending(sortOrder)
         ? getDisputeTime(a) - getDisputeTime(b)
-        : getDisputeTime(b) - getDisputeTime(a)
+        : getDisputeTime(b) - getDisputeTime(a),
     );
 
   return (
     <>
-      <div className="bg-white w-full sticky top-0 z-10">
+      <div className="sticky top-0 z-10 w-full bg-white">
         <div className="md:flex">
           <ResponsiveListHeader headers={headers} />
           <div className="md:w-[27rem]"></div>
         </div>
       </div>
 
-      <div className="my-8 text-sm flex-1 flex flex-col gap-4 ">
+      <div className="my-8 flex flex-1 flex-col gap-4 text-sm">
         {filteredResults.map((protocol, idx) => {
           return <ProtocolListItem key={idx} protocol={protocol} />;
         })}
