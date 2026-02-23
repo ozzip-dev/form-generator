@@ -61,8 +61,6 @@ const CreatedForm = (props: Props) => {
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
 
-  console.log("", props.form);
-
   const isRequiredInput = inputs.filter(
     ({ required }) => required === true,
   ).length;

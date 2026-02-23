@@ -73,8 +73,6 @@ export async function confirmPrivacyPolicy(userId: string): Promise<void> {
   /* throw error if incorrect */
   await findById<IUser>(db, "user", new ObjectId(userId));
 
-  console.log(123);
-
   await updateById(db, "user", new ObjectId(userId), {
     $set: {
       privacyPolicyConfirmed: true,
