@@ -1,6 +1,6 @@
-import { Card } from "@/components/shared";
 import { IUser } from "@/types/user";
 import ModeratorListItem from "./ModeratorListItem";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 type Props = {
   moderators: IUser[];
@@ -9,7 +9,7 @@ type Props = {
 const ModeratorList = async ({ moderators }: Props) => {
   return (
     <div className="container">
-      <div className="py-sm text-lg">Moderatorzy/Moderatorki</div>
+      <SectionHeader message="Moderatorzy/Moderatorki" className="my-6" />
 
       <div className="flex flex-col gap-sm">
         {moderators.map((user) => (

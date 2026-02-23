@@ -1,7 +1,7 @@
 "use client";
 
 import { signupAction } from "@/actions/auth/signupAction";
-import { Button, InputFields } from "@/components/shared";
+import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import {
   signupSchema,
@@ -48,7 +48,7 @@ const Signup = () => {
 
   const signUpUser = async (
     prevState: State,
-    formData: FormData
+    formData: FormData,
   ): Promise<State> => {
     const data = Object.fromEntries(formData.entries()) as SignupSchema;
 
@@ -90,30 +90,22 @@ const Signup = () => {
 
   const [state, formAction, isPending] = useActionState(
     signUpUser,
-    initialState
+    initialState,
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center">Załóż konto</h1>
-
+    <div className="flex h-full flex-col items-center p-4 pt-24">
+      <h1 className="mb-4 text-center text-xl">Zalóż konto</h1>
+      <Card className="w-full min-w-[29rem] max-w-[52rem] !py-24">
         <form action={formAction}>
           <InputFields inputsData={dataInputsSignup} errorMsg={state.errors} />
           <Button
             isLoading={isAction.current && isPending}
-            message="Załóż konto"
+            message="Załóż"
+            className="m-auto !px-20 !py-4 !text-base"
           />
         </form>
-
-        <div className="flex flex-col space-y-4">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-          </div>
-        </div>
-      </div>
+      </Card>
     </div>
   );
 };

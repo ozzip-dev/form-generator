@@ -11,9 +11,7 @@ const ModeratorListItem = async (moderator: IUser) => {
     emailVerified,
   } = moderator;
 
-  const verifiedInfo = emailVerified
-    ? "email potwierdzony"
-    : "email niepotwierdzony";
+  const verifiedInfo = emailVerified ? "potwierdzony" : "niepotwierdzony";
 
   const committeeAssigned = !!(
     committeeName &&
@@ -23,23 +21,30 @@ const ModeratorListItem = async (moderator: IUser) => {
 
   return (
     <Card key={email}>
-      <div className="grid grid-cols-[auto,1fr] items-center gap-x-md">
-        <div className="col-span-2 pt-4 text-sm">użytkownik/użytkowniczka:</div>
-        <div>{name}</div>
-        <div>
+      <div className="">
+        <div className="flex gap-2">
+          <div className="w-44 text-right font-semibold">Moderacja:</div>
+          {name}
+        </div>
+        <div className="flex gap-2">
+          <div className="w-44 text-right font-semibold"></div>
           {email} <span className="text-sm">({verifiedInfo})</span>
         </div>
-        {committeeAssigned && (
-          <>
-            <div className="col-span-2 pt-4 text-sm">dane komisji:</div>
-            <div>{committeeName}</div>
-            <div className="flex gap-sm">
-              <div>{committeeEmail}</div>
-              <div>tel. {committeePhone}</div>
-            </div>
-          </>
-        )}
       </div>
+      <>
+        <div className="flex gap-2">
+          <div className="w-44 text-right font-semibold">Nazwa:</div>
+          {committeeName || <span className="text-font_light">brak</span>}
+        </div>
+        <div className="flex gap-2">
+          <div className="w-44 text-right font-semibold">Telefon:</div>
+          {committeePhone || <span className="text-font_light">brak</span>}
+        </div>
+        <div className="flex gap-2">
+          <div className="w-44 text-right font-semibold">Email:</div>
+          {committeeEmail || <span className="text-font_light">brak</span>}
+        </div>
+      </>
     </Card>
   );
 };

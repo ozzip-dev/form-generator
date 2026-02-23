@@ -6,7 +6,7 @@ const Home = () => {
     <>
       <div className="m-4 block items-center justify-items-center text-end">
         <Link href="/login" className="btn-primary-rounded text-xl">
-          zaloguj
+          Zaloguj się
         </Link>
       </div>
 
