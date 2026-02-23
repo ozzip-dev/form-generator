@@ -28,6 +28,7 @@ const TextareaField = (props: Props) => {
     <div className="relative flex-1">
       <textarea
         id={name}
+        aria-label={`Enter ${props.inputData.label || name} details: e.g. '${props.inputData.label || name} example text'`}
         disabled={props.isLoading?.[name]}
         className={`peer w-full rounded-sm border p-3 text-sm focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
         placeholder={placeholder}

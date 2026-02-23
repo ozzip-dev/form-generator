@@ -61,11 +61,16 @@ const UploadFileFormBasic = () => {
   return (
     <form
       onSubmit={handleSubmit(uploadFile)}
-      className="flex items-center mt-8"
+      className="mt-8 flex items-center"
     >
       <label htmlFor="file">
         <div className="text-lg font-black">Dodaj nowy protokół</div>
-        <input type="file" ref={fileInputRef} onChange={onChange} />
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={onChange}
+          aria-label="Upload file: e.g. 'Resume.pdf', 'Invoice_2026.xlsx'"
+        />
       </label>
       <div>
         <Button message="Wgraj protokół" isLoading={isSubmitting} />

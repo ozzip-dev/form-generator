@@ -87,7 +87,10 @@ const UploadFileForm = ({
           </div>
         )}
 
-        <input {...getInputProps()} />
+        <input
+          {...getInputProps()}
+          aria-label="Upload file: e.g. 'Contract.pdf', 'Photo.jpg'"
+        />
 
         {isDragActive && <p> Upuść plik w tym miejscu </p>}
 

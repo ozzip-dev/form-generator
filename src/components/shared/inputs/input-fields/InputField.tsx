@@ -33,24 +33,18 @@ const InputField = (props: Props) => {
         id={name}
         name={name}
         type={type}
+        aria-label={`Enter ${label || name}: e.g. '${label || name} example'`}
         placeholder={props.floatingLabel ? " " : placeholder}
         defaultValue={defaultValue ?? ""}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
-        className={`
-         peer  rounded-sm border
-         p-2 w-full
-         focus:outline-none focus:border-accent
-          ${props.error ? "border-red" : "border-default"}
-          ${props.isLoading?.[name] || props.isSubmitting
-            ? "opacity-50 cursor-not-allowed"
+        className={`peer w-full rounded-sm border p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
+          props.isLoading?.[name] || props.isSubmitting
+            ? "cursor-not-allowed opacity-50"
             : ""
-          }
-        
-
-        `}
+        } `}
         {...(props.register && props.register(name))}
         onChange={(e) => {
           props.register?.(name).onChange(e);
@@ -58,14 +52,11 @@ const InputField = (props: Props) => {
         }}
       />
       {props.floatingLabel && (
-
         <FloatingLabel
           name={name}
           floatingLabel={props.floatingLabel}
           required={required || false}
         />
-
-
       )}
 
       {props.isLoading?.[name] && (

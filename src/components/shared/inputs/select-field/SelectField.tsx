@@ -101,6 +101,7 @@ const SelectField = ({
               <li
                 key={option.value}
                 role="option"
+                aria-label={`Select ${label || name}: ${option.label}`}
                 aria-selected={option.value === selectedValue}
                 onClick={() => !option.disabled && handleSelect(option.value)}
                 className={`px-3 py-2 text-sm transition ${
