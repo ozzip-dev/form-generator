@@ -1,7 +1,6 @@
 "use client";
 
 import { ButtonLink } from "@/components/shared";
-import { usePathname } from "next/navigation";
 
 type Props = {
   text: string;
@@ -18,13 +17,6 @@ const MenuLink = ({
   isActive = false,
   level = "root",
 }: Props) => {
-  // const pathname = usePathname();
-  // // TODO:
-  // // 1. Przerobic sciezki: /form/create/, /form/list/, itd.
-  // // 2. Porównać z wybranym elementem ścieki eby sprawdzić czy isActive
-  // const isActive = pathname === link;
-  // console.log(pathname);
-
   const borderClass =
     level === "sub"
       ? "border-accent text-accent"
@@ -32,17 +24,16 @@ const MenuLink = ({
 
   return (
     <li
-      className={`shrink-0 ${isActive
-        ? `border-b ${borderClass}`
-        : "border-b border-transparent"
-        }`}
+      className={`shrink-0 ${
+        isActive ? `border-b ${borderClass}` : "border-b border-transparent"
+      }`}
     >
       <div className="text-base_bold">
         <ButtonLink
           message={text}
           link={link}
           target={sameTab ? "_self" : "_blank"}
-          rel={"noopener noreferrer"}
+          rel="noopener noreferrer"
         />
       </div>
     </li>

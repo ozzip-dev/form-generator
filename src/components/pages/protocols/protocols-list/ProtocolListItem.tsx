@@ -22,7 +22,7 @@ type Props = {
 
 const ProtocolListItem = (props: Props) => {
   const [details, setDetails] = useState<ProtocolWithFilesSerialized | null>(
-    null
+    null,
   );
   const [isOpen, setIsOpen] = useState(false);
   const isFetching = useRef(false);
@@ -45,7 +45,7 @@ const ProtocolListItem = (props: Props) => {
 
   const [_, fetchDetails, isPending] = useActionState(
     toggleProtocolDetails,
-    null
+    null,
   );
 
   const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
@@ -62,12 +62,12 @@ const ProtocolListItem = (props: Props) => {
 
   return (
     <div className="relative">
-      <div className="md:flex items-center">
+      <div className="items-center md:flex">
         <div className="md:w-full">
           <ResponsiveList listItems={dataProtocolsList} />
         </div>
 
-        <div className="flex justify-between  mt-8 mb-2 md:mt-0 md:w-[27rem]">
+        <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[27rem]">
           <Button
             message={isOpen ? "Ukryj" : "Pokaż"}
             onClickAction={() => startTransition(fetchDetails)}
@@ -78,9 +78,9 @@ const ProtocolListItem = (props: Props) => {
           {isAuthor && (
             <>
               <ButtonLink
-                message={"Edytuj"}
+                message="Edytuj"
                 link={`/protocols/${_id}`}
-                className="btn-primary btn-primary-rounded text-white !bg-accent"
+                className="btn-primary btn-primary-rounded !bg-accent text-white"
               />
 
               <RemoveProtocolBtn ProtocolId={props.protocol._id} />
@@ -90,18 +90,14 @@ const ProtocolListItem = (props: Props) => {
       </div>
 
       <div
-        className={`
-          grid overflow-hidden transition-all 
-          duration-700 
-          ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
-        `}
+        className={`grid overflow-hidden transition-all duration-700 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"} `}
       >
         <div className="min-h-0">
           {details && <ProtocolListItemDetails {...details} />}
         </div>
       </div>
 
-      <div className="absolute border-b w-full -bottom-2 left-0"></div>
+      <div className="absolute -bottom-2 left-0 w-full border-b"></div>
     </div>
   );
 };

@@ -19,7 +19,7 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
 
   return (
     <div className="px-8">
-      <Link href={"/forum"}>
+      <Link href="/forum">
         <Button
           message="<< Powrót do listy"
           variant="primary-rounded"

@@ -37,9 +37,7 @@ const IsUserModal = () => {
   return (
     <ModalWrapper isOpen={isModalOpen} onClose={handlePrintModal}>
       <div>
-        <Link href={"/user-settings"}>
-          Zapisz dane kontaktowe w ustawieniach
-        </Link>
+        <Link href="/user-settings">Zapisz dane kontaktowe w ustawieniach</Link>
       </div>
     </ModalWrapper>
   );
