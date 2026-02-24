@@ -11,20 +11,23 @@ const FormsLIst = async () => {
 
   return (
     <>
-      <div className="w-full md:flex items-center ">
+      <div className="w-full items-center md:flex">
         <SectionHeader message="Twoje formularze" />
-        <div className="text-center md:text-left md:ml-4 text-xs mb-6">
+        <div className="mb-6 text-center text-xs md:ml-4 md:text-left">
           maksymalnie {formCountLimit} formularzy
         </div>
       </div>
 
-      <ul className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
-        <SuspenseErrorBoundary
-          errorMessage="Błąd tworzenia formularza"
-          size="sm"
-        >
-          <FormTrigger />
-        </SuspenseErrorBoundary>
+      <ul className="flex flex-wrap justify-center gap-4 text-sm md:justify-start">
+        <li>
+          <SuspenseErrorBoundary
+            errorMessage="Błąd tworzenia formularza"
+            size="sm"
+          >
+            <FormTrigger />
+          </SuspenseErrorBoundary>
+        </li>
+
         {forms?.map((form) => {
           return <FormLink form={form} key={form._id} />;
         })}

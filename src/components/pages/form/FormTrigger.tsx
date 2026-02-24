@@ -25,23 +25,21 @@ const FormTrigger = () => {
       <Button
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="
-          !bg-accent_light flex justify-center items-center 
-          w-[13rem] h-[13rem] 
-          sm:rounded-md md:rounded-lg 
-          border border-accent
-           shadow-default"
+        className="flex h-[13rem] w-[13rem] items-center justify-center border border-accent !bg-accent_light shadow-default sm:rounded-md md:rounded-lg"
         icon={
-          <Icon
-            icon="plus-solid-full"
-            size={60}
-            color="var(--color-accent)"
-            className="bg-accent"
-          />
+          <div>
+            <span className="text-accent_dark">Dodaj</span>
+            <Icon
+              icon="plus-solid-full"
+              size={60}
+              color="var(--color-accent)"
+              className="bg-accent"
+            />
+          </div>
         }
       />
       {state?.error ? (
-        <div className="text-error text-center">
+        <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>
           <div className="text-2xs">formularzy</div>
         </div>

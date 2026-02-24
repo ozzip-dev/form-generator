@@ -29,10 +29,10 @@ const FormTemplateTrigger = (props: Props) => {
       <Button
         onClickAction={handleCreateForm}
         isLoading={isPending}
+        message={props.title}
         variant="ghost"
-        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white transition hover:!bg-accent md:rounded-lg"
+        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white text-black transition hover:!bg-accent md:rounded-lg"
       />
-      <h3 className="mt-4 line-clamp-2 text-center">{props.title}</h3>
 
       {state?.error && (
         <div className="text-center text-error">
