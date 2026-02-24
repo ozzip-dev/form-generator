@@ -97,7 +97,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               onClickAction={handlePublishForm}
               type="button"
               variant="ghost"
-              ariaLabel="Remove header image"
+              ariaLabel="Usuń obraz z tytułu"
               icon={<Icon icon="trash-can-regular-full" size={20} />}
             />
           </div>

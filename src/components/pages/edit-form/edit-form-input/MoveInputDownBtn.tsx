@@ -27,7 +27,7 @@ const MoveInputDownBtn = (props: Props) => {
       icon={<Icon icon="chevron-down-solid-full" size={20} />}
       onClickAction={handleMoveDown}
       variant="ghost"
-      ariaLabel="Move field down"
+      ariaLabel="Przenieś pole w dół"
     />
   );
 };

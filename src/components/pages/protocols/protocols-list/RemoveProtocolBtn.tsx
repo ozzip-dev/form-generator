@@ -18,7 +18,7 @@ function RemoveProtocolBtn(props: Props) {
       type="button"
       icon={<IconTrash />}
       variant="ghost"
-      ariaLabel="Delete protocol"
+      ariaLabel="Usuń protokuł"
       onClickAction={() =>
         openModal({
           action: () => removeProtocolAction(props.ProtocolId),

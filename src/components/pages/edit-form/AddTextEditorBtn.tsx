@@ -1,46 +1,25 @@
 import { Button, Icon } from "@/components/shared";
 
 type Props = {
-  action: () => void
-}
+  action: () => void;
+};
 
 const AddTextEditorBtn = (props: Props) => {
-
   return (
-    <div className="relative group">
-
+    <div className="group relative">
       <Button
         type="button"
         variant="ghost"
-        className="!rounded-full border border-2 p-[0.2rem] ml-2"
-        icon={
-          <Icon
-            icon="plus-solid-full"
-            size={12}
-
-          />
-        }
+        className="ml-2 !rounded-full border border-2 p-[0.2rem]"
+        icon={<Icon icon="plus-solid-full" size={12} />}
         onClickAction={props.action}
+        ariaLabel={"Dodaj edytor"}
       />
 
-      <div
-        className="
-            absolute 
-            -left-[6rem] top-10
-            bg-bg_dark  text-xs
-            p-2 rounded-sm border
-            transition-opacity
-            pointer-events-none
-            z-50
-               whitespace-nowrap
-          opacity-0 group-hover:opacity-100 
-          "
-      >
+      <div className="pointer-events-none absolute -left-[6rem] top-10 z-50 whitespace-nowrap rounded-sm border bg-bg_dark p-2 text-xs opacity-0 transition-opacity group-hover:opacity-100">
         Dodaj opis
       </div>
-
     </div>
-
   );
 };
 

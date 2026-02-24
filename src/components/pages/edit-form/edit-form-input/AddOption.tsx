@@ -116,7 +116,7 @@ const AddOption = (props: Props) => {
               onClickAction={() =>
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }
-              ariaLabel="Delete option"
+              ariaLabel="Usuń opcję"
               variant="ghost"
               className="ml-4 h-fit w-fit"
             />

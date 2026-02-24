@@ -44,6 +44,7 @@ const DashboardMenu = () => {
         }
         onClickAction={() => setIsMenuOpen((prev) => !prev)}
         variant="ghost"
+        ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
       />
 
       <div

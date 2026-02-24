@@ -47,7 +47,7 @@ const ProtocolAttachedFile = (props: Props) => {
         type="button"
         icon={<IconTrash size={27} />}
         variant="ghost"
-        ariaLabel="Remove attachment"
+        ariaLabel="Usuń załącznik"
         onClickAction={() =>
           openModal({
             action: removeFile,

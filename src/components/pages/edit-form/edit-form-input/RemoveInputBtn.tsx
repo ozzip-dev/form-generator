@@ -27,7 +27,7 @@ function RemoveInputBtn(props: Props) {
         type="button"
         icon={<IconTrash />}
         variant="ghost"
-        ariaLabel="Delete this form field"
+        ariaLabel="Usuń pole"
         onClickAction={handleDeleteInput}
       />
     </>
