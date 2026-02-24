@@ -75,7 +75,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   return (
     <div className="from-background to-background/80 flex min-h-screen items-center justify-center bg-gradient-to-b p-4">
       <div className="w-full max-w-md">
-        <h1 className="text-center text-2xl font-bold">Zmień hasło</h1>
+        <h1 className="text-center text-2xl font-semibold">Zmień hasło</h1>
 
         <form action={formAction}>
           {" "}

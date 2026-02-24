@@ -15,7 +15,7 @@ const DashboardTopBar = () => {
 
       <div className="ml-16 mr-10 lg:ml-auto">
         <span>{user?.role}: </span>
-        <span className="font-bold">{user?.name}</span>
+        <span className="font-semibold">{user?.name}</span>
       </div>
 
       <div className="ml-auto lg:ml-0">

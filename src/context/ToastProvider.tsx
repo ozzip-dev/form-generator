@@ -58,7 +58,7 @@ export const ToastProvider = (props: Props) => {
               key={toast.id}
               className={`transform transition-all duration-300 px-4 py-3 rounded-sm shadow-lg text-white min-w-[250px] max-w-sm opacity-0 translate-y-4 animate-toast-in ${bgColor}`}
             >
-              <h4 className="font-bold">{toast.title}</h4>
+              <h4 className="font-semibold">{toast.title}</h4>
               {toast.description && (
                 <p className="text-sm opacity-90">{toast.description}</p>
               )}

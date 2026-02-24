@@ -108,7 +108,7 @@ const AnswerResults = (props: Props) => {
   };
   return (
     <>
-      <div className="mb-sm flex items-center justify-between gap-2 font-bold">
+      <div className="mb-sm flex items-center justify-between gap-2 font-semibold">
         <div
           className={`result-label flex-1 truncate ${header ? "" : "text-error"}`}
         >

@@ -12,7 +12,7 @@ const ConfirmPrivacyText = () => {
         nawiązywania kontaktów z innymi organizacjami związkowymi w kontekście
         wymienianych informacji o sporach zbiorowych.
       </div>
-      <h1 className="font-bold">Obowiązek informacyjny (RODO)</h1>
+      <h1 className="font-semibold">Obowiązek informacyjny (RODO)</h1>
       <div>
         1. Administrator Danych Administratorem Twoich danych osobowych jest
         Ogólnopolski Związek Zawodowy Inicjatywa Pracownicza z siedzibą w

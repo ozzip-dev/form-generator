@@ -6,7 +6,7 @@ type Props = {
 const SectionHeader = (props: Props) => {
   return (
     <div
-      className={`mb-6 text-center text-lg font-bold md:text-left ${props.className ? props.className : ""}`}
+      className={`mb-6 text-center text-lg font-semibold md:text-left ${props.className ? props.className : ""}`}
     >
       {props.message}
     </div>

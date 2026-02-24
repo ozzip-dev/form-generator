@@ -21,7 +21,7 @@ const ProtocolListItemDetails = ({
         <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
 
-      <div className="text-md font-bold pb-2">Pliki</div>
+      <div className="text-md font-semibold pb-2">Pliki</div>
       {Object.entries(mapFileCategory).map(([key, value]) => (
         <ProtocolAttachedFileCategory
           key={key}

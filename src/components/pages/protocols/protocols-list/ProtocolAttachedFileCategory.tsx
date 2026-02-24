@@ -15,7 +15,7 @@ const ProtocolAttachedFileCategory = ({ files, category, header }: Props) => {
 
   return (
     <div className="mb-sm flex flex-col gap-4">
-      <div className="font-bold">
+      <div className="font-semibold">
         {header} ({categoryFiles?.length || 0})
       </div>
       {categoryFiles.map((file, i) =>

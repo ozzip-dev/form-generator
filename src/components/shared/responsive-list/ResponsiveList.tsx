@@ -11,7 +11,7 @@ const ResponsiveList = (props: Props) => {
             key={JSON.stringify([key, value])}
             className="flex  md:flex-1 min-w-0 mb-2 md:mb-0"
           >
-            <div className="w-2/5 md:hidden font-bold">{key}</div>
+            <div className="w-2/5 md:hidden font-semibold">{key}</div>
             <div className="pr-2 truncate w-3/5 md:w-full">{value}</div>
           </li>
         );

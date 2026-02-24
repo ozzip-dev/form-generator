@@ -37,25 +37,25 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
     <>
       <Card className="my-16 flex flex-col gap-4 text-center text-sm">
         <div className="text-lg">Opublikowany formularz</div>
-        <div className="font-bold">{title}</div>
+        <div className="font-semibold">{title}</div>
         <div className="text-font_light">Edycja niedostępna</div>
         <div className="text-font_light">
           Kategoria formularza:{" "}
-          <span className="ml-2 font-bold text-font_dark">
+          <span className="ml-2 font-semibold text-font_dark">
             {" "}
             {mapTypes[type]}
           </span>
         </div>
         <div className="text-font_light">
           Tryb wyników:{" "}
-          <span className="ml-2 font-bold text-font_dark">
+          <span className="ml-2 font-semibold text-font_dark">
             {" "}
             {resultVisibility === "open" ? "jawny" : "tajny"}
           </span>
         </div>
         <div className="text-font_light">
           Zapisane wyniki:{" "}
-          <span className="ml-2 font-bold text-font_dark">
+          <span className="ml-2 font-semibold text-font_dark">
             {submissionCount}
           </span>
         </div>

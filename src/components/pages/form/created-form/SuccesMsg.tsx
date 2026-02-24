@@ -21,7 +21,7 @@ const SuccesMsg = (props: Props) => {
 
       <div className="flex flex-1 flex-col items-center gap-4">
         <Card className="mt-48 !px-12 !py-16 sm:!px-36">
-          <div className="mb-10 text-center text-lg font-bold">
+          <div className="mb-10 text-center text-lg font-semibold">
             Formularz został przesłany
           </div>
           <Button

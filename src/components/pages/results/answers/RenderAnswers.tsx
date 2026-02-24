@@ -25,7 +25,7 @@ export const RenderAnswers = ({ answers }: Props) => {
               </div>
 
               <div className="ml-3 whitespace-nowrap lg:hidden">
-                <span className="font-bold">{count}</span>
+                <span className="font-semibold">{count}</span>
                 <span> • {formatted}%</span>
               </div>
             </div>
@@ -37,7 +37,7 @@ export const RenderAnswers = ({ answers }: Props) => {
               />
             </div>
             <div className="ml-3 hidden w-24 whitespace-nowrap lg:block">
-              <span className="font-bold">{count}</span>
+              <span className="font-semibold">{count}</span>
               <span> • {formatted}%</span>
             </div>
           </div>
