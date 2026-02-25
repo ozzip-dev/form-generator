@@ -15,6 +15,7 @@ export interface FormTemplate extends Document {
   type: FormType | "";
   resultVisibility: FormResultVisibility | "";
   title?: string;
+  templateTitle?: string;
   headerFileId?: string;
   description?: string;
   inputs: FormInput[];

@@ -6,6 +6,9 @@ export enum TemplateFormId {
   SIP = "sip",
   STRIKE = "strike",
   ELECTIONS = "elections",
+  MEETING = "meeting",
+  TRAVEL = "travel",
+  LEAFLETING = "leafleting",
 }
 
 enum FormField {

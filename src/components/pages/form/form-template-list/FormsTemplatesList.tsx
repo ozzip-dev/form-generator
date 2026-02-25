@@ -26,9 +26,9 @@ const FormsTemplatesList = async () => {
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
         {sortedTemplateForms
           .filter(
-            ({ id, title }) => id && title,
+            ({ id, templateTitle }) => id && templateTitle,
           ) /* filter out invalid records */
-          .map(({ id, title }, idx) => {
+          .map(({ id, templateTitle }, idx) => {
             return (
               <div
                 className="flex h-fit w-[13rem] flex-col justify-center text-sm"
@@ -36,7 +36,7 @@ const FormsTemplatesList = async () => {
               >
                 <FormTemplateTrigger
                   id={id as string}
-                  title={titles[idx] as string}
+                  title={templateTitle as string}
                 />
               </div>
             );

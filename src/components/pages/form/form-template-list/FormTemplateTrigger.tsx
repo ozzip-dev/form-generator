@@ -31,7 +31,7 @@ const FormTemplateTrigger = (props: Props) => {
         isLoading={isPending}
         message={props.title}
         variant="ghost"
-        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white text-black transition hover:!bg-accent md:rounded-lg"
+        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white !text-black transition hover:!bg-accent md:rounded-lg"
       />
 
       {state?.error && (
