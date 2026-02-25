@@ -13,7 +13,7 @@ const DashboardTopBar = () => {
     <div className="relative flex items-center">
       <DashboardMenu />
 
-      <div className="ml-16 mr-10 lg:ml-auto">
+      <div className="ml-16 mr-10 text-white lg:ml-auto">
         <span>{user?.role}: </span>
         <span className="font-semibold">{user?.name}</span>
       </div>

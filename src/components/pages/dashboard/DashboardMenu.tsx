@@ -34,7 +34,7 @@ const DashboardMenu = () => {
     <div className="flex items-center gap-4">
       <Button
         type="button"
-        className="lg:hidden"
+        className="text-white lg:hidden"
         icon={
           isMenuOpen ? (
             <Icon color="white" icon="xmark" size={20} />

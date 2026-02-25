@@ -17,16 +17,16 @@ const MenuLink = ({
   isActive = false,
   level = "root",
 }: Props) => {
-  const borderClass =
-    level === "sub"
-      ? "border-accent text-accent"
-      : "border-font_dark text-white";
+  const isSub = level === "sub";
+  const borderClass = isSub
+    ? "border-accent text-accent"
+    : "border-font_dark text-white";
 
   return (
     <li
       className={`shrink-0 ${
         isActive ? `border-b ${borderClass}` : "border-b border-transparent"
-      }`}
+      } ${isSub ? "" : "text-white"}`}
     >
       <div className="text-base_bold">
         <ButtonLink
