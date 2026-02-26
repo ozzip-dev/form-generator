@@ -18,7 +18,6 @@ export async function loginAction(
 ): Promise<ActionResult | void> {
   const validationResult = loginSchema.safeParse(data);
 
-
   if (!validationResult.success) {
     return {
       success: false,
@@ -31,13 +30,16 @@ export async function loginAction(
       body: { email: data.email, password: data.password },
     });
   } catch (err: any) {
-    const msg =
-      err?.status == "UNAUTHORIZED"
-        ? "Błędny email lub hasło"
-        : err?.message || "błąd";
+    const statusToMsgMap: Record<string, string> = {
+      UNAUTHORIZED: "Błędny email lub hasło.",
+      FORBIDDEN: "Konto niezatwierdzone. Sprawdź skrzynkę email.",
+    };
+    const defaultMsg = `${err?.message || "Błąd"}. Nieudane logowanie.`;
+    const catchError = statusToMsgMap[err.status] || defaultMsg;
+
     return {
       success: false,
-      catchError: `${msg}. Nieudane logowanie.`,
+      catchError,
     };
   }
 
