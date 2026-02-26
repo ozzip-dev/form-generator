@@ -111,6 +111,11 @@ const Login = () => {
           />
         </form>
       </Card>
+
+      <div className="mt-lg text-center">
+        Nie masz konta? Skontaktuj się z osobą przewodniczącą Twojej komisji
+        związkowej.
+      </div>
     </div>
   );
 };

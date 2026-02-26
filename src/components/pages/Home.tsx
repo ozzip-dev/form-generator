@@ -1,38 +1,52 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const texts: { header: string; text: string }[] = [
+  {
+    header: "Twórz formularze dokładnie tak, jak potrzebujesz",
+    text: "Wygeneruj formularz od zera albo skorzystaj z gotowych szablonów. Określ stopień jawności. Wyślij go do pracowników i pracowniczek, a następnie wygodnie pobierz raporty z wynikami.",
+  },
+  {
+    header: "Współpracuj z innymi komisjami",
+    text: "Uzyskaj dostęp do komisji, które tworzą formularze z interesujących Cię kategorii. Znajdź potrzebne wsparcie i korzystaj z ich doświadczenia.",
+  },
+  {
+    header: "Buduj bazę protokołów ze sporów zbiorowych",
+    text: "Twórz i porządkuj dokumentację, dodając protokoły oraz załączając pliki do odpowiednich kategorii.",
+  },
+  {
+    header: "Wymieniaj się doświadczeniami na forum",
+    text: "Dyskutuj z innymi komisjami, zadawaj pytania i dziel się wiedzą.",
+  },
+];
+
 const Home = () => {
   return (
     <>
-      <div className="m-4 block items-center justify-items-center text-end">
-        <Link href="/login" className="btn-primary-rounded text-xl">
-          Zaloguj się
-        </Link>
-      </div>
-
-      <div className="mx-auto my-40 w-[80%] max-w-[600px] overflow-hidden rounded-sm border border-accent sm:rounded-md md:rounded-lg">
-        <div className="bg-accent px-10 py-6 text-center text-lg">
+      <div className="mx-auto my-16 w-[80%] max-w-[600px] overflow-hidden rounded-sm border border-accent sm:rounded-md md:my-40 md:rounded-lg">
+        <div className="bg-accent px-10 py-6 text-center text-lg text-white">
           Usprawnij Działanie Związku Zawodowego
         </div>
 
-        <div className="p-md pl-lg">
+        <div className="p-sm pl-md md:p-md md:pl-lg">
+          <div className="pb-sm">
+            <b>Witaj w aplikacji!</b>
+            <br />
+            Cieszymy się, że jesteś z nami. Zobacz, co możesz tutaj zrobić:
+          </div>
           <ul className="list-disc [&_li]:pb-4">
-            <li>
-              Wygeneruj formularz od zera lub korzystając z gotowych szablonów.
-              Wyślij go do pracowników i pracowniczek, pobierz raporty wyników
-            </li>
-            <li>
-              Uzyskaj dostęp do innych komisji tworzących interesujące Cię
-              formularze, znajdź niezbędną pomoc
-            </li>
-            <li>
-              Stwórz bazę protokołów ze sporów zbiorowych, dodając niezbędne
-              kategorie załączników
-            </li>
-            <li>
-              Dyskutuj z innymi komisjami na forum, dzielcie się doświadczeniami
-            </li>
+            {texts.map(({ header, text }, idx) => (
+              <li key={idx}>
+                <div className="font-black">{header}</div>
+                <div>{text}</div>
+              </li>
+            ))}
           </ul>
+          <div className="mt-sm flex justify-center">
+            <Link href="/login" className="btn-primary rounded-sm">
+              Zaloguj się
+            </Link>
+          </div>
         </div>
       </div>
 
