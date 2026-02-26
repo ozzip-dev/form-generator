@@ -13,35 +13,38 @@ const ModeratorListItem = async (moderator: IUser) => {
 
   const verifiedInfo = emailVerified ? "potwierdzony" : "niepotwierdzony";
 
-  const committeeAssigned = !!(
-    committeeName &&
-    committeeEmail &&
-    committeePhone
-  );
+  // TODO: refactor
 
   return (
     <Card key={email}>
       <div className="">
         <div className="flex gap-2">
-          <div className="w-44 text-right font-semibold">Moderacja:</div>
+          <div className="w-52 text-right font-semibold">Moderator/-ka:</div>
           {name}
         </div>
         <div className="flex gap-2">
-          <div className="w-44 text-right font-semibold"></div>
-          {email} <span className="text-sm">({verifiedInfo})</span>
+          <div className="w-52 text-right font-semibold">Email:</div>
+          {email}
+        </div>
+        <div className="flex gap-2">
+          <div className="w-52 text-right font-semibold">Status:</div>
+          {verifiedInfo}
         </div>
       </div>
       <>
+        <div className="mt-6 flex gap-2">
+          <div className="w-52 text-right font-semibold">Dane komisji:</div>
+        </div>
         <div className="flex gap-2">
-          <div className="w-44 text-right font-semibold">Nazwa:</div>
+          <div className="w-52 text-right font-semibold">Nazwa:</div>
           {committeeName || <span className="text-font_light">brak</span>}
         </div>
         <div className="flex gap-2">
-          <div className="w-44 text-right font-semibold">Telefon:</div>
+          <div className="w-52 text-right font-semibold">Telefon:</div>
           {committeePhone || <span className="text-font_light">brak</span>}
         </div>
         <div className="flex gap-2">
-          <div className="w-44 text-right font-semibold">Email:</div>
+          <div className="w-52 text-right font-semibold">Email:</div>
           {committeeEmail || <span className="text-font_light">brak</span>}
         </div>
       </>
