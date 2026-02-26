@@ -1,6 +1,7 @@
 import { NavMenu } from "@/components/shared/nav-menu";
-import { isActive } from "@/helpers/formHelpers";
+import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { getFormById } from "@/services/form-service";
+import { requireUser } from "@/services/user-service";
 import { NavMenuLink } from "@/types/shared";
 
 type Props = {
@@ -11,21 +12,34 @@ const CreateFormMenu = async ({ formId }: Props) => {
   const form = await getFormById(formId);
   const isFormActive = isActive(form);
 
+  const user = await requireUser();
+  const isAuthor = isUserAuthor(form, user.id);
+
   const dataNavLinks: NavMenuLink[] = [
-    { text: "Lista", link: `/forms` },
-    { text: "Edycja", link: `/forms/${formId}/edit` },
-    { text: "Podgląd", link: `/forms/${formId}/preview`, sameTab: false },
-    { text: "Kontakty", link: `/forms/${formId}/contacts`, sameTab: false },
+    { text: "Lista", link: `/forms`, isVisible: true },
+    { text: "Edycja", link: `/forms/${formId}/edit`, isVisible: isAuthor },
+    {
+      text: "Podgląd",
+      link: `/forms/${formId}/preview`,
+      sameTab: false,
+      isVisible: true,
+    },
+    {
+      text: "Kontakty",
+      link: `/forms/${formId}/contacts`,
+      sameTab: false,
+      isVisible: isAuthor,
+    },
+    {
+      text: "Wyniki",
+      link: `/forms/${formId}/results/details`,
+      isVisible: isAuthor && isFormActive,
+    },
   ];
 
-  const resultsLink: NavMenuLink = {
-    text: "Wyniki",
-    link: `/forms/${formId}/results/details`,
-  };
-
-  const visibleLinks: NavMenuLink[] = isFormActive
-    ? [...dataNavLinks, resultsLink]
-    : dataNavLinks;
+  const visibleLinks: NavMenuLink[] = dataNavLinks.filter(
+    ({ isVisible }) => isVisible,
+  );
 
   return (
     <div className="py-8">

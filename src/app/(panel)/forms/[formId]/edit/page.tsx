@@ -6,17 +6,24 @@ import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFo
 import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
-import { isActive } from "@/helpers/formHelpers";
+import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 import { getSubmissionCount } from "@/services/result-service";
+import { requireUser } from "@/services/user-service";
+import { redirect } from "next/navigation";
 
 type Props = { params: Promise<{ formId: string }> };
 
 const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
+
+  // TODO Pawel: move to middleware
+  const user = await requireUser();
+  if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
+
   const { inputs, createdAt, updatedAt, headerFileId, resultVisibility } = form;
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
