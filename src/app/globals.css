@@ -59,11 +59,11 @@ body {
 }
 
 .btn-primary {
-  @apply border border-accent bg-accent px-12 py-5 hover:!bg-white hover:text-accent;
+  @apply border border-accent bg-accent px-12 py-5 text-white hover:!bg-white hover:text-accent;
 }
 
 .btn-primary-rounded {
-  @apply rounded-full border border-accent bg-accent px-4 py-2 text-sm hover:bg-white hover:text-accent md:px-8;
+  @apply rounded-full border border-accent bg-accent px-4 py-2 text-sm text-white hover:bg-white hover:text-accent md:px-8;
 }
 
 .table-highlighted tr:nth-child(even) {
