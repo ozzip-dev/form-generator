@@ -26,13 +26,13 @@ const dataInputsSignup = [
     floatingLabel: "Hasło",
     name: "password",
     placeholder: "xxxxx",
-    type: "text",
+    type: "password",
   },
   {
     floatingLabel: "Powtórz hasło",
     name: "confirmPassword",
     placeholder: "xxxxx",
-    type: "text",
+    type: "password",
   },
 ];
 
@@ -79,7 +79,7 @@ const Signup = () => {
       toast({
         title: "Sukces",
         description:
-          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+          "Na podany adres email został wysłany link do weryfikacji konta",
         variant: "success",
       });
     }
