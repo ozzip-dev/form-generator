@@ -622,15 +622,16 @@ export const formTemplates: Form[] = [
   },
   {
     id: TemplateFormId.MEETING,
-    title: "Organizacja spotkania w sprawie [X]",
-    templateTitle: "Spotkanie",
-    description: "<p><strong>SPOTKANIE</strong> Robimy spotkanie.</p>",
+    title: "[nazwa spotkania]",
+    templateTitle: "Organizacja spotkania",
+    description:
+      "<p>[opis spotkania] <a target=`_blank` rel=`noopener noreferrer nofollow` href=`www`>link do programu spotkania</a></p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
         id: "meeting-1",
         type: InputType.TEXT,
-        header: "Imię i nazwisko",
+        header: "Podaj swoje imię i nazwisko",
         validation: {},
         options: [],
         required: true,
@@ -640,23 +641,10 @@ export const formTemplates: Form[] = [
       },
       {
         id: "meeting-2",
-        type: InputType.SINGLE_SELECT,
-        header: "Czy przyjdziesz?",
+        type: InputType.TEXT,
+        header: "Podaj nazwę Twojej komisji zakładowej lub organizacji",
         validation: {},
-        options: [
-          {
-            value: "meeting-2-82284",
-            label: "Tak",
-          },
-          {
-            value: "meeting-2-43992",
-            label: "Nie",
-          },
-          {
-            value: "meeting-2-51557",
-            label: "Nie wiem",
-          },
-        ],
+        options: [],
         required: true,
         unique: false,
         hidden: false,
@@ -664,6 +652,91 @@ export const formTemplates: Form[] = [
       },
       {
         id: "meeting-3",
+        type: InputType.TEXT,
+        header: "Ile osób z Twojej grupy przyjedzie na [nazwa spotkania]?",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 2,
+      },
+      {
+        id: "meeting-4",
+        type: InputType.SINGLE_SELECT,
+        header: "Czy będziecie uczestniczyć w obu dniach [nazwa spotkanie]?",
+        validation: {},
+        options: [
+          {
+            value: "meeting-4-9804",
+            label: "Tak",
+          },
+          {
+            value: "other",
+            label: "Inna odpowiedź",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 3,
+      },
+      {
+        id: "meeting-5",
+        type: InputType.SINGLE_SELECT,
+        header:
+          "Czy Wasza delegacja potrzebuje noclegu w dniach [...] w [miejsce spotkania]?",
+        validation: {},
+        options: [
+          {
+            value: "meeting-5-9504",
+            label: "Tak",
+          },
+          {
+            value: "meeting-5-9804",
+            label: "Nie",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 4,
+      },
+      {
+        id: "meeting-6",
+        type: InputType.NUMBER,
+        header: "Ile osób z Twojej grupy je posiłki bezmięsne?",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 5,
+      },
+      {
+        id: "meeting-7",
+        type: InputType.NUMBER,
+        header: "Podaj telefon kontaktowy",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 6,
+      },
+      {
+        id: "meeting-8",
+        type: InputType.EMAIL,
+        header: "Podaj email kontaktowy",
+        validation: {},
+        options: [],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 7,
+      },
+      {
+        id: "meeting-9",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
@@ -679,7 +752,7 @@ export const formTemplates: Form[] = [
         required: true,
         unique: false,
         hidden: false,
-        order: 2,
+        order: 8,
       },
     ],
     state: "template",
@@ -689,10 +762,10 @@ export const formTemplates: Form[] = [
   },
   {
     id: TemplateFormId.TRAVEL,
-    title: "Organizujemy podróż do [X]",
-    templateTitle: "Podróż",
+    title: "Zapisy na wyjazd [...]",
+    templateTitle: "Wyjazd oragnizacyjny",
     description:
-      "<p><strong>JEDZIEMY!&nbsp;</strong></p><p>Organizujemy wycieczkę</p>",
+      "Jeżeli jesteś zaintersowany wyjazdem [....] przekaż swoje dane kontaktowe.",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
@@ -708,23 +781,10 @@ export const formTemplates: Form[] = [
       },
       {
         id: "travel-2",
-        type: InputType.SINGLE_SELECT,
-        header: "Dokąd jedziemy?",
+        type: InputType.NUMBER,
+        header: "Podaj telefon kontaktowy",
         validation: {},
-        options: [
-          {
-            value: "travel-2-82284",
-            label: "Luboń",
-          },
-          {
-            value: "travel-2-43992",
-            label: "Puszczykowo",
-          },
-          {
-            value: "travel-2-51557",
-            label: "Palędzie",
-          },
-        ],
+        options: [],
         required: true,
         unique: false,
         hidden: false,
@@ -757,15 +817,16 @@ export const formTemplates: Form[] = [
   },
   {
     id: TemplateFormId.LEAFLETING,
-    title: "Będziemy rozdawać ulotki w sprawie [X]",
+    title: "Zapisy na ulotkowanie [...]",
     templateTitle: "Ulotkowanie",
-    description: "<p><strong>ULOTKI!&nbsp;</strong></p><p>Rozdajemy ulotki</p>",
+    description:
+      "<p>Jeśli chcesz dołaczyć do akcji ulotkowania [...], wybierz odpowiadające Tobie terminy.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {
         id: "leafleting-1",
         type: InputType.TEXT,
-        header: "Imię i nazwisko",
+        header: "Podaj swoje imię i nazwisko ",
         validation: {},
         options: [],
         required: true,
@@ -775,23 +836,10 @@ export const formTemplates: Form[] = [
       },
       {
         id: "leafleting-2",
-        type: InputType.SINGLE_SELECT,
-        header: "Co na ulotkach?",
+        type: InputType.NUMBER,
+        header: "Podaj telefon kontaktowy",
         validation: {},
-        options: [
-          {
-            value: "leafleting-2-82284",
-            label: "kaufland",
-          },
-          {
-            value: "leafleting-2-43992",
-            label: "pieski i kotki",
-          },
-          {
-            value: "leafleting-2-51557",
-            label: "chwilówki",
-          },
-        ],
+        options: [],
         required: true,
         unique: false,
         hidden: false,
@@ -799,6 +847,31 @@ export const formTemplates: Form[] = [
       },
       {
         id: "leafleting-3",
+        type: InputType.CHECKBOX,
+        header:
+          "Podaj jaki termin Tobie pasuje? Możesza zaznaczać więcej, niż jedną opcję.",
+        validation: {},
+        options: [
+          {
+            value: "leafleting-2-87884",
+            label: "[Data 1]",
+          },
+          {
+            value: "leafleting-4-46592",
+            label: "[Data 2]",
+          },
+          {
+            value: "leafleting-7-58857",
+            label: "[Data 3]",
+          },
+        ],
+        required: true,
+        unique: false,
+        hidden: false,
+        order: 2,
+      },
+      {
+        id: "leafleting-4",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
@@ -814,7 +887,7 @@ export const formTemplates: Form[] = [
         required: true,
         unique: false,
         hidden: false,
-        order: 2,
+        order: 3,
       },
     ],
     state: "template",

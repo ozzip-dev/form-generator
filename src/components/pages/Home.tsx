@@ -22,7 +22,7 @@ const texts: { header: string; text: string }[] = [
 
 const Home = () => {
   return (
-    <>
+    <div className="h-full overflow-auto">
       <div className="mx-auto my-16 w-[80%] max-w-[600px] overflow-hidden rounded-sm border border-accent sm:rounded-md md:my-40 md:rounded-lg">
         <div className="bg-accent px-10 py-6 text-center text-lg text-white">
           Usprawnij Działanie Związku Zawodowego
@@ -71,7 +71,7 @@ const Home = () => {
           loading="lazy"
         />
       </footer>
-    </>
+    </div>
   );
 };
 export default Home;

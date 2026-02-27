@@ -13,12 +13,6 @@ const FormsTemplatesList = async () => {
       sortOrder.indexOf(a.id as TemplateFormId) -
       sortOrder.indexOf(b.id as TemplateFormId),
   );
-  const titles = [
-    "Ankieta pracownicza",
-    "Wybory SIP",
-    "Referendum strajkowe",
-    "Wybory władz",
-  ];
 
   return (
     <>
@@ -29,6 +23,7 @@ const FormsTemplatesList = async () => {
             ({ id, templateTitle }) => id && templateTitle,
           ) /* filter out invalid records */
           .map(({ id, templateTitle }, idx) => {
+            console.log("templateTitle", templateTitle);
             return (
               <div
                 className="flex h-fit w-[13rem] flex-col justify-center text-sm"
