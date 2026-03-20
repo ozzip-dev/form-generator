@@ -10,7 +10,7 @@ const DashboardTopBar = () => {
   const user = use(userPromise);
 
   return (
-    <div className="relative flex items-center">
+    <div className="relative mr-7 flex items-center px-4 sm:px-8 md:px-24">
       <DashboardMenu />
 
       <div className="ml-16 mr-10 text-white lg:ml-auto">

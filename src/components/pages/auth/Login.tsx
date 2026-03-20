@@ -97,7 +97,7 @@ const Login = () => {
           <div className="my-4">
             <Link
               href="/forgot-password"
-              className="text-sm text-accent_dark hover:underline hover:decoration-accent_dark"
+              className="text-xs text-accent_dark hover:underline hover:decoration-accent_dark"
             >
               Nie pamiętasz hasła?
             </Link>
@@ -112,10 +112,12 @@ const Login = () => {
         </form>
       </Card>
 
-      <div className="mt-lg text-center">
-        Nie masz konta? Skontaktuj się z osobą przewodniczącą Twojej komisji
-        związkowej.
-      </div>
+      <Link
+        href="/admin-contact"
+        className="py-20 text-accent_dark hover:underline hover:decoration-accent_dark"
+      >
+        Nie masz konta? Skontaktuj się z administratorem aplikacji.
+      </Link>
     </div>
   );
 };

@@ -108,7 +108,7 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="flex flex-col gap-6">
+      <form className="flex flex-col gap-8">
         {(!!addFieldPublishError || hasAnyError) && (
           <Card className="text-sm text-error lg:flex">
             <p className="mb-2 mr-2 text-center">

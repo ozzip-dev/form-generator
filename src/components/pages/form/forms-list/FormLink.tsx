@@ -6,6 +6,7 @@ import { FormSerialized } from "@/types/form";
 import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
 import { Submission } from "@/types/result";
 import { getAllSubmissions } from "@/services/result-service";
+import Icon from "@/components/shared/icons/Icon";
 
 type Props = { form: Partial<FormSerialized> };
 
@@ -14,17 +15,29 @@ export default async function FormLink(props: Props) {
   const isFormActive = props.form && isActive(props.form as FormSerialized);
   const formattedDate = formatDateAndTime(updatedAt);
   const submissions: Submission[] = await getAllSubmissions(_id as string);
-  const backgroundColor = isFormActive ? "#e4f2e4" : "#faf6cd";
+  const bgColor = isFormActive ? "bg-[#e8f9f0]" : "bg-[#eee7ff]";
+  const icon = isFormActive ? (
+    <Icon
+      icon="circle-check"
+      size={44}
+      className="mx-auto mb-3"
+      color="#45ba7e"
+    />
+  ) : (
+    <Icon icon="pencil" size={31} className="mx-auto mb-3" color="#b08bff" />
+  );
+
+  const textColor = isFormActive ? "text-[#45ba7e]" : "text-[#b08bff]";
 
   return (
     <li className="w-[13rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className="flex h-[13rem] w-full items-center justify-center rounded-md border bg-bg_light px-8 py-6 text-xs transition hover:bg-accent md:rounded-lg"
-        style={{ backgroundColor }}
+        className={`flex h-[13rem] w-full items-center justify-center rounded-md border bg-bg_light px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
       >
-        <div>
-          <div className="font-semibold">
+        <div className={textColor}>
+          {icon}
+          <div className="font-semibold uppercase">
             {state && formStateWithLabels[state]}
           </div>
           {isFormActive && (

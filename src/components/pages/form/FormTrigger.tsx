@@ -25,16 +25,16 @@ const FormTrigger = () => {
       <Button
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="flex h-[13rem] w-[13rem] items-center justify-center border border-accent !bg-accent_light shadow-default sm:rounded-md md:rounded-lg"
+        className="group flex h-[13rem] w-full items-center justify-center rounded-md border !bg-accent_light px-8 py-6 text-xs transition hover:bg-accent_light md:rounded-lg"
         icon={
           <div>
-            <span className="text-accent_dark">Dodaj</span>
             <Icon
               icon="plus-solid-full"
-              size={60}
+              size={40}
               color="var(--color-accent)"
-              className="bg-accent"
+              className="mb-3 transition-transform duration-200 group-hover:scale-125"
             />
+            <span className="text-xs font-semibold text-accent">DODAJ</span>
           </div>
         }
       />

@@ -25,7 +25,7 @@ const FormActions = ({ form }: Props) => {
 
   return (
     <div>
-      <div className="md:flex md:items-center md:justify-between">
+      <div className="px-4 sm:px-8 md:flex md:items-center md:justify-between md:px-24">
         <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
 
         <div className="mt-6 flex items-center justify-between gap-10 sm:justify-end">
@@ -33,7 +33,7 @@ const FormActions = ({ form }: Props) => {
           <PublishFormButton form={form} />
         </div>
       </div>
-      <Card className="my-6">
+      <Card className="my-8">
         <div className="mb-2 flex gap-2">
           <div>Adres:</div>
           <div className="font-semibold">{formUrl}</div>

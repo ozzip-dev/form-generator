@@ -57,7 +57,7 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
         {formTypesWithLabels.map(({ label, value }) => (
           <Button
             key={value}
-            className={`!px-8 !text-base ${
+            className={`btn-primary-rounded ${
               value != activeType ? "!bg-accent_dark" : ""
             }`}
             message={label}

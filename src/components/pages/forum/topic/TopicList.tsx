@@ -4,7 +4,7 @@ import { TopicSerializedDetailed } from "@/types/forum";
 import TopicListItem from "./TopicListItem";
 import { TopicCategory } from "@/enums/forum";
 import { useState } from "react";
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import { mapTopicCategory } from "../utils";
 
 type Props = {
@@ -30,24 +30,25 @@ const TopicList = (props: Props) => {
   };
 
   return (
-    <div>
-      <div className="text-center text-lg">Kategorie tematów </div>
+    <div className="container">
       <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
-        {Object.values(TopicCategory).map((category) => (
-          <Button
-            key={category}
-            className={`!px-8 !text-base ${
-              category == selectedCategory ? "!bg-accent_dark" : ""
-            }`}
-            message={mapTopicCategory[category]}
-            onClickAction={() => setSelectedCategory(category)}
-          />
-        ))}
+        <div>Kategorie tematów </div>
+        <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
+          {Object.values(TopicCategory).map((category) => (
+            <Button
+              key={category}
+              className={`btn-primary-rounded ${
+                category == selectedCategory ? "!bg-accent_dark" : ""
+              }`}
+              message={mapTopicCategory[category]}
+              onClickAction={() => setSelectedCategory(category)}
+            />
+          ))}
+        </div>
       </div>
-
       <div className="p-4 pb-8">{categoryDescriptions[selectedCategory]}</div>
 
-      <div>
+      <Card>
         {displayedTopics?.length ? (
           displayedTopics.map((topic, idx) => (
             <TopicListItem key={idx} {...topic} />
@@ -55,7 +56,7 @@ const TopicList = (props: Props) => {
         ) : (
           <div className="px-4">Brak tematów z wybranej kategorii</div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };
