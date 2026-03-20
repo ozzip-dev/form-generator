@@ -83,7 +83,7 @@ export function serializeResultSubmission(
 ): SubmissionSerialized {
   return {
     ...submission,
-    id: submission.id.toString(),
+    id: submission.id?.toString() || undefined,
     submittedAt: submission.submittedAt?.toISOString(),
   };
 }
