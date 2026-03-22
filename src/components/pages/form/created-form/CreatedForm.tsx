@@ -114,12 +114,12 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  const confirmHandleSubmit = async (data: any) => {
-    await confirmAction({
-      action: () => onSubmit(data),
-      confirmText: "Czy na pewno wysłać wyniki?",
-    });
-  };
+  // const confirmHandleSubmit = async (data: any) => {
+  //   await confirmAction({
+  //     action: () => onSubmit(data),
+  //     confirmText: "Czy na pewno wysłać wyniki?",
+  //   });
+  // };
 
   const handleCleanForm = () => {
     reset();
@@ -177,7 +177,7 @@ const CreatedForm = (props: Props) => {
 
         <FormProvider {...methods}>
           <form
-            onSubmit={handleSubmit(confirmHandleSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-8"
           >
             {formFields}

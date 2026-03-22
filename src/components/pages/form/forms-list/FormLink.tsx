@@ -33,7 +33,7 @@ export default async function FormLink(props: Props) {
     <li className="w-[13rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className={`flex h-[13rem] w-full items-center justify-center rounded-md border bg-bg_light px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
+        className={`flex h-[13rem] w-full items-center justify-center rounded-md border px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
       >
         <div className={textColor}>
           {icon}

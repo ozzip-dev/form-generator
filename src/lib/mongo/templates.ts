@@ -198,7 +198,7 @@ export const formTemplates: Form[] = [
     state: "template",
     type: FormType.Survey,
     resultVisibility: FormResultVisibility.Secret,
-    displayAuthorEmail: false,
+    displayAuthorEmail: true,
     headerFileId: "ankieta",
   },
   {
@@ -438,7 +438,7 @@ export const formTemplates: Form[] = [
   {
     id: TemplateFormId.ELECTIONS,
     title: "Wybierz osoby, które zasiądą we władzach [nazwa struktury].",
-    templateTitle: "Wybory władz",
+    templateTitle: "Wybory władz organizacji",
     description:
       "<p><strong>Uprawnione&nbsp;</strong>do głosowania&nbsp;<strong>są</strong>&nbsp;wyłącznie osoby należące do <strong>[nazwa struktury]</strong>.<strong>&nbsp;</strong></p><p>Głosowanie jest w anonimowe. Dane przekazane w formularzu nie są udostępniane kierownictwu zakładu ani przypisywane do konkretnych osób oddających głos.</p>",
     ...getCreatedUpdatedDates(),
@@ -616,7 +616,7 @@ export const formTemplates: Form[] = [
       },
     ],
     state: "template",
-    type: FormType.Survey,
+    type: FormType.Other,
     resultVisibility: FormResultVisibility.Secret,
     displayAuthorEmail: true,
   },

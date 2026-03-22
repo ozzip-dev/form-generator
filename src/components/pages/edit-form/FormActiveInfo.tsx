@@ -35,10 +35,10 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
   return (
     <>
-      <Card className="my-16 flex flex-col gap-4 text-center text-sm">
-        <div className="text-lg">Opublikowany formularz</div>
-        <div className="font-semibold">{title}</div>
-        <div className="text-font_light">Edycja niedostępna</div>
+      <Card className="my-16 flex flex-col gap-2 text-center text-sm">
+        <div className="text-font_light">Formularz opublikowany</div>
+        <div className="text-lg font-semibold">{title}</div>
+        <div className="mb-16 text-font_light">Edycja niedostępna</div>
         <div className="text-font_light">
           Kategoria formularza:{" "}
           <span className="ml-2 font-semibold text-font_dark">
@@ -65,7 +65,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           link={`/forms/${_id}/results/details`}
           target="_blank"
           variant="primary-rounded"
-          className="m-auto mt-16 w-fit"
+          className="m-auto mb-3 mt-16 w-fit"
         />
 
         <ButtonLink
@@ -76,14 +76,14 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           className="m-auto w-fit"
         />
 
-        <div className="text-2xs text-font_light">
+        <div className="mt-16 text-2xs text-font_light">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
           <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
         </div>
       </Card>
 
       {isAuthor && _id && (
-        <div className="ml-auto w-fit">
+        <div className="ml-auto w-fit pb-20">
           <RemoveFormButton formId={_id} />
         </div>
       )}
