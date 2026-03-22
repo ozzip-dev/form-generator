@@ -23,7 +23,6 @@ const FormsTemplatesList = async () => {
             ({ id, templateTitle }) => id && templateTitle,
           ) /* filter out invalid records */
           .map(({ id, templateTitle }, idx) => {
-            console.log("templateTitle", templateTitle);
             return (
               <div
                 className="flex h-fit w-[13rem] flex-col justify-center text-sm"
