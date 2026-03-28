@@ -2,12 +2,12 @@ import { TopicCategory } from "@/enums/forum";
 import { z } from "zod";
 
 export const createTopicSchema = z.object({
-  title: z.string().trim().min(3, "Min. 3 znaki").max(50, "Max. 50 znaków"),
+  title: z.string().trim().min(3, "Min. 3 znaki").max(100, "Max. 100 znaków"),
   description: z
     .string()
     .trim()
     .min(3, "Min. 3 znaki")
-    .max(500, "Max. 500 znaków"),
+    .max(1000, "Max. 1000 znaków"),
   category: z.preprocess(
     (val) => (val === "" ? undefined : val),
     z.enum(Object.values(TopicCategory) as [string, ...string[]], {
