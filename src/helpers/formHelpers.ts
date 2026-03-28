@@ -10,6 +10,10 @@ export function isActive(form: Form | FormCreated | FormSerialized): boolean {
   return form.state === "active";
 }
 
+export function isDisabled(form: Form | FormCreated | FormSerialized): boolean {
+  return form.state === "disabled";
+}
+
 export function isUserAuthor(
   form: Form | FormSerialized,
   userId: string,

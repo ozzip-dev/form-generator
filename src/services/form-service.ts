@@ -9,7 +9,7 @@ import {
   update,
   updateById,
 } from "@/lib/mongo";
-import { Form, FormSerialized } from "@/types/form";
+import { Form, FormSerialized, FormState } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 import { cache } from "react";
@@ -107,13 +107,32 @@ export async function updateForm(
   });
 }
 
-export async function publishForm(db: Db, formId: string): Promise<void> {
+async function setFormState(
+  db: Db,
+  formId: string,
+  state: FormState,
+  updateObj: Record<string, any> = {},
+): Promise<void> {
   await updateById<Form>(db, "form", new ObjectId(formId), {
     $set: {
-      state: "active",
+      state,
       updatedAt: new Date(),
+      ...updateObj,
     },
   });
+}
+
+export async function publishForm(db: Db, formId: string): Promise<void> {
+  await setFormState(db, formId, "active");
+}
+
+export async function setFormDisabled(
+  db: Db,
+  formId: string,
+  disabledText: string,
+): Promise<void> {
+  const updateObj = { disabledText };
+  await setFormState(db, formId, "disabled", updateObj);
 }
 
 export async function getFormBySlug(

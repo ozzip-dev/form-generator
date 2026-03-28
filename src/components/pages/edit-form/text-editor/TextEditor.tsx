@@ -52,6 +52,8 @@ type Props = {
   printDescriptionInput?: () => void;
   editAction?: any;
   placeholder: string;
+  onContentUpdate?: (content: string) => void;
+  displaySaveButton?: boolean;
 };
 
 const TextEditor = (props: Props) => {
@@ -90,7 +92,9 @@ const TextEditor = (props: Props) => {
     content: editorContent,
 
     onUpdate: ({ editor }) => {
-      setEditorContent(editor.getHTML());
+      const html = editor.getHTML();
+      setEditorContent(html);
+      props.onContentUpdate?.(html);
     },
   });
 
@@ -123,7 +127,11 @@ const TextEditor = (props: Props) => {
 
   return (
     <div className="">
-      <MenuBar editor={editor} handleEditDescription={handleEditDescription} />
+      <MenuBar
+        editor={editor}
+        handleEditDescription={handleEditDescription}
+        displaySaveButton={props.displaySaveButton}
+      />
       <div className="textEditorTags">
         <EditorContent
           editor={editor}

@@ -3,11 +3,12 @@
 import { ButtonLink, Card } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { useUser } from "@/context/UserContextProvider";
-import { isUserAuthor } from "@/helpers/formHelpers";
+import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { UserSerialized } from "@/types/user";
 import { use } from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
+import SetFormDisabledForm from "./disable-form/SetFormDisabledForm";
 
 const mapTypes: Record<string, string> = {
   survey: "ankieta pracownicza",
@@ -33,10 +34,15 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
   const isAuthor = user && isUserAuthor(form, user._id);
 
+  const isFormActive = isActive(form);
+  const formStateInfo = isFormActive
+    ? "Formularz opublikowany"
+    : "Formularz nieaktywny";
+
   return (
     <>
       <Card className="my-16 flex flex-col gap-2 text-center text-sm">
-        <div className="text-font_light">Formularz opublikowany</div>
+        <div className="text-font_light">{formStateInfo}</div>
         <div className="text-lg font-semibold">{title}</div>
         <div className="mb-16 text-font_light">Edycja niedostępna</div>
         <div className="text-font_light">
@@ -68,13 +74,15 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           className="m-auto mb-3 mt-16 w-fit"
         />
 
-        <ButtonLink
-          message="Przejdź do opublikowanego formularza"
-          link={`/${url ? url : _id!}`}
-          target="_blank"
-          variant="primary-rounded"
-          className="m-auto w-fit"
-        />
+        {isFormActive && (
+          <ButtonLink
+            message="Przejdź do opublikowanego formularza"
+            link={`/${url ? url : _id!}`}
+            target="_blank"
+            variant="primary-rounded"
+            className="m-auto w-fit"
+          />
+        )}
 
         <div className="mt-16 text-2xs text-font_light">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
@@ -83,7 +91,9 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
       </Card>
 
       {isAuthor && _id && (
-        <div className="ml-auto w-fit pb-20">
+        <div className="ml-auto flex w-full flex-col items-end gap-sm pb-20">
+          {isFormActive && <SetFormDisabledForm formId={_id} />}
+
           <RemoveFormButton formId={_id} />
         </div>
       )}

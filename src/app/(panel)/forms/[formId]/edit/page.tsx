@@ -6,7 +6,12 @@ import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFo
 import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
-import { isActive, isUserAuthor } from "@/helpers/formHelpers";
+import {
+  isActive,
+  isDisabled,
+  isDraft,
+  isUserAuthor,
+} from "@/helpers/formHelpers";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
@@ -24,7 +29,7 @@ const EditFormPage = async (props: Props) => {
   const user = await requireUser();
   if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
 
-  const { inputs, createdAt, updatedAt, headerFileId, resultVisibility } = form;
+  const { inputs, headerFileId } = form;
   const file: File | null = headerFileId
     ? await getFileById(headerFileId)
     : null;
@@ -34,15 +39,15 @@ const EditFormPage = async (props: Props) => {
     form.inputs?.length >=
     Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
 
-  const isFormActive = isActive(form);
-
   let textNumber = 0;
+
+  const displayInfoFrame = isActive(form) || isDisabled(form);
 
   return (
     <div className="container">
-      {isFormActive && <FormActiveInfo submissionCount={submissionCount} />}
+      {displayInfoFrame && <FormActiveInfo submissionCount={submissionCount} />}
 
-      {!isFormActive && (
+      {isDraft(form) && (
         <>
           <SuspenseErrorBoundary
             size="sm"

@@ -9,9 +9,14 @@ import { useState } from "react";
 type Props = {
   editor: Editor | null;
   handleEditDescription: () => void;
+  displaySaveButton?: boolean;
 };
 
-const MenuBar = ({ editor, handleEditDescription }: Props) => {
+const MenuBar = ({
+  editor,
+  handleEditDescription,
+  displaySaveButton = true,
+}: Props) => {
   const { openModal } = useModal();
   const [_, forceUpdate] = useState(false);
 
@@ -123,13 +128,15 @@ const MenuBar = ({ editor, handleEditDescription }: Props) => {
         ))}
       </div>
 
-      <Button
-        message="Zapisz"
-        type="button"
-        onClickAction={handleEditDescription}
-        className="!text-bold ml-auto !text-sm !text-accent"
-        variant="ghost"
-      />
+      {displaySaveButton && (
+        <Button
+          message="Zapisz"
+          type="button"
+          onClickAction={handleEditDescription}
+          className="!text-bold ml-auto !text-sm !text-accent"
+          variant="ghost"
+        />
+      )}
     </div>
   );
 };

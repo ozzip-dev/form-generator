@@ -20,6 +20,7 @@ export interface FormTemplate extends Document {
   description?: string;
   inputs: FormInput[];
   displayAuthorEmail?: boolean;
+  disabledText?: string;
 }
 
 interface FormCreated extends FormTemplate {
