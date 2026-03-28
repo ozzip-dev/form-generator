@@ -35,10 +35,21 @@ const ConfirmModal = (props: Props) => {
   return (
     <ModalWrapper onClose={onCancel}>
       {isLoading && <FullscreenLoader />}
-      <div>{props.confirmText}</div>
-      <div className="flex gap-3">
-        <Button message={noText} onClickAction={onCancel} />
-        <Button message={yesText} onClickAction={onConfirm} />
+      <div className="p-8">
+        <div className="text-center text-lg mb-10">{props.confirmText}</div>
+        <div className="flex justify-center gap-8">
+          <Button
+            message={noText}
+            onClickAction={onCancel}
+            disabled={isLoading}
+            className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
+          />
+          <Button
+            message={yesText}
+            onClickAction={onConfirm}
+            isLoading={isLoading}
+          />
+        </div>
       </div>
     </ModalWrapper>
   );
