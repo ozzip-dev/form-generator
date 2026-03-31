@@ -26,21 +26,24 @@ const ProtocolUploadsPanel = (props: Props) => {
       {fileCategories.map((category) => (
         <div
           key={category}
-          className={category != props.visibleCategory ? "!hidden" : ""}
+          style={category != props.visibleCategory ? { display: "none" } : {}}
+          className="md:grid md:grid-cols-2"
         >
-          <div className="pb-md font-black">{mapFileCategory[category]}:</div>
-          <div className="pb-sm">
-            liczba załączników: {protocol.fileIds[category]?.length || 0}
-          </div>
+          <div>
+            <div className="pb-md font-black">{mapFileCategory[category]}:</div>
+            <div className="pb-sm">
+              liczba załączników: {protocol.fileIds[category]?.length || 0}
+            </div>
 
-          {protocol.fileIds[category]?.map((fileId) => (
-            <ProtocolAttachedFile
-              key={fileId}
-              file={getFileById(fileId)!}
-              protocolId={protocol._id}
-              fileCategory={category}
-            />
-          ))}
+            {protocol.fileIds[category]?.map((fileId) => (
+              <ProtocolAttachedFile
+                key={fileId}
+                file={getFileById(fileId)!}
+                protocolId={protocol._id}
+                fileCategory={category}
+              />
+            ))}
+          </div>
 
           {!!protocol ? (
             <ProtocolUploadFileForm {...{ category, protocol }} />
