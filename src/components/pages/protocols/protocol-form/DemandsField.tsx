@@ -23,7 +23,7 @@ const DemandsField = ({
   return (
     <div className="relative flex flex-col pb-[1.7rem] text-sm md:mt-[2.2rem] md:flex-row md:items-start">
       <div className="mb-1 mt-2 block w-[22rem] font-semibold md:mb-0 md:mr-4 md:text-right">
-        <span>Żądania:</span>
+        <span>Konkretne żądania:</span>
       </div>
       <div className="flex w-full flex-col gap-4 md:flex-1">
         {demandFields.map((field, idx) => (
