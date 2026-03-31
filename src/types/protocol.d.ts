@@ -8,6 +8,7 @@ export type ProtocolFileCategory =
   | "mediationMeetings"
   | "mediationDiscrepancy"
   | "agreement"
+  | "strike"
   | "other";
 
 interface ProtocolData {

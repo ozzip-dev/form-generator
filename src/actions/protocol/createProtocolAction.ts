@@ -55,6 +55,7 @@ export async function createProtocolAction({
         negotiationMeetings: [],
         negotiationDiscrepancy: [],
         agreement: [],
+        strike: [],
         other: [],
       },
     });

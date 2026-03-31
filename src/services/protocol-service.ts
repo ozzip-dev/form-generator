@@ -126,6 +126,7 @@ export async function mapFilesToProtocol(
     mediationMeetings: [],
     negotiationDiscrepancy: [],
     negotiationMeetings: [],
+    strike: [],
     other: [],
   };
   const fileTypes: ProtocolFileCategory[] = Object.keys(

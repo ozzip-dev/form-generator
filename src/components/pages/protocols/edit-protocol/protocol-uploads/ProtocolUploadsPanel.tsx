@@ -30,7 +30,7 @@ const ProtocolUploadsPanel = (props: Props) => {
           className="md:grid md:grid-cols-2"
         >
           <div>
-            <div className="pb-sm font-black">{mapFileCategory[category]}:</div>
+            <div className="pb-sm font-black">{mapFileCategory[category]}</div>
 
             {protocol.fileIds[category]?.map((fileId) => (
               <ProtocolAttachedFile

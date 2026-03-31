@@ -58,6 +58,7 @@ export const mapFileCategory: Record<ProtocolFileCategory, string> = {
   mediationMeetings: "Mediacje - spotkania",
   mediationDiscrepancy: "Mediacje - rozbieności",
   agreement: "Porozumienie kończące spór",
+  strike: "Strajk",
   other: "Inne",
 };
 
@@ -68,5 +69,6 @@ export const fileCategories: ProtocolFileCategory[] = [
   "mediationMeetings",
   "mediationDiscrepancy",
   "agreement",
+  "strike",
   "other",
 ];
