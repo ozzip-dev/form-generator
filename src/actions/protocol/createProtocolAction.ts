@@ -11,6 +11,7 @@ import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors"
 export async function createProtocolAction({
   branch,
   disputeReason,
+  demands,
   tradeUnionName,
   workplaceName,
   disputeStartDate,
@@ -22,6 +23,7 @@ export async function createProtocolAction({
 
   const data = {
     branch,
+    demands,
     tradeUnionName,
     workplaceName,
     disputeStartDate,
@@ -39,6 +41,7 @@ export async function createProtocolAction({
     protocolId = await addProtocol(db, user.id, {
       branch,
       disputeReason,
+      demands,
       tradeUnionName,
       workplaceName,
       disputeStartDate,

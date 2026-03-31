@@ -6,10 +6,11 @@ import { UseFormSetError } from "react-hook-form";
 export const handleEditProtocol = async (
   protocolId: string,
   data: ProtocolFormSchema,
-  setError: UseFormSetError<ProtocolFormSchema>
+  setError: UseFormSetError<ProtocolFormSchema>,
 ) => {
   const {
     branch,
+    demands = [],
     tradeUnionName,
     workplaceName,
     disputeStartDate,
@@ -19,6 +20,7 @@ export const handleEditProtocol = async (
   try {
     const resp = await editProtocolAction(protocolId, {
       branch,
+      demands,
       disputeReason,
       tradeUnionName,
       workplaceName,

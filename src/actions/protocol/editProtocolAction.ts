@@ -12,16 +12,18 @@ export const editProtocolAction = async (
   {
     branch,
     disputeReason,
+    demands,
     tradeUnionName,
     workplaceName,
     disputeStartDate,
-  }: ProtocolInsertData
+  }: ProtocolInsertData,
 ): Promise<void | {
   validationErrors: ValidationErrors;
 }> => {
   requireUser();
   const data = {
     branch,
+    demands,
     tradeUnionName,
     workplaceName,
     disputeStartDate,
@@ -34,7 +36,7 @@ export const editProtocolAction = async (
     return { validationErrors: validationResult.error.flatten().fieldErrors };
   }
 
-  await editProtocol(protocolId, data)
+  await editProtocol(protocolId, data);
 
-  revalidateTag("protocols")
+  revalidateTag("protocols");
 };

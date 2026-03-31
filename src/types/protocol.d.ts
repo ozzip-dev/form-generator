@@ -13,6 +13,7 @@ export type ProtocolFileCategory =
 interface ProtocolData {
   branch: string; // branza
   disputeReason: Record<string, string>; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
+  demands: string[]; // konkretne żądania
   tradeUnionName: string; // nazwa związku
   workplaceName: string; // nazwa zakładu
   fileIds: Record<ProtocolFileCategory, string[]>;
@@ -37,6 +38,7 @@ export interface ProtocolSerialized extends ProtocolData {
 export type ProtocolInsertData = {
   branch: string;
   disputeReason: Record<string, string>;
+  demands: string[];
   tradeUnionName: string;
   workplaceName: string;
   disputeStartDate: string;

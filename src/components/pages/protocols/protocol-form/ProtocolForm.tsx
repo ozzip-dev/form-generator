@@ -14,10 +14,16 @@ import {
 } from "@/lib/zod-schema/protocolFormSchema";
 import { ProtocolInsertData, ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormSetError } from "react-hook-form";
+import {
+  useForm,
+  UseFormSetError,
+  useFieldArray,
+  FieldArrayPath,
+} from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
 import SectionHeader from "@/components/shared/SectionHeader";
+import DemandsField from "./DemandsField";
 
 const dataInputsProtocolForm = [
   {
@@ -105,9 +111,24 @@ const ProtocolForm = (props: Props) => {
     setError,
   } = methods;
 
-  const onFormSubmit = async (data: ProtocolInsertData) => {
+  const {
+    fields: demandFields,
+    append: appendDemand,
+    remove: removeDemand,
+  } = useFieldArray({
+    control,
+    name: "demands" as FieldArrayPath<ProtocolFormSchema>,
+  });
+
+  const onFormSubmit = async (data: ProtocolFormSchema) => {
     try {
-      const protocolId = await props.onSubmit(data, setError);
+      const protocolId = await props.onSubmit(
+        {
+          ...data,
+          demands: data.demands ?? [],
+        },
+        setError,
+      );
       if (protocolId) {
         router.push(`/protocols/${protocolId}`);
         toast({
@@ -155,6 +176,15 @@ const ProtocolForm = (props: Props) => {
             mode="horizontal"
           />
         </div>
+
+        <DemandsField
+          demandFields={demandFields}
+          appendDemand={appendDemand}
+          removeDemand={removeDemand}
+          control={control}
+          errors={errors}
+          isSubmitting={isSubmitting}
+        />
 
         <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           {props.handlePrintForm && (

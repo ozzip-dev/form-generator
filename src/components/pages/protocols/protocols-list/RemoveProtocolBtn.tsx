@@ -2,9 +2,7 @@
 
 import { removeProtocolAction } from "@/actions/protocol";
 import { Button, IconTrash } from "@/components/shared";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
-import { startTransition, useActionState } from "react";
 
 type Props = {
   ProtocolId: string;
