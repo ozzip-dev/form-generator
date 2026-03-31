@@ -53,20 +53,20 @@ export const mapDisputeReason: Record<string, string> = {
 
 export const mapFileCategory: Record<ProtocolFileCategory, string> = {
   demands: "Żądania wszczynające spór",
-  mediationMeetings: "Mediacje - spotkania",
-  mediationDiscrepancy: "Mediacje - rozbieności",
   negotiationMeetings: "Rokowania - spotkania",
   negotiationDiscrepancy: "Rokowania - rozbieności",
+  mediationMeetings: "Mediacje - spotkania",
+  mediationDiscrepancy: "Mediacje - rozbieności",
   agreement: "Porozumienie kończące spór",
   other: "Inne",
 };
 
 export const fileCategories: ProtocolFileCategory[] = [
   "demands",
-  "mediationMeetings",
-  "mediationDiscrepancy",
   "negotiationMeetings",
   "negotiationDiscrepancy",
+  "mediationMeetings",
+  "mediationDiscrepancy",
   "agreement",
   "other",
 ];
