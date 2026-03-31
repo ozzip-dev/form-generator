@@ -30,30 +30,32 @@ const dataInputsProtocolForm = [
     staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
-    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
+  },
+  {
+    staticLabel: "Organizacja zakładowa:",
+    name: "tradeUnionOrganization",
+    placeholder: "Organizacja",
   },
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
   },
-];
+].map((item) => ({
+  ...item,
+  type: item.type || "text",
+  labelClassName: "w-[22rem] md:text-right",
+}));
 
 const dataCheckboxOptions = [
   {

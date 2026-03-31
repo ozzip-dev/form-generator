@@ -13,6 +13,7 @@ export async function createProtocolAction({
   disputeReason,
   demands,
   tradeUnionName,
+  tradeUnionOrganization,
   workplaceName,
   disputeStartDate,
 }: ProtocolInsertData): Promise<{
@@ -25,6 +26,7 @@ export async function createProtocolAction({
     branch,
     demands,
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
     disputeStartDate,
     disputeReason,
@@ -43,6 +45,7 @@ export async function createProtocolAction({
       disputeReason,
       demands,
       tradeUnionName,
+      tradeUnionOrganization,
       workplaceName,
       disputeStartDate,
       fileIds: {

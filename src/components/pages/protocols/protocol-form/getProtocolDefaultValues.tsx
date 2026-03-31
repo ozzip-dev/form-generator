@@ -10,6 +10,7 @@ export const getProtocolDefaultValues = (
       ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
       : "",
     tradeUnionName: protocol?.tradeUnionName ?? "",
+    tradeUnionOrganization: protocol?.tradeUnionOrganization ?? "",
     workplaceName: protocol?.workplaceName ?? "",
     demands: protocol?.demands ?? [],
     disputeReason: protocol?.disputeReason ?? {

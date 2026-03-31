@@ -23,6 +23,7 @@ const ProtocolDetails = (props: Props) => {
     demands,
     disputeStartDate,
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
   } = protocol;
 
@@ -48,6 +49,10 @@ const ProtocolDetails = (props: Props) => {
       value: tradeUnionName,
     },
     {
+      label: "Organizacja zakładowa:",
+      value: tradeUnionOrganization,
+    },
+    {
       label: "Nazwa przedsiębiorstwa:",
       value: workplaceName,
     },
@@ -57,7 +62,7 @@ const ProtocolDetails = (props: Props) => {
     },
     {
       label: "Konkretne żądania:",
-      value: demands.join(", "),
+      value: demands?.join(", ") || "-",
     },
   ];
 

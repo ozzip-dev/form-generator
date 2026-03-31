@@ -12,6 +12,7 @@ export const handleEditProtocol = async (
     branch,
     demands = [],
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
     disputeStartDate,
     disputeReason,
@@ -23,6 +24,7 @@ export const handleEditProtocol = async (
       demands,
       disputeReason,
       tradeUnionName,
+      tradeUnionOrganization,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
     });

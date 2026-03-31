@@ -12,6 +12,7 @@ export const handleAddProtocol = async (
   const {
     branch,
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
     disputeStartDate,
     disputeReason,
@@ -24,6 +25,7 @@ export const handleAddProtocol = async (
       disputeReason,
       demands,
       tradeUnionName,
+      tradeUnionOrganization,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
     });

@@ -16,6 +16,11 @@ export const protocolFormSchema = z.object({
     .trim()
     .min(2, { message: "Min. 2 znaki" })
     .max(100, { message: "Maks. 100 znaków" }),
+  tradeUnionOrganization: z
+    .string()
+    .trim()
+    .min(2, { message: "Min. 2 znaki" })
+    .max(100, { message: "Maks. 100 znaków" }),
   disputeStartDate: z
     .string()
     .trim()

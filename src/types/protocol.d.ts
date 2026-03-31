@@ -15,6 +15,7 @@ interface ProtocolData {
   disputeReason: Record<string, string>; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
   demands: string[]; // konkretne żądania
   tradeUnionName: string; // nazwa związku
+  tradeUnionOrganization: string; // organizacja zakładowa
   workplaceName: string; // nazwa zakładu
   fileIds: Record<ProtocolFileCategory, string[]>;
 }
@@ -40,6 +41,7 @@ export type ProtocolInsertData = {
   disputeReason: Record<string, string>;
   demands: string[];
   tradeUnionName: string;
+  tradeUnionOrganization: string;
   workplaceName: string;
   disputeStartDate: string;
 };
