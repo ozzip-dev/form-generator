@@ -53,11 +53,13 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
 
   return (
     <Card className="mx-auto mt-16 h-[20rem] w-full overflow-hidden !p-0 md:w-2/3">
-      <UploadFileForm
-        {...{
-          onFileUploaded,
-        }}
-      />
+      <span className="*:py-auto *:px-sm">
+        <UploadFileForm
+          {...{
+            onFileUploaded,
+          }}
+        />
+      </span>
     </Card>
   );
 };
