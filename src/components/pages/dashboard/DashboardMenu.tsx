@@ -12,7 +12,7 @@ const dashboardLink = { text: "Strona główna", link: "/dashboard" };
 const moderatorNavLinks: NavMenuLink[] = [
   // dashboardLink, // TODO: zostawiam dla admina, przemyśleć i ew. zmienić
   { text: "Formularze", link: "/forms/list" },
-  { text: "Protokoły", link: "/protocols/add" },
+  { text: "Protokoły", link: "/protocols/list" },
   { text: "Forum", link: "/forum/list" },
   { text: "Ustawienia", link: "/settings/user-settings" },
 ];
