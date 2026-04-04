@@ -4,7 +4,14 @@ import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
-const headers = ["Branża", "Nazwa związku", "Nazwa zakładu", "Początek sporu"];
+
+const headers = [
+  "Branża",
+  "Nazwa związku",
+  "Nazwa zakładu",
+  "Początek sporu",
+  "Przyczyna sporu",
+];
 
 type Props = {
   filters: ProtocolFilters;
@@ -12,7 +19,7 @@ type Props = {
 };
 
 const ProtocolList = ({
-  filters: { text = "", fromDate, toDate, sortOrder },
+  filters: { text = "", fromDate, toDate, sortOrder, disputeReason = "" },
   protocols,
 }: Props) => {
   const getDisputeTime = (protocol: ProtocolSerialized) =>
@@ -30,10 +37,17 @@ const ProtocolList = ({
 
   const filteredResults = protocols
     .filter(
-      ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
+      ({
+        branch,
+        tradeUnionName,
+        workplaceName,
+        disputeStartDate,
+        disputeReason: protocolDisputeReason,
+      }) =>
         isSearchTextEqual(text, branch, tradeUnionName, workplaceName) &&
         (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
-        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true),
+        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true) &&
+        (disputeReason ? protocolDisputeReason[disputeReason] : true),
     )
     .sort((a, b) =>
       isAscending(sortOrder)

@@ -17,7 +17,7 @@ export type ProtocolFilters = {
   fromDate: string;
   toDate: string;
   sortOrder: SortOrder;
-  // disputeReasons : string[] - checkbox group
+  disputeReason: string;
 };
 
 export const filtersDefault: ProtocolFilters = {
@@ -25,7 +25,7 @@ export const filtersDefault: ProtocolFilters = {
   fromDate: "",
   toDate: "",
   sortOrder: SortOrder.Ascending,
-  // disputeReasons = ''
+  disputeReason: "",
 };
 
 // TODO: move utils to file utils
@@ -46,7 +46,7 @@ export const mapFileExtensionName = (type: string): string => {
 export const mapDisputeReason: Record<string, string> = {
   workTime: "Czas pracy",
   safetyConditions: "Standardy BHP",
-  wages: "Wysokoć płac",
+  wages: "Wysokość płac",
   workStandards: "Normy pracy",
   other: "Inne",
 };

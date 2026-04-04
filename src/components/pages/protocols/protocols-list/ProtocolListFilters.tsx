@@ -3,7 +3,9 @@
 import { Button, Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { FormProvider, useForm } from "react-hook-form";
-import { filtersDefault, ProtocolFilters } from "../utils";
+import { filtersDefault, mapDisputeReason, ProtocolFilters } from "../utils";
+import { useEffect } from "react";
+import FloatingLabel from "@/components/shared/inputs/input-fields/FloatingLabel";
 
 const dataSearchInput = [
   {
@@ -31,6 +33,13 @@ const dataSelectOptions = [
   { label: "Od najnowszych", value: "descending" },
 ];
 
+const disputeReasonOptions = Object.entries(mapDisputeReason).map(
+  ([key, label]) => ({
+    label,
+    value: key,
+  }),
+);
+
 type Props = {
   filters: ProtocolFilters;
   setFilters: (filters: ProtocolFilters) => void;
@@ -38,12 +47,17 @@ type Props = {
 
 const ProtocolListFilters = ({ filters, setFilters }: Props) => {
   const methods = useForm({
-    defaultValues: {},
+    defaultValues: filters,
   });
 
-  const { register } = methods;
+  const { register, reset } = methods;
+
+  useEffect(() => {
+    reset(filters);
+  }, [filters, reset]);
 
   const onFilterChange = (name: string, value: string): void => {
+    console.log(name, value);
     setFilters({
       ...filters,
       [name]: value,
@@ -59,18 +73,41 @@ const ProtocolListFilters = ({ filters, setFilters }: Props) => {
             register={register}
             onChange={onFilterChange}
           />
-          <div className="sm:flex sm:flex-wrap gap-2 lg:gap-8 sm:items-center sm:justify-center">
+          <div className="gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center lg:gap-8">
             <InputFields
               inputsData={dataDatesInputs}
               register={register}
               onChange={onFilterChange}
             />{" "}
-            <div className="sm:w-[15rem]">
+            <div className="relative w-[15rem]">
+              <FloatingLabel
+                name="disputeReason"
+                floatingLabel="Przyczyna sporu"
+                required={false}
+              />
+              <SelectFieldControler
+                name="disputeReason"
+                defaultValue=""
+                options={[
+                  { label: "Wybierz", value: "" },
+                  ...disputeReasonOptions,
+                ]}
+                onChangeAction={onFilterChange}
+                className="sm:!mt-0 sm:!pb-0"
+              />
+            </div>
+            <div className="relative ml-0 sm:ml-sm sm:w-[15rem]">
+              <FloatingLabel
+                name="sortOrder"
+                floatingLabel="Sortuj"
+                required={false}
+              />
               <SelectFieldControler
                 name="sortOrder"
                 defaultValue="ascending"
                 options={dataSelectOptions}
                 onChangeAction={onFilterChange}
+                className="sm:!mt-0 sm:!pb-0"
               />
             </div>
             <Button

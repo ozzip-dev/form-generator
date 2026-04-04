@@ -15,6 +15,7 @@ import { isProtocolAuthor } from "@/helpers/protocolHelpers";
 import { UserSerialized } from "@/types/user";
 import { useUser } from "@/context/UserContextProvider";
 import RemoveProtocolBtn from "./RemoveProtocolBtn";
+import { mapDisputeReason } from "../utils";
 
 type Props = {
   protocol: ProtocolSerialized;
@@ -48,14 +49,26 @@ const ProtocolListItem = (props: Props) => {
     null,
   );
 
-  const { _id, branch, tradeUnionName, workplaceName, disputeStartDate } =
-    props.protocol;
+  const {
+    _id,
+    branch,
+    tradeUnionName,
+    workplaceName,
+    disputeStartDate,
+    disputeReason,
+  } = props.protocol;
+
+  const disputeReasons = Object.values(disputeReason)
+    .filter(Boolean)
+    .map((reason) => mapDisputeReason[reason])
+    .join(", ");
 
   const dataProtocolsList = {
     "Branża:": branch,
     "Nazwa związku:": tradeUnionName,
     "Nazwa zakładu:": workplaceName,
-    "Data sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
+    "Początek sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
+    "Przyczyna sporu": disputeReasons,
   };
 
   const isAuthor = user && isProtocolAuthor(user, props.protocol);
@@ -64,7 +77,7 @@ const ProtocolListItem = (props: Props) => {
     <div className="relative">
       <div className="items-center md:flex">
         <div className="md:w-full">
-          <ResponsiveList listItems={dataProtocolsList} />
+          <ResponsiveList listItems={dataProtocolsList} truncateText={false} />
         </div>
 
         <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[27rem]">
