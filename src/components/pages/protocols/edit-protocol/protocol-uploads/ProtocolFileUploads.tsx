@@ -4,6 +4,7 @@ import { ProtocolFileCategory } from "@/types/protocol";
 import { useState } from "react";
 import ProtocolUploadsMenu from "./ProtocolUploadsMenu";
 import ProtocolUploadsPanel from "./ProtocolUploadsPanel";
+import { MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 
 const ProtocolFileUploads = () => {
   const [visibleCategory, setVisibleCategory] =
@@ -15,7 +16,7 @@ const ProtocolFileUploads = () => {
       <div className="pb-md">
         Dołącz pliki w odpowiedniej kategorii. Dopuszczalne formaty to{" "}
         <b>.pdf</b>, <b>.png</b>, <b>.jpg</b>/<b>.jpeg</b> oraz <b>.bmp</b>.
-        Maksymalny rozmiar jednego pliku to <b>1MB</b>.
+        Maksymalny rozmiar jednego pliku to <b>{MAX_FILE_SIZE_MB}MB</b>.
       </div>
       <div className="flex flex-wrap gap-x-6 gap-y-2 pb-8">
         <ProtocolUploadsMenu

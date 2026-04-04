@@ -4,7 +4,7 @@ import { Button, DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { useCallback, useTransition } from "react";
 import { Accept, FileRejection, useDropzone } from "react-dropzone";
-import Card from "./Card";
+import { MAX_FILE_SIZE_B, MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 
 type Props = {
   onFileUploaded: (file: File) => Promise<void>;
@@ -41,7 +41,7 @@ const UploadFileForm = ({
     (rejectedFiles: FileRejection[]) => {
       if (rejectedFiles.length === 0) return;
 
-      const toManyFiles = rejectedFiles.find((file) => {
+      const tooManyFiles = rejectedFiles.find((file) => {
         return file.errors[0].code === "too-many-files";
       });
 
@@ -49,7 +49,7 @@ const UploadFileForm = ({
         return file.errors[0].code === "file-too-large";
       });
 
-      if (toManyFiles) {
+      if (tooManyFiles) {
         toast({
           title: "Zbyt dużo plików",
           description: "Maksymalnie 3 pliki",
@@ -59,7 +59,7 @@ const UploadFileForm = ({
       if (fileTooLarge) {
         toast({
           title: "Plik zbyt duży",
-          description: "Maksymalny rozmiar pliku to 1MB",
+          description: `Maksymalny rozmiar pliku to ${MAX_FILE_SIZE_MB}MB`,
           variant: "error",
         });
       }
@@ -71,7 +71,7 @@ const UploadFileForm = ({
     onDrop,
     onDropRejected,
     maxFiles: 5,
-    maxSize: 1024 * 1024,
+    maxSize: MAX_FILE_SIZE_B,
     accept: acceptedExtentions,
   });
 

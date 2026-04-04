@@ -4,6 +4,7 @@ import { uploadFileAction } from "@/actions/file/uploadFileAction";
 import { addProtocolFileAction } from "@/actions/protocol";
 import { Card, UploadFileForm } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { MAX_FILE_SIZE_B, MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
 
 type Props = {
@@ -19,10 +20,10 @@ const ProtocolUploadFileForm = ({ category, protocol }: Props) => {
       To jest sprawdzane z poziomu UploadFileForm, 
       ale gdyby kiedyś max. rozmiary miały się rónić to zostawię
     */
-    if (file.size > 1024 * 1024) {
+    if (file.size > MAX_FILE_SIZE_B) {
       toast({
         title: "Błąd",
-        description: "Plik jest zbyt duży (max 1MB)",
+        description: `Plik jest zbyt duży (max ${MAX_FILE_SIZE_MB}MB)`,
         variant: "error",
       });
       return;
