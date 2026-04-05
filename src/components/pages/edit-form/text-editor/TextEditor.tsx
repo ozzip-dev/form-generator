@@ -129,6 +129,7 @@ const TextEditor = (props: Props) => {
   };
 
   useAutoLoader(isPending);
+  const remaining = MAX_CHARS - characters;
 
   return (
     <div className="">
@@ -153,6 +154,9 @@ const TextEditor = (props: Props) => {
         >
           {characters}/{MAX_CHARS}
         </span>
+        <div role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </div>
         <Button
           message="Zapisz"
           type="button"
@@ -164,6 +168,11 @@ const TextEditor = (props: Props) => {
         <div role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </div>{" "}
+        <div role="status" aria-live="polite" className="sr-only">
+          {remaining > 0
+            ? `Pozostało ${remaining} znaków`
+            : "Osiągnięto maksymalny limit znaków"}
+        </div>
       </div>
     </div>
   );
