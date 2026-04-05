@@ -32,6 +32,7 @@ const FormTemplateTrigger = (props: Props) => {
         message={props.title}
         variant="ghost"
         className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white !text-black transition hover:!bg-accent_light md:rounded-lg"
+        ariaLabel={props.title}
       />
 
       {state?.error && (

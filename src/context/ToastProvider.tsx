@@ -13,7 +13,7 @@ type ToastContextType = {
 };
 
 export const ToastContext = createContext<ToastContextType | undefined>(
-  undefined
+  undefined,
 );
 
 type Props = {
@@ -31,7 +31,7 @@ export const ToastProvider = (props: Props) => {
           (p) =>
             p.title === toast.title &&
             p.description === toast.description &&
-            p.variant === toast.variant
+            p.variant === toast.variant,
         )
       ) {
         return prev;
@@ -47,7 +47,7 @@ export const ToastProvider = (props: Props) => {
     <ToastContext.Provider value={{ toast }}>
       {props.children}
 
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 z-[101]">
+      <div className="fixed bottom-4 right-4 z-50 z-[101] flex flex-col gap-2">
         {toasts.map((toast) => {
           let bgColor = "bg-font_light";
           if (toast.variant === "success") bgColor = "bg-accent";
@@ -56,8 +56,13 @@ export const ToastProvider = (props: Props) => {
           return (
             <div
               key={toast.id}
-              className={`transform transition-all duration-300 px-4 py-3 rounded-sm shadow-lg text-white min-w-[250px] max-w-sm opacity-0 translate-y-4 animate-toast-in ${bgColor}`}
+              className={`min-w-[250px] max-w-sm translate-y-4 transform animate-toast-in rounded-sm px-4 py-3 text-white opacity-0 shadow-lg transition-all duration-300 ${bgColor}`}
+              role="alert"
+              aria-live="assertive"
             >
+              <span className="sr-only">
+                {toast.title}. {toast.description}
+              </span>
               <h4 className="font-semibold">{toast.title}</h4>
               {toast.description && (
                 <p className="text-sm opacity-90">{toast.description}</p>

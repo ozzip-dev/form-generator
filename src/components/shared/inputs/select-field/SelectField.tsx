@@ -130,7 +130,7 @@ const SelectField = ({
           id={name}
           type="button"
           disabled={disabled}
-          aria-label={`${label || name}, current selection: ${selectedOption?.label || placeholder}`}
+          aria-label={`${label || "Wybór opcji"}, wybrane: ${selectedOption?.label || placeholder}`}
           aria-haspopup="listbox"
           aria-expanded={open}
           onClick={() => !disabled && setOpen((o) => !o)}
@@ -161,7 +161,7 @@ const SelectField = ({
                 }}
                 role="option"
                 tabIndex={focusedIndex === idx ? 0 : -1}
-                aria-label={`Select ${label || name}: ${option.label}`}
+                aria-label={`Wybierz ${label || "opcję"}: ${option.label}`}
                 aria-selected={option.value === selectedValue}
                 onClick={() => !option.disabled && handleSelect(option.value)}
                 onKeyDown={(e) => handleOptionKeyDown(e, idx)}

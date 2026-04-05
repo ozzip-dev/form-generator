@@ -41,29 +41,34 @@ const MenuBar = ({
       onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
       btnName: "heading3",
       icon: "heading",
+      ariaLabel: "Nagłówek",
     },
     {
       onClick: () => editor.chain().focus().setParagraph().run(),
       btnName: "paragraph",
       icon: "text-height",
+      ariaLabel: "Paragraf",
     },
     {
       onClick: () =>
         handleClick(() => editor.chain().focus().toggleSmall().run()),
       btnName: "smallText",
       icon: "t-solid",
+      ariaLabel: "Mały tekst",
     },
     {
       onClick: () =>
         handleClick(() => editor.chain().focus().toggleBold().run()),
       btnName: "bold",
       icon: "bold",
+      ariaLabel: "Pogrubienie",
     },
     {
       onClick: () =>
         handleClick(() => editor.chain().focus().toggleItalic().run()),
       btnName: "italic",
       icon: "italic",
+      ariaLabel: "Kursywa",
     },
 
     {
@@ -81,6 +86,7 @@ const MenuBar = ({
       },
       btnName: "link",
       icon: "link",
+      ariaLabel: "Uwtórz link",
     },
     {
       onClick: () =>
@@ -95,18 +101,20 @@ const MenuBar = ({
         }),
       btnName: "highlight",
       icon: "highlighter",
+      ariaLabel: "Podkreślenie",
     },
     {
       onClick: () => editor.chain().focus().unsetAllMarks().clearNodes().run(),
       btnName: "clear-formatting",
       icon: "text-slash",
+      ariaLabel: "Usuń formatowanie",
     },
   ];
 
   return (
     <div className="control-group flex items-center">
       <div className="button-group flex gap-2">
-        {createBtnsData.map(({ onClick, btnName, icon }, idx) => (
+        {createBtnsData.map(({ onClick, btnName, icon, ariaLabel }, idx) => (
           <Button
             key={idx}
             type="button"
@@ -123,20 +131,11 @@ const MenuBar = ({
                 size={15}
               />
             }
+            ariaLabel={ariaLabel}
             variant="ghost"
           />
         ))}
       </div>
-
-      {displaySaveButton && (
-        <Button
-          message="Zapisz"
-          type="button"
-          onClickAction={handleEditDescription}
-          className="!text-bold ml-auto !text-sm !text-accent"
-          variant="ghost"
-        />
-      )}
     </div>
   );
 };

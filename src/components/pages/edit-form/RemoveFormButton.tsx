@@ -1,7 +1,7 @@
 "use client";
 
 import { removeFormAction } from "@/actions/edit-form/edit-form-input/removeFormAction";
-import { Button, Icon } from "@/components/shared";
+import { Button } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
 import { use } from "react";

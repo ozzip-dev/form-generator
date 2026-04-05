@@ -48,6 +48,7 @@ export default async function FormLink(props: Props) {
       <Link
         href={`/forms/${props.form._id}/edit`}
         className={`flex h-[13rem] w-full items-center justify-center rounded-md border px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
+        aria-label={`Formularz: ${props.form.title ?? "Brak tytułu"}`}
       >
         <div className={textColor}>
           <Icon

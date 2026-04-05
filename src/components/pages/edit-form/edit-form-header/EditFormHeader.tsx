@@ -95,6 +95,7 @@ export default function EditFormHeader(props: Props) {
 
   const handleSwitch = () => {
     setLoading("fullscreen", true);
+
     startTransition(async () => {
       if (!formId) return;
       await toggleDisplayAuthorEmailAction(formId);

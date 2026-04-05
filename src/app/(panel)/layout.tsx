@@ -21,13 +21,20 @@ export default async function DashboardLayout({
       <ModalContextProvider>
         <UserContextProvider userPromise={userPromise}>
           {user && isModerator(user) && <IsUserModal />}
-          <div className="h-full flex flex-col">
+          <div className="flex h-full flex-col">
             <Header>
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
                 <DashboardTopBar />
               </SuspenseErrorBoundary>
             </Header>
-            <main className="flex-1 overflow-y-auto">{children}</main>
+            <main
+              className="flex-1 overflow-y-auto"
+              id="main-content"
+              tabIndex={-1}
+              role="main"
+            >
+              {children}
+            </main>
           </div>
         </UserContextProvider>
       </ModalContextProvider>

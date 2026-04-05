@@ -763,7 +763,7 @@ export const formTemplates: Form[] = [
   {
     id: TemplateFormId.TRAVEL,
     title: "Zapisy na wyjazd [...]",
-    templateTitle: "Wyjazd oragnizacyjny",
+    templateTitle: "Wyjazd organizacyjny",
     description:
       "Jeżeli jesteś zaintersowany wyjazdem [....] przekaż swoje dane kontaktowe.",
     ...getCreatedUpdatedDates(),

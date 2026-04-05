@@ -23,7 +23,7 @@ const InputCheckboxOther = (props: Props) => {
       <input
         id={props.name}
         type="text"
-        aria-label={`Enter other ${props.label || props.name}: e.g. 'Other option', 'Custom response'`}
+        aria-label={`Podak inną odpowiedź ${props.label || props.name}`}
         placeholder="Inna odpowiedź"
         disabled={props.isSubmitting}
         value={inputValue}

@@ -8,6 +8,11 @@ import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/form/created-form/CreatedForm";
 import FormDescription from "@/components/shared/inputs/FormDescription";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Opublikowany formularz",
+};
 
 type Props = { params: Promise<{ createdFormId: string; url: string }> };
 

@@ -13,7 +13,7 @@ export default async function PrivacyLayout({
   if (!session) redirect("/login");
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <div className="shrink-0">
         <Header>
           <div className="ml-auto w-fit">
@@ -21,7 +21,14 @@ export default async function PrivacyLayout({
           </div>
         </Header>
       </div>
-      <main className="flex-1 pb-md overflow-y-auto">{children}</main>
+      <main
+        className="flex-1 overflow-y-auto pb-md"
+        id="main-content"
+        tabIndex={-1}
+        role="main"
+      >
+        {children}
+      </main>
     </div>
   );
 }

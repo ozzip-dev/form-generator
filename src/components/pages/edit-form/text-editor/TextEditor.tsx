@@ -12,6 +12,7 @@ import MenuBar from "./MenuBar";
 import Paragraph from "@tiptap/extension-paragraph";
 
 import { Mark, mergeAttributes } from "@tiptap/core";
+import { Button } from "@/components/shared";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
@@ -58,6 +59,7 @@ type Props = {
 
 const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description ?? "");
+  const [statusMessage, setStatusMessage] = useState("");
   const [isPending, startTransition] = useTransition();
 
   const editor = useEditor({
@@ -101,6 +103,7 @@ const TextEditor = (props: Props) => {
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
   const handleEditDescription = () => {
+    setStatusMessage("Zapis opisu");
     if (!editor) return;
 
     const text = editor.getText().trim();
@@ -114,9 +117,11 @@ const TextEditor = (props: Props) => {
         await props?.editAction(props.formId, props.inputId, {
           description: editorContent,
         });
+        setStatusMessage("Opis zapisany");
       } else {
         if (!props?.editAction) return;
         await props?.editAction(props.formId, { description: editorContent });
+        setStatusMessage("Opis zapisany");
       }
 
       props.printDescriptionInput && props.printDescriptionInput();
@@ -138,7 +143,7 @@ const TextEditor = (props: Props) => {
           className="texEditorPlaceholder bg-white text-sm"
         />
       </div>
-      <div className="flex justify-end text-xs">
+      <div className="flex justify-between text-xs">
         <span
           className={
             characters >= MAX_CHARS
@@ -148,6 +153,17 @@ const TextEditor = (props: Props) => {
         >
           {characters}/{MAX_CHARS}
         </span>
+        <Button
+          message="Zapisz"
+          type="button"
+          onClickAction={handleEditDescription}
+          className="!text-bold ml-auto !text-sm !text-accent"
+          variant="ghost"
+          ariaLabel="Zapisz opis"
+        />
+        <div role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </div>{" "}
       </div>
     </div>
   );

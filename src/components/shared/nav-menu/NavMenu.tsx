@@ -33,7 +33,7 @@ const NavMenu = (props: Props) => {
   return (
     <>
       {props.variant === "mobile" ? (
-        <div className="p-4">
+        <nav className="p-4">
           <ul className="flex flex-col gap-8">
             {props.links.map(({ text, link, sameTab }) => (
               <MenuLink
@@ -44,7 +44,7 @@ const NavMenu = (props: Props) => {
               />
             ))}
           </ul>
-        </div>
+        </nav>
       ) : (
         <div className="flex items-center justify-center md:justify-between">
           <div>
@@ -57,17 +57,19 @@ const NavMenu = (props: Props) => {
               />
             )}
           </div>
-          <ul className="flex items-center gap-6 sm:gap-10">
-            {props.links.map(({ text, link, sameTab }) => (
-              <MenuLink
-                key={link}
-                {...{ text, link }}
-                level={props.level}
-                isActive={isLinkActive(link)}
-                sameTab={sameTab}
-              />
-            ))}
-          </ul>
+          <nav>
+            <ul className="flex items-center gap-6 sm:gap-10">
+              {props.links.map(({ text, link, sameTab }) => (
+                <MenuLink
+                  key={link}
+                  {...{ text, link }}
+                  level={props.level}
+                  isActive={isLinkActive(link)}
+                  sameTab={sameTab}
+                />
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </>

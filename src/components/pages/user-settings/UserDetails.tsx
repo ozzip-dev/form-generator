@@ -29,12 +29,16 @@ const UserDetails = (props: Props) => {
     <>
       <div className="">
         <Card>
-          <SectionHeader message="Dane kontaktowe:" />
+          <SectionHeader message="Dane kontaktowe:" headerTag="h1" />
 
           {dataUserDetails.map(({ header, detail }) => {
             return (
-              <DetailsPrinter key={header} label={header}
-                value={detail} labelClassName="w-[22rem]" />
+              <DetailsPrinter
+                key={header}
+                label={header}
+                value={detail}
+                labelClassName="w-[22rem]"
+              />
             );
           })}
         </Card>
@@ -43,7 +47,7 @@ const UserDetails = (props: Props) => {
           message="Edytuj"
           type="button"
           onClickAction={props.handlePrintForm}
-          className="m-auto w-full sm:w-fit mt-10"
+          className="m-auto mt-10 w-full sm:w-fit"
           variant="primary-rounded"
         />
       </div>
