@@ -100,6 +100,7 @@ The application was developed with grant support received in the grant competiti
 * Dynamic routing
 * Validations - client side, server side
 * Debouncing
+* Upload / download files
 * HTTP requests state messages / error boundaries
 * RWD
 * WCAG
