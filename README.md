@@ -102,6 +102,7 @@ The application was developed with grant support received in the grant competiti
 * Debouncing
 * HTTP requests state messages / error boundaries
 * RWD
+* WCAG
 
 
 ## Technologies
