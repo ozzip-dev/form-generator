@@ -60,7 +60,13 @@ A  full-stack application to support trade union organizations with digital tool
 
 #### Discussion forum
 - Connect with other union members.  
-- Exchange ideas, discuss strategies, and collaborate on common goals.  
+- Exchange ideas, discuss strategies, and collaborate on common goals.
+  
+  <img   width="400" 
+    height="200"
+     alt=""
+     src="https://github.com/user-attachments/assets/7d6389f1-8f81-42c7-adf4-22d9186b4534" />
+
 
 
 <br/>
