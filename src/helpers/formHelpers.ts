@@ -14,6 +14,10 @@ export function isDisabled(form: Form | FormCreated | FormSerialized): boolean {
   return form.state === "disabled";
 }
 
+export function isTemplate(form: Form | FormCreated | FormSerialized): boolean {
+  return form.state === "template";
+}
+
 export function isUserAuthor(
   form: Form | FormSerialized,
   userId: string,
