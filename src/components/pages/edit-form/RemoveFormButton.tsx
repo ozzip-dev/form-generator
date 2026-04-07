@@ -23,7 +23,7 @@ function RemoveFormButton(props: Props) {
       type="button"
       variant="primary-rounded"
       message="Usuń formularz"
-      className="size-fit"
+      className="ml-auto size-fit"
       onClickAction={() =>
         openModal({
           action: () => {

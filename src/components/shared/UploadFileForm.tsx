@@ -15,7 +15,19 @@ type Props = {
 const UploadFileForm = ({
   onFileUploaded,
   // text, // TODO: bedziemy tego uzywac?
-  acceptedExtentions = { "image/*": [], "application/pdf": [] },
+  acceptedExtentions = {
+    "image/*": [],
+    "application/pdf": [],
+    ".docx": [],
+    ".xlsx": [],
+    ".xls": [],
+    ".odt": [],
+    ".doc": [],
+    ".rtf": [],
+    ".txt": [],
+    ".ods": [],
+    ".csv": [],
+  },
 }: Props) => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();

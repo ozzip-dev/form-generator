@@ -28,7 +28,6 @@ import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
-import { confirmAction } from "@/helpers/confirmAction";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {

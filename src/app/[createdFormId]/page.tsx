@@ -37,6 +37,9 @@ const FormPage = async (props: Props) => {
         <div className="flex h-full flex-col justify-between overflow-y-auto">
           {isDisabled(form) ? (
             <div className="container my-4 !max-w-[800px]">
+              <p className="mb-5 text-center text-sm text-font_light">
+                Formularz nieaktywny
+              </p>
               <h1 className="mb-8 text-lg font-bold">{form.title}</h1>
               <FormDescription
                 description={form.disabledText || ""}

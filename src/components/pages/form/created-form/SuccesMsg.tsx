@@ -1,4 +1,4 @@
-import { Button, Card } from "@/components/shared";
+import {  Card } from "@/components/shared";
 import Header from "@/components/shared/Header";
 import { Dispatch, SetStateAction } from "react";
 
@@ -24,11 +24,7 @@ const SuccesMsg = (props: Props) => {
           <div className="mb-10 text-center text-lg font-semibold">
             Formularz został przesłany
           </div>
-          <Button
-            message="Wróć do formularza"
-            onClickAction={closeSucces}
-            className="m-auto"
-          />
+          
         </Card>
       </div>
     </div>

@@ -54,9 +54,9 @@ export const mapDisputeReason: Record<string, string> = {
 export const mapFileCategory: Record<ProtocolFileCategory, string> = {
   demands: "Żądania wszczynające spór",
   negotiationMeetings: "Rokowania - spotkania",
-  negotiationDiscrepancy: "Rokowania - rozbieności",
+  negotiationDiscrepancy: "Rokowania - rozbieżności",
   mediationMeetings: "Mediacje - spotkania",
-  mediationDiscrepancy: "Mediacje - rozbieności",
+  mediationDiscrepancy: "Mediacje - rozbieżności",
   agreement: "Porozumienie kończące spór",
   strike: "Strajk",
   other: "Inne",
