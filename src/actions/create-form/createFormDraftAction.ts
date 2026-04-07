@@ -14,6 +14,9 @@ const isEmpty = (templateId: string) => templateId === "empty";
 const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
   const formsCount = await db.collection("form").countDocuments({
     createdBy: userId,
+    state: {
+      $in: ["active", "draft"],
+    },
   });
 
   return formsCount >= maxFormCount;
@@ -23,7 +26,7 @@ const checkFormLimitError = async (
   userId: ObjectId,
 ): Promise<string | null> => {
   if (await hasReachedFormLimit(userId)) {
-    return `Maksymalnie ${maxFormCount}`;
+    return `Limit osiągnięty: ${maxFormCount}`;
   }
   return null;
 };

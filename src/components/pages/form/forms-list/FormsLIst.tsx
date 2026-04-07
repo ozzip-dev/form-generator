@@ -14,7 +14,7 @@ const FormsLIst = async () => {
       <div className="w-full items-center md:flex">
         <SectionHeader message="Twoje formularze" />
         <div className="mb-7 mt-auto text-center text-xs md:ml-4 md:text-left">
-          maksymalnie {formCountLimit} formularzy
+          maksymalnie {formCountLimit} szkiców i aktywnych formularzy
         </div>
       </div>
 

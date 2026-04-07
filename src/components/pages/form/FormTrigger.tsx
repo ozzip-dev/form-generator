@@ -41,7 +41,6 @@ const FormTrigger = () => {
       {state?.error ? (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>
-          <div className="text-2xs">formularzy</div>
         </div>
       ) : (
         <div className="mt-4 px-4 text-center">Nowy formularz</div>

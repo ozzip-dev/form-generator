@@ -37,7 +37,6 @@ const FormTemplateTrigger = (props: Props) => {
       {state?.error && (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>
-          <div className="text-2xs">formularzy</div>
         </div>
       )}
     </>
