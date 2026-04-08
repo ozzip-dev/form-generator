@@ -18,6 +18,11 @@ import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 import { getSubmissionCount } from "@/services/result-service";
 import { requireUser } from "@/services/user-service";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Edycja formularza",
+};
 
 type Props = { params: Promise<{ formId: string }> };
 

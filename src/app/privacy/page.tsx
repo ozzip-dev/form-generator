@@ -1,6 +1,11 @@
 import ConfirmPrivacyBtn from "@/components/pages/privacy/ConfirmPrivacyBtn";
 import ConfirmPrivacyText from "@/components/pages/privacy/ConfirmPrivacyText";
 import SectionHeader from "@/components/shared/SectionHeader";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Polityka prywatności",
+};
 
 const PrivacyPolicyPage = async () => {
   return (

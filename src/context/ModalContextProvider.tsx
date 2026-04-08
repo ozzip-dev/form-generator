@@ -14,14 +14,13 @@ import { useActionState } from "react";
 import ModalWrapper from "@/components/shared/ModalWrapper";
 import { Button } from "@/components/shared";
 
-
 type ModalConfig = {
   action?: (...args: any[]) => void | Promise<void>;
   header: ReactNode;
   confirmBtnMessage?: string;
   component?:
-  | ((props: { close: () => void }) => React.ReactNode)
-  | React.ReactNode;
+    | ((props: { close: () => void }) => React.ReactNode)
+    | React.ReactNode;
 };
 
 type ModalContextType = {
@@ -32,11 +31,13 @@ const ModalContext = createContext<ModalContextType | null>(null);
 
 export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
   const [config, setConfig] = useState<ModalConfig | null>(null);
+  const [statusMessage, setStatusMessage] = useState("");
   const justFinished = useRef(false);
 
   const [_, action, isPending] = useActionState(async () => {
     if (!config?.action) return;
     await config.action();
+    setStatusMessage(`Dane zapisane`);
   }, undefined);
 
   const close = () => setConfig(null);
@@ -66,18 +67,18 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
         {config?.component ? (
           typeof config.component === "function" ? (
             <div className="p-8">
-              <div className="text-center text-lg mb-10">{config?.header}</div>
+              <div className="mb-10 text-center text-lg">{config?.header}</div>
               {config.component({ close })}
             </div>
           ) : (
             <div className="p-8">
-              <div className="text-center text-lg mb-10">{config?.header}</div>
+              <div className="mb-10 text-center text-lg">{config?.header}</div>
               {config.component}
             </div>
           )
         ) : (
           <div className="p-8">
-            <div className="text-center text-lg mb-10">{config?.header}</div>
+            <div className="mb-10 text-center text-lg">{config?.header}</div>
 
             <div className="flex justify-center gap-8">
               <Button
@@ -86,7 +87,6 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
                 disabled={isPending}
                 className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
               />
-
               <Button
                 message={config?.confirmBtnMessage}
                 onClickAction={() => {
@@ -96,6 +96,9 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
                 }}
                 isLoading={isPending}
               />
+              <div role="status" aria-live="polite" className="sr-only">
+                {statusMessage}
+              </div>{" "}
             </div>
           </div>
         )}

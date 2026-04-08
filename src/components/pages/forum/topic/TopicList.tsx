@@ -32,7 +32,7 @@ const TopicList = (props: Props) => {
   return (
     <div className="container">
       <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
-        <div>Kategorie tematów </div>
+        <h1>Kategorie tematów </h1>
         <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
           {Object.values(TopicCategory).map((category) => (
             <Button

@@ -1,3 +1,9 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Dane kontaktowe administratora",
+};
+
 const AdminContactPage = () => {
   return (
     <div className="h-full overflow-y-auto">

@@ -8,8 +8,8 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
 });
 export const metadata: Metadata = {
-  title: "Form Generator",
-  description: "IP Form Generator App",
+  title: "Formy pracy",
+  description: "Generator formularzy dla związków zawodowych",
   icons: "/favicon.png",
 };
 
@@ -21,6 +21,9 @@ export default function RootLayout({
   return (
     <html lang="pl" className="h-full overflow-hidden">
       <body className={`${poppins.className} h-full overflow-hidden`}>
+        <a href="#main-content" className="skip-link">
+          Przejdź do głównej treści
+        </a>
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

@@ -10,7 +10,7 @@ const CreatedFormTopImage = ({ headerFileData }: Props) => {
       <div className="relative aspect-[16/6] max-h-[16rem] w-full overflow-hidden rounded-md border md:rounded-lg">
         <Image
           src={`data:image/png;base64,${headerFileData}`}
-          alt="Nagłówek formularza"
+          alt=""
           fill
           className="object-cover"
           priority

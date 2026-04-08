@@ -69,6 +69,12 @@ export const LoaderContextProvider = ({ children }: Props) => {
         </div>
       )}
 
+      <div role="status" aria-live="polite" className="sr-only">
+        {visible.fullscreen && "Zapis danych..."}
+        {visible.small && "Zapis danych..."}
+        {!visible.small && !visible.fullscreen && "Dane zapisane"}
+      </div>
+
       {children}
     </LoaderContext.Provider>
   );

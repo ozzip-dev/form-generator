@@ -122,7 +122,7 @@ const RadioGroupField = (props: Props) => {
                     value={option.label}
                     checked={isChecked}
                     tabIndex={focusedIndex === idx ? 0 : -1}
-                    aria-label={`Select ${option.label}`}
+                    aria-label={`Wybierz ${option.label}`}
                     aria-describedby={
                       errorMsg ? `${props.name}-error` : undefined
                     }

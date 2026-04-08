@@ -12,7 +12,7 @@ const ProtocolFileUploads = () => {
 
   return (
     <div className="container pt-16">
-      <div className="py-md text-xl">Krok 2: dodaj dokumenty</div>
+      <h2 className="py-md text-xl">Krok 2: dodaj dokumenty</h2>
       <div className="pb-md">
         Dołącz pliki w odpowiedniej kategorii. Dopuszczalne formaty to{" "}
         <b>.pdf</b>, <b>.png</b>, <b>.jpg</b>/<b>.jpeg</b> oraz <b>.bmp</b>.

@@ -1,6 +1,11 @@
 import { SuspenseErrorBoundary } from "@/components/shared";
 import { getDetailedTopic } from "@/services/forum-service";
 import TopicContainer from "@/components/pages/forum/topic/TopicContainer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Wpisy na dany temat",
+};
 
 type Props = { params: Promise<{ topicId: string }> };
 

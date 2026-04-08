@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, DataLoader } from "@/components/shared";
+import { DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { useCallback, useTransition } from "react";
 import { Accept, FileRejection, useDropzone } from "react-dropzone";
@@ -15,7 +15,19 @@ type Props = {
 const UploadFileForm = ({
   onFileUploaded,
   // text, // TODO: bedziemy tego uzywac?
-  acceptedExtentions = { "image/*": [], "application/pdf": [] },
+  acceptedExtentions = {
+    "image/*": [],
+    "application/pdf": [],
+    ".docx": [],
+    ".xlsx": [],
+    ".xls": [],
+    ".odt": [],
+    ".doc": [],
+    ".rtf": [],
+    ".txt": [],
+    ".ods": [],
+    ".csv": [],
+  },
 }: Props) => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -89,18 +101,16 @@ const UploadFileForm = ({
 
         <input
           {...getInputProps()}
-          aria-label="Upload file: e.g. 'Contract.pdf', 'Photo.jpg'"
+          aria-label="Prześlij plik (np. Obraz.pdf, Obraz.jpg)"
+          placeholder="aaaa"
         />
 
         {isDragActive && <p> Upuść plik w tym miejscu </p>}
 
-        {!isDragActive && (
-          <Button
-            type="button"
-            message="Wybierz / upuść plik z komputera"
-            variant="primary-rounded"
-          />
-        )}
+        {!isDragActive && <p> Wybierz / upuść plik z komputera </p>}
+      </div>
+      <div role="status" aria-live="polite" className="sr-only">
+        {isPending ? "Trwa przesyłanie pliku..." : ""}
       </div>
     </>
   );

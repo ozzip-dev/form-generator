@@ -2,14 +2,15 @@ import { moveInputUpAction } from "@/actions/edit-form/edit-form-input/moveInput
 import Icon from "@/components/shared/icons/Icon";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "../../../shared";
 
 type Props = {
   inputId: string;
+  order: number;
 };
 
-const MoveInputUpBtn = ({ inputId }: Props) => {
+const MoveInputUpBtn = ({ inputId, order }: Props) => {
   const { formId } = useParams();
   const [isPending, startTransition] = useTransition();
 
@@ -22,15 +23,22 @@ const MoveInputUpBtn = ({ inputId }: Props) => {
   };
 
   return (
-    <Button
-      type="button"
-      onClickAction={handleMoveUp}
-      icon={
-        <Icon icon="chevron-down-solid-full" size={20} className="rotate-180" />
-      }
-      variant="ghost"
-      ariaLabel="Przenieś pole do góry"
-    />
+    <div>
+      {" "}
+      <Button
+        type="button"
+        onClickAction={handleMoveUp}
+        icon={
+          <Icon
+            icon="chevron-down-solid-full"
+            size={20}
+            className="rotate-180"
+          />
+        }
+        variant="ghost"
+        ariaLabel={`Przenieś pole formularza numer ${order + 1} do góry`}
+      />
+    </div>
   );
 };
 export default MoveInputUpBtn;

@@ -33,7 +33,7 @@ const InputField = (props: Props) => {
         id={name}
         name={name}
         type={type}
-        aria-label={`Enter ${label || name}: e.g. '${label || name} example'`}
+        aria-label={`${label || props.floatingLabel || name}`}
         placeholder={props.floatingLabel ? " " : placeholder}
         defaultValue={defaultValue ?? ""}
         disabled={props.isLoading?.[name] || props.isSubmitting}

@@ -1,4 +1,4 @@
-import { DiagramType, GroupedAnswer } from "@/types/result";
+import { GroupedAnswer } from "@/types/result";
 import AnswersDisplayed from "./AnswersDisplayed";
 import { isInputTypeCheckbox } from "@/helpers/inputHelpers";
 import { FormInput } from "@/types/input";
@@ -14,7 +14,6 @@ import {
 
 type Props = {
   result: GroupedAnswer;
-  diagrams: DiagramType[];
   title: string;
   idx: number;
 };
@@ -23,17 +22,7 @@ const AnswerResults = (props: Props) => {
   const { answers, header, type, id } = props.result;
   const sortedAnswers = answers.sort((a, b) => b.count - a.count);
 
-  const mappedAnswers = sortedAnswers.map(({ answer, count }) => ({
-    value: count,
-    label: answer,
-  }));
-
-  const diagramIds: string[] = props.diagrams
-    .filter(({ selected }) => selected)
-    .map(({ value }) => value);
-
   const isCheckbox = isInputTypeCheckbox({ type } as FormInput);
-  const isDiagramSelected = (id: string) => diagramIds.includes(id);
 
   const exportPdf = () => {
     const node = document.querySelector(`#results-${id}`);

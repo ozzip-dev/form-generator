@@ -26,11 +26,13 @@ type Props = {
 
 const InputError = (props: Props) => {
   return (
-    <div 
+    <div
       id={props.nameId ? `${props.nameId}-error` : undefined}
-      className="text-2xs text-error absolute left-2 -bottom-[1.7rem]"
+      className="absolute -bottom-[1.7rem] left-2 text-2xs text-error"
+      role="alert"
+      aria-live="assertive"
     >
-      {props?.errorMsg}
+      {props.errorMsg || "\u00A0"}{" "}
     </div>
   );
 };

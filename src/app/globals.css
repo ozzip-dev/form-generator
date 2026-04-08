@@ -52,6 +52,20 @@ body {
   font-size: var(--fs-md);
 }
 
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: black;
+  color: white;
+  padding: 8px;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
 /* util classes */
 .shadow-border-box {
   @apply space-y-2 rounded-md border border-default bg-bg_light shadow-default md:rounded-lg;

@@ -2,53 +2,40 @@
 
 import { useState, useRef } from "react";
 import { disableFormAction } from "@/actions/form/disableFormAction";
-import { Button } from "@/components/shared";
+import { Button, Card } from "@/components/shared";
 import TextEditor from "../text-editor/TextEditor";
-import { confirmAction } from "@/helpers/confirmAction";
+import { useModal } from "@/context/ModalContextProvider";
 
 type Props = {
   formId: string;
 };
 
 function SetFormDisabledForm({ formId }: Props) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
   const editorContentRef = useRef<string>("");
+  const { openModal } = useModal();
 
   const handleCancel = () => {
-    setIsFormOpen(false);
+    setIsEditorOpen(false);
     editorContentRef.current = "";
-  };
-
-  const handleDisableClick = async () => {
-    await confirmAction({
-      action: async () => {
-        await disableFormAction(formId, editorContentRef.current);
-        setIsFormOpen(false);
-        editorContentRef.current = "";
-      },
-      confirmText: "Czy na pewno dezaktywować formularz?",
-      yesText: "Wykonaj",
-    });
   };
 
   return (
     <>
-      {!isFormOpen ? (
+      {!isEditorOpen ? (
         <Button
           type="button"
           variant="primary-rounded"
-          message="Dezaktywacja"
-          className="size-fit"
-          onClickAction={() => setIsFormOpen(true)}
+          message="Zamknij opublikowany formularz"
+          className="ml-auto size-fit"
+          onClickAction={() => setIsEditorOpen(true)}
         />
       ) : (
-        <div className="w-full space-y-4 rounded border border-gray-200 bg-white p-4">
+        <Card className="w-full space-y-4 rounded border border-gray-200 bg-white p-4">
           <div className="w-full">
             <h3 className="mb-3 text-sm font-semibold">
-              Wpisany tekst będzie się wyświetlał na stronie formularza.
-              Wypełnienie go po dezaktywacji będzie niemoliwe. Autor/Autorka
-              nadal będzie mieć dostęp do wyników oraz moliwość ich eksportu.
-              (opcjonalne)
+              Wpisany tekst będzie wyświetlany pod adresem formularza. Po
+              zamknięciu formularza wyniki wciąż będą dostępne.
             </h3>
             <TextEditor
               formId={formId}
@@ -71,12 +58,31 @@ function SetFormDisabledForm({ formId }: Props) {
             <Button
               type="button"
               variant="primary-rounded"
-              message="Dezaktywuj"
+              message="Zamknij opublikowany formularz"
               className="h-fit"
-              onClickAction={handleDisableClick}
+              onClickAction={() => {
+                openModal({
+                  action: async () => {
+                    await disableFormAction(formId, editorContentRef.current);
+                    setIsEditorOpen(false);
+                    editorContentRef.current = "";
+                  },
+                  header: (
+                    <>
+                      Czy zamknąć formularz?
+                      <br />
+                      <div className="font-semibold">
+                        Użytkownicy nie będą mogli przesyłać odpowiedzi, ale
+                        wyniki będą wciąż dostępne (do czasu usunięcia
+                        formularza)
+                      </div>
+                    </>
+                  ),
+                });
+              }}
             />
           </div>
-        </div>
+        </Card>
       )}
     </>
   );

@@ -53,7 +53,7 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
     <div>
       {/* TODO: Te same filtry co w Forum. Zmienić/ostylowc w obu */}
       <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
-        <div>Typy formularzy: </div>
+        <h1>Typy formularzy: </h1>
         {formTypesWithLabels.map(({ label, value }) => (
           <Button
             key={value}
