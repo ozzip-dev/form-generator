@@ -13,13 +13,9 @@ const FormPreviewPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
 
-<<<<<<< HEAD
   const { authorEmail, headerFileData } = !isTemplate(form)
     ? await getFormAdditionalData(formId)
     : {};
-=======
-  const { authorEmail, headerFileData } = await getFormAdditionalData(formId);
->>>>>>> wcag
 
   return (
     <div className="flex h-full flex-col justify-between">
