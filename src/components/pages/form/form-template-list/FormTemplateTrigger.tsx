@@ -38,7 +38,7 @@ const FormTemplateTrigger = (props: Props) => {
       />
 
       <Link
-        href={`/forms/${props._id}/preview`}
+        href={`/${props._id}`}
         target="_blank"
         className="btn-primary w-fit rounded-sm !bg-white !px-3 !py-2 !text-accent"
       >

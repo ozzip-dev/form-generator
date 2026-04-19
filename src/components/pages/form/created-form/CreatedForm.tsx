@@ -28,6 +28,7 @@ import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
+import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -51,6 +52,7 @@ type Props = {
   headerFileData?: string;
   authorEmail?: string;
   isPreview?: boolean;
+  isTemplatePreview?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
@@ -155,6 +157,8 @@ const CreatedForm = (props: Props) => {
 
   return (
     <>
+      {props.isTemplatePreview && <CreatedFormTemplateHeader title={title} />}
+
       <div className="container my-4 !max-w-[800px]">
         <CreatedFormTopError isError={hasErrors} />
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
@@ -181,28 +185,32 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
-            <div className="my-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
-              <Button
-                message="Wyczyść"
-                type="button"
-                onClickAction={handleCleanForm}
-                className="w-full !bg-white !text-accent hover:!bg-accent hover:!text-white sm:w-fit"
-              />
+            {!props.isTemplatePreview && (
+              <div className="my-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
+                <Button
+                  message="Wyczyść"
+                  type="button"
+                  onClickAction={handleCleanForm}
+                  className="w-full !bg-white !text-accent hover:!bg-accent hover:!text-white sm:w-fit"
+                />
 
-              <Button
-                message="Zatwierdź"
-                disabled={props.isPreview ? true : false}
-                type="submit"
-                isLoading={isSubmitting}
-                className="w-full sm:w-fit"
-              />
-            </div>
+                <Button
+                  message="Zatwierdź"
+                  disabled={props.isPreview ? true : false}
+                  type="submit"
+                  isLoading={isSubmitting}
+                  className="w-full sm:w-fit"
+                />
+              </div>
+            )}
           </form>
         </FormProvider>
       </div>
       <footer className="flex justify-center pb-10 text-xs">
         <div className="container">
-          <ResultsMode resultVisibility={resultVisibility} />
+          {!props.isTemplatePreview && (
+            <ResultsMode resultVisibility={resultVisibility} />
+          )}
           {displayAuthorEmail && props.authorEmail && (
             <CreatedFormAuthor authorEmail={props.authorEmail} />
           )}
