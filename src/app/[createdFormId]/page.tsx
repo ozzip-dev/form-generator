@@ -1,5 +1,5 @@
 import { db } from "@/lib/mongo";
-import { isDraft, isDisabled } from "@/helpers/formHelpers";
+import { isDraft, isDisabled, isTemplate } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import { getFormAdditionalData, getFormBySlug } from "@/services/form-service";
@@ -23,9 +23,9 @@ const FormPage = async (props: Props) => {
   if (!form) redirect("/dashboard");
   if (isDraft(form)) redirect(`/forms/${createdFormId}/edit`);
 
-  const { authorEmail, headerFileData } = await getFormAdditionalData(
-    form._id?.toString() as string,
-  );
+  const { authorEmail, headerFileData } = !isTemplate(form)
+    ? await getFormAdditionalData(form._id?.toString() as string)
+    : {};
 
   return (
     <SuspenseErrorBoundary
@@ -50,6 +50,7 @@ const FormPage = async (props: Props) => {
             <CreatedForm
               form={serializeForm(form as Form)}
               {...{ authorEmail, headerFileData }}
+              isTemplatePreview={isTemplate(form)}
             />
           )}
         </div>
