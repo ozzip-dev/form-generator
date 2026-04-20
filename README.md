@@ -1,28 +1,29 @@
 # form-generator - Next/TS, MongoDB
 ## Generator formularzy sieciujący komisje związków zawodowych
 A  full-stack application to support trade union organizations with digital tools for collaboration, voting, and knowledge sharing. 
-<br/>
+<br/> <br/>
 **Admin** - manages registrations and grants moderator privileges. 
-<br/>
+
+
+<img  alt="" src="https://github.com/user-attachments/assets/a2fab507-5b4a-4889-a350-4e33dac91959"   width="400"  />
+<img  alt="chrome_5TuJxCtwTX" src="https://github.com/user-attachments/assets/b0567167-7ef9-48b2-8767-8a7621b3902a"   width="400"  />
+
+<br/> <br/>
+
 **Moderator** – after logging in, gains access to the following tools:
 
 #### Voting forms
 - Generate voting forms.
-  
-  <img 
-    src="https://github.com/user-attachments/assets/3d29f9aa-7fef-404c-ad07-5b1a1899e9eb" 
-    alt="" 
-    width="400" 
-    height="800"
-    />
+
+<img width="400" alt="chrome_ttynzkx4P0" src="https://github.com/user-attachments/assets/623a6437-05d7-4332-ba32-cc9c2e2d1d86" />
+
+
     
 - Collect responses directly from employees from form available under a unique public URLs.
-    <img 
-    src="https://github.com/user-attachments/assets/3ef9f914-c501-4f8d-9874-1b054744ed6e" 
-    alt="" 
-    width="400" 
-    height="200"
-  />
+
+
+ <img width="400"  alt="chrome_1TCh6WFTyp" src="https://github.com/user-attachments/assets/8cf79adc-5ddc-4693-9b36-7878575f3808" />
+
   
 - Manage and view all submissions in the moderator dashboard.
   
