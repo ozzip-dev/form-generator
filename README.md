@@ -16,7 +16,7 @@ A  full-stack application to support trade union organizations with digital tool
 - Generate voting forms.
 
 <img width="400" alt="chrome_ttynzkx4P0" src="https://github.com/user-attachments/assets/623a6437-05d7-4332-ba32-cc9c2e2d1d86" />
-
+<br/> <br/>
 
     
 - Collect responses directly from employees from form available under a unique public URLs.
