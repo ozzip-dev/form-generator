@@ -21,9 +21,9 @@ function RemoveProtocolBtn(props: Props) {
         openModal({
           action: () => removeProtocolAction(props.ProtocolId),
           header: "Usunąć protokół?",
+          confirmBtnMessage: "Usuń",
         })
       }
-      className=""
     />
   );
 }

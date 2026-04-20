@@ -78,6 +78,7 @@ function SetFormDisabledForm({ formId }: Props) {
                       </div>
                     </>
                   ),
+                  confirmBtnMessage: "Zamknij",
                 });
               }}
             />

@@ -9,7 +9,7 @@ import { UserSerialized } from "@/types/user";
 import { use, useState } from "react";
 import AddPostForm from "./AddPostForm";
 import { useToast } from "@/context/ToastProvider";
-import { confirmAction } from "@/helpers/confirmAction";
+import { useModal } from "@/context/ModalContextProvider";
 
 type Props = {
   topic: TopicSerialized;
@@ -20,6 +20,7 @@ const TopicActionButtons = (props: Props) => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [showPostForm, setShowPostForm] = useState<boolean>(false);
+  const { openModal } = useModal();
 
   const { userPromise } = useUser();
   const user: UserSerialized | null = use(userPromise);
@@ -77,9 +78,10 @@ const TopicActionButtons = (props: Props) => {
       if (!confirmText) {
         await action(id);
       } else {
-        await confirmAction({
+        openModal({
           action: () => action(id),
-          confirmText,
+          header: confirmText,
+          confirmBtnMessage: "Usuń",
         });
       }
     } catch (e) {

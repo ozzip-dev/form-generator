@@ -1,7 +1,7 @@
 import { Button, IconTrash } from "@/components/shared";
 import { ProtocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
 import { Control, Controller, FieldErrors } from "react-hook-form";
-import { confirmAction } from "@/helpers/confirmAction";
+import { useModal } from "@/context/ModalContextProvider";
 
 type DemandsFieldProps = {
   demandFields: Array<{ id: string }>;
@@ -20,6 +20,8 @@ const DemandsField = ({
   errors,
   isSubmitting,
 }: DemandsFieldProps) => {
+  const { openModal } = useModal();
+
   return (
     <div className="relative flex flex-col pb-[1.7rem] text-sm md:mt-[2.2rem] md:flex-row md:items-start">
       <div className="mb-1 mt-2 block w-[22rem] font-semibold md:mb-0 md:mr-4 md:text-right">
@@ -62,12 +64,7 @@ const DemandsField = ({
               ariaLabel="Usuń żądanie"
               disabled={isSubmitting}
               onClickAction={() => {
-                confirmAction({
-                  confirmText: "Czy na pewno usunąć to żądanie?",
-                  action: () => removeDemand(idx),
-                  yesText: "Usuń",
-                  noText: "Anuluj",
-                });
+                removeDemand(idx);
               }}
             />
           </div>

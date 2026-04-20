@@ -37,6 +37,7 @@ function RemoveFormButton(props: Props) {
               <div className="font-semibold">{title} </div>
             </>
           ),
+          confirmBtnMessage: "Usuń",
         })
       }
     />

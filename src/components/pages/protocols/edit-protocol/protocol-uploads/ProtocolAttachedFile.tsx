@@ -2,7 +2,6 @@ import { removeProtocolFileAction } from "@/actions/protocol";
 import { Button, IconTrash } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
-import { confirmAction } from "@/helpers/confirmAction";
 import { FileSerialized } from "@/types/file";
 import { ProtocolFileCategory } from "@/types/protocol";
 
@@ -52,6 +51,7 @@ const ProtocolAttachedFile = (props: Props) => {
           openModal({
             action: removeFile,
             header: "Usunąć dokument?",
+            confirmBtnMessage: "Usuń",
           })
         }
       />

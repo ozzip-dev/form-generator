@@ -113,13 +113,7 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  // const confirmHandleSubmit = async (data: any) => {
-  //   await confirmAction({
-  //     action: () => onSubmit(data),
-  //     confirmText: "Czy na pewno wysłać wyniki?",
-  //   });
-  // };
-
+  
   const handleCleanForm = () => {
     reset();
   };
