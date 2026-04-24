@@ -1,17 +1,17 @@
 "use client";
 
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { FileSerialized } from "@/types/file";
 import ProtocolDetailsAttachedFile from "./ProtocolAttachedFile";
 
 type Props = {
-  files: Record<ProtocolFileCategory, (FileSerialized | null)[]>;
-  category: ProtocolFileCategory;
+  files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]>;
+  category: ProtocolAttachmentCategory;
   header: string;
 };
 
 const ProtocolAttachedFileCategory = ({ files, category, header }: Props) => {
-  const categoryFiles = files[category as ProtocolFileCategory];
+  const categoryFiles = files[category as ProtocolAttachmentCategory];
 
   return (
     <div className="mb-sm flex flex-col gap-4">

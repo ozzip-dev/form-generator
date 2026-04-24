@@ -1,6 +1,6 @@
 "use client";
 
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { useState } from "react";
 import ProtocolUploadsMenu from "./ProtocolUploadsMenu";
 import ProtocolUploadsPanel from "./ProtocolUploadsPanel";
@@ -8,7 +8,7 @@ import { MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 
 const ProtocolFileUploads = () => {
   const [visibleCategory, setVisibleCategory] =
-    useState<ProtocolFileCategory>("demands");
+    useState<ProtocolAttachmentCategory>("demands");
 
   return (
     <div className="container pt-16">

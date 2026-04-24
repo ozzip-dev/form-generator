@@ -10,7 +10,7 @@ import {
 } from "@/lib/mongo";
 import {
   Protocol,
-  ProtocolFileCategory,
+  ProtocolAttachmentCategory,
   ProtocolInsertData,
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
@@ -72,7 +72,7 @@ export async function addFileToProtocol({
 }: {
   protocolId: string;
   fileId: string;
-  fileCategory?: ProtocolFileCategory;
+  fileCategory?: ProtocolAttachmentCategory;
 }): Promise<void> {
   const pushQuery: string = `fileIds.${fileCategory}`;
 
@@ -93,7 +93,7 @@ export async function removeFileFromProtocol({
 }: {
   protocolId: string;
   fileId: string;
-  fileCategory?: ProtocolFileCategory;
+  fileCategory?: ProtocolAttachmentCategory;
 }): Promise<void> {
   const pullQuery: string = `fileIds.${fileCategory}`;
 
@@ -119,7 +119,7 @@ export async function mapFilesToProtocol(
   const serialiedProtocol = protocol;
   const { fileIds } = serialiedProtocol;
 
-  const files: Record<ProtocolFileCategory, (FileSerialized | null)[]> = {
+  const files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]> = {
     agreement: [],
     demands: [],
     mediationDiscrepancy: [],
@@ -129,9 +129,9 @@ export async function mapFilesToProtocol(
     strike: [],
     other: [],
   };
-  const fileTypes: ProtocolFileCategory[] = Object.keys(
+  const fileTypes: ProtocolAttachmentCategory[] = Object.keys(
     fileIds,
-  ) as ProtocolFileCategory[];
+  ) as ProtocolAttachmentCategory[];
   for (const type of fileTypes) {
     for (const id of fileIds[type]) {
       try {

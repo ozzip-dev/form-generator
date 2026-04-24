@@ -1,7 +1,7 @@
 import { Binary, Document } from "mongodb";
 import { File, FileSerialized } from "./file";
 
-export type ProtocolFileCategory =
+export type ProtocolAttachmentCategory =
   | "demands"
   | "negotiationMeetings"
   | "negotiationDiscrepancy"
@@ -18,7 +18,7 @@ interface ProtocolData {
   tradeUnionName: string; // nazwa związku
   tradeUnionOrganization: string; // organizacja zakładowa
   workplaceName: string; // nazwa zakładu
-  fileIds: Record<ProtocolFileCategory, string[]>;
+  fileIds: Record<ProtocolAttachmentCategory, string[]>;
 }
 
 export interface Protocol extends ProtocolData {
@@ -48,5 +48,5 @@ export type ProtocolInsertData = {
 };
 
 export type ProtocolWithFilesSerialized = ProtocolSerialized & {
-  files: Record<ProtocolFileCategory, (FileSerialized | null)[]>;
+  files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]>;
 };

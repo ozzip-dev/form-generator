@@ -5,10 +5,10 @@ import { addProtocolFileAction } from "@/actions/protocol";
 import { Card, UploadFileForm } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { MAX_FILE_SIZE_B, MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
-import { ProtocolFileCategory, ProtocolSerialized } from "@/types/protocol";
+import { ProtocolAttachmentCategory, ProtocolSerialized } from "@/types/protocol";
 
 type Props = {
-  category: ProtocolFileCategory;
+  category: ProtocolAttachmentCategory;
   protocol: ProtocolSerialized;
 };
 

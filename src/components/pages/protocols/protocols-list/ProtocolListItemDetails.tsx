@@ -2,7 +2,7 @@
 
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import {
-  ProtocolFileCategory,
+  ProtocolAttachmentCategory,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
 import { mapFileCategory } from "../utils";
@@ -26,7 +26,7 @@ const ProtocolListItemDetails = ({
         <ProtocolAttachedFileCategory
           key={key}
           files={files}
-          category={key as ProtocolFileCategory}
+          category={key as ProtocolAttachmentCategory}
           header={value}
         />
       ))}

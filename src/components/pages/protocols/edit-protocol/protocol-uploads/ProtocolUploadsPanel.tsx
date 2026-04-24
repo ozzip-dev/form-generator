@@ -1,12 +1,12 @@
 import { use } from "react";
 import { useProtocol } from "@/context/ProtocolContext";
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { fileCategories, mapFileCategory } from "../../utils";
 import ProtocolAttachedFile from "./ProtocolAttachedFile";
 import ProtocolUploadFileForm from "./ProtocolUploadFileForm";
 
 type Props = {
-  visibleCategory: ProtocolFileCategory;
+  visibleCategory: ProtocolAttachmentCategory;
 };
 
 const ProtocolUploadsPanel = (props: Props) => {

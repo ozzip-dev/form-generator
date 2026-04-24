@@ -3,12 +3,12 @@ import { Button, IconTrash } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { FileSerialized } from "@/types/file";
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 
 type Props = {
   file: Partial<FileSerialized>;
   protocolId: string;
-  fileCategory: ProtocolFileCategory;
+  fileCategory: ProtocolAttachmentCategory;
 };
 
 const ProtocolAttachedFile = (props: Props) => {

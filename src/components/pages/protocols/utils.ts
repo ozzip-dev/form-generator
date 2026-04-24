@@ -1,4 +1,4 @@
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 
 export enum SortOrder {
   Ascending = "ascending",
@@ -51,7 +51,7 @@ export const mapDisputeReason: Record<string, string> = {
   other: "Inne",
 };
 
-export const mapFileCategory: Record<ProtocolFileCategory, string> = {
+export const mapFileCategory: Record<ProtocolAttachmentCategory, string> = {
   demands: "Żądania wszczynające spór",
   negotiationMeetings: "Rokowania - spotkania",
   negotiationDiscrepancy: "Rokowania - rozbieżności",
@@ -62,7 +62,7 @@ export const mapFileCategory: Record<ProtocolFileCategory, string> = {
   other: "Inne",
 };
 
-export const fileCategories: ProtocolFileCategory[] = [
+export const fileCategories: ProtocolAttachmentCategory[] = [
   "demands",
   "negotiationMeetings",
   "negotiationDiscrepancy",

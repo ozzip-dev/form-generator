@@ -1,7 +1,7 @@
 "use server";
 
 import { addFileToProtocol } from "@/services/protocol-service";
-import { ProtocolFileCategory } from "@/types/protocol";
+import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 
 export async function addProtocolFileAction({
@@ -11,7 +11,7 @@ export async function addProtocolFileAction({
 }: {
   protocolId: string;
   fileId: string;
-  fileCategory: ProtocolFileCategory;
+  fileCategory: ProtocolAttachmentCategory;
 }): Promise<void> {
   try {
     await addFileToProtocol({
