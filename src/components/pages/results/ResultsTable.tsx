@@ -5,7 +5,7 @@ type Props = {
 
 const ResultsTable = async (props: Props) => {
   return (
-    <table className="w-max border-collapse text-sm">
+    <table className="mb-36 w-max border-collapse text-sm">
       <thead className="sticky top-0 z-10 bg-white">
         <tr className="*:p-sm">
           {props.inputHeaders?.map((header, idx) => (
