@@ -91,7 +91,7 @@ const UploadFileForm = ({
     <>
       <div
         {...getRootProps()}
-        className={`group relative flex h-full w-full items-center justify-center transition-colors ${isDragActive ? "bg-accent" : "bg-transparent"}`}
+        className={`group relative flex h-full w-full cursor-pointer items-center justify-center transition-colors hover:opacity-60 ${isDragActive ? "bg-accent" : "bg-transparent"}`}
       >
         {isPending && (
           <div className="bg-red/50 w-100 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
