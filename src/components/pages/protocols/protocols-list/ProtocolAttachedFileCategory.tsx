@@ -23,7 +23,7 @@ const ProtocolAttachedFileCategory = ({ files, category, header }: Props) => {
           <ProtocolDetailsAttachedFile key={i} {...file} />
         ) : (
           <div key={i}>Bledny plik</div>
-        )
+        ),
       )}
     </div>
   );

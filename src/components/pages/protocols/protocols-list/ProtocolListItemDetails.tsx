@@ -16,12 +16,12 @@ const ProtocolListItemDetails = ({
 }: ProtocolWithFilesSerialized) => {
   return (
     <Card>
-      <div className="hidden sm:flex gap-8 pb-sm text-grey_secondary text-sm">
+      <div className="text-grey_secondary hidden gap-8 pb-sm text-sm sm:flex">
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
         <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
 
-      <div className="text-md font-semibold pb-2">Pliki</div>
+      <div className="text-md pb-2 font-semibold">Pliki</div>
       {Object.entries(mapFileCategory).map(([key, value]) => (
         <ProtocolAttachedFileCategory
           key={key}

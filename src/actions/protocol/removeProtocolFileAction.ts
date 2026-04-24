@@ -12,14 +12,14 @@ import { revalidateTag } from "next/cache";
 export async function removeProtocolFileAction(
   protocolId: string,
   fileId: string,
-  fileCategory: ProtocolAttachmentCategory
+  fileCategory: ProtocolAttachmentCategory,
 ): Promise<void> {
   try {
     const user = await requireUser();
     const protocol = await findById<Protocol>(
       db,
       "protocol",
-      new ObjectId(protocolId)
+      new ObjectId(protocolId),
     );
 
     if (!protocol) throw new Error("Invalid id, protocol not found");
