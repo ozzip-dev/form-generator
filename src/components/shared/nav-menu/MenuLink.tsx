@@ -32,8 +32,7 @@ const MenuLink = ({
         <ButtonLink
           message={text}
           link={link}
-          target={sameTab ? "_self" : "_blank"}
-          rel="noopener noreferrer"
+          target={sameTab ? "_self" : "externalWindow"}
         />
       </div>
     </li>

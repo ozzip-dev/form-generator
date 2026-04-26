@@ -6,16 +6,16 @@ type Props = {
 
 const CreatedFormTopImage = ({ headerFileData }: Props) => {
   return (
-    <div className="mb-8 flex w-full justify-center">
-      <div className="relative aspect-[16/6] max-h-[16rem] w-full overflow-hidden rounded-md border md:rounded-lg">
-        <Image
-          src={`data:image/png;base64,${headerFileData}`}
-          alt=""
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+    <div className="mb-8 flex w-full justify-center overflow-hidden rounded-md border md:rounded-lg">
+      <Image
+        src={`data:image/png;base64,${headerFileData}`}
+        alt=""
+        width={0}
+        height={0}
+        sizes="100vw"
+        className="h-auto w-full max-w-full object-contain"
+        priority
+      />
     </div>
   );
 };
