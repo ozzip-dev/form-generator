@@ -30,3 +30,8 @@ export const defaultAttachments: Record<ProtocolAttachmentCategory, unknown[]> =
     strike: [],
     other: [],
   };
+
+export const parseUrl = (value: string) =>
+  value.startsWith("http://") || value.startsWith("https://")
+    ? value
+    : `https://${value}`;

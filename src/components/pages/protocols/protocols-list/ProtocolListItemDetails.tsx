@@ -13,6 +13,7 @@ const ProtocolListItemDetails = ({
   files,
   lastModifiedAt,
   uploadedAt,
+  links,
 }: ProtocolWithFilesSerialized) => {
   return (
     <Card>
@@ -21,11 +22,11 @@ const ProtocolListItemDetails = ({
         <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
 
-      <div className="text-md pb-2 font-semibold">Pliki</div>
       {Object.entries(mapFileCategory).map(([key, value]) => (
         <ProtocolAttachedFileCategory
           key={key}
           files={files}
+          links={links}
           category={key as ProtocolAttachmentCategory}
           header={value}
         />

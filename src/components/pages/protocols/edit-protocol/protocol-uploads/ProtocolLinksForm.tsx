@@ -1,4 +1,5 @@
 import { Button, IconTrash } from "@/components/shared";
+import { parseUrl } from "@/helpers/protocolHelpers";
 import { ProtocolAttachmentCategory } from "@/types/protocol";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -19,11 +20,6 @@ type Props = {
 const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
   const [draftLink, setDraftLink] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const parseUrl = (value: string) =>
-    value.startsWith("http://") || value.startsWith("https://")
-      ? value
-      : `https://${value}`;
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,11 +56,7 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
 
       {links.map((value, index) => (
         <div key={`${category}-${index}`} className="flex items-center gap-2">
-          <Link
-            href={parseUrl(value)}
-            target="_blank"
-            className="w-auto rounded-sm p-2"
-          >
+          <Link href={parseUrl(value)} target="_blank" className="w-auto p-2">
             {value}
           </Link>
 
