@@ -17,6 +17,7 @@ import {
 } from "@/types/protocol";
 import { File, FileSerialized } from "@/types/file";
 import { serializeFile, serializeProtocol } from "@/lib/serialize-utils";
+import { defaultAttachments } from "@/helpers/protocolHelpers";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -104,6 +105,48 @@ export async function removeFileFromProtocol({
   });
 }
 
+export async function addLinkToProtocol({
+  protocolId,
+  link,
+  category,
+}: {
+  protocolId: string;
+  link: string;
+  category: ProtocolAttachmentCategory;
+}): Promise<void> {
+  const pushQuery: string = `links.${category}`;
+
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $push: {
+      [pushQuery]: link,
+    },
+    $set: {
+      lastModifiedAt: new Date(),
+    },
+  });
+}
+
+export async function removeLinkFromProtocol({
+  protocolId,
+  link,
+  category,
+}: {
+  protocolId: string;
+  link: string;
+  category: ProtocolAttachmentCategory;
+}): Promise<void> {
+  const pullQuery: string = `links.${category}`;
+
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $pull: {
+      [pullQuery]: link,
+    },
+    $set: {
+      lastModifiedAt: new Date(),
+    },
+  });
+}
+
 export async function removeProtocol({
   protocolId,
 }: {
@@ -119,16 +162,11 @@ export async function mapFilesToProtocol(
   const serialiedProtocol = protocol;
   const { fileIds } = serialiedProtocol;
 
-  const files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]> = {
-    agreement: [],
-    demands: [],
-    mediationDiscrepancy: [],
-    mediationMeetings: [],
-    negotiationDiscrepancy: [],
-    negotiationMeetings: [],
-    strike: [],
-    other: [],
-  };
+  const files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]> =
+    defaultAttachments as Record<
+      ProtocolAttachmentCategory,
+      (FileSerialized | null)[]
+    >;
   const fileTypes: ProtocolAttachmentCategory[] = Object.keys(
     fileIds,
   ) as ProtocolAttachmentCategory[];

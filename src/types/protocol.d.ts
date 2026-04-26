@@ -19,6 +19,7 @@ interface ProtocolData {
   tradeUnionOrganization: string; // organizacja zakładowa
   workplaceName: string; // nazwa zakładu
   fileIds: Record<ProtocolAttachmentCategory, string[]>;
+  links: Record<ProtocolAttachmentCategory, string[]>;
 }
 
 export interface Protocol extends ProtocolData {
