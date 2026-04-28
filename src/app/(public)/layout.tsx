@@ -1,14 +1,68 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
+import { useState } from "react";
+import { Button, ButtonLink, Icon } from "@/components/shared";
+import { NavMenu } from "@/components/shared/nav-menu";
+import Header from "@/components/shared/Header";
+
+const links = [
+  { text: "Instrukcja Formularze", link: "/forms-doc" },
+  { text: "Instrukcja Protokoły", link: "/protocols-doc" },
+  { text: "Rejestracja", link: "/admin-contact" },
+];
 
 export default function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="h-full overflow-y-auto">
-      <div className="sticky top-0">menu</div>
+      <Header className="sticky top-0">
+        <div className="flex items-center gap-10">
+          <ButtonLink message="Formy Pracy" link="/" className="" />{" "}
+          <div className="flex items-center gap-4">
+            <Button
+              type="button"
+              className="text-white lg:hidden"
+              icon={
+                isMenuOpen ? (
+                  <Icon color="white" icon="xmark" size={20} />
+                ) : (
+                  <Icon color="white" icon="hamburger" size={20} />
+                )
+              }
+              onClickAction={() => setIsMenuOpen((prev) => !prev)}
+              variant="ghost"
+              ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+            />
+
+            <div
+              className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
+            >
+              <div className="px-6 pt-20">
+                <NavMenu links={links} depth={1} variant="mobile" />
+              </div>
+            </div>
+
+            {isMenuOpen && (
+              <div
+                className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
+                onClick={() => setIsMenuOpen(false)}
+              />
+            )}
+
+            <div className="hidden lg:block">
+              <NavMenu links={links} depth={1} />
+            </div>
+          </div>
+          <ButtonLink message="Logowanie" link="/login" className="ml-auto" />
+        </div>
+      </Header>
       <main className="">{children}</main>{" "}
       <footer className="bg-font_dark">
         <div className="container py-20 text-white">
