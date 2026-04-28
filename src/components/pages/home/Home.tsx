@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ButtonLink } from "@/components/shared";
+import { Button, ButtonLink } from "@/components/shared";
+import { useState } from "react";
+import Faq from "./Faq";
 
 const texts: { header: string; text: string }[] = [
   {
@@ -69,36 +71,300 @@ const Home = () => {
       </section>
 
       <section className="container">
-        <div className="container w-2/3 pb-20 pt-10">
-          <h2 className="text-center text-lg">
-            Narzędzie stworzone dla organizacji, które chcą działać szybko i
-            wspólnie podejmować decyzje
-          </h2>
-          <p className="mt-4 text-center">
-            Aplikacja pozwala na szybkie tworzenie formularzy i ankiet,
-            zbieranie opinii, organizowanie głosowań i wyborów online.
-          </p>
-        </div>
+        <div className="container pb-20 pt-16">
+          <div className="mx-auto w-4/5">
+            <h2 className="text-center text-lg">
+              Narzędzie stworzone dla organizacji, które chcą działać szybko i
+              wspólnie podejmować decyzje
+            </h2>
+            <p className="mt-4 text-center">
+              Aplikacja pozwala na szybkie tworzenie formularzy i ankiet,
+              zbieranie opinii, organizowanie głosowań i wyborów online.
+            </p>{" "}
+          </div>
 
-        <div className="sm:flex sm:flex-wrap sm:justify-center">
-          <div className="sm:w-1/4">
-            <div> aaaaaaaaaaaaaaaa</div>
-            <p className="text-center text-sm">
-              Twórz formularze w kilka minut bez wiedzy technicznej
-            </p>
+          <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                {" "}
+              </div>
+              <p className="text-center text-sm">
+                Twórz formularze w kilka minut bez wiedzy technicznej
+              </p>
+            </div>
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                {" "}
+              </div>
+              <p className="text-center text-sm">
+                Zbieraj odpowiedzi wyniki aktualizują się automatycznie
+              </p>
+            </div>
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                {" "}
+              </div>
+              <p className="text-center text-sm">
+                Analizuj wyniki i eksportuj raporty Excel, PDF, wykresy
+              </p>
+            </div>{" "}
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                {" "}
+              </div>
+              <p className="text-center text-sm">
+                Idealna dla organizacji związkowych i stowarzyszeń
+              </p>
+            </div>
           </div>
-          <div className="sm:w-1/4">
-            <div> aaaaaaaaaaaaaaaa</div>
-            <p className="text-center text-sm">
-              Twórz formularze w kilka minut bez wiedzy technicznej
-            </p>
+        </div>
+      </section>
+
+      <section className="bg-font_light">
+        <div className="container pb-20 pt-16">
+          <div className="mx-auto w-4/5">
+            <h2 className="text-center text-lg">Gotowe szablony formularzy</h2>
+            <p className="mt-4 text-center">
+              Gotowe szablony formularzy Zacznij od razu bez budowania od zera.
+              Wybierz gotowy formularz i dostosuj go do swojej organizacji.
+            </p>{" "}
           </div>
-          <div className="sm:w-1/4">
-            <div> aaaaaaaaaaaaaaaa</div>
-            <p className="text-center text-sm">
-              Twórz formularze w kilka minut bez wiedzy technicznej
-            </p>
+
+          <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center"> Ankieta pracownicza</p>
+              </div>
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce47fa76727f950a1e24"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center">Wybory sip</p>
+              </div>
+
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce47fa76727f950a1e25"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center">Wybory władz organizacji </p>
+              </div>
+
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce47fa76727f950a1e27"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>{" "}
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center"> Organizacja spotkania </p>
+              </div>
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce47fa76727f950a1e28"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center"> Referendum strajkowe </p>
+              </div>
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce47fa76727f950a1e26"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center"> Ulotkowanie</p>
+              </div>
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce48fa76727f950a1e2a"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
+            <div className="sm:flex-1">
+              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
+                <p className="text-center"> Wyjazd organizacyjny</p>
+              </div>
+              <ButtonLink
+                target="_blank"
+                message="Zobacz"
+                link="/69bfce48fa76727f950a1e29"
+                variant="primary-rounded"
+                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+              />
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section className="">
+        <div className="container pb-20 pt-16">
+          <div className="mx-auto w-4/5">
+            <h2 className="text-center text-lg">
+              Pełna kontrola nad sposobem głosowania
+            </h2>
+            <p className="mt-4 text-center">
+              Każda organizacja może dostosować sposób zbierania odpowiedzi — od
+              anonimowych ankiet po jawne głosowania członków. Dane pozostają w
+              Twojej organizacji – pełna prywatność
+            </p>{" "}
+          </div>
+          <div className="mt-28 flex flex-col-reverse gap-6 sm:flex-row">
+            <div className="flex-1 rounded-sm bg-slate-500 text-white">
+              image
+            </div>
+            <div className="flex-1 p-6">
+              <div className="mb-6 font-semibold">Głosowanie anonimowe</div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+          <div className="mt-28 flex flex-col gap-6 sm:flex-row">
+            <div className="flex-1 p-6">
+              <div className="mb-6 font-semibold">Głosowanie jawne</div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div className="flex-1 rounded-sm bg-slate-500 text-white">
+              image
+            </div>
+          </div>
+          <div className="mt-28 flex flex-col-reverse gap-6 sm:flex-row">
+            <div className="flex-1 rounded-sm bg-slate-500 text-white">
+              image
+            </div>
+            <div className="flex-1 p-6">
+              <div className="mb-6 font-semibold">
+                Głosowanie częściowo anonimowe
+              </div>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-font_light">
+        <div className="container pb-20 pt-16">
+          <div className="mx-auto w-4/5">
+            <h2 className="text-center text-lg">Jak to działa?</h2>
+            <p className="mt-4 text-center">
+              Od pomysłu do wyników w 4 krokach
+            </p>{" "}
+          </div>
+
+          <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                pierwszy
+              </div>
+              <p className="text-center text-sm">eeeeeeeeee</p>
+            </div>
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                drugi
+              </div>
+              <p className="text-center text-sm">eeeeeeeeee</p>
+            </div>
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                trzeci
+              </div>
+              <p className="text-center text-sm">eeeeeeeeeeeeee</p>
+            </div>{" "}
+            <div className="sm:w-[180px]">
+              <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500">
+                czwarty
+              </div>
+              <p className="text-center text-sm">eeeeeeeeee</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="">
+        <div className="container pb-20 pt-16">
+          <div className="mx-auto w-4/5">
+            <h2 className="text-center text-lg">
+              Zastosowania w organizacjach związkowych
+            </h2>
+            <p className="mt-4 text-center">
+              Zamiast maili i chaosu jeden uporżadkwoany system
+            </p>{" "}
+          </div>
+          <div className="mt-28 flex flex-col gap-6 md:flex-row">
+            <div className="flex-1 p-6">
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Zbieranie opinii o warunkach pracy</p>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Konsultacje w sprawie regulaminów</p>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Szybkie ankiety w zakładach pracy</p>
+              </div>
+            </div>
+            <div className="flex-1 p-6">
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Głosowanie nad akcją protestacyjną</p>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Organizacja spotkań i wydarzeń</p>
+              </div>
+              <div className="flex items-center gap-6">
+                <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
+                <p>Organizacja spotkań i wydarzeń</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-font_light">
+        <div className="container py-20">
+          <h2 className="mb-20 text-center text-lg">Często zadawane pytania</h2>
+          <Faq />
         </div>
       </section>
     </>
