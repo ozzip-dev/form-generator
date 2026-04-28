@@ -25,7 +25,7 @@
 
   --color-font_dark: rgba(66, 66, 66, 1);
   --color-font_light: #9b9b9b;
-  --color-error: rgba(255, 87, 87, 1);
+  --color-error: rgb(192, 0, 0);
 }
 
 @media (min-width: 500px) {
