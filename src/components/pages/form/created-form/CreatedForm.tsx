@@ -115,7 +115,6 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  
   const handleCleanForm = () => {
     reset();
   };

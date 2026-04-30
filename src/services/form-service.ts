@@ -356,10 +356,10 @@ export async function getFormAdditionalData(formId: string): Promise<{
     : null;
 
   const authorId = form.createdBy?.toString();
-  const formAuthor = await getUserById(authorId as string);
+  const formAuthor = authorId ? await getUserById(authorId as string) : null;
 
   return {
     headerFileData: file ? serializeFile(file)?.data : undefined,
-    authorEmail: formAuthor.email,
+    authorEmail: formAuthor?.email || "",
   };
 }
