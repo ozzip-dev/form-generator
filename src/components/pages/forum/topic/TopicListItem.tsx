@@ -1,6 +1,5 @@
 import { Button, Card } from "@/components/shared";
 import { TopicSerializedDetailed } from "@/types/forum";
-import Link from "next/link";
 import TopicHeader from "./TopicHeader";
 
 const TopicListItem = (topic: TopicSerializedDetailed) => {
@@ -13,9 +12,10 @@ const TopicListItem = (topic: TopicSerializedDetailed) => {
       </div>
       <div className="py-4">{description}</div>
       <div>({posts?.length || 0} odpowiedzi)</div>
-      <Link href={`/forum/${_id}`}>
+      {/* TODO PAWEL: using <a> instead of <Link> for caching reasons, get back to it */}
+      <a href={`/forum/${_id}`}>
         <Button variant="primary-rounded" message="Otwórz" className="mt-6" />
-      </Link>
+      </a>
     </Card>
   );
 };
