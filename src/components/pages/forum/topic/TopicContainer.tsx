@@ -3,7 +3,6 @@
 import { TopicSerializedDetailed } from "@/types/forum";
 import TopicActions from "./TopicActions";
 import TopicPosts from "../post/TopicPosts";
-import Link from "next/link";
 import { Button, Card } from "@/components/shared";
 import { useState } from "react";
 import TopicForm from "./TopicForm";
@@ -19,13 +18,14 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
 
   return (
     <div className="px-8">
-      <Link href="/forum">
+      {/* TODO PAWEL: using <a> instead of <Link> for caching reasons, get back to it */}
+      <a href={`/forum/list#${topic.category}`}>
         <Button
           message="<< Powrót do listy"
           variant="primary-rounded"
           className="mb-8"
         />
-      </Link>
+      </a>
 
       {!isFormPrinted && (
         <Card>
