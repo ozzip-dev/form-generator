@@ -36,9 +36,8 @@ const NavMenu = (props: Props) => {
         <nav className="m-auto w-fit text-font_dark">
           <ul className="flex flex-col">
             {props.links.map(({ text, link, sameTab }) => (
-              <div className="border-b py-16 last:border-none">
+              <div className="border-b py-16 last:border-none" key={link}>
                 <MenuLink
-                  key={link}
                   {...{ text, link }}
                   isActive={isLinkActive(link)}
                   sameTab={sameTab}
