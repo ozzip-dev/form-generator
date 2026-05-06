@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon } from "@/components/shared";
+import { Button, Card, Icon } from "@/components/shared";
 import { NavMenu } from "@/components/shared/nav-menu";
 import { useUser } from "@/context/UserContextProvider";
 import { isModerator } from "@/lib/utils";
@@ -47,13 +47,11 @@ const DashboardMenu = () => {
         ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
       />
 
-      <div
-        className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
+      <Card
+        className={`fixed left-28 top-[6.9rem] z-40 w-4/5 max-w-xs transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
       >
-        <div className="px-6 pt-20">
-          <NavMenu links={links} depth={1} variant="mobile" />
-        </div>
-      </div>
+        <NavMenu links={links} depth={1} variant="mobile" />
+      </Card>
 
       {isMenuOpen && (
         <div

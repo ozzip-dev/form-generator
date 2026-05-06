@@ -22,25 +22,23 @@ export default function PublicLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="h-full overflow-y-auto">
-      <Header className="sticky top-0">
+      <Header className="sticky top-0 bg-white">
         <div className="flex items-center gap-10">
-          <ButtonLink message="Formy Pracy" link="/" className="" />{" "}
           <div className="flex items-center gap-4">
             <Button
               type="button"
               className="text-white lg:hidden"
               icon={
                 isMenuOpen ? (
-                  <Icon color="white" icon="xmark" size={20} />
+                  <Icon color="black" icon="xmark" size={20} />
                 ) : (
-                  <Icon color="white" icon="hamburger" size={20} />
+                  <Icon color="black" icon="hamburger" size={20} />
                 )
               }
               onClickAction={() => setIsMenuOpen((prev) => !prev)}
               variant="ghost"
               ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
             />
-
             <div
               className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
             >
@@ -48,14 +46,13 @@ export default function PublicLayout({
                 <NavMenu links={links} depth={1} variant="mobile" />
               </div>
             </div>
-
             {isMenuOpen && (
               <div
                 className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
                 onClick={() => setIsMenuOpen(false)}
               />
             )}
-
+            <ButtonLink message="Formy Pracy" link="/" className="" />{" "}
             <div className="hidden lg:block">
               <NavMenu links={links} depth={1} />
             </div>

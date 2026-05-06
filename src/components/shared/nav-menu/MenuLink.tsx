@@ -3,6 +3,7 @@
 import { ButtonLink } from "@/components/shared";
 
 type Props = {
+  textColor?: string;
   text: string;
   link: string;
   sameTab?: boolean;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const MenuLink = ({
+  textColor = "text-white",
   text,
   link,
   sameTab = true,
@@ -20,13 +22,13 @@ const MenuLink = ({
   const isSub = level === "sub";
   const borderClass = isSub
     ? "border-accent text-accent"
-    : "border-font_dark text-white";
+    : "!text-font_dark !border-transparent";
 
   return (
     <li
       className={`shrink-0 ${
         isActive ? `border-b ${borderClass}` : "border-b border-transparent"
-      } ${isSub ? "" : "text-white"}`}
+      } ${isSub ? "" : textColor}`}
     >
       <div className="text-base_bold">
         <ButtonLink

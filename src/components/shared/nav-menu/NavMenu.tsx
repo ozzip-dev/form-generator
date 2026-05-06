@@ -33,15 +33,18 @@ const NavMenu = (props: Props) => {
   return (
     <>
       {props.variant === "mobile" ? (
-        <nav className="p-4">
-          <ul className="flex flex-col gap-8">
+        <nav className="m-auto w-fit text-font_dark">
+          <ul className="flex flex-col">
             {props.links.map(({ text, link, sameTab }) => (
-              <MenuLink
-                key={link}
-                {...{ text, link }}
-                isActive={isLinkActive(link)}
-                sameTab={sameTab}
-              />
+              <div className="border-b py-16 last:border-none">
+                <MenuLink
+                  key={link}
+                  {...{ text, link }}
+                  isActive={isLinkActive(link)}
+                  sameTab={sameTab}
+                  textColor="text-font_light"
+                />
+              </div>
             ))}
           </ul>
         </nav>
