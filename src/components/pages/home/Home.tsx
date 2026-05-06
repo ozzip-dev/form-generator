@@ -329,7 +329,7 @@ const Home = () => {
             </p>{" "}
           </div>
           <div className="mt-28 flex flex-col gap-6 md:flex-row">
-            <div className="flex-1 p-6">
+            <div className="ml-auto flex flex-1 flex-col gap-5 p-6">
               <div className="flex items-center gap-6">
                 <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
                 <p>Zbieranie opinii o warunkach pracy</p>
@@ -343,10 +343,10 @@ const Home = () => {
                 <p>Szybkie ankiety w zakładach pracy</p>
               </div>
             </div>
-            <div className="flex-1 p-6">
+            <div className="flex flex-1 flex-col gap-5 p-6">
               <div className="flex items-center gap-6">
                 <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-                <p>Głosowanie nad akcją protestacyjną</p>
+                <p>Głosowanie na temat akcji protestacyjnej</p>
               </div>
               <div className="flex items-center gap-6">
                 <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>

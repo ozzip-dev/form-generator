@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import { useState } from "react";
-import { Button, ButtonLink, Icon } from "@/components/shared";
+import { Button, ButtonLink, Card, Icon } from "@/components/shared";
 import { NavMenu } from "@/components/shared/nav-menu";
 import Header from "@/components/shared/Header";
 
@@ -21,47 +21,59 @@ export default function PublicLayout({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <div className="h-full overflow-y-auto">
-      <Header className="sticky top-0 bg-white">
-        <div className="flex items-center gap-10">
-          <div className="flex items-center gap-4">
-            <Button
-              type="button"
-              className="text-white lg:hidden"
-              icon={
-                isMenuOpen ? (
-                  <Icon color="black" icon="xmark" size={20} />
-                ) : (
-                  <Icon color="black" icon="hamburger" size={20} />
-                )
-              }
-              onClickAction={() => setIsMenuOpen((prev) => !prev)}
-              variant="ghost"
-              ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
-            />
-            <div
-              className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
-            >
-              <div className="px-6 pt-20">
-                <NavMenu links={links} depth={1} variant="mobile" />
+    <div className="flex h-full flex-col overflow-y-auto">
+      <Header className="sticky top-0">
+        <>
+          <div className="flex items-center gap-10">
+            <div className="flex items-center gap-4">
+              <Button
+                type="button"
+                className="text-white lg:hidden"
+                icon={
+                  isMenuOpen ? (
+                    <Icon color="black" icon="xmark" size={20} />
+                  ) : (
+                    <Icon color="black" icon="hamburger" size={20} />
+                  )
+                }
+                onClickAction={() => setIsMenuOpen((prev) => !prev)}
+                variant="ghost"
+                ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
+              />
+              <Card
+                className={`fixed left-10 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
+              >
+                <div className="px-16 md:px-0">
+                  <NavMenu links={links} depth={1} variant="mobile" />
+                </div>
+              </Card>
+              {isMenuOpen && (
+                <div
+                  className="fixed inset-0 top-[6.9rem] z-20 backdrop-blur-sm lg:hidden"
+                  onClick={() => setIsMenuOpen(false)}
+                />
+              )}
+              <ButtonLink
+                message="Formy Pracy"
+                link="/"
+                className="font-bold"
+              />{" "}
+              <div className="hidden lg:block">
+                <NavMenu links={links} depth={2} />
               </div>
             </div>
-            {isMenuOpen && (
-              <div
-                className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
-                onClick={() => setIsMenuOpen(false)}
-              />
-            )}
-            <ButtonLink message="Formy Pracy" link="/" className="" />{" "}
-            <div className="hidden lg:block">
-              <NavMenu links={links} depth={1} />
-            </div>
+            <ButtonLink
+              message="Logowanie"
+              link="/login"
+              variant="primary-rounded"
+              className="ml-auto !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
+            />
           </div>
-          <ButtonLink message="Logowanie" link="/login" className="ml-auto" />
-        </div>
+          {/* <div className="absolute bottom-0 left-0 z-10 h-7 w-full bg-white"></div> */}
+        </>
       </Header>
-      <main className="">{children}</main>{" "}
-      <footer className="bg-font_dark">
+      <main className="flex-1">{children}</main>{" "}
+      <footer className="mt-auto bg-font_dark">
         <div className="container py-20 text-white">
           <div>
             <p>OZZ Inicjatywa Pracownicza</p>
