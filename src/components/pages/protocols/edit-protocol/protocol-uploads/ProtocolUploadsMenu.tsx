@@ -17,8 +17,11 @@ const ProtocolUploadsMenu = (props: Props) => {
     return <div>Nie znaleziono protokołu</div>;
   }
 
-  const getButtonText = (category: ProtocolAttachmentCategory): string =>
-    `${mapFileCategory[category]}\n(pliki: ${protocol.fileIds[category]?.length || 0})`;
+  const getButtonText = (category: ProtocolAttachmentCategory): string => {
+    const fileCount = protocol.fileIds[category]?.length || 0;
+    const linkCount = protocol.links[category]?.length || 0;
+    return `${mapFileCategory[category]}\n(pliki: ${fileCount}, linki: ${linkCount})`;
+  };
 
   return (
     <ul className="flex flex-wrap justify-center gap-4 pb-8 md:justify-start">
