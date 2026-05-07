@@ -35,7 +35,12 @@ export async function getAllFiles(): Promise<FileSerialized[]> {
 export async function getFilesByFileIdsNoData(
   fileIdStrings: string[] = [],
 ): Promise<Partial<FileSerialized>[]> {
-  const fileIds = fileIdStrings.map((id) => new ObjectId(id));
+  const fileIds = fileIdStrings
+    .filter((id) => ObjectId.isValid(id))
+    .map((id) => new ObjectId(id));
+
+  if (!fileIds.length) return [];
+
   const files = await db
     .collection<File>("file")
     .find({ _id: { $in: fileIds as never[] } })
