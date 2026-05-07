@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { FileSerialized } from "@/types/file";
 import ProtocolDetailsAttachedFile from "./ProtocolAttachedFile";
-import { parseUrl } from "@/helpers/protocolHelpers";
+import ProtocolAttachedLink from "./ProtocolAttachedLink";
 
 type Props = {
   files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]>;
@@ -35,12 +34,11 @@ const ProtocolAttachedFileCategory = ({
           <div key={idx}>Bledny plik</div>
         ),
       )}
-
-      {categoryLinks.map((link, idx) => (
-        <Link key={idx} href={parseUrl(link)} target="_blank">
-          {link}
-        </Link>
-      ))}
+      <div className="pt-4">
+        {categoryLinks.map((link, idx) => (
+          <ProtocolAttachedLink key={idx} link={link} />
+        ))}
+      </div>
     </div>
   );
 };

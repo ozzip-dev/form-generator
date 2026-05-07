@@ -56,7 +56,11 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
 
       {links.map((value, index) => (
         <div key={`${category}-${index}`} className="flex items-center gap-2">
-          <Link href={parseUrl(value)} target="_blank" className="w-auto p-2">
+          <Link
+            href={parseUrl(value)}
+            target="_blank"
+            className="w-auto p-2 text-left underline decoration-accent underline-offset-2 hover:text-accent_dark"
+          >
             {value}
           </Link>
 
