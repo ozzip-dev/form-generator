@@ -6,7 +6,7 @@ import { NavMenuLink } from "@/types/shared";
 
 const protocolBasicItems: NavMenuLink[] = [
   { text: "Lista protokołów", link: `/protocols/list` },
-  { text: "Dodaj protokuł", link: "/protocols/add" },
+  { text: "Dodaj protokół", link: "/protocols/add" },
 ];
 
 const ProtocolsMenu = () => {
