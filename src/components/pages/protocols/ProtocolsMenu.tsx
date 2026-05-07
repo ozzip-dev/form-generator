@@ -4,13 +4,14 @@ import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { NavMenu } from "@/components/shared/nav-menu";
 import { NavMenuLink } from "@/types/shared";
 
+const protocolBasicItems: NavMenuLink[] = [
+  { text: "Lista protokołów", link: `/protocols/list` },
+  { text: "Dodaj protokuł", link: "/protocols/add" },
+];
+
 const ProtocolsMenu = () => {
   const protocolId = useSafeURLParam("protocolId");
 
-  const protocolBasicItems: NavMenuLink[] = [
-    { text: "Lista protokołów", link: `/protocols/list` },
-    { text: "Dodaj", link: "/protocols/add" },
-  ];
   const dataNavLinks = !protocolId
     ? protocolBasicItems
     : [
@@ -19,7 +20,7 @@ const ProtocolsMenu = () => {
       ];
 
   return (
-    <div className="py-8">
+    <div className="relative py-8">
       <NavMenu links={dataNavLinks} icon="protocols" level="sub" />
     </div>
   );

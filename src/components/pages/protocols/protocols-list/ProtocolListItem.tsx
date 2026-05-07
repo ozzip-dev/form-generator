@@ -8,7 +8,7 @@ import {
 import { startTransition, use, useActionState, useRef, useState } from "react";
 
 import { getProtocolDetailsAction } from "@/actions/protocol";
-import { Button, ButtonLink } from "@/components/shared";
+import { Button, ButtonLink, Icon, IconTrash } from "@/components/shared";
 import ResponsiveList from "@/components/shared/responsive-list/ResponsiveList";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 import { isProtocolAuthor } from "@/helpers/protocolHelpers";
@@ -80,20 +80,36 @@ const ProtocolListItem = (props: Props) => {
           <ResponsiveList listItems={dataProtocolsList} truncateText={false} />
         </div>
 
-        <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[27rem]">
+        <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[15%]">
           <Button
-            message={isOpen ? "Ukryj" : "Pokaż"}
+            icon={
+              isOpen ? (
+                <Icon
+                  icon="folder-open"
+                  size={20}
+                  color="var(--color-font_light)"
+                />
+              ) : (
+                <Icon
+                  icon="folder-closed"
+                  size={20}
+                  color="var(--color-accent)"
+                />
+              )
+            }
+            variant="ghost"
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
-            variant="primary-rounded"
           />
 
           {isAuthor && (
             <>
               <ButtonLink
-                message="Edytuj"
+                icon={
+                  <Icon icon="edit" size={20} color="var(--color-accent)" />
+                }
                 link={`/protocols/${_id}`}
-                className="btn-primary btn-primary-rounded !bg-accent text-white"
+                variant="ghost"
               />
 
               <RemoveProtocolBtn ProtocolId={props.protocol._id} />

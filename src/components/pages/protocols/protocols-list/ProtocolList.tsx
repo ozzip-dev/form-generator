@@ -5,13 +5,7 @@ import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 
-const headers = [
-  "Branża",
-  "Nazwa związku",
-  "Nazwa zakładu",
-  "Początek sporu",
-  "Przyczyna sporu",
-];
+const headers = ["Branża", "Związek", "Zakład", "Początek", "Przyczyna"];
 
 type Props = {
   filters: ProtocolFilters;
@@ -60,14 +54,20 @@ const ProtocolList = ({
       <div className="sticky top-0 z-10 w-full bg-white">
         <div className="md:flex">
           <ResponsiveListHeader headers={headers} />
-          <div className="md:w-[27rem]"></div>
+          <div className="md:w-[15%]"></div>
         </div>
       </div>
 
       <div className="my-8 flex flex-1 flex-col gap-4 text-sm">
-        {filteredResults.map((protocol, idx) => {
-          return <ProtocolListItem key={idx} protocol={protocol} />;
-        })}
+        {filteredResults.length === 0 ? (
+          <div className="mt-10 text-center">
+            Brak protokołów spełniających kryteria wyszukiwania
+          </div>
+        ) : (
+          filteredResults.map((protocol, idx) => (
+            <ProtocolListItem key={idx} protocol={protocol} />
+          ))
+        )}
       </div>
     </>
   );

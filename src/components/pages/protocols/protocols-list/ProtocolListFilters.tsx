@@ -4,8 +4,9 @@ import { Button, Card, InputFields } from "@/components/shared";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, mapDisputeReason, ProtocolFilters } from "../utils";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import FloatingLabel from "@/components/shared/inputs/input-fields/FloatingLabel";
+import { az } from "zod/v4/locales";
 
 const dataSearchInput = [
   {
@@ -43,80 +44,89 @@ const disputeReasonOptions = Object.entries(mapDisputeReason).map(
 type Props = {
   filters: ProtocolFilters;
   setFilters: (filters: ProtocolFilters) => void;
+  setAreOpenFilters?: Dispatch<SetStateAction<boolean>>;
 };
 
-const ProtocolListFilters = ({ filters, setFilters }: Props) => {
+const ProtocolListFilters = ({
+  filters,
+  setFilters,
+  setAreOpenFilters,
+}: Props) => {
   const methods = useForm({
     defaultValues: filters,
   });
 
   const { register, reset } = methods;
 
-  useEffect(() => {
-    reset(filters);
-  }, [filters, reset]);
-
   const onFilterChange = (name: string, value: string): void => {
-    console.log(name, value);
     setFilters({
       ...filters,
       [name]: value,
     });
+    name !== "text" && setAreOpenFilters && setAreOpenFilters((prev) => !prev);
+  };
+
+  const resetFilters = () => {
+    reset(filtersDefault);
+    setFilters(filtersDefault);
+    setAreOpenFilters && setAreOpenFilters((prev) => !prev);
   };
 
   return (
-    <Card className="mb-10">
+    <Card className="overflow-hidden !px-4">
       <FormProvider {...methods}>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            resetFilters();
+          }}
+        >
           <InputFields
             inputsData={dataSearchInput}
             register={register}
             onChange={onFilterChange}
           />
-          <div className="gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center lg:gap-8">
-            <InputFields
-              inputsData={dataDatesInputs}
-              register={register}
-              onChange={onFilterChange}
-            />{" "}
-            <div className="relative w-[15rem]">
-              <FloatingLabel
-                name="disputeReason"
-                floatingLabel="Przyczyna sporu"
-                required={false}
-              />
-              <SelectFieldControler
-                name="disputeReason"
-                defaultValue=""
-                options={[
-                  { label: "Wybierz", value: "" },
-                  ...disputeReasonOptions,
-                ]}
-                onChangeAction={onFilterChange}
-                className="sm:!mt-0 sm:!pb-0"
-              />
-            </div>
-            <div className="relative ml-0 sm:ml-sm sm:w-[15rem]">
-              <FloatingLabel
-                name="sortOrder"
-                floatingLabel="Sortuj"
-                required={false}
-              />
-              <SelectFieldControler
-                name="sortOrder"
-                defaultValue="ascending"
-                options={dataSelectOptions}
-                onChangeAction={onFilterChange}
-                className="sm:!mt-0 sm:!pb-0"
-              />
-            </div>
-            <Button
-              message="Resetuj filtry"
-              variant="primary-rounded"
-              onClickAction={() => setFilters(filtersDefault)}
-              className="w-full sm:w-fit"
+          <InputFields
+            inputsData={dataDatesInputs}
+            register={register}
+            onChange={onFilterChange}
+          />{" "}
+          <div className="relative mt-6">
+            <FloatingLabel
+              name="disputeReason"
+              floatingLabel="Przyczyna sporu"
+              required={false}
+            />
+            <SelectFieldControler
+              name="disputeReason"
+              defaultValue=""
+              options={[
+                { label: "Wybierz", value: "" },
+                ...disputeReasonOptions,
+              ]}
+              onChangeAction={onFilterChange}
+              className="sm:!mt-0 sm:!pb-0"
             />
           </div>
+          <div className="relative mt-12">
+            <FloatingLabel
+              name="sortOrder"
+              floatingLabel="Sortuj"
+              required={false}
+            />
+            <SelectFieldControler
+              name="sortOrder"
+              defaultValue="ascending"
+              options={dataSelectOptions}
+              onChangeAction={onFilterChange}
+              className="sm:!mt-0 sm:!pb-0"
+            />
+          </div>
+          <Button
+            message="Resetuj filtry"
+            variant="primary-rounded"
+            className="mt-12 w-full"
+          />
         </form>
       </FormProvider>
     </Card>

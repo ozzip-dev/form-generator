@@ -50,7 +50,10 @@ const DashboardMenu = () => {
       <Card
         className={`fixed left-28 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
       >
-        <div className="px-16 md:px-0">
+        <div
+          className="px-16 md:px-0"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
           <NavMenu links={links} depth={1} variant="mobile" />
         </div>
       </Card>

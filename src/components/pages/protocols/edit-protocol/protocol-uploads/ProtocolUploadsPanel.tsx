@@ -105,8 +105,10 @@ const ProtocolUploadsPanel = (props: Props) => {
 
           <div className="pb-4 font-black">Pliki</div>
           <div className="pb-sm">
-            Dołącz pliki w odpowiedniej kategorii. Dopuszczalne formaty to{" "}
-            <b>.pdf</b>, <b>.png</b>, <b>.jpg</b>/<b>.jpeg</b> oraz <b>.bmp</b>.
+            Dołącz pliki w odpowiedniej kategorii. <br />
+            Dopuszczalne formaty <b>.pdf</b>, <b>.png</b>, <b>.jpg</b>,{" "}
+            <b>.docx</b>, <b>.xlsx</b>, <b>.xls</b>, <b>.odt</b>, <b>.doc</b>,{" "}
+            <b>.rtf</b>, <b>.txt</b>, <b>.ods</b>, <b>.csv</b>. <br />{" "}
             Maksymalny rozmiar jednego pliku to <b>{MAX_FILE_SIZE_MB}MB</b>.
           </div>
 
@@ -131,8 +133,7 @@ const ProtocolUploadsPanel = (props: Props) => {
 
           <div className="pb-4 pt-md font-black">Linki</div>
           <div className="pb-sm">
-            Dodaj linki do stron lub postów w mediach społecznościowych, które
-            poruszają temat danej kategorii.
+            Dodaj linki do stron lub postów związanych z tą kategorią.
           </div>
           <div className="w-fit min-w-[500px]">
             <ProtocolLinksForm
