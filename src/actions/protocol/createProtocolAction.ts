@@ -10,7 +10,7 @@ import {
 import { revalidateTag } from "next/cache";
 import { protocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
 import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
-import { defaultAttachments } from "@/helpers/protocolHelpers";
+import { createEmptyProtocolAttachments } from "@/helpers/protocolHelpers";
 
 export async function createProtocolAction({
   branch,
@@ -52,11 +52,8 @@ export async function createProtocolAction({
       tradeUnionOrganization,
       workplaceName,
       disputeStartDate,
-      fileIds: defaultAttachments as Record<
-        ProtocolAttachmentCategory,
-        string[]
-      >,
-      links: defaultAttachments as Record<ProtocolAttachmentCategory, string[]>,
+      fileIds: createEmptyProtocolAttachments<string>(),
+      links: createEmptyProtocolAttachments<string>(),
     });
 
     revalidateTag("protocols");

@@ -17,7 +17,7 @@ import {
 } from "@/types/protocol";
 import { File, FileSerialized } from "@/types/file";
 import { serializeFile, serializeProtocol } from "@/lib/serialize-utils";
-import { defaultAttachments } from "@/helpers/protocolHelpers";
+import { createEmptyProtocolAttachments } from "@/helpers/protocolHelpers";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -162,11 +162,7 @@ export async function mapFilesToProtocol(
   const serialiedProtocol = protocol;
   const { fileIds } = serialiedProtocol;
 
-  const files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]> =
-    defaultAttachments as Record<
-      ProtocolAttachmentCategory,
-      (FileSerialized | null)[]
-    >;
+  const files = createEmptyProtocolAttachments<FileSerialized | null>();
   const fileTypes: ProtocolAttachmentCategory[] = Object.keys(
     fileIds,
   ) as ProtocolAttachmentCategory[];
