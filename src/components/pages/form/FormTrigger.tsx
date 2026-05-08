@@ -33,7 +33,7 @@ const FormTrigger = () => {
               size={40}
               className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
             />
-            <span className="text-xs font-semibold text-accent">DODAJ</span>
+            <span className="text-xs font-semibold text-font_dark">DODAJ</span>
           </div>
         }
       />
@@ -42,7 +42,7 @@ const FormTrigger = () => {
           <div className="mt-4">{state.error}</div>
         </div>
       ) : (
-        <div className="mt-4 px-4 text-center text-sm">Nowy formularz</div>
+        <div className="mt-4 text-center text-sm">Nowy formularz</div>
       )}
     </>
   );
