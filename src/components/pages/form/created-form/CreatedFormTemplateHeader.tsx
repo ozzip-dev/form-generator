@@ -11,9 +11,9 @@ const CreatedFormTemplateHeader = ({ title = "", isTemplate }: Props) => {
     : "Podgląd formularza:";
 
   return (
-    <div className="mb-8 w-full bg-accent_light py-8 text-center">
-      <p className="text-4xl font-bold text-black">
-        {formStateHeader} {title}
+    <div className="fixed bottom-0 z-30 w-full bg-accent_opacity py-4 text-center">
+      <p className="font-bold text-white">
+        {formStateHeader} <br /> {title}
       </p>
     </div>
   );

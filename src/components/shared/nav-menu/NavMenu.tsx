@@ -42,6 +42,7 @@ const NavMenu = (props: Props) => {
                   isActive={isLinkActive(link)}
                   sameTab={sameTab}
                   textColor="text-font_light"
+                  mobile={true}
                 />
               </div>
             ))}
@@ -54,8 +55,7 @@ const NavMenu = (props: Props) => {
               <Icon
                 icon={props.icon}
                 size={27}
-                color="var(--color-accent)"
-                className="hidden md:block"
+                className="hidden bg-accent md:block"
               />
             )}
           </div>

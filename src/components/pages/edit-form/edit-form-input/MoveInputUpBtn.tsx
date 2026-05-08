@@ -2,7 +2,7 @@ import { moveInputUpAction } from "@/actions/edit-form/edit-form-input/moveInput
 import Icon from "@/components/shared/icons/Icon";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { Button } from "../../../shared";
 
 type Props = {
@@ -32,7 +32,7 @@ const MoveInputUpBtn = ({ inputId, order }: Props) => {
           <Icon
             icon="chevron-down-solid-full"
             size={20}
-            className="rotate-180"
+            className="rotate-180 bg-font_dark"
           />
         }
         variant="ghost"

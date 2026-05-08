@@ -61,10 +61,9 @@ const Faq = () => {
             <div className="flex items-center">
               {header}{" "}
               <Icon
-                color="black"
                 icon="angle"
                 size={30}
-                className={`ml-auto ${openItems[idx] ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
+                className={`ml-auto bg-font_dark ${openItems[idx] ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
               />
             </div>
 

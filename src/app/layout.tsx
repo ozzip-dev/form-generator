@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import { ToastProvider } from "@/context/ToastProvider";
 import "./globals.css";
 
-const poppins = Poppins({
+const openSans = Open_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
+
 export const metadata: Metadata = {
   title: "Formy pracy",
   description: "Generator formularzy dla związków zawodowych",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl" className="h-full overflow-hidden">
-      <body className={`${poppins.className} h-full overflow-hidden`}>
+      <body className={`${openSans.className} h-full overflow-hidden`}>
         <a href="#main-content" className="skip-link">
           Przejdź do głównej treści
         </a>

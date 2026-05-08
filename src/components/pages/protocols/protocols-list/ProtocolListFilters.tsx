@@ -73,7 +73,7 @@ const ProtocolListFilters = ({
   };
 
   return (
-    <Card className="overflow-hidden !px-4">
+    <Card className="mb-10 overflow-hidden !px-4">
       <FormProvider {...methods}>
         <form
           onSubmit={(e) => {

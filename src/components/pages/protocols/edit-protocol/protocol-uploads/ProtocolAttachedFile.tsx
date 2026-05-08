@@ -1,5 +1,5 @@
 import { removeProtocolFileAction } from "@/actions/protocol";
-import { Button, FullscreenLoader, IconTrash } from "@/components/shared";
+import { Button, FullscreenLoader, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { getSerializedFileByIdAction } from "@/actions/file/getSerializedFileByIdAction";
@@ -122,7 +122,7 @@ const ProtocolAttachedFile = (props: Props) => {
 
       <Button
         type="button"
-        icon={<IconTrash size={27} />}
+        icon={<Icon icon="trash" size={27} className="bg-font_dark" />}
         variant="ghost"
         ariaLabel="Usuń załącznik"
         onClickAction={() =>

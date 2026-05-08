@@ -1,4 +1,4 @@
-import { Button, IconTrash } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { ProtocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 import { useModal } from "@/context/ModalContextProvider";
@@ -58,7 +58,7 @@ const DemandsField = ({
             </div>
             <Button
               type="button"
-              icon={<IconTrash />}
+              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
               variant="ghost"
               className="!bg-transparent opacity-50 hover:opacity-100 disabled:opacity-30"
               ariaLabel="Usuń żądanie"

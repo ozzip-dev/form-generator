@@ -9,6 +9,7 @@ type Props = {
   sameTab?: boolean;
   isActive?: boolean;
   level?: string;
+  mobile?: boolean;
 };
 
 const MenuLink = ({
@@ -18,11 +19,14 @@ const MenuLink = ({
   sameTab = true,
   isActive = false,
   level = "root",
+  mobile,
 }: Props) => {
   const isSub = level === "sub";
   const borderClass = isSub
     ? "border-accent text-accent"
-    : "!text-font_dark !border-transparent";
+    : mobile
+      ? "!text-font_dark"
+      : "!border-white";
 
   return (
     <li

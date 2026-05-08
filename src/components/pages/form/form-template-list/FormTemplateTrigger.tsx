@@ -33,14 +33,14 @@ const FormTemplateTrigger = (props: Props) => {
         isLoading={isPending}
         message={props.title}
         variant="ghost"
-        className="flex h-[13rem] w-[13rem] items-center justify-center rounded-md border !bg-white !text-black transition hover:!bg-accent_light md:rounded-lg"
+        className="flex aspect-square w-[11rem] items-center justify-center rounded-md border !bg-white !text-black transition hover:!bg-accent hover:!text-white md:rounded-lg"
         ariaLabel={props.title}
       />
 
       <Link
         href={`/${props._id}`}
         target="_blank"
-        className="btn-primary w-fit rounded-sm !bg-white !px-3 !py-2 !text-accent"
+        className="btn-primary mt-4 w-fit rounded-sm !bg-white !px-3 !py-2 !text-accent"
       >
         Podgląd
       </Link>

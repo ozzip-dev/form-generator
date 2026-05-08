@@ -5,7 +5,7 @@ import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
 
-const headers = ["Branża", "Związek", "Zakład", "Początek", "Przyczyna"];
+const headers = ["Branża", "Związek", "Zakład", "Rozpoczęcie", "Przyczyna"];
 
 type Props = {
   filters: ProtocolFilters;

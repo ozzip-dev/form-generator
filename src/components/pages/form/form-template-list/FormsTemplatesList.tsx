@@ -25,7 +25,7 @@ const FormsTemplatesList = async () => {
           .map(({ _id, id, templateTitle }, idx) => {
             return (
               <div
-                className="flex h-fit w-[13rem] flex-col items-center justify-center gap-3 text-sm"
+                className="flex flex-col items-center justify-center gap-x-4 text-sm"
                 key={idx}
               >
                 <FormTemplateTrigger

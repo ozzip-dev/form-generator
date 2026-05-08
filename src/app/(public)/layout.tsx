@@ -31,9 +31,9 @@ export default function PublicLayout({
                 className="text-white lg:hidden"
                 icon={
                   isMenuOpen ? (
-                    <Icon color="black" icon="xmark" size={20} />
+                    <Icon icon="xmark" size={20} className="bg-font_dark" />
                   ) : (
-                    <Icon color="black" icon="hamburger" size={20} />
+                    <Icon className="bg-font_dark" icon="hamburger" size={20} />
                   )
                 }
                 onClickAction={() => setIsMenuOpen((prev) => !prev)}
@@ -41,7 +41,7 @@ export default function PublicLayout({
                 ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
               />
               <Card
-                className={`fixed left-10 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
+                className={`fixed left-10 top-[6.9rem] z-20 transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
               >
                 <div className="px-16 md:px-0">
                   <NavMenu links={links} depth={1} variant="mobile" />
@@ -49,7 +49,7 @@ export default function PublicLayout({
               </Card>
               {isMenuOpen && (
                 <div
-                  className="fixed inset-0 top-[6.9rem] z-20 backdrop-blur-sm lg:hidden"
+                  className="fixed inset-0 top-[6.9rem] z-40 backdrop-blur-sm lg:hidden"
                   onClick={() => setIsMenuOpen(false)}
                 />
               )}

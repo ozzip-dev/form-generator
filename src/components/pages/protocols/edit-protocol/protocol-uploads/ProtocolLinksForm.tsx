@@ -1,4 +1,4 @@
-import { Button, IconTrash } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { parseUrl } from "@/helpers/protocolHelpers";
 import { ProtocolAttachmentCategory } from "@/types/protocol";
 import Link from "next/link";
@@ -66,7 +66,7 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
 
           <Button
             type="button"
-            icon={<IconTrash size={27} />}
+            icon={<Icon icon="trash" size={27} className="bg-font_dark" />}
             variant="ghost"
             className="!bg-transparent"
             ariaLabel="Usuń link"

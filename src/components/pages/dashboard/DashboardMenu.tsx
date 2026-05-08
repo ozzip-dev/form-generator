@@ -37,9 +37,9 @@ const DashboardMenu = () => {
         className="text-white lg:hidden"
         icon={
           isMenuOpen ? (
-            <Icon color="white" icon="xmark" size={20} />
+            <Icon className="bg-white" icon="xmark" size={20} />
           ) : (
-            <Icon color="white" icon="hamburger" size={20} />
+            <Icon className="bg-white" icon="hamburger" size={20} />
           )
         }
         onClickAction={() => setIsMenuOpen((prev) => !prev)}
@@ -48,7 +48,7 @@ const DashboardMenu = () => {
       />
 
       <Card
-        className={`fixed left-28 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
+        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
       >
         <div
           className="px-16 md:px-0"
@@ -60,7 +60,7 @@ const DashboardMenu = () => {
 
       {isMenuOpen && (
         <div
-          className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 top-24 z-30 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

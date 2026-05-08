@@ -25,27 +25,13 @@ const Button = (props: Props) => {
       onClick={props.onClickAction}
       disabled={props.disabled || props.isLoading}
       aria-label={props.ariaLabel}
-      className={`
-                relative
-                block
-                rounded-sm
-                text-white
-                cursor-pointer
-                select-none
-                transition-all duration-150 ease-out
-                active:brightness-90
-                active:scale-[0.98]
-                disabled:opacity-50
-                disabled:pointer-events-none
-                disabled:cursor-not-allowed
-                bg-transparent
-                
-        ${VARIANTS[props.variant || "primary"]}
-        ${props.className ? props.className : ""}
-      `}
+      className={`relative block cursor-pointer select-none rounded-sm bg-transparent text-white transition-all duration-150 ease-out active:scale-[0.98] active:brightness-90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ${VARIANTS[props.variant || "primary"]} ${props.className ? props.className : ""} `}
     >
-      <span className={props.isLoading ? "opacity-0" : "opacity-100"}>
-        {props.message || props.icon}
+      <span
+        className={`${props.isLoading ? "opacity-0" : "opacity-100"} flex items-center justify-center gap-2`}
+      >
+        {props.icon}
+        {props.message}
       </span>
 
       {props.isLoading && (

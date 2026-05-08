@@ -21,4 +21,3 @@ export { default as InfoIcon } from "./InfoIcon";
 export { default as Card } from "./Card";
 
 export { default as Icon } from "./icons/Icon";
-export { default as IconTrash } from "./icons/IconTrash";
