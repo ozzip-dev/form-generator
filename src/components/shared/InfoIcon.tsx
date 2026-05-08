@@ -34,7 +34,7 @@ export default function InfoIcon({ children }: Props) {
         id={tooltipId}
         role="tooltip"
         className={`absolute -left-[18rem] top-10 z-50 rounded-sm border bg-bg_dark p-2 text-xs transition-opacity ${
-          isVisible ? "opacity-100" : "opacity-0"
+          isVisible ? "" : "hidden"
         }`}
       >
         {children}
