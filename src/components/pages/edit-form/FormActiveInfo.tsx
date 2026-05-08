@@ -5,7 +5,7 @@ import { useFormData } from "@/context/FormDataContextProvider";
 import { useUser } from "@/context/UserContextProvider";
 import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { UserSerialized } from "@/types/user";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import SetFormDisabledForm from "./disable-form/SetFormDisabledForm";
@@ -29,6 +29,12 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   const form = use(formDataPromise);
   const { toast } = useToast();
 
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
+
   if (!form) return null;
 
   const { _id, title, url, createdAt, updatedAt, resultVisibility, type } =
@@ -41,9 +47,8 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
     ? "formularz aktywny"
     : "formularz nieaktywny";
 
-  const link = url
-    ? `${window.location.origin}/${url}`
-    : `${window.location.origin}/${_id}`;
+  const linkPath = `/${url || _id}`;
+  const link = origin ? `${origin}${linkPath}` : linkPath;
 
   const handleCopy = async () => {
     try {
