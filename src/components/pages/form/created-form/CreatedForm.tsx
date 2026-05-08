@@ -7,7 +7,7 @@ import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   renderCheckbox,
@@ -68,6 +68,7 @@ const CreatedForm = (props: Props) => {
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
+  const [displayInvalidInfo, setDisplayInvalidInfo] = useState(false);
 
   const isRequiredInput = inputs.filter(
     ({ required }) => required === true,
@@ -153,9 +154,13 @@ const CreatedForm = (props: Props) => {
       );
     });
 
-  const hasErrors = Object.keys(errors).length > 0;
-
   const canSubmit = !props.isTemplatePreview && isActive(props.form);
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setDisplayInvalidInfo(true);
+    }
+  }, [errors]);
 
   return (
     <>
@@ -167,11 +172,16 @@ const CreatedForm = (props: Props) => {
       )}
 
       <div className="container my-4 !max-w-[800px]">
-        <CreatedFormTopError isError={hasErrors} />
+        {displayInvalidInfo && (
+          <CreatedFormTopError setDisplayInvalidInfo={setDisplayInvalidInfo} />
+        )}
+
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
+
         {props.headerFileData && (
           <CreatedFormTopImage headerFileData={props.headerFileData} />
         )}
+
         <Card className="mb-8">
           <h1 className="mb-8 text-lg">{title}</h1>
           {description && (
