@@ -15,7 +15,7 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: #7caaff;
+  --color-accent: #5a41fc;
   --color-accent_dark: rgb(77, 104, 224);
   --color-accent_light: rgba(226, 236, 255, 1);
   --color-accent_opacity: rgba(101, 130, 255, 0.3);
@@ -23,7 +23,7 @@
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);
 
-  --color-font_dark: rgba(66, 66, 66, 1);
+  --color-font_dark: rgb(66, 66, 66);
   --color-font_light: #9b9b9b;
   --color-error: rgb(192, 0, 0);
 }

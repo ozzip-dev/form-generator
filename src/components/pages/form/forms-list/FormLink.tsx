@@ -20,17 +20,17 @@ const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
   draft: {
     bgColor: "bg-[#eee7ff]",
     textColor: "text-[#b08bff]",
-    iconConfig: { icon: "pencil", size: 31, color: "#b08bff" },
+    iconConfig: { icon: "pencil", size: 31, color: "bg-[#b08bff]" },
   },
   active: {
     bgColor: "bg-[#e8f9f0]",
     textColor: "text-[#45ba7e]",
-    iconConfig: { icon: "circle-check", size: 44, color: "#45ba7e" },
+    iconConfig: { icon: "circle-check", size: 44, color: "bg-[#45ba7e]" },
   },
   disabled: {
     bgColor: "bg-[#ffe8d6]",
     textColor: "text-[#ff9800]",
-    iconConfig: { icon: "xmark", size: 44, color: "#ff9800" },
+    iconConfig: { icon: "xmark", size: 44, color: "bg-[#ff9800]" },
   },
 };
 
@@ -47,15 +47,14 @@ export default async function FormLink(props: Props) {
     <li className="w-[13rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className={`flex h-[13rem] w-full items-center justify-center rounded-md border px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
+        className={`flex h-[11rem] w-[11rem] items-center justify-center rounded-md border text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
         aria-label={`Formularz: ${props.form.title ?? "Brak tytułu"}`}
       >
         <div className={textColor}>
           <Icon
             icon={iconConfig!.icon}
             size={iconConfig!.size}
-            className="mx-auto mb-3"
-            color={iconConfig!.color}
+            className={`mx-auto mb-3 ${iconConfig.color}`}
           />
           <div className="font-semibold uppercase">
             {state && formStateWithLabels[state]}

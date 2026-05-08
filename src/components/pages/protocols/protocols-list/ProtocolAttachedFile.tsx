@@ -18,11 +18,15 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
     <div className="flex items-center">
       {file?.data && (
         <>
-          <div className="flex items-center gap-2 w-[26rem] sm:w-[35rem] md:w-[48rem] lg:w-[65rem]">
-            <div className="truncate mr-4">{file?.name || "-"}</div>
+          <div className="flex w-[26rem] items-center gap-2 sm:w-[35rem] md:w-[48rem] lg:w-[65rem]">
+            <div className="mr-4 truncate">{file?.name || "-"}</div>
 
             {file.type === "application/pdf" ? (
-              <Icon icon="file-pdf-regular-full" size={30} color="red" />
+              <Icon
+                icon="file-pdf-regular-full"
+                size={30}
+                className="bg-error"
+              />
             ) : (
               <Image
                 src={URL.createObjectURL(getFileBlob(file)!)}
@@ -37,7 +41,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
             onClickAction={() => handleDownload(file)}
             message="Pobierz"
             variant="primary-rounded"
-            className="hidden sm:block ml-auto"
+            className="ml-auto hidden sm:block"
           />
         </>
       )}

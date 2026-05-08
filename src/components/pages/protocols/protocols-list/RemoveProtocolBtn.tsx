@@ -1,7 +1,7 @@
 "use client";
 
 import { removeProtocolAction } from "@/actions/protocol";
-import { Button, IconTrash } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 
 type Props = {
@@ -14,7 +14,7 @@ function RemoveProtocolBtn(props: Props) {
   return (
     <Button
       type="button"
-      icon={<IconTrash />}
+      icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
       variant="ghost"
       ariaLabel="Usuń protokół"
       onClickAction={() =>

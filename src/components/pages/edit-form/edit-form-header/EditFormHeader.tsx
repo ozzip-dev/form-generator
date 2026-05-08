@@ -142,8 +142,7 @@ export default function EditFormHeader(props: Props) {
                 <Icon
                   icon="exclamation"
                   size={23}
-                  color="var(--color-error)"
-                  className="absolute right-8 top-[1.5rem] -translate-y-1/2 text-error sm:top-1/2"
+                  className="absolute right-8 top-[1.5rem] -translate-y-1/2 bg-error text-error sm:top-1/2"
                 />
               )}
             </div>
@@ -161,8 +160,7 @@ export default function EditFormHeader(props: Props) {
                   <Icon
                     icon="exclamation"
                     size={23}
-                    color="var(--color-error)"
-                    className="absolute right-20 top-1/2 -translate-y-1/2 text-error"
+                    className="absolute right-20 top-1/2 -translate-y-1/2 bg-error text-error"
                   />
                 )}
               </div>
@@ -172,15 +170,15 @@ export default function EditFormHeader(props: Props) {
                   <div>
                     <span className="font-semibold">Jawny: </span>
                     <span>
-                      Zbiorcze podsumowanie odpowiedzi oraz odpowiedzi z każdego
-                      pojedynczego formularza.
+                      odpowiedzi z każdego formularza oraz zbiorcze podsumowanie
+                      odpowiedzi.
                     </span>
                   </div>
                   <div className="pt-4">
                     <span className="font-semibold">Tajny: </span>
                     <span>
                       {" "}
-                      Zbiorcze podsumowanie odpowiedzi bez powiązania ich z
+                      zbiorcze podsumowanie odpowiedzi bez powiązania ich z
                       pojedynczymi formularzami.
                     </span>
                   </div>
@@ -217,8 +215,7 @@ export default function EditFormHeader(props: Props) {
                 <Icon
                   icon="exclamation"
                   size={23}
-                  color="var(--color-error)"
-                  className="absolute right-8 top-1/2 -translate-y-1/2 text-error"
+                  className="absolute right-8 top-1/2 -translate-y-1/2 bg-error text-error"
                 />
               )}
             </div>

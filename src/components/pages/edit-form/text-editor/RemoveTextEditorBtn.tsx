@@ -1,4 +1,4 @@
-import { Button, IconTrash } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 type Props = {
   handleRemoveDescription: () => void;
 };
@@ -7,7 +7,7 @@ const RemoveTextEditorBtn = (props: Props) => {
   return (
     <Button
       type="button"
-      icon={<IconTrash />}
+      icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
       onClickAction={props.handleRemoveDescription}
       variant="ghost"
       ariaLabel="Usuń opis"

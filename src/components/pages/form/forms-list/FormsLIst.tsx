@@ -18,7 +18,7 @@ const FormsLIst = async () => {
         </div>
       </div>
 
-      <ul className="flex flex-wrap justify-center gap-4 text-sm md:justify-start">
+      <ul className="flex flex-wrap justify-center gap-2 text-sm md:justify-start">
         <li>
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia formularza"

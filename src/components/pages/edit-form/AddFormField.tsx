@@ -54,8 +54,7 @@ const AddFormField = ({ formId }: Props) => {
         <Icon
           icon="exclamation"
           size={23}
-          color="var(--color-error)"
-          className="absolute -right-10 top-0 top-1/2 -translate-y-1/2 text-error"
+          className="bg-error absolute -right-10 top-0 top-1/2 -translate-y-1/2 text-error"
         />
       )}
       <Button

@@ -1,6 +1,6 @@
 import { editInputOptionAction } from "@/actions/edit-form/edit-form-input/editInputOptionAction";
 import removeInputOptionAction from "@/actions/edit-form/edit-form-input/removeInputOptionAction";
-import { Button, IconTrash, InputFields } from "@/components/shared";
+import { Button, Icon, InputFields } from "@/components/shared";
 import { useEditForm } from "@/hooks/useEditForm";
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
 import { useTransition } from "react";
@@ -112,7 +112,7 @@ const AddOption = (props: Props) => {
 
             <Button
               type="button"
-              icon={<IconTrash />}
+              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
               onClickAction={() =>
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }

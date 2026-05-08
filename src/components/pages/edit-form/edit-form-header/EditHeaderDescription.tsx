@@ -3,7 +3,6 @@
 import { use, useState, useTransition } from "react";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { Button, IconTrash } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import TextEditor from "../text-editor/TextEditor";
 import TextEditorPrinter from "../text-editor/TextEditorPrinter";

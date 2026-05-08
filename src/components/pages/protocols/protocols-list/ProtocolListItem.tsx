@@ -8,7 +8,7 @@ import {
 import { startTransition, use, useActionState, useRef, useState } from "react";
 
 import { getProtocolDetailsAction } from "@/actions/protocol";
-import { Button, ButtonLink, Icon, IconTrash } from "@/components/shared";
+import { Button, ButtonLink, Icon } from "@/components/shared";
 import ResponsiveList from "@/components/shared/responsive-list/ResponsiveList";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 import { isProtocolAuthor } from "@/helpers/protocolHelpers";
@@ -84,17 +84,9 @@ const ProtocolListItem = (props: Props) => {
           <Button
             icon={
               isOpen ? (
-                <Icon
-                  icon="folder-open"
-                  size={20}
-                  color="var(--color-font_light)"
-                />
+                <Icon icon="folder-open" size={20} className="bg-font_light" />
               ) : (
-                <Icon
-                  icon="folder-closed"
-                  size={20}
-                  color="var(--color-accent)"
-                />
+                <Icon icon="folder-closed" size={20} className="bg-accent" />
               )
             }
             variant="ghost"
@@ -105,9 +97,7 @@ const ProtocolListItem = (props: Props) => {
           {isAuthor && (
             <>
               <ButtonLink
-                icon={
-                  <Icon icon="edit" size={20} color="var(--color-accent)" />
-                }
+                icon={<Icon icon="edit" size={20} className="bg-accent" />}
                 link={`/protocols/${_id}`}
                 variant="ghost"
               />

@@ -27,14 +27,16 @@ export default function InfoIcon({ children }: Props) {
           }
         }}
       >
-        <Icon icon="info-circle" size={23} color="var(--color-accent)" />
+        <Icon icon="info-circle" size={23} className="bg-accent" />
       </button>
 
       <div
         id={tooltipId}
         role="tooltip"
         className={`absolute -left-[18rem] top-10 z-50 rounded-sm border bg-bg_dark p-2 text-xs transition-opacity ${
-          isVisible ? "opacity-100" : "opacity-0"
+          isVisible
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       >
         {children}

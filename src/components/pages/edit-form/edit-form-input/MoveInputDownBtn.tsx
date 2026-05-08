@@ -28,7 +28,13 @@ const MoveInputDownBtn = (props: Props) => {
       {" "}
       <Button
         type="button"
-        icon={<Icon icon="chevron-down-solid-full" size={20} />}
+        icon={
+          <Icon
+            icon="chevron-down-solid-full"
+            size={20}
+            className="bg-font_dark"
+          />
+        }
         onClickAction={handleMoveDown}
         variant="ghost"
         ariaLabel={`Przenieś pole formularza numer ${props.order + 1} w dół`}

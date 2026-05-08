@@ -1,7 +1,7 @@
 "use client";
 
 import { removeFormAction } from "@/actions/edit-form/edit-form-input/removeFormAction";
-import { Button } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
 import { use } from "react";
@@ -22,8 +22,15 @@ function RemoveFormButton(props: Props) {
     <Button
       type="button"
       variant="primary-rounded"
+      icon={
+        <Icon
+          icon="trash"
+          size={20}
+          className="bg-white transition-colors group-hover:bg-accent"
+        />
+      }
       message="Usuń formularz"
-      className="ml-auto size-fit"
+      className="group ml-auto size-fit"
       onClickAction={() =>
         openModal({
           action: () => {

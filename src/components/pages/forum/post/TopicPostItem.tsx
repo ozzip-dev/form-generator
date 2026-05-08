@@ -1,5 +1,5 @@
 import { removePostAction } from "@/actions/forum/removePostAction";
-import { Button, DataLoader, IconTrash } from "@/components/shared";
+import { Button, DataLoader, Icon } from "@/components/shared";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { useToast } from "@/context/ToastProvider";
 import { PostSerializedDetailed } from "@/types/forum";
@@ -58,7 +58,7 @@ const TopicPostItem = (props: Props) => {
         {isAuthor && (
           <Button
             type="button"
-            icon={<IconTrash />}
+            icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
             variant="ghost"
             ariaLabel="Usuń post"
             onClickAction={() =>

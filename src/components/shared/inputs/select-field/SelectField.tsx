@@ -144,7 +144,7 @@ const SelectField = ({
           <Icon
             icon="chevron-down-solid-full"
             size={14}
-            className={`transition-transform ${open ? "rotate-180" : ""}`}
+            className={`transition-transform ${open ? "rotate-180" : ""} bg-font_dark`}
           />
         </button>
 
