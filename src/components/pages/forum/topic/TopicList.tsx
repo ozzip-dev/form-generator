@@ -63,7 +63,7 @@ const TopicList = (props: Props) => {
             <Button
               key={category}
               className={`btn-primary-rounded ${
-                category == selectedCategory ? "!bg-accent_dark" : ""
+                category == selectedCategory ? "!bg-white !text-accent" : ""
               }`}
               message={mapTopicCategory[category]}
               onClickAction={() => onCategorySelect(category)}
