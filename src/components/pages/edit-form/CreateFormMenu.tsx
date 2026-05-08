@@ -20,7 +20,7 @@ const CreateFormMenu = async ({ formId }: Props) => {
     { text: "Edycja", link: `/forms/${formId}/edit`, isVisible: isAuthor },
     {
       text: "Podgląd",
-      link: `/forms/${formId}/preview`,
+      link: `/${formId}`,
       sameTab: false,
       isVisible: true,
     },

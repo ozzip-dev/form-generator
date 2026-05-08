@@ -21,11 +21,10 @@ const FormPage = async (props: Props) => {
   const form: FormCreated | null = await getFormBySlug(db, createdFormId);
 
   if (!form) redirect("/dashboard");
-  if (isDraft(form)) redirect(`/forms/${createdFormId}/edit`);
 
-  const { authorEmail, headerFileData } = await getFormAdditionalData(
-    form._id?.toString() as string,
-  );
+  const { authorEmail, headerFileData } = !isTemplate(form)
+    ? await getFormAdditionalData(form._id?.toString() as string)
+    : {};
 
   return (
     <SuspenseErrorBoundary
