@@ -7,8 +7,8 @@
 
 import { InputType } from "@/enums";
 import { FormResultVisibility, FormType } from "@/enums/form";
-import { TemplateFormId } from "@/models/Form";
 import { Form } from "@/types/form";
+import { TemplateFormId } from "./models";
 
 const getCreatedUpdatedDates = (): {
   createdAt: Date;

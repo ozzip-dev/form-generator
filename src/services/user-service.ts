@@ -10,7 +10,7 @@ import { FormType } from "@/enums/form";
 import { getFormsByType } from "./form-service";
 import { Form } from "@/types/form";
 import { isAdmin } from "@/lib/utils";
-import { UserRole } from "@/models/User";
+import { UserRole } from "@/lib/mongo/models";
 
 export const requireUser = cache(async (): Promise<IUser> => {
   const session = await auth.api.getSession({ headers: await headers() });

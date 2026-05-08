@@ -1,7 +1,7 @@
 import SectionHeader from "@/components/shared/SectionHeader";
 import FormTemplateTrigger from "./FormTemplateTrigger";
 import { getFormTemplates } from "@/services/form-service";
-import { TemplateFormId } from "@/models/Form";
+import { TemplateFormId } from "@/lib/mongo/models";
 
 const FormsTemplatesList = async () => {
   const templateForms = await getFormTemplates();

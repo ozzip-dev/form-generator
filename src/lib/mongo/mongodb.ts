@@ -1,13 +1,18 @@
 import { MongoClient } from "mongodb";
 import { makeDbCollection } from "./mongo-utils";
-import { FormModel, InputModel, UserModel } from "@/models";
+import {
+  FormModel,
+  InputModel,
+  UserModel,
+  FileModel,
+  PostModel,
+  ProtocolModel,
+  ResultModel,
+  TopicModel,
+  TemplateFormId,
+} from "./models";
 import { DbModel } from "@/types/mongo";
-import { TemplateFormId } from "@/models/Form";
 import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
-import { ProtocolModel } from "@/models/Protocol";
-import { PostModel } from "@/models/Post";
-import { TopicModel } from "@/models/Topic";
-import { FileModel } from "@/models/File";
 
 const client = new MongoClient(process.env.DATABASE_URL as string);
 await client.connect();

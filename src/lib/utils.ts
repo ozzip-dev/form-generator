@@ -1,5 +1,5 @@
-import { UserRole } from "@/models/User";
 import { IUser, UserSerialized } from "@/types/user";
+import { UserRole } from "./mongo/models";
 
 export const convertBToKB = (bytes: number): string => {
   return (bytes / 1024).toFixed(2);
