@@ -18,7 +18,7 @@
   --color-accent: #5a41fc;
   --color-accent_dark: rgb(77, 104, 224);
   --color-accent_light: rgba(226, 236, 255, 1);
-  --color-accent_opacity: rgba(101, 130, 255, 0.3);
+  --color-accent_opacity: rgba(101, 130, 255, 0.6);
 
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);

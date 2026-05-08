@@ -211,7 +211,7 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-      <footer className="flex justify-center py-10 text-xs">
+      <footer className="flex justify-center pb-32 pt-10 text-xs">
         <div className="container">
           {!props.isTemplatePreview && (
             <ResultsMode resultVisibility={resultVisibility} />
