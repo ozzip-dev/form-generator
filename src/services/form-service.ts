@@ -19,6 +19,7 @@ import { getUserById, requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { getFileById, removeFile } from "./file-service";
 import { File } from "@/types/file";
+import { TemplateFormId } from "@/lib/mongo/models";
 
 export const getForm = cache(
   async (formId: string): Promise<FormSerialized> => {
@@ -91,7 +92,16 @@ export async function createDraft(
 
 export async function getFormTemplates(): Promise<Form[]> {
   const forms = await find<Form>(db, "form", { state: "template" });
-  return forms;
+
+  const sortOrder = Object.values(TemplateFormId);
+
+  const sortedTemplateForms = [...forms].sort(
+    (a, b) =>
+      sortOrder.indexOf(a.id as TemplateFormId) -
+      sortOrder.indexOf(b.id as TemplateFormId),
+  );
+
+  return sortedTemplateForms;
 }
 
 export async function updateForm(

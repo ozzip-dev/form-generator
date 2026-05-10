@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Button, ButtonLink } from "@/components/shared";
 import { useState } from "react";
 import Faq from "./Faq";
+import { FormTemplates } from "./sections";
 
 const texts: { header: string; text: string }[] = [
   {
@@ -120,106 +121,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-font_light">
-        <div className="container pb-20 pt-16">
-          <div className="mx-auto w-4/5">
-            <h2 className="text-center text-lg">Gotowe szablony formularzy</h2>
-            <p className="mt-4 text-center">
-              Gotowe szablony formularzy Zacznij od razu bez budowania od zera.
-              Wybierz gotowy formularz i dostosuj go do swojej organizacji.
-            </p>{" "}
-          </div>
-
-          <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center"> Ankieta pracownicza</p>
-              </div>
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce47fa76727f950a1e24"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center">Wybory sip</p>
-              </div>
-
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce47fa76727f950a1e25"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center">Wybory władz organizacji </p>
-              </div>
-
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce47fa76727f950a1e27"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>{" "}
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center"> Organizacja spotkania </p>
-              </div>
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce47fa76727f950a1e28"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center"> Referendum strajkowe </p>
-              </div>
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce47fa76727f950a1e26"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center"> Ulotkowanie</p>
-              </div>
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce48fa76727f950a1e2a"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-            <div className="sm:flex-1">
-              <div className="mx-auto mb-6 flex h-[120px] w-[120px] items-center justify-center rounded-sm bg-slate-500 text-white">
-                <p className="text-center"> Wyjazd organizacyjny</p>
-              </div>
-              <ButtonLink
-                target="_blank"
-                message="Zobacz"
-                link="/69bfce48fa76727f950a1e29"
-                variant="primary-rounded"
-                className="mx-auto my-12 w-fit !border-error !bg-error !text-white hover:!border-white hover:!bg-white hover:!text-error"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FormTemplates />
 
       <section className="">
         <div className="container pb-20 pt-16">

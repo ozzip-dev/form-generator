@@ -6,19 +6,11 @@ import { TemplateFormId } from "@/lib/mongo/models";
 const FormsTemplatesList = async () => {
   const templateForms = await getFormTemplates();
 
-  const sortOrder = Object.values(TemplateFormId);
-
-  const sortedTemplateForms = [...templateForms].sort(
-    (a, b) =>
-      sortOrder.indexOf(a.id as TemplateFormId) -
-      sortOrder.indexOf(b.id as TemplateFormId),
-  );
-
   return (
     <>
       <SectionHeader message="Wykorzystaj wzory przykładowych formularzy" />
       <div className="flex flex-wrap justify-center gap-4 md:justify-start">
-        {sortedTemplateForms
+        {templateForms
           .filter(
             ({ _id, id, templateTitle }) => _id && id && templateTitle,
           ) /* filter out invalid records */
