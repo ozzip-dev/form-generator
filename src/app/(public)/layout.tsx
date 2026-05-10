@@ -78,7 +78,7 @@ export default function PublicLayout({
           <div>
             <p>OZZ Inicjatywa Pracownicza</p>
             <p>Komisja Krajowa</p>
-            <p>ul. Kościelna 4/1a, 60-538</p>
+            <p>ul. Kościelna 4/1a, 60-538 Poznań</p>
             <p>REGON:634611023</p>
             <p>NIP:779-22-38-665</p>
           </div>

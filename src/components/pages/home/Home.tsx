@@ -325,7 +325,7 @@ const Home = () => {
               Zastosowania w organizacjach związkowych
             </h2>
             <p className="mt-4 text-center">
-              Zamiast maili i chaosu jeden uporżadkwoany system
+              Zamiast maili i chaosu jeden uporządkowany system
             </p>{" "}
           </div>
           <div className="mt-28 flex flex-col gap-6 md:flex-row">
