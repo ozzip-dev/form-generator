@@ -49,7 +49,7 @@ export default function PublicLayout({
               </Card>
               {isMenuOpen && (
                 <div
-                  className="fixed inset-0 top-[6.9rem] z-40 backdrop-blur-sm lg:hidden"
+                  className="fixed inset-0 top-[6.9rem] z-10 backdrop-blur-sm lg:hidden"
                   onClick={() => setIsMenuOpen(false)}
                 />
               )}
