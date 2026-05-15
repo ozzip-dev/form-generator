@@ -26,7 +26,7 @@ export const protocolFormSchema = z.object({
     .trim()
     .refine((val) => !isNaN(Date.parse(val!)), "Data"),
   demands: z
-    .array(z.string().max(100, { message: "Maks. 100 znaków" }))
+    .array(z.string().max(300, { message: "Maks. 300 znaków" }))
     .optional(),
 
   disputeReason: z.record(z.string()).superRefine((obj, ctx) => {
