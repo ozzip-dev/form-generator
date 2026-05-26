@@ -3,7 +3,7 @@
 import { startTransition, useActionState } from "react";
 import Link from "next/link";
 import { createFormDraftAction } from "@/actions/create-form/createFormDraftAction";
-import { Button } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 
 type Props = {
   _id: string;
@@ -40,9 +40,10 @@ const FormTemplateTrigger = (props: Props) => {
       <Link
         href={`/${props._id}`}
         target="_blank"
-        className="btn-primary mt-4 w-fit rounded-sm !bg-white !px-3 !py-2 !text-accent"
+        className="mt-4 inline-flex items-center gap-2"
       >
-        Podgląd
+        <span>Podgląd</span>
+        <Icon icon="preview" size={22} className="shrink-0 bg-accent" />
       </Link>
 
       {state?.error && (
