@@ -25,7 +25,7 @@ const FormActions = ({ form }: Props) => {
 
   return (
     <div>
-      <div className="px-4 sm:px-8 md:flex md:items-center md:justify-between md:px-24">
+      <div className="md:flex md:items-center md:justify-between">
         <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
 
         <div className="mt-6 flex items-center justify-between gap-10 sm:justify-end">
