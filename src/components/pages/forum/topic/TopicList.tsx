@@ -71,7 +71,7 @@ const TopicList = (props: Props) => {
           ))}
         </div>
       </div>
-      <div className="p-4 pb-8">{categoryDescriptions[selectedCategory]}</div>
+      <div className="pb-8">{categoryDescriptions[selectedCategory]}</div>
 
       <Card>
         {displayedTopics?.length ? (
