@@ -13,7 +13,7 @@ const ProtocolAttachedLink = ({ link }: Props) => {
 
   return (
     <div className="flex items-center">
-      <div className="w-[26rem] sm:w-[35rem] md:w-[48rem] lg:w-[65rem]">
+      <div>
         <Link
           href={parsedUrl}
           target="_blank"

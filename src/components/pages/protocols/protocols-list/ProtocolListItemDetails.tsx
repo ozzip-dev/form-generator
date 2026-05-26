@@ -17,9 +17,9 @@ const ProtocolListItemDetails = ({
 }: ProtocolWithFilesSerialized) => {
   return (
     <Card>
-      <div className="text-grey_secondary hidden gap-8 pb-sm text-sm sm:flex">
+      <div className="hidden gap-12 pb-sm text-sm text-font_dark sm:flex">
+        <div>Edytowano: {formatDateAndTime(lastModifiedAt)}</div>
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
-        <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
 
       {Object.entries(mapFileCategory).map(([key, value]) => (

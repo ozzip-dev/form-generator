@@ -18,7 +18,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
     <div className="flex items-center">
       {file?.data && (
         <>
-          <div className="flex w-[26rem] items-center gap-2 sm:w-[35rem] md:w-[48rem] lg:w-[65rem]">
+          <div className="flex items-center gap-2">
             <div className="mr-4 truncate">{file?.name || "-"}</div>
 
             {file.type === "application/pdf" ? (
