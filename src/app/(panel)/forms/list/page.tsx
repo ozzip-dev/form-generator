@@ -11,7 +11,7 @@ const FormListPage = async () => {
   return (
     <>
       <section>
-        <div className="container px-4 py-16 sm:px-8 md:flex">
+        <div className="container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd ładowania listy formularzy"
             loadingMessage="Ładowanie listy formularzy"
@@ -22,7 +22,7 @@ const FormListPage = async () => {
         </div>
       </section>
       <section className="bg-bg_dark pb-10">
-        <div className="container px-4 py-16 sm:px-8 md:flex">
+        <div className="container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia szablonu formularza"
             size="lg"
