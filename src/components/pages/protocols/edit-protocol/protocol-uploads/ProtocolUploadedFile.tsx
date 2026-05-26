@@ -1,14 +1,15 @@
+import Image from "next/image";
 import { removeProtocolFileAction } from "@/actions/protocol";
 import { Button, FullscreenLoader, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { useToast } from "@/context/ToastProvider";
 import { getSerializedFileByIdAction } from "@/actions/file/getSerializedFileByIdAction";
-import { getFileBlob } from "@/helpers/fileHelpers";
+import { getFileBlob, isImageType } from "@/helpers/fileHelpers";
 import { downloadFile } from "@/lib/utils";
 import { FileSerialized } from "@/types/file";
 import { ProtocolAttachmentCategory } from "@/types/protocol";
-import Image from "next/image";
 import { useState } from "react";
+import { openProtocolImagePreviewModal } from "../../protocol-image-preview";
 
 type Props = {
   file: Partial<FileSerialized>;
@@ -16,36 +17,11 @@ type Props = {
   fileCategory: ProtocolAttachmentCategory;
 };
 
-const ProtocolAttachedFile = (props: Props) => {
+const ProtocolUploadedFile = (props: Props) => {
   const { toast } = useToast();
   const { openModal } = useModal();
   const { protocolId, file, fileCategory } = props;
   const [isFileLoading, setIsFileLoading] = useState(false);
-
-  const isImageType = (type?: string): boolean => !!type?.startsWith("image/");
-
-  const openImagePreviewModal = (
-    fileData: Pick<FileSerialized, "name" | "type" | "data">,
-  ) => {
-    const imageSrc = `data:${fileData.type || "image/*"};base64,${fileData.data}`;
-
-    openModal({
-      header: fileData.name || "Podgląd obrazka",
-      component: ({ close }) => (
-        <div className="flex flex-col items-center gap-6">
-          <Image
-            src={imageSrc}
-            alt={fileData.name || "Podgląd pliku"}
-            width={1200}
-            height={900}
-            unoptimized
-            className="max-h-[70vh] w-auto max-w-[85vw] rounded-sm"
-          />
-          <Button message="Zamknij" onClickAction={close} />
-        </div>
-      ),
-    });
-  };
 
   const handleFileNameClick = async () => {
     if (!file._id) return;
@@ -65,7 +41,7 @@ const ProtocolAttachedFile = (props: Props) => {
       }
 
       if (isImageType(serialized.type)) {
-        openImagePreviewModal(serialized);
+        openProtocolImagePreviewModal(openModal, serialized);
         return;
       }
 
@@ -137,4 +113,4 @@ const ProtocolAttachedFile = (props: Props) => {
   );
 };
 
-export default ProtocolAttachedFile;
+export default ProtocolUploadedFile;

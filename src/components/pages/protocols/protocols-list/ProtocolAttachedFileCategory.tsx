@@ -34,11 +34,9 @@ const ProtocolAttachedFileCategory = ({
           <div key={idx}>Bledny plik</div>
         ),
       )}
-      <div className="pt-4">
-        {categoryLinks.map((link, idx) => (
-          <ProtocolAttachedLink key={idx} link={link} />
-        ))}
-      </div>
+      {categoryLinks.map((link, idx) => (
+        <ProtocolAttachedLink key={idx} link={link} />
+      ))}
     </div>
   );
 };

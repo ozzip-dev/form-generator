@@ -11,3 +11,8 @@ export const getFileBlob = (file: FileSerialized): Blob | undefined => {
   const blob = new Blob([byteArray]);
   return blob;
 };
+
+export const isImageType = (type?: string): boolean =>
+  !!type?.startsWith("image/");
+
+export const isPdfType = (type?: string): boolean => type === "application/pdf";

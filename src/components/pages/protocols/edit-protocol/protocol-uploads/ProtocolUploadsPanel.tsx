@@ -7,7 +7,7 @@ import { use } from "react";
 import { useProtocol } from "@/context/ProtocolContext";
 import { ProtocolAttachmentCategory } from "@/types/protocol";
 import { fileCategories, mapFileCategory } from "../../utils";
-import ProtocolAttachedFile from "./ProtocolAttachedFile";
+import ProtocolUploadedFile from "./ProtocolUploadedFile";
 import ProtocolLinksForm from "./ProtocolLinksForm";
 import ProtocolUploadFileForm from "./ProtocolUploadFileForm";
 import { MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
@@ -115,7 +115,7 @@ const ProtocolUploadsPanel = (props: Props) => {
           <div className="pb-md md:grid md:grid-cols-2">
             <div>
               {protocol.fileIds[category]?.map((fileId) => (
-                <ProtocolAttachedFile
+                <ProtocolUploadedFile
                   key={fileId}
                   file={getFileById(fileId)!}
                   protocolId={protocol._id}

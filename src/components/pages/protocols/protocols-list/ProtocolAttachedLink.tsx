@@ -13,7 +13,7 @@ const ProtocolAttachedLink = ({ link }: Props) => {
 
   return (
     <div className="flex items-center">
-      <div className="flex min-w-0 flex-1 items-center gap-2">
+      <div className="grid min-w-0 grid-cols-[20px_auto] items-center gap-4">
         <button
           type="button"
           onClick={() => {
