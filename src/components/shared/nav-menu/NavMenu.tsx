@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { NavMenuLink } from "@/types/shared";
 import MenuLink from "./MenuLink";
-import Icon from "../icons/Icon";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -52,10 +52,13 @@ const NavMenu = (props: Props) => {
         <div className="flex items-center justify-center md:justify-between">
           <div>
             {props.icon && (
-              <Icon
-                icon={props.icon}
-                size={27}
-                className="hidden bg-accent md:block"
+              <Image
+                src={`/icons/${props.icon}.svg`}
+                alt=""
+                aria-hidden="true"
+                width={42}
+                height={42}
+                className="hidden md:block"
               />
             )}
           </div>
