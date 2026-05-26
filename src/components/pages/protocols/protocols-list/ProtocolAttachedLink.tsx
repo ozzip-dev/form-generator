@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/shared";
 import { parseUrl } from "@/helpers/protocolHelpers";
+import Icon from "@/components/shared/icons/Icon";
 
 type Props = {
   link: string;
@@ -13,25 +13,27 @@ const ProtocolAttachedLink = ({ link }: Props) => {
 
   return (
     <div className="flex items-center">
-      <div>
+      <div className="flex min-w-0 flex-1 items-center gap-2">
+        <button
+          type="button"
+          onClick={() => {
+            window.open(parsedUrl, "_blank", "noopener,noreferrer");
+          }}
+          aria-label="Otwórz w nowym oknie"
+          className="flex shrink-0 items-center justify-center transition hover:opacity-70"
+        >
+          <Icon icon="open-in-new-window" size={20} className="bg-accent" />
+        </button>
+
         <Link
           href={parsedUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mr-4 block truncate hover:underline"
+          className="truncate hover:underline"
         >
           {link}
         </Link>
       </div>
-
-      <Button
-        onClickAction={() => {
-          window.open(parsedUrl, "_blank", "noopener,noreferrer");
-        }}
-        message="Otwórz"
-        variant="primary-rounded"
-        className="ml-auto hidden sm:block"
-      />
     </div>
   );
 };

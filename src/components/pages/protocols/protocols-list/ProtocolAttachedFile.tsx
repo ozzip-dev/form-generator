@@ -1,7 +1,6 @@
 "use client";
 
 import { FileSerialized } from "@/types/file";
-import { Button } from "@/components/shared";
 import Image from "next/image";
 import { downloadFile } from "@/lib/utils";
 import Icon from "@/components/shared/icons/Icon";
@@ -18,8 +17,17 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
     <div className="flex items-center">
       {file?.data && (
         <>
-          <div className="flex items-center gap-2">
-            <div className="mr-4 truncate">{file?.name || "-"}</div>
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => handleDownload(file)}
+              aria-label="Pobierz plik"
+              className="flex shrink-0 items-center justify-center transition hover:opacity-70"
+            >
+              <Icon icon="download" size={20} className="bg-accent" />
+            </button>
+
+            <div className="truncate">{file?.name || "-"}</div>
 
             {file.type === "application/pdf" ? (
               <Icon
@@ -36,13 +44,6 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
               />
             )}
           </div>
-
-          <Button
-            onClickAction={() => handleDownload(file)}
-            message="Pobierz"
-            variant="primary-rounded"
-            className="ml-auto hidden sm:block"
-          />
         </>
       )}
     </div>
