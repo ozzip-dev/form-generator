@@ -1,52 +1,68 @@
+import Image from "next/image";
+
 const VoteVisibility = () => {
   return (
     <section className="">
       <div className="container pb-20 pt-16">
         <div className="mx-auto w-4/5">
           <h2 className="text-center text-lg">
-            Pełna kontrola nad sposobem głosowania
+            Pełna kontrola nad zapisem danych
           </h2>
           <p className="mt-4 text-center">
-            Każda organizacja może dostosować sposób zbierania odpowiedzi — od
-            anonimowych ankiet po jawne głosowania członków. Dane pozostają w
-            Twojej organizacji – pełna prywatność
+            Anonimowe ankiety albo jawne głosowania. Dane pozostają w Twojej
+            organizacji.
           </p>{" "}
         </div>
         <div className="mt-28 flex flex-col-reverse gap-6 sm:flex-row">
-          <div className="flex-1 rounded-sm bg-slate-500 text-white">image</div>
+          <div className="flex-1 rounded-sm">
+            <Image
+              src="/images/voting.jpg"
+              alt=""
+              width={1200}
+              height={800}
+              className="h-auto w-full"
+            />
+          </div>
           <div className="flex-1 p-6">
             <div className="mb-6 font-semibold">Głosowanie anonimowe</div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Zbiorcze podsumowanie odpowiedzi bez powiązania ich z pojedynczymi
+              formularzami.
             </p>
           </div>
         </div>
         <div className="mt-28 flex flex-col gap-6 sm:flex-row">
           <div className="flex-1 p-6">
             <div className="mb-6 font-semibold">Głosowanie jawne</div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <p>Odpowiedzi z każdego formularza.</p>
           </div>
-          <div className="flex-1 rounded-sm bg-slate-500 text-white">image</div>
+          <div className="flex-1 rounded-sm">
+            <Image
+              src="/images/hands.jpg"
+              alt=""
+              width={1200}
+              height={800}
+              className="h-auto w-full"
+            />
+          </div>
         </div>
         <div className="mt-28 flex flex-col-reverse gap-6 sm:flex-row">
-          <div className="flex-1 rounded-sm bg-slate-500 text-white">image</div>
+          <div className="flex-1 rounded-sm">
+            <Image
+              src="/images/card.jpg"
+              alt=""
+              width={1200}
+              height={800}
+              className="h-auto w-full"
+            />
+          </div>
           <div className="flex-1 p-6">
             <div className="mb-6 font-semibold">
               Głosowanie częściowo anonimowe
             </div>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              Możliwość ukrycia w wynikach pojedynczych odpowiedzi np. danych
+              osobowych.
             </p>
           </div>
         </div>
