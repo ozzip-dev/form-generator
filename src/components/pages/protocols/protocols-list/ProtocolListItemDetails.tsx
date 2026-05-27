@@ -2,7 +2,7 @@
 
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import {
-  ProtocolFileCategory,
+  ProtocolAttachmentCategory,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
 import { mapFileCategory } from "../utils";
@@ -13,20 +13,21 @@ const ProtocolListItemDetails = ({
   files,
   lastModifiedAt,
   uploadedAt,
+  links,
 }: ProtocolWithFilesSerialized) => {
   return (
     <Card>
-      <div className="hidden sm:flex gap-8 pb-sm text-grey_secondary text-sm">
+      <div className="hidden gap-12 pb-sm text-sm text-font_dark sm:flex">
+        <div>Edytowano: {formatDateAndTime(lastModifiedAt)}</div>
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
-        <div>Edycja: {formatDateAndTime(lastModifiedAt)}</div>
       </div>
 
-      <div className="text-md font-semibold pb-2">Pliki</div>
       {Object.entries(mapFileCategory).map(([key, value]) => (
         <ProtocolAttachedFileCategory
           key={key}
           files={files}
-          category={key as ProtocolFileCategory}
+          links={links}
+          category={key as ProtocolAttachmentCategory}
           header={value}
         />
       ))}

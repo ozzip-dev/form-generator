@@ -10,7 +10,10 @@ type Props = {
 export default async function EditProtocolLayout(props: Props) {
   const { protocolId } = await props.params;
 
-  const protocolPromise = getProtocolById(protocolId);
+  const protocolPromise = getProtocolById(protocolId).catch((error) => {
+    console.error("Failed to load protocol", { protocolId, error });
+    return null;
+  });
 
   const protocol = await protocolPromise;
 
@@ -18,7 +21,10 @@ export default async function EditProtocolLayout(props: Props) {
     ? Object.values(protocol.fileIds).flat()
     : [];
 
-  const filesPromise = getFilesByFileIdsNoData(fileIds);
+  const filesPromise = getFilesByFileIdsNoData(fileIds).catch((error) => {
+    console.error("Failed to load protocol files", { protocolId, error });
+    return [];
+  });
 
   return (
     <ProtocolContextProvider

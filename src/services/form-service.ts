@@ -9,7 +9,7 @@ import {
   update,
   updateById,
 } from "@/lib/mongo";
-import { Form, FormSerialized } from "@/types/form";
+import { Form, FormSerialized, FormState } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 import { cache } from "react";
@@ -19,6 +19,7 @@ import { getUserById, requireUser } from "./user-service";
 import { isUserAuthor } from "@/helpers/formHelpers";
 import { getFileById, removeFile } from "./file-service";
 import { File } from "@/types/file";
+import { TemplateFormId } from "@/lib/mongo/models";
 
 export const getForm = cache(
   async (formId: string): Promise<FormSerialized> => {
@@ -91,7 +92,16 @@ export async function createDraft(
 
 export async function getFormTemplates(): Promise<Form[]> {
   const forms = await find<Form>(db, "form", { state: "template" });
-  return forms;
+
+  const sortOrder = Object.values(TemplateFormId);
+
+  const sortedTemplateForms = [...forms].sort(
+    (a, b) =>
+      sortOrder.indexOf(a.id as TemplateFormId) -
+      sortOrder.indexOf(b.id as TemplateFormId),
+  );
+
+  return sortedTemplateForms;
 }
 
 export async function updateForm(
@@ -107,13 +117,32 @@ export async function updateForm(
   });
 }
 
-export async function publishForm(db: Db, formId: string): Promise<void> {
+async function setFormState(
+  db: Db,
+  formId: string,
+  state: FormState,
+  updateObj: Record<string, any> = {},
+): Promise<void> {
   await updateById<Form>(db, "form", new ObjectId(formId), {
     $set: {
-      state: "active",
+      state,
       updatedAt: new Date(),
+      ...updateObj,
     },
   });
+}
+
+export async function publishForm(db: Db, formId: string): Promise<void> {
+  await setFormState(db, formId, "active");
+}
+
+export async function setFormDisabled(
+  db: Db,
+  formId: string,
+  disabledText: string,
+): Promise<void> {
+  const updateObj = { disabledText };
+  await setFormState(db, formId, "disabled", updateObj);
 }
 
 export async function getFormBySlug(
@@ -337,10 +366,10 @@ export async function getFormAdditionalData(formId: string): Promise<{
     : null;
 
   const authorId = form.createdBy?.toString();
-  const formAuthor = await getUserById(authorId as string);
+  const formAuthor = authorId ? await getUserById(authorId as string) : null;
 
   return {
     headerFileData: file ? serializeFile(file)?.data : undefined,
-    authorEmail: formAuthor.email,
+    authorEmail: formAuthor?.email || "",
   };
 }

@@ -1,15 +1,18 @@
-"use client";
-
 import { handleAddProtocol } from "@/components/pages/protocols/protocol-form/handleAddProtocol";
 import ProtocolForm from "@/components/pages/protocols/protocol-form/ProtocolForm";
 import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Dodawanie protokołu",
+};
 
 const AddProtocolPage = () => {
   return (
     <>
       <SuspenseErrorBoundary size="lg" errorMessage="Brak danych protokołu">
         <div className="container mb-16">
-          <div className="text-xl pb-sm">Krok 1: uzupełnij dane</div>
+          <h1 className="pb-sm text-xl">Krok 1: uzupełnij dane</h1>
           <ProtocolForm mode="addProtocol" onSubmit={handleAddProtocol} />
         </div>
       </SuspenseErrorBoundary>

@@ -16,28 +16,28 @@ const dataInputscommittee = [
     name: "committeeUnion",
     type: "text",
     placeholder: "Związek",
-    labelClassName: "w-[22rem]"
+    labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Nazwa struktury związku:",
     name: "committeeName",
     type: "text",
     placeholder: "Komisja",
-    labelClassName: "w-[22rem]"
+    labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: "text",
     placeholder: "111-111-111",
-    labelClassName: "w-[22rem]"
+    labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: "email",
     placeholder: "email@zzz.pl",
-    labelClassName: "w-[22rem]"
+    labelClassName: "w-[22rem]",
   },
 ];
 
@@ -46,7 +46,7 @@ type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
 
 type Props = {
-  handlePrintForm?: () => void,
+  handlePrintForm?: () => void;
   mode?: "edit" | "create";
 };
 
@@ -55,13 +55,11 @@ const UserForm = (props: Props) => {
   const isEditMode = props.mode === "edit";
   const userDetails = isEditMode ? use(userCtx!.userPromise) : null;
 
-
   const isAction = useRef(false);
-
 
   const editUserDetails = async (
     prevState: State,
-    formData: FormData
+    formData: FormData,
   ): Promise<State> => {
     const data = Object.fromEntries(formData.entries()) as UserDetailsSchema;
 
@@ -86,39 +84,36 @@ const UserForm = (props: Props) => {
 
   const [state, formAction, isPending] = useActionState(
     editUserDetails,
-    initialState
+    initialState,
   );
-
 
   const inputsWithDefaults = dataInputscommittee.map((input) => ({
     ...input,
-    defaultValue:
-      state.inputs?.[input.name] ??
-      userDetails?.[input.name] ??
-      "",
+    defaultValue: state.inputs?.[input.name] ?? userDetails?.[input.name] ?? "",
   }));
 
   return (
     <>
       <form action={formAction}>
         <Card>
-          <SectionHeader message="Dane kontaktowe:" />
+          <SectionHeader message="Dane kontaktowe:" headerTag="h1" />
           <InputFields
             errorMsg={state.errors}
             inputsData={inputsWithDefaults}
             variant="horizontal"
           />{" "}
         </Card>
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-10 sm:gap-16">
-          {isEditMode && <Button
-            message="Anuluj"
-            onClickAction={() => {
-              isEditMode && props.handlePrintForm?.();
-            }}
-            type="button"
-            className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
-          />
-          }
+        <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
+          {isEditMode && (
+            <Button
+              message="Anuluj"
+              onClickAction={() => {
+                isEditMode && props.handlePrintForm?.();
+              }}
+              type="button"
+              className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
+            />
+          )}
           <Button
             isLoading={isAction.current && isPending}
             message="Zapisz"

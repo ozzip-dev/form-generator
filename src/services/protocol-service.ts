@@ -10,13 +10,14 @@ import {
 } from "@/lib/mongo";
 import {
   Protocol,
-  ProtocolFileCategory,
+  ProtocolAttachmentCategory,
   ProtocolInsertData,
   ProtocolSerialized,
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
 import { File, FileSerialized } from "@/types/file";
 import { serializeFile, serializeProtocol } from "@/lib/serialize-utils";
+import { createEmptyProtocolAttachments } from "@/helpers/protocolHelpers";
 
 export async function getProtocols(database: Db): Promise<Protocol[]> {
   const protocols = await findAll<Protocol>(database, "protocol");
@@ -72,7 +73,7 @@ export async function addFileToProtocol({
 }: {
   protocolId: string;
   fileId: string;
-  fileCategory?: ProtocolFileCategory;
+  fileCategory?: ProtocolAttachmentCategory;
 }): Promise<void> {
   const pushQuery: string = `fileIds.${fileCategory}`;
 
@@ -93,13 +94,55 @@ export async function removeFileFromProtocol({
 }: {
   protocolId: string;
   fileId: string;
-  fileCategory?: ProtocolFileCategory;
+  fileCategory?: ProtocolAttachmentCategory;
 }): Promise<void> {
   const pullQuery: string = `fileIds.${fileCategory}`;
 
   await updateById(db, "protocol", new ObjectId(protocolId), {
     $pull: {
       [pullQuery]: fileId,
+    },
+  });
+}
+
+export async function addLinkToProtocol({
+  protocolId,
+  link,
+  category,
+}: {
+  protocolId: string;
+  link: string;
+  category: ProtocolAttachmentCategory;
+}): Promise<void> {
+  const pushQuery: string = `links.${category}`;
+
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $push: {
+      [pushQuery]: link,
+    },
+    $set: {
+      lastModifiedAt: new Date(),
+    },
+  });
+}
+
+export async function removeLinkFromProtocol({
+  protocolId,
+  link,
+  category,
+}: {
+  protocolId: string;
+  link: string;
+  category: ProtocolAttachmentCategory;
+}): Promise<void> {
+  const pullQuery: string = `links.${category}`;
+
+  await updateById(db, "protocol", new ObjectId(protocolId), {
+    $pull: {
+      [pullQuery]: link,
+    },
+    $set: {
+      lastModifiedAt: new Date(),
     },
   });
 }
@@ -119,18 +162,10 @@ export async function mapFilesToProtocol(
   const serialiedProtocol = protocol;
   const { fileIds } = serialiedProtocol;
 
-  const files: Record<ProtocolFileCategory, (FileSerialized | null)[]> = {
-    agreement: [],
-    demands: [],
-    mediationDiscrepancy: [],
-    mediationMeetings: [],
-    negotiationDiscrepancy: [],
-    negotiationMeetings: [],
-    other: [],
-  };
-  const fileTypes: ProtocolFileCategory[] = Object.keys(
+  const files = createEmptyProtocolAttachments<FileSerialized | null>();
+  const fileTypes: ProtocolAttachmentCategory[] = Object.keys(
     fileIds,
-  ) as ProtocolFileCategory[];
+  ) as ProtocolAttachmentCategory[];
   for (const type of fileTypes) {
     for (const id of fileIds[type]) {
       try {

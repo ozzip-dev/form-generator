@@ -12,6 +12,7 @@ import MenuBar from "./MenuBar";
 import Paragraph from "@tiptap/extension-paragraph";
 
 import { Mark, mergeAttributes } from "@tiptap/core";
+import { Button } from "@/components/shared";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
@@ -52,10 +53,13 @@ type Props = {
   printDescriptionInput?: () => void;
   editAction?: any;
   placeholder: string;
+  onContentUpdate?: (content: string) => void;
+  displaySaveButton?: boolean;
 };
 
 const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description ?? "");
+  const [statusMessage, setStatusMessage] = useState("");
   const [isPending, startTransition] = useTransition();
 
   const editor = useEditor({
@@ -90,13 +94,16 @@ const TextEditor = (props: Props) => {
     content: editorContent,
 
     onUpdate: ({ editor }) => {
-      setEditorContent(editor.getHTML());
+      const html = editor.getHTML();
+      setEditorContent(html);
+      props.onContentUpdate?.(html);
     },
   });
 
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
   const handleEditDescription = () => {
+    setStatusMessage("Zapis opisu");
     if (!editor) return;
 
     const text = editor.getText().trim();
@@ -110,9 +117,11 @@ const TextEditor = (props: Props) => {
         await props?.editAction(props.formId, props.inputId, {
           description: editorContent,
         });
+        setStatusMessage("Opis zapisany");
       } else {
         if (!props?.editAction) return;
         await props?.editAction(props.formId, { description: editorContent });
+        setStatusMessage("Opis zapisany");
       }
 
       props.printDescriptionInput && props.printDescriptionInput();
@@ -120,17 +129,22 @@ const TextEditor = (props: Props) => {
   };
 
   useAutoLoader(isPending);
+  const remaining = MAX_CHARS - characters;
 
   return (
     <div className="">
-      <MenuBar editor={editor} handleEditDescription={handleEditDescription} />
+      <MenuBar
+        editor={editor}
+        handleEditDescription={handleEditDescription}
+        displaySaveButton={props.displaySaveButton}
+      />
       <div className="textEditorTags">
         <EditorContent
           editor={editor}
           className="texEditorPlaceholder bg-white text-sm"
         />
       </div>
-      <div className="flex justify-end text-xs">
+      <div className="flex justify-between text-xs">
         <span
           className={
             characters >= MAX_CHARS
@@ -140,6 +154,25 @@ const TextEditor = (props: Props) => {
         >
           {characters}/{MAX_CHARS}
         </span>
+        <div role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </div>
+        <Button
+          message="Zapisz"
+          type="button"
+          onClickAction={handleEditDescription}
+          className="!text-bold ml-auto !text-sm !text-accent"
+          variant="ghost"
+          ariaLabel="Zapisz opis"
+        />
+        <div role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </div>{" "}
+        <div role="status" aria-live="polite" className="sr-only">
+          {remaining > 0
+            ? `Pozostało ${remaining} znaków`
+            : "Osiągnięto maksymalny limit znaków"}
+        </div>
       </div>
     </div>
   );

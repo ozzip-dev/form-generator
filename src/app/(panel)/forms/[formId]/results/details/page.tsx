@@ -8,7 +8,12 @@ import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
 import { requireUser } from "@/services/user-service";
 import { Answers, GroupedAnswer, SubmissionSerialized } from "@/types/result";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Podsumowanie danych zebranych przez formularz",
+};
 
 type Props = { params: Promise<{ formId: string }> };
 

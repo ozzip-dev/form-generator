@@ -3,15 +3,21 @@
 import { db } from "@/lib/mongo";
 import { addProtocol } from "@/services/protocol-service";
 import { requireUser } from "@/services/user-service";
-import { ProtocolInsertData } from "@/types/protocol";
+import {
+  ProtocolAttachmentCategory,
+  ProtocolInsertData,
+} from "@/types/protocol";
 import { revalidateTag } from "next/cache";
 import { protocolFormSchema } from "@/lib/zod-schema/protocolFormSchema";
 import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
+import { createEmptyProtocolAttachments } from "@/helpers/protocolHelpers";
 
 export async function createProtocolAction({
   branch,
   disputeReason,
+  demands,
   tradeUnionName,
+  tradeUnionOrganization,
   workplaceName,
   disputeStartDate,
 }: ProtocolInsertData): Promise<{
@@ -22,7 +28,9 @@ export async function createProtocolAction({
 
   const data = {
     branch,
+    demands,
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
     disputeStartDate,
     disputeReason,
@@ -39,18 +47,13 @@ export async function createProtocolAction({
     protocolId = await addProtocol(db, user.id, {
       branch,
       disputeReason,
+      demands,
       tradeUnionName,
+      tradeUnionOrganization,
       workplaceName,
       disputeStartDate,
-      fileIds: {
-        demands: [],
-        mediationMeetings: [],
-        mediationDiscrepancy: [],
-        negotiationMeetings: [],
-        negotiationDiscrepancy: [],
-        agreement: [],
-        other: [],
-      },
+      fileIds: createEmptyProtocolAttachments<string>(),
+      links: createEmptyProtocolAttachments<string>(),
     });
 
     revalidateTag("protocols");

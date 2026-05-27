@@ -13,13 +13,13 @@ import {
   isInputWithOptions,
 } from "@/helpers/inputHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
+import { consumeFocusOnLastEditField } from "@/lib/edit-form-focus";
 import {
   editInputFormSchema,
   EditInputFormSchema,
 } from "@/lib/zod-schema/edit-form-schemas/editFormInputSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
@@ -29,7 +29,13 @@ import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 
 const EditFormInput = () => {
-  const { formId, input, inputIdx, inputNumber } = useInputData();
+  const { formId, input, inputIdx, inputNumber, isLastInput } = useInputData();
+  const focusRegionRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!isLastInput || !consumeFocusOnLastEditField(formId)) return;
+    focusRegionRef.current?.focus({ preventScroll: false });
+  }, [formId, isLastInput]);
 
   const {
     id: inputId,
@@ -130,6 +136,16 @@ const EditFormInput = () => {
         <div>Błąd pola fomrularza, skontanktuj się z administratorem</div>
       ) : (
         <FormProvider {...methods}>
+          <div
+            ref={focusRegionRef}
+            tabIndex={-1}
+            className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            aria-label={
+              inputNumber != null
+                ? `Pytanie ${inputNumber}`
+                : "Pole formularza"
+            }
+          >
           <form>
             <FormInputMoveRemoveButtons />
 
@@ -199,6 +215,7 @@ const EditFormInput = () => {
               {!isInputTypeParagraph(input) && <ToggleInputs />}
             </div>
           </form>
+          </div>
         </FormProvider>
       )}
     </Card>

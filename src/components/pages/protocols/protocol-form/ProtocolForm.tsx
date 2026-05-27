@@ -14,40 +14,48 @@ import {
 } from "@/lib/zod-schema/protocolFormSchema";
 import { ProtocolInsertData, ProtocolSerialized } from "@/types/protocol";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, UseFormSetError } from "react-hook-form";
+import {
+  useForm,
+  UseFormSetError,
+  useFieldArray,
+  FieldArrayPath,
+} from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
 import SectionHeader from "@/components/shared/SectionHeader";
+import DemandsField from "./DemandsField";
 
 const dataInputsProtocolForm = [
   {
     staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: "date",
-    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
   },
   {
     staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
+  },
+  {
+    staticLabel: "Organizacja zakładowa:",
+    name: "tradeUnionOrganization",
+    placeholder: "Organizacja",
   },
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
-    type: "text",
-    labelClassName: "w-[22rem] md:text-right",
   },
-];
+].map((item) => ({
+  ...item,
+  type: item.type || "text",
+  labelClassName: "w-[22rem] md:text-right",
+}));
 
 const dataCheckboxOptions = [
   {
@@ -105,9 +113,24 @@ const ProtocolForm = (props: Props) => {
     setError,
   } = methods;
 
-  const onFormSubmit = async (data: ProtocolInsertData) => {
+  const {
+    fields: demandFields,
+    append: appendDemand,
+    remove: removeDemand,
+  } = useFieldArray({
+    control,
+    name: "demands" as FieldArrayPath<ProtocolFormSchema>,
+  });
+
+  const onFormSubmit = async (data: ProtocolFormSchema) => {
     try {
-      const protocolId = await props.onSubmit(data, setError);
+      const protocolId = await props.onSubmit(
+        {
+          ...data,
+          demands: data.demands ?? [],
+        },
+        setError,
+      );
       if (protocolId) {
         router.push(`/protocols/${protocolId}`);
         toast({
@@ -155,6 +178,15 @@ const ProtocolForm = (props: Props) => {
             mode="horizontal"
           />
         </div>
+
+        <DemandsField
+          demandFields={demandFields}
+          appendDemand={appendDemand}
+          removeDemand={removeDemand}
+          control={control}
+          errors={errors}
+          isSubmitting={isSubmitting}
+        />
 
         <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           {props.handlePrintForm && (

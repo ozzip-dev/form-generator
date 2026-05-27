@@ -2,7 +2,7 @@ import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import { ProtocolSerialized } from "@/types/protocol";
 
 export const getProtocolDefaultValues = (
-  protocol?: Partial<ProtocolSerialized>
+  protocol?: Partial<ProtocolSerialized>,
 ) => {
   return {
     branch: protocol?.branch ?? "",
@@ -10,7 +10,9 @@ export const getProtocolDefaultValues = (
       ? new Date(protocol.disputeStartDate).toISOString().split("T")[0]
       : "",
     tradeUnionName: protocol?.tradeUnionName ?? "",
+    tradeUnionOrganization: protocol?.tradeUnionOrganization ?? "",
     workplaceName: protocol?.workplaceName ?? "",
+    demands: protocol?.demands ?? [],
     disputeReason: protocol?.disputeReason ?? {
       workTime: "",
       safetyConditions: "",

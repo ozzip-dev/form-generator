@@ -19,7 +19,14 @@ const nextConfig = {
         permanent: true,
       },
     ]
-  }
+  },
+  experimental: {
+    serverActions: {
+      /* when edited, change value in protocolHelpers  */
+      bodySizeLimit: '5mb',
+    },
+  },
+
 };
 
 export default nextConfig;

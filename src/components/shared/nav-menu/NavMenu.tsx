@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { NavMenuLink } from "@/types/shared";
 import MenuLink from "./MenuLink";
-import Icon from "../icons/Icon";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -33,41 +33,48 @@ const NavMenu = (props: Props) => {
   return (
     <>
       {props.variant === "mobile" ? (
-        <div className="p-4">
-          <ul className="flex flex-col gap-8">
+        <nav className="m-auto w-fit text-font_dark">
+          <ul className="flex flex-col">
             {props.links.map(({ text, link, sameTab }) => (
-              <MenuLink
-                key={link}
-                {...{ text, link }}
-                isActive={isLinkActive(link)}
-                sameTab={sameTab}
-              />
+              <div className="border-b py-16 last:border-none" key={link}>
+                <MenuLink
+                  {...{ text, link }}
+                  isActive={isLinkActive(link)}
+                  sameTab={sameTab}
+                  textColor="text-font_light"
+                  mobile={true}
+                />
+              </div>
             ))}
           </ul>
-        </div>
+        </nav>
       ) : (
         <div className="flex items-center justify-center md:justify-between">
           <div>
             {props.icon && (
-              <Icon
-                icon={props.icon}
-                size={27}
-                color="var(--color-accent)"
+              <Image
+                src={`/icons/${props.icon}.svg`}
+                alt=""
+                aria-hidden="true"
+                width={42}
+                height={42}
                 className="hidden md:block"
               />
             )}
           </div>
-          <ul className="flex items-center gap-6 sm:gap-10">
-            {props.links.map(({ text, link, sameTab }) => (
-              <MenuLink
-                key={link}
-                {...{ text, link }}
-                level={props.level}
-                isActive={isLinkActive(link)}
-                sameTab={sameTab}
-              />
-            ))}
-          </ul>
+          <nav>
+            <ul className="flex items-center gap-6 sm:gap-10">
+              {props.links.map(({ text, link, sameTab }) => (
+                <MenuLink
+                  key={link}
+                  {...{ text, link }}
+                  level={props.level}
+                  isActive={isLinkActive(link)}
+                  sameTab={sameTab}
+                />
+              ))}
+            </ul>
+          </nav>
         </div>
       )}
     </>

@@ -4,7 +4,8 @@ import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
 import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
-const headers = ["Branża", "Nazwa związku", "Nazwa zakładu", "Początek sporu"];
+
+const headers = ["Branża", "Związek", "Zakład", "Rozpoczęcie", "Przyczyna"];
 
 type Props = {
   filters: ProtocolFilters;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 const ProtocolList = ({
-  filters: { text = "", fromDate, toDate, sortOrder },
+  filters: { text = "", fromDate, toDate, sortOrder, disputeReason = "" },
   protocols,
 }: Props) => {
   const getDisputeTime = (protocol: ProtocolSerialized) =>
@@ -30,10 +31,17 @@ const ProtocolList = ({
 
   const filteredResults = protocols
     .filter(
-      ({ branch, tradeUnionName, workplaceName, disputeStartDate }) =>
+      ({
+        branch,
+        tradeUnionName,
+        workplaceName,
+        disputeStartDate,
+        disputeReason: protocolDisputeReason,
+      }) =>
         isSearchTextEqual(text, branch, tradeUnionName, workplaceName) &&
         (fromDate ? new Date(disputeStartDate) >= new Date(fromDate) : true) &&
-        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true),
+        (toDate ? new Date(disputeStartDate) <= new Date(toDate) : true) &&
+        (disputeReason ? protocolDisputeReason[disputeReason] : true),
     )
     .sort((a, b) =>
       isAscending(sortOrder)
@@ -46,14 +54,20 @@ const ProtocolList = ({
       <div className="sticky top-0 z-10 w-full bg-white">
         <div className="md:flex">
           <ResponsiveListHeader headers={headers} />
-          <div className="md:w-[27rem]"></div>
+          <div className="md:w-[15%]"></div>
         </div>
       </div>
 
       <div className="my-8 flex flex-1 flex-col gap-4 text-sm">
-        {filteredResults.map((protocol, idx) => {
-          return <ProtocolListItem key={idx} protocol={protocol} />;
-        })}
+        {filteredResults.length === 0 ? (
+          <div className="mt-10 text-center">
+            Brak protokołów spełniających kryteria wyszukiwania
+          </div>
+        ) : (
+          filteredResults.map((protocol, idx) => (
+            <ProtocolListItem key={idx} protocol={protocol} />
+          ))
+        )}
       </div>
     </>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { FormSerialized } from "@/types/form";
+import { FormSerialized, FormState } from "@/types/form";
 import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
 import { Submission } from "@/types/result";
 import { getAllSubmissions } from "@/services/result-service";
@@ -10,38 +10,54 @@ import Icon from "@/components/shared/icons/Icon";
 
 type Props = { form: Partial<FormSerialized> };
 
+type FormStateConfig = {
+  bgColor: string;
+
+  iconConfig: { icon: string; size: number; color: string };
+};
+
+const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
+  draft: {
+    bgColor: "bg-[#eee7ff]",
+    iconConfig: { icon: "pencil", size: 31, color: "bg-[#b08bff]" },
+  },
+  active: {
+    bgColor: "bg-[#e8f9f0]",
+    iconConfig: { icon: "circle-check", size: 44, color: "bg-[#45ba7e]" },
+  },
+  disabled: {
+    bgColor: "bg-[#ffe8d6]",
+    iconConfig: { icon: "xmark", size: 40, color: "bg-[#ff9800]" },
+  },
+};
+
 export default async function FormLink(props: Props) {
   const { _id, state, updatedAt } = props.form;
-  const isFormActive = props.form && isActive(props.form as FormSerialized);
   const formattedDate = formatDateAndTime(updatedAt);
   const submissions: Submission[] = await getAllSubmissions(_id as string);
-  const bgColor = isFormActive ? "bg-[#e8f9f0]" : "bg-[#eee7ff]";
-  const icon = isFormActive ? (
-    <Icon
-      icon="circle-check"
-      size={44}
-      className="mx-auto mb-3"
-      color="#45ba7e"
-    />
-  ) : (
-    <Icon icon="pencil" size={31} className="mx-auto mb-3" color="#b08bff" />
-  );
+  const isFormActive = props.form && isActive(props.form as FormSerialized);
 
-  const textColor = isFormActive ? "text-[#45ba7e]" : "text-[#b08bff]";
+  const config = state && stateConfig[state as FormState];
+  const { bgColor, iconConfig } = config || stateConfig.draft!;
 
   return (
-    <li className="w-[13rem]">
+    <li className="w-[11rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className={`flex h-[13rem] w-full items-center justify-center rounded-md border px-8 py-6 text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
+        className={`m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border text-xs transition ${bgColor} hover:bg-accent_light md:rounded-lg`}
+        aria-label={`Formularz: ${props.form.title ?? "Brak tytułu"}`}
       >
-        <div className={textColor}>
-          {icon}
-          <div className="font-semibold uppercase">
+        <div>
+          <Icon
+            icon={iconConfig!.icon}
+            size={iconConfig!.size}
+            className={`mx-auto mb-3 ${iconConfig.color}`}
+          />
+          <div className="text-center font-semibold uppercase">
             {state && formStateWithLabels[state]}
           </div>
           {isFormActive && (
-            <div>
+            <div className="text-center">
               Wyniki:{" "}
               <span className="font-semibold">{submissions.length}</span>
             </div>

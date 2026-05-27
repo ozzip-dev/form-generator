@@ -5,7 +5,6 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -79,9 +78,21 @@ module.exports = {
           "0%": { opacity: "0", transform: "translateY(1rem)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        gradient: {
+          "0%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+          "100%": {
+            backgroundPosition: "0% 50%",
+          },
+        },
       },
       animation: {
         "toast-in": "toast-in 0.3s ease-out forwards",
+        gradient: "gradient 35s ease infinite",
       },
     },
   },

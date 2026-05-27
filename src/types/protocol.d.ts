@@ -1,21 +1,25 @@
 import { Binary, Document } from "mongodb";
 import { File, FileSerialized } from "./file";
 
-export type ProtocolFileCategory =
+export type ProtocolAttachmentCategory =
   | "demands"
   | "negotiationMeetings"
   | "negotiationDiscrepancy"
   | "mediationMeetings"
   | "mediationDiscrepancy"
   | "agreement"
+  | "strike"
   | "other";
 
 interface ProtocolData {
   branch: string; // branza
-  disputeReason: Record<string, string>; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokoć płac, normy pracy, inne
+  disputeReason: Record<string, string>; // powod sporu moze byc kilka :  czas pracy, standardy bhp, wysokość płac, normy pracy, inne
+  demands: string[]; // konkretne żądania
   tradeUnionName: string; // nazwa związku
+  tradeUnionOrganization: string; // organizacja zakładowa
   workplaceName: string; // nazwa zakładu
-  fileIds: Record<ProtocolFileCategory, string[]>;
+  fileIds: Record<ProtocolAttachmentCategory, string[]>;
+  links: Record<ProtocolAttachmentCategory, string[]>;
 }
 
 export interface Protocol extends ProtocolData {
@@ -37,11 +41,13 @@ export interface ProtocolSerialized extends ProtocolData {
 export type ProtocolInsertData = {
   branch: string;
   disputeReason: Record<string, string>;
+  demands: string[];
   tradeUnionName: string;
+  tradeUnionOrganization: string;
   workplaceName: string;
   disputeStartDate: string;
 };
 
 export type ProtocolWithFilesSerialized = ProtocolSerialized & {
-  files: Record<ProtocolFileCategory, (FileSerialized | null)[]>;
+  files: Record<ProtocolAttachmentCategory, (FileSerialized | null)[]>;
 };

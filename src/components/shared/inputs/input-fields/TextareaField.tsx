@@ -28,7 +28,7 @@ const TextareaField = (props: Props) => {
     <div className="relative flex-1">
       <textarea
         id={name}
-        aria-label={`Enter ${props.inputData.label || name} details: e.g. '${props.inputData.label || name} example text'`}
+        aria-label={`Podaj ${props.inputData.label || name}: np. '${props.inputData.label || name}'`}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}

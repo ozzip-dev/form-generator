@@ -12,14 +12,14 @@ const FormsLIst = async () => {
   return (
     <>
       <div className="w-full items-center md:flex">
-        <SectionHeader message="Twoje formularze" />
+        <SectionHeader message="Twoje formularze" headerTag="h1" />
         <div className="mb-7 mt-auto text-center text-xs md:ml-4 md:text-left">
-          maksymalnie {formCountLimit} formularzy
+          maksymalnie {formCountLimit} szkiców i aktywnych formularzy
         </div>
       </div>
 
-      <ul className="flex flex-wrap justify-center gap-4 text-sm md:justify-start">
-        <li>
+      <ul className="flex flex-wrap justify-center gap-x-4 gap-y-8 text-sm md:justify-start">
+        <li className="w-[11rem]">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia formularza"
             size="sm"

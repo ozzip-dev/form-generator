@@ -20,7 +20,7 @@ const CreateFormMenu = async ({ formId }: Props) => {
     { text: "Edycja", link: `/forms/${formId}/edit`, isVisible: isAuthor },
     {
       text: "Podgląd",
-      link: `/forms/${formId}/preview`,
+      link: `/${formId}`,
       sameTab: false,
       isVisible: true,
     },
@@ -42,7 +42,7 @@ const CreateFormMenu = async ({ formId }: Props) => {
   );
 
   return (
-    <div className="mr-7 px-4 py-8 sm:px-8 md:px-24">
+    <div className="py-8">
       <NavMenu links={visibleLinks} icon="edit-form" depth={3} level="sub" />
     </div>
   );

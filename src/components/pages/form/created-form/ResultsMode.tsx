@@ -10,8 +10,7 @@ const ResultsMode = (props: { resultVisibility: string }) => {
       ) : (
         <div>
           <span className="mr-2 font-semibold">Jawny tryb zapisu danych:</span>
-          zbiorcze podsumowanie odpowiedzi oraz odpowiedzi z każdego
-          pojedynczego formularza.
+          odpowiedzi z każdego formularza oraz zbiorcze podsumowanie odpowiedzi.
         </div>
       )}
     </div>

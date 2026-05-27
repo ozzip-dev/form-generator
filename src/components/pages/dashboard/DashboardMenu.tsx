@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon } from "@/components/shared";
+import { Button, Card, Icon } from "@/components/shared";
 import { NavMenu } from "@/components/shared/nav-menu";
 import { useUser } from "@/context/UserContextProvider";
 import { isModerator } from "@/lib/utils";
@@ -12,7 +12,7 @@ const dashboardLink = { text: "Strona główna", link: "/dashboard" };
 const moderatorNavLinks: NavMenuLink[] = [
   // dashboardLink, // TODO: zostawiam dla admina, przemyśleć i ew. zmienić
   { text: "Formularze", link: "/forms/list" },
-  { text: "Protokoły", link: "/protocols/add" },
+  { text: "Protokoły", link: "/protocols/list" },
   { text: "Forum", link: "/forum/list" },
   { text: "Ustawienia", link: "/settings/user-settings" },
 ];
@@ -37,9 +37,9 @@ const DashboardMenu = () => {
         className="text-white lg:hidden"
         icon={
           isMenuOpen ? (
-            <Icon color="white" icon="xmark" size={20} />
+            <Icon className="bg-white" icon="xmark" size={20} />
           ) : (
-            <Icon color="white" icon="hamburger" size={20} />
+            <Icon className="bg-white" icon="hamburger" size={20} />
           )
         }
         onClickAction={() => setIsMenuOpen((prev) => !prev)}
@@ -47,17 +47,20 @@ const DashboardMenu = () => {
         ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
       />
 
-      <div
-        className={`fixed left-0 top-20 z-40 h-full w-4/5 max-w-xs transform bg-accent transition-transform duration-300 ease-in-out lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} `}
+      <Card
+        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
       >
-        <div className="px-6 pt-20">
+        <div
+          className="px-16 md:px-0"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
           <NavMenu links={links} depth={1} variant="mobile" />
         </div>
-      </div>
+      </Card>
 
       {isMenuOpen && (
         <div
-          className="fixed inset-0 top-24 z-20 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 top-24 z-30 backdrop-blur-sm lg:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

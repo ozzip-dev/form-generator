@@ -10,8 +10,10 @@ const AddTextEditorBtn = (props: Props) => {
       <Button
         type="button"
         variant="ghost"
-        className="ml-2 !rounded-full border-2 p-[0.2rem]"
-        icon={<Icon icon="plus-solid-full" size={12} />}
+        className="ml-2 !rounded-full border border-font_dark p-[0.2rem]"
+        icon={
+          <Icon icon="plus-solid-full" size={12} className="bg-font_dark" />
+        }
         onClickAction={props.action}
         ariaLabel="Dodaj edytor"
       />

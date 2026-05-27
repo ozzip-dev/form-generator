@@ -12,16 +12,20 @@ export const handleAddProtocol = async (
   const {
     branch,
     tradeUnionName,
+    tradeUnionOrganization,
     workplaceName,
     disputeStartDate,
     disputeReason,
+    demands = [],
   } = data;
 
   try {
     const resp = await createProtocolAction({
       branch,
       disputeReason,
+      demands,
       tradeUnionName,
+      tradeUnionOrganization,
       workplaceName,
       disputeStartDate: disputeStartDate as string,
     });

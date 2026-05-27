@@ -57,6 +57,7 @@ const PublishFormButton = ({ form }: Props) => {
               oraz zmiany jego adresu.
             </>
           ),
+          confirmBtnMessage: "Opublikuj",
         })
       }
       isLoading={isPending}

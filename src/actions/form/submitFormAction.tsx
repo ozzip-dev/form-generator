@@ -1,7 +1,9 @@
 "use server";
 
+import { isActive } from "@/helpers/formHelpers";
 import { ValidationErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
+import { getFormById } from "@/services/form-service";
 import {
   addSubmission,
   checkUniqueFieldsValid,
@@ -16,6 +18,9 @@ export async function submitFormAction(
   answers: Answers,
   inputs: FormInput[],
 ): Promise<void | { validationErrors: ValidationErrors }> {
+  const form = await getFormById(formId);
+  if (!isActive(form)) throw new Error("Only active form can be submitted");
+
   const schema = createdFormSchema(inputs);
 
   const validationResult = schema.safeParse(answers);

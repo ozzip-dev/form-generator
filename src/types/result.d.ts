@@ -37,9 +37,3 @@ export interface GroupedAnswer {
   type: InputType;
   header: string;
 }
-
-export type DiagramType = {
-  value: string;
-  label: string;
-  selected: boolean;
-};

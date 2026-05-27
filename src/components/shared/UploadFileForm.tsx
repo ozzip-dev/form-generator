@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, DataLoader } from "@/components/shared";
+import { DataLoader } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { useCallback, useTransition } from "react";
 import { Accept, FileRejection, useDropzone } from "react-dropzone";
-import Card from "./Card";
+import { MAX_FILE_SIZE_B, MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 
 type Props = {
   onFileUploaded: (file: File) => Promise<void>;
@@ -15,7 +15,19 @@ type Props = {
 const UploadFileForm = ({
   onFileUploaded,
   // text, // TODO: bedziemy tego uzywac?
-  acceptedExtentions = { "image/*": [], "application/pdf": [] },
+  acceptedExtentions = {
+    "image/*": [],
+    "application/pdf": [],
+    ".docx": [],
+    ".xlsx": [],
+    ".xls": [],
+    ".odt": [],
+    ".doc": [],
+    ".rtf": [],
+    ".txt": [],
+    ".ods": [],
+    ".csv": [],
+  },
 }: Props) => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -41,7 +53,7 @@ const UploadFileForm = ({
     (rejectedFiles: FileRejection[]) => {
       if (rejectedFiles.length === 0) return;
 
-      const toManyFiles = rejectedFiles.find((file) => {
+      const tooManyFiles = rejectedFiles.find((file) => {
         return file.errors[0].code === "too-many-files";
       });
 
@@ -49,7 +61,7 @@ const UploadFileForm = ({
         return file.errors[0].code === "file-too-large";
       });
 
-      if (toManyFiles) {
+      if (tooManyFiles) {
         toast({
           title: "Zbyt dużo plików",
           description: "Maksymalnie 3 pliki",
@@ -59,7 +71,7 @@ const UploadFileForm = ({
       if (fileTooLarge) {
         toast({
           title: "Plik zbyt duży",
-          description: "Maksymalny rozmiar pliku to 1MB",
+          description: `Maksymalny rozmiar pliku to ${MAX_FILE_SIZE_MB}MB`,
           variant: "error",
         });
       }
@@ -71,7 +83,7 @@ const UploadFileForm = ({
     onDrop,
     onDropRejected,
     maxFiles: 5,
-    maxSize: 1024 * 1024,
+    maxSize: MAX_FILE_SIZE_B,
     accept: acceptedExtentions,
   });
 
@@ -79,7 +91,7 @@ const UploadFileForm = ({
     <>
       <div
         {...getRootProps()}
-        className={`group relative flex h-full w-full items-center justify-center transition-colors ${isDragActive ? "bg-accent" : "bg-transparent"}`}
+        className={`group relative flex h-full w-full cursor-pointer items-center justify-center transition-colors hover:opacity-60 ${isDragActive ? "bg-accent" : "bg-transparent"}`}
       >
         {isPending && (
           <div className="bg-red/50 w-100 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
@@ -89,18 +101,16 @@ const UploadFileForm = ({
 
         <input
           {...getInputProps()}
-          aria-label="Upload file: e.g. 'Contract.pdf', 'Photo.jpg'"
+          aria-label="Prześlij plik (np. Obraz.pdf, Obraz.jpg)"
+          placeholder="aaaa"
         />
 
         {isDragActive && <p> Upuść plik w tym miejscu </p>}
 
-        {!isDragActive && (
-          <Button
-            type="button"
-            message="Wybierz / upuść plik z komputera"
-            variant="primary-rounded"
-          />
-        )}
+        {!isDragActive && <p> Wybierz / upuść plik z komputera </p>}
+      </div>
+      <div role="status" aria-live="polite" className="sr-only">
+        {isPending ? "Trwa przesyłanie pliku..." : ""}
       </div>
     </>
   );

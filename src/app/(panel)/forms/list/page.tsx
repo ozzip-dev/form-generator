@@ -1,12 +1,17 @@
 import FormsTemplatesList from "@/components/pages/form/form-template-list/FormsTemplatesList";
 import FormsLIst from "@/components/pages/form/forms-list/FormsLIst";
 import { SuspenseErrorBoundary } from "@/components/shared";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Lista formularzy",
+};
 
 const FormListPage = async () => {
   return (
     <>
       <section>
-        <div className="container px-4 py-16 sm:px-8 md:flex md:px-24">
+        <div className="container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd ładowania listy formularzy"
             loadingMessage="Ładowanie listy formularzy"
@@ -17,7 +22,7 @@ const FormListPage = async () => {
         </div>
       </section>
       <section className="bg-bg_dark pb-10">
-        <div className="container px-4 py-16 sm:px-8 md:flex md:px-24">
+        <div className="container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia szablonu formularza"
             size="lg"

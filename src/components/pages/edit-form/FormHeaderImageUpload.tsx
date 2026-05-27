@@ -62,7 +62,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
   return (
     <>
       <div className="relative m-auto w-fit">
-        <div className="m-auto h-[3.4rem] w-[22rem] overflow-hidden rounded-full sm:w-[28rem]">
+        <div className="m-auto h-[3.4rem] w-[22rem] overflow-hidden rounded-full bg-accent text-white sm:w-[28rem]">
           <UploadFileForm
             {...{
               onFileUploaded,
@@ -98,7 +98,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               type="button"
               variant="ghost"
               ariaLabel="Usuń obraz z tytułu"
-              icon={<Icon icon="trash-can-regular-full" size={20} />}
+              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
             />
           </div>
         </div>

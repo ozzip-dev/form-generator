@@ -25,26 +25,24 @@ const FormTrigger = () => {
       <Button
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="group flex h-[13rem] w-full items-center justify-center rounded-md border !bg-accent_light px-8 py-6 text-xs transition hover:bg-accent_light md:rounded-lg"
+        className="group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-[#b08bff] !bg-[#eee7ff] text-xs transition hover:bg-accent_light md:rounded-lg"
         icon={
           <div>
             <Icon
               icon="plus-solid-full"
               size={40}
-              color="var(--color-accent)"
-              className="mb-3 transition-transform duration-200 group-hover:scale-125"
+              className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
             />
-            <span className="text-xs font-semibold text-accent">DODAJ</span>
+            <span className="text-xs font-semibold text-font_dark">DODAJ</span>
           </div>
         }
       />
       {state?.error ? (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>
-          <div className="text-2xs">formularzy</div>
         </div>
       ) : (
-        <div className="mt-4 px-4 text-center">Nowy formularz</div>
+        <div className="mt-4 text-center text-sm">Nowy formularz</div>
       )}
     </>
   );

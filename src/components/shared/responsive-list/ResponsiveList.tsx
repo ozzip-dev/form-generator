@@ -1,18 +1,23 @@
 type Props = {
   listItems: Record<string, string>;
+  truncateText?: boolean;
 };
 
-const ResponsiveList = (props: Props) => {
+const ResponsiveList = ({ listItems, truncateText = true }: Props) => {
   return (
     <ul className="md:flex md:flex-row">
-      {Object.entries(props.listItems).map(([key, value]) => {
+      {Object.entries(listItems).map(([key, value]) => {
         return (
           <li
             key={JSON.stringify([key, value])}
-            className="flex  md:flex-1 min-w-0 mb-2 md:mb-0"
+            className="mb-2 flex min-w-0 md:mb-0 md:flex-1"
           >
-            <div className="w-2/5 md:hidden font-semibold">{key}</div>
-            <div className="pr-2 truncate w-3/5 md:w-full">{value}</div>
+            <div className="w-2/5 font-semibold md:hidden">{key}</div>
+            <div
+              className={`w-3/5 pr-2 md:w-full ${truncateText ? "truncate" : ""}`}
+            >
+              {value}
+            </div>
           </li>
         );
       })}

@@ -16,10 +16,18 @@ export const protocolFormSchema = z.object({
     .trim()
     .min(2, { message: "Min. 2 znaki" })
     .max(100, { message: "Maks. 100 znaków" }),
+  tradeUnionOrganization: z
+    .string()
+    .trim()
+    .min(2, { message: "Min. 2 znaki" })
+    .max(100, { message: "Maks. 100 znaków" }),
   disputeStartDate: z
     .string()
     .trim()
     .refine((val) => !isNaN(Date.parse(val!)), "Data"),
+  demands: z
+    .array(z.string().max(300, { message: "Maks. 300 znaków" }))
+    .optional(),
 
   disputeReason: z.record(z.string()).superRefine((obj, ctx) => {
     const values = Object.values(obj).map((v) => v.trim());

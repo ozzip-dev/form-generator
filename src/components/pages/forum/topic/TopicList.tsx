@@ -3,7 +3,7 @@
 import { TopicSerializedDetailed } from "@/types/forum";
 import TopicListItem from "./TopicListItem";
 import { TopicCategory } from "@/enums/forum";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card } from "@/components/shared";
 import { mapTopicCategory } from "../utils";
 
@@ -11,10 +11,35 @@ type Props = {
   topics: TopicSerializedDetailed[];
 };
 
+const getCategoryFromHash = () => {
+  if (typeof window === "undefined") return TopicCategory.FORM;
+
+  const hashCategory = window.location.hash.slice(1);
+
+  return Object.values(TopicCategory).includes(hashCategory as TopicCategory)
+    ? (hashCategory as TopicCategory)
+    : TopicCategory.FORM;
+};
+
 const TopicList = (props: Props) => {
   const [selectedCategory, setSelectedCategory] = useState<TopicCategory>(
     TopicCategory.FORM,
   );
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setSelectedCategory(getCategoryFromHash());
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
+  const onCategorySelect = (category: TopicCategory) => {
+    window.location.hash = category;
+  };
 
   const displayedTopics = props.topics.filter(
     ({ category }) => category == selectedCategory,
@@ -32,21 +57,21 @@ const TopicList = (props: Props) => {
   return (
     <div className="container">
       <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
-        <div>Kategorie tematów </div>
+        <h1>Kategorie tematów </h1>
         <div className="m-auto flex w-fit flex-wrap items-center gap-x-8 gap-y-4 py-4">
           {Object.values(TopicCategory).map((category) => (
             <Button
               key={category}
               className={`btn-primary-rounded ${
-                category == selectedCategory ? "!bg-accent_dark" : ""
+                category == selectedCategory ? "!bg-white !text-accent" : ""
               }`}
               message={mapTopicCategory[category]}
-              onClickAction={() => setSelectedCategory(category)}
+              onClickAction={() => onCategorySelect(category)}
             />
           ))}
         </div>
       </div>
-      <div className="p-4 pb-8">{categoryDescriptions[selectedCategory]}</div>
+      <div className="pb-8">{categoryDescriptions[selectedCategory]}</div>
 
       <Card>
         {displayedTopics?.length ? (

@@ -1,16 +1,10 @@
 type Props = {
   icon: string;
   size?: number;
-  color?: string;
   className?: string;
 };
 
-const Icon = ({
-  icon,
-  size = 30,
-  color = "var(--color-font_light)",
-  className,
-}: Props) => {
+const Icon = ({ icon, size = 30, className }: Props) => {
   const src = `/icons/${icon}.svg`;
 
   return (
@@ -19,7 +13,6 @@ const Icon = ({
         mask: `url(${src}) no-repeat center / contain`,
         width: `${size}px`,
         height: `${size}px`,
-        backgroundColor: color,
       }}
       className={className}
     ></div>

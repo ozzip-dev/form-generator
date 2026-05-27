@@ -7,7 +7,7 @@ import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import {
   renderCheckbox,
@@ -28,7 +28,8 @@ import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
-import { confirmAction } from "@/helpers/confirmAction";
+import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
+import { isActive, isTemplate } from "@/helpers/formHelpers";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -52,14 +53,22 @@ type Props = {
   headerFileData?: string;
   authorEmail?: string;
   isPreview?: boolean;
+  isTemplatePreview?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
-  const { title, description, inputs, displayAuthorEmail, resultVisibility } =
-    props.form;
+  const {
+    title,
+    description,
+    inputs,
+    displayAuthorEmail,
+    resultVisibility,
+    state,
+  } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
+  const [displayInvalidInfo, setDisplayInvalidInfo] = useState(false);
 
   const isRequiredInput = inputs.filter(
     ({ required }) => required === true,
@@ -114,13 +123,6 @@ const CreatedForm = (props: Props) => {
     }
   };
 
-  // const confirmHandleSubmit = async (data: any) => {
-  //   await confirmAction({
-  //     action: () => onSubmit(data),
-  //     confirmText: "Czy na pewno wysłać wyniki?",
-  //   });
-  // };
-
   const handleCleanForm = () => {
     reset();
   };
@@ -152,16 +154,34 @@ const CreatedForm = (props: Props) => {
       );
     });
 
-  const hasErrors = Object.keys(errors).length > 0;
+  const canSubmit = !props.isTemplatePreview && isActive(props.form);
+
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setDisplayInvalidInfo(true);
+    }
+  }, [errors]);
 
   return (
     <>
+      {!canSubmit && (
+        <CreatedFormTemplateHeader
+          title={title}
+          isTemplate={isTemplate(props.form)}
+        />
+      )}
+
       <div className="container my-4 !max-w-[800px]">
-        <CreatedFormTopError isError={hasErrors} />
+        {displayInvalidInfo && (
+          <CreatedFormTopError setDisplayInvalidInfo={setDisplayInvalidInfo} />
+        )}
+
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
+
         {props.headerFileData && (
           <CreatedFormTopImage headerFileData={props.headerFileData} />
         )}
+
         <Card className="mb-8">
           <h1 className="mb-8 text-lg">{title}</h1>
           {description && (
@@ -182,7 +202,7 @@ const CreatedForm = (props: Props) => {
           >
             {formFields}
 
-            <div className="my-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
+            <div className="mb-6 mt-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
               <Button
                 message="Wyczyść"
                 type="button"
@@ -192,7 +212,7 @@ const CreatedForm = (props: Props) => {
 
               <Button
                 message="Zatwierdź"
-                disabled={props.isPreview ? true : false}
+                disabled={!canSubmit}
                 type="submit"
                 isLoading={isSubmitting}
                 className="w-full sm:w-fit"
@@ -201,9 +221,11 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-      <footer className="flex justify-center pb-10 text-xs">
+      <footer className="flex justify-center pb-32 pt-10 text-xs">
         <div className="container">
-          <ResultsMode resultVisibility={resultVisibility} />
+          {!props.isTemplatePreview && (
+            <ResultsMode resultVisibility={resultVisibility} />
+          )}
           {displayAuthorEmail && props.authorEmail && (
             <CreatedFormAuthor authorEmail={props.authorEmail} />
           )}

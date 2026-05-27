@@ -1,4 +1,4 @@
-import { UserRole } from "@/models/User";
+import { UserRole } from "@/lib/mongo/models";
 import { User } from "better-auth";
 import { Document } from "mongodb";
 

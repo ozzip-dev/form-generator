@@ -3,7 +3,7 @@ import { Card } from "@/components/shared";
 const ConfirmPrivacyText = () => {
   return (
     <div className="m-8 flex flex-col gap-8 px-24">
-      <div className="text-lg">Polityka prywatności</div>
+      <h1 className="text-lg">Polityka prywatności</h1>
       <div className="">
         Wyrażam wyraźną zgodę na przetwarzanie moich danych osobowych, w tym
         informacji o mojej przynależności związkowej, numeru telefonu oraz

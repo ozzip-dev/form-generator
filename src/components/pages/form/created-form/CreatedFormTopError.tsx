@@ -1,19 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
+
 type Props = {
-  isError: boolean;
+  setDisplayInvalidInfo: Dispatch<SetStateAction<boolean>>;
 };
 
 const CreatedFormTopError = (props: Props) => {
   return (
-    <div
-      className={`
-        w-screen py-8 bg-accent 
-        text-white text-center absolute left-0 -top-[6.5rem]
-        transition-transform duration-700 ease-in-out z-20
-        ${props.isError ? "translate-y-[6.5rem]" : "translate-y-0"}
-      `}
+    <button
+      onClick={() => props.setDisplayInvalidInfo(false)}
+      className="absolute left-0 top-0 z-20 w-screen bg-accent py-8 text-center text-white transition-transform duration-700 ease-in-out"
     >
       Nieprawidłowo wypełniony formularz
-    </div>
+    </button>
   );
 };
 

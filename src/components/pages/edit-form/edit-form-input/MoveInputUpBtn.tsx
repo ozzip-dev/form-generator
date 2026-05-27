@@ -7,9 +7,10 @@ import { Button } from "../../../shared";
 
 type Props = {
   inputId: string;
+  order: number;
 };
 
-const MoveInputUpBtn = ({ inputId }: Props) => {
+const MoveInputUpBtn = ({ inputId, order }: Props) => {
   const { formId } = useParams();
   const [isPending, startTransition] = useTransition();
 
@@ -22,15 +23,22 @@ const MoveInputUpBtn = ({ inputId }: Props) => {
   };
 
   return (
-    <Button
-      type="button"
-      onClickAction={handleMoveUp}
-      icon={
-        <Icon icon="chevron-down-solid-full" size={20} className="rotate-180" />
-      }
-      variant="ghost"
-      ariaLabel="Przenieś pole do góry"
-    />
+    <div>
+      {" "}
+      <Button
+        type="button"
+        onClickAction={handleMoveUp}
+        icon={
+          <Icon
+            icon="chevron-down-solid-full"
+            size={20}
+            className="rotate-180 bg-font_dark"
+          />
+        }
+        variant="ghost"
+        ariaLabel={`Przenieś pole formularza numer ${order + 1} do góry`}
+      />
+    </div>
   );
 };
 export default MoveInputUpBtn;

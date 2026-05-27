@@ -5,7 +5,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import { FormType } from "@/enums/form";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormInput, FormInputSelectable } from "@/types/input";
-import { DiagramType, GroupedAnswer } from "@/types/result";
+import { GroupedAnswer } from "@/types/result";
 import { useState } from "react";
 import { AnswerResults } from "./answers";
 import ResultFieldSelect from "./ResultFieldSelect";
@@ -24,28 +24,12 @@ type Props = {
   };
 };
 
-export const diagramTypes: DiagramType[] = [
-  {
-    value: "pieChart",
-    label: "Diagram kołowy",
-    selected: true,
-  },
-  {
-    value: "barChart",
-    label: "Diagram słupkowy",
-    selected: true,
-  },
-];
-
 const Results = (props: Props) => {
   const [displayedResults, setDisplayedResults] = useState<{
     results: GroupedAnswer[];
     submissionCount: number;
   }>({ results: [], submissionCount: 0 });
 
-  const [list, setList] = useState();
-
-  const [diagrams, setDiagrams] = useState<DiagramType[]>(diagramTypes);
   const [inputs, setInputs] = useState<FormInputSelectable[]>(
     props.inputs.map((el) => ({ ...el, selected: true })),
   );
@@ -68,7 +52,7 @@ const Results = (props: Props) => {
           message={
             <>
               <div className="flex gap-6">
-                <div>{title}</div>
+                <h1>{title}</h1>
                 <div className="flex-shrink-0 font-[var(--fw-base)]">
                   ({props.submissionNumber} wyników)
                 </div>
@@ -93,7 +77,7 @@ const Results = (props: Props) => {
       <div id="results" className="flex flex-col gap-4">
         {displayedResults.results.map((result, idx) => (
           <Card key={idx}>
-            <AnswerResults {...{ result, diagrams, title, idx }} />
+            <AnswerResults {...{ result, title, idx }} />
           </Card>
         ))}
       </div>

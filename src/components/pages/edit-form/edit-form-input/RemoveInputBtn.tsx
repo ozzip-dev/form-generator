@@ -1,7 +1,7 @@
 "use client";
 
 import { removeInputFromDraftAction } from "@/actions/edit-form/edit-form-input/removeInputFromDraftAction";
-import { Button, IconTrash } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
 import { useTransition } from "react";
@@ -12,6 +12,7 @@ type Props = {
 
 function RemoveInputBtn(props: Props) {
   const { formId } = useParams();
+
   const [isPending, startTransition] = useTransition();
   useAutoLoader(isPending);
 
@@ -25,7 +26,7 @@ function RemoveInputBtn(props: Props) {
     <>
       <Button
         type="button"
-        icon={<IconTrash />}
+        icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
         variant="ghost"
         ariaLabel="Usuń pole"
         onClickAction={handleDeleteInput}

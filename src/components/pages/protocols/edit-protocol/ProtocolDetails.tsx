@@ -20,10 +20,10 @@ const ProtocolDetails = (props: Props) => {
   const {
     branch,
     disputeReason,
+    demands,
     disputeStartDate,
     tradeUnionName,
-    lastModifiedAt,
-    uploadedAt,
+    tradeUnionOrganization,
     workplaceName,
   } = protocol;
 
@@ -32,52 +32,51 @@ const ProtocolDetails = (props: Props) => {
     .map((reason) => mapDisputeReason[reason] ?? reason)
     .join(", ");
 
-  const safeDisplayDate = (date?: string) => {
-    return date ? formatDateAndTime(date).split(",")[0] : "—";
-  };
-
-  // TODO: przerobic
+  const safeDisplayDate = (date?: string) =>
+    date ? formatDateAndTime(date).split(",")[0] : "—";
 
   const protocolDetails = [
     {
       label: "Data rozpoczęcia sporu:",
       value: safeDisplayDate(disputeStartDate),
-      labelClassName: "w-[22rem] md:text-right"
     },
     {
       label: "Branża:",
       value: branch,
-      labelClassName: "w-[22rem] md:text-right"
     },
     {
       label: "Nazwa związku:",
       value: tradeUnionName,
-      labelClassName: "w-[22rem] md:text-right"
+    },
+    {
+      label: "Organizacja zakładowa:",
+      value: tradeUnionOrganization,
     },
     {
       label: "Nazwa przedsiębiorstwa:",
       value: workplaceName,
-      labelClassName: "w-[22rem] md:text-right"
     },
     {
       label: "Przyczyna rozpoczęcia sporu:",
       value: displayDisputeReasons,
-      labelClassName: "w-[22rem] md:text-right"
+    },
+    {
+      label: "Konkretne żądania:",
+      value: demands?.join(", ") || "-",
     },
   ];
-
-
 
   return (
     <Card>
       <SectionHeader message="Dane sporu zbiorowego" />
       {protocolDetails.map((item, idx) => {
         return (
-          <DetailsPrinter key={idx} {...item} />
+          <DetailsPrinter
+            key={idx}
+            {...{ ...item, labelClassName: "w-[22rem] md:text-right" }}
+          />
         );
       })}
-
-
       <Button
         message="Edytuj"
         type="button"
@@ -85,7 +84,6 @@ const ProtocolDetails = (props: Props) => {
         onClickAction={props.handlePrintForm}
         className="m-auto w-full sm:w-fit"
       />{" "}
-
     </Card>
   );
 };

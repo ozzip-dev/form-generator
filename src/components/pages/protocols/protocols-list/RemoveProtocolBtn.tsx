@@ -1,10 +1,8 @@
 "use client";
 
 import { removeProtocolAction } from "@/actions/protocol";
-import { Button, IconTrash } from "@/components/shared";
-import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { Button, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
-import { startTransition, useActionState } from "react";
 
 type Props = {
   ProtocolId: string;
@@ -16,16 +14,16 @@ function RemoveProtocolBtn(props: Props) {
   return (
     <Button
       type="button"
-      icon={<IconTrash />}
+      icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
       variant="ghost"
-      ariaLabel="Usuń protokuł"
+      ariaLabel="Usuń protokół"
       onClickAction={() =>
         openModal({
           action: () => removeProtocolAction(props.ProtocolId),
-          header: "Usunąć protokuł?",
+          header: "Usunąć protokół?",
+          confirmBtnMessage: "Usuń",
         })
       }
-      className=""
     />
   );
 }

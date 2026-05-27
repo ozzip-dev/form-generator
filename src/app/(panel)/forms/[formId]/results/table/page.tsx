@@ -13,7 +13,12 @@ import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
 import { requireUser } from "@/services/user-service";
 import { Answers, Submission } from "@/types/result";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Formy pracy - Szczegółowe dane zebrane z formularzy",
+};
 
 type Props = { params: Promise<{ formId: string }> };
 
@@ -91,7 +96,7 @@ const FormResultsTablePage = async (props: Props) => {
         message={
           <>
             <div className="flex gap-6">
-              <div>{title}</div>
+              <h1>{title}</h1>
               <div className="font-[var(--fw-base)]">
                 ({submissionsSum} wyników)
               </div>
