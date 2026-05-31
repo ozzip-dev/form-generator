@@ -2,6 +2,7 @@
 
 import { Button, Icon } from "@/components/shared";
 import { useState } from "react";
+import SectionHeader from "../SectionHeader";
 
 const faqData = [
   {
@@ -52,7 +53,8 @@ const Faq = () => {
   return (
     <section className="bg-font_light">
       <div className="container py-20">
-        <h2 className="mb-20 text-center text-lg">Często zadawane pytania</h2>
+        <SectionHeader header="Często zadawane pytania" />
+
         <div className="mx-auto flex w-2/3 flex-col gap-6">
           {faqData.map(({ header, content }, idx) => (
             <button

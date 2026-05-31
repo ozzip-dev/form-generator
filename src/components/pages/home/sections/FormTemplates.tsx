@@ -1,6 +1,7 @@
 import { ButtonLink } from "@/components/shared";
 import { getFormTemplates } from "@/services/form-service";
 import Image from "next/image";
+import SectionHeader from "../SectionHeader";
 
 const FormTemplates = async () => {
   const templateForms = await getFormTemplates();
@@ -17,14 +18,13 @@ const FormTemplates = async () => {
   ];
 
   return (
-    <section className="bg-font_light">
+    <section className="bg-font_dark text-white">
       <div className="container pb-20 pt-16">
-        <div className="mx-auto w-4/5">
-          <h2 className="text-center text-lg">Gotowe szablony formularzy</h2>
-          <p className="mt-4 text-center">
-            Wybierz gotowy formularz i dostosuj go do swojej organizacji.
-          </p>{" "}
-        </div>
+        <SectionHeader
+          header="Gotowe szablony formularzy"
+          subheader="Wybierz gotowy formularz i dostosuj go do swojej organizacji."
+        />
+
         <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
           {templateForms.map(({ _id, templateTitle }, idx) => {
             return (

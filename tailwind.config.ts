@@ -30,7 +30,10 @@ module.exports = {
         base: ["var(--fs-md)", { fontWeight: "var(--fw-base)" }],
         base_bold: ["var(--fs-md)", { fontWeight: "var(--fw-semi-bold)" }],
         lg: ["var(--fs-lg)", { fontWeight: "var(--fw-semi-bold)" }],
-        xl: ["var(--fs-xl)", { fontWeight: "var(--fw-base)" }],
+        xl: [
+          "var(--fs-xl)",
+          { fontWeight: "var(--fw-base)", lineHeight: "4rem" },
+        ],
         "2xl": ["var(--fs-2xl)", { fontWeight: "var(--fw-semi-bold)" }],
       },
 

@@ -1,18 +1,15 @@
 import Image from "next/image";
+import SectionHeader from "../SectionHeader";
 
 const VoteVisibility = () => {
   return (
     <section className="">
       <div className="container pb-20 pt-16">
-        <div className="mx-auto w-4/5">
-          <h2 className="text-center text-lg">
-            Pełna kontrola nad zapisem danych
-          </h2>
-          <p className="mt-4 text-center">
-            Anonimowe ankiety albo jawne głosowania. Dane pozostają w Twojej
-            organizacji.
-          </p>{" "}
-        </div>
+        <SectionHeader
+          header="Pełna kontrola nad zapisem danych"
+          subheader="Każda organizacja może dostosować sposób zbierania odpowiedzi - od anonimowych ankiet po jawne głosowania członków. Dane pozostają w Twojej organizacji - pełna prywatność"
+        />
+
         <div className="mt-28 flex flex-col-reverse gap-6 sm:flex-row">
           <div className="flex-1 rounded-sm">
             <Image

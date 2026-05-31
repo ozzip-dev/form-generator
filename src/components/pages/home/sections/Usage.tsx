@@ -1,15 +1,14 @@
+import SectionHeader from "../SectionHeader";
+
 const Usage = () => {
   return (
     <section className="">
       <div className="container pb-20 pt-16">
-        <div className="mx-auto w-4/5">
-          <h2 className="text-center text-lg">
-            Zastosowania w organizacjach związkowych
-          </h2>
-          <p className="mt-4 text-center">
-            Zamiast maili i chaosu jeden uporządkowany system
-          </p>{" "}
-        </div>
+        <SectionHeader
+          header="Zastosowania w organizacjach związkowych"
+          subheader="Zamiast maili i chaosu jeden uporządkowany system"
+        />
+
         <div className="mt-28 flex flex-col gap-6 md:flex-row">
           <div className="ml-auto flex flex-1 flex-col gap-5 p-6">
             <div className="flex items-center gap-6">
