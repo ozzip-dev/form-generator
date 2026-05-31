@@ -1,44 +1,36 @@
+import Image from "next/image";
+import SectionHeader from "../SectionHeader";
+
 const Usage = () => {
+  const usageCases: string[] = [
+    "Zbieranie opinii o warunkach pracy",
+    "Konsultacje w sprawie regulaminów",
+    "Szybkie ankiety w zakładach pracy",
+    "Głosowanie na temat akcji protestacyjnej",
+    "Organizacja spotkań i wydarzeń",
+  ];
   return (
     <section className="">
       <div className="container pb-20 pt-16">
-        <div className="mx-auto w-4/5">
-          <h2 className="text-center text-lg">
-            Zastosowania w organizacjach związkowych
-          </h2>
-          <p className="mt-4 text-center">
-            Zamiast maili i chaosu jeden uporządkowany system
-          </p>{" "}
-        </div>
-        <div className="mt-28 flex flex-col gap-6 md:flex-row">
-          <div className="ml-auto flex flex-1 flex-col gap-5 p-6">
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Zbieranie opinii o warunkach pracy</p>
+        <SectionHeader
+          header="Zastosowania w organizacjach związkowych"
+          subheader="Zamiast maili i chaosu jeden uporządkowany system"
+        />
+
+        <div className="mt-16 grid gap-8 md:grid-cols-2">
+          {usageCases.map((text, idx) => (
+            <div key={idx} className="flex items-center gap-6">
+              <div className="h-[40px] w-[70px]">
+                <Image
+                  src="/images/usage_icon.png"
+                  alt="usage"
+                  width={190}
+                  height={124}
+                />
+              </div>
+              <p>{text}</p>
             </div>
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Konsultacje w sprawie regulaminów</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Szybkie ankiety w zakładach pracy</p>
-            </div>
-          </div>
-          <div className="flex flex-1 flex-col gap-5 p-6">
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Głosowanie na temat akcji protestacyjnej</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Organizacja spotkań i wydarzeń</p>
-            </div>
-            <div className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px] rounded-sm bg-slate-500"></div>
-              <p>Organizacja spotkań i gebeurteneń</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

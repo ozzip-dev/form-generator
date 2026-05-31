@@ -1,15 +1,16 @@
 import Image from "next/image";
+import SectionHeader from "../SectionHeader";
 
 const Tool = () => {
   return (
     <section className="container">
       <div className="container pb-20 pt-16">
-        <div className="mx-auto w-4/5">
-          <h2 className="text-center text-lg">
-            Narzędzie stworzone dla organizacji, które chcą działać szybko i
-            wspólnie podejmować decyzje
-          </h2>
-        </div>
+        <SectionHeader
+          header="Narzędzie stworzone dla organizacji, które chcą działać szybko i
+            wspólnie podejmować decyzje"
+          subheader="Aplikacja pozwala na szybkie tworzenie formularzy i ankiet,
+            zbieranie opinii, organizowanie głosowań i wyborów online."
+        />
 
         <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
           <div className="sm:w-[180px]">
