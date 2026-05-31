@@ -2,20 +2,21 @@ import { ButtonLink } from "@/components/shared";
 import { getFormTemplates } from "@/services/form-service";
 import Image from "next/image";
 import SectionHeader from "../SectionHeader";
+import { TemplateFormId } from "@/lib/mongo/models";
 
 const FormTemplates = async () => {
   const templateForms = await getFormTemplates();
 
-  const images = [
-    "elections",
-    "flayers",
-    "yo",
-    "yyy",
-    "elections",
-    "flayers",
-    "yo",
-    "yyy",
-  ];
+  // Gdy wszystkie będą gotowe, trzymać się konwencji, usunąć i po id
+  const templateImages: Record<TemplateFormId, string> = {
+    [TemplateFormId.SURVEY]: "survey",
+    [TemplateFormId.SIP]: "sip",
+    [TemplateFormId.STRIKE]: "strike",
+    [TemplateFormId.ELECTIONS]: "sip", // "elections",
+    [TemplateFormId.MEETING]: "sip", //"meeting",
+    [TemplateFormId.TRAVEL]: "sip", // "travel",
+    [TemplateFormId.LEAFLETING]: "leafleting",
+  };
 
   return (
     <section className="bg-font_dark text-white">
@@ -25,20 +26,20 @@ const FormTemplates = async () => {
           subheader="Wybierz gotowy formularz i dostosuj go do swojej organizacji."
         />
 
-        <div className="mt-16 gap-10 sm:flex sm:flex-wrap sm:justify-center">
-          {templateForms.map(({ _id, templateTitle }, idx) => {
+        <div className="mt-16 grid grid-cols-2 gap-10 sm:grid-cols-4 sm:justify-center">
+          {templateForms.map(({ _id, id, templateTitle }, idx) => {
             return (
               <div className="" key={idx}>
                 <div className="relative mx-auto mb-6 flex items-center justify-center rounded-sm text-font_dark">
                   <Image
-                    src={`/images/${images[idx]}.svg`}
+                    src={`/images/${templateImages[id]}.svg`}
                     alt=""
                     width={0}
                     height={0}
-                    className="h-auto w-[150px]"
+                    className="h-auto w-[300px]"
                   />
 
-                  <div className="absolute inset-0 mt-auto flex items-end justify-center text-sm">
+                  <div className="sm:text-md absolute inset-0 mt-auto flex items-end justify-center text-lg md:text-base lg:text-lg">
                     <p className="h-1/3 text-center">{templateTitle}</p>
                   </div>
                 </div>
