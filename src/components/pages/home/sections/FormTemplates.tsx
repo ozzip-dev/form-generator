@@ -2,6 +2,7 @@ import { getFormTemplates } from "@/services/form-service";
 import SectionHeader from "../SectionHeader";
 import FormTemplate from "../FormTemplate";
 import { TemplateFormId } from "@/lib/mongo/models";
+import { Form } from "@/types/form";
 
 const FormTemplates = async () => {
   const templateForms = await getFormTemplates();
@@ -18,8 +19,14 @@ const FormTemplates = async () => {
     [TemplateFormId.LEAFLETING]: "leafleting",
   };
 
-  const pageItems: (Form | Partial<Form>)[] = [
-    ...templateForms,
+  const pageItems: (Pick<Form, "_id" | "templateTitle"> & {
+    id?: TemplateFormId;
+  })[] = [
+    ...templateForms.map(({ _id, id, templateTitle }) => ({
+      _id,
+      id: id as TemplateFormId,
+      templateTitle,
+    })),
     {
       templateTitle: "Twój własny formularz",
     },
