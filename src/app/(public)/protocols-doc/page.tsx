@@ -1,19 +1,40 @@
 const ProtocolsDocPage = () => {
   return (
-    <div>
-      <p className="text-center">
-        Zapisz podstawowe informacje dotyczące sporu zbiorowego
+    <div className="p-10">
+      <p className="mb-20 text-center font-bold">
+        Korzystanie z bazy materiałów ze sporów zbiorowych
       </p>
-      <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500"> </div>
-      <p className="mt-10 text-center">
-        Dodaj materiały i linki związane ze sporem zbiorowym
+      <p className="mx-auto mb-10 w-full md:w-1/2">
+        1. Przejdź do zakładki "Protokoły", a następnie kliknij przycisk "Dodaj
+        protokół". <br /> 2. Uzupełnij i zapisz podstawowe informacje dotyczące
+        sporu zbiorowego.
       </p>
-      <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500"> </div>
-      <p className="mt-10 text-center">
-        Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące sporów
-        utworzonych przez Twoją organizację
+      <video controls preload="metadata" className="mx-auto w-full md:w-1/2">
+        <source src="/videos/elo.mp4" type="video/mp4" />
+        Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+      </video>
+
+      <p className="mx-auto mb-10 mt-20 w-full md:w-1/2">
+        3. Załącz dokumenty i materiały dotyczące sporu zbiorowego oraz dodaj
+        powiązane linki
       </p>
-      <div className="mx-auto mb-6 h-[70px] w-[70px] bg-slate-500"> </div>
+      <video controls preload="metadata" className="mx-auto w-full md:w-1/2">
+        <source src="/videos/elo.mp4" type="video/mp4" />
+        Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+      </video>
+
+      <p className="mx-auto mb-10 mt-20 w-full md:w-1/2">
+        4. Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące
+        sporów utworzonych przez Twoją organizację
+      </p>
+      <video
+        controls
+        preload="metadata"
+        className="mx-auto mb-20 w-full md:w-1/2"
+      >
+        <source src="/videos/elo.mp4" type="video/mp4" />
+        Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+      </video>
     </div>
   );
 };
