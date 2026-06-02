@@ -5,9 +5,9 @@ const ProtocolsDocPage = () => {
         Korzystanie z bazy materiałów ze sporów zbiorowych
       </p>
       <p className="mx-auto mb-10 w-full md:w-1/2">
-        1. Przejdź do zakładki "Protokoły", a następnie kliknij przycisk "Dodaj
-        protokół". <br /> 2. Uzupełnij i zapisz podstawowe informacje dotyczące
-        sporu zbiorowego.
+        1. Przejdź do zakładki &quot;Protokoły&quot;, a następnie kliknij
+        przycisk &quot;Dodaj protokół&quot;. <br /> 2. Uzupełnij i zapisz
+        podstawowe informacje dotyczące sporu zbiorowego.
       </p>
       <video controls preload="metadata" className="mx-auto w-full md:w-1/2">
         <source src="/videos/elo.mp4" type="video/mp4" />
