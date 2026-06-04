@@ -6,7 +6,6 @@ type Props = {
   _id?: string;
   id?: TemplateFormId;
   templateTitle?: string;
-  templateImages: Record<TemplateFormId, string>;
 };
 
 const FormTemplate = ({ _id, id, templateTitle, templateImages }: Props) => {
@@ -14,7 +13,7 @@ const FormTemplate = ({ _id, id, templateTitle, templateImages }: Props) => {
     <div className="">
       <div className="relative mx-auto mb-6 flex items-center justify-center rounded-sm text-font_dark">
         <Image
-          src={`/images/${id ? templateImages[id] : "survey"}.svg`}
+          src={`/images/templates/${id || "custom"}.png`}
           alt=""
           width={300}
           height={250}
@@ -22,7 +21,9 @@ const FormTemplate = ({ _id, id, templateTitle, templateImages }: Props) => {
         />
 
         <div className="absolute inset-0 mt-auto flex items-end justify-center text-lg">
-          <p className="h-[30%] px-4 text-center leading-8">{templateTitle}</p>
+          <p className="h-1/5 px-4 text-center text-base leading-8">
+            {templateTitle}
+          </p>
         </div>
       </div>
 
@@ -32,7 +33,7 @@ const FormTemplate = ({ _id, id, templateTitle, templateImages }: Props) => {
           message="Zobacz"
           link={`/${_id}`}
           variant="primary-rounded"
-          className="mx-auto my-12 w-fit !border-white !bg-white !text-font_dark hover:!border-font_dark hover:!bg-font_dark hover:!text-white"
+          className="hover:!bg-font_white mx-auto my-12 w-fit !border-white !bg-font_dark hover:!bg-white hover:!text-font_dark"
         />
       )}
     </div>
