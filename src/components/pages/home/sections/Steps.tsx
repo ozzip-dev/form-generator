@@ -74,7 +74,7 @@ const Steps = () => {
               <div className="flex h-full w-full flex-col items-center">
                 <StepDots isDisplayed={id > 1} />
 
-                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-[#D10000] text-[36px] font-semibold leading-none text-white">
+                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-[#D10000] text-[30px] leading-none text-white">
                   {id}
                 </div>
 
