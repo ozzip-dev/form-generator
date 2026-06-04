@@ -8,9 +8,9 @@ type Props = {
   templateTitle?: string;
 };
 
-const FormTemplate = ({ _id, id, templateTitle, templateImages }: Props) => {
+const FormTemplate = ({ _id, id, templateTitle }: Props) => {
   return (
-    <div className="">
+    <div>
       <div className="relative mx-auto mb-6 flex items-center justify-center rounded-sm text-font_dark">
         <Image
           src={`/images/templates/${id || "custom"}.png`}
