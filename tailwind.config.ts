@@ -32,7 +32,7 @@ module.exports = {
         lg: ["var(--fs-lg)", { fontWeight: "var(--fw-semi-bold)" }],
         xl: [
           "var(--fs-xl)",
-          { fontWeight: "var(--fw-base)", lineHeight: "4rem" },
+          { fontWeight: "var(--fw-base)", lineHeight: "3rem" },
         ],
         "2xl": ["var(--fs-2xl)", { fontWeight: "var(--fw-semi-bold)" }],
       },
