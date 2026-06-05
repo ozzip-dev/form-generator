@@ -1,3 +1,4 @@
+import { Card } from "@/components/shared";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,28 +7,27 @@ export const metadata: Metadata = {
 
 const AdminContactPage = () => {
   return (
-    <div className="h-full overflow-y-auto">
-      <div className="mx-auto mt-10 max-w-xl rounded-lg border bg-bg_light p-6 text-center shadow-default">
+    <div className="flex h-full items-center justify-center overflow-y-auto">
+      <Card className="mx-auto w-5/6 max-w-[50rem] text-center sm:w-2/3">
         <h2 className="mb-4 text-lg font-semibold">Kontakt</h2>
 
-        <p className="mb-6 text-font_light">
+        <p className="mb-10 text-font_dark">
           Reprezentujesz związek zawodowy i chcesz korzystać z aplikacji
           <span className="font-semibold text-accent"> Formy Pracy</span> w
-          swojej działaności? Skontaktuj się z administratorem.
+          swojej działaności? Skontaktuj się z administratorem, który utworzy
+          kondo dla twoje organizacji.
         </p>
 
         <div className="">
           Email:{" "}
-          <span className="font-semibold text-accent">
-            formypracy@gmail.com
-          </span>
+          <span className="font-semibold text-accent">wstapdoip@ozzip.pl</span>
         </div>
-        <div className="mt-6">
+        <div className="mt-1">
           {" "}
           Telefon:{" "}
           <span className="font-semibold text-accent">514 252 205</span>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

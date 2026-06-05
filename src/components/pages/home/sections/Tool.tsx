@@ -10,7 +10,7 @@ const Tool = () => {
     },
     {
       icon: "results-view",
-      text: "Wyniki w formie tabel i wykresów",
+      text: "Aktualne wyniki w formie tabel i wykresów",
     },
     {
       icon: "results-export",
@@ -18,7 +18,7 @@ const Tool = () => {
     },
     {
       icon: "gear",
-      text: "Dla organizacji związkowych",
+      text: "Nawiąż kontakty z innymi organizacjami",
     },
   ];
 
@@ -26,10 +26,8 @@ const Tool = () => {
     <section className="container">
       <div className="container pb-20 pt-16">
         <SectionHeader
-          header="Narzędzie stworzone dla organizacji, które chcą działać szybko i
+          header="Aplikacja dla organizacji pracowniczych, które chcą szybko i
             wspólnie podejmować decyzje"
-          subheader="Aplikacja pozwala na szybkie tworzenie formularzy i ankiet,
-            zbieranie opinii, organizowanie głosowań i wyborów online."
         />
 
         <div className="mt-16 flex flex-wrap justify-center gap-10">

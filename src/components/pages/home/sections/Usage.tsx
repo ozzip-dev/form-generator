@@ -5,9 +5,10 @@ const Usage = () => {
   const usageCases: string[] = [
     "Zbieranie opinii o warunkach pracy",
     "Konsultacje w sprawie regulaminów",
-    "Szybkie ankiety w zakładach pracy",
-    "Głosowanie na temat akcji protestacyjnej",
+    "Głosowanie na temat planowanych działań",
     "Organizacja spotkań i wydarzeń",
+    "Szybkie ankiety w zakładach pracy",
+    "Organizowanie wyborów",
   ];
   return (
     <section className="">
