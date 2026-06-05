@@ -53,8 +53,8 @@ const FormsDocPage = () => {
 
       <Card className="mx-auto mt-20 max-w-[55rem]">
         <p className="mx-0 mb-10 w-full">
-          5. Przejdz do zakładki "kontakty" i skontaktuj się z organizacjami,
-          które tworzyły formularze, celem wymieny doświadczań.
+          5. Przejdz do zakładki &quot;Kontakty&quot; i skontaktuj się z
+          organizacjami, które tworzyły formularze, celem wymieny doświadczań.
         </p>
         <video controls preload="metadata" className="mx-0 w-full">
           <source src="/videos/form-5.mp4" type="video/mp4" />
@@ -64,8 +64,8 @@ const FormsDocPage = () => {
 
       <Card className="mx-auto mt-20 max-w-[55rem]">
         <p className="mx-0 mb-10 w-full">
-          6. Przejdź do zakładki „Podgląd”, aby sprawdzić wygląd formularza.
-          Link do podglądu możesz przesłać innym osobom celem jego
+          6. Przejdź do zakładki &quot;Podgląd&quot;, aby sprawdzić wygląd
+          formularza. Link do podglądu możesz przesłać innym osobom celem jego
           przetestowania. <br />
           7. Opublikuj formularz online, aby udostępnić go odbiorcom.
         </p>
@@ -77,9 +77,9 @@ const FormsDocPage = () => {
 
       <Card className="mx-auto mt-20 max-w-[55rem]">
         <p className="mx-0 mb-10 w-full">
-          8. Przejdź do zakładki „Wyniki”, aby na bierząco śledzić odpowiedzi i
-          analizować wyniki. <br /> 9. Pobierz podsumowanie wyników lub pełne
-          dane odpowiedzi z formuklarzy.
+          8. Przejdź do zakładki &quot;Wyniki&quot;, aby na bierząco śledzić
+          odpowiedzi i analizować wyniki. <br /> 9. Pobierz podsumowanie wyników
+          lub pełne dane odpowiedzi z formuklarzy.
         </p>
         <video controls preload="metadata" className="mx-0 w-full">
           <source src="/videos/form-7.mp4" type="video/mp4" />
