@@ -18,10 +18,11 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: #5a41fc;
-  --color-accent_dark: rgb(77, 104, 224);
-  --color-accent_light: rgba(226, 236, 255, 1);
-  --color-accent_opacity: rgba(101, 130, 255, 0.6);
+  --color-accent: #c00000;
+  --color-accent_dark: #930000;
+  --color-accent_light: #ff6363;
+  --color-accent_lighter: #ff9595;
+  --color-accent_opacity: #f77171;
 
   --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1);
@@ -60,7 +61,7 @@ body {
   max-width: var(--max-width);
 }
 
-@media (max-width: 1322px) {
+@media (max-width: 1350px) {
   .container {
     padding-left: 3rem;
     padding-right: 3rem;

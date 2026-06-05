@@ -25,7 +25,7 @@ const FormTrigger = () => {
       <Button
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-[#b08bff] !bg-[#eee7ff] text-xs transition hover:bg-accent_light md:rounded-lg"
+        className="!bg-accent_lighter group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-accent text-xs transition hover:bg-accent_light md:rounded-lg"
         icon={
           <div>
             <Icon

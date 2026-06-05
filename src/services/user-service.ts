@@ -37,6 +37,21 @@ export const getUser = cache(async (): Promise<UserSerialized | null> => {
   return user ? serializeUser(user) : null;
 });
 
+export const getLoggedInUser = cache(
+  async (): Promise<UserSerialized | null> => {
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session) return null;
+
+    const user = await findById<IUser>(
+      db,
+      "user",
+      new ObjectId(session.user.id),
+    );
+
+    return user ? serializeUser(user) : null;
+  },
+);
+
 export async function getUsersWithFormType(type: FormType): Promise<IUser[]> {
   const user = await requireUser();
   const forms: Form[] = await getFormsByType(type);
