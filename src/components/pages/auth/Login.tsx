@@ -33,13 +33,13 @@ const dataInputsLogin = [
     floatingLabel: "Email",
     name: "email",
     type: "email",
-    defaultValue: "moderator@moderator.com",
+    defaultValue: "",
   },
   {
     floatingLabel: "Hasło",
     name: "password",
     type: "password",
-    defaultValue: "123123123",
+    defaultValue: "",
   },
 ];
 
