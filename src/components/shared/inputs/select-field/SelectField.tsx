@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Icon from "@/components/shared/icons/Icon";
+import { Icon } from "@/components/shared";
 import InputError from "../InputError";
 
 export type Option = {

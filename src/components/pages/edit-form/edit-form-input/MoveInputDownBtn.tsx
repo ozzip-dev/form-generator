@@ -1,6 +1,5 @@
 import { moveInputDownAction } from "@/actions/edit-form/edit-form-input/moveInputActions";
-import { Button } from "@/components/shared";
-import Icon from "@/components/shared/icons/Icon";
+import { Button, Icon } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
 import { useState, useTransition } from "react";

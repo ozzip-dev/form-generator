@@ -1,9 +1,8 @@
 import { moveInputUpAction } from "@/actions/edit-form/edit-form-input/moveInputActions";
-import Icon from "@/components/shared/icons/Icon";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useParams } from "next/navigation";
 import { useTransition } from "react";
-import { Button } from "../../../shared";
+import { Button, Icon } from "@/components/shared";
 
 type Props = {
   inputId: string;

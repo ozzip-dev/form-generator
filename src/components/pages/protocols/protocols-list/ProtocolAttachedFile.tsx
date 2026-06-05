@@ -4,7 +4,7 @@ import { useModal } from "@/context/ModalContextProvider";
 import { FileSerialized } from "@/types/file";
 import Image from "next/image";
 import { downloadFile } from "@/lib/utils";
-import Icon from "@/components/shared/icons/Icon";
+import { Icon } from "@/components/shared";
 import { getFileBlob, isImageType, isPdfType } from "@/helpers/fileHelpers";
 import { openProtocolImagePreviewModal } from "../protocol-image-preview";
 

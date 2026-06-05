@@ -6,7 +6,7 @@ import { FormSerialized, FormState } from "@/types/form";
 import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
 import { Submission } from "@/types/result";
 import { getAllSubmissions } from "@/services/result-service";
-import Icon from "@/components/shared/icons/Icon";
+import { Icon } from "@/components/shared";
 
 type Props = { form: Partial<FormSerialized> };
 

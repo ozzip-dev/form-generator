@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { parseUrl } from "@/helpers/protocolHelpers";
-import Icon from "@/components/shared/icons/Icon";
+import { Icon } from "@/components/shared";
 
 type Props = {
   link: string;
