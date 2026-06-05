@@ -8,12 +8,9 @@ const steps = [
     id: 1,
     image: "/images/step1.png",
     text: (
-      <p>
-        {" "}
-        <Link href="/admin-contact" className="text-accent" target="blank">
-          Zarejestruj organizację
-        </Link>
-      </p>
+      <Link href="/admin-contact" className="text-accent" target="blank">
+        Zarejestruj organizację
+      </Link>
     ),
     layoutClass: "lg:col-start-1 lg:row-start-1 lg:justify-self-end",
     alt: "Zarejestruj organizację",
@@ -22,12 +19,9 @@ const steps = [
     id: 2,
     image: "/images/step2.png",
     text: (
-      <p>
-        {" "}
-        <Link href="/forms/list" className="text-accent" target="blank">
-          Utwórz własny formularz
-        </Link>
-      </p>
+      <Link href="/forms/list" className="text-accent" target="blank">
+        Utwórz własny formularz
+      </Link>
     ),
     layoutClass: "lg:col-start-3 lg:row-start-2 lg:justify-self-start",
     alt: "Utwórz własny formularz",
