@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Icon } from "@/components/shared";
+import { BackToHomeLink, Button, Card, Icon } from "@/components/shared";
 import { NavMenu } from "@/components/shared/nav-menu";
 import { useUser } from "@/context/UserContextProvider";
 import { isModerator } from "@/lib/utils";
@@ -65,7 +65,8 @@ const DashboardMenu = () => {
         />
       )}
 
-      <div className="hidden lg:block">
+      <div className="hidden lg:flex lg:gap-10">
+        <BackToHomeLink isDark={false} />
         <NavMenu links={links} depth={1} />
       </div>
     </div>

@@ -12,7 +12,10 @@ export default async function PublicLayout({
 
   return (
     <div className="flex h-full flex-col overflow-y-auto">
-      <Header className="sticky top-0 bg-white py-0" showBottomGradient={false}>
+      <Header
+        className="sticky top-0 bg-white !py-0"
+        showBottomGradient={false}
+      >
         <PublicTopBar user={user} />
       </Header>
       <main className="flex-1">{children}</main>{" "}

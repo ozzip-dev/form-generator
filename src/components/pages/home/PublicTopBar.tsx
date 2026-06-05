@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Button, ButtonLink, Card, Icon } from "@/components/shared";
+import {
+  BackToHomeLink,
+  Button,
+  ButtonLink,
+  Card,
+  Icon,
+} from "@/components/shared";
 import { NavMenu } from "@/components/shared/nav-menu";
 import LogoutButton from "@/components/pages/dashboard/dashboard-top-bar/LogoutButton";
 import { UserSerialized } from "@/types/user";
@@ -55,15 +61,8 @@ export default function PublicTopBar({ user }: Props) {
               onClick={() => setIsMenuOpen(false)}
             />
           )}
-          <Link
-            href="/"
-            className="flex shrink-0 items-center gap-3 text-font_dark"
-          >
-            <Icon icon="protocols" size={18} className="bg-font_dark" />
-            <span className="text-lg font-bold uppercase tracking-wide">
-              Formy Pracy
-            </span>
-          </Link>
+          <BackToHomeLink />
+
           <nav className="hidden lg:block">
             <ul className="flex items-center gap-8 text-font_dark xl:gap-10">
               {links.map((item) => (
