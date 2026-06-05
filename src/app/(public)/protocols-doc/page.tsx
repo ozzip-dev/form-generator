@@ -6,7 +6,7 @@ const ProtocolsDocPage = () => {
       <p className="mb-20 text-center text-xl">
         Korzystanie z bazy materiałów sporów zbiorowych
       </p>
-      <Card className="mx-auto max-w-[70rem]">
+      <Card className="mx-auto max-w-[55rem]">
         <p className="mx-0 mb-10 w-full">
           1. Przejdź do zakładki &quot;Protokoły&quot;, a następnie kliknij
           przycisk &quot;Dodaj protokół&quot;. <br /> 2. Uzupełnij i zapisz
@@ -18,7 +18,7 @@ const ProtocolsDocPage = () => {
         </video>
       </Card>
 
-      <Card className="mx-auto mt-20 max-w-[70rem]">
+      <Card className="mx-auto mt-20 max-w-[55rem]">
         <p className="mx-auto mb-10">
           3. Załącz dokumenty i materiały dotyczące danej fazy sporu zbiorowego
           i dodaj powiązane linki
@@ -28,7 +28,7 @@ const ProtocolsDocPage = () => {
           Twoja przeglądarka nie obsługuje odtwarzacza wideo.
         </video>
       </Card>
-      <Card className="mx-auto mt-20 max-w-[70rem]">
+      <Card className="mx-auto mt-20 max-w-[55rem]">
         <p className="mx-auto mb-10">
           4. Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące
           sporów utworzonych przez Twoją organizację

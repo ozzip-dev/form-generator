@@ -1,54 +1,101 @@
+import { Card } from "@/components/shared";
+
 const FormsDocPage = () => {
   return (
-    <div>
-      <p className="text-center">
-        Wybierz gotowy szablon lub utwórz formularz od podstaw
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
-      <div className="mt-10 flex justify-center gap-5">
+    <div className="p-10">
+      <p className="mb-20 text-center text-xl">Tworzenie formularzy</p>
+
+      <Card className="mx-auto max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          1. Wybierz gotowy szablon lub utwórz formularz od podstaw
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-1.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
+      <div className="flex flex-wrap justify-center gap-5">
         <div>
           {" "}
-          <p className="text-center text-accent">
-            Skorzystaj z gotowego szablonu
-          </p>
-          <p className="text-center">Edytuj utworzone pola</p>
-          <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+          <p className="mt-20 text-center text-accent">Gotowy szablon</p>
+          <Card className="mx-auto mt-10 max-w-[55rem]">
+            <p className="mx-0 mb-10 w-full">2. Edytuj utworzone pola</p>
+            <video controls preload="metadata" className="mx-0 w-full">
+              <source src="/videos/form-2.mp4" type="video/mp4" />
+              Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+            </video>
+          </Card>
         </div>
         <div>
-          <p className="text-center text-accent">Utwórz formularz od zera</p>
-          <p className="text-center">
-            Dodawaj pytania i buduj strukturę formularza
-          </p>
-          <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+          <p className="mt-20 text-center text-accent">Formularz od zera</p>
+          <Card className="mx-auto mt-10 max-w-[55rem]">
+            <p className="mx-0 mb-10 w-full">
+              2. Dodawaj pytania i buduj strukturę formularza
+            </p>
+            <video controls preload="metadata" className="mx-0 w-full">
+              <source src="/videos/form-3.mp4" type="video/mp4" />
+              Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+            </video>
+          </Card>
         </div>
       </div>
 
-      <p className="m-auto mt-10 w-3/4 text-center">
-        Skonfiguruj adres, kategorię i tryb wyników formularza. <br />
-        Dodaj grafikę wyświetlaną w nagłówku formularza
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+      <Card className="mx-auto mt-20 max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          3. Skonfiguruj adres, kategorię i tryb wyników formularza. <br />
+          4. Dodaj grafikę wyświetlaną w nagłówku formularza
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-4.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
 
-      <p className="m-auto mt-10 w-3/4 text-center">
-        Skontaktuj się z organizacjami, które tworzyły formularze w tej samej
-        kategorii, aby wymieniać się doświadczeniami
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+      <Card className="mx-auto mt-20 max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          5. Przejdz do zakładki "kontakty" i skontaktuj się z organizacjami,
+          które tworzyły formularze, celem wymieny doświadczań.
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-5.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
 
-      <p className="m-auto mt-10 w-3/4 text-center">
-        Sprawdź podgląd formularza i opublikuj go online
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+      <Card className="mx-auto mt-20 max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          6. Przejdź do zakładki „Podgląd”, aby sprawdzić wygląd formularza.
+          Link do podglądu możesz przesłać innym osobom celem jego
+          przetestowania. <br />
+          7. Opublikuj formularz online, aby udostępnić go odbiorcom.
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-6.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
 
-      <p className="m-auto mt-10 w-3/4 text-center">
-        Śledź odpowiedzi i analizuj wyniki w czasie rzeczywistym. Pobierz
-        podsumowanie wyników lub pełne dane odpowiedzi
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
-      <p className="m-auto mt-10 w-3/4 text-center">
-        Zamknij formularz i zakończ zbieranie odpowiedzi
-      </p>
-      <div className="mx-auto mb-6 h-[170px] w-[170px] bg-slate-500"> </div>
+      <Card className="mx-auto mt-20 max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          8. Przejdź do zakładki „Wyniki”, aby na bierząco śledzić odpowiedzi i
+          analizować wyniki. <br /> 9. Pobierz podsumowanie wyników lub pełne
+          dane odpowiedzi z formuklarzy.
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-7.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
+
+      <Card className="mx-auto mt-20 max-w-[55rem]">
+        <p className="mx-0 mb-10 w-full">
+          10. Zamknij formularz i zakończ zbieranie odpowiedzi
+        </p>
+        <video controls preload="metadata" className="mx-0 w-full">
+          <source src="/videos/form-8.mp4" type="video/mp4" />
+          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
+        </video>
+      </Card>
     </div>
   );
 };

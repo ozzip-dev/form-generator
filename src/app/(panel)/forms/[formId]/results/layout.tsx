@@ -13,7 +13,9 @@ export default async function ResultLayout(props: Props) {
         {form.resultVisibility === "open" && <ResultsNavMenu formId={formId} />}
       </div>
 
-      <section className="flex-1 overflow-y-auto">{props.children}</section>
+      <section className="flex-1 overflow-y-auto pl-48">
+        {props.children}
+      </section>
     </div>
   );
 }

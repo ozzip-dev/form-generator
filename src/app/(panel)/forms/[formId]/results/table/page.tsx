@@ -110,7 +110,6 @@ const FormResultsTablePage = async (props: Props) => {
       />
 
       <ResultsTable {...{ inputHeaders, submissionValues }} />
-
       <ResultsPdfTable
         {...{
           inputHeaders,
