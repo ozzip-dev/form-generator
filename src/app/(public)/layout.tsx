@@ -9,8 +9,8 @@ import { NavMenu } from "@/components/shared/nav-menu";
 import Header from "@/components/shared/Header";
 
 const links = [
-  { text: "Instrukcja Formularze", link: "/forms-doc" },
-  { text: "Instrukcja Protokoły", link: "/protocols-doc" },
+  { text: "Formularze", link: "/forms-doc" },
+  { text: "Protokoły", link: "/protocols-doc" },
   { text: "Rejestracja", link: "/admin-contact" },
 ];
 

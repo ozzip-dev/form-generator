@@ -12,6 +12,7 @@
   --fs-lg: 1.8rem;
   --fs-xl: 2.2rem;
   --fs-2xl: 3.8rem;
+  --lh-xl: 3rem;
 
   --fw-base: 400;
   --fw-semi-bold: 500;
@@ -37,6 +38,7 @@
     --fs-lg: 2rem;
     --fs-xl: 3.2rem;
     --fs-2xl: 4.8rem;
+    --lh-xl: 4rem;
   }
 }
 

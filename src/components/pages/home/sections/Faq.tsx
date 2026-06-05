@@ -1,23 +1,22 @@
 "use client";
 
-import { Button, Icon } from "@/components/shared";
+import { Icon } from "@/components/shared";
 import { useState } from "react";
 import SectionHeader from "../SectionHeader";
+import Link from "next/link";
 
 const faqData = [
   {
-    header: "Czy formularze mogą być anonimowe?",
+    header: "Jak długo przechowywane są zebrane dane?",
     content: (
       <div>
-        <p>eeeeee</p>
-      </div>
-    ),
-  },
-  {
-    header: "Jak długo przechowywane są dane?",
-    content: (
-      <div>
-        <p>eeeeee</p>
+        <p className="mt-8">
+          Zebrane dane są przechowywane do momentu ich usunięcia przez twórcę
+          formularza. Są one dostępne na koncie użytkownika zarówno w trakcie
+          działania formularza, jak i po jego zamknięciu. Zamknięcie formularza
+          nie usuwa zgromadzonych odpowiedzi, można je usunąć osobno w dowolnym
+          momencie.
+        </p>
       </div>
     ),
   },
@@ -25,7 +24,13 @@ const faqData = [
     header: "Czy mogę eksportować wyniki do Excela?",
     content: (
       <div>
-        <p>eeeeee</p>
+        <p className="mt-8">
+          Zebrane dane można wyeksportować do pliku Excel (XLSX) lub PDF. Raport
+          PDF może zawierać zarówno podsumowanie wszystkich odpowiedzi, jak i
+          szczegółowe zestawienie danych z każdego przesłanego formularza.
+          Dzięki temu wyniki można łatwo analizować, archiwizować i udostępniać
+          innym osobom.
+        </p>
       </div>
     ),
   },
@@ -33,7 +38,15 @@ const faqData = [
     header: "Czy aplikacja jest darmowa?",
     content: (
       <div>
-        <p>eeeeee</p>
+        <p className="mt-8">
+          Korzystanie z aplikacji jest bezpłatne dla organizacji związkowych. Po
+          <Link href="/admin-contact" className="text-accent" target="blank">
+            {" "}
+            rejestracji organizacji przez operatora aplikacji{" "}
+          </Link>{" "}
+          użytkownicy mogą korzystać ze wszystkich dostępnych funkcji bez
+          dodatkowych opłat.
+        </p>
       </div>
     ),
   },
@@ -58,16 +71,16 @@ const Faq = () => {
         <div className="mx-auto mt-12 flex w-2/3 flex-col gap-6 text-font_dark">
           {faqData.map(({ header, content }, idx) => (
             <button
-              className="rounded-sm border bg-white p-10 text-left"
+              className="rounded-sm border bg-white p-5 text-left"
               key={header}
               onClick={() => toggleDetails(idx)}
             >
-              <div className="flex items-center">
+              <div className="flex items-center justify-between gap-6 font-bold">
                 {header}{" "}
                 <Icon
                   icon="angle"
                   size={30}
-                  className={`ml-auto bg-font_dark ${openItems[idx] ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
+                  className={`ml-auto w-10 bg-font_dark ${openItems[idx] ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
                 />
               </div>
 
@@ -76,7 +89,7 @@ const Faq = () => {
                   openItems[idx] ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                 }`}
               >
-                <div className="min-h-0">{content}</div>
+                <div className="min-h-0 text-sm">{content}</div>
               </div>
             </button>
           ))}

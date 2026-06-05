@@ -6,19 +6,6 @@ import { Form } from "@/types/form";
 
 const FormTemplates = async () => {
   const templateForms = await getFormTemplates();
-
-  // TODO Gdy wszystkie będą gotowe, trzymać się konwencji, usunąć i po id
-  // moze inaczej niz to pageItems nizej
-  const templateImages: Record<TemplateFormId, string> = {
-    [TemplateFormId.SURVEY]: "survey",
-    [TemplateFormId.SIP]: "sip",
-    [TemplateFormId.STRIKE]: "strike",
-    [TemplateFormId.ELECTIONS]: "sip", // "elections",
-    [TemplateFormId.MEETING]: "sip", //"meeting",
-    [TemplateFormId.TRAVEL]: "sip", // "travel",
-    [TemplateFormId.LEAFLETING]: "leafleting",
-  };
-
   const pageItems: (Pick<Form, "_id" | "templateTitle"> & {
     id?: TemplateFormId;
   })[] = [
@@ -48,7 +35,6 @@ const FormTemplates = async () => {
                 _id={_id?.toString()}
                 id={id}
                 templateTitle={templateTitle}
-                templateImages={templateImages}
               />
             );
           })}

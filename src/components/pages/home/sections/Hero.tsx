@@ -8,14 +8,11 @@ const Hero = () => {
       <div className="container relative z-10 px-6 text-white">
         <div className="sm:w-[70%] md:w-[57%]">
           <h1 className="text-xl font-semibold">
-            Twórz ankiety, głosowania i formularze dla swojej organizacji w
-            kilka minut
+            Ankiety, głosowania i formularze dla organizacji związkowych
           </h1>
 
           <p className="mt-10">
-            Prosta aplikacja dla związków zawodowych i organizacji pracowniczych
-            do zbierania opinii, organizowania głosowań i podejmowania decyzji
-            online.
+            Aplikacja do zbierania opinii i organizowania głosowań online.
           </p>
           <ButtonLink
             message="Zarejestruj organizację"
