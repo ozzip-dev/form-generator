@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Faq from "./sections/Faq";
-import { FormTemplates, Hero, Tool, Vote, Steps, Usage } from "./sections";
+import { FormTemplates, Hero, Tool, Vote, Steps, Usage, Faq } from "./sections";
 import { ButtonLink } from "@/components/shared";
 
 const Home = () => {
