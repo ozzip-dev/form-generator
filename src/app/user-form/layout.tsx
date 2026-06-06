@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/pages/dashboard/dashboard-top-bar/LogoutButton";
+import LogoutButton from "@/components/pages/dashboard/LogoutButton";
 import Header from "@/components/shared/Header";
 import { Suspense } from "react";
 

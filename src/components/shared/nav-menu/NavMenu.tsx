@@ -11,6 +11,7 @@ type Props = {
   depth?: number;
   variant?: "desktop" | "mobile";
   level?: "root" | "sub";
+  textColor?: string;
 };
 
 const getPathnameSegments = (pathname: string): string[] =>
@@ -19,7 +20,7 @@ const getPathnameSegments = (pathname: string): string[] =>
 const NavMenu = (props: Props) => {
   const pathname = usePathname();
   const pathSegments = getPathnameSegments(pathname) || [];
-  const { depth = pathSegments.length } = props;
+  const { depth = pathSegments.length, textColor } = props;
 
   const getValidatedSegments = (segments: string[]): string =>
     segments.slice(0, depth).join("/");
@@ -71,6 +72,7 @@ const NavMenu = (props: Props) => {
                   level={props.level}
                   isActive={isLinkActive(link)}
                   sameTab={sameTab}
+                  textColor={textColor}
                 />
               ))}
             </ul>

@@ -1,11 +1,10 @@
 "use client";
 
-import { BackToHomeLink, Button, Card, Icon } from "@/components/shared";
-import { NavMenu } from "@/components/shared/nav-menu";
+import AppTopBar from "@/components/pages/shared/AppTopBar";
 import { useUser } from "@/context/UserContextProvider";
 import { isModerator } from "@/lib/utils";
 import { NavMenuLink } from "@/types/shared";
-import { use, useState } from "react";
+import { use } from "react";
 
 const dashboardLink = { text: "Strona główna", link: "/dashboard" };
 
@@ -23,48 +22,11 @@ const adminNavLinks: NavMenuLink[] = [
 
 const DashboardMenu = () => {
   const { userPromise } = useUser();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = use(userPromise);
   if (!user) return;
 
   const links = isModerator(user) ? moderatorNavLinks : adminNavLinks;
-  const topLeftIcon = isMenuOpen ? "xmark" : "hamburger";
-  const slideClass = isMenuOpen ? "translate-x-0" : "-translate-x-[150%]";
 
-  return (
-    <div className="flex items-center gap-4">
-      <Button
-        type="button"
-        className="text-white lg:hidden"
-        icon={<Icon className="bg-white" icon={topLeftIcon} size={20} />}
-        onClickAction={() => setIsMenuOpen((prev) => !prev)}
-        variant="ghost"
-        ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
-      />
-
-      <Card
-        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${slideClass}`}
-      >
-        <div
-          className="px-16 md:px-0"
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-        >
-          <NavMenu links={links} depth={1} variant="mobile" />
-        </div>
-      </Card>
-
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 top-24 z-30 backdrop-blur-sm lg:hidden"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
-
-      <div className="hidden lg:flex lg:gap-10">
-        <BackToHomeLink isDark={false} />
-        <NavMenu links={links} depth={1} />
-      </div>
-    </div>
-  );
+  return <AppTopBar isPublic={false} links={links} user={user} />;
 };
 export default DashboardMenu;

@@ -1,4 +1,5 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboard-top-bar/DashboardTopBar";
+import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
 import { SuspenseErrorBoundary } from "@/components/shared";
 import Header from "@/components/shared/Header";
 import IsUserModal from "@/components/shared/IsUserModal";
@@ -24,7 +25,7 @@ export default async function DashboardLayout({
           <div className="flex h-full flex-col">
             <Header>
               <SuspenseErrorBoundary size="sm" errorMessage="Brak logowania">
-                <DashboardTopBar />
+                <DashboardMenu />
               </SuspenseErrorBoundary>
             </Header>
             <main
