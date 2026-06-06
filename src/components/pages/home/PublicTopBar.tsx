@@ -85,7 +85,6 @@ export default function PublicTopBar({ user }: Props) {
         {user ? (
           <div className="ml-auto hidden shrink-0 items-center gap-6 lg:flex xl:gap-10">
             <div className="text-font_dark">
-              <span>{user.role}: </span>
               <span className="font-semibold">{user.name}</span>
             </div>
             <LogoutButton />

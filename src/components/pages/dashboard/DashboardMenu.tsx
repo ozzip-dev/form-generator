@@ -10,7 +10,6 @@ import { use, useState } from "react";
 const dashboardLink = { text: "Strona główna", link: "/dashboard" };
 
 const moderatorNavLinks: NavMenuLink[] = [
-  // dashboardLink, // TODO: zostawiam dla admina, przemyśleć i ew. zmienić
   { text: "Formularze", link: "/forms/list" },
   { text: "Protokoły", link: "/protocols/list" },
   { text: "Forum", link: "/forum/list" },
@@ -29,26 +28,22 @@ const DashboardMenu = () => {
   if (!user) return;
 
   const links = isModerator(user) ? moderatorNavLinks : adminNavLinks;
+  const topLeftIcon = isMenuOpen ? "xmark" : "hamburger";
+  const slideClass = isMenuOpen ? "translate-x-0" : "-translate-x-[150%]";
 
   return (
     <div className="flex items-center gap-4">
       <Button
         type="button"
         className="text-white lg:hidden"
-        icon={
-          isMenuOpen ? (
-            <Icon className="bg-white" icon="xmark" size={20} />
-          ) : (
-            <Icon className="bg-white" icon="hamburger" size={20} />
-          )
-        }
+        icon={<Icon className="bg-white" icon={topLeftIcon} size={20} />}
         onClickAction={() => setIsMenuOpen((prev) => !prev)}
         variant="ghost"
         ariaLabel={isMenuOpen ? "Zamknij menu" : "Otwórz menu"}
       />
 
       <Card
-        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${isMenuOpen ? "translate-x-0" : "-translate-x-[150%]"} `}
+        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${slideClass}`}
       >
         <div
           className="px-16 md:px-0"
