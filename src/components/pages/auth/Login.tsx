@@ -1,15 +1,16 @@
 "use client";
 
+import { useActionState, useRef } from "react";
+import Link from "next/link";
 import { loginAction } from "@/actions/auth/loginAction";
 import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { isTestEnv } from "@/helpers/appHelpers";
 import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 import {
   LoginSchema,
   loginSchema,
 } from "@/lib/zod-schema/zod-auth-schema/loginSchema";
-import Link from "next/link";
-import { useActionState, useRef } from "react";
 
 const ToastsData: ModelToast[] = [
   {
@@ -33,15 +34,17 @@ const dataInputsLogin = [
     floatingLabel: "Email",
     name: "email",
     type: "email",
-    defaultValue: "moderator@moderator.com",
+    defaultValue: isTestEnv() ? "moderator@moderator.com" : undefined,
   },
   {
     floatingLabel: "Hasło",
     name: "password",
     type: "password",
-    defaultValue: "123123123",
+    defaultValue: isTestEnv() ? "123123123" : undefined,
   },
 ];
+
+console.log(process.env);
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
