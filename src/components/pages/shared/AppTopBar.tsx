@@ -53,8 +53,8 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
       {user ? (
         <div className="ml-auto flex shrink-0 items-center gap-3 lg:gap-6 xl:gap-10">
           <div
-            className={`lg:truncate-none max-w-[38vw] truncate text-right font-semibold lg:max-w-none ${
-              isPublic ? "text-font_dark" : "text-white"
+            className={`lg:truncate-none max-w-[38vw] truncate text-right font-semibold lg:max-w-none xl:block ${
+              isPublic ? "text-font_dark lg:hidden" : "text-white"
             }`}
           >
             {user.name}
