@@ -29,6 +29,7 @@ export default function PublicTopBar({ user }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isActiveLink = (link: string) => pathname === link;
+  const topLeftIcon = isMenuOpen ? "xmark" : "hamburger";
 
   return (
     <div className="bg-white py-6 shadow-[0_1px_0_rgba(0,0,0,0.06)]">
@@ -38,11 +39,7 @@ export default function PublicTopBar({ user }: Props) {
             type="button"
             className="text-font_dark lg:hidden"
             icon={
-              isMenuOpen ? (
-                <Icon icon="xmark" size={20} className="bg-font_dark" />
-              ) : (
-                <Icon className="bg-font_dark" icon="hamburger" size={20} />
-              )
+              <Icon icon={topLeftIcon} size={20} className="bg-font_dark" />
             }
             onClickAction={() => setIsMenuOpen((prev) => !prev)}
             variant="ghost"
