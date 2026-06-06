@@ -44,8 +44,6 @@ const dataInputsLogin = [
   },
 ];
 
-console.log(process.env);
-
 type State = { errors: Record<string, string[]>; inputs?: any };
 const initialState: State = { errors: {}, inputs: null };
 
