@@ -3,13 +3,12 @@ import Image from "next/image";
 export default function PublicFooter() {
   return (
     <footer className="mt-auto bg-font_dark">
-      <div className="container py-20 text-white">
-        <div>
-          <p>OZZ Inicjatywa Pracownicza</p>
-          <p>Komisja Krajowa</p>
-          <p>ul. Kościelna 4/1a, 60-538 Poznań</p>
-          <p>REGON: 634611023</p>
-          <p>NIP: 779-22-38-665</p>
+      <div className="container pb-4 text-white">
+        <div className="flex gap-4 text-2xs">
+          <div>
+            <p>OZZ Inicjatywa Pracownicza</p>
+            <p>ul. Kościelna 4/1a, 60-538 Poznań</p>
+          </div>
         </div>
       </div>{" "}
       <div className="items-center justify-center bg-white p-2 md:flex">
