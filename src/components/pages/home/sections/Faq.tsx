@@ -7,34 +7,6 @@ import Link from "next/link";
 
 const faqData = [
   {
-    header: "Jak długo przechowywane są zebrane dane?",
-    content: (
-      <div>
-        <p className="mt-8">
-          Zebrane dane są przechowywane do momentu ich usunięcia przez twórcę
-          formularza. Są one dostępne na koncie użytkownika zarówno w trakcie
-          działania formularza, jak i po jego zamknięciu. Zamknięcie formularza
-          nie usuwa zgromadzonych odpowiedzi, można je usunąć osobno w dowolnym
-          momencie.
-        </p>
-      </div>
-    ),
-  },
-  {
-    header: "Czy mogę eksportować wyniki do Excela?",
-    content: (
-      <div>
-        <p className="mt-8">
-          Zebrane dane można wyeksportować do pliku Excel (XLSX) lub PDF. Raport
-          PDF może zawierać zarówno podsumowanie wszystkich odpowiedzi, jak i
-          szczegółowe zestawienie danych z każdego przesłanego formularza.
-          Dzięki temu wyniki można łatwo analizować, archiwizować i udostępniać
-          innym osobom.
-        </p>
-      </div>
-    ),
-  },
-  {
     header: "Czy aplikacja jest darmowa?",
     content: (
       <div>
@@ -44,8 +16,32 @@ const faqData = [
             {" "}
             rejestracji organizacji przez operatora aplikacji{" "}
           </Link>{" "}
-          użytkownicy mogą korzystać ze wszystkich dostępnych funkcji bez
-          dodatkowych opłat.
+          użytkownicy mogą korzystać ze wszystkich dostępnych funkcji bez opłat.
+        </p>
+      </div>
+    ),
+  },
+  {
+    header: "Czy mogę eksportować wyniki do Excela?",
+    content: (
+      <div>
+        <p className="mt-8">
+          Dane można wyeksportować do pliku Excel (XLSX) lub PDF. Raport PDF
+          może zawierać podsumowanie wszystkich odpowiedzi lub szczegółowe
+          zestawienie z każdego formularza.
+        </p>
+      </div>
+    ),
+  },
+
+  {
+    header: "Jak długo przechowywane są zebrane dane?",
+    content: (
+      <div>
+        <p className="mt-8">
+          Zebrane dane są przechowywane do momentu ich usunięcia przez twórcę
+          formularza. Zamknięcie formularza nie usuwa zgromadzonych odpowiedzi,
+          można je usunąć osobno w dowolnym momencie.
         </p>
       </div>
     ),

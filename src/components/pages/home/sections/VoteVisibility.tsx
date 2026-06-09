@@ -5,17 +5,17 @@ const voteVisibilityItems = [
   {
     image: "/images/voting.jpg",
     header: "Głosowanie anonimowe",
-    text: "Zbiorcze podsumowanie odpowiedzi bez powiązania ich z pojedynczymi formularzami.",
+    text: "Zbiorcze podsumowanie odpowiedzi bez powiązania z pojedynczymi formularzami.",
   },
   {
     image: "/images/hands.jpg",
     header: "Głosowanie jawne",
-    text: "Odpowiedzi z każdego formularza.",
+    text: "Pełny dostęp do odpowiedzi z możliwością identyfikacji każdego głosującego.",
   },
   {
     image: "/images/card.jpg",
     header: "Głosowanie częściowo anonimowe",
-    text: "Możliwość ukrycia w wynikach pojedynczych odpowiedzi np. danych osobowych.",
+    text: "Możliwość ukrycia wybranych odpowiedzi, np. danych osobowych, przy zachowaniu pozostałych.",
   },
 ];
 
