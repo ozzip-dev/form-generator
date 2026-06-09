@@ -93,7 +93,7 @@ The application was developed with grant support received in the grant competiti
 
 
 ## Vesion for developers tests: <br> https://form-generator-test.sliplane.app/ <br/> 
-## Vesion for users tests: <br> https://form-generator.sliplane.app/ <br/> 
+## Vesion for users tests: <br>https://formypracy.org/<br/> 
 ## Features
 
 * Comunication with database
