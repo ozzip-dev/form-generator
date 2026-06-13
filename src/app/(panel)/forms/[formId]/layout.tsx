@@ -9,12 +9,11 @@ export default async function CreateFormLayout(props: Props) {
   const { formId } = await props.params;
   const formPromise = getForm(formId);
 
-
   return (
     <FormDataContextProvider formDataPromise={formPromise}>
       <PublishFormErrorContextProvider>
-        <div className="h-full flex flex-col">
-          <div className="shrink-0 container">
+        <div className="flex h-full flex-col">
+          <div className="container shrink-0">
             <CreateFormMenu formId={formId} />
           </div>
 
@@ -22,6 +21,5 @@ export default async function CreateFormLayout(props: Props) {
         </div>
       </PublishFormErrorContextProvider>
     </FormDataContextProvider>
-
   );
 }
