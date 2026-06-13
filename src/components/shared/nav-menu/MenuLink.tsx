@@ -1,6 +1,7 @@
 "use client";
 
 import { ButtonLink } from "@/components/shared";
+import { iSiOS } from "@/helpers/appHelpers";
 
 type Props = {
   textColor?: string;
@@ -27,6 +28,7 @@ const MenuLink = ({
     : mobile
       ? "!text-font_dark"
       : "!border-white";
+  const newTabTarget = mobile && iSiOS() ? "_blank" : "externalWindow";
 
   return (
     <li
@@ -38,7 +40,7 @@ const MenuLink = ({
         <ButtonLink
           message={text}
           link={link}
-          target={sameTab ? "_self" : "externalWindow"}
+          target={sameTab ? "_self" : newTabTarget}
         />
       </div>
     </li>
