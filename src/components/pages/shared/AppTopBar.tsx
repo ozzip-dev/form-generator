@@ -6,8 +6,8 @@ import TopBarHamburgerMenu from "./TopBarHamburgerMenu";
 import { NavMenu } from "@/components/shared/nav-menu";
 import { NavMenuLink } from "@/types/shared";
 import { UserSerialized } from "@/types/user";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
+import UserProfileButton from "./UserProfileButton";
 
 type Props = {
   isPublic: boolean;
@@ -16,10 +16,24 @@ type Props = {
 };
 
 export default function AppTopBar({ isPublic, links, user }: Props) {
-  const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHamburgerMenuOpen, setIsHamburgerMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  const isActiveLink = (link: string) => pathname === link;
+  const handleToggleHamburgerMenu = () => {
+    setIsHamburgerMenuOpen((prev) => {
+      const next = !prev;
+      if (next) setIsUserMenuOpen(false);
+      return next;
+    });
+  };
+
+  const handleToggleUserMenu = () => {
+    setIsUserMenuOpen((prev) => {
+      const next = !prev;
+      if (next) setIsHamburgerMenuOpen(false);
+      return next;
+    });
+  };
 
   return (
     <div className="flex items-center justify-between gap-6">
@@ -27,15 +41,22 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
         <TopBarHamburgerMenu
           isPublic={isPublic}
           links={links}
-          isMenuOpen={isMenuOpen}
-          onToggle={() => setIsMenuOpen((prev) => !prev)}
-          onClose={() => setIsMenuOpen(false)}
+          isMenuOpen={isHamburgerMenuOpen}
+          onToggle={handleToggleHamburgerMenu}
+          onClose={() => setIsHamburgerMenuOpen(false)}
         />
 
-        {isMenuOpen && (
+        {isHamburgerMenuOpen && (
           <div
             className="fixed inset-0 top-[8.6rem] z-10 backdrop-blur-sm lg:hidden"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={() => setIsHamburgerMenuOpen(false)}
+          />
+        )}
+
+        {isUserMenuOpen && (
+          <div
+            className="fixed inset-0 top-[8.6rem] z-10 backdrop-blur-sm lg:hidden"
+            onClick={() => setIsUserMenuOpen(false)}
           />
         )}
 
@@ -52,14 +73,16 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
 
       {user ? (
         <div className="ml-auto flex shrink-0 items-center gap-3 lg:gap-6 xl:gap-10">
-          <div
-            className={`lg:truncate-none max-w-[38vw] truncate text-right font-semibold lg:max-w-none xl:block ${
-              isPublic ? "text-font_dark lg:hidden" : "text-white"
-            }`}
-          >
-            {user.name}
+          <UserProfileButton
+            isPublic={isPublic}
+            userName={user.name}
+            isMenuOpen={isUserMenuOpen}
+            onToggle={handleToggleUserMenu}
+            onClose={() => setIsUserMenuOpen(false)}
+          />
+          <div className="hidden lg:block">
+            <LogoutButton />
           </div>
-          <LogoutButton />
         </div>
       ) : (
         <>

@@ -17,7 +17,11 @@ const ToastsData: ModelToast[] = [
   },
 ];
 
-const LogoutButton = () => {
+type Props = {
+  className?: string;
+};
+
+const LogoutButton = ({ className }: Props) => {
   const router = useRouter();
   useOneTimeToast(ToastsData);
   const { toast } = useToast();
@@ -48,7 +52,10 @@ const LogoutButton = () => {
       isLoading={pending}
       message="Wyloguj"
       variant="primary-rounded"
-      className="!bg-white !text-accent hover:!bg-accent hover:!text-white hover:!border-white"
+      className={
+        className ||
+        "!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
+      }
     />
   );
 };
