@@ -18,9 +18,9 @@ const Usage = () => {
           subheader="Zamiast maili i chaosu jeden uporządkowany system"
         />
 
-        <div className="mt-16 grid gap-8 md:grid-cols-2">
+        <ul className="mt-16 grid list-none gap-8 md:grid-cols-2">
           {usageCases.map((text, idx) => (
-            <div key={idx} className="flex items-center gap-6">
+            <li key={idx} className="flex items-center gap-6">
               <div className="h-[40px] w-[70px]">
                 <Image
                   src="/images/usage_icon.png"
@@ -30,9 +30,9 @@ const Usage = () => {
                 />
               </div>
               <p>{text}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

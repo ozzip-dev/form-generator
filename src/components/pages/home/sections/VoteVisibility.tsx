@@ -28,12 +28,9 @@ const VoteVisibility = () => {
           subheader="Organizacja związkowa określa sposób zbierania odpowiedzi. Anonimowe lub janwne głosowania. Dane pozostają w Twojej organizacji"
         />
 
-        <div className="mt-12 grid grid-cols-1 gap-10 md:grid-cols-3">
+        <ul className="mt-12 grid list-none grid-cols-1 gap-10 md:grid-cols-3">
           {voteVisibilityItems.map(({ image, header, text }) => (
-            <div
-              key={header}
-              className="flex flex-col items-center text-center"
-            >
+            <li key={header} className="flex flex-col items-center text-center">
               <Image
                 src={image}
                 alt={header}
@@ -41,11 +38,11 @@ const VoteVisibility = () => {
                 height={800}
                 className="h-auto w-full rounded-lg"
               />
-              <div className="mt-6 text-lg font-semibold">{header}</div>
+              <h3 className="mt-6 text-lg font-semibold">{header}</h3>
               <p className="mt-4 max-w-prose">{text}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

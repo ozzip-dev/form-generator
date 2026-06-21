@@ -9,14 +9,14 @@ const FormsTemplatesList = async () => {
   return (
     <>
       <SectionHeader message="Wykorzystaj wzory przykładowych formularzy" />
-      <div className="flex flex-wrap justify-center gap-4 md:justify-start">
+      <ul className="flex flex-wrap justify-center gap-4 md:justify-start">
         {templateForms
           .filter(
             ({ _id, id, templateTitle }) => _id && id && templateTitle,
           ) /* filter out invalid records */
           .map(({ _id, id, templateTitle }, idx) => {
             return (
-              <div
+              <li
                 className="flex flex-col items-center justify-center gap-x-4 text-sm"
                 key={idx}
               >
@@ -25,10 +25,10 @@ const FormsTemplatesList = async () => {
                   id={id as string}
                   title={templateTitle as string}
                 />
-              </div>
+              </li>
             );
           })}
-      </div>
+      </ul>
     </>
   );
 };

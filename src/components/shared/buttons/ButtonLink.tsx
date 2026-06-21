@@ -14,6 +14,7 @@ type Props = {
   rel?: string;
   className?: string;
   variant?: "primary" | "primary-rounded" | "ghost";
+  ariaLabel?: string;
 };
 
 export default function ButtonLink(props: Props) {
@@ -23,6 +24,7 @@ export default function ButtonLink(props: Props) {
       className={`block text-center ${VARIANTS[props.variant || "ghost"]} ${props.className}`}
       target={props.target}
       rel={props.rel}
+      aria-label={props.ariaLabel}
     >
       {props.message || props.icon}
     </Link>

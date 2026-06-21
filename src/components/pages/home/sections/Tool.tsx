@@ -30,9 +30,9 @@ const Tool = () => {
             wspólnie podejmować decyzje"
         />
 
-        <div className="mt-16 flex flex-wrap justify-center gap-10">
+        <ul className="mt-16 flex list-none flex-wrap justify-center gap-10">
           {toolData.map(({ icon, text }, idx) => (
-            <div key={idx} className="w-[160px] sm:w-[180px]">
+            <li key={idx} className="w-[160px] sm:w-[180px]">
               <Image
                 src={`/images/tools/${icon}.png`}
                 alt=""
@@ -41,9 +41,9 @@ const Tool = () => {
                 className="mx-auto mb-6"
               />
               <p className="text-center text-sm">{text}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

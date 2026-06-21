@@ -3,15 +3,15 @@ import { Card } from "@/components/shared";
 const ProtocolsDocPage = () => {
   return (
     <div className="p-10">
-      <p className="mb-20 text-center text-xl">
+      <h1 className="mb-20 text-center text-xl">
         Korzystanie z bazy materiałów sporów zbiorowych
-      </p>
+      </h1>
       <Card className="mx-auto max-w-[55rem]">
-        <p className="mx-0 mb-10 w-full">
+        <h2 className="mx-0 mb-10 w-full text-base font-semibold">
           1. Przejdź do zakładki &quot;Protokoły&quot;, a następnie kliknij
           przycisk &quot;Dodaj protokół&quot;. <br /> 2. Uzupełnij i zapisz
           podstawowe informacje dotyczące sporu zbiorowego.
-        </p>
+        </h2>
         <video controls preload="metadata" className="mx-0 w-full">
           <source src="/videos/elo3.mp4" type="video/mp4" />
           Twoja przeglądarka nie obsługuje odtwarzacza wideo.
@@ -19,20 +19,20 @@ const ProtocolsDocPage = () => {
       </Card>
 
       <Card className="mx-auto mt-20 max-w-[55rem]">
-        <p className="mx-auto mb-10">
+        <h2 className="mx-auto mb-10 text-base font-semibold">
           3. Załącz dokumenty i materiały dotyczące danej fazy sporu zbiorowego
           i dodaj powiązane linki
-        </p>
+        </h2>
         <video controls preload="metadata" className="mx-auto">
           <source src="/videos/elo4.mp4" type="video/mp4" />
           Twoja przeglądarka nie obsługuje odtwarzacza wideo.
         </video>
       </Card>
       <Card className="mx-auto mt-20 max-w-[55rem]">
-        <p className="mx-auto mb-10">
+        <h2 className="mx-auto mb-10 text-base font-semibold">
           4. Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące
           sporów utworzonych przez Twoją organizację
-        </p>
+        </h2>
         <video controls preload="metadata" className="mx-auto">
           <source src="/videos/elo5.mp4" type="video/mp4" />
           Twoja przeglądarka nie obsługuje odtwarzacza wideo.

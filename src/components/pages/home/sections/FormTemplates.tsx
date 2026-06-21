@@ -27,18 +27,19 @@ const FormTemplates = async () => {
           subheader="Wybierz gotowy formularz i dostosuj go do swojej organizacji."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:justify-center lg:grid-cols-4">
+        <ul className="mt-16 grid list-none grid-cols-1 gap-10 sm:grid-cols-2 sm:justify-center lg:grid-cols-4">
           {pageItems.map(({ _id, id, templateTitle }, idx) => {
             return (
-              <FormTemplate
-                key={idx}
-                _id={_id?.toString()}
-                id={id}
-                templateTitle={templateTitle}
-              />
+              <li key={idx}>
+                <FormTemplate
+                  _id={_id?.toString()}
+                  id={id}
+                  templateTitle={templateTitle}
+                />
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

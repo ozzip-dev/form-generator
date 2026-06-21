@@ -59,31 +59,33 @@ const Steps = () => {
         />
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-5 lg:gap-x-10 lg:gap-y-0">
-          {steps.map(({ id, image, text, alt, layoutClass }) => (
-            <div
-              key={id}
-              className={`relative w-full max-w-[560px] ${layoutClass} justify-self-center`}
-            >
-              <Image
-                src={image}
-                alt={alt}
-                width={560}
-                height={240}
-                className="h-auto w-full rounded-[24px]"
-                priority={id === 1}
-              />
-              <div className="absolute inset-0 flex items-start p-6 text-font_dark sm:p-8">
-                <div className="max-w-[45%]">
-                  <div className="text-xl font-semibold leading-tight sm:text-xl">
-                    Krok: {id}
+          <ol className="contents">
+            {steps.map(({ id, image, text, alt, layoutClass }) => (
+              <li
+                key={id}
+                className={`relative w-full max-w-[560px] list-none ${layoutClass} justify-self-center`}
+              >
+                <Image
+                  src={image}
+                  alt={alt}
+                  width={560}
+                  height={240}
+                  className="h-auto w-full rounded-[24px]"
+                  priority={id === 1}
+                />
+                <div className="absolute inset-0 flex items-start p-6 text-font_dark sm:p-8">
+                  <div className="max-w-[45%]">
+                    <div className="text-xl font-semibold leading-tight sm:text-xl">
+                      Krok: {id}
+                    </div>
+                    <p className="mt-1 text-sm leading-snug sm:text-base">
+                      {text}
+                    </p>
                   </div>
-                  <p className="mt-1 text-sm leading-snug sm:text-base">
-                    {text}
-                  </p>
                 </div>
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ol>
 
           {steps.map(({ id }) => (
             <div

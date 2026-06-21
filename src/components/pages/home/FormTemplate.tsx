@@ -31,6 +31,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
         <ButtonLink
           target="_blank"
           message="Zobacz"
+          ariaLabel={`Zobacz ${templateTitle ?? "formularz"}`}
           link={`/${_id}`}
           variant="primary-rounded"
           className="hover:!bg-font_white mx-auto my-12 w-fit !border-white !bg-font_dark hover:!bg-white hover:!text-font_dark"
