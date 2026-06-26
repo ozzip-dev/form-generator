@@ -9,8 +9,8 @@ type Props = {
 };
 
 const links: NavMenuLink[] = [
-  { text: "Instrukcja do formularzy", link: "/forms-doc" },
-  { text: "Instrukcja do protokołów", link: "/protocols-doc" },
+  { text: "Instrukcja formularz", link: "/forms-doc" },
+  { text: "Instrukcja protokół", link: "/protocols-doc" },
   { text: "Zarejestruj organizację", link: "/admin-contact" },
 ];
 

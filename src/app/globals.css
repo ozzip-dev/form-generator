@@ -18,7 +18,7 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: #c00000;
+  --color-accent: 192 0 0;
   --color-accent_dark: #930000;
   --color-accent_light: #ff8b8b;
   --color-accent_lighter: #ffb3b3;
@@ -108,11 +108,11 @@ body {
 
 /* text editor */
 .textEditorLink a {
-  @apply text-blue-600 underline;
+  @apply text-accent underline;
 }
 
 .textEditorTags {
-  @apply break-words text-sm [&_a]:text-accent_dark [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-2xs [&_strong]:font-semibold;
+  @apply break-words text-sm [&_a]:text-accent [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-2xs [&_strong]:font-semibold;
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {

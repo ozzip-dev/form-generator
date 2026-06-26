@@ -3,13 +3,11 @@
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import CharacterCount from "@tiptap/extension-character-count";
 import Highlight from "@tiptap/extension-highlight";
-import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useState, useTransition } from "react";
 import MenuBar from "./MenuBar";
-import Paragraph from "@tiptap/extension-paragraph";
 
 import { Mark, mergeAttributes } from "@tiptap/core";
 import { Button } from "@/components/shared";
@@ -64,19 +62,24 @@ const TextEditor = (props: Props) => {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Small,
-      Link.configure({
-        openOnClick: false,
-        autolink: false,
+      StarterKit.configure({
+        link: {
+          openOnClick: false,
+          autolink: false,
+          HTMLAttributes: {
+            target: "_blank",
+            rel: "noopener noreferrer",
+          },
+        },
       }),
+      Small,
       Placeholder.configure({
         placeholder: props.placeholder,
       }),
 
       Highlight.configure({
         HTMLAttributes: {
-          class: "bg-accent",
+          class: "bg-accent/20",
         },
       }),
       CharacterCount.configure({

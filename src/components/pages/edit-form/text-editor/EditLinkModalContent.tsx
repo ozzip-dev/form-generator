@@ -28,7 +28,11 @@ const EditLinkModalContent = (props: Props) => {
       .chain()
       .focus()
       .extendMarkRange("link")
-      .setLink({ href: linkInput })
+      .setLink({
+        href: linkInput,
+        target: "_blank",
+        rel: "noopener noreferrer",
+      })
       .run();
   };
 
@@ -44,7 +48,7 @@ const EditLinkModalContent = (props: Props) => {
         <Button
           message="Anuluj"
           onClickAction={props.onClose}
-          className="!bg-white !text-accent border border-accent"
+          className="border border-accent !bg-white !text-accent"
         />
 
         <Button
@@ -53,7 +57,7 @@ const EditLinkModalContent = (props: Props) => {
             insertLink();
             props.onClose();
           }}
-          className="px-3 py-1 rounded bg-accent text-white"
+          className="rounded bg-accent px-3 py-1 text-white"
         />
       </div>
     </div>

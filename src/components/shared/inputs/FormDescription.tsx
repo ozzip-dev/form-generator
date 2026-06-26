@@ -16,7 +16,9 @@ const FormDescription = ({ description, variant }: Props) => {
   return (
     <div
       className={styles}
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}
+      dangerouslySetInnerHTML={{
+        __html: DOMPurify.sanitize(description, { ADD_ATTR: ["target"] }),
+      }}
     />
   );
 };
