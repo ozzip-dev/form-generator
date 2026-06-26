@@ -1,39 +1,3 @@
-// "use server";
-
-// import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
-// import { auth } from "@/lib/auth/auth";
-// import { isModerator } from "@/lib/utils";
-// import { confirmPrivacyPolicy } from "@/services/user-service";
-// import { revalidatePath } from "next/cache";
-// import { headers } from "next/headers";
-// import { redirect } from "next/navigation";
-
-// export async function confirmPrivacyPolicyAction(): Promise<void> {
-//   const session = await auth.api.getSession({ headers: await headers() });
-//   if (!session) redirect("/login");
-
-//   const { user } = session;
-
-//   if (user.privacyPolicyConfirmed)
-//     throw new Error(
-//       "Użytkownik/Użytkowniczka ma już zatwierdzoną politykę poprawności",
-//     );
-
-//   await confirmPrivacyPolicy(user.id.toString());
-
-  
-
-//   if (isModerator(user)) {
-//     redirect(
-//       hasCompleteCommitteeData(user) ? "/forms/list" : "/user-form",
-//     );
-//   }
-//   revalidatePath("/privacy")
-//   revalidatePath("/user-form")
-//   redirect("/dashboard");
-// }
-
-
 "use server";
 
 import { hasCompleteCommitteeData } from "@/helpers/hasCompleteCommitteeData";
@@ -68,10 +32,10 @@ export async function confirmPrivacyPolicyAction(): Promise<void> {
     redirect(
       hasCompleteCommitteeData({
         ...user,
-        privacyPolicyConfirmed: true, 
+        privacyPolicyConfirmed: true,
       })
         ? "/forms/list"
-        : "/user-form"
+        : "/user-form",
     );
   }
 

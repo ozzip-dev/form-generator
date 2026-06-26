@@ -8,7 +8,7 @@ const Header = ({
   showBottomGradient?: boolean;
 }) => {
   return (
-    <header className={`relative z-20 shrink-0 bg-accent py-7 ${className}`}>
+    <header className={`relative z-30 shrink-0 bg-accent py-7 ${className}`}>
       <div className="container">{children}</div>
 
       {showBottomGradient && (

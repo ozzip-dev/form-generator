@@ -5,7 +5,7 @@ import React, { startTransition, useActionState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signOutAction } from "@/actions/auth/signOutAction";
 import { useToast } from "@/context/ToastProvider";
-import { Button } from "@/components/shared";
+import { Button, ButtonLink } from "@/components/shared";
 
 const ToastsData: ModelToast[] = [
   {
@@ -19,9 +19,10 @@ const ToastsData: ModelToast[] = [
 
 type Props = {
   className?: string;
+  isUser: boolean;
 };
 
-const LogoutButton = ({ className }: Props) => {
+const LogoutButton = ({ className, isUser }: Props) => {
   const router = useRouter();
   useOneTimeToast(ToastsData);
   const { toast } = useToast();
@@ -47,16 +48,36 @@ const LogoutButton = ({ className }: Props) => {
   };
 
   return (
-    <Button
-      onClickAction={handleSignOut}
-      isLoading={pending}
-      message="Wyloguj"
-      variant="primary-rounded"
-      className={
-        className ||
-        "!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
-      }
-    />
+    <>
+      {" "}
+      {isUser ? (
+        <Button
+          onClickAction={handleSignOut}
+          isLoading={pending}
+          message="Wyloguj"
+          variant="primary-rounded"
+          className={
+            className ||
+            "!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
+          }
+        />
+      ) : (
+        <>
+          <ButtonLink
+            message="Zarejestruj organizację"
+            link={"/admin-contact"}
+            variant="primary-rounded"
+            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
+          />
+          <ButtonLink
+            message="Zaloguj"
+            link={"/login"}
+            variant="primary-rounded"
+            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
+          />
+        </>
+      )}
+    </>
   );
 };
 

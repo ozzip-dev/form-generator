@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Header from "@/components/shared/Header";
 import PublicTopBar from "@/components/pages/home/PublicTopBar";
 import { getLoggedInUser } from "@/services/user-service";
@@ -14,7 +13,7 @@ export default async function PublicLayout({
   return (
     <div className="flex h-full flex-col overflow-y-auto">
       <Header
-        className="sticky top-0 bg-white !py-0"
+        className="sticky top-0 z-20 bg-white !py-0"
         showBottomGradient={false}
       >
         <PublicTopBar user={user} />

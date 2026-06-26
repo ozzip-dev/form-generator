@@ -1,18 +1,10 @@
 "use client";
 
-import AppTopBar from "@/components/pages/shared/AppTopBar";
-import { userProfileLinks } from "@/components/pages/shared/userProfileLinks";
+import AppTopBar from "@/components/shared/nav-menu/AppTopBar";
 import { useUser } from "@/context/UserContextProvider";
+import { adminNavLinks, userProfileLinks } from "@/data/menuesLinks";
 import { isModerator } from "@/lib/utils";
-import { NavMenuLink } from "@/types/shared";
 import { use } from "react";
-
-const dashboardLink = { text: "Strona główna", link: "/dashboard" };
-
-const adminNavLinks: NavMenuLink[] = [
-  dashboardLink,
-  { text: "Dodaj użytkownika", link: "/create-user" },
-];
 
 const DashboardMenu = () => {
   const { userPromise } = useUser();
