@@ -19,7 +19,7 @@ const ToastsData: ModelToast[] = [
 
 type Props = {
   className?: string;
-  isUser: boolean;
+  isUser?: boolean;
 };
 
 const LogoutButton = ({ className, isUser }: Props) => {
