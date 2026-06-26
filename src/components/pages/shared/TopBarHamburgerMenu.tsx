@@ -40,7 +40,7 @@ export default function TopBarHamburgerMenu({
       />
 
       <Card
-        className={`fixed left-4 top-[6.9rem] z-40 transform rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-24 lg:hidden ${slideClass}`}
+        className={`fixed left-4 top-[6.9rem] z-40 transform !rounded-sm bg-white transition-transform duration-300 ease-in-out md:left-8 lg:hidden ${slideClass}`}
       >
         <div className="px-16 md:px-0" onClick={isPublic ? undefined : onClose}>
           <NavMenu links={links} depth={1} variant="mobile" />

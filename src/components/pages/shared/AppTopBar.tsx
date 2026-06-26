@@ -53,13 +53,6 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
           />
         )}
 
-        {isUserMenuOpen && (
-          <div
-            className="fixed inset-0 top-[8.6rem] z-10 backdrop-blur-sm lg:hidden"
-            onClick={() => setIsUserMenuOpen(false)}
-          />
-        )}
-
         <BackToHomeLink isDark={isPublic} />
 
         <div className="hidden lg:block">
@@ -73,16 +66,7 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
 
       {user ? (
         <div className="ml-auto flex shrink-0 items-center gap-3 lg:gap-6 xl:gap-10">
-          <UserProfileButton
-            isPublic={isPublic}
-            userName={user.name}
-            isMenuOpen={isUserMenuOpen}
-            onToggle={handleToggleUserMenu}
-            onClose={() => setIsUserMenuOpen(false)}
-          />
-          <div className="hidden lg:block">
-            <LogoutButton />
-          </div>
+          <UserProfileButton isPublic={isPublic} userName={user.name} />
         </div>
       ) : (
         <>
