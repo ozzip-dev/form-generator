@@ -1,12 +1,9 @@
 "use client";
 
-import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import { Button, Card, Icon } from "@/components/shared";
-import { NavMenu } from "@/components/shared/nav-menu";
-import { publicLinks, userProfileLinks } from "@/data/menuesLinks";
+import { Card } from "@/components/shared";
 import { useState } from "react";
-import UserMenuTrigger from "./UserMenuTrigger";
 import UserMenuContent from "./UserMenuContent";
+import UserMenuTrigger from "./UserMenuTrigger";
 
 type Props = {
   isPublic?: boolean;
@@ -24,7 +21,7 @@ const UserProfileButton = ({ isPublic, userName }: Props) => {
     <div className="relative">
       {isOpen && (
         <div
-          className="fixed inset-0 top-[8.6rem] z-10 backdrop-blur-sm"
+          className="fixed inset-0 z-10 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         />
       )}
@@ -36,7 +33,7 @@ const UserProfileButton = ({ isPublic, userName }: Props) => {
       />
 
       <Card
-        className={`absolute right-[-1rem] top-[4.7rem] !z-40 flex max-h-[calc(100vh-6rem)] min-w-40 flex-col rounded-sm bg-white ${toggleClass}`}
+        className={`absolute right-[-1rem] top-[4.7rem] !z-40 flex max-h-[calc(100vh-8rem)] w-[300px] flex-col rounded-sm bg-white !px-3 ${toggleClass}`}
       >
         <UserMenuContent
           isPublic={isPublic}

@@ -13,16 +13,15 @@ const ToastsData: ModelToast[] = [
     expectedValue: "success",
     title: "Witaj!",
     description: "Zostałeś zalogowany",
-    variant: "success",
+    variant: "info",
   },
 ];
 
 type Props = {
-  className?: string;
   isUser?: boolean;
 };
 
-const LogoutButton = ({ className, isUser }: Props) => {
+const LogoutButton = ({ isUser }: Props) => {
   const router = useRouter();
   useOneTimeToast(ToastsData);
   const { toast } = useToast();
@@ -39,7 +38,7 @@ const LogoutButton = ({ className, isUser }: Props) => {
     }
 
     if (state?.success) {
-      router.push("/login?logout=success");
+      router.push("/?logout=success");
     }
   }, [state, toast, router]);
 
@@ -56,10 +55,7 @@ const LogoutButton = ({ className, isUser }: Props) => {
           isLoading={pending}
           message="Wyloguj"
           variant="primary-rounded"
-          className={
-            className ||
-            "!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
-          }
+          className={"!w-full"}
         />
       ) : (
         <>
@@ -67,13 +63,12 @@ const LogoutButton = ({ className, isUser }: Props) => {
             message="Zarejestruj organizację"
             link={"/admin-contact"}
             variant="primary-rounded"
-            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
+            className="mb-6"
           />
           <ButtonLink
             message="Zaloguj"
             link={"/login"}
             variant="primary-rounded"
-            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
           />
         </>
       )}

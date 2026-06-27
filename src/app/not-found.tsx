@@ -2,12 +2,12 @@ import Link from "next/link";
 
 const PageNotFound = () => {
   return (
-    <div className="h-screen flex justify-center items-center flex-col">
+    <div className="flex h-screen flex-col items-center justify-center">
       Błędny adres
-      <div className="w-full text-center px-4 py-2">
+      <div className="w-full px-4 py-2 text-center">
         <Link
           href="/"
-          className="text-blue-600 hover:underline hover:decoration-blue-600"
+          className="text-accent hover:underline hover:decoration-accent"
         >
           Wróc do strony głównej
         </Link>

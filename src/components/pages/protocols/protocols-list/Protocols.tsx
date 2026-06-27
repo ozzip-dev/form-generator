@@ -48,7 +48,7 @@ const Protocols = ({ protocols }: Props) => {
 
       {areOpenFilters && (
         <div
-          className="fixed inset-0 top-24 z-30 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-30 backdrop-blur-sm lg:hidden"
           onClick={() => setAreOpenFilters(false)}
         />
       )}

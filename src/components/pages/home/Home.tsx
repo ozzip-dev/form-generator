@@ -1,18 +1,23 @@
-import { useState } from "react";
-import { FormTemplates, Hero, Tool, Vote, Steps, Usage, Faq } from "./sections";
-import { ButtonLink } from "@/components/shared";
+"use client";
+import { ModelToast, useOneTimeToast } from "@/hooks/useOneTimeToast";
 
-const Home = () => {
-  return (
-    <>
-      <Hero />
-      <Tool />
-      <FormTemplates />
-      <Steps />
-      <Vote />
-      <Usage />
-      <Faq />
-    </>
-  );
+const ToastsData: ModelToast[] = [
+  {
+    param: "logout",
+    expectedValue: "success",
+    title: "Wylogowano",
+    description: "Zostałeś wylogowany",
+    variant: "info",
+  },
+];
+
+type Props = {
+  children: React.ReactNode;
+};
+
+const Home = ({ children }: Props) => {
+  useOneTimeToast(ToastsData);
+
+  return <>{children}</>;
 };
 export default Home;

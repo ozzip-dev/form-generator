@@ -43,6 +43,5 @@ export async function loginAction(
     };
   }
 
-  // TODO: przemyśleć dashbaord
   redirect("/dashboard?login=success");
 }

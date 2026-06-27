@@ -21,19 +21,17 @@ const UserMenuContent = ({ isPublic, isLoged, onClose }: Props) => {
 
       {isLoged &&
         (isPublic ? (
-          <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
+          <>
+            <div className="border-t border-accent lg:hidden"></div>
+            <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
+          </>
         ) : (
-          <div className="lg:hidden">
+          <div className="border-t border-accent lg:hidden">
             <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
           </div>
         ))}
 
-      <div className="border-t p-4">
-        <LogoutButton
-          isUser={!!isLoged}
-          className="mx-auto w-fit !rounded-sm !border-accent !bg-accent px-10 !text-white hover:!border-accent hover:!bg-white hover:!text-accent"
-        />
-      </div>
+      <LogoutButton isUser={!!isLoged} />
     </div>
   );
 };

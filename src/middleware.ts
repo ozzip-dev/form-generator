@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { isModerator } from "./lib/utils";
 import { hasCompleteCommitteeData } from "./helpers/hasCompleteCommitteeData";
 
-
 type Session = typeof auth.$Infer.Session;
 
 export async function middleware(request: NextRequest) {
@@ -23,7 +22,6 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const moderator = isModerator(session.user);
 
-
   if (pathname === "/privacy") {
     if (moderator && session.user.privacyPolicyConfirmed) {
       const url = hasCompleteCommitteeData(session.user)
@@ -33,16 +31,6 @@ export async function middleware(request: NextRequest) {
     }
     return NextResponse.next();
   }
-
-  // if (pathname === "/user-form") {
-  //   if (moderator && !session.user.privacyPolicyConfirmed) {
-  //     return NextResponse.redirect(new URL("/privacy", request.url));
-  //   }
-  //   if (moderator && hasCompleteCommitteeData(session.user)) {
-  //     return NextResponse.redirect(new URL("/forms/list", request.url));
-  //   }
-  //   return NextResponse.next();
-  // }
 
   if (pathname === "/dashboard" && moderator) {
     if (!session.user.privacyPolicyConfirmed) {

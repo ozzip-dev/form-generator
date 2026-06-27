@@ -12,7 +12,7 @@ export default function FormAuthFooter(props: Props) {
       {props.message}{" "}
       <Link
         href={props.link}
-        className="text-blue-600 hover:underline hover:decoration-blue-600"
+        className="text-accent hover:underline hover:decoration-accent"
       >
         {props.messageLink}
       </Link>

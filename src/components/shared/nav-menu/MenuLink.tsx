@@ -23,24 +23,27 @@ const MenuLink = ({
   mobile,
 }: Props) => {
   const isSub = level === "sub";
+
   const borderClass = isSub
     ? "border-accent text-accent"
     : mobile
-      ? "!text-font_dark"
-      : "!border-white";
+      ? "!text-font_dark font-extrabold border-none"
+      : "!border-" + textColor;
+
   const newTabTarget = mobile && iSiOS() ? "_blank" : "externalWindow";
 
   return (
     <li
       className={`shrink-0 ${
         isActive ? `border-b ${borderClass}` : "border-b border-transparent"
-      } ${isSub ? "" : textColor}`}
+      } ${isSub ? "" : "text-" + textColor}`}
     >
-      <div className="text-base_bold">
+      <div className={`${mobile && isActive ? `font-bold` : "text-base_bold"}`}>
         <ButtonLink
           message={text}
           link={link}
           target={sameTab ? "_self" : newTabTarget}
+          className={`${mobile && "py-10"}`}
         />
       </div>
     </li>

@@ -23,7 +23,7 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
             <NavMenu
               links={links}
               depth={1}
-              textColor={isPublic ? "text-font_dark" : undefined}
+              textColor={isPublic ? "font_dark" : "white"}
             />
           </div>
         </div>
@@ -35,14 +35,12 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
             message="Zarejestruj organizację"
             link={"/admin-contact"}
             variant="primary-rounded"
-            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
           />
 
           <ButtonLink
             message="Zaloguj"
             link={"/login"}
             variant="primary-rounded"
-            className="!bg-white !text-accent hover:!border-white hover:!bg-accent hover:!text-white"
           />
         </div>
       )}

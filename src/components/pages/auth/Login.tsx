@@ -14,10 +14,10 @@ import {
 
 const ToastsData: ModelToast[] = [
   {
-    param: "logout",
+    param: "login",
     expectedValue: "success",
     title: "Wylogowano",
-    description: "Zostałeś wylogowany",
+    description: "Zostałeś wylogowanyeeeeeeeeeee",
     variant: "info",
   },
   {
