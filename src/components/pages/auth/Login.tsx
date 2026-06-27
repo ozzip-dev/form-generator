@@ -17,7 +17,7 @@ const ToastsData: ModelToast[] = [
     param: "login",
     expectedValue: "success",
     title: "Wylogowano",
-    description: "Zostałeś wylogowanyeeeeeeeeeee",
+    description: "Zostałeś wylogowany",
     variant: "info",
   },
   {
@@ -90,7 +90,7 @@ const Login = () => {
   );
 
   return (
-    <div className="flex h-full flex-col items-center p-4 pt-24">
+    <div className="flex h-full flex-col items-center justify-center p-4 pt-24">
       <h1 className="mb-4 text-center text-xl">Zaloguj się</h1>
       <Card className="w-full min-w-[29rem] max-w-[52rem] !py-24">
         <form action={formAction}>

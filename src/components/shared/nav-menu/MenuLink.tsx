@@ -37,6 +37,9 @@ const MenuLink = ({
       className={`shrink-0 ${
         isActive ? `border-b ${borderClass}` : "border-b border-transparent"
       } ${isSub ? "" : "text-" + textColor}`}
+      style={{
+        borderColor: isActive ? textColor : undefined,
+      }}
     >
       <div className={`${mobile && isActive ? `font-bold` : "text-base_bold"}`}>
         <ButtonLink

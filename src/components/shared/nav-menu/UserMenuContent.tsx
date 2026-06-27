@@ -30,8 +30,9 @@ const UserMenuContent = ({ isPublic, isLoged, onClose }: Props) => {
             <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
           </div>
         ))}
-
-      <LogoutButton isUser={!!isLoged} />
+      <div className="mt-11">
+        <LogoutButton isUser={!!isLoged} />
+      </div>
     </div>
   );
 };

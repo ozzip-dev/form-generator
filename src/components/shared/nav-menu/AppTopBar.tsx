@@ -23,7 +23,7 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
             <NavMenu
               links={links}
               depth={1}
-              textColor={isPublic ? "font_dark" : "white"}
+              textColor={isPublic ? "var(--color-font_dark)" : "white"}
             />
           </div>
         </div>

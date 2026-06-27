@@ -10,7 +10,7 @@ type Props = {
 
 export default function PublicTopBar({ user }: Props) {
   return (
-    <div className="bg-white py-6 shadow-[0_1px_0_rgba(0,0,0,0.06)]">
+    <div className="bg-white py-6">
       <AppTopBar isPublic={true} links={publicLinks} user={user} />
     </div>
   );
