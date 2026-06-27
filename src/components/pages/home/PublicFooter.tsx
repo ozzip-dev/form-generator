@@ -3,14 +3,6 @@ import Image from "next/image";
 export default function PublicFooter() {
   return (
     <footer className="mt-auto bg-font_dark">
-      <div className="container pb-4 text-white">
-        <div className="flex gap-4 text-2xs">
-          <div>
-            <p>OZZ Inicjatywa Pracownicza</p>
-            <p>ul. Kościelna 4/1a, 60-538 Poznań</p>
-          </div>
-        </div>
-      </div>{" "}
       <div className="items-center justify-center bg-white p-2 md:flex">
         <Image
           src="/images/UELogos.webp"
