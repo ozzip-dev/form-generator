@@ -14,41 +14,33 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
 
   if (userName) {
     return (
-      <button
-        type="button"
-        onClick={onToggle}
-        className={`lg:truncate-none inline-flex min-w-40 items-center truncate font-semibold lg:max-w-none ${
-          isPublic
-            ? "cursor-pointer text-font_dark"
-            : "cursor-pointer text-white"
+      <Button
+        variant="ghost"
+        onClickAction={onToggle}
+        className={`items-center font-semibold ${
+          isPublic ? "!text-font_dark" : ""
         }`}
         aria-expanded={isOpen}
-        aria-label={isOpen ? "Close user menu" : "Open user menu"}
-      >
-        <div className="flex-1 truncate text-right">{userName}</div>
-        <Icon
-          icon={isPublic ? "user-profile-dark" : "user-profile-white"}
-          size={30}
-          className={`ml-4 ${isPublic ? "bg-font_dark" : "bg-white"}`}
-        />
-      </button>
+        message={userName}
+        icon={
+          <Icon
+            icon={"user-profile-dark"}
+            size={25}
+            className={`ml-4 ${isPublic ? "bg-font_dark" : "bg-white"}`}
+          />
+        }
+      />
     );
   }
 
   return (
     <Button
-      type="button"
       className="lg:hidden"
-      icon={
-        <Icon
-          icon={menuIcon}
-          size={30}
-          className={isPublic ? "bg-font_dark" : "bg-white"}
-        />
-      }
+      icon={<Icon icon={menuIcon} size={30} className={"bg-font_dark"} />}
       onClickAction={onToggle}
       variant="ghost"
       ariaLabel={isOpen ? "Zamknij menu" : "Otwórz menu"}
+      aria-expanded={isOpen}
     />
   );
 };

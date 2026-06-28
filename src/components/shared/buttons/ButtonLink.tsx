@@ -15,18 +15,31 @@ type Props = {
   className?: string;
   variant?: "primary" | "primary-rounded" | "ghost";
   ariaLabel?: string;
+  ariaCurrent?: "page";
 };
 
-export default function ButtonLink(props: Props) {
+export default function ButtonLink({
+  icon,
+  message,
+  link,
+  target,
+  rel,
+  className,
+  variant = "ghost",
+  ariaLabel,
+  ariaCurrent,
+}: Props) {
   return (
     <Link
-      href={props.link}
-      className={`block text-center ${VARIANTS[props.variant || "ghost"]} ${props.className}`}
-      target={props.target}
-      rel={props.rel}
-      aria-label={props.ariaLabel}
+      href={link}
+      target={target}
+      rel={target === "_blank" ? (rel ?? "noopener noreferrer") : rel}
+      aria-label={ariaLabel}
+      aria-current={ariaCurrent}
+      className={`block text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${VARIANTS[variant]} ${className ?? ""} `}
     >
-      {props.message || props.icon}
+      {icon}
+      {message}
     </Link>
   );
 }

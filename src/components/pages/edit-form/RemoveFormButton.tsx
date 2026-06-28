@@ -20,7 +20,6 @@ function RemoveFormButton(props: Props) {
 
   return (
     <Button
-      type="button"
       variant="primary-rounded"
       icon={
         <Icon
