@@ -14,5 +14,5 @@ export const adminNavLinks = [
 
 export const publicLinks: NavMenuLink[] = [
   { text: "Instrukcja formularz", link: "/forms-doc" },
-  { text: "Instrukcja protokół", link: "/protocols-doc" },
+  { text: "Instrukcja archiwum", link: "/protocols-doc" },
 ];

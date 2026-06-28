@@ -1,43 +1,37 @@
 import { Card } from "@/components/shared";
+import VideoCard from "@/components/shared/VideoCard";
 
 const ProtocolsDocPage = () => {
   return (
-    <div className="p-10">
-      <h1 className="mb-20 text-center text-xl">
-        Korzystanie z bazy materiałów sporów zbiorowych
+    <div className="mb-20 p-10">
+      <h1 className="text-bo mb-20 text-center text-xl font-extrabold">
+        Korzystanie z archiwum materiałów sporów zbiorowych
       </h1>
-      <Card className="mx-auto max-w-[55rem]">
-        <h2 className="mx-0 mb-10 w-full text-base font-semibold">
-          1. Przejdź do zakładki &quot;Protokoły&quot;, a następnie kliknij
-          przycisk &quot;Dodaj protokół&quot;. <br /> 2. Uzupełnij i zapisz
-          podstawowe informacje dotyczące sporu zbiorowego.
-        </h2>
-        <video controls preload="metadata" className="mx-0 w-full">
-          <source src="/videos/elo3.mp4" type="video/mp4" />
-          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
-        </video>
-      </Card>
 
-      <Card className="mx-auto mt-20 max-w-[55rem]">
-        <h2 className="mx-auto mb-10 text-base font-semibold">
-          3. Załącz dokumenty i materiały dotyczące danej fazy sporu zbiorowego
-          i dodaj powiązane linki
-        </h2>
-        <video controls preload="metadata" className="mx-auto">
-          <source src="/videos/elo4.mp4" type="video/mp4" />
-          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
-        </video>
-      </Card>
-      <Card className="mx-auto mt-20 max-w-[55rem]">
-        <h2 className="mx-auto mb-10 text-base font-semibold">
-          4. Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące
-          sporów utworzonych przez Twoją organizację
-        </h2>
-        <video controls preload="metadata" className="mx-auto">
-          <source src="/videos/elo5.mp4" type="video/mp4" />
-          Twoja przeglądarka nie obsługuje odtwarzacza wideo.
-        </video>
-      </Card>
+      <div className="flex flex-col gap-24">
+        <VideoCard
+          message={
+            <>
+              1. Przejdź do zakładki &quot;Protokoły&quot;, a następnie kliknij
+              przycisk &quot;Dodaj protokół&quot;. <br /> 2. Uzupełnij i zapisz
+              podstawowe informacje dotyczące sporu zbiorowego.
+            </>
+          }
+          video="/videos/elo3.mp4"
+        />
+
+        <VideoCard
+          message="3. Załącz dokumenty i materiały dotyczące danej fazy sporu zbiorowego
+          i dodaj powiązane linki"
+          video="/videos/elo4.mp4"
+        />
+
+        <VideoCard
+          message="4. Przeglądaj listę sporów zbiorowych i edytuj informacje dotyczące
+          sporów utworzonych przez Twoją organizację"
+          video="/videos/elo5.mp4"
+        />
+      </div>
     </div>
   );
 };
