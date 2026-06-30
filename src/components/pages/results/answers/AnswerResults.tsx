@@ -7,8 +7,10 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import {
   addFonts,
+  addFooter,
   addInputName,
   addInputPageHeader,
+  addNumberedPageHeader,
   getPdfWidth,
 } from "../utils";
 
@@ -67,29 +69,126 @@ const AnswerResults = (props: Props) => {
         scale: 2,
         width: chartWidthPx,
         windowWidth: chartWidthPx,
-      }).then((canvas) => {
+      }).then(async (canvas) => {
         const pdf = new jsPDF({ unit: "px" });
         addFonts(pdf);
-        addInputPageHeader(props.title, pdf);
-        addInputName(header, pdf);
         const pageWidth = getPdfWidth(pdf);
+        const pageHeight = pdf.internal.pageSize.getHeight();
         const chartWidth = pageWidth * 0.65;
         const chartLeft = (pageWidth - chartWidth) / 2;
         const imgWidth = chartWidth;
-        const imgHeight = (canvas.height / canvas.width) * imgWidth;
-        const imgData = canvas.toDataURL("image/png");
-
-        const yOffset = 100;
-        pdf.addImage(
-          imgData,
-          "PNG",
-          chartLeft,
-          yOffset,
-          imgWidth,
-          imgHeight,
-          undefined,
-          "FAST",
+        const firstPageYOffset = 100;
+        const nextPagesYOffset = 110;
+        const numberedHeaderTop = 14;
+        const numberedHeaderSize = 50;
+        const numberedHeaderMetadataBottomOffset = 8;
+        const bottomMargin = 20;
+        const availableHeight = pageHeight - nextPagesYOffset - bottomMargin;
+        const scaleRatio = imgWidth / canvas.width;
+        const maxSliceHeight = Math.floor(availableHeight / scaleRatio);
+        const pageCount = Math.max(
+          1,
+          Math.ceil(canvas.height / maxSliceHeight),
         );
+        const recordCount = sortedAnswers.length;
+
+        let sourceY = 0;
+        let isFirstPage = true;
+        let page = 1;
+
+        while (sourceY < canvas.height) {
+          if (!isFirstPage) {
+            pdf.addPage();
+          }
+
+          const currentYOffset = isFirstPage
+            ? firstPageYOffset
+            : nextPagesYOffset;
+
+          const remainingHeight = canvas.height - sourceY;
+          const sliceHeight = Math.min(maxSliceHeight, remainingHeight);
+
+          if (pageCount > 1) {
+            const recordFrom =
+              recordCount > 0
+                ? Math.min(
+                    recordCount,
+                    Math.floor((sourceY / canvas.height) * recordCount) + 1,
+                  )
+                : 0;
+            const recordTo =
+              recordCount > 0
+                ? Math.min(
+                    recordCount,
+                    Math.ceil(
+                      ((sourceY + sliceHeight) / canvas.height) * recordCount,
+                    ),
+                  )
+                : 0;
+
+            addNumberedPageHeader(
+              props.title,
+              pdf,
+              page,
+              pageCount,
+              recordFrom,
+              recordTo,
+              recordCount,
+              numberedHeaderTop,
+              numberedHeaderSize,
+              numberedHeaderMetadataBottomOffset,
+            );
+          } else {
+            addInputPageHeader(props.title, pdf);
+          }
+          addInputName(header, pdf);
+
+          const pageCanvas = document.createElement("canvas");
+          pageCanvas.width = canvas.width;
+          pageCanvas.height = sliceHeight;
+
+          const pageContext = pageCanvas.getContext("2d");
+          if (!pageContext) {
+            break;
+          }
+
+          pageContext.drawImage(
+            canvas,
+            0,
+            sourceY,
+            canvas.width,
+            sliceHeight,
+            0,
+            0,
+            canvas.width,
+            sliceHeight,
+          );
+
+          const sliceImgData = pageCanvas.toDataURL("image/png");
+          const renderedSliceHeight = sliceHeight * scaleRatio;
+
+          pdf.addImage(
+            sliceImgData,
+            "PNG",
+            chartLeft,
+            currentYOffset,
+            imgWidth,
+            renderedSliceHeight,
+            undefined,
+            "FAST",
+          );
+
+          sourceY += sliceHeight;
+          isFirstPage = false;
+          page += 1;
+        }
+
+        const totalPages = pdf.getNumberOfPages();
+        for (let pageIndex = 1; pageIndex <= totalPages; pageIndex += 1) {
+          pdf.setPage(pageIndex);
+          await addFooter(pdf);
+        }
+
         pdf.save(`Wyniki_${props.title}_${header}.pdf`);
         document.body.removeChild(wrapper);
       });

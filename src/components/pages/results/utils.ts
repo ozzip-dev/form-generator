@@ -47,7 +47,7 @@ export const addHeaderText = (title: string, pdf: jsPDF): void => {
   setFontFamilyRegular(pdf);
   pdf.setFontSize(11);
   pdf.text(
-    `(plik wygenerowany automatycznie: ${formatDateAndTime(new Date().toISOString())})`,
+    `plik wygenerowany automatycznie: ${formatDateAndTime(new Date().toISOString())}`,
     5,
     40,
   );
@@ -76,19 +76,22 @@ export const addNumberedHeaderText = (
   recordFrom: number,
   recordTo: number,
   recordCount: number,
+  top: number = 6,
+  headerSize: number = 20,
+  metadataBottomOffset: number = 3,
 ): void => {
   setFontFamilyBold(pdf);
 
-  addformTitleText(pdf, title, 6);
+  addformTitleText(pdf, title, top);
 
   setFontFamilyRegular(pdf);
   pdf.setFontSize(11);
   pdf.text(
     `plik wygenerowany automatycznie: ${formatDateAndTime(
       new Date().toISOString(),
-    )}                        strona: (${page}/${pageCount})                        wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
+    )}                        strona: ${page}/${pageCount}                        wyniki: ${recordFrom}-${recordTo}/${recordCount}`,
     5,
-    17,
+    headerSize - metadataBottomOffset,
   );
 };
 
@@ -100,8 +103,11 @@ export const addNumberedPageHeader = (
   recordFrom: number,
   recordTo: number,
   recordCount: number,
+  top?: number,
+  headerSize: number = 20,
+  metadataBottomOffset?: number,
 ): void => {
-  drawHeader(pdf);
+  drawHeader(pdf, headerSize);
   // addOzzipLogo(pdf);
   addNumberedHeaderText(
     title,
@@ -111,7 +117,58 @@ export const addNumberedPageHeader = (
     recordFrom,
     recordTo,
     recordCount,
+    top,
+    headerSize,
+    metadataBottomOffset,
   );
+};
+
+const pxToPdfUnit = (pdf: jsPDF, px: number): number => {
+  const pointsPerPx = 72 / 96;
+  return (px * pointsPerPx) / pdf.internal.scaleFactor;
+};
+
+const loadImage = (src: string): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error(`Could not load image: ${src}`));
+    image.src = src;
+  });
+
+export const addFooter = async (pdf: jsPDF): Promise<void> => {
+  const iconHeightPx = 25;
+  const marginPx = 8;
+
+  const iconHeight = pxToPdfUnit(pdf, iconHeightPx);
+  const rightMargin = pxToPdfUnit(pdf, marginPx);
+  const leftMargin = pxToPdfUnit(pdf, marginPx);
+  const bottomMargin = pxToPdfUnit(pdf, marginPx);
+  const websiteYOffset = pxToPdfUnit(pdf, marginPx);
+
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+  const baselineY = pageHeight - bottomMargin;
+
+  setFontFamilyRegular(pdf);
+  pdf.setTextColor("#000000");
+  pdf.setFontSize(14);
+  pdf.text("www.formypracy.org", leftMargin, baselineY - websiteYOffset);
+
+  try {
+    const icon = await loadImage("/images/fp_logo.png");
+    const ratio =
+      icon.naturalHeight > 0 ? icon.naturalWidth / icon.naturalHeight : 1;
+    const iconWidth = iconHeight * ratio;
+
+    const startX = pageWidth - rightMargin - iconWidth;
+    const iconY = baselineY - iconHeight;
+
+    pdf.addImage(icon, "PNG", startX, iconY, iconWidth, iconHeight);
+  } catch {
+    console.log("failed to load footer logo");
+  }
 };
 
 export const addFonts = (pdf: jsPDF): void => {

@@ -4,6 +4,7 @@ import jsPDF from "jspdf";
 import { autoTable, RowInput } from "jspdf-autotable";
 import dynamic from "next/dynamic";
 import {
+  addFooter,
   addFonts,
   addNumberedPageHeader,
   getAvailablePageWidth,
@@ -55,7 +56,7 @@ export const ResultsPdfTable = dynamic(
         );
       }
 
-      function exportGridToPDF(): void {
+      async function exportGridToPDF(): Promise<void> {
         const gridEl = document.getElementById("results");
         if (!gridEl) return;
 
@@ -121,6 +122,11 @@ export const ResultsPdfTable = dynamic(
             totalRecords,
           );
         });
+
+        for (let pageIndex = 1; pageIndex <= totalPages; pageIndex += 1) {
+          pdf.setPage(pageIndex);
+          await addFooter(pdf);
+        }
 
         pdf.save(`Wyniki_${props.title}.pdf`);
       }
