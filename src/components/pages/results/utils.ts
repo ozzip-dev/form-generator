@@ -60,8 +60,12 @@ export const addInputPageHeader = (title: string, pdf: jsPDF): void => {
 };
 
 export const addInputName = (inputName: string, pdf: jsPDF): void => {
+  const pageWidth = pdf.internal.pageSize.getWidth();
+  const margin = 5;
+  const maxWidth = pageWidth - margin * 2;
+
   pdf.setFontSize(15);
-  pdf.text(`Wyniki dla pola: ${inputName}`, 5, 70);
+  pdf.text(`Wyniki dla pola: ${inputName}`, 5, 70, { maxWidth });
 };
 
 export const addNumberedHeaderText = (
