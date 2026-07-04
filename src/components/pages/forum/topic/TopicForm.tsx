@@ -6,8 +6,8 @@ import {
   Card,
   FullscreenLoader,
   InputFields,
+  SectionHeader,
 } from "@/components/shared";
-import SectionHeader from "@/components/shared/SectionHeader";
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import {

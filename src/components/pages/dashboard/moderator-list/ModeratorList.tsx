@@ -1,6 +1,6 @@
 import { IUser } from "@/types/user";
 import ModeratorListItem from "./ModeratorListItem";
-import SectionHeader from "@/components/shared/SectionHeader";
+import { SectionHeader } from "@/components/shared";
 
 type Props = {
   moderators: IUser[];

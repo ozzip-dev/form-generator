@@ -1,4 +1,4 @@
-import Header from "@/components/shared/Header";
+import { Header } from "@/components/shared";
 import PublicTopBar from "@/components/pages/home/PublicTopBar";
 import { getLoggedInUser } from "@/services/user-service";
 import PublicFooter from "@/components/pages/home/PublicFooter";

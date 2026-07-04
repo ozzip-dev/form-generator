@@ -15,7 +15,7 @@ import {
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import { createTopicSchema } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
-import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import { SelectFieldController } from "@/components/shared";
 import { InputData, InputType } from "@/enums";
 
 const topicInputData: InputData[] = [
@@ -89,7 +89,7 @@ const CreateTopicForm = () => {
               />
             </div>
           ))}
-          <SelectFieldControler
+          <SelectFieldController
             name="category"
             label="Wybierz kategorię"
             options={categorySelectOptions.map(({ value, floatingLabel }) => ({

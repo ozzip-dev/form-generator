@@ -1,6 +1,9 @@
-import { Button, Card } from "@/components/shared";
-import DetailsPrinter from "@/components/shared/DetailsPrinter";
-import SectionHeader from "@/components/shared/SectionHeader";
+import {
+  Button,
+  Card,
+  DetailsPrinter,
+  SectionHeader,
+} from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
 import React, { use } from "react";
 

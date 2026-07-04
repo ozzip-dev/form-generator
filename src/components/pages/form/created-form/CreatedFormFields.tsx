@@ -2,8 +2,8 @@ import {
   CheckboxGroupField,
   InputFields,
   RadioGroupField,
+  FormDescription,
 } from "@/components/shared";
-import FormDescription from "@/components/shared/inputs/FormDescription";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";

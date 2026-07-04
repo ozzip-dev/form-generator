@@ -1,7 +1,7 @@
 "use client";
 
 import { InfoIcon } from "@/components/shared";
-import CheckboxSwitch from "@/components/shared/inputs/checkbox-field/CheckboxSwitch";
+import { CheckboxSwitch } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { FormInput } from "@/types/input";
 import { useTransition } from "react";

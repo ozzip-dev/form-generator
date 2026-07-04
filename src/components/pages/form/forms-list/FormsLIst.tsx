@@ -1,8 +1,7 @@
 import { getSerializedFormList } from "@/services/form-service";
 import FormLink from "./FormLink";
-import { SuspenseErrorBoundary } from "@/components/shared";
+import { SuspenseErrorBoundary, SectionHeader } from "@/components/shared";
 import FormTrigger from "../FormTrigger";
-import SectionHeader from "@/components/shared/SectionHeader";
 
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();

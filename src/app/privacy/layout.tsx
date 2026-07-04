@@ -1,5 +1,5 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import Header from "@/components/shared/Header";
+import { Header } from "@/components/shared";
 import { auth } from "@/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";

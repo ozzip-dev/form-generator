@@ -6,10 +6,8 @@ import {
   ProtocolWithFilesSerialized,
 } from "@/types/protocol";
 import { startTransition, use, useActionState, useRef, useState } from "react";
-
 import { getProtocolDetailsAction } from "@/actions/protocol";
-import { Button, ButtonLink, Icon } from "@/components/shared";
-import ResponsiveList from "@/components/shared/responsive-list/ResponsiveList";
+import { Button, ButtonLink, Icon, ResponsiveList } from "@/components/shared";
 import ProtocolListItemDetails from "./ProtocolListItemDetails";
 import { isProtocolAuthor } from "@/helpers/protocolHelpers";
 import { UserSerialized } from "@/types/user";

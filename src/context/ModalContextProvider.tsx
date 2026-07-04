@@ -9,10 +9,9 @@ import {
   useEffect,
   useRef,
   useState,
+  useActionState,
 } from "react";
-import { useActionState } from "react";
-import ModalWrapper from "@/components/shared/ModalWrapper";
-import { Button } from "@/components/shared";
+import { Button, ModalWrapper } from "@/components/shared";
 
 type ModalConfig = {
   action?: (...args: any[]) => void | Promise<void>;

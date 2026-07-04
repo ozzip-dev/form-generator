@@ -1,4 +1,4 @@
-import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenu } from "@/components/shared";
 import { NavMenuLink } from "@/types/shared";
 
 type Props = {

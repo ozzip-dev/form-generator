@@ -1,5 +1,5 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenu } from "@/components/shared";
 import { publicLinks, userProfileLinks } from "@/data/menuesLinks";
 
 type Props = {

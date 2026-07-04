@@ -1,6 +1,6 @@
 import EditProtocol from "@/components/pages/protocols/edit-protocol/EditProtocol";
 import ProtocolFileUploads from "@/components/pages/protocols/edit-protocol/protocol-uploads/ProtocolFileUploads";
-import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
+import { SuspenseErrorBoundary } from "@/components/shared";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

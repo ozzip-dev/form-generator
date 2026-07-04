@@ -1,11 +1,10 @@
 "use client";
 
-import { Button } from "@/components/shared";
+import { Button, ResponsiveList } from "@/components/shared";
 import { UserCommitteeInfo } from "@/types/user";
 import { useState } from "react";
 import FormsOfTypeList from "./FormsOfTypeList";
 import { FormSerialized } from "@/types/form";
-import ResponsiveList from "@/components/shared/responsive-list/ResponsiveList";
 import { FormType } from "@/enums/form";
 
 type Props = {
@@ -41,7 +40,7 @@ const ContactCommitteeItem = ({ committee, type, getForms }: Props) => {
   };
 
   return (
-    <div className=" w-full">
+    <div className="w-full">
       <ResponsiveList listItems={dataOrganizations} />
 
       <Button

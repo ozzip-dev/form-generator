@@ -3,11 +3,10 @@ import { isDraft, isDisabled, isTemplate } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import { getFormAdditionalData, getFormBySlug } from "@/services/form-service";
-import { SuspenseErrorBoundary } from "@/components/shared";
+import { SuspenseErrorBoundary, FormDescription } from "@/components/shared";
 import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/form/created-form/CreatedForm";
-import FormDescription from "@/components/shared/inputs/FormDescription";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

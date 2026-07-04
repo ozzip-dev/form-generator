@@ -1,4 +1,4 @@
-import SectionHeader from "@/components/shared/SectionHeader";
+import { SectionHeader } from "@/components/shared";
 import FormTemplateTrigger from "./FormTemplateTrigger";
 import { getFormTemplates } from "@/services/form-service";
 import { TemplateFormId } from "@/lib/mongo/models";

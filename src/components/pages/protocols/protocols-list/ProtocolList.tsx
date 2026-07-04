@@ -3,7 +3,7 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
-import ResponsiveListHeader from "@/components/shared/responsive-list/ResponsiveListHeader";
+import { ResponsiveListHeader } from "@/components/shared";
 
 const headers = ["Branża", "Związek", "Zakład", "Rozpoczęcie", "Przyczyna"];
 

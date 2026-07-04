@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { authClient } from "@/lib/auth/auth-client";
-import { GoogleIcon } from "../shared/google-icon";
+import { GoogleIcon } from "../shared";
 import { useToast } from "@/context/ToastProvider";
 
 interface GoogleAuthButtonProps {
@@ -49,7 +49,7 @@ export const GoogleAuthButton = ({
 
   return (
     <button
-      className="w-full flex items-center justify-center gap-2"
+      className="flex w-full items-center justify-center gap-2"
       onClick={handleGoogleAuth}
       disabled={isLoading}
     >
@@ -57,7 +57,7 @@ export const GoogleAuthButton = ({
         <div>loading</div>
       ) : (
         <>
-          <GoogleIcon className="w-4 h-4" />
+          <GoogleIcon className="h-4 w-4" />
           <span>{buttonText}</span>
         </>
       )}

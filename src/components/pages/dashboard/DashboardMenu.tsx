@@ -1,6 +1,6 @@
 "use client";
 
-import AppTopBar from "@/components/shared/nav-menu/AppTopBar";
+import { AppTopBar } from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
 import { adminNavLinks, userProfileLinks } from "@/data/menuesLinks";
 import { isModerator } from "@/lib/utils";

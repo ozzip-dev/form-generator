@@ -1,3 +1,5 @@
+"use client";
+
 import { ChangeEvent } from "react";
 import { Controller } from "react-hook-form";
 import Checkbox from "./Checkbox";

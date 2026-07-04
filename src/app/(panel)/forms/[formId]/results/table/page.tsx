@@ -1,7 +1,7 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import { ResultsPdfTable } from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
-import SectionHeader from "@/components/shared/SectionHeader";
+import { SectionHeader } from "@/components/shared";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import {
   getSortedInputs,

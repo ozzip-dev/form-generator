@@ -2,8 +2,7 @@
 
 import { editInputLabelAction } from "@/actions/edit-form/edit-form-input/editInputLabelAction";
 import { editInputTypeAction } from "@/actions/edit-form/edit-form-input/editInputTypeAction";
-import { Card, InputFields } from "@/components/shared";
-import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import { Card, InputFields, SelectFieldController } from "@/components/shared";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useFormData } from "@/context/FormDataContextProvider";
@@ -188,7 +187,7 @@ const EditFormInput = () => {
                 </div>
 
                 <div className="mb-auto mt-2 w-[23rem]">
-                  <SelectFieldControler
+                  <SelectFieldController
                     name="type"
                     defaultValue={type}
                     options={dataSelectOptions}

@@ -6,6 +6,7 @@ import {
   Card,
   CheckboxGroupField,
   InputFields,
+  SectionHeader,
 } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
@@ -22,7 +23,6 @@ import {
 } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
-import SectionHeader from "@/components/shared/SectionHeader";
 import DemandsField from "./DemandsField";
 import { InputData, InputType } from "@/enums";
 

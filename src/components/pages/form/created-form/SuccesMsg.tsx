@@ -1,5 +1,4 @@
-import { Card } from "@/components/shared";
-import Header from "@/components/shared/Header";
+import { Card, Header } from "@/components/shared";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {

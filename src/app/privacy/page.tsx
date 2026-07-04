@@ -1,6 +1,6 @@
 import ConfirmPrivacyBtn from "@/components/pages/privacy/ConfirmPrivacyBtn";
 import ConfirmPrivacyText from "@/components/pages/privacy/ConfirmPrivacyText";
-import SectionHeader from "@/components/shared/SectionHeader";
+import { SectionHeader } from "@/components/shared";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
-import { Button, Card } from "@/components/shared";
+import { Button, Card, FormDescription } from "@/components/shared";
 import { setClientErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
@@ -24,7 +24,6 @@ import {
 } from "@/helpers/inputHelpers";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
-import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";

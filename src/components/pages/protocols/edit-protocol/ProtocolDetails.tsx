@@ -1,10 +1,13 @@
-import { Button, Card } from "@/components/shared";
+import {
+  Button,
+  Card,
+  DetailsPrinter,
+  SectionHeader,
+} from "@/components/shared";
 import { useProtocol } from "@/context/ProtocolContext";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { use } from "react";
 import { mapDisputeReason } from "../utils";
-import DetailsPrinter from "@/components/shared/DetailsPrinter";
-import SectionHeader from "@/components/shared/SectionHeader";
 
 type Props = {
   handlePrintForm: () => void;
