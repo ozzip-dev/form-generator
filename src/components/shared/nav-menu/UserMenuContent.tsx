@@ -1,6 +1,6 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
 import { NavMenu } from "@/components/shared";
-import { publicLinks, userProfileLinks } from "@/helpers/menuLinks";
+import { publicLinks, userProfileLinks } from "@/lib/menuLinks";
 
 type Props = {
   isPublic?: boolean;
