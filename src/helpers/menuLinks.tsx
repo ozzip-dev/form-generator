@@ -7,7 +7,7 @@ export const userProfileLinks: NavMenuLink[] = [
   { text: "Ustawienia", link: "/settings/user-settings" },
 ];
 
-export const adminNavLinks = [
+export const adminNavLinks: NavMenuLink[] = [
   { text: "Strona główna", link: "/dashboard" },
   { text: "Dodaj użytkownika", link: "/create-user" },
 ];

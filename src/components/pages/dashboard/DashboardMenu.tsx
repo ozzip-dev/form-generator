@@ -2,7 +2,7 @@
 
 import { AppTopBar } from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
-import { adminNavLinks, userProfileLinks } from "@/data/menuesLinks";
+import { adminNavLinks, userProfileLinks } from "@/helpers/menuLinks";
 import { isModerator } from "@/lib/utils";
 import { use } from "react";
 

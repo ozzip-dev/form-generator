@@ -2,7 +2,7 @@
 
 import { AppTopBar } from "@/components/shared";
 import { UserSerialized } from "@/types/user";
-import { publicLinks } from "@/data/menuesLinks";
+import { publicLinks } from "@/helpers/menuLinks";
 
 type Props = {
   user: UserSerialized | null;
