@@ -36,6 +36,8 @@ const InputFields = (props: Props) => {
           hidden,
         } = inputData;
 
+        const isTextArea = type === InputType.SUPER_TEXT;
+
         return (
           <div
             key={name}
@@ -58,7 +60,7 @@ const InputFields = (props: Props) => {
               <InputDescription description={description} variant="published" />
             )}
 
-            {type === InputType.PARAGRAPH ? (
+            {isTextArea ? (
               <TextareaField
                 inputData={inputData}
                 register={props.register}
@@ -66,7 +68,6 @@ const InputFields = (props: Props) => {
                 isLoading={props.isLoading}
                 default={props.default}
                 error={props.errorMsg}
-                floatingLabel={floatingLabel}
               />
             ) : (
               <InputField
@@ -78,7 +79,6 @@ const InputFields = (props: Props) => {
                 default={props.default}
                 variant={props.variant}
                 error={props.errorMsg}
-                floatingLabel={floatingLabel}
               />
             )}
           </div>

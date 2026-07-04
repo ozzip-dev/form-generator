@@ -19,8 +19,8 @@ import { useActionState, useRef } from "react";
 import { InputData, InputType } from "@/enums";
 
 const topicInputData = [
-  { label: "Temat", name: "title", type: InputType.TEXT },
-  { label: "Opis", name: "description", type: InputType.TEXT },
+  { floatingLabel: "Temat", name: "title", type: InputType.TEXT },
+  { floatingLabel: "Opis", name: "description", type: InputType.TEXT },
 ];
 
 const categorySelectOptions = [
