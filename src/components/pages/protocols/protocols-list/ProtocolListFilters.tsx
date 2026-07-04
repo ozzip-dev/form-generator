@@ -26,7 +26,7 @@ const dataDatesInputs: InputData[] = [
   {
     floatingLabel: "Spory do:",
     name: "toDate",
-    type: InputType.TEXT,
+    type: InputType.DATE,
   },
 ];
 
