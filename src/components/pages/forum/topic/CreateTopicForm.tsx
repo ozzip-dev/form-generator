@@ -64,7 +64,7 @@ const CreateTopicForm = () => {
         variant: "success",
       });
       reset();
-      router.push("/forum/list");
+      router.push(`/forum/list#${category}`);
     } catch (e: unknown) {
       toast({
         title: "Błąd",
@@ -104,7 +104,7 @@ const CreateTopicForm = () => {
             >
               Wróć
             </Link>
-            <Button message="Utwórz" />
+            <Button type="submit" message="Utwórz" />
           </div>
         </form>
       </FormProvider>
