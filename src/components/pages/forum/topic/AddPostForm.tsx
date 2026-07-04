@@ -3,6 +3,7 @@
 import { addPostAction } from "@/actions/forum/addPostAction";
 import { Button, FullscreenLoader, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { InputData, InputType } from "@/enums";
 import {
   addPostSchema,
   AddPostSchema,
@@ -14,8 +15,9 @@ import {
   useActionState,
 } from "react";
 
-const topicInputData: { floatingLabel: string; name: string; type: string }[] =
-  [{ floatingLabel: "Treść", name: "content", type: "text" }];
+const topicInputData: InputData[] = [
+  { floatingLabel: "Treść", name: "content", type: InputType.TEXT },
+];
 
 type State = { errors: Record<string, string[]>; inputs?: any };
 

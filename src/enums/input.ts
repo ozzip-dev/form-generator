@@ -9,3 +9,18 @@ export enum InputType {
   SINGLE_SELECT = "singleSelect",
   PARAGRAPH = "paragraph",
 }
+
+export type InputData = {
+  staticLabel?: string;
+  floatingLabel?: string;
+  name: string;
+  placeholder?: string;
+  type: InputType | "password";
+  defaultValue?: string;
+  description?: string;
+  required?: boolean;
+  unique?: boolean;
+  dataAttribut?: string;
+  labelClassName?: string;
+  hidden?: boolean;
+};

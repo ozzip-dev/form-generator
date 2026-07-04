@@ -7,7 +7,7 @@ import { SelectFieldControler } from "@/components/shared/inputs/select-field/Se
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useFormData } from "@/context/FormDataContextProvider";
-import { InputType } from "@/enums";
+import { InputData, InputType } from "@/enums";
 import {
   isInputTypeParagraph,
   isInputWithOptions,
@@ -19,7 +19,14 @@ import {
   EditInputFormSchema,
 } from "@/lib/zod-schema/edit-form-schemas/editFormInputSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
@@ -121,12 +128,12 @@ const EditFormInput = () => {
     if (!header) setError("header", { message: "Uzupełnij pytanie" });
   }, [header, setError, formData]);
 
-  const dataInputLabel = [
+  const dataInputLabel: InputData[] = [
     {
-      type: "text",
-      name: `header`,
+      name: "header",
       placeholder: "Pytanie",
       floatingLabel: `Edytuj pytanie ${inputNumber}`,
+      type: InputType.TEXT,
     },
   ];
 
@@ -139,82 +146,80 @@ const EditFormInput = () => {
           <div
             ref={focusRegionRef}
             tabIndex={-1}
-            className="outline-none rounded-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
             aria-label={
-              inputNumber != null
-                ? `Pytanie ${inputNumber}`
-                : "Pole formularza"
+              inputNumber != null ? `Pytanie ${inputNumber}` : "Pole formularza"
             }
           >
-          <form>
-            <FormInputMoveRemoveButtons />
+            <form>
+              <FormInputMoveRemoveButtons />
 
-            <div className="items-center md:flex md:gap-12">
-              <div className="flex min-w-0 flex-1 items-center">
-                {!isInputTypeParagraph(input) ? (
-                  <div className="w-full">
-                    <InputFields
-                      inputsData={dataInputLabel}
-                      register={register}
-                      errorMsg={errors.header as any}
-                      onChange={handleEditLabel}
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full">
+              <div className="items-center md:flex md:gap-12">
+                <div className="flex min-w-0 flex-1 items-center">
+                  {!isInputTypeParagraph(input) ? (
+                    <div className="w-full">
+                      <InputFields
+                        inputsData={dataInputLabel}
+                        register={register}
+                        errorMsg={errors.header as any}
+                        onChange={handleEditLabel}
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full">
+                      <EditFormDescriptionEditor
+                        setDescription={setDescription}
+                        isDescription={showDescription}
+                        variant="input"
+                        onClose={() => setShowDescription(false)}
+                      />
+                    </div>
+                  )}
+                  {!isInputTypeParagraph(input) &&
+                    (showDescription ? (
+                      <div className="h-1 w-[3rem]" />
+                    ) : (
+                      <div className="ml-1 h-fit w-fit">
+                        <AddTextEditorBtn
+                          action={() => setShowDescription(true)}
+                        />
+                      </div>
+                    ))}
+                </div>
+
+                <div className="mb-auto mt-2 w-[23rem]">
+                  <SelectFieldControler
+                    name="type"
+                    defaultValue={type}
+                    options={dataSelectOptions}
+                    onChangeAction={(name, value) => {
+                      handleEditType(value as InputType);
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="md:flex md:gap-10">
+                <div className="min-w-0 md:flex-1">
+                  {!isInputTypeParagraph(input) && showDescription && (
                     <EditFormDescriptionEditor
                       setDescription={setDescription}
                       isDescription={showDescription}
                       variant="input"
                       onClose={() => setShowDescription(false)}
                     />
-                  </div>
-                )}
-                {!isInputTypeParagraph(input) &&
-                  (showDescription ? (
-                    <div className="h-1 w-[3rem]" />
-                  ) : (
-                    <div className="ml-1 h-fit w-fit">
-                      <AddTextEditorBtn
-                        action={() => setShowDescription(true)}
-                      />
-                    </div>
-                  ))}
+                  )}
+                  {isInputWithOptions(input) && (
+                    <AddOption
+                      inputIdx={inputIdx}
+                      input={input}
+                      header={header}
+                    />
+                  )}
+                </div>
+                {!isInputTypeParagraph(input) && <ToggleInputs />}
               </div>
-
-              <div className="mb-auto mt-2 w-[23rem]">
-                <SelectFieldControler
-                  name="type"
-                  defaultValue={type}
-                  options={dataSelectOptions}
-                  onChangeAction={(name, value) => {
-                    handleEditType(value as InputType);
-                  }}
-                />
-              </div>
-            </div>
-
-            <div className="md:flex md:gap-10">
-              <div className="min-w-0 md:flex-1">
-                {!isInputTypeParagraph(input) && showDescription && (
-                  <EditFormDescriptionEditor
-                    setDescription={setDescription}
-                    isDescription={showDescription}
-                    variant="input"
-                    onClose={() => setShowDescription(false)}
-                  />
-                )}
-                {isInputWithOptions(input) && (
-                  <AddOption
-                    inputIdx={inputIdx}
-                    input={input}
-                    header={header}
-                  />
-                )}
-              </div>
-              {!isInputTypeParagraph(input) && <ToggleInputs />}
-            </div>
-          </form>
+            </form>
           </div>
         </FormProvider>
       )}

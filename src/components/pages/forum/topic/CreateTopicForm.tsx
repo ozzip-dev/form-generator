@@ -16,12 +16,12 @@ import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import { createTopicSchema } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import { InputData, InputType } from "@/enums";
 
-const topicInputData: { floatingLabel: string; name: string; type: string }[] =
-  [
-    { floatingLabel: "Tytuł", name: "title", type: "text" },
-    { floatingLabel: "Opis", name: "description", type: "text" },
-  ];
+const topicInputData: InputData[] = [
+  { floatingLabel: "Tytuł", name: "title", type: InputType.TEXT },
+  { floatingLabel: "Opis", name: "description", type: InputType.TEXT },
+];
 
 const categorySelectOptions = [
   { floatingLabel: "Formularz", value: TopicCategory.FORM },

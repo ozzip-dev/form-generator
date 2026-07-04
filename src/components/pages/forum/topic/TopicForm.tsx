@@ -16,10 +16,11 @@ import {
 } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
 import { TopicSerializedDetailed } from "@/types/forum";
 import { useActionState, useRef } from "react";
+import { InputData, InputType } from "@/enums";
 
-const topicInputData: { label: string; name: string; type: string }[] = [
-  { label: "Temat", name: "title", type: "text" },
-  { label: "Opis", name: "description", type: "text" },
+const topicInputData = [
+  { label: "Temat", name: "title", type: InputType.TEXT },
+  { label: "Opis", name: "description", type: InputType.TEXT },
 ];
 
 const categorySelectOptions = [
@@ -41,7 +42,7 @@ const TopicForm = (props: Props) => {
   const { topic, handlePrintForm } = props;
   const isAction = useRef(false);
 
-  const inputsWithDefaults = topicInputData.map((input) => ({
+  const inputsWithDefaults: InputData[] = topicInputData.map((input) => ({
     ...input,
     defaultValue:
       input.name === "title"

@@ -24,6 +24,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import FormHeaderImageUpload from "../FormHeaderImageUpload";
 import EditHeaderDescription from "./EditHeaderDescription";
+import { InputType } from "@/enums";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -40,7 +41,7 @@ const dataInputsFormTitle = [
     floatingLabel: "Edytuj tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 
