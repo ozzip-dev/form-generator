@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidPesel } from "@/helpers/helpers-validation/isValidPesel";
 
 export const createdFormSchema = (inputs: any[]) => {
   const shape: Record<string, any> = {};
@@ -113,6 +114,26 @@ export const createdFormSchema = (inputs: any[]) => {
               .nullable()
               .refine((val) => !isNaN(Date.parse(val!)), "Data")
           : z.string().optional();
+        break;
+
+      case "pesel":
+        shape[fieldName] = input.required
+          ? z
+              .string()
+              .trim()
+              .min(1, "Pole wymagane")
+              .refine(
+                (value) => isValidPesel(Number(value)),
+                "Nieprawidłowy numer pesel",
+              )
+          : z
+              .string()
+              .trim()
+              .optional()
+              .refine(
+                (value) => !value || isValidPesel(Number(value)),
+                "Nieprawidłowy numer pesel",
+              );
         break;
 
       default:
