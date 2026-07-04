@@ -6,7 +6,11 @@ export const metadata: Metadata = {
 };
 
 const ForumPage = async () => {
-  return <CreateTopicForm />;
+  return (
+    <div className="container">
+      <CreateTopicForm />
+    </div>
+  );
 };
 
 export default ForumPage;

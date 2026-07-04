@@ -75,7 +75,7 @@ const CreateTopicForm = () => {
   };
 
   return (
-    <Card className="mx-8">
+    <Card>
       {isSubmitting && <FullscreenLoader />}
       <div className="pb-8 text-lg font-black">Utwórz nowy temat</div>
       <FormProvider {...methods}>
