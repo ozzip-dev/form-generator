@@ -30,6 +30,7 @@ import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
 import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
 import { isActive, isTemplate } from "@/helpers/formHelpers";
+import { InputType } from "@/enums";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -129,15 +130,19 @@ const CreatedForm = (props: Props) => {
     reset();
   };
 
-  const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
-    text: renderInput,
-    superText: renderInput,
-    number: renderInput,
-    email: renderInput,
-    date: renderInput,
-    singleSelect: renderRadio,
-    checkbox: renderCheckbox,
-    paragraph: renderParagraph,
+  const fieldRenderers: Record<
+    InputType,
+    (ctx: RendererParams) => JSX.Element
+  > = {
+    [InputType.TEXT]: renderInput,
+    [InputType.SUPER_TEXT]: renderInput,
+    [InputType.NUMBER]: renderInput,
+    [InputType.EMAIL]: renderInput,
+    [InputType.DATE]: renderInput,
+    [InputType.PESEL]: renderInput,
+    [InputType.SINGLE_SELECT]: renderRadio,
+    [InputType.CHECKBOX]: renderCheckbox,
+    [InputType.PARAGRAPH]: renderParagraph,
   };
 
   const formFields = inputs
