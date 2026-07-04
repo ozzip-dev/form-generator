@@ -111,8 +111,10 @@ const CreatedForm = (props: Props) => {
 
       if (resp?.validationErrors) {
         setClientErrors(resp.validationErrors, setError);
+        setDisplayInvalidInfo(true);
         return;
       }
+
       setSuccess(true);
       reset();
     } catch (_) {
@@ -157,10 +159,12 @@ const CreatedForm = (props: Props) => {
   const canSubmit = !props.isTemplatePreview && isActive(props.form);
 
   useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      setDisplayInvalidInfo(true);
-    }
+    const hasErrors = Object.keys(errors).length > 0;
+    setDisplayInvalidInfo(hasErrors);
   }, [errors]);
+
+  console.log("isSuccess", isSuccess);
+  console.log("displayInvalidInfo", displayInvalidInfo);
 
   return (
     <>
@@ -172,9 +176,10 @@ const CreatedForm = (props: Props) => {
       )}
 
       <div className="container my-4 !max-w-[800px]">
-        {displayInvalidInfo && (
-          <CreatedFormTopError setDisplayInvalidInfo={setDisplayInvalidInfo} />
-        )}
+        <CreatedFormTopError
+          setDisplayInvalidInfo={setDisplayInvalidInfo}
+          displayInvalidInfo={displayInvalidInfo}
+        />
 
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
 
@@ -221,7 +226,7 @@ const CreatedForm = (props: Props) => {
           </form>
         </FormProvider>
       </div>
-      <footer className="flex justify-center pb-32 pt-10 text-xs">
+      <footer className="flex justify-center pb-40 pt-10 text-xs">
         <div className="container">
           {!props.isTemplatePreview && (
             <ResultsMode resultVisibility={resultVisibility} />
