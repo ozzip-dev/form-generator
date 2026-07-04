@@ -167,9 +167,6 @@ const CreatedForm = (props: Props) => {
     setDisplayInvalidInfo(hasErrors);
   }, [errors]);
 
-  console.log("isSuccess", isSuccess);
-  console.log("displayInvalidInfo", displayInvalidInfo);
-
   return (
     <>
       {!canSubmit && (
