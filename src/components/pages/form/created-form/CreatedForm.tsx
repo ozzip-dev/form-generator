@@ -68,7 +68,6 @@ const CreatedForm = (props: Props) => {
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
   const [isSuccess, setSuccess] = useState(false);
-  const [displayInvalidInfo, setDisplayInvalidInfo] = useState(false);
 
   const isRequiredInput = inputs.filter(
     ({ required }) => required === true,
@@ -84,7 +83,7 @@ const CreatedForm = (props: Props) => {
 
   const {
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isValid },
     control,
     handleSubmit,
     reset,
@@ -111,7 +110,6 @@ const CreatedForm = (props: Props) => {
 
       if (resp?.validationErrors) {
         setClientErrors(resp.validationErrors, setError);
-        setDisplayInvalidInfo(true);
         return;
       }
 
@@ -158,13 +156,7 @@ const CreatedForm = (props: Props) => {
 
   const canSubmit = !props.isTemplatePreview && isActive(props.form);
 
-  useEffect(() => {
-    const hasErrors = Object.keys(errors).length > 0;
-    setDisplayInvalidInfo(hasErrors);
-  }, [errors]);
-
-  console.log("isSuccess", isSuccess);
-  console.log("displayInvalidInfo", displayInvalidInfo);
+  const hasErrors = Object.keys(errors).length > 0;
 
   return (
     <>
@@ -176,10 +168,7 @@ const CreatedForm = (props: Props) => {
       )}
 
       <div className="container my-4 !max-w-[800px]">
-        <CreatedFormTopError
-          setDisplayInvalidInfo={setDisplayInvalidInfo}
-          displayInvalidInfo={displayInvalidInfo}
-        />
+        <CreatedFormTopError displayInvalidInfo={hasErrors} />
 
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}
 
