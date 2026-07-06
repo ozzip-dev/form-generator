@@ -3,16 +3,10 @@ import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
 import FloatingLabel from "./FloatingLabel";
 import { useState } from "react";
+import { InputData } from "@/enums";
 
 type Props = {
-  inputData: {
-    label?: string;
-    name: string;
-    placeholder?: string;
-    type: string;
-    description?: string;
-    required?: boolean;
-  };
+  inputData: InputData;
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string, meta?: any) => void | Promise<void>;
   isLoading?: Record<string, boolean>;
@@ -22,13 +16,13 @@ type Props = {
 };
 
 const TextareaField = (props: Props) => {
-  const { name, placeholder, type, required } = props.inputData;
+  const { name, placeholder, type, required, floatingLabel } = props.inputData;
 
   return (
     <div className="relative flex-1">
       <textarea
         id={name}
-        aria-label={`Podaj ${props.inputData.label || name}: np. '${props.inputData.label || name}'`}
+        aria-label={`Wpisz ${floatingLabel}`}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
@@ -44,10 +38,10 @@ const TextareaField = (props: Props) => {
             })
           : {})}
       />
-      {props.floatingLabel && (
+      {floatingLabel && (
         <FloatingLabel
           name={name}
-          floatingLabel={props.floatingLabel}
+          floatingLabel={floatingLabel}
           required={required || false}
         />
       )}

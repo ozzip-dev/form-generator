@@ -11,6 +11,7 @@ import {
   LoginSchema,
   loginSchema,
 } from "@/lib/zod-schema/zod-auth-schema/loginSchema";
+import { InputData, InputType } from "@/enums";
 
 const ToastsData: ModelToast[] = [
   {
@@ -29,11 +30,11 @@ const ToastsData: ModelToast[] = [
   },
 ];
 
-const dataInputsLogin = [
+const dataInputsLogin: InputData[] = [
   {
     floatingLabel: "Email",
     name: "email",
-    type: "email",
+    type: InputType.EMAIL,
     defaultValue: isTestEnv() ? "moderator@moderator.com" : undefined,
   },
   {

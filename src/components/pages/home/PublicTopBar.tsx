@@ -1,8 +1,8 @@
 "use client";
 
-import AppTopBar from "@/components/shared/nav-menu/AppTopBar";
+import { AppTopBar } from "@/components/shared";
 import { UserSerialized } from "@/types/user";
-import { publicLinks } from "@/data/menuesLinks";
+import { publicLinks } from "@/lib/menuLinks";
 
 type Props = {
   user: UserSerialized | null;

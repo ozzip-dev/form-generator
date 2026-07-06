@@ -1,7 +1,7 @@
 "use client";
 
 import { useSafeURLParam } from "@/hooks/useSafeURLParam";
-import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenu } from "@/components/shared";
 import { NavMenuLink } from "@/types/shared";
 
 const protocolBasicItems: NavMenuLink[] = [

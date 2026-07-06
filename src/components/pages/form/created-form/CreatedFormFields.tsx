@@ -2,8 +2,8 @@ import {
   CheckboxGroupField,
   InputFields,
   RadioGroupField,
+  FormDescription,
 } from "@/components/shared";
-import FormDescription from "@/components/shared/inputs/FormDescription";
 import { InputType } from "@/enums";
 import { FormInput, FormOption } from "@/types/input";
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
@@ -37,13 +37,11 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
   const { id, header, description, required, unique, type, hidden } = input;
 
   const placeholderTexts: Partial<Record<InputType, string>> = {
-    number: "Numer",
-    email: "Email",
-    date: "",
+    [InputType.NUMBER]: "Numer",
+    [InputType.EMAIL]: "Email",
+    [InputType.DATE]: "",
   };
   const placeholder = placeholderTexts[type] || "Odpowiedź";
-
-  const inputType = type === "superText" ? "textarea" : type;
 
   return (
     <InputFields
@@ -53,7 +51,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
           staticLabel: header,
           name: id!,
           placeholder,
-          type: inputType,
+          type,
           description,
           required,
           unique,

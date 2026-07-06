@@ -1,7 +1,7 @@
 "use client";
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
-import { Button, Card } from "@/components/shared";
+import { Button, Card, FormDescription } from "@/components/shared";
 import { setClientErrors } from "@/helpers/helpers-validation/handleFormErrors";
 import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
@@ -24,12 +24,12 @@ import {
 } from "@/helpers/inputHelpers";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
-import FormDescription from "@/components/shared/inputs/FormDescription";
 import FieldIndicators from "./FieldIndicators";
 import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
 import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
 import { isActive, isTemplate } from "@/helpers/formHelpers";
+import { InputType } from "@/enums";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -127,15 +127,19 @@ const CreatedForm = (props: Props) => {
     reset();
   };
 
-  const fieldRenderers: Record<string, (ctx: RendererParams) => JSX.Element> = {
-    text: renderInput,
-    superText: renderInput,
-    number: renderInput,
-    email: renderInput,
-    date: renderInput,
-    singleSelect: renderRadio,
-    checkbox: renderCheckbox,
-    paragraph: renderParagraph,
+  const fieldRenderers: Record<
+    InputType,
+    (ctx: RendererParams) => JSX.Element
+  > = {
+    [InputType.TEXT]: renderInput,
+    [InputType.SUPER_TEXT]: renderInput,
+    [InputType.NUMBER]: renderInput,
+    [InputType.EMAIL]: renderInput,
+    [InputType.DATE]: renderInput,
+    [InputType.PESEL]: renderInput,
+    [InputType.SINGLE_SELECT]: renderRadio,
+    [InputType.CHECKBOX]: renderCheckbox,
+    [InputType.PARAGRAPH]: renderParagraph,
   };
 
   const formFields = inputs
@@ -156,7 +160,14 @@ const CreatedForm = (props: Props) => {
 
   const canSubmit = !props.isTemplatePreview && isActive(props.form);
 
+<<<<<<< HEAD
   const hasErrors = Object.keys(errors).length > 0;
+=======
+  useEffect(() => {
+    const hasErrors = Object.keys(errors).length > 0;
+    setDisplayInvalidInfo(hasErrors);
+  }, [errors]);
+>>>>>>> bfd13566d2ce3ac0e09b7e04f69a16c5f4c0703d
 
   return (
     <>

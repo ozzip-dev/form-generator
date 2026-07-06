@@ -15,13 +15,13 @@ import {
 import { TopicCategory } from "@/enums/forum";
 import { useToast } from "@/context/ToastProvider";
 import { createTopicSchema } from "@/lib/zod-schema/forum-schemas/createTopicSchema";
-import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import { SelectFieldController } from "@/components/shared";
+import { InputData, InputType } from "@/enums";
 
-const topicInputData: { floatingLabel: string; name: string; type: string }[] =
-  [
-    { floatingLabel: "Tytuł", name: "title", type: "text" },
-    { floatingLabel: "Opis", name: "description", type: "text" },
-  ];
+const topicInputData: InputData[] = [
+  { floatingLabel: "Tytuł", name: "title", type: InputType.TEXT },
+  { floatingLabel: "Opis", name: "description", type: InputType.TEXT },
+];
 
 const categorySelectOptions = [
   { floatingLabel: "Formularz", value: TopicCategory.FORM },
@@ -64,7 +64,7 @@ const CreateTopicForm = () => {
         variant: "success",
       });
       reset();
-      router.push("/forum/list");
+      router.push(`/forum/list#${category}`);
     } catch (e: unknown) {
       toast({
         title: "Błąd",
@@ -75,7 +75,7 @@ const CreateTopicForm = () => {
   };
 
   return (
-    <Card className="mx-8">
+    <Card>
       {isSubmitting && <FullscreenLoader />}
       <div className="pb-8 text-lg font-black">Utwórz nowy temat</div>
       <FormProvider {...methods}>
@@ -89,7 +89,7 @@ const CreateTopicForm = () => {
               />
             </div>
           ))}
-          <SelectFieldControler
+          <SelectFieldController
             name="category"
             label="Wybierz kategorię"
             options={categorySelectOptions.map(({ value, floatingLabel }) => ({
@@ -104,7 +104,7 @@ const CreateTopicForm = () => {
             >
               Wróć
             </Link>
-            <Button message="Utwórz" />
+            <Button type="submit" message="Utwórz" />
           </div>
         </form>
       </FormProvider>

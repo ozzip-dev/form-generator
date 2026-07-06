@@ -4,6 +4,7 @@ import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
 import FormAuthFooter from "@/components/auth/FormAuthFooter";
 import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { InputType } from "@/enums";
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
@@ -14,7 +15,7 @@ const dataInputsForgotPassword = [
   {
     floatingLabel: "Podaj swój email",
     name: "email",
-    type: "email",
+    type: InputType.EMAIL,
   },
 ];
 

@@ -5,8 +5,7 @@ import { useState } from "react";
 import ProtocolList from "./ProtocolList";
 import ProtocolListFilters from "./ProtocolListFilters";
 import { filtersDefault, ProtocolFilters } from "../utils";
-import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
-import { Button } from "@/components/shared";
+import { Button, SuspenseErrorBoundary } from "@/components/shared";
 
 type Props = {
   protocols: ProtocolSerialized[];

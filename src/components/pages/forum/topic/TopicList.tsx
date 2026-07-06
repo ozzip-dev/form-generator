@@ -73,15 +73,13 @@ const TopicList = (props: Props) => {
       </div>
       <div className="pb-8">{categoryDescriptions[selectedCategory]}</div>
 
-      <Card>
-        {displayedTopics?.length ? (
-          displayedTopics.map((topic, idx) => (
-            <TopicListItem key={idx} {...topic} />
-          ))
-        ) : (
-          <div className="px-4">Brak tematów z wybranej kategorii</div>
-        )}
-      </Card>
+      {displayedTopics?.length ? (
+        displayedTopics.map((topic, idx) => (
+          <TopicListItem key={idx} {...topic} />
+        ))
+      ) : (
+        <div className="px-4">Brak tematów z wybranej kategorii</div>
+      )}
     </div>
   );
 };

@@ -1,31 +1,36 @@
 "use client";
 
-import { Button, Card, InputFields } from "@/components/shared";
-import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import {
+  Button,
+  Card,
+  InputFields,
+  SelectFieldController,
+  FloatingLabel,
+} from "@/components/shared";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, mapDisputeReason, ProtocolFilters } from "../utils";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import FloatingLabel from "@/components/shared/inputs/input-fields/FloatingLabel";
 import { az } from "zod/v4/locales";
+import { InputData, InputType } from "@/enums";
 
-const dataSearchInput = [
+const dataSearchInput: InputData[] = [
   {
     floatingLabel: "Szukaj:",
     name: "text",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 
-const dataDatesInputs = [
+const dataDatesInputs: InputData[] = [
   {
     floatingLabel: "Spory od:",
     name: "fromDate",
-    type: "date",
+    type: InputType.DATE,
   },
   {
     floatingLabel: "Spory do:",
     name: "toDate",
-    type: "date",
+    type: InputType.DATE,
   },
 ];
 
@@ -97,7 +102,7 @@ const ProtocolListFilters = ({
               floatingLabel="Przyczyna sporu"
               required={false}
             />
-            <SelectFieldControler
+            <SelectFieldController
               name="disputeReason"
               defaultValue=""
               options={[
@@ -114,7 +119,7 @@ const ProtocolListFilters = ({
               floatingLabel="Sortuj"
               required={false}
             />
-            <SelectFieldControler
+            <SelectFieldController
               name="sortOrder"
               defaultValue="ascending"
               options={dataSelectOptions}

@@ -1,7 +1,7 @@
 "use client";
 
 import { BackToHomeLink, ButtonLink } from "@/components/shared";
-import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenu } from "@/components/shared";
 import { NavMenuLink } from "@/types/shared";
 import { UserSerialized } from "@/types/user";
 import UserProfileButton from "./UserProfileButton";

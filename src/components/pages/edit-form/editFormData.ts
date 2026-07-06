@@ -6,6 +6,7 @@ export const dataSelectOptions = [
   { label: "Email", value: InputType.EMAIL },
   { label: "Data", value: InputType.DATE },
   { label: "Numer", value: InputType.NUMBER },
+  { label: "Numer PESEL", value: InputType.PESEL },
   { label: "Wybór pojedynczy", value: InputType.SINGLE_SELECT },
   { label: "Wybór wielokrotny", value: InputType.CHECKBOX },
   { label: "Tekst informacyjny", value: InputType.PARAGRAPH },

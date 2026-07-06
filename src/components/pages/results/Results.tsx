@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Card } from "@/components/shared";
-import SectionHeader from "@/components/shared/SectionHeader";
+import { Button, Card, SectionHeader } from "@/components/shared";
 import { FormType } from "@/enums/form";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import { FormInput, FormInputSelectable } from "@/types/input";

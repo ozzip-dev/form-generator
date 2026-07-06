@@ -1,8 +1,10 @@
 import DashboardTopBar from "@/components/pages/dashboard/dashboard-top-bar/DashboardTopBar";
 import DashboardMenu from "@/components/pages/dashboard/DashboardMenu";
-import { SuspenseErrorBoundary } from "@/components/shared";
-import Header from "@/components/shared/Header";
-import IsUserModal from "@/components/shared/IsUserModal";
+import {
+  SuspenseErrorBoundary,
+  Header,
+  IsUserModal,
+} from "@/components/shared";
 import { LoaderContextProvider } from "@/context/LoaderContextProvider";
 import { ModalContextProvider } from "@/context/ModalContextProvider";
 import { UserContextProvider } from "@/context/UserContextProvider";

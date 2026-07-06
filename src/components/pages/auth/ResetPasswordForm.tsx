@@ -4,13 +4,14 @@ import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
 import FormAuthFooter from "@/components/auth/FormAuthFooter";
 import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { InputData } from "@/enums";
 import {
   ResetPasswordSchema,
   resetPasswordSchema,
 } from "@/lib/zod-schema/zod-auth-schema/resetPasswordSchema";
 import { useActionState, useRef } from "react";
 
-const dataInputsResetPassword = [
+const dataInputsResetPassword: InputData[] = [
   {
     floatingLabel: "Nowe hasło",
     name: "password",

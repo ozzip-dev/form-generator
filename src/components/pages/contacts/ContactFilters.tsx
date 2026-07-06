@@ -1,13 +1,14 @@
 "use client";
 
 import { InputFields } from "@/components/shared";
+import { InputData, InputType } from "@/enums";
 import { useForm } from "react-hook-form";
 
-const dataSearchInput = [
+const dataSearchInput: InputData[] = [
   {
     floatingLabel: "Szukaj:",
     name: "text",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 

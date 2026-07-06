@@ -1,4 +1,4 @@
-import { NavMenu } from "@/components/shared/nav-menu";
+import { NavMenu } from "@/components/shared";
 import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { getFormById } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";

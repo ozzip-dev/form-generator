@@ -1,6 +1,6 @@
 import { handleAddProtocol } from "@/components/pages/protocols/protocol-form/handleAddProtocol";
 import ProtocolForm from "@/components/pages/protocols/protocol-form/ProtocolForm";
-import SuspenseErrorBoundary from "@/components/shared/errors/SuspenseErrorBoundary";
+import { SuspenseErrorBoundary } from "@/components/shared";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -2,17 +2,10 @@ import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
 import FloatingLabel from "./FloatingLabel";
+import { InputData } from "@/enums";
 
 type Props = {
-  inputData: {
-    label?: string;
-    name: string;
-    type: string;
-    required?: boolean;
-    dataAttribut?: string;
-    placeholder?: string;
-    defaultValue?: string;
-  };
+  inputData: InputData;
   register?: UseFormRegister<any>;
   onChange?: (name: string, value: string) => void;
   isLoading?: Record<string, boolean>;
@@ -20,11 +13,10 @@ type Props = {
   default?: Record<string, string>;
   error?: any;
   variant?: string;
-  floatingLabel?: string;
 };
 
 const InputField = (props: Props) => {
-  const { name, label, type, required, placeholder, defaultValue } =
+  const { name, floatingLabel, type, required, placeholder, defaultValue } =
     props.inputData;
 
   return (
@@ -33,8 +25,8 @@ const InputField = (props: Props) => {
         id={name}
         name={name}
         type={type}
-        aria-label={`${label || props.floatingLabel || name}`}
-        placeholder={props.floatingLabel ? " " : placeholder}
+        aria-label={`${floatingLabel || name}`}
+        placeholder={floatingLabel ? " " : placeholder}
         defaultValue={defaultValue ?? ""}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
@@ -51,10 +43,10 @@ const InputField = (props: Props) => {
           props.onChange?.(name, e.target.value);
         }}
       />
-      {props.floatingLabel && (
+      {floatingLabel && (
         <FloatingLabel
           name={name}
-          floatingLabel={props.floatingLabel}
+          floatingLabel={floatingLabel}
           required={required || false}
         />
       )}

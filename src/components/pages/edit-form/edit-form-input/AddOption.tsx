@@ -13,6 +13,7 @@ import {
   OPTION_OTHER,
 } from "@/helpers/inputHelpers";
 import { FormInput, FormOption } from "@/types/input";
+import { InputData, InputType } from "@/enums";
 
 type Props = {
   inputIdx: number;
@@ -95,7 +96,7 @@ const AddOption = (props: Props) => {
               <InputFields
                 inputsData={[
                   {
-                    type: "text",
+                    type: InputType.TEXT,
                     name: `options.${idx}.label`,
                     floatingLabel: isOtherOption
                       ? "Edytuj inne"

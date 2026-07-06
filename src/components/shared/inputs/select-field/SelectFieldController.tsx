@@ -18,7 +18,7 @@ type Props<T extends FieldValues> = {
   className?: string;
 };
 
-export const SelectFieldControler = <T extends FieldValues>(
+export const SelectFieldController = <T extends FieldValues>(
   props: Props<T>,
 ) => {
   const { control } = useFormContext();

@@ -3,24 +3,25 @@
 import { signupAction } from "@/actions/auth/signupAction";
 import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
+import { InputData, InputType } from "@/enums";
 import {
   signupSchema,
   SignupSchema,
 } from "@/lib/zod-schema/zod-auth-schema/signupSchema";
 import { useActionState, useRef } from "react";
 
-const dataInputsSignup = [
+const dataInputsSignup: InputData[] = [
   {
     floatingLabel: "Imię",
     name: "name",
     placeholder: "Jan",
-    type: "text",
+    type: InputType.TEXT,
   },
   {
     floatingLabel: "Email",
     name: "email",
     placeholder: "email@com",
-    type: "email",
+    type: InputType.EMAIL,
   },
   {
     floatingLabel: "Hasło",

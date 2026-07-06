@@ -1,5 +1,5 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import Header from "@/components/shared/Header";
+import { Header } from "@/components/shared";
 import { Suspense } from "react";
 
 export default async function UserFormLayout({

@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  isValidEmail,
+  isValidPesel,
+} from "@/helpers/helpers-validation/input-types";
 
 export const createdFormSchema = (inputs: any[]) => {
   const shape: Record<string, any> = {};
@@ -96,13 +100,16 @@ export const createdFormSchema = (inputs: any[]) => {
           ? z
               .string()
               .trim()
-              .email("Format email")
-              .nullable()
+              .min(1, "Pole wymagane")
+              .refine(isValidEmail, "Nieprawidłowy adres email")
+          : z
+              .string()
+              .trim()
+              .optional()
               .refine(
-                (value) => value !== null && value !== "",
-                "Pole wymagane",
-              )
-          : z.string().optional();
+                (value) => !value || isValidEmail(value),
+                "Nieprawidłowy adres email",
+              );
         break;
 
       case "date":
@@ -113,6 +120,26 @@ export const createdFormSchema = (inputs: any[]) => {
               .nullable()
               .refine((val) => !isNaN(Date.parse(val!)), "Data")
           : z.string().optional();
+        break;
+
+      case "pesel":
+        shape[fieldName] = input.required
+          ? z
+              .string()
+              .trim()
+              .min(1, "Pole wymagane")
+              .refine(
+                (value) => isValidPesel(Number(value)),
+                "Nieprawidłowy numer pesel",
+              )
+          : z
+              .string()
+              .trim()
+              .optional()
+              .refine(
+                (value) => !value || isValidPesel(Number(value)),
+                "Nieprawidłowy numer pesel",
+              );
         break;
 
       default:

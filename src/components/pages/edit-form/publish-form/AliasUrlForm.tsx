@@ -13,13 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import RemoveAliasButton from "./RemoveAliasButton";
+import { InputData, InputType } from "@/enums";
 
-const dataInputUrl = [
+const dataInputUrl: InputData[] = [
   {
     name: "url",
     floatingLabel: "Edytuj adres formularza",
     placeholder: "www:formularz",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 

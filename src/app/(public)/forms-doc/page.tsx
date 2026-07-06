@@ -1,5 +1,4 @@
-import { Card } from "@/components/shared";
-import VideoCard from "@/components/shared/VideoCard";
+import { Card, VideoCard } from "@/components/shared";
 
 const FormsDocPage = () => {
   return (

@@ -2,9 +2,14 @@
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
 import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
-import { Card, Icon, InfoIcon, InputFields } from "@/components/shared";
-import CheckboxSwitch from "@/components/shared/inputs/checkbox-field/CheckboxSwitch";
-import { SelectFieldControler } from "@/components/shared/inputs/select-field/SelectFieldController";
+import {
+  Card,
+  Icon,
+  InfoIcon,
+  InputFields,
+  SelectFieldController,
+  CheckboxSwitch,
+} from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
 import {
@@ -24,6 +29,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import FormHeaderImageUpload from "../FormHeaderImageUpload";
 import EditHeaderDescription from "./EditHeaderDescription";
+import { InputType } from "@/enums";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -40,7 +46,7 @@ const dataInputsFormTitle = [
     floatingLabel: "Edytuj tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 
@@ -131,7 +137,7 @@ export default function EditFormHeader(props: Props) {
         <Card>
           <div className="sm:flex lg:gap-[15%]">
             <div className="relative mr-[3rem] flex-1 lg:mr-0">
-              <SelectFieldControler
+              <SelectFieldController
                 name="type"
                 defaultValue=""
                 label="Kategoria formularza"
@@ -149,7 +155,7 @@ export default function EditFormHeader(props: Props) {
 
             <div className="relative flex flex-1 items-center">
               <div className="w-full">
-                <SelectFieldControler
+                <SelectFieldController
                   name="resultVisibility"
                   defaultValue=""
                   label="Tryb wyników"

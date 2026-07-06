@@ -6,6 +6,7 @@ import {
   Card,
   CheckboxGroupField,
   InputFields,
+  SectionHeader,
 } from "@/components/shared";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import {
@@ -22,34 +23,38 @@ import {
 } from "react-hook-form";
 import { getProtocolDefaultValues } from "./getProtocolDefaultValues";
 import { useToast } from "@/context/ToastProvider";
-import SectionHeader from "@/components/shared/SectionHeader";
 import DemandsField from "./DemandsField";
+import { InputData, InputType } from "@/enums";
 
-const dataInputsProtocolForm = [
+const dataInputsProtocolForm: InputData[] = [
   {
     staticLabel: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
-    type: "date",
+    type: InputType.DATE,
   },
   {
     staticLabel: "Branża:",
     name: "branch",
     placeholder: "Budownictwo",
+    type: InputType.TEXT,
   },
   {
     staticLabel: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
+    type: InputType.TEXT,
   },
   {
     staticLabel: "Organizacja zakładowa:",
     name: "tradeUnionOrganization",
     placeholder: "Organizacja",
+    type: InputType.TEXT,
   },
   {
     staticLabel: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
+    type: InputType.TEXT,
   },
 ].map((item) => ({
   ...item,

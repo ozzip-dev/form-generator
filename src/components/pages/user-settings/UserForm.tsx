@@ -1,41 +1,41 @@
 "use client";
 
 import { updateCommitteeDataAction } from "@/actions/user/updateCommitteeDataAction";
-import { Button, Card, InputFields } from "@/components/shared";
-import SectionHeader from "@/components/shared/SectionHeader";
+import { Button, Card, InputFields, SectionHeader } from "@/components/shared";
 import { useUser } from "@/context/UserContextProvider";
+import { InputData, InputType } from "@/enums";
 import {
   userDetailsSchema,
   UserDetailsSchema,
 } from "@/lib/zod-schema/userDetailsShema";
 import { use, useActionState, useRef } from "react";
 
-const dataInputscommittee = [
+const dataInputscommittee: InputData[] = [
   {
     staticLabel: "Nazwa związku zawodowego:",
     name: "committeeUnion",
-    type: "text",
+    type: InputType.TEXT,
     placeholder: "Związek",
     labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Nazwa struktury związku:",
     name: "committeeName",
-    type: "text",
+    type: InputType.TEXT,
     placeholder: "Komisja",
     labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
-    type: "text",
+    type: InputType.TEXT,
     placeholder: "111-111-111",
     labelClassName: "w-[22rem]",
   },
   {
     staticLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
-    type: "email",
+    type: InputType.EMAIL,
     placeholder: "email@zzz.pl",
     labelClassName: "w-[22rem]",
   },

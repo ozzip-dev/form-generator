@@ -1,12 +1,13 @@
 import { Button, InputFields } from "@/components/shared";
+import { InputData, InputType } from "@/enums";
 import { Editor } from "@tiptap/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const dataLinkInput = [
+const dataLinkInput: InputData[] = [
   {
     name: "link",
-    type: "text",
+    type: InputType.TEXT,
   },
 ];
 

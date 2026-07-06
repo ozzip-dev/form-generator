@@ -1,5 +1,4 @@
-import { Button } from "@/components/shared";
-import FormDescription from "@/components/shared/inputs/FormDescription";
+import { Button, FormDescription } from "@/components/shared";
 
 type Props = {
   description: string;
