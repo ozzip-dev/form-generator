@@ -160,14 +160,7 @@ const CreatedForm = (props: Props) => {
 
   const canSubmit = !props.isTemplatePreview && isActive(props.form);
 
-<<<<<<< HEAD
   const hasErrors = Object.keys(errors).length > 0;
-=======
-  useEffect(() => {
-    const hasErrors = Object.keys(errors).length > 0;
-    setDisplayInvalidInfo(hasErrors);
-  }, [errors]);
->>>>>>> bfd13566d2ce3ac0e09b7e04f69a16c5f4c0703d
 
   return (
     <>
