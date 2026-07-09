@@ -27,7 +27,7 @@ const FormTemplates = async () => {
           subheader="Wybierz gotowy formularz i dostosuj go do swojej organizacji."
         />
 
-        <ul className="mt-16 grid list-none grid-cols-1 gap-10 sm:grid-cols-2 sm:justify-center lg:grid-cols-4">
+        <ul className="mt-16 grid list-none grid-cols-2 gap-10 sm:justify-center lg:grid-cols-4">
           {pageItems.map(({ _id, id, templateTitle }, idx) => {
             return (
               <li key={idx}>

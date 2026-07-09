@@ -21,7 +21,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
           style={!!id ? { border: "25px #f0f0f0 solid" } : {}}
         />
 
-        <div className="absolute inset-0 mt-auto flex w-full items-end justify-center text-lg sm:text-base">
+        <div className="absolute inset-0 mt-auto flex w-full items-end justify-center">
           <p className="h-1/3 w-full bg-white px-4 pt-6 text-center leading-8 xl:pt-8">
             {templateTitle}
           </p>
