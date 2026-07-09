@@ -22,7 +22,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
         />
 
         <div className="absolute inset-0 mt-auto flex w-full items-end justify-center">
-          <p className="h-1/3 w-full bg-white px-4 pt-3 text-center leading-7 sm:pt-6 xl:pt-8">
+          <p className="h-[37%] w-full bg-white px-4 pt-3 text-center leading-7 sm:h-1/3 sm:pt-6 xl:pt-8">
             {templateTitle}
           </p>
         </div>
