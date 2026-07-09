@@ -22,7 +22,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
         />
 
         <div className="absolute inset-0 mt-auto flex w-full items-end justify-center">
-          <p className="h-1/3 w-full bg-white px-4 pt-6 text-center leading-8 xl:pt-8">
+          <p className="h-1/3 w-full bg-white px-4 pt-3 text-center leading-7 sm:pt-6 xl:pt-8">
             {templateTitle}
           </p>
         </div>
@@ -35,7 +35,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
           ariaLabel={`Zobacz ${templateTitle ?? "formularz"}`}
           link={`/${_id}`}
           variant="primary-rounded"
-          className="hover:!bg-font_white mx-auto my-12 w-fit !border-white !bg-font_dark hover:!bg-white hover:!text-font_dark"
+          className="hover:!bg-font_white mx-auto my-6 w-fit !border-white !bg-font_dark hover:!bg-white hover:!text-font_dark sm:my-10 md:my-12"
         />
       )}
     </div>

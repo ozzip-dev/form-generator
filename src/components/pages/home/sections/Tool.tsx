@@ -32,7 +32,7 @@ const Tool = () => {
 
         <ul className="mt-16 flex list-none flex-wrap justify-center gap-10">
           {toolData.map(({ icon, text }, idx) => (
-            <li key={idx} className="w-[160px] sm:w-[180px]">
+            <li key={idx} className="w-[140px] sm:w-[180px]">
               <Image
                 src={`/images/tools/${icon}.png`}
                 alt=""
