@@ -55,7 +55,7 @@ const Steps = () => {
       <div className="container pb-20 pt-16">
         <SectionHeader
           header="Jak to działa?"
-          subheader="Od pomysłu do wyników w 4 krokach"
+          subheader="Od pomysłu do wyników w 5 krokach"
         />
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-5 lg:gap-x-10 lg:gap-y-0">
