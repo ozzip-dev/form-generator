@@ -11,17 +11,18 @@ type Props = {
 const FormTemplate = ({ _id, id, templateTitle }: Props) => {
   return (
     <div>
-      <div className="relative mx-auto mb-6 flex items-center justify-center rounded-sm text-font_dark">
+      <div className="relative mx-auto mb-8 flex items-center justify-center overflow-hidden rounded-[40px] text-font_dark">
         <Image
           src={`/images/templates/${id || "custom"}.png`}
           alt=""
           width={300}
           height={250}
-          className="h-auto w-[300px]"
+          className="h-auto w-full"
+          style={!!id ? { border: "25px #f0f0f0 solid" } : {}}
         />
 
-        <div className="absolute inset-0 mt-auto flex items-end justify-center text-lg">
-          <p className="h-1/5 px-4 text-center text-base leading-8">
+        <div className="absolute inset-0 mt-auto flex w-full items-end justify-center text-lg sm:text-base">
+          <p className="h-1/3 w-full bg-white px-4 pt-6 text-center leading-8 xl:pt-8">
             {templateTitle}
           </p>
         </div>
