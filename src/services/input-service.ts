@@ -286,11 +286,23 @@ export async function addAcceptedValues(
   formId: ObjectId,
   inputId: string,
   values: (string | number)[],
-): Promise<void> {
+): Promise<{
+  newValues: (string | number)[];
+  duplicatedValues: (string | number)[];
+}> {
   const form = (await findById(db, "form", formId)) as Form;
   const input: FormInput = getFormInputById(form.inputs, inputId);
+  const { type, acceptedValues = [] } = input;
 
-  verifyAddedAcceptedValues(values, input.type);
+  verifyAddedAcceptedValues(values, type);
+
+  const valuesNoDuplicates = [...new Set(values)];
+  const newValues = valuesNoDuplicates.filter(
+    (val) => !acceptedValues.includes(val),
+  );
+  const duplicatedValues = valuesNoDuplicates.filter((val) =>
+    acceptedValues.includes(val),
+  );
 
   await update<Form>(
     db,
@@ -302,7 +314,7 @@ export async function addAcceptedValues(
     {
       $addToSet: {
         "inputs.$.acceptedValues": {
-          $each: values,
+          $each: newValues,
         },
       },
       $set: {
@@ -310,6 +322,11 @@ export async function addAcceptedValues(
       },
     },
   );
+
+  return {
+    newValues,
+    duplicatedValues,
+  };
 }
 
 export async function updateFormInputTexts(

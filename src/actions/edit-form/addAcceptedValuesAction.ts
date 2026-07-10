@@ -11,7 +11,10 @@ export async function addAcceptedValuesAction(
   formIdString: string,
   inputId: string,
   values: (string | number)[],
-): Promise<void> {
+): Promise<{
+  newValues: (string | number)[];
+  duplicatedValues: (string | number)[];
+}> {
   await requireUser();
 
   const formId = new ObjectId(formIdString);
@@ -19,7 +22,17 @@ export async function addAcceptedValuesAction(
   checkFormHasInputWithId(db, formId, inputId);
 
   try {
-    await addAcceptedValues(db, formId, inputId, values);
+    const { newValues, duplicatedValues } = await addAcceptedValues(
+      db,
+      formId,
+      inputId,
+      values,
+    );
+
+    return {
+      duplicatedValues,
+      newValues,
+    };
   } catch (error) {
     const invalidValues = (error as Error).message
       .split(";")

@@ -40,7 +40,18 @@ const AcceptedValuesSection = () => {
 
     startTransition(async () => {
       try {
-        await addAcceptedValuesAction(formId as string, input.id!, values);
+        const { newValues, duplicatedValues } = await addAcceptedValuesAction(
+          formId as string,
+          input.id!,
+          values,
+        );
+        alert(
+          `
+            Dodane wartości (${newValues.length}): ${newValues.join(", ")}
+            \n
+            Powtórzone wartości (${duplicatedValues.length}): ${duplicatedValues.join(", ")}
+          `,
+        );
         setAcceptedValuesInput("");
       } catch (error) {
         const invalidValues = (error as Error).message
@@ -48,10 +59,14 @@ const AcceptedValuesSection = () => {
           .map((value) => value.trim())
           .filter(Boolean);
 
-        alert(invalidValues.join(","));
+        alert(
+          `Niepoprawne wartości (${invalidValues.length}): ${invalidValues.join(", ")}`,
+        );
       }
     });
   };
+
+  const btnText: string = isOpen ? "Schowaj" : "Dodaj akceptowane wartości";
 
   return (
     <div className="mt-5 flex w-full flex-col gap-3 text-sm">
@@ -59,7 +74,7 @@ const AcceptedValuesSection = () => {
         type="button"
         variant="primary-rounded"
         className="w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
-        message="Zdefiniuj akceptowane wartości"
+        message={btnText}
         aria-expanded={isOpen}
         onClickAction={() => setIsOpen((prev) => !prev)}
       />
@@ -69,12 +84,13 @@ const AcceptedValuesSection = () => {
           <textarea
             value={acceptedValuesInput}
             onChange={(e) => setAcceptedValuesInput(e.target.value)}
-            placeholder="Wpisz wartości oddzielone przecinkami"
+            placeholder="Wpisz wartości oddzielone średnikami"
             className="min-h-24 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
           />
 
           <Button
             type="button"
+            variant="primary-rounded"
             className="w-fit px-4 py-2"
             message="Dodaj"
             isLoading={isPending}
