@@ -27,6 +27,8 @@ export interface FormInput extends Input {
   unique: boolean;
   hidden: boolean;
   order: number;
+  acceptedValues?: (string | number)[];
+  submittedValues?: (string | number)[];
 }
 
 export type FormInputSelectable = FormInput & { selected: boolean };

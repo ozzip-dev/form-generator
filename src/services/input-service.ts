@@ -5,6 +5,7 @@ import { FormInput, FormOption, Input } from "@/types/input";
 import { Db, ObjectId, WithId } from "mongodb";
 import { getFormById } from "./form-service";
 import { inputHasOther, isInputWithOptions } from "@/helpers/inputHelpers";
+import { isValidPesel } from "@/helpers/helpers-validation/input-types";
 
 function getFormInputById(inputs: FormInput[], id: string): FormInput {
   const input = inputs.find((el: FormInput) => el.id == id!);
@@ -258,6 +259,56 @@ export async function toggleHidden(
             "inputs.$.unique": true,
           }
         : updateData,
+    },
+  );
+}
+
+function verifyAddedAcceptedValues(
+  values: (string | number)[],
+  inputType: InputType,
+): void {
+  const invalidValues: (string | number)[] = [];
+  const validateFn: (val: string | number) => boolean =
+    inputType === InputType.NUMBER
+      ? (val) => Number.isFinite(val)
+      : inputType === InputType.PESEL
+        ? (val) => Number.isFinite(val) && isValidPesel(val as number)
+        : (val) => typeof val === "string";
+
+  for (const value of values) {
+    if (!validateFn(value)) invalidValues.push(value);
+  }
+
+  if (invalidValues.length) throw new Error(invalidValues.join(","));
+}
+
+export async function addAcceptedValues(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+  values: (string | number)[],
+): Promise<void> {
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
+
+  verifyAddedAcceptedValues(values, input.type);
+
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: form._id,
+      "inputs.id": inputId,
+    },
+    {
+      $addToSet: {
+        "inputs.$.acceptedValues": {
+          $each: values,
+        },
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
     },
   );
 }
