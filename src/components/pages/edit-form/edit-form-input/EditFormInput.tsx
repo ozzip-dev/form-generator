@@ -31,7 +31,7 @@ import { dataSelectOptions } from "../editFormData";
 import AddOption from "./AddOption";
 import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
 import ToggleInputs from "./toggle-inputs/ToggleInputs";
-import AcceptedValuesSection from "./toggle-inputs/AcceptedValuesSection";
+import AcceptedValuesSection from "../accepted-values/AcceptedValuesSection";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 

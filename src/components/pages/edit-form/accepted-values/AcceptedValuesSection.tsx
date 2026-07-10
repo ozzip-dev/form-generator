@@ -1,9 +1,11 @@
-import { addAcceptedValuesAction } from "@/actions/edit-form/addAcceptedValuesAction";
+import { addAcceptedValuesAction } from "@/actions/edit-form/accepted-values/addAcceptedValuesAction";
 import { Button } from "@/components/shared";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { InputType } from "@/enums";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import AcceptedValueBox from "./AcceptedValueBox";
 
 const parseAcceptedValues = (
   value: string,
@@ -26,6 +28,7 @@ const parseAcceptedValues = (
 
 const AcceptedValuesSection = () => {
   const { formId, input } = useInputData();
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
   const [acceptedValuesInput, setAcceptedValuesInput] = useState("");
@@ -53,6 +56,7 @@ const AcceptedValuesSection = () => {
           `,
         );
         setAcceptedValuesInput("");
+        router.refresh();
       } catch (error) {
         const invalidValues = (error as Error).message
           .split(",")
@@ -81,6 +85,19 @@ const AcceptedValuesSection = () => {
 
       {isOpen && (
         <div className="flex w-full flex-col gap-2">
+          {input.acceptedValues?.length && (
+            <>
+              <div>Akceptowane wartości: ({input.acceptedValues.length})</div>
+              <div className="flex flex-wrap gap-3">
+                {input.acceptedValues
+                  .sort((a, b) => a - b)
+                  .map((value, idx) => (
+                    <AcceptedValueBox value={value} key={idx} />
+                  ))}
+              </div>
+            </>
+          )}
+
           <textarea
             value={acceptedValuesInput}
             onChange={(e) => setAcceptedValuesInput(e.target.value)}

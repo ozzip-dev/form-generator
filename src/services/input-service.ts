@@ -329,6 +329,38 @@ export async function addAcceptedValues(
   };
 }
 
+export async function removeAcceptedValue(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+  value: string | number,
+): Promise<void> {
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
+  const { acceptedValues = [] } = input;
+
+  if (!acceptedValues.includes(value)) {
+    throw new Error(`Accepted value not found: ${value}`);
+  }
+
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: form._id,
+      "inputs.id": inputId,
+    },
+    {
+      $pull: {
+        "inputs.$.acceptedValues": value,
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    },
+  );
+}
+
 export async function updateFormInputTexts(
   db: Db,
   formId: ObjectId,
