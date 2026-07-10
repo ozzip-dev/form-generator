@@ -270,16 +270,15 @@ function verifyAddedAcceptedValues(
   const invalidValues: (string | number)[] = [];
   const validateFn: (val: string | number) => boolean =
     inputType === InputType.NUMBER
-      ? (val) => Number.isFinite(val)
+      ? (val) => typeof val === "number" && Number.isFinite(val)
       : inputType === InputType.PESEL
         ? (val) => Number.isFinite(val) && isValidPesel(val as number)
         : (val) => typeof val === "string";
 
   for (const value of values) {
-    if (!validateFn(value)) invalidValues.push(value);
+    if (!validateFn(value)) invalidValues.push(value.toString());
   }
-
-  if (invalidValues.length) throw new Error(invalidValues.join(","));
+  if (invalidValues.length) throw new Error(invalidValues.join(";"));
 }
 
 export async function addAcceptedValues(

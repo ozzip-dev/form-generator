@@ -1,0 +1,89 @@
+import { addAcceptedValuesAction } from "@/actions/edit-form/addAcceptedValuesAction";
+import { Button } from "@/components/shared";
+import { useInputData } from "@/context/InputDataContextProvider";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { InputType } from "@/enums";
+import { useState, useTransition } from "react";
+
+const parseAcceptedValues = (
+  value: string,
+  inputType: InputType,
+): (string | number)[] => {
+  const values = value
+    .split(";")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+
+  if (inputType === InputType.NUMBER || inputType === InputType.PESEL) {
+    return values.map((entry) => {
+      const parsedValue = Number(entry);
+      return Number.isFinite(parsedValue) ? parsedValue : entry;
+    });
+  }
+
+  return values;
+};
+
+const AcceptedValuesSection = () => {
+  const { formId, input } = useInputData();
+  const [isPending, startTransition] = useTransition();
+  const [isOpen, setIsOpen] = useState(false);
+  const [acceptedValuesInput, setAcceptedValuesInput] = useState("");
+
+  useAutoLoader(isPending, "small");
+
+  const handleSaveAcceptedValues = () => {
+    if (!formId || !input.id) return;
+
+    const values = parseAcceptedValues(acceptedValuesInput, input.type);
+    if (!values.length) return;
+
+    startTransition(async () => {
+      try {
+        await addAcceptedValuesAction(formId as string, input.id!, values);
+        setAcceptedValuesInput("");
+      } catch (error) {
+        const invalidValues = (error as Error).message
+          .split(",")
+          .map((value) => value.trim())
+          .filter(Boolean);
+
+        alert(invalidValues.join(","));
+      }
+    });
+  };
+
+  return (
+    <div className="mt-5 flex w-full flex-col gap-3 text-sm">
+      <Button
+        type="button"
+        variant="primary-rounded"
+        className="w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
+        message="Zdefiniuj akceptowane wartości"
+        aria-expanded={isOpen}
+        onClickAction={() => setIsOpen((prev) => !prev)}
+      />
+
+      {isOpen && (
+        <div className="flex w-full flex-col gap-2">
+          <textarea
+            value={acceptedValuesInput}
+            onChange={(e) => setAcceptedValuesInput(e.target.value)}
+            placeholder="Wpisz wartości oddzielone przecinkami"
+            className="min-h-24 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
+          />
+
+          <Button
+            type="button"
+            className="w-fit px-4 py-2"
+            message="Dodaj"
+            isLoading={isPending}
+            onClickAction={handleSaveAcceptedValues}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AcceptedValuesSection;

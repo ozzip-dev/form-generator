@@ -22,11 +22,11 @@ export async function addAcceptedValuesAction(
     await addAcceptedValues(db, formId, inputId, values);
   } catch (error) {
     const invalidValues = (error as Error).message
-      .split(",")
+      .split(";")
       .map((value) => value.trim())
       .filter(Boolean);
 
-    throw new Error(invalidValues.join(","));
+    throw new Error(invalidValues.join(", "));
   }
 
   revalidateTag(`form-${formId}`);
