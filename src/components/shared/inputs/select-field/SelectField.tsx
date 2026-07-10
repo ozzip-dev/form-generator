@@ -169,8 +169,8 @@ const SelectField = ({
                 className={`px-3 py-2 text-sm transition focus:outline-none ${
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
-                    : "cursor-pointer hover:bg-accent"
-                } ${option.value === selectedValue ? "bg-accent" : focusedIndex === idx ? "bg-accent_light" : ""} `}
+                    : "cursor-pointer hover:bg-accent hover:text-white"
+                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent_light" : ""} `}
               >
                 {option.label}
               </li>
