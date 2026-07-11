@@ -361,6 +361,30 @@ export async function removeAcceptedValue(
   );
 }
 
+export async function addSubmittedValue(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+  value: string | number,
+): Promise<void> {
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: formId,
+      "inputs.id": inputId,
+    },
+    {
+      $addToSet: {
+        "inputs.$.submittedValues": value,
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    },
+  );
+}
+
 export async function updateFormInputTexts(
   db: Db,
   formId: ObjectId,

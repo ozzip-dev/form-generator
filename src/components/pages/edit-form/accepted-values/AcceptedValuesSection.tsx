@@ -89,11 +89,9 @@ const AcceptedValuesSection = () => {
             <>
               <div>Akceptowane wartości: ({input.acceptedValues.length})</div>
               <div className="flex flex-wrap gap-3">
-                {input.acceptedValues
-                  .sort((a, b) => a - b)
-                  .map((value, idx) => (
-                    <AcceptedValueBox value={value} key={idx} />
-                  ))}
+                {input.acceptedValues.sort().map((value, idx) => (
+                  <AcceptedValueBox value={value} key={idx} />
+                ))}
               </div>
             </>
           )}
