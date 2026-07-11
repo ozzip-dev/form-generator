@@ -449,6 +449,7 @@ export async function updateFormInputType(
 
   let updateObject: {
     "inputs.$.type": InputType;
+    "inputs.$.acceptedValues": (string | number)[];
     updatedAt: Date;
     "inputs.$.options"?: FormOption[];
   } = {

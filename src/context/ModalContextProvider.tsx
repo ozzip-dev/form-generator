@@ -69,7 +69,7 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
       <ModalWrapper isOpen={!!config} onClose={close}>
         {config?.component ? (
           <div className="p-8">
-            {!!config?.header && headerComponent}
+            {headerComponent}
             {typeof config.component === "function"
               ? config.component({ close })
               : config.component}

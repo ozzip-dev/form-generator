@@ -40,6 +40,7 @@ const AcceptedValuesSection = () => {
 
   const openInfoModal = (content: JSX.Element) => {
     openModal({
+      header: "Dopuszczalne odpowiedzi",
       component: ({ close }) => (
         <div className="flex flex-col justify-center gap-6">
           {content}
