@@ -1,5 +1,5 @@
 import { addAcceptedValuesAction } from "@/actions/edit-form/accepted-values/addAcceptedValuesAction";
-import { Button } from "@/components/shared";
+import { Button, InfoIcon } from "@/components/shared";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { InputType } from "@/enums";
@@ -12,7 +12,7 @@ const parseAcceptedValues = (
   inputType: InputType,
 ): (string | number)[] => {
   const values = value
-    .split(";")
+    .split(/[;\r\n]+/)
     .map((entry) => entry.trim())
     .filter(Boolean);
 
@@ -36,8 +36,6 @@ const AcceptedValuesSection = () => {
   useAutoLoader(isPending, "small");
 
   const handleSaveAcceptedValues = () => {
-    if (!formId || !input.id) return;
-
     const values = parseAcceptedValues(acceptedValuesInput, input.type);
     if (!values.length) return;
 
@@ -70,24 +68,40 @@ const AcceptedValuesSection = () => {
     });
   };
 
-  const btnText: string = isOpen ? "Schowaj" : "Dodaj akceptowane wartości";
+  const btnText: string = isOpen
+    ? "Schowaj"
+    : "Zdefiniuj dopuszczalne odpowiedzi";
 
   return (
     <div className="mt-5 flex w-full flex-col gap-3 text-sm">
-      <Button
-        type="button"
-        variant="primary-rounded"
-        className="w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
-        message={btnText}
-        aria-expanded={isOpen}
-        onClickAction={() => setIsOpen((prev) => !prev)}
-      />
+      <div className="flex items-center">
+        <Button
+          type="button"
+          variant="primary-rounded"
+          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
+          message={btnText}
+          aria-expanded={isOpen}
+          onClickAction={() => setIsOpen((prev) => !prev)}
+        />
+
+        <InfoIcon>
+          <div>
+            Ustal możliwe odpowiedzi dla pola, np. numery PESEL, identyfikatory
+            pracownicze, itd.
+            <br />
+            Wpisanie odpowiedzi innej niż zdefiniowane wartości uniemożliwi
+            wysłanie formularza.
+          </div>
+        </InfoIcon>
+      </div>
 
       {isOpen && (
         <div className="flex w-full flex-col gap-2">
           {input.acceptedValues?.length && (
             <>
-              <div>Akceptowane wartości: ({input.acceptedValues.length})</div>
+              <div>
+                Dopuszczalne odpowiedzi: ({input.acceptedValues.length})
+              </div>
               <div className="flex flex-wrap gap-3">
                 {input.acceptedValues.sort().map((value, idx) => (
                   <AcceptedValueBox value={value} key={idx} />
@@ -99,8 +113,8 @@ const AcceptedValuesSection = () => {
           <textarea
             value={acceptedValuesInput}
             onChange={(e) => setAcceptedValuesInput(e.target.value)}
-            placeholder="Wpisz wartości oddzielone średnikami"
-            className="min-h-24 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
+            placeholder="Wpisz wartości od nowej linii lub oddzielone średnikami"
+            className="min-h-32 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
           />
 
           <Button
