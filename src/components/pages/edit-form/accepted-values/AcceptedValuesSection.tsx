@@ -1,7 +1,9 @@
 import { addAcceptedValuesAction } from "@/actions/edit-form/accepted-values/addAcceptedValuesAction";
+import { clearAcceptedValuesAction } from "@/actions/edit-form/accepted-values/clearAcceptedValuesAction";
 import { Button, InfoIcon } from "@/components/shared";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
+import { useModal } from "@/context/ModalContextProvider";
 import { InputType } from "@/enums";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -29,6 +31,7 @@ const parseAcceptedValues = (
 const AcceptedValuesSection = () => {
   const { formId, input } = useInputData();
   const router = useRouter();
+  const { openModal } = useModal();
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
   const [acceptedValuesInput, setAcceptedValuesInput] = useState("");
@@ -68,12 +71,25 @@ const AcceptedValuesSection = () => {
     });
   };
 
+  const handleClearAcceptedValues = () => {
+    if (!formId || !input.id) return;
+
+    openModal({
+      header: "Czy wyczyścić wszystkie dopuszczalne odpowiedzi?",
+      confirmBtnMessage: "Wyczyść",
+      action: async () => {
+        await clearAcceptedValuesAction(formId as string, input.id!);
+        router.refresh();
+      },
+    });
+  };
+
   const btnText: string = isOpen
     ? "Schowaj"
     : "Zdefiniuj dopuszczalne odpowiedzi";
 
   return (
-    <div className="mt-5 flex w-full flex-col gap-3 text-sm">
+    <div className="mt-10 flex w-full flex-col gap-3 text-sm">
       <div className="flex items-center">
         <Button
           type="button"
@@ -97,7 +113,7 @@ const AcceptedValuesSection = () => {
 
       {isOpen && (
         <div className="flex w-full flex-col gap-2">
-          {input.acceptedValues?.length && (
+          {!!input.acceptedValues?.length && (
             <>
               <div>
                 Dopuszczalne odpowiedzi: ({input.acceptedValues.length})
@@ -117,14 +133,25 @@ const AcceptedValuesSection = () => {
             className="min-h-32 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
           />
 
-          <Button
-            type="button"
-            variant="primary-rounded"
-            className="w-fit px-4 py-2"
-            message="Dodaj"
-            isLoading={isPending}
-            onClickAction={handleSaveAcceptedValues}
-          />
+          <div className="flex flex-wrap justify-between gap-3">
+            <Button
+              type="button"
+              variant="primary-rounded"
+              className="w-fit px-4 py-2"
+              message="Dodaj"
+              isLoading={isPending}
+              onClickAction={handleSaveAcceptedValues}
+            />
+
+            <Button
+              type="button"
+              variant="ghost"
+              className="w-fit px-4 py-2 !text-accent"
+              message="Wyczyść"
+              disabled={!input.acceptedValues?.length}
+              onClickAction={handleClearAcceptedValues}
+            />
+          </div>
         </div>
       )}
     </div>

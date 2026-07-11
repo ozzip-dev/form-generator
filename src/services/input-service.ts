@@ -361,6 +361,30 @@ export async function removeAcceptedValue(
   );
 }
 
+export async function clearAcceptedValues(
+  db: Db,
+  formId: ObjectId,
+  inputId: string,
+): Promise<void> {
+  const form = (await findById(db, "form", formId)) as Form;
+  const input: FormInput = getFormInputById(form.inputs, inputId);
+
+  await update<Form>(
+    db,
+    "form",
+    {
+      _id: form._id,
+      "inputs.id": inputId,
+    },
+    {
+      $set: {
+        "inputs.$.acceptedValues": [],
+        updatedAt: new Date(),
+      },
+    },
+  );
+}
+
 export async function addSubmittedValue(
   db: Db,
   formId: ObjectId,
