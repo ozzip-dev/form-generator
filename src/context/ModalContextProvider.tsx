@@ -59,25 +59,24 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
+  const headerComponent = (
+    <div className="mb-10 text-center text-lg">{config?.header}</div>
+  );
+
   return (
     <ModalContext.Provider value={{ openModal }}>
       {isPending && <div className="fixed inset-0 z-[110]"></div>}
       <ModalWrapper isOpen={!!config} onClose={close}>
         {config?.component ? (
-          typeof config.component === "function" ? (
-            <div className="p-8">
-              <div className="mb-10 text-center text-lg">{config?.header}</div>
-              {config.component({ close })}
-            </div>
-          ) : (
-            <div className="p-8">
-              <div className="mb-10 text-center text-lg">{config?.header}</div>
-              {config.component}
-            </div>
-          )
+          <div className="p-8">
+            {!!config?.header && headerComponent}
+            {typeof config.component === "function"
+              ? config.component({ close })
+              : config.component}
+          </div>
         ) : (
           <div className="p-8">
-            <div className="mb-10 text-center text-lg">{config?.header}</div>
+            {headerComponent}
 
             <div className="flex justify-center gap-8">
               <Button

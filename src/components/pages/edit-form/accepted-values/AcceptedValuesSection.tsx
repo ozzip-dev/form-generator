@@ -6,7 +6,7 @@ import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
 import { InputType } from "@/enums";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { JSX, useState, useTransition } from "react";
 import AcceptedValueBox from "./AcceptedValueBox";
 
 const parseAcceptedValues = (
@@ -38,6 +38,22 @@ const AcceptedValuesSection = () => {
 
   useAutoLoader(isPending, "small");
 
+  const openInfoModal = (content: JSX.Element) => {
+    openModal({
+      component: ({ close }) => (
+        <div className="flex flex-col justify-center gap-6">
+          {content}
+          <Button
+            variant="primary-rounded"
+            className="m-auto w-fit"
+            message="Zamknij"
+            onClickAction={close}
+          />
+        </div>
+      ),
+    });
+  };
+
   const handleSaveAcceptedValues = () => {
     const values = parseAcceptedValues(acceptedValuesInput, input.type);
     if (!values.length) return;
@@ -53,21 +69,20 @@ const AcceptedValuesSection = () => {
         const header =
           newValues.length > 1 ? "Dodano odpowiedzi" : "Dodano odpowiedź";
 
-        openModal({
-          component: () => (
-            <>
+        openInfoModal(
+          <>
+            <div>
+              Dodane odpowiedzi ({newValues.length}): {newValues.join(", ")}
+            </div>
+            {!!duplicatedValues.length && (
               <div>
-                Dodane odpowiedzi ({newValues.length}): {newValues.join(", ")}
+                Duplikaty odpowiedzi ({duplicatedValues.length}):{" "}
+                {duplicatedValues.join(", ")}
               </div>
-              {!!duplicatedValues.length && (
-                <div>
-                  Duplikaty odpowiedzi ({duplicatedValues.length}):{" "}
-                  {duplicatedValues.join(", ")}
-                </div>
-              )}
-            </>
-          ),
-        });
+            )}
+          </>,
+        );
+
         setAcceptedValuesInput("");
         router.refresh();
       } catch (error) {
@@ -76,14 +91,12 @@ const AcceptedValuesSection = () => {
           .map((value) => value.trim())
           .filter(Boolean);
 
-        openModal({
-          component: () => (
-            <div>
-              Niepoprawne wartości ({invalidValues.length}):{" "}
-              {invalidValues.join(", ")}
-            </div>
-          ),
-        });
+        openInfoModal(
+          <div>
+            Niepoprawne wartości ({invalidValues.length}):{" "}
+            {invalidValues.join(", ")}
+          </div>,
+        );
       }
     });
   };
