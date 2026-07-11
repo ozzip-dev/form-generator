@@ -49,13 +49,25 @@ const AcceptedValuesSection = () => {
           input.id!,
           values,
         );
-        alert(
-          `
-            Dodane wartości (${newValues.length}): ${newValues.join(", ")}
-            \n
-            Powtórzone wartości (${duplicatedValues.length}): ${duplicatedValues.join(", ")}
-          `,
-        );
+
+        const header =
+          newValues.length > 1 ? "Dodano odpowiedzi" : "Dodano odpowiedź";
+
+        openModal({
+          component: () => (
+            <>
+              <div>
+                Dodane odpowiedzi ({newValues.length}): {newValues.join(", ")}
+              </div>
+              {!!duplicatedValues.length && (
+                <div>
+                  Duplikaty odpowiedzi ({duplicatedValues.length}):{" "}
+                  {duplicatedValues.join(", ")}
+                </div>
+              )}
+            </>
+          ),
+        });
         setAcceptedValuesInput("");
         router.refresh();
       } catch (error) {
@@ -64,9 +76,14 @@ const AcceptedValuesSection = () => {
           .map((value) => value.trim())
           .filter(Boolean);
 
-        alert(
-          `Niepoprawne wartości (${invalidValues.length}): ${invalidValues.join(", ")}`,
-        );
+        openModal({
+          component: () => (
+            <div>
+              Niepoprawne wartości ({invalidValues.length}):{" "}
+              {invalidValues.join(", ")}
+            </div>
+          ),
+        });
       }
     });
   };

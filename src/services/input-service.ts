@@ -453,6 +453,7 @@ export async function updateFormInputType(
     "inputs.$.options"?: FormOption[];
   } = {
     "inputs.$.type": type,
+    "inputs.$.acceptedValues": [],
     updatedAt: new Date(),
   };
 
