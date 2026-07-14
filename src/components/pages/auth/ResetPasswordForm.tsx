@@ -2,7 +2,7 @@
 
 import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
 import FormAuthFooter from "@/components/auth/FormAuthFooter";
-import { Button, InputFields } from "@/components/shared";
+import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { InputData } from "@/enums";
 import {
@@ -74,10 +74,10 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   );
 
   return (
-    <div className="from-background to-background/80 flex min-h-screen items-center justify-center bg-gradient-to-b p-4">
-      <div className="w-full max-w-md">
-        <h1 className="text-center text-2xl font-semibold">Zmień hasło</h1>
+    <div className="flex h-full flex-col items-center justify-center p-4 pt-24">
+      <h1 className="text-center text-2xl font-semibold">Zmień hasło</h1>
 
+      <Card className="w-full min-w-[29rem] max-w-[52rem]">
         <form action={formAction}>
           {" "}
           <InputFields
@@ -89,15 +89,16 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             type="submit"
             isLoading={isAction.current && isPending}
             message="Zmień hasło"
+            className="m-auto !px-20 !py-4 !text-base"
           />
         </form>
+      </Card>
 
-        <FormAuthFooter
-          message="Pamiętasz hasło?"
-          messageLink="Zaloguj się"
-          link="/login"
-        />
-      </div>
+      <FormAuthFooter
+        message="Pamiętasz hasło?"
+        messageLink="Zaloguj się"
+        link="/login"
+      />
     </div>
   );
 };
