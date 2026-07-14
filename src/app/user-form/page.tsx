@@ -10,7 +10,7 @@ const UserFormPage = () => {
     <>
       <div className="mb-16">
         <SectionHeader message="Wypełnij dane kontaktowe, aby przejść dalej" />
-        <div className="text-sm text-font_light">
+        <div className="text-sm text-font_dark">
           Edycja danych w ustawieniach aplikacji
         </div>
       </div>

@@ -9,7 +9,7 @@ import UserProfileButton from "./UserProfileButton";
 type Props = {
   isPublic: boolean;
   links: NavMenuLink[];
-  user: UserSerialized | null;
+  user: Partial<UserSerialized> | null;
 };
 
 export default function AppTopBar({ isPublic, links, user }: Props) {
