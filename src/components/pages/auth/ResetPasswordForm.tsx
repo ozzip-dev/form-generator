@@ -86,6 +86,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
             default={state?.inputs}
           />
           <Button
+            type="submit"
             isLoading={isAction.current && isPending}
             message="Zmień hasło"
           />
