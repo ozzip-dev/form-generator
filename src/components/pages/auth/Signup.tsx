@@ -101,6 +101,7 @@ const Signup = () => {
         <form action={formAction}>
           <InputFields inputsData={dataInputsSignup} errorMsg={state.errors} />
           <Button
+            type="submit"
             isLoading={isAction.current && isPending}
             message="Załóż"
             className="m-auto !px-20 !py-4 !text-base"
