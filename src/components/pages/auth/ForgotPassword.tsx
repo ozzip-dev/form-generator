@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       toast({
         title: "Sukces",
         description:
-          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+          "Jeżeli konto istnieje, wysłano link do weryfikacji emaila",
         variant: "success",
       });
     }

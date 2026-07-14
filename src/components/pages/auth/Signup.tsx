@@ -60,7 +60,6 @@ const Signup = () => {
         inputs: data,
       };
     }
-
     isAction.current = true;
     const resp = await signupAction(validationResult.data);
 
@@ -86,7 +85,7 @@ const Signup = () => {
     }
 
     isAction.current = false;
-    return { errors: {}, inputs: data };
+    return { errors: {}, inputs: resp.success ? null : data };
   };
 
   const [state, formAction, isPending] = useActionState(
@@ -96,15 +95,19 @@ const Signup = () => {
 
   return (
     <div className="flex h-full flex-col items-center p-4 pt-24">
-      <h1 className="mb-4 text-center text-xl">Zalóż konto</h1>
+      <h1 className="mb-4 text-center text-xl">Załóż konto</h1>
       <Card className="w-full min-w-[29rem] max-w-[52rem] !py-24">
         <form action={formAction}>
-          <InputFields inputsData={dataInputsSignup} errorMsg={state.errors} />
+          <InputFields
+            inputsData={dataInputsSignup}
+            errorMsg={state.errors}
+            default={state.inputs || undefined}
+          />
           <Button
             type="submit"
             isLoading={isAction.current && isPending}
             message="Załóż"
-            className="m-auto !px-20 !py-4 !text-base"
+            className="m-auto mt-8 !px-20 !py-4 !text-base"
           />
         </form>
       </Card>

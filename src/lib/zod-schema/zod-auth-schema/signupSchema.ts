@@ -8,7 +8,7 @@ export const signupSchema = z
     confirmPassword: z.string().trim(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Powtórz hasło",
+    message: "Wprowadzone hasła różnią się.",
     path: ["confirmPassword"],
   });
 

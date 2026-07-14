@@ -18,6 +18,7 @@ type Props = {
 const InputField = (props: Props) => {
   const { name, floatingLabel, type, required, placeholder, defaultValue } =
     props.inputData;
+  const inputDefaultValue = props.default?.[name] ?? defaultValue ?? "";
 
   return (
     <div className={`relative flex-1`}>
@@ -27,7 +28,7 @@ const InputField = (props: Props) => {
         type={type}
         aria-label={`${floatingLabel || name}`}
         placeholder={floatingLabel ? " " : placeholder}
-        defaultValue={defaultValue ?? ""}
+        defaultValue={inputDefaultValue}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
         aria-invalid={!!props.error}
