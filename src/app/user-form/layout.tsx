@@ -1,34 +1,32 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import { Header } from "@/components/shared";
+import { AppTopBar, Header } from "@/components/shared";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function UserFormLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="flex h-full flex-col">
-      <div className="shtink-0">
-        <Header>
-          <div className="ml-auto w-fit">
-            <Suspense>
-              <LogoutButton />
-            </Suspense>
-          </div>
-        </Header>
-      </div>
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect("/login");
 
-      <div className="flex-1 overflow-y-auto">
-        <main
-          className="container py-16"
-          id="main-content"
-          tabIndex={-1}
-          role="main"
-        >
-          {children}
-        </main>
-      </div>
+  return (
+    <div className="flex h-screen flex-col">
+      <Header>
+        <AppTopBar isPublic={false} links={[]} user={session.user} />
+      </Header>
+
+      <main
+        className="container py-16"
+        id="main-content"
+        tabIndex={-1}
+        role="main"
+      >
+        {children}
+      </main>
     </div>
   );
 }

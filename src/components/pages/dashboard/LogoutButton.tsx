@@ -55,19 +55,19 @@ const LogoutButton = ({ isUser }: Props) => {
           isLoading={pending}
           message="Wyloguj"
           variant="primary-rounded"
-          className={"!w-full"}
+          className="!w-full"
         />
       ) : (
         <>
           <ButtonLink
             message="Zarejestruj organizację"
-            link={"/admin-contact"}
+            link="/admin-contact"
             variant="primary-rounded"
             className="mb-11"
           />
           <ButtonLink
             message="Zaloguj"
-            link={"/login"}
+            link="/login"
             variant="primary-rounded"
           />
         </>

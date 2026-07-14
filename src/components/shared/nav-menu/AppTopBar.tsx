@@ -9,7 +9,7 @@ import UserProfileButton from "./UserProfileButton";
 type Props = {
   isPublic: boolean;
   links: NavMenuLink[];
-  user: UserSerialized | null;
+  user: Partial<UserSerialized> | null;
 };
 
 export default function AppTopBar({ isPublic, links, user }: Props) {
@@ -33,13 +33,13 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
         <div className="ml-auto hidden shrink-0 items-center gap-3 lg:flex lg:gap-6 xl:gap-10">
           <ButtonLink
             message="Zarejestruj organizację"
-            link={"/admin-contact"}
+            link="/admin-contact"
             variant="primary-rounded"
           />
 
           <ButtonLink
             message="Zaloguj"
-            link={"/login"}
+            link="/login"
             variant="primary-rounded"
           />
         </div>

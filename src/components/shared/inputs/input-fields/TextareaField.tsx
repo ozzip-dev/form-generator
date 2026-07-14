@@ -17,6 +17,7 @@ type Props = {
 
 const TextareaField = (props: Props) => {
   const { name, placeholder, type, required, floatingLabel } = props.inputData;
+  const defaultValue = props.default?.[name] ?? "";
 
   return (
     <div className="relative flex-1">
@@ -29,6 +30,7 @@ const TextareaField = (props: Props) => {
         disabled={props.isLoading?.[name]}
         className={`peer w-full rounded-sm border p-3 text-sm focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         {...(props.register
           ? props.register(name, {
               onChange: (e) => {

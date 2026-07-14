@@ -4,34 +4,32 @@ import { publicLinks, userProfileLinks } from "@/lib/menuLinks";
 
 type Props = {
   isPublic?: boolean;
-  isLoged: boolean;
+  isLoggedIn: boolean;
   onClose: () => void;
 };
 
-const UserMenuContent = ({ isPublic, isLoged, onClose }: Props) => {
+const UserMenuContent = ({ isPublic, isLoggedIn, onClose }: Props) => {
+  const publicMenu = <NavMenu links={publicLinks} depth={1} variant="mobile" />;
+  const userMenu = (
+    <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
+  );
+
   return (
     <div className="overflow-y-auto px-4" onClick={onClose}>
-      {isPublic ? (
-        <div className="lg:hidden">
-          <NavMenu links={publicLinks} depth={1} variant="mobile" />
-        </div>
-      ) : (
-        <NavMenu links={publicLinks} depth={1} variant="mobile" />
-      )}
+      {isPublic ? <div className="lg:hidden">{publicMenu}</div> : publicMenu}
 
-      {isLoged &&
+      {isLoggedIn &&
         (isPublic ? (
           <>
             <div className="border-t border-accent lg:hidden"></div>
-            <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
+            {userMenu}
           </>
         ) : (
-          <div className="border-t border-accent lg:hidden">
-            <NavMenu links={userProfileLinks} depth={1} variant="mobile" />
-          </div>
+          <div className="border-t border-accent lg:hidden">{userMenu}</div>
         ))}
+
       <div className="mt-11">
-        <LogoutButton isUser={!!isLoged} />
+        <LogoutButton isUser={isLoggedIn} />
       </div>
     </div>
   );

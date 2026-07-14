@@ -28,7 +28,7 @@ const ProtocolUploadsMenu = (props: Props) => {
       {fileCategories.map((category) => (
         <li key={category}>
           <Button
-            className={`h-[125px] w-[178px] whitespace-pre-wrap rounded-sm !px-8 !text-base ${
+            className={`h-[80px] w-[164px] whitespace-pre-wrap rounded-sm !px-4 !text-base sm:h-[125px] sm:w-[178px] sm:!px-8 ${
               category == props.visibleCategory ? "!bg-white !text-accent" : ""
             }`}
             message={getButtonText(category)}

@@ -1,6 +1,7 @@
 import LogoutButton from "@/components/pages/dashboard/LogoutButton";
-import { Header } from "@/components/shared";
+import { AppTopBar, Header } from "@/components/shared";
 import { auth } from "@/lib/auth/auth";
+import { userProfileLinks } from "@/lib/menuLinks";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -14,13 +15,10 @@ export default async function PrivacyLayout({
 
   return (
     <div className="flex h-screen flex-col">
-      <div className="shrink-0">
-        <Header>
-          <div className="ml-auto w-fit">
-            <LogoutButton />
-          </div>
-        </Header>
-      </div>
+      <Header>
+        <AppTopBar isPublic={false} links={[]} user={session.user} />
+      </Header>
+
       <main
         className="flex-1 overflow-y-auto pb-md"
         id="main-content"

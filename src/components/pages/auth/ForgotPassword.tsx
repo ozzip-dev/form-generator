@@ -1,7 +1,7 @@
 "use client";
 
 import { forgotPasswordAction } from "@/actions/auth/forgotPasswordAction";
-import FormAuthFooter from "@/components/auth/FormAuthFooter";
+import AuthForm from "@/components/auth/AuthForm";
 import { Button, Card, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { InputType } from "@/enums";
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       toast({
         title: "Sukces",
         description:
-          "Jeżeli konto istnieje, dostałeś link do weryfikacji emaila",
+          "Jeżeli konto istnieje, wysłano link do weryfikacji emaila",
         variant: "success",
       });
     }
@@ -77,29 +77,26 @@ const ForgotPassword = () => {
   );
 
   return (
-    <div className="flex h-full flex-col items-center justify-center p-4">
-      <h1 className="mb-4 text-center text-xl">Nie pamiętasz hasła?</h1>
-      <Card className="w-full min-w-[29rem] max-w-[52rem]">
-        <form action={formAction} className="space-y-4">
-          <InputFields
-            inputsData={dataInputsForgotPassword}
-            errorMsg={state.errors}
-          />
+    <AuthForm
+      header="Nie pamiętasz hasła?"
+      footerMessage="Masz konto?"
+      footerLink="Zaloguj się"
+      footerUrl="/login"
+    >
+      <form action={formAction} className="space-y-4">
+        <InputFields
+          inputsData={dataInputsForgotPassword}
+          errorMsg={state.errors}
+        />
 
-          <Button
-            isLoading={isAction.current && isPending}
-            message="Wyślij link"
-            className="m-auto !px-20 !py-4 !text-base"
-          />
-        </form>
-      </Card>
-
-      <FormAuthFooter
-        message="Masz konto?"
-        messageLink="Zaloguj się"
-        link="/login"
-      />
-    </div>
+        <Button
+          type="submit"
+          isLoading={isAction.current && isPending}
+          message="Wyślij link"
+          className="m-auto !px-20 !py-4 !text-base"
+        />
+      </form>
+    </AuthForm>
   );
 };
 

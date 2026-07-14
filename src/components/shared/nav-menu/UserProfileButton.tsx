@@ -37,7 +37,7 @@ const UserProfileButton = ({ isPublic, userName }: Props) => {
       >
         <UserMenuContent
           isPublic={isPublic}
-          isLoged={!!userName}
+          isLoggedIn={!!userName}
           onClose={() => setOpen(false)}
         />
       </Card>
