@@ -204,6 +204,7 @@ const ProtocolForm = (props: Props) => {
           )}
 
           <Button
+            type="submit"
             message="Zapisz"
             isLoading={isSubmitting}
             variant="primary-rounded"
