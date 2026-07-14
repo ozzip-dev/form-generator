@@ -12,6 +12,7 @@ import {
   loginSchema,
 } from "@/lib/zod-schema/zod-auth-schema/loginSchema";
 import { InputData, InputType } from "@/enums";
+import AuthForm from "@/components/auth/AuthForm";
 
 const ToastsData: ModelToast[] = [
   {
@@ -91,36 +92,31 @@ const Login = () => {
   );
 
   return (
-    <div className="flex h-full flex-col items-center justify-center p-4 pt-24">
-      <h1 className="mb-4 text-center text-xl">Zaloguj się</h1>
-      <Card className="w-full min-w-[29rem] max-w-[52rem] !py-24">
-        <form action={formAction}>
-          <InputFields inputsData={dataInputsLogin} errorMsg={state.errors} />
-          <div className="my-4">
-            <Link
-              href="/forgot-password"
-              className="text-xs text-accent_dark hover:underline hover:decoration-accent_dark"
-            >
-              Nie pamiętasz hasła?
-            </Link>
-          </div>
+    <AuthForm
+      header="Zaloguj się"
+      footerMessage="Nie masz konta?"
+      footerLink="Skontaktuj się z administratorem aplikacji"
+      footerUrl="/admin-contact"
+    >
+      <form action={formAction}>
+        <InputFields inputsData={dataInputsLogin} errorMsg={state.errors} />
+        <div className="my-4">
+          <Link
+            href="/forgot-password"
+            className="text-xs text-accent_dark hover:underline hover:decoration-accent_dark"
+          >
+            Nie pamiętasz hasła?
+          </Link>
+        </div>
 
-          <Button
-            isLoading={isAction.current && isPending}
-            message="Zaloguj"
-            type="submit"
-            className="m-auto !px-20 !py-4 !text-base"
-          />
-        </form>
-      </Card>
-
-      <Link
-        href="/admin-contact"
-        className="py-20 text-accent_dark hover:underline hover:decoration-accent_dark"
-      >
-        Nie masz konta? Skontaktuj się z administratorem aplikacji.
-      </Link>
-    </div>
+        <Button
+          isLoading={isAction.current && isPending}
+          message="Zaloguj"
+          type="submit"
+          className="m-auto !px-20 !py-4 !text-base"
+        />
+      </form>
+    </AuthForm>
   );
 };
 

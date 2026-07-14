@@ -1,8 +1,9 @@
 "use client";
 
 import { resetPasswordAction } from "@/actions/auth/resetPasswordAction";
+import AuthForm from "@/components/auth/AuthForm";
 import FormAuthFooter from "@/components/auth/FormAuthFooter";
-import { Button, Card, InputFields } from "@/components/shared";
+import { Button, InputFields } from "@/components/shared";
 import { useToast } from "@/context/ToastProvider";
 import { InputData } from "@/enums";
 import {
@@ -74,32 +75,27 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   );
 
   return (
-    <div className="flex h-full flex-col items-center justify-center p-4 pt-24">
-      <h1 className="text-center text-2xl font-semibold">Zmień hasło</h1>
-
-      <Card className="w-full min-w-[29rem] max-w-[52rem]">
-        <form action={formAction}>
-          {" "}
-          <InputFields
-            inputsData={dataInputsResetPassword}
-            errorMsg={state.errors}
-            default={state?.inputs}
-          />
-          <Button
-            type="submit"
-            isLoading={isAction.current && isPending}
-            message="Zmień hasło"
-            className="m-auto !px-20 !py-4 !text-base"
-          />
-        </form>
-      </Card>
-
-      <FormAuthFooter
-        message="Pamiętasz hasło?"
-        messageLink="Zaloguj się"
-        link="/login"
-      />
-    </div>
+    <AuthForm
+      header="Zmień hasło"
+      footerMessage="Pamiętasz hasło?"
+      footerLink="Zaloguj się"
+      footerUrl="/login"
+    >
+      <form action={formAction}>
+        {" "}
+        <InputFields
+          inputsData={dataInputsResetPassword}
+          errorMsg={state.errors}
+          default={state?.inputs}
+        />
+        <Button
+          type="submit"
+          isLoading={isAction.current && isPending}
+          message="Zmień hasło"
+          className="m-auto !px-20 !py-4 !text-base"
+        />
+      </form>
+    </AuthForm>
   );
 };
 
