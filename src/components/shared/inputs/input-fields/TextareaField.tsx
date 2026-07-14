@@ -23,7 +23,6 @@ const TextareaField = (props: Props) => {
     <div className="relative flex-1">
       <textarea
         id={name}
-        name={name}
         aria-label={`Wpisz ${floatingLabel}`}
         aria-required={required}
         aria-invalid={!!props.error}
