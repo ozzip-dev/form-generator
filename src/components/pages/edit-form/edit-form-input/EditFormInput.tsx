@@ -220,7 +220,8 @@ const EditFormInput = () => {
                 {!isInputTypeParagraph(input) && <ToggleInputs />}
               </div>
 
-              {!isInputTypeParagraph(input) && <AcceptedValuesSection />}
+              {/* TODO: uncomment when functionality is ready */}
+              {/* {!isInputTypeParagraph(input) && <AcceptedValuesSection />} */}
             </form>
           </div>
         </FormProvider>
