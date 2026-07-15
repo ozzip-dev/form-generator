@@ -54,10 +54,12 @@ export async function sendEmail({
   to,
   subject,
   text,
+  html,
 }: {
   to: string;
   subject: string;
-  text: string;
+  text?: string;
+  html?: string;
 }) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -66,16 +68,17 @@ export async function sendEmail({
       pass: process.env.GMAIL_APP_PASSWORD,
     },
     tls: {
-      rejectUnauthorized: false, 
+      rejectUnauthorized: false,
     },
   });
 
   try {
+    const content = text ? { text: text.trim() } : { html };
     const info = await transporter.sendMail({
       from: `"OZZIP" <${process.env.GMAIL_USER}>`,
       to: to.toLowerCase().trim(),
       subject: subject.trim(),
-      text: text.trim(),
+      ...content,
     });
 
     console.log("Email sent:", info.messageId);

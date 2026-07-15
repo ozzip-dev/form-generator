@@ -5,6 +5,50 @@ import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/mongo";
 import { UserRole } from "../mongo/models";
 
+const getAuthEmailTemplate = (
+  userName: string,
+  headerText: string,
+  url: string,
+  buttonText: string,
+): string =>
+  `
+    <div>
+      <div style="margin-bottom: 10px;">Cześć, <b>${userName}</b></div>
+      <div>${headerText}</div>
+
+      <a
+        href=${url}
+        style="
+          display: inline-block;
+          background: #c00000;
+          color: #fff;
+          padding: 8px 14px;
+          margin: 16px 0;
+          border-radius: 6px;
+          text-decoration: none;
+        "
+      >
+        ${buttonText}
+      </a>
+
+      <div>
+        <img src="https://formypracy.org/images/fp_logo.png" />
+        <div>
+          <a
+            href="https://formypracy.org/"
+            style="
+              margin-top: 24px;
+              text-decoration: none;
+              font-weight: bold;
+            "
+          >
+            www.formypracy.org
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+
 export const auth = betterAuth({
   database: mongodbAdapter(db),
   trustHost: true,
@@ -51,7 +95,12 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "OZZIP zmień swoje hasło",
-        text: `Kliknij w link aby zmienić hasło: ${url}`,
+        html: getAuthEmailTemplate(
+          user?.name || "",
+          "Kliknij przycisk poniżej, aby zmienić hasło.",
+          url,
+          "Zmień hasło",
+        ),
       });
     },
   },
@@ -82,7 +131,12 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Potwierdź email",
-        text: `Kliknij w link aby zweryfikować email: ${verificationUrl}`,
+        html: getAuthEmailTemplate(
+          user?.name || "",
+          "Kliknij przycisk poniżej, aby zweryfikować email.",
+          verificationUrl,
+          "Weryfikuj",
+        ),
       });
     },
   },
