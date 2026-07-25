@@ -1,6 +1,6 @@
 import { addAcceptedValuesAction } from "@/actions/edit-form/accepted-values/addAcceptedValuesAction";
 import { clearAcceptedValuesAction } from "@/actions/edit-form/accepted-values/clearAcceptedValuesAction";
-import { Button, InfoIcon } from "@/components/shared";
+import { Button } from "@/components/shared";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useModal } from "@/context/ModalContextProvider";
@@ -8,6 +8,8 @@ import { InputType } from "@/enums";
 import { useRouter } from "next/navigation";
 import { JSX, useState, useTransition } from "react";
 import AcceptedValueBox from "./AcceptedValueBox";
+import AcceptedValuesInfoBox from "./AcceptedValuesInfoBox";
+import AcceptedValuesControls from "./AcceptedValuesControls";
 
 const parseAcceptedValues = (
   value: string,
@@ -131,15 +133,7 @@ const AcceptedValuesSection = () => {
           onClickAction={() => setIsOpen((prev) => !prev)}
         />
 
-        <InfoIcon>
-          <div>
-            Ustal możliwe odpowiedzi dla pola, np. numery PESEL, identyfikatory
-            pracownicze, itd.
-            <br />
-            Wpisanie odpowiedzi innej niż zdefiniowane wartości uniemożliwi
-            wysłanie formularza.
-          </div>
-        </InfoIcon>
+        <AcceptedValuesInfoBox />
       </div>
 
       {isOpen && (
@@ -164,25 +158,12 @@ const AcceptedValuesSection = () => {
             className="min-h-32 w-full rounded-sm border border-default p-2 text-sm focus:border-accent focus:outline-none"
           />
 
-          <div className="flex flex-wrap justify-between gap-3">
-            <Button
-              type="button"
-              variant="primary-rounded"
-              className="w-fit px-4 py-2"
-              message="Dodaj"
-              isLoading={isPending}
-              onClickAction={handleSaveAcceptedValues}
-            />
-
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-fit px-4 py-2 !text-accent"
-              message="Wyczyść"
-              disabled={!input.acceptedValues?.length}
-              onClickAction={handleClearAcceptedValues}
-            />
-          </div>
+          <AcceptedValuesControls
+            isAddBtnLoading={isPending}
+            isClearBtnDisabled={!input.acceptedValues?.length}
+            addBtnAction={handleSaveAcceptedValues}
+            clearBtnAction={handleClearAcceptedValues}
+          />
         </div>
       )}
     </div>
