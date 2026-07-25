@@ -8,6 +8,7 @@ import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { useFormData } from "@/context/FormDataContextProvider";
 import { InputData, InputType } from "@/enums";
 import {
+  canInputHaveAcceptedValues,
   isInputTypeParagraph,
   isInputWithOptions,
 } from "@/helpers/inputHelpers";
@@ -220,8 +221,7 @@ const EditFormInput = () => {
                 {!isInputTypeParagraph(input) && <ToggleInputs />}
               </div>
 
-              {/* TODO: uncomment when functionality is ready */}
-              {/* {!isInputTypeParagraph(input) && <AcceptedValuesSection />} */}
+              {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
             </form>
           </div>
         </FormProvider>
