@@ -93,7 +93,7 @@ const AddPostForm = (props: Props) => {
             onClickAction={onCancel}
             className="!bg-white !text-accent"
           />
-          <Button message="Dodaj odpowiedz" />
+          <Button type="submit" message="Dodaj odpowiedź" />
         </div>
       </form>
     </>
