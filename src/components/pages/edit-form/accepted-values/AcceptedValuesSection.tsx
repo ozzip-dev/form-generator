@@ -122,7 +122,7 @@ const AcceptedValuesSection = () => {
     : "Zdefiniuj dopuszczalne odpowiedzi";
 
   return (
-    <div className="mt-10 flex w-full flex-col gap-3 text-sm">
+    <div className="mt-8 flex w-full flex-col gap-3 border-t border-default pt-5 text-sm">
       <div className="flex items-center">
         <Button
           type="button"
