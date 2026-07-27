@@ -17,7 +17,7 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
   };
 
   return (
-    <div className="px-8">
+    <div className="container">
       {/* TODO PAWEL: using <a> instead of <Link> for caching reasons, get back to it */}
       <a href={`/forum/list#${topic.category}`}>
         <Button
