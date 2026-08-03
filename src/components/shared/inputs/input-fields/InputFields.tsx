@@ -50,7 +50,7 @@ const InputFields = (props: Props) => {
             {staticLabel && (
               <label
                 htmlFor={name}
-                className={`mb-1 block font-semibold md:mr-4 ${labelClassName}`}
+                className={`mb-4 block font-semibold md:mr-4 ${labelClassName}`}
               >
                 {staticLabel}
                 <InputIndicators {...{ required, unique, hidden }} />
