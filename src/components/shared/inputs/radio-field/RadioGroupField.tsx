@@ -84,7 +84,12 @@ const RadioGroupField = (props: Props) => {
       )}
 
       {props.description && (
-        <InputDescription description={props.description} variant="published" />
+        <div style={props.label ? {} : { marginBottom: "1rem" }}>
+          <InputDescription
+            description={props.description}
+            variant="published"
+          />
+        </div>
       )}
 
       <fieldset

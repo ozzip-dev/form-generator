@@ -51,28 +51,28 @@ export default function CheckboxGroupField(props: Props) {
 
         return (
           <fieldset
-            className={`flex w-fit gap-4 flex-col text-sm ${props.mode === "horizontal" ? "md:flex-row" : ""}`}
+            className={`flex w-fit flex-col gap-4 text-sm ${props.mode === "horizontal" ? "md:flex-row" : ""}`}
           >
             {props.groupLabel && (
               <legend className="mb-6 mr-6 font-semibold [display:contents]">
-
                 <div className="flex">
                   {props.groupLabel}
-                <InputIndicators
-                  required={props.required}
-                  unique={props.unique}
-                  hidden={props.hidden}
-                />
+                  <InputIndicators
+                    required={props.required}
+                    unique={props.unique}
+                    hidden={props.hidden}
+                  />
                 </div>
-                
               </legend>
             )}
 
             {props.groupDescription && (
-              <InputDescription
-                description={props.groupDescription}
-                variant="published"
-              />
+              <div style={props.groupLabel ? {} : { marginBottom: "1rem" }}>
+                <InputDescription
+                  description={props.groupDescription}
+                  variant="published"
+                />
+              </div>
             )}
             <div className="relative flex flex-col gap-6">
               {props.options.map(({ name, checkboxLabel, optionId = "" }) => {

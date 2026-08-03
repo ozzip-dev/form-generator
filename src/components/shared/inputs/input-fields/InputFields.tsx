@@ -57,7 +57,12 @@ const InputFields = (props: Props) => {
               </label>
             )}
             {description && (
-              <InputDescription description={description} variant="published" />
+              <div style={staticLabel ? {} : { marginBottom: "1rem" }}>
+                <InputDescription
+                  description={description}
+                  variant="published"
+                />
+              </div>
             )}
 
             {isTextArea ? (
