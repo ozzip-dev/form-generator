@@ -174,9 +174,21 @@ export const formTemplates: Form[] = [
         hidden: false,
         order: 8,
       },
-
       {
-        id: "elections-9",
+        id: "survey-10",
+        type: InputType.NUMBER,
+        header: "",
+        description:
+          "<div>Chcesz dowiedzieć się więcej o działalności <b>[nazwa organizacji związkowej]</b>? Śledź nas w mediach społecznościowych i odwiedź nasze profile.<br><br>Osoby zainteresowane przystąpieniem do <b>[nazwa organizacji związkowej]</b> zapraszamy do kontaktu:<br><ul><li>Telefon: <b>[nr telefonu]</b></li><li>E-mail: <b>[adres e-mail]</b></li></ul><br>Możesz również zostawić swój numer telefonu. <b>Oddzwonimy do Ciebie</b> i odpowiemy na wszystkie pytania.</div>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 9,
+      },
+      {
+        id: "survey-11",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
@@ -192,7 +204,7 @@ export const formTemplates: Form[] = [
         required: true,
         unique: false,
         hidden: false,
-        order: 8,
+        order: 10,
       },
     ],
     state: "template",
@@ -313,9 +325,21 @@ export const formTemplates: Form[] = [
         hidden: false,
         order: 4,
       },
-
       {
         id: "sip-6",
+        type: InputType.NUMBER,
+        header: "",
+        description:
+          "<div>Chcesz dowiedzieć się więcej o działalności <b>[nazwa organizacji związkowej]</b>? Śledź nas w mediach społecznościowych i odwiedź nasze profile.<br><br>Osoby zainteresowane przystąpieniem do <b>[nazwa organizacji związkowej]</b> zapraszamy do kontaktu:<br><ul><li>Telefon: <b>[nr telefonu]</b></li><li>E-mail: <b>[adres e-mail]</b></li></ul><br>Możesz również zostawić swój numer telefonu. <b>Oddzwonimy do Ciebie</b> i odpowiemy na wszystkie pytania.</div>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 5,
+      },
+      {
+        id: "sip-7",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
@@ -331,7 +355,7 @@ export const formTemplates: Form[] = [
         required: true,
         unique: false,
         hidden: false,
-        order: 5,
+        order: 6,
       },
     ],
     state: "template",
@@ -409,9 +433,21 @@ export const formTemplates: Form[] = [
         hidden: false,
         order: 3,
       },
-
       {
         id: "strike-6",
+        type: InputType.NUMBER,
+        header: "",
+        description:
+          "<div>Chcesz dowiedzieć się więcej o działalności <b>[nazwa organizacji związkowej]</b>? Śledź nas w mediach społecznościowych i odwiedź nasze profile.<br><br>Osoby zainteresowane przystąpieniem do <b>[nazwa organizacji związkowej]</b> zapraszamy do kontaktu:<br><ul><li>Telefon: <b>[nr telefonu]</b></li><li>E-mail: <b>[adres e-mail]</b></li></ul><br>Możesz również zostawić swój numer telefonu. <b>Oddzwonimy do Ciebie</b> i odpowiemy na wszystkie pytania.</div>",
+        validation: {},
+        options: [],
+        required: false,
+        unique: false,
+        hidden: false,
+        order: 4,
+      },
+      {
+        id: "strike-7",
         type: InputType.CHECKBOX,
         header:
           "Klauzula informacyjna dotycząca przetwarzania danych osobowych",
