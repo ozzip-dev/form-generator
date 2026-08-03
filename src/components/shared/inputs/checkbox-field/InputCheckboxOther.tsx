@@ -15,7 +15,7 @@ const InputCheckboxOther = (props: Props) => {
   return (
     <div>
       {props.label && (
-        <label htmlFor={props.name} className="block">
+        <label htmlFor={props.name} className="block pb-3">
           {props.label}
         </label>
       )}

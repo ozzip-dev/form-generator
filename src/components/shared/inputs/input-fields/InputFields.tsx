@@ -5,9 +5,8 @@ import { DataLoader, InputError } from "../../index";
 import TextareaField from "./TextareaField";
 import InputField from "./InputField";
 import FloatingLabel from "./FloatingLabel";
-import InputDescription from "../FormDescription";
-import InputIndicators from "../InputIndicators";
 import { InputData, InputType } from "@/enums";
+import InputTexts from "../input-texts/InputTexts";
 
 type Props = {
   inputsData: InputData[];
@@ -47,23 +46,13 @@ const InputFields = (props: Props) => {
                 : ""
             } ${staticLabel ? "pb-[1.7rem] md:mt-[1.7rem]" : "mt-[1.7rem] pb-[1.7rem]"}`}
           >
-            {staticLabel && (
-              <label
-                htmlFor={name}
-                className={`mb-4 block font-semibold md:mr-4 ${labelClassName}`}
-              >
-                {staticLabel}
-                <InputIndicators {...{ required, unique, hidden }} />
-              </label>
-            )}
-            {description && (
-              <div style={staticLabel ? {} : { marginBottom: "1rem" }}>
-                <InputDescription
-                  description={description}
-                  variant="published"
-                />
-              </div>
-            )}
+            <InputTexts
+              label={staticLabel}
+              description={description}
+              required={required}
+              unique={unique}
+              hidden={hidden}
+            />
 
             {isTextArea ? (
               <TextareaField

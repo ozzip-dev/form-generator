@@ -16,7 +16,7 @@ export { default as Checkbox } from "./inputs/checkbox-field/Checkbox";
 export { default as InputError } from "./inputs/InputError";
 export { default as RadioGroupField } from "./inputs/radio-field/RadioGroupField";
 export { default as InputFields } from "./inputs/input-fields/InputFields";
-export { default as FormDescription } from "./inputs/FormDescription";
+export { default as FormDescription } from "./inputs/input-texts/FormDescription";
 export { SelectFieldController } from "./inputs/select-field/SelectFieldController";
 export { default as FloatingLabel } from "./inputs/input-fields/FloatingLabel";
 

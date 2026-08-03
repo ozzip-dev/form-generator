@@ -5,8 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useRef } from "react";
 import InputError from "../InputError";
 import InputRadioOther from "./InputRadioOther";
-import InputDescription from "../FormDescription";
-import InputIndicators from "../InputIndicators";
+import InputTexts from "../input-texts/InputTexts";
 
 type Option = {
   label: string;
@@ -72,25 +71,13 @@ const RadioGroupField = (props: Props) => {
 
   return (
     <div className="flex flex-col text-sm">
-      {props.label && (
-        <label className="mb-6 font-semibold">
-          <span>{props.label}</span>
-          <InputIndicators
-            required={props.required}
-            unique={props.unique}
-            hidden={props.hidden}
-          />
-        </label>
-      )}
-
-      {props.description && (
-        <div style={props.label ? {} : { marginBottom: "1rem" }}>
-          <InputDescription
-            description={props.description}
-            variant="published"
-          />
-        </div>
-      )}
+      <InputTexts
+        label={props.label}
+        description={props.description}
+        required={props.required}
+        unique={props.unique}
+        hidden={props.hidden}
+      />
 
       <fieldset
         className={`relative flex flex-col gap-6 ${props.className ?? ""}`}
