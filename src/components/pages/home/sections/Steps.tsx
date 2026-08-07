@@ -19,9 +19,12 @@ const steps = [
     id: 2,
     image: "/images/step2.png",
     text: (
-      <Link href="/forms/list" className="text-accent" target="blank">
-        Utwórz własny formularz
-      </Link>
+      <>
+        <Link href="/forms/list" className="text-accent" target="blank">
+          Utwórz własny formularz
+        </Link>
+        <span className="block"> i udostępnij link zainteresowanym</span>
+      </>
     ),
     layoutClass: "lg:col-start-3 lg:row-start-2 lg:justify-self-start",
     alt: "Utwórz własny formularz",
@@ -29,22 +32,15 @@ const steps = [
   {
     id: 3,
     image: "/images/step3.png",
-    text: "Udostępnij link zainteresowanym",
+    text: "Śledź wyniki na bieżąco",
     layoutClass: "lg:col-start-1 lg:row-start-3 lg:justify-self-end",
-    alt: "Udostępnij link zainteresowanym",
+    alt: "Śledź wyniki na bieżąco",
   },
   {
     id: 4,
     image: "/images/step4.png",
-    text: "Śledź wyniki na bieżąco",
-    layoutClass: "lg:col-start-3 lg:row-start-4 lg:justify-self-start",
-    alt: "Śledź wyniki na bieżąco",
-  },
-  {
-    id: 5,
-    image: "/images/step4.png",
     text: "Wymień się doświadczeniami z innymi organizacjami",
-    layoutClass: "lg:col-start-1 lg:row-start-5 lg:justify-self-end",
+    layoutClass: "lg:col-start-3 lg:row-start-4 lg:justify-self-start",
     alt: "Wymień się doświadczeniami z innymi organizacjami",
   },
 ];
@@ -55,10 +51,10 @@ const Steps = () => {
       <div className="container pb-20 pt-16">
         <SectionHeader
           header="Jak to działa?"
-          subheader="Od pomysłu do wyników w 5 krokach"
+          subheader="Od pomysłu do wyników w 4 krokach"
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-5 lg:gap-x-10 lg:gap-y-0">
+        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-4 lg:gap-x-10 lg:gap-y-0">
           <ol className="contents">
             {steps.map(({ id, image, text, alt, layoutClass }) => (
               <li
@@ -74,9 +70,9 @@ const Steps = () => {
                   priority={id === 1}
                 />
                 <div className="absolute inset-0 flex items-start p-6 text-font_dark sm:p-8">
-                  <div className="max-w-[45%]">
+                  <div className="max-w-[38%]">
                     <div className="text-xl font-semibold leading-tight sm:text-xl">
-                      Krok: {id}
+                      Krok {id}
                     </div>
                     <p className="mt-1 text-sm leading-snug sm:text-base">
                       {text}
