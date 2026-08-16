@@ -11,6 +11,7 @@ import { getFormsByType } from "./form-service";
 import { Form } from "@/types/form";
 import { isAdmin } from "@/lib/utils";
 import { UserRole } from "@/lib/mongo/models";
+import { addPrivacyPolicyConfirmedLog } from "./event-log-service";
 
 export const requireUser = cache(async (): Promise<IUser> => {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -93,6 +94,8 @@ export async function confirmPrivacyPolicy(userId: string): Promise<void> {
       privacyPolicyConfirmed: true,
     },
   });
+
+  await addPrivacyPolicyConfirmedLog(userId);
 }
 
 export async function getAllModerators(): Promise<IUser[]> {

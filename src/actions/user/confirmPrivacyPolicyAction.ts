@@ -17,17 +17,8 @@ export async function confirmPrivacyPolicyAction(): Promise<void> {
     throw new Error("Privacy policy już zaakceptowana");
   }
 
-  // 1️⃣ update DB
   await confirmPrivacyPolicy(user.id.toString());
 
-  // 2️⃣ 🔥 UPDATE SESJI (KLUCZ)
-  // await auth.api.updateSession({
-  //   user: {
-  //     privacyPolicyConfirmed: true,
-  //   },
-  // });
-
-  // 3️⃣ redirect — middleware zobaczy TRUE
   if (isModerator(user)) {
     redirect(
       hasCompleteCommitteeData({

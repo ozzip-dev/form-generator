@@ -32,6 +32,10 @@ export const UserModel: DbModel = {
   name: "user",
 };
 
+export const EventLogModel: DbModel = {
+  name: "event_log",
+};
+
 export enum UserRole {
   MODERATOR = "moderator",
   ADMIN = "admin",

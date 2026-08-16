@@ -5,6 +5,7 @@ import {
   signupSchema,
   SignupSchema,
 } from "@/lib/zod-schema/zod-auth-schema/signupSchema";
+import { addAccountCreatedLog } from "@/services/event-log-service";
 
 type ActionResult<T> = {
   success: boolean;
@@ -26,13 +27,16 @@ export async function signupAction(
   }
 
   try {
-    await auth.api.signUpEmail({
+    const response = await auth.api.signUpEmail({
       body: {
         email: data.email,
         password: data.password,
         name: data.name,
       },
     });
+
+    const createdUserId = response?.user?.id;
+    if (!!createdUserId) await addAccountCreatedLog(createdUserId);
 
     return { success: true, data: null };
   } catch (err: any) {

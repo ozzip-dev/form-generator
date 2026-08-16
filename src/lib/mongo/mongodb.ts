@@ -10,6 +10,7 @@ import {
   ResultModel,
   TopicModel,
   TemplateFormId,
+  EventLogModel,
 } from "./models";
 import { DbModel } from "@/types/mongo";
 import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
@@ -26,6 +27,7 @@ const collections: [string, DbModel][] = [
   ["protocol", ProtocolModel],
   ["post", PostModel],
   ["topic", TopicModel],
+  ["event_log", EventLogModel],
 ];
 
 // TODO Pawel
