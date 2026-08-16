@@ -12,8 +12,10 @@ export async function addAcceptedValuesAction(
   inputId: string,
   values: (string | number)[],
 ): Promise<{
-  newValues: (string | number)[];
-  duplicatedValues: (string | number)[];
+  ok: boolean;
+  newValues?: (string | number)[];
+  duplicatedValues?: (string | number)[];
+  invalidValues?: (string | number)[];
 }> {
   await requireUser();
 
@@ -29,18 +31,22 @@ export async function addAcceptedValuesAction(
       values,
     );
 
+    revalidateTag(`form-${formId}`);
+
     return {
+      ok: true,
       duplicatedValues,
       newValues,
     };
   } catch (error) {
-    const invalidValues = (error as Error).message
+    const invalidValues = String((error as Error)?.message ?? "")
       .split(";")
       .map((value) => value.trim())
       .filter(Boolean);
 
-    throw new Error(invalidValues.join(", "));
+    return {
+      ok: false,
+      invalidValues,
+    };
   }
-
-  revalidateTag(`form-${formId}`);
 }

@@ -63,21 +63,34 @@ const AcceptedValuesSection = () => {
 
     startTransition(async () => {
       try {
-        const { newValues, duplicatedValues } = await addAcceptedValuesAction(
+        const result = await addAcceptedValuesAction(
           formId as string,
           input.id!,
           values,
         );
 
-        const header =
-          newValues.length > 1 ? "Dodano odpowiedzi" : "Dodano odpowiedź";
+        if (!result.ok) {
+          const invalidValues = (result.invalidValues || [])
+            .map((value) => String(value).trim())
+            .filter(Boolean);
+
+          openInfoModal(
+            <div>
+              Niepoprawne wartości ({invalidValues.length}):{" "}
+              {invalidValues.join(", ")}
+            </div>,
+          );
+          return;
+        }
+
+        const { newValues, duplicatedValues } = result;
 
         openInfoModal(
           <>
             <div>
-              Dodane odpowiedzi ({newValues.length}): {newValues.join(", ")}
+              Dodane odpowiedzi ({newValues?.length}): {newValues?.join(", ")}
             </div>
-            {!!duplicatedValues.length && (
+            {!!duplicatedValues?.length && (
               <div>
                 Duplikaty odpowiedzi ({duplicatedValues.length}):{" "}
                 {duplicatedValues.join(", ")}
@@ -89,15 +102,9 @@ const AcceptedValuesSection = () => {
         setAcceptedValuesInput("");
         router.refresh();
       } catch (error) {
-        const invalidValues = (error as Error).message
-          .split(",")
-          .map((value) => value.trim())
-          .filter(Boolean);
-
         openInfoModal(
           <div>
-            Niepoprawne wartości ({invalidValues.length}):{" "}
-            {invalidValues.join(", ")}
+            Wystąpił błąd podczas zapisywania dopuszczalnych odpowiedzi.
           </div>,
         );
       }
