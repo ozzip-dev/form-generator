@@ -370,6 +370,6 @@ export async function getFormAdditionalData(formId: string): Promise<{
 
   return {
     headerFileData: file ? serializeFile(file)?.data : undefined,
-    authorEmail: formAuthor?.email || "",
+    authorEmail: formAuthor?.committeeEmail || "",
   };
 }

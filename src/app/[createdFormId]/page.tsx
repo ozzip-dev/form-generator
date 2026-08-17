@@ -1,5 +1,5 @@
 import { db } from "@/lib/mongo";
-import { isDraft, isDisabled, isTemplate } from "@/helpers/formHelpers";
+import { isDisabled, isTemplate } from "@/helpers/formHelpers";
 import { FormCreated } from "@/types/form";
 import { redirect } from "next/navigation";
 import { getFormAdditionalData, getFormBySlug } from "@/services/form-service";
