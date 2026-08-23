@@ -24,16 +24,6 @@ export async function getProtocols(database: Db): Promise<Protocol[]> {
   return protocols;
 }
 
-// TODO Pawel: get records with no data, add download action
-export async function getProtocolsNoData(database: Db): Promise<Protocol[]> {
-  const collection: Collection<Protocol> = getCollection<Protocol>(
-    database,
-    "protocol",
-  );
-  const protocols = await collection.find({}).project({ data: 0 }).toArray();
-  return protocols as Protocol[];
-}
-
 export async function addProtocol(
   database: Db,
   userId: string,

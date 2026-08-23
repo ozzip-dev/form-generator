@@ -12,7 +12,7 @@ const TopicListItem = (topic: TopicSerializedDetailed) => {
       </div>
       <div className="py-4">{description}</div>
       <div>({posts?.length || 0} odpowiedzi)</div>
-      {/* TODO PAWEL: using <a> instead of <Link> for caching reasons, get back to it */}
+      {/* using <a> instead of <Link> for caching reasons */}
       <a href={`/forum/${_id}`}>
         <Button variant="primary-rounded" message="Otwórz" className="mt-6" />
       </a>
