@@ -3,18 +3,13 @@ import { ResultsPdfTable } from "@/components/pages/results/ResultsPdfTable";
 import ResultsTable from "@/components/pages/results/ResultsTable";
 import { SectionHeader } from "@/components/shared";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import {
-  getSortedInputs,
-  isFormSecret,
-  isUserAuthor,
-} from "@/helpers/formHelpers";
+import { getSortedInputs, isFormSecret } from "@/helpers/formHelpers";
+import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
 import { isInputDisplayedInResults } from "@/helpers/inputHelpers";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
-import { requireUser } from "@/services/user-service";
 import { Answers, Submission } from "@/types/result";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Szczegółowe dane zebrane z formularzy",
@@ -26,9 +21,7 @@ const FormResultsTablePage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getFormById(formId);
 
-  // TODO Pawel: move to middleware
-  const user = await requireUser();
-  if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
+  await verifyUserIsFormAuthor(form, formId);
 
   const { title = "", createdAt, resultVisibility } = form;
 

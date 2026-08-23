@@ -6,18 +6,12 @@ import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFo
 import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
 import { getForm } from "@/services/form-service";
 import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
-import {
-  isActive,
-  isDisabled,
-  isDraft,
-  isUserAuthor,
-} from "@/helpers/formHelpers";
+import { isActive, isDisabled, isDraft } from "@/helpers/formHelpers";
+import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
 import { getFileById } from "@/services/file-service";
 import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 import { getSubmissionCount } from "@/services/result-service";
-import { requireUser } from "@/services/user-service";
-import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -30,9 +24,7 @@ const EditFormPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getForm(formId);
 
-  // TODO Pawel: move to middleware
-  const user = await requireUser();
-  if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
+  await verifyUserIsFormAuthor(form, formId);
 
   const { inputs, headerFileId } = form;
   const file: File | null = headerFileId

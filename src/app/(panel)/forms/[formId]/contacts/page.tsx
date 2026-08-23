@@ -1,10 +1,8 @@
 import Contacts from "@/components/pages/contacts/Contacts";
 import { FormType } from "@/enums/form";
-import { isUserAuthor } from "@/helpers/formHelpers";
+import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
 import { getForm, getFormById } from "@/services/form-service";
-import { requireUser } from "@/services/user-service";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Lista kontaktów organizacji",
@@ -17,9 +15,7 @@ const ContactsPage = async (props: Props) => {
   const form = await getForm(formId);
   const { type } = await getFormById(formId);
 
-  // TODO Pawel: move to middleware
-  const user = await requireUser();
-  if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
+  await verifyUserIsFormAuthor(form, formId);
 
   return (
     <div className="container">

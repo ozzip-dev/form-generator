@@ -1,15 +1,14 @@
 import NoResultsInfo from "@/components/pages/results/NoResultsInfo";
 import Results from "@/components/pages/results/Results";
-import { getSortedInputs, isUserAuthor } from "@/helpers/formHelpers";
+import { getSortedInputs } from "@/helpers/formHelpers";
+import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
 import { isInputDisplayedInResults } from "@/helpers/inputHelpers";
 import { getAnonymousAnswers, getGroupedAnswersResults } from "@/lib/results";
 import { serializeResultSubmission } from "@/lib/serialize-utils";
 import { getFormById } from "@/services/form-service";
 import { formHasResults, getAllSubmissions } from "@/services/result-service";
-import { requireUser } from "@/services/user-service";
 import { Answers, GroupedAnswer, SubmissionSerialized } from "@/types/result";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Podsumowanie danych zebranych przez formularz",
@@ -21,9 +20,7 @@ const FormResultsPage = async (props: Props) => {
   const { formId } = await props.params;
   const form = await getFormById(formId);
 
-  // TODO Pawel: move to middleware
-  const user = await requireUser();
-  if (!isUserAuthor(form, user.id)) redirect(`/forms/${formId}/preview`);
+  await verifyUserIsFormAuthor(form, formId);
 
   const { title = "", description = "", type, createdAt } = form;
   const submissions: SubmissionSerialized[] =

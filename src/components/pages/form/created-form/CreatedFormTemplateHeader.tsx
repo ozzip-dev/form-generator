@@ -7,8 +7,8 @@ type Props = {
 
 const CreatedFormTemplateHeader = ({ title = "", isTemplate }: Props) => {
   const formStateHeader = isTemplate
-    ? "Szkic formularza:"
-    : "Podgląd formularza:";
+    ? "Szkic formularza"
+    : "Podgląd formularza";
 
   return (
     <div className="fixed bottom-0 z-30 w-full bg-accent_opacity py-4 text-center">
