@@ -30,7 +30,6 @@ const collections: [string, DbModel][] = [
   ["event_log", EventLogModel],
 ];
 
-// TODO Pawel
 async function initCollections() {
   for (const [name, model] of collections) {
     const collections = db.listCollections({ name });
@@ -42,7 +41,7 @@ async function initCollections() {
   }
 }
 
-// TODO Pawel: or simply iterate through formTemplates?
+/* if template is missing at an instance, add it */
 async function addTemplateForms() {
   for (const id of Object.values(TemplateFormId)) {
     await maybeAddTemplateForm(db, id);

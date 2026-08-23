@@ -9,39 +9,26 @@ import { revalidateTag } from "next/cache";
 const removeInputOptionAction = async (
   formIdString: string,
   inputId: string,
-  optionName: string
+  optionName: string,
 ): Promise<void> => {
-  // throw new Error("llllllll");
-
   const index: number = Number(optionName.split(".")[1]);
   const formId = new ObjectId(formIdString);
 
   await requireUser();
 
-  // TODO Pawel: zrob to dobrze!!!
-  const form = await findById<Form>(db, "form", formId);
-  if (!form) return;
-
-  const { inputs } = form;
-  const { options } = inputs.find(({ id }) => id == inputId)!;
-
-  const filteredOptions = options.filter((_, i) => {
-    return i != index;
-  });
-
-  const mappedInputs = inputs.map((input) => {
-    if (input.id != inputId) return input;
-    return {
-      ...input,
-      options: filteredOptions,
-    };
-  });
-
-  await updateById(db, "form", formId, {
-    $set: {
-      inputs: [...mappedInputs],
+  await db.collection<Form>("form").updateOne(
+    { _id: formId, "inputs.id": inputId },
+    {
+      $unset: { [`inputs.$.options.${index}`]: "" },
     },
-  });
+  );
+
+  await db
+    .collection<Form>("form")
+    .updateOne(
+      { _id: formId, "inputs.id": inputId },
+      { $pull: { "inputs.$.options": undefined } },
+    );
 
   revalidateTag(`form-${formId}`);
 };

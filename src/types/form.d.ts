@@ -11,7 +11,7 @@ export type FormState =
 
 export interface FormTemplate extends Document {
   _id?: ObjectId;
-  id?: string; // TODO Pawel: id + state 'template': too much?
+  id?: string;
   type: FormType | "";
   resultVisibility: FormResultVisibility | "";
   title?: string;

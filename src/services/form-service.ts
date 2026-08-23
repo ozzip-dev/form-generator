@@ -217,25 +217,6 @@ export async function getSerializedFormList(): Promise<
   }
 }
 
-// TODO Pawel: nazwe moze zmienic? Aale sama logika chyba ok
-export const getFormByAuthor = async (
-  formId: string,
-): Promise<FormSerialized> => {
-  const user = await requireUser();
-  const form = await getForm(formId);
-
-  if (!form) {
-    throw new Error("Formularz nie istnieje");
-  }
-
-  const serializedForm = form;
-
-  if (!isUserAuthor(serializedForm, user._id))
-    throw new Error("Nie jesteś autorem tego formularza");
-
-  return serializedForm;
-};
-
 export async function getFormById(formId: string): Promise<Form> {
   const form = await findById<Form>(db, "form", new ObjectId(formId));
   if (!form) throw new Error("Invalid form id");
