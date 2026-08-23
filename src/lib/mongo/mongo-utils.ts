@@ -22,19 +22,12 @@ const getModelValidator = (
   required: string[],
 ): Document => ({
   $jsonSchema: {
-    // bsonType: 'object',
     required,
     properties,
   },
 });
 
 export const makeDbCollection = async (db: Db, model: DbModel) => {
-  // TODO Pawel: uncomment once db schemas are established
-  // const { name, properties, required } = model
-  // const validator: Document = getModelValidator(
-  //   properties, required
-  // )
-  // await db.createCollection(name, { validator })
   await db.createCollection(model.name);
 };
 
