@@ -6,7 +6,8 @@ import {
   UserDetailsSchema,
   userDetailsSchema,
 } from "@/lib/zod-schema/userDetailsShema";
-import { requireUser } from "@/services/user-service";
+import { addCommitteeDetailsUpdatedLog } from "@/services/event-log-service";
+import { requireUser, updateCommitteeInfo } from "@/services/user-service";
 import { CommitteeInfoKey, IUser, UserCommitteeInfo } from "@/types/user";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
@@ -14,7 +15,7 @@ import { redirect } from "next/navigation";
 
 export async function updateCommitteeDataAction(
   data: UserDetailsSchema,
-  isEditMode: boolean
+  isEditMode: boolean,
 ): Promise<void | { validationErrors: Record<string, string[]> }> {
   const user = await requireUser();
 
@@ -26,27 +27,7 @@ export async function updateCommitteeDataAction(
     };
   }
 
-  const updateData: Partial<UserCommitteeInfo> = {};
-
-  Object.entries(data)
-    .filter(([_, value]) => value)
-    .forEach(([key, value]) => {
-      if (typeof value === "string") {
-        updateData[key as CommitteeInfoKey] = value;
-      }
-    });
-
-  const userId = new ObjectId(user.id);
-
-  if (!user || !isModerator(user as IUser)) {
-    throw new Error("Invalid data: User does not exist or is not a moderator");
-  }
-
-  await updateById<IUser>(db, "user", userId, {
-    $set: {
-      ...updateData,
-    },
-  });
+  updateCommitteeInfo(user, data);
 
   revalidatePath("/user-settings");
 

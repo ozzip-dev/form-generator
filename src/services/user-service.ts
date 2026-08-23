@@ -1,5 +1,10 @@
 import { db, find, findById, updateById } from "@/lib/mongo";
-import { IUser, UserCommitteeInfo, UserSerialized } from "@/types/user";
+import {
+  CommitteeInfoKey,
+  IUser,
+  UserCommitteeInfo,
+  UserSerialized,
+} from "@/types/user";
 import { ObjectId } from "mongodb";
 import { cache } from "react";
 import { serializeUser } from "@/lib/serialize-utils";
@@ -9,9 +14,13 @@ import { redirect } from "next/navigation";
 import { FormType } from "@/enums/form";
 import { getFormsByType } from "./form-service";
 import { Form } from "@/types/form";
-import { isAdmin } from "@/lib/utils";
+import { isAdmin, isModerator } from "@/lib/utils";
 import { UserRole } from "@/lib/mongo/models";
-import { addPrivacyPolicyConfirmedLog } from "./event-log-service";
+import {
+  addCommitteeDetailsUpdatedLog,
+  addPrivacyPolicyConfirmedLog,
+} from "./event-log-service";
+import { UserDetailsSchema } from "@/lib/zod-schema/userDetailsShema";
 
 export const requireUser = cache(async (): Promise<IUser> => {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -77,6 +86,34 @@ export async function getCommitteeMembers(
     committeeEmail: committee.committeeEmail,
   });
   return users.map((user) => serializeUser(user));
+}
+
+export async function updateCommitteeInfo(
+  user: IUser,
+  data: UserDetailsSchema,
+): Promise<void> {
+  if (!user || !isModerator(user as IUser)) {
+    throw new Error("Invalid data: User does not exist or is not a moderator");
+  }
+
+  const userId = new ObjectId(user.id);
+  const updateData: Partial<UserCommitteeInfo> = {};
+
+  Object.entries(data)
+    .filter(([_, value]) => value)
+    .forEach(([key, value]) => {
+      if (typeof value === "string") {
+        updateData[key as CommitteeInfoKey] = value;
+      }
+    });
+
+  await updateById<IUser>(db, "user", userId, {
+    $set: {
+      ...updateData,
+    },
+  });
+
+  await addCommitteeDetailsUpdatedLog(user.id, updateData);
 }
 
 export async function getUserById(userId: string): Promise<IUser> {

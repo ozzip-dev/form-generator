@@ -10,6 +10,7 @@ import {
   updateById,
 } from "@/lib/mongo";
 import { EventLogType } from "@/enums/event-log";
+import { UserCommitteeInfo } from "@/types/user";
 
 const addEventLog = async (
   eventType: EventLogType,
@@ -38,15 +39,13 @@ export const addPrivacyPolicyConfirmedLog = async (userId: string) => {
   await addEventLog(EventLogType.PRIVACY_POLICY_CONFIRMED, userId);
 };
 
-// TODO Pawel: trigger in code
 export const addPasswordResetLog = async (userId: string) => {
   await addEventLog(EventLogType.PASSWORD_RESET, userId);
 };
 
-// TODO Pawel: trigger in code
 export const addCommitteeDetailsUpdatedLog = async (
   userId: string,
-  data: unknown,
+  data: Partial<UserCommitteeInfo>,
 ) => {
   await addEventLog(EventLogType.COMMITTEE_DETAILS_UPDATED, userId, data);
 };

@@ -4,7 +4,10 @@ import { sendEmail } from "@/lib/email";
 import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/mongo";
 import { UserRole } from "../mongo/models";
-import { addEmailVerifiedLog } from "@/services/event-log-service";
+import {
+  addEmailVerifiedLog,
+  addPasswordResetLog,
+} from "@/services/event-log-service";
 
 const getAuthEmailTemplate = (
   userName: string,
@@ -103,6 +106,7 @@ export const auth = betterAuth({
           "Zmień hasło",
         ),
       });
+      await addPasswordResetLog(user.id);
     },
   },
   socialProviders: {
@@ -144,5 +148,6 @@ export const auth = betterAuth({
       await addEmailVerifiedLog(user.id);
     },
   },
+
   plugins: [nextCookies()],
 });
