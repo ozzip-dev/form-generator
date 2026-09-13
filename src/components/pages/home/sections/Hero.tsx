@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect } from "react";
 
 const Hero = () => {
@@ -232,21 +233,23 @@ const Hero = () => {
         <div className="hero-inner lg:grid-cols-2">
           <div className="hero-text">
             <div className="hero-badge">Narzędzie dla związków zawodowych</div>
-            <h1 className="hero">
-              Ankiety, głosowania i formularze dla organizacji związkowych
-            </h1>
-            <p className="hero-sub">
-              Aplikacja do zbierania opinii i organizowania głosowań online.
-              Szybko, bezpiecznie, bez chaosu maili. Jeden system dla całej
-              organizacji.
-            </p>
+            <div className="hero">
+              <ul>
+                <li>Zbieraj opinie i organizuj głosowania online</li>
+                <li>
+                  Archiwizuj spory zbiorowe, dziel się doświadczeniami z innymi
+                  komisjami
+                </li>
+                <li>
+                  Szybko, bezpiecznie, bez chaosu maili. Jeden system dla całej
+                  organizacji
+                </li>
+              </ul>
+            </div>
             <div className="hero-btns">
-              <a
-                href="https://form-generator-test.sliplane.app/admin-contact"
-                className="btn-primary-rounded"
-              >
+              <Link href="/admin-contact" className="btn-primary-rounded">
                 Zarejestruj organizację
-              </a>
+              </Link>
             </div>
           </div>
 
