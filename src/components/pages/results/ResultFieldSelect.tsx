@@ -34,14 +34,17 @@ const ResultFieldSelect = (props: Props) => {
 
       <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-x-12">
         {formInputs.map(({ id, header }, idx) => (
-          <div key={id} className="flex gap-2">
+          <div
+            key={id}
+            className="flex min-w-0 max-w-[95%] gap-2 [&>label]:truncate"
+          >
             <div>{idx + 1}.</div>
             <Checkbox
               name={`result-field-${id}`}
               onChange={() => onChange(id as string)}
               checkedValue={!!formInputs.find((el) => el.id == id)?.selected}
               checkboxLabel={header}
-              labelClassName="truncate flex-grow w-[5rem]"
+              labelClassName="min-w-0 flex-grow truncate"
             />
           </div>
         ))}
