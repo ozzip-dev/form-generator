@@ -53,7 +53,7 @@ const Results = (props: Props) => {
               <div className="flex gap-6">
                 <h1>{title}</h1>
                 <div className="flex-shrink-0 font-[var(--fw-base)]">
-                  ({props.submissionNumber} wyników)
+                  (wyniki: {props.submissionNumber})
                 </div>
               </div>
               <div className="text-center text-2xs text-font_light sm:text-left">
