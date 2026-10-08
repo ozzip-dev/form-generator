@@ -1,7 +1,6 @@
 import { FormSerialized } from "@/types/form";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import { formStateWithLabels, isActive } from "@/helpers/formHelpers";
-import Link from "next/link";
+import { formStateWithLabels } from "@/helpers/formHelpers";
 
 type Props = {
   forms: FormSerialized[];
@@ -17,15 +16,6 @@ const FormsOfTypeList = ({ forms }: Props) => {
             <div className="font-black">{title}</div>
             <div>Utworzono: {formatDateAndTime(createdAt)}</div>
             {state && <div>Stan: {formStateWithLabels[state]}</div>}
-            {isActive(form) && (
-              <Link
-                className="btn-primary-rounded m-auto text-white"
-                href={`/forms/${_id}/preview`}
-                target="_blank"
-              >
-                Przejdź
-              </Link>
-            )}
           </div>
         );
       })}
