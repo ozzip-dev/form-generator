@@ -15,7 +15,7 @@ import { revalidateTag } from "next/cache";
 
 export async function copyFormAction(
   formId: string,
-): Promise<{ success: true } | { error: string }> {
+): Promise<null | { error: string }> {
   const user = await requireUser();
 
   const form: Form = await getFormById(formId);
@@ -34,13 +34,11 @@ export async function copyFormAction(
     await copyForm(db, form, user.id);
   } catch (error) {
     return {
-      errors: {
-        url: [(error as Error).message],
-      },
+      error: (error as Error).message,
     };
   }
 
   revalidateTag(`form-${formId}`);
 
-  return { success: true };
+  return null;
 }

@@ -45,11 +45,11 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   const [_, copyAction, isPending] = useActionState(async () => {
     try {
       if (!form?._id) return;
-      const { error } = await copyFormAction(form._id);
-      if (!!error) {
+      const response = await copyFormAction(form._id);
+      if (!!response?.error) {
         toast({
           title: "Błąd",
-          description: error,
+          description: response.error,
           variant: "error",
         });
       } else {

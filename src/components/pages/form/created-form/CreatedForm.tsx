@@ -54,16 +54,19 @@ type Props = {
   authorEmail?: string;
   isPreview?: boolean;
   isTemplatePreview?: boolean;
+  isLoggedIn?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
   const {
     title,
+    templateTitle,
     description,
     inputs,
     displayAuthorEmail,
     resultVisibility,
     state,
+    id,
   } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
@@ -167,7 +170,10 @@ const CreatedForm = (props: Props) => {
       {!canSubmit && (
         <CreatedFormTemplateHeader
           title={title}
+          templateTitle={templateTitle}
           isTemplate={isTemplate(props.form)}
+          isLoggedIn={props.isLoggedIn}
+          id={id}
         />
       )}
 
