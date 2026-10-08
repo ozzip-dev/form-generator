@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import {
   db,
@@ -16,10 +17,11 @@ import { cache } from "react";
 import { redirect } from "next/navigation";
 import { serializeFile, serializeForm } from "@/lib/serialize-utils";
 import { getUserById, requireUser } from "./user-service";
-import { isUserAuthor } from "@/helpers/formHelpers";
+import { isUserAuthor, maxFormCount } from "@/helpers/formHelpers";
 import { getFileById, removeFile } from "./file-service";
 import { File } from "@/types/file";
 import { TemplateFormId } from "@/lib/mongo/models";
+import { makeId } from "@/lib/utils";
 
 export const getForm = cache(
   async (formId: string): Promise<FormSerialized> => {
@@ -51,6 +53,21 @@ export async function formHasInputWithId(
   if (!form) return false;
   return form.inputs.some(({ id }) => id === inputId);
 }
+
+export const hasReachedFormLimit = async (
+  userId: ObjectId,
+): Promise<boolean> => {
+  const formsCount = await db.collection("form").countDocuments({
+    createdBy: userId,
+    state: {
+      $in: ["active", "draft"],
+    },
+  });
+
+  console.log({ formsCount, maxFormCount });
+
+  return formsCount >= maxFormCount;
+};
 
 export async function createDraft(
   db: Db,
@@ -354,3 +371,47 @@ export async function getFormAdditionalData(formId: string): Promise<{
     authorEmail: formAuthor?.committeeEmail || "",
   };
 }
+
+export async function copyForm(
+  db: Db,
+  form: Form | FormSerialized,
+  authorId: string,
+): Promise<ObjectId> {
+  const isAuthor = isUserAuthor(form, authorId);
+
+  if (!isAuthor)
+    throw new Error("Tylko autor/autorka może kopiować formularz.");
+
+  const inputs = form.inputs.map((formInput) => {
+    const uuid = uuidv4();
+
+    return {
+      ...formInput,
+      submittedValues: [],
+      id: makeId(uuid),
+    };
+  });
+
+  const { insertedId } = await insert<Form>(db, "form", {
+    ...form,
+    _id: new ObjectId(),
+    createdBy: new ObjectId(form.createdBy),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    state: "draft",
+    url: undefined,
+    inputs,
+    title: `[KOPIA] ${form.title}`,
+  });
+
+  return insertedId;
+}
+
+export const checkFormLimitError = async (
+  userId: ObjectId,
+): Promise<string | null> => {
+  if (await hasReachedFormLimit(userId)) {
+    return `Limit formularzy osiągnięty: ${maxFormCount}`;
+  }
+  return null;
+};

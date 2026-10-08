@@ -5,11 +5,18 @@ import { useFormData } from "@/context/FormDataContextProvider";
 import { useUser } from "@/context/UserContextProvider";
 import { isActive, isUserAuthor } from "@/helpers/formHelpers";
 import { UserSerialized } from "@/types/user";
-import { use, useEffect, useState } from "react";
+import {
+  startTransition,
+  use,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
 import SetFormDisabledForm from "./disable-form/SetFormDisabledForm";
 import { useToast } from "@/context/ToastProvider";
+import { copyFormAction } from "@/actions/form/copyFormAction";
 
 const mapTypes: Record<string, string> = {
   survey: "ankieta pracownicza",
@@ -34,6 +41,36 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   useEffect(() => {
     setOrigin(window.location.origin);
   }, []);
+
+  const [_, copyAction, isPending] = useActionState(async () => {
+    try {
+      if (!form?._id) return;
+      const { error } = await copyFormAction(form._id);
+      if (!!error) {
+        toast({
+          title: "Błąd",
+          description: error,
+          variant: "error",
+        });
+      } else {
+        toast({
+          title: "Sukces",
+          description: "Formularz skopiowany. Nowy szkic dodany do listy",
+          variant: "success",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Błąd",
+        description: "Błąd przy kopiowaniu formularza.",
+        variant: "error",
+      });
+    }
+  }, null);
+
+  const handleCopyForm = () => {
+    startTransition(copyAction);
+  };
 
   if (!form) return null;
 
@@ -129,6 +166,14 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
       {isAuthor && _id && (
         <div className="flex flex-col gap-sm pb-20">
+          <Button
+            message="Skopiuj formularz"
+            isLoading={isPending}
+            className="ml-auto w-fit"
+            variant="primary-rounded"
+            onClickAction={handleCopyForm}
+          />
+
           {isFormActive && <SetFormDisabledForm formId={_id} />}
 
           <RemoveFormButton formId={_id} />
