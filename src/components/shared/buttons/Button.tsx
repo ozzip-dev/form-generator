@@ -1,4 +1,3 @@
-import { boolean } from "better-auth/*";
 import Loader from "../loaders/Loader";
 
 const VARIANTS = {
