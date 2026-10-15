@@ -6,29 +6,26 @@ const Tool = () => {
   const toolData: { icon: string; text: string }[] = [
     {
       icon: "form",
-      text: "Twórz formularze w kilka minut",
+      text: "Formularze w kilka minut. Wybierz szablon albo zacznij od zera",
     },
     {
       icon: "results-view",
-      text: "Aktualne wyniki w formie tabel i wykresów",
+      text: "Wyniki na bieżąco. Tabele i wykresy aktualizowane po każdej odpowiedzi",
     },
     {
       icon: "results-export",
-      text: "Eksportuj wyniki w formatach .xls i .pdf",
+      text: "Eksport wyników do .xls i .pdf",
     },
     {
       icon: "gear",
-      text: "Nawiąż kontakty z innymi organizacjami",
+      text: "Kontakty z innymi oragnizacjami. Wymieniaj się dośwaidczeniami z podobnymi organizacjami",
     },
   ];
 
   return (
     <section className="container">
       <div className="container pb-20 pt-16">
-        <SectionHeader
-          header="Aplikacja dla organizacji pracowniczych, które chcą szybko i
-            wspólnie podejmować decyzje"
-        />
+        <SectionHeader header="Szybie decyzje podejmowane wspólnie" />
 
         <ul className="mt-16 flex list-none flex-wrap justify-center gap-10">
           {toolData.map(({ icon, text }, idx) => (

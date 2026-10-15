@@ -34,9 +34,8 @@ const faqData = [
     header: "Jak długo przechowywane są zebrane dane?",
     content: (
       <p>
-        Zebrane dane są przechowywane do momentu ich usunięcia przez twórcę
-        formularza. Zamknięcie formularza nie usuwa zgromadzonych odpowiedzi,
-        można je usunąć osobno w dowolnym momencie.
+        Do momentu ich usunięcia przez twórcę formularza. Zamknięcie formularza
+        ich nie usuwa, można je usunąć osobno w dowolnym momencie.
       </p>
     ),
   },

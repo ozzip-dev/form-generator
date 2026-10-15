@@ -8,7 +8,6 @@ import {
   Usage,
   Vote,
 } from "@/components/pages/home/sections";
-import ContactDetails from "@/components/pages/home/sections/ContactDetails";
 
 const PageHome = () => {
   return (
@@ -20,7 +19,6 @@ const PageHome = () => {
       <Vote />
       <Usage />
       <Faq />
-      <ContactDetails />
     </Home>
   );
 };

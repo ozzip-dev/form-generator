@@ -232,23 +232,22 @@ const Hero = () => {
         <canvas id="heroCanvas" />
         <div className="hero-inner lg:grid-cols-2">
           <div className="hero-text">
-            <div className="hero-badge">Narzędzie dla związków zawodowych</div>
+            <p>Formy Pracy - dla organizacji związkowych i pracowniczych</p>
+            <div className="hero-badge">
+              Chcesz przeprowadzić wybory, głosówanie albo anietę wśród
+              członków?
+            </div>
             <div className="hero">
               <ul>
-                <li>Zbieraj opinie i organizuj głosowania online</li>
                 <li>
-                  Archiwizuj spory zbiorowe, dziel się doświadczeniami z innymi
-                  komisjami
-                </li>
-                <li>
-                  Szybko, bezpiecznie, bez chaosu maili. Jeden system dla całej
-                  organizacji
+                  Zbierz głosy i opinie online. Wyniki zobaczysz od razu, a dane
+                  zostaną w Twojej organizacji
                 </li>
               </ul>
             </div>
             <div className="hero-btns">
               <Link href="/admin-contact" className="btn-primary-rounded">
-                Zarejestruj organizację
+                Zobacz gotowe szablony
               </Link>
             </div>
           </div>

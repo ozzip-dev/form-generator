@@ -4,18 +4,18 @@ import SectionHeader from "../SectionHeader";
 const voteVisibilityItems = [
   {
     image: "/images/voting.jpg",
-    header: "Głosowanie anonimowe",
-    text: "Zbiorcze podsumowanie odpowiedzi bez powiązania z pojedynczymi formularzami.",
+    header: "Anonimowe",
+    text: "Zbiorcze podsumowanie odpowiedzi bez powiązania z konkretnym głosującym.",
   },
   {
     image: "/images/hands.jpg",
-    header: "Głosowanie jawne",
-    text: "Pełny dostęp do odpowiedzi z możliwością identyfikacji każdego głosującego.",
+    header: "Jawne",
+    text: "Pełny dostęp do odpowiedzi i wiesz kto jak głosował.",
   },
   {
     image: "/images/card.jpg",
-    header: "Głosowanie częściowo anonimowe",
-    text: "Możliwość ukrycia wybranych odpowiedzi, np. danych osobowych, przy zachowaniu pozostałych.",
+    header: "Częściowo anonimowe",
+    text: "Wybrane odpowiedzi ukryte, np. dane osobowe, przy zachowaniu pozostałych.",
   },
 ];
 
@@ -24,8 +24,8 @@ const VoteVisibility = () => {
     <section className="bg-font_dark text-white">
       <div className="container pb-20 pt-16">
         <SectionHeader
-          header="Pełna kontrola nad zapisem danych"
-          subheader="Organizacja związkowa określa sposób zbierania odpowiedzi. Anonimowe lub janwne głosowania. Dane pozostają w Twojej organizacji"
+          header="Decydujesz jak zapisują się wypowiedzi"
+          subheader="Wyberasz tryb glosowania. Dane pozostają w Twojej organizacji."
         />
 
         <ul className="mt-12 grid list-none grid-cols-1 gap-10 md:grid-cols-3">

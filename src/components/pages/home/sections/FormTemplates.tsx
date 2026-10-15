@@ -23,8 +23,8 @@ const FormTemplates = async () => {
     <section className="bg-font_dark text-white">
       <div className="container pb-20 pt-16">
         <SectionHeader
-          header="Gotowe szablony formularzy"
-          subheader="Wybierz gotowy formularz i dostosuj go do swojej organizacji."
+          header="Zacznij od gotowego szablonu"
+          subheader="Wybierz swoją sytuację i dostosuj formularz do organizacji."
         />
 
         <ul className="mt-16 grid list-none grid-cols-2 gap-10 sm:justify-center lg:grid-cols-4">

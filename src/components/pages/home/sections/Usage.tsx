@@ -3,20 +3,17 @@ import SectionHeader from "../SectionHeader";
 
 const Usage = () => {
   const usageCases: string[] = [
-    "Zbieranie opinii o warunkach pracy",
-    "Konsultacje w sprawie regulaminów",
-    "Głosowanie na temat planowanych działań",
-    "Organizacja spotkań i wydarzeń",
+    "Opinie o warunkach pracy",
+    "Konsultacje regulaminów",
+    "Głosowanie nad planowanymi działaniami",
+    "Spotkania i wydarzenia",
     "Szybkie ankiety w zakładach pracy",
-    "Organizowanie wyborów",
+    "Wybory",
   ];
   return (
     <section className="">
       <div className="container pb-20 pt-16">
-        <SectionHeader
-          header="Zastosowania w organizacjach związkowych"
-          subheader="Zamiast maili i chaosu jeden uporządkowany system"
-        />
+        <SectionHeader header="Zamiast maili i chaosu jeden uporządkowany system" />
 
         <ul className="mt-16 grid list-none gap-8 md:grid-cols-2">
           {usageCases.map((text, idx) => (
