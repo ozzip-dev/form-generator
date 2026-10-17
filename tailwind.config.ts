@@ -10,11 +10,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: "rgb(var(--color-accent) / <alpha-value>)",
+        accent: "var(--color-accent)",
         accent_dark: "var(--color-accent_dark)",
         accent_light: "var(--color-accent_light)",
         accent_lighter: "var(--color-accent_lighter)",
         accent_opacity: "var(--color-accent_opacity)",
+        gray: "var(--color-gray)",
 
         bg_dark: "var(--color-bg_dark)",
         bg_light: "var(--color-bg_light)",
@@ -41,9 +42,9 @@ module.exports = {
       container: {
         center: true,
         padding: {
-          DEFAULT: "1rem",
-          sm: "1.5rem",
-          lg: "2rem",
+          DEFAULT: "2rem",
+          // sm: "1.5rem",
+          // lg: "2rem",
         },
         screens: {
           xl: "1450px",

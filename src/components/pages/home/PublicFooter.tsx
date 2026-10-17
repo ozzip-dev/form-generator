@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PublicFooter() {
   return (
-    <footer className="mb-2 mt-auto">
+    <footer className="mt-auto border-t border-gray py-6">
       <div className="items-center justify-center p-2 md:flex">
         <Image
           src="/images/UELogos.webp"

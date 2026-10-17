@@ -1,4 +1,4 @@
-import { ButtonLink } from "@/components/shared";
+import { ButtonLink, Icon } from "@/components/shared";
 import { TemplateFormId } from "@/lib/mongo/models";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,28 +12,37 @@ type Props = {
 const FormTemplate = ({ _id, id, templateTitle }: Props) => {
   const templateCard = (
     <div
-      className={`group relative flex items-center justify-center overflow-hidden rounded-[40px] text-font_dark ${
+      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-sm border border-gray p-10 ${
         _id
           ? "cursor-pointer transition-transform duration-100 hover:scale-[1.03]"
           : ""
       }`}
     >
-      <Image
+      {/* <Image
         src={`/images/templates/${id || "custom"}.png`}
         alt=""
         width={300}
         height={250}
         className="h-auto w-full"
         style={!!id ? { border: "25px #f0f0f0 solid" } : {}}
-      />
+      /> */}
 
-      <div className="absolute inset-0 mt-auto flex w-full items-end justify-center">
-        <p className="h-[37%] w-full bg-white px-4 pt-3 text-center leading-7 sm:h-1/3 sm:pt-6 xl:pt-8">
-          {templateTitle}
-        </p>
+      <div className="">
+        <p className="my-6 text-lg font-bold">{templateTitle}</p>
+      </div>
+      <div className="mt-auto flex items-center gap-2">
+        {" "}
+        {_id ? <div>Zobacz</div> : <div>Zaczynam</div>}{" "}
+        {
+          <Icon
+            icon={"chevron-down-solid-full"}
+            size={15}
+            className={`-rotate-90 ${_id ? "bg-font_dark" : "bg-white"}`}
+          />
+        }
       </div>
 
-      {_id && (
+      {/* {_id && (
         <div className="absolute inset-0 opacity-0 transition-opacity duration-100 group-hover:opacity-100">
           <div className="absolute inset-0 bg-font_dark opacity-80" />
 
@@ -43,7 +52,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 
@@ -52,12 +61,18 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
       href={`/${_id}`}
       target="_blank"
       aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="mx-auto mb-8 block"
+      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light"
     >
       {templateCard}
     </Link>
   ) : (
-    <div className="mx-auto mb-8">{templateCard}</div>
+    <Link
+      href={`/login`}
+      target="_blank"
+      className="bg-gradient-accent mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white"
+    >
+      {templateCard}
+    </Link>
   );
 };
 

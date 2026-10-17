@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import Card from "./Card";
+import Card from "./cards/Card";
 
 type ModalWrapperProps = {
   isOpen?: boolean;
@@ -25,10 +25,10 @@ export default function ModalWrapper({
   return (
     <div
       onClick={handleOverlayClick}
-      className="fixed inset-0 bg-white/50 backdrop-blur-sm flex items-center justify-center z-[100]"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-white/50 backdrop-blur-sm"
     >
       <Card className="relative mx-4">
-        <button onClick={onClose} className="absolute top-4 right-8  text-lg">
+        <button onClick={onClose} className="absolute right-8 top-4 text-lg">
           ✕
         </button>
 

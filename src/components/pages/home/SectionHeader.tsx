@@ -1,14 +1,21 @@
 type Props = {
+  title?: string;
   header: string;
   subheader?: string;
+  className?: string;
 };
 
 const SectionHeader = (props: Props) => {
   return (
-    <div className="mx-auto w-4/5 text-center">
-      <h2 className="mb-8 text-xl font-semibold">{props.header}</h2>
+    <div className={`md:w-4/5 ${props.className && props.className}`}>
+      {!!props.title && (
+        <div className="text-xs font-extrabold">{props.title}</div>
+      )}
+      <h2 className="my-4 text-2xl font-bold">{props.header}</h2>
 
-      {!!props.subheader && <div className="text-md">{props.subheader}</div>}
+      {!!props.subheader && (
+        <div className="text-md text-font_light">{props.subheader}</div>
+      )}
     </div>
   );
 };

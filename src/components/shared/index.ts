@@ -37,7 +37,7 @@ export { default as ModalWrapper } from "./ModalWrapper";
 
 export { default as UploadFileForm } from "./UploadFileForm";
 export { default as InfoIcon } from "./InfoIcon";
-export { default as Card } from "./Card";
+export { default as Card } from "./cards/Card";
 export { default as VideoCard } from "./VideoCard";
 export { default as Icon } from "./icons/Icon";
 export { default as BackToHomeLink } from "./BackToHomeLink";

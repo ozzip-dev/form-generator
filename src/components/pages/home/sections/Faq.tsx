@@ -9,7 +9,7 @@ const faqData = [
   {
     header: "Czy aplikacja jest darmowa?",
     content: (
-      <p>
+      <p className="mt-8">
         Korzystanie z aplikacji jest bezpłatne dla organizacji związkowych. Po
         <Link href="/admin-contact" className="text-accent" target="blank">
           {" "}
@@ -22,7 +22,7 @@ const faqData = [
   {
     header: "Czy mogę eksportować wyniki do Excela?",
     content: (
-      <p>
+      <p className="mt-8">
         Dane można wyeksportować do pliku Excel (XLSX) lub PDF. Raport PDF może
         zawierać podsumowanie wszystkich odpowiedzi lub szczegółowe zestawienie
         z każdego formularza.
@@ -33,7 +33,7 @@ const faqData = [
   {
     header: "Jak długo przechowywane są zebrane dane?",
     content: (
-      <p>
+      <p className="mt-8">
         Do momentu ich usunięcia przez twórcę formularza. Zamknięcie formularza
         ich nie usuwa, można je usunąć osobno w dowolnym momencie.
       </p>
@@ -53,11 +53,11 @@ const Faq = () => {
   };
 
   return (
-    <section className="bg-font_dark text-white">
-      <div className="container py-20">
+    <section className="bg-bg_dark">
+      <div className="container-sm py-20">
         <SectionHeader header="Często zadawane pytania" />
 
-        <ul className="mx-auto mt-12 flex w-2/3 list-none flex-col gap-6 text-font_dark">
+        <ul className="mx-auto mt-12 flex list-none flex-col gap-6 text-font_dark">
           {faqData.map(({ header, content }, idx) => {
             const isOpen = !!openItems[idx];
             return (

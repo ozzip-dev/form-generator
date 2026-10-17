@@ -2,6 +2,7 @@ import Image from "next/image";
 import SectionHeader from "../SectionHeader";
 import StepDots from "../StepDots";
 import Link from "next/link";
+import CardSmall from "@/components/shared/cards/CardSmall";
 
 const steps = [
   {
@@ -12,7 +13,7 @@ const steps = [
         Zarejestruj organizację
       </Link>
     ),
-    description: "Skontaktuj się z obsłigą aplikacji",
+    description: "Skontaktuj się z obsłigą aplikacji.",
     layoutClass: "lg:col-start-1 lg:row-start-1 lg:justify-self-end",
     alt: "Zarejestruj organizację",
   },
@@ -27,7 +28,7 @@ const steps = [
         <span className="block"> i udostępnij link zainteresowanym</span>
       </>
     ),
-    description: "Udostępnij link do oddania głosu",
+    description: "Udostępnij link do oddania głosu.",
     layoutClass: "lg:col-start-3 lg:row-start-2 lg:justify-self-start",
     alt: "Utwórz własny formularz",
   },
@@ -35,17 +36,17 @@ const steps = [
     id: 3,
     image: "/images/step3.png",
     text: "Śledź wyniki na bieżąco",
-    description: "Odpowiedzi widzisz na bierząco",
+    description: "Odpowiedzi widzisz na bierząco.",
     layoutClass: "lg:col-start-1 lg:row-start-3 lg:justify-self-end",
-    alt: "Śledź wyniki na bieżąco",
+    alt: "Śledź wyniki na bieżąco.",
   },
   {
     id: 4,
     image: "/images/step4.png",
     text: "Wymień doświadczenia",
-    description: "Porozmawiaj z innymi organizacjami",
+    description: "Porozmawiaj z innymi organizacjami.",
     layoutClass: "lg:col-start-3 lg:row-start-4 lg:justify-self-start",
-    alt: "Wymień się doświadczeniami z innymi organizacjami",
+    alt: "Wymień się doświadczeniami z innymi organizacjami.",
   },
 ];
 
@@ -53,36 +54,39 @@ const Steps = () => {
   return (
     <section className="text-font_dark">
       <div className="container pb-20 pt-16">
-        <SectionHeader header="Od pomysłu do wyników w 4 krokach" />
+        <SectionHeader
+          title="JAK TO DZIAŁA"
+          header="Od pomysłu do wyników w 4 krokach"
+        />
 
         <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-4 lg:gap-x-10 lg:gap-y-0">
           <ol className="contents">
             {steps.map(({ id, image, text, description, alt, layoutClass }) => (
               <li
                 key={id}
-                className={`relative w-full max-w-[560px] list-none ${layoutClass} justify-self-center`}
+                className={`relative w-full ${layoutClass} justify-self-center`}
               >
-                <Image
+                <CardSmall>
+                  {" "}
+                  <div className="flex items-start text-font_dark">
+                    <div className="">
+                      <p className="mb-2 text-lg font-bold leading-snug">
+                        {text}
+                      </p>
+                      <p className="leading-snug text-font_light">
+                        {description}
+                      </p>
+                    </div>
+                  </div>{" "}
+                </CardSmall>
+                {/* <Image
                   src={image}
                   alt={alt}
                   width={560}
                   height={240}
                   className="h-auto w-full rounded-[24px]"
                   priority={id === 1}
-                />
-                <div className="absolute inset-0 flex items-start p-6 text-font_dark sm:p-8">
-                  <div className="max-w-[38%]">
-                    <div className="text-xl font-semibold leading-tight sm:text-xl">
-                      {id}
-                    </div>
-                    <p className="mt-1 text-sm leading-snug sm:text-base">
-                      {text}
-                    </p>
-                    <p className="mt-1 text-sm leading-snug sm:text-base">
-                      {description}
-                    </p>
-                  </div>
-                </div>
+                /> */}
               </li>
             ))}
           </ol>
@@ -96,7 +100,7 @@ const Steps = () => {
               <div className="flex h-full w-full flex-col items-center">
                 <StepDots isDisplayed={id > 1} />
 
-                <div className="flex h-[56px] w-[56px] items-center justify-center rounded-full bg-[#D10000] text-[30px] leading-none text-white">
+                <div className="bg-gradient-accent flex h-[56px] w-[56px] items-center justify-center rounded-full text-[30px] leading-none text-white">
                   {id}
                 </div>
 

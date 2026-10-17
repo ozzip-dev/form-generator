@@ -8,11 +8,13 @@ import {
   Usage,
   Vote,
 } from "@/components/pages/home/sections";
+import HeroAnimation from "@/components/pages/home/sections/HeroAnimation";
 
 const PageHome = () => {
   return (
     <Home>
-      <Hero />
+      {/* <Hero /> */}
+      <HeroAnimation />
       <Tool />
       <FormTemplates />
       <Steps />
