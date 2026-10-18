@@ -24,7 +24,7 @@ const VoteVisibility = () => {
     <section className="bg-bg_dark">
       <div className="container py-20">
         <SectionHeader
-          title="PEŁNA KONTROLA NAD ZAPISEM DANYCH"
+          title="Pełna kontrola nad zapisem danych"
           header="Ty decydujesz, jak zapisują się odpowiedzi"
           subheader="Wybierasz tryb głosowania. Dane pozostają w Twojej organizacji."
         />

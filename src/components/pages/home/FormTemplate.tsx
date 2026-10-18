@@ -32,13 +32,15 @@ const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
           <Icon
             icon={"arrow"}
             size={20}
-            className={`-rotate-[130deg] transition-transform duration-300 group-hover:-translate-y-2 ${_id ? "bg-font_light group-hover:bg-white" : "bg-white"}`}
+            className={`-rotate-[130deg] transition-colors duration-300 ${_id ? "bg-font_light group-hover:bg-white" : "bg-white"}`}
           />
         </div>
       </div>{" "}
       <div className="mt-auto">
-        <p className={` ${_id ? "text-accent" : "text-white"}`}>{subtitle}</p>
-        <p className="text-md mt-2 text-lg font-bold">{templateTitle}</p>
+        <p className={`text-xs ${_id ? "text-accent" : "text-white"}`}>
+          {subtitle}
+        </p>
+        <p className="mt-2 font-bold">{templateTitle}</p>
       </div>
     </div>
   );
@@ -48,7 +50,7 @@ const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
       href={`/${_id}`}
       target="_blank"
       aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light transition-transform duration-300 hover:-translate-y-2"
+      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
     >
       {templateCard}
     </Link>
@@ -56,7 +58,7 @@ const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
     <Link
       href={`/login`}
       target="_blank"
-      className="bg-gradient-accent-light mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white transition-transform duration-300 hover:-translate-y-2"
+      className="bg-gradient-accent-light mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
     >
       {templateCard}
     </Link>

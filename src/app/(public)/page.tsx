@@ -9,6 +9,7 @@ import {
   Vote,
 } from "@/components/pages/home/sections";
 import HeroAnimation from "@/components/pages/home/sections/HeroAnimation";
+import Start from "@/components/pages/home/sections/Start";
 
 const PageHome = () => {
   return (
@@ -21,6 +22,7 @@ const PageHome = () => {
       <Vote />
       <Usage />
       <Faq />
+      <Start />
     </Home>
   );
 };
