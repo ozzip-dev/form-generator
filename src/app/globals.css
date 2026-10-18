@@ -292,8 +292,12 @@ body {
   }
 } */
 @keyframes hero-f3 {
+  from {
+    transform: scale(0.5);
+  }
+
   to {
-    transform: translate(-240px, -60px) scale(1.15);
+    transform: translate(-240px, -60px) scale(1.5);
   }
 }
 
@@ -305,12 +309,12 @@ body {
     transform: rotate(7deg) scaleX(1.15);
   }
 }
-@keyframes hero-shadow {
+/* @keyframes hero-shadow {
   50% {
     transform: scale(0.8);
     opacity: 0.6;
   }
-}
+} */
 
 /* @keyframes hero-float {
   50% {
