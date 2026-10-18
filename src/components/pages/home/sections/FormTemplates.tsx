@@ -25,7 +25,7 @@ const FormTemplates = async () => {
     <section className="bg-bg_dark" id="templates">
       <div className="container py-20">
         <SectionHeader
-          title="GOTOWE SZABLONY FORMULARZY"
+          title="Gotowe szablony formularzy"
           header="Zacznij od gotowego szablonu"
           subheader="Wybierz swoją sytuację i dostosuj formularz do organizacji."
         />

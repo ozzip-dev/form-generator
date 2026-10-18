@@ -19,7 +19,7 @@ const Hero = () => {
     const getRgb = (property: string, fallback: number[]) =>
       styles.getPropertyValue(property).match(/\d+/g)?.map(Number) ?? fallback;
     const accent = getRgb("--acc", [192, 0, 0]);
-    const dark = getRgb("--color-font_dark", [66, 66, 66]);
+    const dark = getRgb("--color-font-dark", [66, 66, 66]);
     const blobColor = (accentAmount: number) => {
       const shade = dark.map((channel, index) =>
         Math.round(channel + (accent[index] - channel) * accentAmount),

@@ -11,17 +11,17 @@ module.exports = {
     extend: {
       colors: {
         accent: "var(--color-accent)",
-        accent_dark: "var(--color-accent_dark)",
-        accent_light: "var(--color-accent_light)",
+        accent_dark: "var(--color-accent-dark)",
+        accent_light: "var(--color-accent-light)",
         accent_lighter: "var(--color-accent_lighter)",
         accent_opacity: "var(--color-accent_opacity)",
         gray: "var(--color-gray)",
 
-        bg_dark: "var(--color-bg_dark)",
-        bg_light: "var(--color-bg_light)",
+        bg_dark: "var(--color-bg-dark)",
+        bg_light: "var(--color-bg-light)",
 
-        font_dark: "var(--color-font_dark)",
-        font_light: "var(--color-font_light)",
+        font_dark: "var(--color-font-dark)",
+        font_light: "var(--color-font-light)",
 
         error: "var(--color-error)",
       },

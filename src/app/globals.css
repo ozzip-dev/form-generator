@@ -18,20 +18,20 @@
   --fw-semi-bold: 500;
   --fw-bold: 700;
 
-  --color-accent: #334b67;
-  --color-accent_dark: #930000;
-  --color-accent_light: #3d6fa5;
+  --color-accent: #3d71ac;
+  --color-accent-dark: #334b67;
+  --color-accent-light: #3d6fa5;
   --color-accent_lighter: #ffb3b3;
   --color-accent_opacity: #ff8b8b;
   --color-gray: #c3c8d0;
 
   /* --color-bg_dark: rgba(245, 245, 245, 1);
   --color-bg_light: rgba(251, 251, 251, 1); */
-  --color-bg_dark: #dfe2e6;
-  --color-bg_light: #eff1f4;
+  --color-bg-dark: #dfe2e6;
+  --color-bg-light: #eff1f4;
 
-  --color-font_dark: rgb(66, 66, 66);
-  --color-font_light: rgb(95 101 111);
+  --color-font-dark: rgb(66, 66, 66);
+  --color-font-light: rgb(95 101 111);
   --color-error: rgb(231, 0, 0);
 
   /* Hero */
@@ -58,7 +58,7 @@
 
 @layer base {
   body {
-    color: var(--color-font_dark);
+    color: var(--color-font-dark);
   }
 }
 
@@ -104,9 +104,13 @@ body {
 .bg-gradient-accent {
   background: linear-gradient(
     135deg,
-    var(--color-accent) 0%,
-    var(--color-accent_light) 100%
+    var(--color-accent-dark) 30%,
+    var(--color-gray) 100%
   );
+}
+
+.shadow-accent {
+  box-shadow: 10px 10px 20px 5px var(--color-accent);
 }
 
 /* util classes */

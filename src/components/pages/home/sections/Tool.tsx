@@ -2,17 +2,18 @@ import Image from "next/image";
 import SectionHeader from "../SectionHeader";
 import { Icon } from "@/components/shared";
 import CardSmall from "@/components/shared/cards/CardSmall";
+import IconCart from "@/components/shared/icons/IconCart";
 
 const Tool = () => {
   // Pawel: na razie zostawiam stare ikony w .svg w /public
   const toolData: { icon: string; header: string; subheader: string }[] = [
     {
-      icon: "clipboard",
+      icon: "lightning",
       header: "Formularze w kilka minut",
       subheader: " Wybierz szablon albo zacznij od zera",
     },
     {
-      icon: "list-check",
+      icon: "pulse",
       header: "Wyniki na bieżąco",
       subheader: "Tabele i wykresy aktualizowane po każdej odpowiedzi",
     },
@@ -22,7 +23,7 @@ const Tool = () => {
       subheader: "Tabele i wykresy aktualizowane po każdej odpowiedzi",
     },
     {
-      icon: "people-group",
+      icon: "comment",
       header: "Kontakty z innymi oragnizacjami",
       subheader: "Wymieniaj się dośwaidczeniami z podobnymi organizacjami",
     },
@@ -32,7 +33,7 @@ const Tool = () => {
     <section className="bg-bg_dark">
       <div className="container py-20">
         <SectionHeader
-          title="DLA ORGANIZACAJI PRACOWNICZYCH"
+          title="Dla organizacji pracowniczych"
           header="Szybie decyzje podejmowane wspólnie"
           subheader="Wszystko, czego potrzebujesz, żeby od pytania dojść do wyniku."
         />
@@ -41,9 +42,9 @@ const Tool = () => {
           {toolData.map(({ icon, header, subheader }, idx) => (
             <li key={idx}>
               <CardSmall>
-                <div className="bg-gradient-accent w-fit rounded-sm p-4">
+                <IconCart>
                   {<Icon icon={`${icon}`} size={30} className="bg-white" />}
-                </div>
+                </IconCart>
 
                 <h3 className="my-6 text-lg font-bold">{header}</h3>
                 <p className="text-font_light">{subheader}</p>

@@ -38,9 +38,6 @@ const FACES = [
   },
 ];
 
-const btnBase =
-  "inline-flex items-center gap-[8px] rounded-full px-[22px] py-[12px] text-[15px] font-semibold leading-normal transition duration-200 hover:-translate-y-[2px] hover:[box-shadow:0_10px_30px_color-mix(in_srgb,var(--color-accent_teal)_55%,transparent)]";
-
 export default function HeroAnimation() {
   const ref = useRef<HTMLElement>(null);
 
@@ -64,14 +61,14 @@ export default function HeroAnimation() {
         className="absolute -left-[10%] -right-[40%] -top-[45%] -z-10 h-[150%] origin-[50%_0] animate-[hero-sway_14s_ease-in-out_infinite_alternate] opacity-90 blur-[25px] [-webkit-mask-image:radial-gradient(ellipse_at_50%_0,#000_5%,transparent_68%)] [mask-image:radial-gradient(ellipse_at_50%_0,#000_5%,transparent_68%)] motion-reduce:animate-none"
         style={{
           background:
-            "conic-gradient(from 148deg at 50% 0, transparent 0deg, transparent 18deg, color-mix(in srgb, var(--color-accent_light) 90%, transparent) 30deg, transparent 42deg, color-mix(in srgb, var(--color-accent) 95%, transparent) 54deg, transparent 66deg, color-mix(in srgb, var(--color-gray) 50%, transparent) 76deg, transparent 90deg, transparent 360deg)",
+            "conic-gradient(from 148deg at 50% 0, transparent 0deg, transparent 18deg, color-mix(in srgb, var(--color-accent-light) 90%, transparent) 30deg, transparent 42deg, color-mix(in srgb, var(--color-accent) 95%, transparent) 54deg, transparent 66deg, color-mix(in srgb, var(--color-gray) 50%, transparent) 76deg, transparent 90deg, transparent 360deg)",
         }}
       />
       {/* net */}
       <div className="absolute inset-0 -z-10 [-webkit-mask-image:radial-gradient(ellipse_at_50%_30%,#000,transparent_70%)] [background-image:linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.07)_1px,transparent_1px)] [background-size:60px_60px] [mask-image:radial-gradient(ellipse_at_50%_30%,#000,transparent_70%)]" />
 
       {/* blobs */}
-      <div className="absolute right-[7%] top-[0] -z-10 h-[400px] w-[400px] animate-[hero-f2_10s_ease-in-out_infinite_alternate] rounded-full bg-accent blur-[100px] will-change-transform motion-reduce:animate-none" />
+      <div className="absolute right-[7%] top-[0] -z-10 h-[400px] w-[400px] animate-[hero-f2_10s_ease-in-out_infinite_alternate] rounded-full bg-accent_dark blur-[100px] will-change-transform motion-reduce:animate-none" />
       <div className="absolute -bottom-[300px] left-[68%] -z-10 h-[520px] w-[520px] animate-[hero-f3_8s_ease-in-out_infinite_alternate] rounded-full bg-gray opacity-50 blur-[250px] will-change-transform motion-reduce:animate-none" />
 
       <div className="container md:flex">
@@ -80,7 +77,7 @@ export default function HeroAnimation() {
             FORMULARZE DLA ORGANIZACJI ZWIĄZKOWYCH
           </div>
 
-          <h1 className="my-8 bg-clip-text text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,#fff_50%,var(--color-gray)_100%)]">
+          <h1 className="my-8 bg-clip-text text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,#fff_60%,var(--color-gray)_100%)]">
             Chcesz przeprowadzić wybory albo ankietę?
           </h1>
 
