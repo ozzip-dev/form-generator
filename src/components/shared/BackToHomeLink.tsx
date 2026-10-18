@@ -14,7 +14,7 @@ const BackToHomeLink = ({ isDark = true }: Props) => {
       <Icon
         icon="fp_black"
         size={18}
-        className={isDark ? "bg-font_dark" : "bg-white"}
+        className={isDark ? "bg-accent" : "bg-white"}
       />
       <span className="text-lg font-bold uppercase tracking-wide">
         Formy Pracy

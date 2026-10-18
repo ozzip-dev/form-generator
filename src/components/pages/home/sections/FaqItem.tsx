@@ -22,11 +22,11 @@ const FaqItem = ({ header, content, idx, isOpen, onToggle }: Props) => {
             aria-controls={`faq-panel-${idx}`}
             onClick={() => onToggle(idx)}
           >
-            {header}{" "}
+            <div className="text-left">{header} </div>
             <Icon
               icon="angle"
               size={30}
-              className={`ml-auto w-10 bg-font_dark ${isOpen ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
+              className={`ml-auto w-10 shrink-0 bg-font_dark ${isOpen ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
             />
           </button>
         </h3>

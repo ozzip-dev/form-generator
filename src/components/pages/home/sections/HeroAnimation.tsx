@@ -1,5 +1,6 @@
 "use client";
 
+import { ButtonLink } from "@/components/shared";
 import { useRef, type PointerEvent } from "react";
 
 /*
@@ -75,37 +76,35 @@ export default function HeroAnimation() {
 
       <div className="container md:flex">
         <div className="flex-1">
-          <span className="mb-[28px] inline-block rounded-full border border-white/[.22] bg-white/[.08] px-[16px] py-[6px] text-[14px] font-semibold leading-normal text-white backdrop-blur-[8px]">
-            Ankiety, głosowania i formularze dla organizacji związkowych
-          </span>
+          <div className="text-xs text-white">
+            FORMULARZE DLA ORGANIZACJI ZWIĄZKOWYCH
+          </div>
 
-          <h1 className="bg-clip-text text-2xl font-extrabold leading-none text-transparent [background-image:linear-gradient(180deg,#fff_20%,var(--color-gray)_100%)]">
-            Chcesz przeprowadzić wybory albo ankietę w organizacji?
+          <h1 className="my-8 bg-clip-text text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,#fff_20%,var(--color-gray)_100%)]">
+            Chcesz przeprowadzić wybory albo ankietę?
           </h1>
 
-          <p className="text-md my-10 text-gray">
+          <p className="text-md text-gray">
             Zbierz głosy i opinie online. Wyniki zobaczysz od razu, a dane
             zostają w Twojej organizacji.
           </p>
 
-          <div className="flex flex-wrap gap-[14px]">
-            <a
-              href="#szablony"
-              className={`${btnBase} border-[1.5px] border-white/55 bg-transparent text-white`}
-            >
-              Zobacz gotowe szablony
-            </a>
-          </div>
+          <ButtonLink
+            link="#templates"
+            variant="empty"
+            message="Zobacz gotowe szablony"
+            className="mt-20 w-fit"
+          />
         </div>
 
         <div className="flex flex-1 items-center justify-center">
           {/* kostka 3D */}
           <div
             aria-hidden="true"
-            className="relative mt-20 grid place-items-center [perspective:1100px] max-[800px]:h-[200px] md:mt-0"
+            className="relative mb-20 mt-36 grid place-items-center [perspective:1100px] max-[800px]:h-[200px] md:mb-0 md:mt-0"
           >
             {/* <div className="animate-[hero-float_6s_ease-in-out_infinite] [transform-style:preserve-3d] motion-reduce:animate-none"> */}
-            <div className="relative h-[var(--s)] w-[var(--s)] [--s:200px] [transform-style:preserve-3d] [transform:rotateX(-42deg)_rotateY(-45deg)] max-[900px]:[--s:140px]">
+            <div className="relative h-[var(--s)] w-[var(--s)] [--s:140px] [transform-style:preserve-3d] [transform:rotateX(-42deg)_rotateY(-45deg)] lg:[--s:160px]">
               {" "}
               <div className="absolute left-1/2 top-1/2 -ml-[45px] -mt-[45px] h-[90px] w-[90px] rounded-full bg-[radial-gradient(#fff,var(--color-accent_teal)_38%,transparent_70%)] blur-[8px]" />
               {FACES.map(({ label, pos }) => (
