@@ -1,4 +1,5 @@
 import { ButtonLink, Icon } from "@/components/shared";
+import IconCart from "@/components/shared/icons/IconCart";
 import { TemplateFormId } from "@/lib/mongo/models";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,57 +7,39 @@ import Link from "next/link";
 type Props = {
   _id?: string;
   id?: TemplateFormId;
-  templateTitle?: string;
+  templateTitle: string;
+  subtitle: string;
+  icon: string;
 };
 
-const FormTemplate = ({ _id, id, templateTitle }: Props) => {
+const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
   const templateCard = (
-    <div
-      className={`group relative flex h-full flex-col justify-between overflow-hidden rounded-sm border border-gray p-10 ${
-        _id
-          ? "cursor-pointer transition-transform duration-100 hover:scale-[1.03]"
-          : ""
-      }`}
-    >
-      {/* <Image
-        src={`/images/templates/${id || "custom"}.png`}
-        alt=""
-        width={300}
-        height={250}
-        className="h-auto w-full"
-        style={!!id ? { border: "25px #f0f0f0 solid" } : {}}
-      /> */}
-
-      <div className="">
-        <p className="my-6 text-lg font-bold">{templateTitle}</p>
-      </div>
-      <div className="mt-auto flex items-center gap-2">
-        {" "}
+    <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-sm border border-gray p-10">
+      <div className="flex items-center justify-between">
         {_id ? (
-          <div className="text-font_light">Zobacz</div>
+          <IconCart>
+            <Icon icon={icon} size={30} className="bg-white" />
+          </IconCart>
         ) : (
-          <div>Zaczynam</div>
-        )}{" "}
-        {
-          <Icon
-            icon={"chevron-down-solid-full"}
-            size={15}
-            className={`-rotate-90 ${_id ? "bg-font_light" : "bg-white"}`}
-          />
-        }
-      </div>
-
-      {/* {_id && (
-        <div className="absolute inset-0 opacity-0 transition-opacity duration-100 group-hover:opacity-100">
-          <div className="absolute inset-0 bg-font_dark opacity-80" />
-
-          <div className="relative z-10 flex h-full w-full items-center justify-center">
-            <div className="btn-primary-rounded !border-white !bg-font_dark text-white hover:!bg-white hover:!text-font_dark">
-              Zobacz
-            </div>
+          <div className="w-fit rounded-sm border border-white bg-white/10 p-4">
+            <Icon icon={icon} size={30} className="bg-white" />
           </div>
+        )}
+
+        <div
+          className={`rounded-full border p-3 transition-colors duration-300 ${_id ? "border-gray group-hover:border-accent_dark group-hover:bg-accent_dark" : "border-white group-hover:border-accent_dark group-hover:bg-accent_dark"}`}
+        >
+          <Icon
+            icon={"arrow"}
+            size={20}
+            className={`-rotate-[130deg] transition-transform duration-300 group-hover:-translate-y-2 ${_id ? "bg-font_light group-hover:bg-white" : "bg-white"}`}
+          />
         </div>
-      )} */}
+      </div>{" "}
+      <div className="mt-auto">
+        <p className={` ${_id ? "text-accent" : "text-white"}`}>{subtitle}</p>
+        <p className="text-md mt-2 text-lg font-bold">{templateTitle}</p>
+      </div>
     </div>
   );
 
@@ -65,7 +48,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
       href={`/${_id}`}
       target="_blank"
       aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light"
+      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light transition-transform duration-300 hover:-translate-y-2"
     >
       {templateCard}
     </Link>
@@ -73,7 +56,7 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
     <Link
       href={`/login`}
       target="_blank"
-      className="bg-gradient-accent mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white"
+      className="bg-gradient-accent-light mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white transition-transform duration-300 hover:-translate-y-2"
     >
       {templateCard}
     </Link>

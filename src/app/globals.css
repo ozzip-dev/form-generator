@@ -104,11 +104,18 @@ body {
 .bg-gradient-accent {
   background: linear-gradient(
     135deg,
-    var(--color-accent-dark) 30%,
+    var(--color-accent-dark) 50%,
     var(--color-gray) 100%
   );
 }
 
+.bg-gradient-accent-light {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-dark) 20%,
+    var(--color-accent) 100%
+  );
+}
 .shadow-accent {
   box-shadow: 10px 10px 20px 5px var(--color-accent);
 }

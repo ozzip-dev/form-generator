@@ -77,6 +77,7 @@ module.exports = {
         sm: "500px",
         md: "750px",
         lg: "950px",
+        xl: "1300px",
       },
       keyframes: {
         "toast-in": {
