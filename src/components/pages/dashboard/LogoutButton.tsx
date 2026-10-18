@@ -60,9 +60,9 @@ const LogoutButton = ({ isUser }: Props) => {
       ) : (
         <>
           <ButtonLink
-            message="Zarejestruj organizację"
+            message="Zarejestruj"
             link="/admin-contact"
-            variant="primary-rounded"
+            variant="empty-accent"
             className="mb-11"
           />
           <ButtonLink

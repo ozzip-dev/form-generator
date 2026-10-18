@@ -3,7 +3,9 @@ import Link from "next/link";
 const VARIANTS = {
   primary: "btn-primary",
   "primary-rounded": "btn-primary-rounded text-white",
-  empty: "btn-empty",
+  "empty-white": "btn-empty-white",
+  "empty-accent": "btn-empty-acccent",
+  underline: "btn-underline",
   ghost: "",
 };
 
@@ -14,7 +16,13 @@ type Props = {
   target?: string;
   rel?: string;
   className?: string;
-  variant?: "primary" | "primary-rounded" | "empty" | "ghost";
+  variant?:
+    | "primary"
+    | "primary-rounded"
+    | "empty-white"
+    | "empty-accent"
+    | "underline"
+    | "ghost";
   ariaLabel?: string;
   ariaCurrent?: "page";
 };

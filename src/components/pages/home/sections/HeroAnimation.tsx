@@ -80,7 +80,7 @@ export default function HeroAnimation() {
             FORMULARZE DLA ORGANIZACJI ZWIĄZKOWYCH
           </div>
 
-          <h1 className="my-8 bg-clip-text text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,#fff_20%,var(--color-gray)_100%)]">
+          <h1 className="my-8 bg-clip-text text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,#fff_50%,var(--color-gray)_100%)]">
             Chcesz przeprowadzić wybory albo ankietę?
           </h1>
 
@@ -91,7 +91,7 @@ export default function HeroAnimation() {
 
           <ButtonLink
             link="#templates"
-            variant="empty"
+            variant="empty-white"
             message="Zobacz gotowe szablony"
             className="mt-20 w-fit"
           />
@@ -104,7 +104,7 @@ export default function HeroAnimation() {
             className="relative mb-20 mt-36 grid place-items-center [perspective:1100px] max-[800px]:h-[200px] md:mb-0 md:mt-0"
           >
             {/* <div className="animate-[hero-float_6s_ease-in-out_infinite] [transform-style:preserve-3d] motion-reduce:animate-none"> */}
-            <div className="relative h-[var(--s)] w-[var(--s)] [--s:140px] [transform-style:preserve-3d] [transform:rotateX(-42deg)_rotateY(-45deg)] lg:[--s:160px]">
+            <div className="relative h-[var(--s)] w-[var(--s)] [--s:140px] [transform-style:preserve-3d] [transform:rotateX(-42deg)_rotateY(-45deg)]">
               {" "}
               <div className="absolute left-1/2 top-1/2 -ml-[45px] -mt-[45px] h-[90px] w-[90px] rounded-full bg-[radial-gradient(#fff,var(--color-accent_teal)_38%,transparent_70%)] blur-[8px]" />
               {FACES.map(({ label, pos }) => (

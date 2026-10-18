@@ -31,7 +31,7 @@
   --color-bg_light: #eff1f4;
 
   --color-font_dark: rgb(66, 66, 66);
-  --color-font_light: #9b9b9b;
+  --color-font_light: rgb(95 101 111);
   --color-error: rgb(231, 0, 0);
 
   /* Hero */
@@ -122,8 +122,16 @@ body {
   @apply rounded-full border border-accent bg-accent px-4 py-2 text-sm text-white hover:bg-white hover:text-accent md:px-8;
 }
 
-.btn-empty {
+.btn-empty-white {
   @apply rounded-full border border-white px-4 py-2 text-sm text-white hover:bg-white hover:text-font_dark md:px-8;
+}
+
+.btn-empty-acccent {
+  @apply rounded-full border border-accent px-4 py-2 text-sm text-accent hover:bg-accent hover:text-white md:px-8;
+}
+
+.btn-underline {
+  @apply border-b border-transparent text-accent hover:border-b-accent;
 }
 
 .table-highlighted tr:nth-child(even) {
@@ -302,7 +310,7 @@ body {
 } */
 @keyframes hero-f3 {
   from {
-    transform: scale(0.5);
+    transform: scale(0.1);
   }
 
   to {

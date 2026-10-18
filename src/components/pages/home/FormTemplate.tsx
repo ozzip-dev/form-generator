@@ -32,12 +32,16 @@ const FormTemplate = ({ _id, id, templateTitle }: Props) => {
       </div>
       <div className="mt-auto flex items-center gap-2">
         {" "}
-        {_id ? <div>Zobacz</div> : <div>Zaczynam</div>}{" "}
+        {_id ? (
+          <div className="text-font_light">Zobacz</div>
+        ) : (
+          <div>Zaczynam</div>
+        )}{" "}
         {
           <Icon
             icon={"chevron-down-solid-full"}
             size={15}
-            className={`-rotate-90 ${_id ? "bg-font_dark" : "bg-white"}`}
+            className={`-rotate-90 ${_id ? "bg-font_light" : "bg-white"}`}
           />
         }
       </div>
