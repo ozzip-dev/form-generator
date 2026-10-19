@@ -16,7 +16,7 @@ const Usage = () => {
           {[0, 1].map((group) => (
             <ul
               key={group}
-              className="flex shrink-0 items-center gap-6"
+              className="flex shrink-0 items-center gap-6 pr-6"
               aria-hidden={group === 1}
             >
               {usageCases.map((item) => (

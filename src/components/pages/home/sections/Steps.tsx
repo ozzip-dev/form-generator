@@ -25,7 +25,7 @@ const steps = [
     id: 3,
     image: "/images/step3.png",
     text: "Śledź wyniki na bieżąco",
-    description: "Odpowiedzi widzisz na bierząco.",
+    description: "Odpowiedzi widzisz na bieżąco.",
     layoutClass: "lg:col-start-1 lg:row-start-3 lg:justify-self-end",
     alt: "Śledź wyniki na bieżąco.",
   },
