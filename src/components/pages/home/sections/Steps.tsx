@@ -9,7 +9,7 @@ const steps = [
     id: 1,
     image: "/images/step1.png",
     text: "Zarejestruj organizację",
-    description: "Skontaktuj się z obsłigą aplikacji.",
+    description: "Skontaktuj się z obsługą aplikacji.",
     layoutClass: "lg:col-start-1 lg:row-start-1 lg:justify-self-end",
     alt: "Zarejestruj organizację",
   },

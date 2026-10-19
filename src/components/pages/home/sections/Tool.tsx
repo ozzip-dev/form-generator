@@ -24,8 +24,8 @@ const Tool = () => {
     },
     {
       icon: "comment",
-      header: "Kontakty z innymi oragnizacjami",
-      subheader: "Wymieniaj się dośwaidczeniami z podobnymi organizacjami",
+      header: "Kontakty z innymi organizacjami",
+      subheader: "Wymieniaj się doświadczeniami z podobnymi organizacjami",
     },
   ];
 
@@ -34,7 +34,7 @@ const Tool = () => {
       <div className="container py-20">
         <SectionHeader
           title="Dla organizacji pracowniczych"
-          header="Szybie decyzje podejmowane wspólnie"
+          header="Szybkie decyzje podejmowane wspólnie"
           subheader="Wszystko, czego potrzebujesz, żeby od pytania dojść do wyniku."
         />
 
