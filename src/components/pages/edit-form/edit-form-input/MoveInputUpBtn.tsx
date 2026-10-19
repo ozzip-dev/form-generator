@@ -31,7 +31,7 @@ const MoveInputUpBtn = ({ inputId, order }: Props) => {
           <Icon
             icon="chevron-down-solid-full"
             size={20}
-            className="rotate-180 bg-font_dark"
+            className="bg-font-dark rotate-180"
           />
         }
         variant="ghost"

@@ -37,15 +37,15 @@ const ModeratorListItem = async (moderator: IUser) => {
         </div>
         <div className="flex gap-2">
           <div className="w-52 text-right font-semibold">Nazwa:</div>
-          {committeeName || <span className="text-font_light">brak</span>}
+          {committeeName || <span className="text-font-light">brak</span>}
         </div>
         <div className="flex gap-2">
           <div className="w-52 text-right font-semibold">Telefon:</div>
-          {committeePhone || <span className="text-font_light">brak</span>}
+          {committeePhone || <span className="text-font-light">brak</span>}
         </div>
         <div className="flex gap-2">
           <div className="w-52 text-right font-semibold">Email:</div>
-          {committeeEmail || <span className="text-font_light">brak</span>}
+          {committeeEmail || <span className="text-font-light">brak</span>}
         </div>
       </>
     </Card>

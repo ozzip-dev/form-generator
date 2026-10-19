@@ -53,11 +53,11 @@ const Faq = () => {
   };
 
   return (
-    <section className="bg-bg_dark">
+    <section className="bg-bg-dark">
       <div className="container-sm py-20">
         <SectionHeader header="Często zadawane pytania" />
 
-        <ul className="mx-auto mt-12 flex list-none flex-col gap-6 text-font_dark">
+        <ul className="text-font-dark mx-auto mt-12 flex list-none flex-col gap-6">
           {faqData.map(({ header, content }, idx) => {
             const isOpen = !!openItems[idx];
             return (

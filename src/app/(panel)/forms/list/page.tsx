@@ -21,7 +21,7 @@ const FormListPage = async () => {
           </SuspenseErrorBoundary>
         </div>
       </section>
-      <section className="bg-bg_dark pb-10">
+      <section className="bg-bg-dark pb-10">
         <div className="container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia szablonu formularza"

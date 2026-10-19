@@ -3,36 +3,30 @@
 import { ButtonLink } from "@/components/shared";
 import { useRef, type PointerEvent } from "react";
 
-/*
-  UWAGA: w Twoim global.css jest html { font-size: 62.5% } (1rem = 10px),
-  więc wszystkie rozmiary są tu w px (wartości arbitralne), a nie w
-  klasach Tailwinda opartych na rem (p-4, text-sm, gap-8 itd.) - te byłyby za małe.
-
-  Mapowanie kolorów na Twoje zmienne:
-    --a1 (główny)    -> var(--color-accent)
-    --a2 (jaśniejszy) -> var(--color-accent_light)
-    --a3 (poświata)   -> var(--color-accent_teal)   <- nowa zmienna, dodaj do :root
-*/
-
 const FACES = [
-  { label: "NIE", pos: "[transform:translateZ(calc(var(--s)/2))]" },
+  { id: 1, label: "NIE", pos: "[transform:translateZ(calc(var(--s)/2))]" },
   {
+    id: 2,
     label: "TAK",
     pos: "[transform:rotateY(180deg)_translateZ(calc(var(--s)/2))]",
   },
   {
+    id: 3,
     label: "TAK",
     pos: "[transform:rotateY(90deg)_translateZ(calc(var(--s)/2))]",
   },
   {
+    id: 4,
     label: "TAK",
     pos: "[transform:rotateY(-90deg)_translateZ(calc(var(--s)/2))]",
   },
   {
+    id: 5,
     label: "GŁOS",
     pos: "[transform:rotateX(90deg)_translateZ(calc(var(--s)/2))]",
   },
   {
+    id: 6,
     label: "GŁOS",
     pos: "[transform:rotateX(-90deg)_translateZ(calc(var(--s)/2))]",
   },
@@ -68,7 +62,7 @@ export default function HeroAnimation() {
       <div className="absolute inset-0 -z-10 [-webkit-mask-image:radial-gradient(ellipse_at_50%_30%,#000,transparent_70%)] [background-image:linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.07)_1px,transparent_1px)] [background-size:60px_60px] [mask-image:radial-gradient(ellipse_at_50%_30%,#000,transparent_70%)]" />
 
       {/* blobs */}
-      <div className="absolute right-[7%] top-[0] -z-10 h-[400px] w-[400px] animate-[hero-f2_10s_ease-in-out_infinite_alternate] rounded-full bg-accent_dark blur-[100px] will-change-transform motion-reduce:animate-none" />
+      <div className="bg-accent-dark absolute right-[7%] top-[0] -z-10 h-[400px] w-[400px] animate-[hero-f2_10s_ease-in-out_infinite_alternate] rounded-full blur-[100px] will-change-transform motion-reduce:animate-none" />
       <div className="absolute -bottom-[300px] left-[68%] -z-10 h-[520px] w-[520px] animate-[hero-f3_8s_ease-in-out_infinite_alternate] rounded-full bg-gray opacity-50 blur-[250px] will-change-transform motion-reduce:animate-none" />
 
       <div className="container md:flex">

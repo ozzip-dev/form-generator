@@ -134,7 +134,7 @@ const AcceptedValuesSection = () => {
         <Button
           type="button"
           variant="primary-rounded"
-          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
+          className="text-font-dark mb-[4px] w-fit rounded-sm border border-default px-3 py-2"
           message={btnText}
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}

@@ -56,7 +56,7 @@ const Results = (props: Props) => {
                   (wyniki: {props.submissionNumber})
                 </div>
               </div>
-              <div className="text-center text-2xs text-font_light sm:text-left">
+              <div className="text-font-light text-center text-2xs sm:text-left">
                 <span className="mr-1"> Opublikowany:</span>
                 {formatDateAndTime(createdAt.toString())}
               </div>

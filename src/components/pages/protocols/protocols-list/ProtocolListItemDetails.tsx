@@ -17,7 +17,7 @@ const ProtocolListItemDetails = ({
 }: ProtocolWithFilesSerialized) => {
   return (
     <Card>
-      <div className="hidden gap-12 pb-sm text-sm text-font_dark sm:flex">
+      <div className="text-font-dark hidden gap-12 pb-sm text-sm sm:flex">
         <div>Edytowano: {formatDateAndTime(lastModifiedAt)}</div>
         <div>Utworzono: {formatDateAndTime(uploadedAt)}</div>
       </div>

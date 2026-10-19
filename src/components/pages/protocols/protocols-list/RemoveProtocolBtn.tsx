@@ -14,7 +14,7 @@ function RemoveProtocolBtn(props: Props) {
   return (
     <Button
       type="button"
-      icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
+      icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
       variant="ghost"
       ariaLabel="Usuń protokół"
       onClickAction={() =>

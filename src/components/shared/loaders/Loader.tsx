@@ -9,11 +9,7 @@ export default function Loader(props: Props) {
 
   return (
     <div
-      className={`
-        ${sizeClasses}
-        animate-spin rounded-full
-        border-t-transparent border-solid border-font_dark
-      `}
+      className={` ${sizeClasses} border-font-dark animate-spin rounded-full border-solid border-t-transparent`}
       role="status"
     ></div>
   );

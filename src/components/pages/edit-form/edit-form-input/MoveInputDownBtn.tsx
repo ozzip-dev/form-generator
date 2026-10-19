@@ -31,7 +31,7 @@ const MoveInputDownBtn = (props: Props) => {
           <Icon
             icon="chevron-down-solid-full"
             size={20}
-            className="bg-font_dark"
+            className="bg-font-dark"
           />
         }
         onClickAction={handleMoveDown}

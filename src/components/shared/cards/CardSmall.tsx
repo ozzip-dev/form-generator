@@ -6,7 +6,7 @@ type Props = {
 const CardSmall = ({ children, className }: Props) => {
   return (
     <div
-      className={`h-full rounded-sm border border-gray bg-bg_light p-10 ${className && className}`}
+      className={`bg-bg-light h-full rounded-sm border border-gray p-10 ${className && className}`}
     >
       {children}
     </div>

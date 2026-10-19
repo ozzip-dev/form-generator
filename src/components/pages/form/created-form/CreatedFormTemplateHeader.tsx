@@ -54,7 +54,7 @@ const CreatedFormTemplateHeader = ({
   };
 
   return (
-    <div className="fixed bottom-0 z-30 flex w-full bg-accent_opacity py-4 text-center">
+    <div className="bg-accent-opacity fixed bottom-0 z-30 flex w-full py-4 text-center">
       <div className="m-auto flex items-center justify-center gap-12">
         <p className="font-bold text-white">
           {formStateHeader} <br /> {templateTitle || title}

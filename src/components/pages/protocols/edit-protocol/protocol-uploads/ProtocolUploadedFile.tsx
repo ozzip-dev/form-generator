@@ -91,14 +91,14 @@ const ProtocolUploadedFile = (props: Props) => {
         type="button"
         onClick={handleFileNameClick}
         disabled={isFileLoading}
-        className="text-left underline decoration-accent underline-offset-2 hover:text-accent_dark"
+        className="hover:text-accent-dark text-left underline decoration-accent underline-offset-2"
       >
         {props.file.name}
       </button>
 
       <Button
         type="button"
-        icon={<Icon icon="trash" size={27} className="bg-font_dark" />}
+        icon={<Icon icon="trash" size={27} className="bg-font-dark" />}
         variant="ghost"
         ariaLabel="Usuń załącznik"
         onClickAction={() =>

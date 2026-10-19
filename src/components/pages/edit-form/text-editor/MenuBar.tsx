@@ -122,7 +122,7 @@ const MenuBar = ({
             className="p-1 px-2"
             icon={
               <Icon
-                className={`${editorState[btnName as keyof typeof editorState] ? "bg-font_dark" : "bg-font_light"}`}
+                className={`${editorState[btnName as keyof typeof editorState] ? "bg-font-dark" : "bg-font-light"}`}
                 icon={icon as string}
                 size={15}
               />

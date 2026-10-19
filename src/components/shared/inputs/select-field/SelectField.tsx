@@ -144,7 +144,7 @@ const SelectField = ({
           <Icon
             icon="chevron-down-solid-full"
             size={14}
-            className={`transition-transform ${open ? "rotate-180" : ""} bg-font_dark`}
+            className={`transition-transform ${open ? "rotate-180" : ""} bg-font-dark`}
           />
         </button>
 
@@ -170,7 +170,7 @@ const SelectField = ({
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
                     : "cursor-pointer hover:bg-accent hover:text-white"
-                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent_light" : ""} `}
+                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg- accent-light" : ""} `}
               >
                 {option.label}
               </li>

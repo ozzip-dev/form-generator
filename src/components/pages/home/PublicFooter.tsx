@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function PublicFooter() {
   return (
     <footer className="mt-auto border-t border-gray pb-10 pt-6">
-      <div className="container text-font_light">
+      <div className="text-font-light container">
         <div className="items-center justify-center p-2 md:flex">
           <Image
             src="/images/UELogos.webp"
@@ -15,14 +15,14 @@ export default function PublicFooter() {
             placeholder="blur"
             blurDataURL="/images/placeholder.jpg"
             loading="lazy"
-            className="m-auto md:m-0"
+            className="m-auto w-[27rem] md:m-0"
           />
           <Image
             src="/images/TransferHubLogo.webp"
             alt="TransferHub logo"
             width={100}
             height={25}
-            className="m-auto h-[25px] pl-2 md:m-0 md:border-l-2 md:border-zinc-400"
+            className="m-auto w-[6rem] pl-2 md:m-0 md:border-l-2 md:border-gray"
             placeholder="blur"
             blurDataURL="/images/placeholder.jpg"
             loading="lazy"

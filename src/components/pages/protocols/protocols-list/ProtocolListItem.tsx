@@ -82,7 +82,7 @@ const ProtocolListItem = (props: Props) => {
           <Button
             icon={
               isOpen ? (
-                <Icon icon="folder-open" size={20} className="bg-font_light" />
+                <Icon icon="folder-open" size={20} className="bg-font-light" />
               ) : (
                 <Icon icon="folder-closed" size={20} className="bg-accent" />
               )

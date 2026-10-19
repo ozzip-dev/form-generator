@@ -27,7 +27,7 @@ const MenuLink = ({
   const borderClass = isSub
     ? "border-accent text-accent"
     : mobile
-      ? "!text-font_dark font-extrabold border-none"
+      ? "!text-font-dark font-extrabold border-none"
       : "!border-" + textColor;
 
   const newTabTarget = mobile && iSiOS() ? "_blank" : "externalWindow";

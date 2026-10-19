@@ -18,7 +18,7 @@ type FormStateConfig = {
 
 const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
   draft: {
-    bgColor: "bg-accent_lighter",
+    bgColor: "bg-accent-lighter",
     iconConfig: { icon: "pencil", size: 31, color: "bg-accent" },
   },
   active: {
@@ -68,7 +68,7 @@ export default async function FormLink(props: Props) {
       <div className="mt-4 line-clamp-2 px-4 text-center">
         {props.form.title ? props.form.title : "Brak tytułu"}
       </div>
-      <p className="mt-1 truncate text-center text-2xs text-font_light">
+      <p className="text-font-light mt-1 truncate text-center text-2xs">
         Edycja <br /> {formattedDate}
       </p>
     </li>

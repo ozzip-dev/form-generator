@@ -42,7 +42,7 @@ const DemandsField = ({
                     placeholder="Wpisz żądanie (maks. 100 znaków)"
                     maxLength={100}
                     disabled={isSubmitting}
-                    className={`peer w-full rounded-sm border p-2 focus:border-accent focus:outline-none disabled:bg-gray-100 ${
+                    className={`disabled:bg-gray-100 peer w-full rounded-sm border p-2 focus:border-accent focus:outline-none ${
                       (errors.demands as any)?.[idx]
                         ? "border-red"
                         : "border-default"
@@ -58,7 +58,7 @@ const DemandsField = ({
             </div>
             <Button
               type="button"
-              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
+              icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
               variant="ghost"
               className="!bg-transparent opacity-50 hover:opacity-100 disabled:opacity-30"
               ariaLabel="Usuń żądanie"

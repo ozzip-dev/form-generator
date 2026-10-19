@@ -17,7 +17,7 @@ const SectionHeader = (props: Props) => {
       </h2>
 
       {!!props.subheader && (
-        <div className="text-md text-center text-lg text-font_light">
+        <div className="text-md text-font-light text-center text-lg">
           {props.subheader}
         </div>
       )}

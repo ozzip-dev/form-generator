@@ -46,7 +46,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
               <button
                 type="button"
                 onClick={handleFileNameClick}
-                className="truncate text-left underline decoration-accent underline-offset-2 hover:text-accent_dark"
+                className="hover:text-accent-dark truncate text-left underline decoration-accent underline-offset-2"
               >
                 {file?.name || "-"}
               </button>

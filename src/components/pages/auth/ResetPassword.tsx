@@ -19,7 +19,7 @@ const ResetPassword = () => {
         <ButtonLink
           message="Przejdź do logowania"
           link="/login"
-          className="m-auto h-fit w-fit rounded-full bg-accent px-6 py-2 text-sm text-white hover:bg-accent_light"
+          className="hover:bg- accent-light m-auto h-fit w-fit rounded-full bg-accent px-6 py-2 text-sm text-white"
         />
       </Card>
     </div>

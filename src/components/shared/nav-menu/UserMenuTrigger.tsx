@@ -18,7 +18,7 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
         variant="ghost"
         onClickAction={onToggle}
         className={`items-center font-semibold ${
-          isPublic ? "!text-font_dark" : ""
+          isPublic ? "!text-font-dark" : ""
         }`}
         aria-expanded={isOpen}
         message={userName}
@@ -26,7 +26,7 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
           <Icon
             icon={"user-profile-dark"}
             size={25}
-            className={`ml-4 ${isPublic ? "bg-font_dark" : "bg-white"}`}
+            className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-white"}`}
           />
         }
       />
@@ -36,7 +36,7 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
   return (
     <Button
       className="lg:hidden"
-      icon={<Icon icon={menuIcon} size={30} className={"bg-font_dark"} />}
+      icon={<Icon icon={menuIcon} size={30} className={"bg-font-dark"} />}
       onClickAction={onToggle}
       variant="ghost"
       ariaLabel={isOpen ? "Zamknij menu" : "Otwórz menu"}

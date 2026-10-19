@@ -21,12 +21,12 @@
   --color-accent: #3d71ac;
   --color-accent-dark: #334b67;
   --color-accent-light: #3d6fa5;
-  --color-accent_lighter: #ffb3b3;
-  --color-accent_opacity: #ff8b8b;
+  --color-accent-lighter: #ffb3b3;
+  --color-accent-opacity: #ff8b8b;
   --color-gray: #c3c8d0;
 
-  /* --color-bg_dark: rgba(245, 245, 245, 1);
-  --color-bg_light: rgba(251, 251, 251, 1); */
+  /* --color-bg-dark: rgba(245, 245, 245, 1);
+  --color-bg-light: rgba(251, 251, 251, 1); */
   --color-bg-dark: #dfe2e6;
   --color-bg-light: #eff1f4;
 
@@ -122,7 +122,7 @@ body {
 
 /* util classes */
 .shadow-border-box {
-  @apply space-y-2 rounded-md border border-default bg-bg_light shadow-default md:rounded-lg;
+  @apply bg-bg-light space-y-2 rounded-md border border-default shadow-default md:rounded-lg;
 }
 
 .btn-primary {
@@ -134,7 +134,7 @@ body {
 }
 
 .btn-empty-white {
-  @apply rounded-full border border-white px-4 py-2 text-sm text-white hover:bg-white hover:text-font_dark md:px-8;
+  @apply hover:text-font-dark rounded-full border border-white px-4 py-2 text-sm text-white hover:bg-white md:px-8;
 }
 
 .btn-empty-acccent {
@@ -146,7 +146,7 @@ body {
 }
 
 .table-highlighted tr:nth-child(even) {
-  background-color: var(--color-bg_dark);
+  background-color: var(--color-bg-dark);
 }
 
 /* text editor */
@@ -159,7 +159,7 @@ body {
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {
-  @apply text-sm text-font_light;
+  @apply text-font-light text-sm;
   content: attr(data-placeholder);
 }
 

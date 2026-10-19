@@ -27,12 +27,12 @@ const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
         )}
 
         <div
-          className={`rounded-full border p-3 transition-colors duration-300 ${_id ? "border-gray group-hover:border-accent_dark group-hover:bg-accent_dark" : "border-white group-hover:border-accent_dark group-hover:bg-accent_dark"}`}
+          className={`rounded-full border p-3 transition-colors duration-300 ${_id ? "group-hover:border-accent-dark group-hover:bg-accent-dark border-gray" : "group-hover:border-accent-dark group-hover:bg-accent-dark border-white"}`}
         >
           <Icon
             icon={"arrow"}
             size={20}
-            className={`-rotate-[130deg] transition-colors duration-300 ${_id ? "bg-font_light group-hover:bg-white" : "bg-white"}`}
+            className={`-rotate-[130deg] transition-colors duration-300 ${_id ? "bg-font-light group-hover:bg-white" : "bg-white"}`}
           />
         </div>
       </div>{" "}
@@ -50,7 +50,7 @@ const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
       href={`/${_id}`}
       target="_blank"
       aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray bg-bg_light transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
+      className="bg-bg-light mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
     >
       {templateCard}
     </Link>

@@ -21,7 +21,7 @@ const voteVisibilityItems = [
 
 const VoteVisibility = () => {
   return (
-    <section className="bg-bg_dark">
+    <section className="bg-bg-dark">
       <div className="container py-20">
         <SectionHeader
           title="Pełna kontrola nad zapisem danych"
@@ -39,7 +39,7 @@ const VoteVisibility = () => {
                   <div>
                     <h3 className="mb-6 text-lg font-bold">{header}</h3>
 
-                    <p className="pb-6 text-font_light">{text}</p>
+                    <p className="text-font-light pb-6">{text}</p>
                   </div>
 
                   <div className="mt-auto flex gap-2">

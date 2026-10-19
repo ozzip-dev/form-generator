@@ -30,7 +30,7 @@ const Tool = () => {
   ];
 
   return (
-    <section className="bg-bg_dark">
+    <section className="bg-bg-dark">
       <div className="container py-20">
         <SectionHeader
           title="Dla organizacji pracowniczych"
@@ -47,7 +47,7 @@ const Tool = () => {
                 </IconCart>
 
                 <h3 className="my-6 text-lg font-bold">{header}</h3>
-                <p className="text-font_light">{subheader}</p>
+                <p className="text-font-light">{subheader}</p>
               </CardSmall>
             </li>
           ))}

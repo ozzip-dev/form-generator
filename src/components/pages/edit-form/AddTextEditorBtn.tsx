@@ -10,15 +10,15 @@ const AddTextEditorBtn = (props: Props) => {
       <Button
         type="button"
         variant="ghost"
-        className="ml-2 !rounded-full border border-font_dark p-[0.2rem]"
+        className="border-font-dark ml-2 !rounded-full border p-[0.2rem]"
         icon={
-          <Icon icon="plus-solid-full" size={12} className="bg-font_dark" />
+          <Icon icon="plus-solid-full" size={12} className="bg-font-dark" />
         }
         onClickAction={props.action}
         ariaLabel="Dodaj edytor"
       />
 
-      <div className="pointer-events-none absolute -left-[6rem] top-10 z-50 whitespace-nowrap rounded-sm border bg-bg_dark p-2 text-xs opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="bg-bg-dark pointer-events-none absolute -left-[6rem] top-10 z-50 whitespace-nowrap rounded-sm border p-2 text-xs opacity-0 transition-opacity group-hover:opacity-100">
         Dodaj opis
       </div>
     </div>

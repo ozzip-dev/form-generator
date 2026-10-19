@@ -113,7 +113,7 @@ const AddOption = (props: Props) => {
 
             <Button
               type="button"
-              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
+              icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
               onClickAction={() =>
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }

@@ -10,7 +10,7 @@ const Usage = () => {
   ];
 
   return (
-    <section className="bg-bg_dark py-32">
+    <section className="bg-bg-dark py-32">
       <div className="overflow-hidden">
         <div className="animate-marquee-right flex w-max">
           {[0, 1].map((group) => (
@@ -22,9 +22,9 @@ const Usage = () => {
               {usageCases.map((item) => (
                 <li
                   key={item}
-                  className="flex shrink-0 items-center gap-2 rounded-full border border-gray bg-bg_light px-6 py-2 text-lg font-semibold"
+                  className="bg-bg-light flex shrink-0 items-center gap-2 rounded-full border border-gray px-6 py-2 text-lg font-semibold"
                 >
-                  <span className="text-accent_light" aria-hidden="true">
+                  <span className="text- accent-light" aria-hidden="true">
                     ✦
                   </span>
                   <span>{item}</span>

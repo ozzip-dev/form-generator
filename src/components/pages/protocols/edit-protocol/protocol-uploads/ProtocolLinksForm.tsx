@@ -59,14 +59,14 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
           <Link
             href={parseUrl(value)}
             target="_blank"
-            className="w-auto p-2 text-left underline decoration-accent underline-offset-2 hover:text-accent_dark"
+            className="hover:text-accent-dark w-auto p-2 text-left underline decoration-accent underline-offset-2"
           >
             {value}
           </Link>
 
           <Button
             type="button"
-            icon={<Icon icon="trash" size={27} className="bg-font_dark" />}
+            icon={<Icon icon="trash" size={27} className="bg-font-dark" />}
             variant="ghost"
             className="!bg-transparent"
             ariaLabel="Usuń link"

@@ -25,7 +25,7 @@ const FormTrigger = () => {
       <Button
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="!bg-accent_lighter group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-accent text-xs transition hover:bg-accent_light md:rounded-lg"
+        className="!bg-accent-lighter hover:bg- accent-light group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-accent text-xs transition md:rounded-lg"
         icon={
           <div>
             <Icon
@@ -33,7 +33,7 @@ const FormTrigger = () => {
               size={40}
               className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
             />
-            <span className="text-xs font-semibold text-font_dark">DODAJ</span>
+            <span className="text-font-dark text-xs font-semibold">DODAJ</span>
           </div>
         }
       />

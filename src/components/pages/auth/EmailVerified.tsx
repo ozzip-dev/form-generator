@@ -2,25 +2,21 @@ import { ButtonLink, Card } from "@/components/shared";
 
 const EmailVerified = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <Card className="min-w-[29rem] max-w-[52rem] w-full">
+    <div className="flex min-h-screen items-center justify-center">
+      <Card className="w-full min-w-[29rem] max-w-[52rem]">
+        <h1 className="mb-4 text-center text-lg">Email zweryfikowany!</h1>
 
-        <h1 className="text-lg text-center mb-4">
-          Email zweryfikowany!
-        </h1>
-
-        <p className="text-center mb-4">
+        <p className="mb-4 text-center">
           Twój email został zweryfikowany. Uzyskałeś dostęp do funkcji
           moderatora.
         </p>
 
-        <ButtonLink message="Przejdź do panelu moderatora" link="/dashboard"
-          className="w-fit h-fit m-auto bg-accent rounded-full 
-          text-white text-sm py-2 px-6 hover:bg-accent_light"/>
+        <ButtonLink
+          message="Przejdź do panelu moderatora"
+          link="/dashboard"
+          className="hover:bg- accent-light m-auto h-fit w-fit rounded-full bg-accent px-6 py-2 text-sm text-white"
+        />
       </Card>
-
-
-
     </div>
   );
 };

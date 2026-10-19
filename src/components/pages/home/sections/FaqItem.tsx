@@ -26,7 +26,7 @@ const FaqItem = ({ header, content, idx, isOpen, onToggle }: Props) => {
             <Icon
               icon="angle"
               size={30}
-              className={`ml-auto w-10 shrink-0 bg-font_dark ${isOpen ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
+              className={`bg-font-dark ml-auto w-10 shrink-0 ${isOpen ? "rotate-180 transition duration-300" : "rotate-0 transition duration-300"}`}
             />
           </button>
         </h3>
@@ -39,7 +39,7 @@ const FaqItem = ({ header, content, idx, isOpen, onToggle }: Props) => {
             isOpen ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr]"
           }`}
         >
-          <div className="min-h-0 text-sm text-font_light">{content}</div>
+          <div className="text-font-light min-h-0 text-sm">{content}</div>
         </div>
       </CardSmall>
     </li>

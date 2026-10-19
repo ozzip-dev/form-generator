@@ -49,7 +49,6 @@ const FormTemplates = async () => {
 
   const pageItems: FormTemplateItem[] = [
     ...templateForms.map(({ _id, id, templateTitle }) => {
-      console.log("", id);
       const details = templateDetails[String(id)] ?? {
         subtitle: "Dostosuj formularz do potrzeb swojej organizacji.",
         icon: "mdi:file-document-outline",
@@ -70,7 +69,7 @@ const FormTemplates = async () => {
   ];
 
   return (
-    <section className="bg-bg_dark" id="templates">
+    <section className="bg-bg-dark" id="templates">
       <div className="container py-20">
         <SectionHeader
           title="Gotowe szablony formularzy"

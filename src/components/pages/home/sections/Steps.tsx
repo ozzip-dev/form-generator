@@ -41,7 +41,7 @@ const steps = [
 
 const Steps = () => {
   return (
-    <section className="bg-bg_dark">
+    <section className="bg-bg-dark">
       {" "}
       <div className="container pb-20 pt-16">
         <SectionHeader title="Jak to działa" header="Od pomysłu do wyników" />
@@ -58,12 +58,12 @@ const Steps = () => {
                 </div>
                 <CardSmall className="!h-auto">
                   {" "}
-                  <div className="flex items-start text-font_dark">
+                  <div className="text-font-dark flex items-start">
                     <div className="">
                       <p className="mb-2 text-lg font-bold leading-snug">
                         {text}
                       </p>
-                      <p className="leading-snug text-font_light">
+                      <p className="text-font-light leading-snug">
                         {description}
                       </p>
                     </div>

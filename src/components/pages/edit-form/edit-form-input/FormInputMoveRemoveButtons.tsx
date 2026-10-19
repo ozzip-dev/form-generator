@@ -21,7 +21,7 @@ function FormInputMoveRemoveButtons() {
         )}
       </div>
       <div className="flex flex-col">
-        <div className="w-px flex-1 bg-font_light" />
+        <div className="bg-font-light w-px flex-1" />
       </div>
 
       <div className="mb-auto">

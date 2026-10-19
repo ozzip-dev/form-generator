@@ -26,7 +26,7 @@ function RemoveInputBtn(props: Props) {
     <>
       <Button
         type="button"
-        icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
+        icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
         variant="ghost"
         ariaLabel="Usuń pole"
         onClickAction={handleDeleteInput}

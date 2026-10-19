@@ -9,7 +9,7 @@ const BackToHomeLink = ({ isDark = true }: Props) => {
   return (
     <Link
       href="/"
-      className={`flex shrink-0 items-center gap-3 ${isDark ? "text-font_dark" : "text-white"}`}
+      className={`flex shrink-0 items-center gap-3 ${isDark ? "text-font-dark" : "text-white"}`}
     >
       <Icon
         icon="fp_black"

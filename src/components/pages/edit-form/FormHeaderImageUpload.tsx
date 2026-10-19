@@ -98,7 +98,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               type="button"
               variant="ghost"
               ariaLabel="Usuń obraz z tytułu"
-              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
+              icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
             />
           </div>
         </div>

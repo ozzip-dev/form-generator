@@ -109,12 +109,12 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
     <>
       <Card className="my-16 flex flex-col gap-2 text-center text-sm">
         <div className="text-lg font-semibold">{title}</div>
-        <div className="mb-10 text-font_light">
+        <div className="text-font-light mb-10">
           Edycja niedostępna, {formStateInfo}
         </div>
-        <div className="text-font_light">Opublikowany pod adresem</div>
+        <div className="text-font-light">Opublikowany pod adresem</div>
 
-        <div className="font-semibold text-font_dark">{link}</div>
+        <div className="text-font-dark font-semibold">{link}</div>
         <Button
           message="Skopiuj link formularza"
           className="m-auto w-fit"
@@ -129,23 +129,23 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           className="m-auto mb-10 w-fit"
         />
 
-        <div className="text-font_light">
+        <div className="text-font-light">
           Kategoria formularza:{" "}
-          <span className="ml-2 font-semibold text-font_dark">
+          <span className="text-font-dark ml-2 font-semibold">
             {" "}
             {mapTypes[type]}
           </span>
         </div>
-        <div className="text-font_light">
+        <div className="text-font-light">
           Tryb wyników:{" "}
-          <span className="ml-2 font-semibold text-font_dark">
+          <span className="text-font-dark ml-2 font-semibold">
             {" "}
             {resultVisibility === "open" ? "jawny" : "tajny"}
           </span>
         </div>
-        <div className="text-font_light">
+        <div className="text-font-light">
           Zapisane wyniki:{" "}
-          <span className="ml-2 font-semibold text-font_dark">
+          <span className="text-font-dark ml-2 font-semibold">
             {submissionCount}
           </span>
         </div>
@@ -158,7 +158,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           className="m-auto mb-3 mt-16 w-fit"
         />
 
-        <div className="mt-16 text-2xs text-font_light">
+        <div className="text-font-light mt-16 text-2xs">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
           <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
         </div>
