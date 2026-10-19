@@ -8,11 +8,7 @@ const steps = [
   {
     id: 1,
     image: "/images/step1.png",
-    text: (
-      <Link href="/admin-contact" className="text-accent" target="blank">
-        Zarejestruj organizację
-      </Link>
-    ),
+    text: "Zarejestruj organizację",
     description: "Skontaktuj się z obsłigą aplikacji.",
     layoutClass: "lg:col-start-1 lg:row-start-1 lg:justify-self-end",
     alt: "Zarejestruj organizację",
@@ -20,14 +16,7 @@ const steps = [
   {
     id: 2,
     image: "/images/step2.png",
-    text: (
-      <>
-        <Link href="/forms/list" className="text-accent" target="blank">
-          Utwórz własny formularz
-        </Link>
-        <span className="block"> i udostępnij link zainteresowanym</span>
-      </>
-    ),
+    text: "Utwórz własny formularz",
     description: "Udostępnij link do oddania głosu.",
     layoutClass: "lg:col-start-3 lg:row-start-2 lg:justify-self-start",
     alt: "Utwórz własny formularz",
@@ -52,21 +41,22 @@ const steps = [
 
 const Steps = () => {
   return (
-    <section className="text-font_dark">
+    <section className="bg-bg_dark">
+      {" "}
       <div className="container pb-20 pt-16">
-        <SectionHeader
-          title="JAK TO DZIAŁA"
-          header="Od pomysłu do wyników w 4 krokach"
-        />
+        <SectionHeader title="Jak to działa" header="Od pomysłu do wyników" />
 
-        <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-4 lg:gap-x-10 lg:gap-y-0">
+        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_96px_minmax(0,1fr)] lg:grid-rows-4 lg:gap-x-10 lg:gap-y-0">
           <ol className="contents">
             {steps.map(({ id, image, text, description, alt, layoutClass }) => (
               <li
                 key={id}
                 className={`relative w-full ${layoutClass} justify-self-center`}
               >
-                <CardSmall>
+                <div className="bg-gradient-accent m-auto mb-8 flex h-[56px] w-[56px] items-center justify-center rounded-full text-[30px] leading-none text-white lg:hidden">
+                  {id}
+                </div>
+                <CardSmall className="!h-auto">
                   {" "}
                   <div className="flex items-start text-font_dark">
                     <div className="">

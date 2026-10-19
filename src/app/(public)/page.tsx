@@ -22,7 +22,7 @@ const PageHome = () => {
       <Vote />
       <Usage />
       <Faq />
-      <Start />
+      {/* <Start /> */}
     </Home>
   );
 };

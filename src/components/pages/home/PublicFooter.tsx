@@ -11,7 +11,7 @@ export default function PublicFooter() {
             src="/images/UELogos.webp"
             alt="Loga"
             width={400}
-            height={200}
+            height={100}
             placeholder="blur"
             blurDataURL="/images/placeholder.jpg"
             loading="lazy"
