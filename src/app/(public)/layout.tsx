@@ -19,7 +19,7 @@ export default async function PublicLayout({
         <PublicTopBar user={user} />
       </Header>
 
-      <main className="flex-1">{children}</main>
+      <main className="bg-bg-dark flex-1">{children}</main>
 
       <PublicFooter />
     </div>

@@ -17,10 +17,10 @@ const PageHome = () => {
       {/* <Hero /> */}
       <HeroAnimation />
       <Tool />
+      <Usage />
       <FormTemplates />
       <Steps />
       <Vote />
-      <Usage />
       <Faq />
       {/* <Start /> */}
     </Home>

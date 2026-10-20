@@ -21,7 +21,7 @@ const voteVisibilityItems = [
 
 const VoteVisibility = () => {
   return (
-    <section className="bg-bg-dark">
+    <section>
       <div className="container py-20">
         <SectionHeader
           title="Pełna kontrola nad zapisem danych"

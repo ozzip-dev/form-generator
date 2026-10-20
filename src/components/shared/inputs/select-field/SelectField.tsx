@@ -170,7 +170,7 @@ const SelectField = ({
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
                     : "cursor-pointer hover:bg-accent hover:text-white"
-                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg- accent-light" : ""} `}
+                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent-light" : ""} `}
               >
                 {option.label}
               </li>

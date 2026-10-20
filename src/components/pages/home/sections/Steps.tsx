@@ -1,8 +1,6 @@
-import Image from "next/image";
+import CardSmall from "@/components/shared/cards/CardSmall";
 import SectionHeader from "../SectionHeader";
 import StepDots from "../StepDots";
-import Link from "next/link";
-import CardSmall from "@/components/shared/cards/CardSmall";
 
 const steps = [
   {
@@ -41,7 +39,7 @@ const steps = [
 
 const Steps = () => {
   return (
-    <section className="bg-bg-dark">
+    <section>
       {" "}
       <div className="container pb-20 pt-16">
         <SectionHeader title="Jak to działa" header="Od pomysłu do wyników" />

@@ -45,7 +45,6 @@ export default function HeroAnimation() {
 
   return (
     <section
-      id="hero"
       ref={ref}
       onPointerMove={onMove}
       className="relative isolate overflow-hidden bg-[radial-gradient(120%_90%_at_50%_0%,color-mix(in_srgb,var(--color-accent)_55%,#05070d)_0%,#070a12_72%)] py-20 text-white"

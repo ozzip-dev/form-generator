@@ -69,7 +69,7 @@ const FormTemplates = async () => {
   ];
 
   return (
-    <section className="bg-bg-dark" id="templates">
+    <section id="templates">
       <div className="container py-20">
         <SectionHeader
           title="Gotowe szablony formularzy"

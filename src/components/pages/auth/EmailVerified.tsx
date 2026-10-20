@@ -14,7 +14,7 @@ const EmailVerified = () => {
         <ButtonLink
           message="Przejdź do panelu moderatora"
           link="/dashboard"
-          className="hover:bg- accent-light m-auto h-fit w-fit rounded-full bg-accent px-6 py-2 text-sm text-white"
+          className="hover:bg-accent-light m-auto h-fit w-fit rounded-full bg-accent px-6 py-2 text-sm text-white"
         />
       </Card>
     </div>

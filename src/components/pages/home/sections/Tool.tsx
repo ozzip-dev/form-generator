@@ -30,7 +30,7 @@ const Tool = () => {
   ];
 
   return (
-    <section className="bg-bg-dark">
+    <section>
       <div className="container py-20">
         <SectionHeader
           title="Dla organizacji pracowniczych"

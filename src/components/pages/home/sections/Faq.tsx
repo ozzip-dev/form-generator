@@ -53,7 +53,7 @@ const Faq = () => {
   };
 
   return (
-    <section className="bg-bg-dark">
+    <section>
       <div className="container-sm py-20">
         <SectionHeader header="Często zadawane pytania" />
 
