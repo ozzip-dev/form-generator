@@ -1,7 +1,6 @@
 import CardSmall from "@/components/shared/cards/CardSmall";
 import SectionHeader from "../SectionHeader";
 import StepDots from "../StepDots";
-import { az } from "zod/v4/locales";
 
 const steps = [
   {

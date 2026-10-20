@@ -7,7 +7,6 @@ const StepDots = ({ isDisplayed = true }: Props) => {
     <div className="flex flex-1 flex-col items-center justify-around">
       {isDisplayed && (
         <>
-          {/* <span className="bg-accent-dark h-2 w-2 rounded-full" /> */}
           <span className="bg-accent-dark h-2 w-2 rounded-full" />
           <span className="bg-accent-dark h-2 w-2 rounded-full" />
         </>

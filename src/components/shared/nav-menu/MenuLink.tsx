@@ -41,14 +41,12 @@ const MenuLink = ({
         borderColor: isActive ? textColor : undefined,
       }}
     >
-      <div className={`${mobile && isActive ? `font-bold` : "text-base_bold"}`}>
-        <ButtonLink
-          message={text}
-          link={link}
-          target={sameTab ? "_self" : newTabTarget}
-          className={`${mobile && "py-10"}`}
-        />
-      </div>
+      <ButtonLink
+        message={text}
+        link={link}
+        target={sameTab ? "_self" : newTabTarget}
+        className={`${mobile && "py-10"}`}
+      />
     </li>
   );
 };

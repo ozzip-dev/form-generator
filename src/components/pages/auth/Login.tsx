@@ -103,7 +103,7 @@ const Login = () => {
         <div className="my-4">
           <Link
             href="/forgot-password"
-            className="text-accent-dark hover:decoration-accent-dark text-xs hover:underline"
+            className="text-xs text-accent hover:underline hover:decoration-accent"
           >
             Nie pamiętasz hasła?
           </Link>

@@ -9,9 +9,5 @@ type Props = {
 };
 
 export default function PublicTopBar({ user }: Props) {
-  return (
-    <div className="bg-white py-6">
-      <AppTopBar isPublic={true} links={publicLinks} user={user} />
-    </div>
-  );
+  return <AppTopBar isPublic={true} links={publicLinks} user={user} />;
 }

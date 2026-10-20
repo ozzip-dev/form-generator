@@ -26,7 +26,7 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
           <Icon
             icon={"user-profile-dark"}
             size={25}
-            className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-white"}`}
+            className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-font-dark"}`}
           />
         }
       />
