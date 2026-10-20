@@ -97,9 +97,9 @@ export default function HeroAnimation() {
             <div className="relative h-[var(--s)] w-[var(--s)] [--s:140px] [transform-style:preserve-3d] [transform:rotateX(-42deg)_rotateY(-45deg)]">
               {" "}
               <div className="absolute left-1/2 top-1/2 -ml-[45px] -mt-[45px] h-[90px] w-[90px] rounded-full bg-[radial-gradient(#fff,var(--color-accent_teal)_38%,transparent_70%)] blur-[8px]" />
-              {FACES.map(({ label, pos }) => (
+              {FACES.map(({ label, pos, id }) => (
                 <div
-                  key={label}
+                  key={id}
                   className={`absolute inset-0 grid place-items-center rounded-[20px] border-4 border-gray text-[34px] font-extrabold leading-none tracking-[.06em] text-white backdrop-blur-[6px] [box-shadow:inset_0px_0px_74px_50px_rgba(247,247,247,0.05)] max-[900px]:text-[24px] ${pos}`}
                 >
                   {label}

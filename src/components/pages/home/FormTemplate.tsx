@@ -1,7 +1,7 @@
-import { ButtonLink, Icon } from "@/components/shared";
+import { Icon } from "@/components/shared";
+import CardSmall from "@/components/shared/cards/CardSmall";
 import IconCart from "@/components/shared/icons/IconCart";
 import { TemplateFormId } from "@/lib/mongo/models";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -12,55 +12,52 @@ type Props = {
   icon: string;
 };
 
-const FormTemplate = ({ _id, id, templateTitle, icon, subtitle }: Props) => {
-  const templateCard = (
-    <div className="group relative flex h-full flex-col justify-between overflow-hidden rounded-sm border border-gray p-10">
-      <div className="flex items-center justify-between">
-        {_id ? (
-          <IconCart>
-            <Icon icon={icon} size={30} className="bg-white" />
-          </IconCart>
-        ) : (
-          <div className="w-fit rounded-sm border border-white bg-white/10 p-4">
-            <Icon icon={icon} size={30} className="bg-white" />
+const FormTemplate = ({ _id, templateTitle, icon, subtitle }: Props) => {
+  const isTemplate = Boolean(_id);
+
+  return (
+    <Link
+      href={isTemplate ? `/${_id}` : "/login"}
+      target="_blank"
+      aria-label={`Zobacz ${templateTitle}`}
+      className={`mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray transition-transform duration-300 hover:-translate-y-2 hover:border-accent ${
+        isTemplate ? "bg-bg-light" : "bg-gradient-accent-light text-white"
+      }`}
+    >
+      <CardSmall className="group relative flex flex-col justify-between !bg-transparent">
+        <div className="flex items-center justify-between">
+          {isTemplate ? (
+            <IconCart>
+              <Icon icon={icon} size={30} className="bg-white" />
+            </IconCart>
+          ) : (
+            <div className="w-fit rounded-sm border border-white bg-white/10 p-4">
+              <Icon icon={icon} size={30} className="bg-white" />
+            </div>
+          )}
+
+          <div
+            className={`group-hover:border-accent-dark group-hover:bg-accent-dark rounded-full border p-3 transition-colors duration-300 ${
+              isTemplate ? "border-gray" : "border-white"
+            }`}
+          >
+            <Icon
+              icon="arrow"
+              size={20}
+              className={`-rotate-[130deg] transition-colors duration-300 ${
+                isTemplate ? "bg-font-light group-hover:bg-white" : "bg-white"
+              }`}
+            />
           </div>
-        )}
-
-        <div
-          className={`rounded-full border p-3 transition-colors duration-300 ${_id ? "group-hover:border-accent-dark group-hover:bg-accent-dark border-gray" : "group-hover:border-accent-dark group-hover:bg-accent-dark border-white"}`}
-        >
-          <Icon
-            icon={"arrow"}
-            size={20}
-            className={`-rotate-[130deg] transition-colors duration-300 ${_id ? "bg-font-light group-hover:bg-white" : "bg-white"}`}
-          />
         </div>
-      </div>{" "}
-      <div className="mt-auto">
-        <p className={`text-xs ${_id ? "text-accent" : "text-white"}`}>
-          {subtitle}
-        </p>
-        <p className="mt-2 font-bold">{templateTitle}</p>
-      </div>
-    </div>
-  );
 
-  return _id ? (
-    <Link
-      href={`/${_id}`}
-      target="_blank"
-      aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="bg-bg-light mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
-    >
-      {templateCard}
-    </Link>
-  ) : (
-    <Link
-      href={`/login`}
-      target="_blank"
-      className="bg-gradient-accent-light mx-auto mb-8 block h-full cursor-pointer overflow-hidden rounded-sm border border-gray text-white transition-transform duration-300 hover:-translate-y-2 hover:border-accent"
-    >
-      {templateCard}
+        <div className="mt-auto">
+          <p className={`text-xs ${isTemplate ? "text-accent" : "text-white"}`}>
+            {subtitle}
+          </p>
+          <p className="mt-2 font-bold">{templateTitle}</p>
+        </div>
+      </CardSmall>
     </Link>
   );
 };
