@@ -29,11 +29,13 @@ const Protocols = ({ protocols }: Props) => {
   return (
     <div className="container relative flex h-full overflow-y-hidden">
       <Button
-        message={areActiveFilters > 1 ? "Filtry aktywne" : "Filtruj"}
         variant="primary-rounded"
         className="!absolute right-12 !z-20 h-fit !text-xs lg:hidden"
         onClickAction={() => setAreOpenFilters((prev) => !prev)}
-      />
+      >
+        {" "}
+        {areActiveFilters > 1 ? "Filtry aktywne" : "Filtruj"}
+      </Button>
 
       <div
         className={`fixed left-4 top-[6.9rem] z-40 transform transition-transform duration-300 ease-in-out lg:hidden ${areOpenFilters ? "translate-x-0" : "-translate-x-[150%]"} `}

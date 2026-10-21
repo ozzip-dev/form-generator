@@ -61,12 +61,13 @@ const CreatedFormTemplateHeader = ({
         </p>
         {isLoggedIn && isTemplate && (
           <Button
-            message="Utwórz formularz z szablonu"
             className="m-auto w-fit"
             variant="primary-rounded"
             onClickAction={handleCreateForm}
             isLoading={isPending}
-          />
+          >
+            Utwórz formularz z szablonu{" "}
+          </Button>
         )}
       </div>
     </div>

@@ -67,11 +67,10 @@ const Results = (props: Props) => {
         <ResultFieldSelect {...{ inputs, setInputs }} />
       </Card>
 
-      <Button
-        onClickAction={onDisplayAnswers}
-        message="Wyświetl odpowiedzi"
-        className="mx-auto my-12"
-      />
+      <Button onClickAction={onDisplayAnswers} className="mx-auto my-12">
+        {" "}
+        Wyświetl odpowiedzi
+      </Button>
 
       <div id="results" className="flex flex-col gap-4">
         {displayedResults.results.map((result, idx) => (

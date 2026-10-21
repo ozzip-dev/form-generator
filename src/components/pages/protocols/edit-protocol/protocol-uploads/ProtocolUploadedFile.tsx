@@ -98,7 +98,6 @@ const ProtocolUploadedFile = (props: Props) => {
 
       <Button
         type="button"
-        icon={<Icon icon="trash" size={27} className="bg-font-dark" />}
         variant="ghost"
         ariaLabel="Usuń załącznik"
         onClickAction={() =>
@@ -108,7 +107,9 @@ const ProtocolUploadedFile = (props: Props) => {
             confirmBtnMessage: "Usuń",
           })
         }
-      />
+      >
+        <Icon icon="trash" size={27} className="bg-font-dark" />{" "}
+      </Button>
     </div>
   );
 };

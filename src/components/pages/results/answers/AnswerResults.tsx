@@ -206,10 +206,11 @@ const AnswerResults = (props: Props) => {
 
         <Button
           onClickAction={exportPdf}
-          message="Pobierz .pdf"
           className="size-fit"
           variant="primary-rounded"
-        />
+        >
+          Pobierz .pdf{" "}
+        </Button>
       </div>
 
       <div id={`results-${id}`}>

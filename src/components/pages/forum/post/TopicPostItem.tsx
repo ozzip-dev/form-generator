@@ -58,7 +58,6 @@ const TopicPostItem = (props: Props) => {
         {isAuthor && (
           <Button
             type="button"
-            icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
             variant="ghost"
             ariaLabel="Usuń post"
             onClickAction={() =>
@@ -68,7 +67,10 @@ const TopicPostItem = (props: Props) => {
                 confirmBtnMessage: "Usuń",
               })
             }
-          />
+          >
+            {" "}
+            <Icon icon="trash" size={20} className="bg-font-dark" />
+          </Button>
         )}
       </div>
       <div>

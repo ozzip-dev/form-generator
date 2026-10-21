@@ -28,7 +28,7 @@ export const openProtocolImagePreviewModal = (
           unoptimized
           className="max-h-[70vh] w-auto max-w-[85vw] rounded-sm"
         />
-        <Button message="Zamknij" onClickAction={close} />
+        <Button onClickAction={close}>Zamknij</Button>
       </div>
     ),
   });

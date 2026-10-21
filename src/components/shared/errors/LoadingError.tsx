@@ -10,35 +10,37 @@ type Props = {
 const LoadingError = (props: Props) => {
   if (props.size === "lg")
     return (
-      <div className="flex flex-col items-center justify-center text-center p-4 h-[400px]">
-        <h2 className="font-semibold text-red-600 text-lg mb-2">
+      <div className="flex h-[400px] flex-col items-center justify-center p-4 text-center">
+        <h2 className="mb-2 text-lg font-semibold text-red-600">
           {props.message || "Błąd ładowania danych"}
         </h2>
-        <p className="text-gray-700 text-sm mb-4">{props.error.message}</p>
+        <p className="text-gray-700 mb-4 text-sm">{props.error.message}</p>
         <Button
           onClickAction={() => window.location.reload()}
-          className="!bg-error text-white px-2"
+          className="!bg-error px-2 text-white"
           variant="ghost"
-          message="Odśwież"
-        />
+        >
+          Odśwież
+        </Button>
       </div>
     );
 
   if (props.size === "sm")
     return (
-      <div className="flex items-center justify-center text-center gap-3 p-2">
-        <h2 className="font-semibold text-red-600 text-sm">
+      <div className="flex items-center justify-center gap-3 p-2 text-center">
+        <h2 className="text-sm font-semibold text-red-600">
           {props.message || "Błąd ładowania danych"}
         </h2>
-        <p className="text-gray-700 text-sm truncate max-w-[250px]">
+        <p className="text-gray-700 max-w-[250px] truncate text-sm">
           {props.error.message}
         </p>
         <Button
           onClickAction={() => window.location.reload()}
-          className="!bg-error text-white px-4"
+          className="!bg-error px-4 text-white"
           variant="ghost"
-          message="Odśwież"
-        />
+        >
+          Odśwież
+        </Button>
       </div>
     );
 };

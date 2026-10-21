@@ -7,12 +7,13 @@ const RemoveTextEditorBtn = (props: Props) => {
   return (
     <Button
       type="button"
-      icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
       onClickAction={props.handleRemoveDescription}
       variant="ghost"
       ariaLabel="Usuń opis"
       className="h-fir !bg-red mb-auto ml-4 mt-10 w-fit !text-error"
-    />
+    >
+      <Icon icon="trash" size={20} className="bg-font-dark" />
+    </Button>
   );
 };
 

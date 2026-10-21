@@ -58,7 +58,6 @@ const DemandsField = ({
             </div>
             <Button
               type="button"
-              icon={<Icon icon="trash" size={20} className="bg-font-dark" />}
               variant="ghost"
               className="!bg-transparent opacity-50 hover:opacity-100 disabled:opacity-30"
               ariaLabel="Usuń żądanie"
@@ -66,17 +65,21 @@ const DemandsField = ({
               onClickAction={() => {
                 removeDemand(idx);
               }}
-            />
+            >
+              {" "}
+              <Icon icon="trash" size={20} className="bg-font-dark" />
+            </Button>
           </div>
         ))}
         <Button
           type="button"
-          message="Dodaj żądanie"
           onClickAction={() => appendDemand("")}
           variant="primary-rounded"
           disabled={isSubmitting}
           className="w-fit"
-        />
+        >
+          Dodaj żądanie
+        </Button>
       </div>
     </div>
   );

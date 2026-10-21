@@ -47,12 +47,13 @@ const UserDetails = (props: Props) => {
         </Card>
 
         <Button
-          message="Edytuj"
           type="button"
           onClickAction={props.handlePrintForm}
           className="m-auto mt-10 w-full sm:w-fit"
           variant="primary-rounded"
-        />
+        >
+          Edytuj
+        </Button>
       </div>
     </>
   );

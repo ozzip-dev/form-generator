@@ -161,13 +161,14 @@ const TextEditor = (props: Props) => {
           {statusMessage}
         </div>
         <Button
-          message="Zapisz"
           type="button"
           onClickAction={handleEditDescription}
           className="!text-bold ml-auto !text-sm !text-accent"
           variant="ghost"
           ariaLabel="Zapisz opis"
-        />
+        >
+          Zapisz
+        </Button>
         <div role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </div>{" "}

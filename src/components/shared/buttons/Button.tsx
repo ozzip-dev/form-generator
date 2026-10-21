@@ -10,8 +10,6 @@ const VARIANTS = {
 type Props = {
   variant?: "primary" | "primary-rounded" | "ghost";
   isLoading?: boolean;
-  message?: string;
-  icon?: React.ReactNode;
   onClickAction?: (...args: any[]) => void | Promise<void>;
   type?: "button" | "submit";
   className?: string;
@@ -36,8 +34,7 @@ const Button = (props: Props) => {
       <span
         className={`${props.isLoading ? "opacity-0" : "opacity-100"} flex items-center justify-center gap-2`}
       >
-        {props.icon}
-        {props.message} {props.children}
+        {props.children}
       </span>
 
       {props.isLoading && (

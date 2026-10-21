@@ -31,11 +31,9 @@ const DownloadResultsButton = (props: Props) => {
   };
 
   return (
-    <Button
-      message="Pobierz wyniki (.xls)"
-      onClickAction={downloadResults}
-      variant="primary-rounded"
-    />
+    <Button onClickAction={downloadResults} variant="primary-rounded">
+      Pobierz wyniki (.xls){" "}
+    </Button>
   );
 };
 

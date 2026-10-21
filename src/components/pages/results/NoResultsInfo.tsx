@@ -13,7 +13,7 @@ const NoResultsInfo = () => {
   return (
     <div className="p-8">
       <div className="pb-6 font-black">Brak wyników</div>
-      <Button onClickAction={refreshPage} message="Odśwież" />
+      <Button onClickAction={refreshPage}> Odśwież</Button>
     </div>
   );
 };

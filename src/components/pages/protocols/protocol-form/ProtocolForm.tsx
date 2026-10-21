@@ -197,18 +197,22 @@ const ProtocolForm = (props: Props) => {
           {props.handlePrintForm && (
             <Button
               type="button"
-              message="Anuluj"
               onClickAction={props.handlePrintForm}
               variant="primary-rounded"
-            />
+            >
+              {" "}
+              Anuluj
+            </Button>
           )}
 
           <Button
             type="submit"
-            message="Zapisz"
             isLoading={isSubmitting}
             variant="primary-rounded"
-          />
+          >
+            {" "}
+            Zapisz
+          </Button>
         </div>
       </form>
     </Card>

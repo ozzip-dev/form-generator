@@ -24,7 +24,6 @@ const AcceptedValuesControls = (props: Props) => {
         type="button"
         variant="ghost"
         className="w-fit px-4 py-2 !text-accent"
-        message="Wyczyść"
         disabled={props.isClearBtnDisabled}
         onClickAction={props.clearBtnAction}
       >

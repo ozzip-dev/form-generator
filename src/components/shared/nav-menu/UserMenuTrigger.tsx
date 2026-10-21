@@ -21,27 +21,28 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
           isPublic ? "!text-font-dark" : ""
         }`}
         aria-expanded={isOpen}
-        message={userName}
-        icon={
-          <Icon
-            icon={"user-profile-dark"}
-            size={25}
-            className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-font-dark"}`}
-          />
-        }
-      />
+      >
+        <Icon
+          icon={"user-profile-dark"}
+          size={25}
+          className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-font-dark"}`}
+        />{" "}
+        {userName}
+      </Button>
     );
   }
 
   return (
     <Button
       className="lg:hidden"
-      icon={<Icon icon={menuIcon} size={30} className={"bg-font-dark"} />}
       onClickAction={onToggle}
       variant="ghost"
       ariaLabel={isOpen ? "Zamknij menu" : "Otwórz menu"}
       aria-expanded={isOpen}
-    />
+    >
+      {" "}
+      <Icon icon={menuIcon} size={30} className={"bg-font-dark"} />
+    </Button>
   );
 };
 

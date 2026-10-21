@@ -47,11 +47,12 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
 
         <Button
           type="submit"
-          message="Dodaj link"
           variant="primary-rounded"
           className="w-fit shrink-0"
           isLoading={isLoading}
-        />
+        >
+          Dodaj link
+        </Button>
       </form>
 
       {links.map((value, index) => (
@@ -66,12 +67,14 @@ const ProtocolLinksForm = ({ category, links, onAdd, onRemove }: Props) => {
 
           <Button
             type="button"
-            icon={<Icon icon="trash" size={27} className="bg-font-dark" />}
             variant="ghost"
             className="!bg-transparent"
             ariaLabel="Usuń link"
             onClickAction={() => void onRemove(category, value)}
-          />
+          >
+            {" "}
+            <Icon icon="trash" size={27} className="bg-font-dark" />
+          </Button>
         </div>
       ))}
     </div>
