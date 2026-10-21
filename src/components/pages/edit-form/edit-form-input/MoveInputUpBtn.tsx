@@ -27,16 +27,16 @@ const MoveInputUpBtn = ({ inputId, order }: Props) => {
       <Button
         type="button"
         onClickAction={handleMoveUp}
-        icon={
-          <Icon
-            icon="chevron-down-solid-full"
-            size={20}
-            className="bg-font-dark rotate-180"
-          />
-        }
         variant="ghost"
         ariaLabel={`Przenieś pole formularza numer ${order + 1} do góry`}
-      />
+      >
+        {" "}
+        <Icon
+          icon="chevron-down-solid-full"
+          size={20}
+          className="bg-font-dark rotate-180"
+        />{" "}
+      </Button>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import React from "react";
 import Loader from "../loaders/Loader";
 
 const VARIANTS = {
@@ -17,6 +18,7 @@ type Props = {
   disabled?: boolean;
   ariaLabel?: string;
   "aria-expanded"?: boolean;
+  children?: React.ReactNode;
 };
 
 const Button = (props: Props) => {
@@ -35,7 +37,7 @@ const Button = (props: Props) => {
         className={`${props.isLoading ? "opacity-0" : "opacity-100"} flex items-center justify-center gap-2`}
       >
         {props.icon}
-        {props.message}
+        {props.message} {props.children}
       </span>
 
       {props.isLoading && (

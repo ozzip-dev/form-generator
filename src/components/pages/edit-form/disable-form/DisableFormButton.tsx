@@ -18,7 +18,6 @@ function DisableFormButton() {
     <Button
       type="button"
       variant="primary-rounded"
-      message="Dezaktyuj formularz"
       className="h-fit"
       onClickAction={() =>
         openModal({
@@ -35,7 +34,9 @@ function DisableFormButton() {
           ),
         })
       }
-    />
+    >
+      Dezaktyuj formularz
+    </Button>
   );
 }
 

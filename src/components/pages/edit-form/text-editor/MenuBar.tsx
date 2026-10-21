@@ -120,16 +120,16 @@ const MenuBar = ({
             type="button"
             onClickAction={onClick}
             className="p-1 px-2"
-            icon={
-              <Icon
-                className={`${editorState[btnName as keyof typeof editorState] ? "bg-font-dark" : "bg-font-light"}`}
-                icon={icon as string}
-                size={15}
-              />
-            }
             ariaLabel={ariaLabel}
             variant="ghost"
-          />
+          >
+            {" "}
+            <Icon
+              className={`${editorState[btnName as keyof typeof editorState] ? "bg-font-dark" : "bg-font-light"}`}
+              icon={icon as string}
+              size={15}
+            />{" "}
+          </Button>
         ))}
       </div>
     </div>

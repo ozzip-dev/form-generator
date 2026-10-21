@@ -116,11 +116,12 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
         <div className="text-font-dark font-semibold">{link}</div>
         <Button
-          message="Skopiuj link formularza"
           className="m-auto w-fit"
           variant="primary-rounded"
           onClickAction={handleCopy}
-        />
+        >
+          Skopiuj link formularza
+        </Button>
         <ButtonLink
           message="Przejdź do formularza"
           link={`/${url ? url : _id!}`}
@@ -167,12 +168,13 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
       {isAuthor && _id && (
         <div className="flex flex-col gap-sm pb-20">
           <Button
-            message="Skopiuj formularz"
             isLoading={isPending}
             className="ml-auto w-fit"
             variant="primary-rounded"
             onClickAction={handleCopyForm}
-          />
+          >
+            Skopiuj formularz
+          </Button>
 
           {isFormActive && <SetFormDisabledForm formId={_id} />}
 

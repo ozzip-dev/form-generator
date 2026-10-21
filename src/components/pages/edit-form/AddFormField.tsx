@@ -54,16 +54,18 @@ const AddFormField = ({ formId }: Props) => {
         <Icon
           icon="exclamation"
           size={23}
-          className="bg-error absolute -right-10 top-0 top-1/2 -translate-y-1/2 text-error"
+          className="absolute -right-10 top-0 top-1/2 -translate-y-1/2 bg-error text-error"
         />
       )}
       <Button
         onClickAction={handleAddField}
-        message="Dodaj pytanie"
         variant="primary-rounded"
         className="mx-auto !rounded-full bg-accent p-2 px-8"
         ariaLabel="Przycisk dodaj pytanie"
-      />
+      >
+        {" "}
+        Dodaj pytanie
+      </Button>
     </div>
   );
 };

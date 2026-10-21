@@ -111,10 +111,11 @@ const Login = () => {
 
         <Button
           isLoading={isAction.current && isPending}
-          message="Zaloguj"
           type="submit"
           className="m-auto !px-20 !py-4 !text-base"
-        />
+        >
+          Zaloguj
+        </Button>
       </form>
     </AuthForm>
   );

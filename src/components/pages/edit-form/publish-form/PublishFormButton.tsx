@@ -46,7 +46,6 @@ const PublishFormButton = ({ form }: Props) => {
   useAutoLoader(isPending);
   return (
     <Button
-      message="Opublikuj"
       onClickAction={() =>
         openModal({
           action: handlePublishForm,
@@ -61,7 +60,9 @@ const PublishFormButton = ({ form }: Props) => {
         })
       }
       isLoading={isPending}
-    />
+    >
+      Opublikuj
+    </Button>
   );
 };
 

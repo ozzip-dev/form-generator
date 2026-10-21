@@ -29,12 +29,13 @@ const RemoveAliasButton = ({ form }: Props) => {
   return (
     <>
       <Button
-        message="Usuń alias"
         onClickAction={handleRemoveAliasUrl}
         isLoading={isPending}
         variant="primary-rounded"
         type="button"
-      />
+      >
+        Usuń alias
+      </Button>
       <div role="status" aria-live="polite" className="sr-only">
         {statusMessage}
       </div>{" "}

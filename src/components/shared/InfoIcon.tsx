@@ -33,7 +33,7 @@ export default function InfoIcon({ children }: Props) {
       <div
         id={tooltipId}
         role="tooltip"
-        className={`bg-bg-dark absolute -left-[18rem] top-10 z-50 rounded-sm border p-2 text-xs transition-opacity ${
+        className={`absolute -left-[18rem] top-10 z-50 rounded-sm border border-gray bg-white p-2 text-xs transition-opacity ${
           isVisible
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"

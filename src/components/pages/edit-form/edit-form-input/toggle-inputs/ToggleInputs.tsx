@@ -25,7 +25,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
     name: "hidden",
     label: `Odpowiedź ukryta`,
     infoText:
-      "Odpowiedź nie będzie widoczna w wynikach. Dotyczy unikalnych i tajnych wartości takich jak dane osobowe, numery indentyfikacyjne itd.",
+      "Odpowiedź nie będzie widoczna w wynikach. Dotyczy unikalnych i tajnych wartości takich jak dane osobowe, numery identyfikacyjne itd.",
     action: toggleHiddenAction,
     disabled: false,
   },

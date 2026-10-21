@@ -91,9 +91,10 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
         <Button
           type="submit"
           isLoading={isAction.current && isPending}
-          message="Zmień hasło"
           className="m-auto !px-20 !py-4 !text-base"
-        />
+        >
+          Zmień hasło{" "}
+        </Button>
       </form>
     </AuthForm>
   );

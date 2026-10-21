@@ -21,14 +21,6 @@ function RemoveFormButton(props: Props) {
   return (
     <Button
       variant="primary-rounded"
-      icon={
-        <Icon
-          icon="trash"
-          size={20}
-          className="bg-white transition-colors group-hover:bg-accent"
-        />
-      }
-      message="Usuń formularz"
       className="group ml-auto size-fit"
       onClickAction={() =>
         openModal({
@@ -46,7 +38,15 @@ function RemoveFormButton(props: Props) {
           confirmBtnMessage: "Usuń",
         })
       }
-    />
+    >
+      {" "}
+      <Icon
+        icon="trash"
+        size={20}
+        className="bg-white transition-colors group-hover:bg-accent"
+      />
+      Usuń formularz
+    </Button>
   );
 }
 

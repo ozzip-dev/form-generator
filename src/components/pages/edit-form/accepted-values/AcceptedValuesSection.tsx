@@ -49,9 +49,10 @@ const AcceptedValuesSection = () => {
           <Button
             variant="primary-rounded"
             className="m-auto w-fit"
-            message="Zamknij"
             onClickAction={close}
-          />
+          >
+            Zamknij{" "}
+          </Button>
         </div>
       ),
     });
@@ -135,11 +136,11 @@ const AcceptedValuesSection = () => {
           type="button"
           variant="primary-rounded"
           className="text-font-dark mb-[4px] w-fit rounded-sm border border-default px-3 py-2"
-          message={btnText}
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}
-        />
-
+        >
+          {btnText}
+        </Button>
         <AcceptedValuesInfoBox />
       </div>
 

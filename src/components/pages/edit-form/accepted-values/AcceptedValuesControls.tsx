@@ -14,10 +14,11 @@ const AcceptedValuesControls = (props: Props) => {
         type="button"
         variant="primary-rounded"
         className="w-fit px-4 py-2"
-        message="Dodaj"
         isLoading={props.isAddBtnLoading}
         onClickAction={props.addBtnAction}
-      />
+      >
+        Dodaj{" "}
+      </Button>
 
       <Button
         type="button"
@@ -26,7 +27,10 @@ const AcceptedValuesControls = (props: Props) => {
         message="Wyczyść"
         disabled={props.isClearBtnDisabled}
         onClickAction={props.clearBtnAction}
-      />
+      >
+        {" "}
+        Wyczyść
+      </Button>
     </div>
   );
 };
