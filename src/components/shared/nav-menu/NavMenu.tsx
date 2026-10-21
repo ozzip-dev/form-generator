@@ -4,6 +4,7 @@ import Image from "next/image";
 import { NavMenuLink } from "@/types/shared";
 import MenuLink from "./MenuLink";
 import { usePathname } from "next/navigation";
+import Icon from "../icons/Icon";
 
 type Props = {
   links: NavMenuLink[];
@@ -51,18 +52,17 @@ const NavMenu = (props: Props) => {
         </nav>
       ) : (
         <div className="flex items-center justify-center md:justify-between">
-          <div>
+          {/* <div>
             {props.icon && (
-              <Image
-                src={`/icons/${props.icon}.svg`}
-                alt=""
-                aria-hidden="true"
-                width={42}
-                height={42}
-                className="hidden md:block"
-              />
+              <div className="rounded-full bg-accent p-4">
+                <Icon
+                  size={20}
+                  icon={props.icon}
+                  className="hidden bg-white md:block"
+                />
+              </div>
             )}
-          </div>
+          </div> */}
           <nav>
             <ul className="flex items-center gap-6 sm:gap-10">
               {props.links.map(({ text, link, sameTab }) => (

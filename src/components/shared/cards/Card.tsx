@@ -3,12 +3,14 @@ type Props = {
   className?: string;
 };
 
-const Card = (props: Props) => {
+const Card = ({ children, className }: Props) => {
   return (
     <div
-      className={`bg-bg-light rounded-md border border-default px-4 py-4 shadow-default sm:px-8 md:rounded-lg md:px-24 ${props.className} `}
+      // className={`bg-bg-light rounded-md border border-default px-4 py-4 shadow-default sm:px-8 md:rounded-lg md:px-24 ${props.className} `}
+
+      className={`bg-bg-light h-full rounded-sm border border-gray p-10 ${className && className}`}
     >
-      {props.children}
+      {children}
     </div>
   );
 };

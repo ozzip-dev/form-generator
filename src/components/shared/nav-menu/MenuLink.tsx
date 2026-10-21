@@ -27,15 +27,15 @@ const MenuLink = ({
   const borderClass = isSub
     ? "border-accent text-accent"
     : mobile
-      ? "!text-font-dark font-extrabold border-none"
+      ? " border-none"
       : "!border-" + textColor;
 
   const newTabTarget = mobile && iSiOS() ? "_blank" : "externalWindow";
 
   return (
     <li
-      className={`shrink-0 ${
-        isActive ? `border-b ${borderClass}` : "border-b border-transparent"
+      className={`shrink-0 border-b ${
+        isActive ? `border-accent text-accent` : "border-transparent"
       } ${isSub ? "" : "text-" + textColor}`}
       style={{
         borderColor: isActive ? textColor : undefined,

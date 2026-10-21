@@ -135,7 +135,7 @@ const SelectField = ({
           aria-expanded={open}
           onClick={() => !disabled && setOpen((o) => !o)}
           onKeyDown={handleKeyDown}
-          className={`flex w-full items-center justify-between rounded-sm border bg-white p-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
+          className={`flex w-full items-center justify-between rounded-sm border border-gray bg-white p-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
         >
           <span className={!selectedOption ? "text-gray-400" : ""}>
             {selectedOption ? selectedOption.label : placeholder}
