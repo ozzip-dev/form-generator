@@ -116,7 +116,7 @@ export default function EditFormHeader(props: Props) {
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-8">
-        {(!!addFieldPublishError || hasAnyError) && (
+        {/* {(!!addFieldPublishError || hasAnyError) && (
           <Card className="text-sm text-error lg:flex">
             <p className="mb-2 mr-2 text-center">
               Błąd przy publikacji formularza:{" "}
@@ -201,7 +201,7 @@ export default function EditFormHeader(props: Props) {
               onChangeAction={handleSwitch}
             />
           </div>
-        </Card>
+        </Card> */}
 
         <FormHeaderImageUpload
           formId={formId}

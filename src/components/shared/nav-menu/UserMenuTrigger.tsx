@@ -17,15 +17,13 @@ const UserMenuTrigger = ({ isPublic, userName, isOpen, onToggle }: Props) => {
       <Button
         variant="ghost"
         onClickAction={onToggle}
-        className={`items-center font-semibold ${
-          isPublic ? "!text-font-dark" : ""
-        }`}
+        className={`!text-font-dark items-center font-semibold`}
         aria-expanded={isOpen}
       >
         <Icon
           icon={"user-profile-dark"}
           size={25}
-          className={`ml-4 ${isPublic ? "bg-font-dark" : "bg-font-dark"}`}
+          className={`"bg-font-dark" ml-4`}
         />{" "}
         {userName}
       </Button>

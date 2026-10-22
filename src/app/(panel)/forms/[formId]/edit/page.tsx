@@ -45,12 +45,12 @@ const EditFormPage = async (props: Props) => {
       {displayInfoFrame && <FormActiveInfo submissionCount={submissionCount} />}
 
       {isDraft(form) && (
-        <>
+        <div className="flex flex-col md:flex-row-reverse md:gap-8">
           <SuspenseErrorBoundary
             size="sm"
             errorMessage="Błąd publikacji formularza"
           >
-            <FormActions form={form} />
+            <FormActions formStructure={form} />
           </SuspenseErrorBoundary>
           <div className="flex flex-col gap-8">
             <SuspenseErrorBoundary
@@ -99,8 +99,9 @@ const EditFormPage = async (props: Props) => {
                 <AddFormField formId={formId} idx={inputs.length + 1} />
               </SuspenseErrorBoundary>
             )}
-          </div>
-        </>
+          </div>{" "}
+          <div className="hidden md:block">xxxx</div>
+        </div>
       )}
     </div>
   );
