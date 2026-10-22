@@ -115,101 +115,13 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="flex flex-col gap-8">
-        {/* {(!!addFieldPublishError || hasAnyError) && (
-          <Card className="text-sm text-error lg:flex">
-            <p className="mb-2 mr-2 text-center">
-              Błąd przy publikacji formularza:{" "}
-            </p>
-            <div className="text-center">
-              {[
-                headerPublishError.headerError?.type,
-                headerPublishError.headerError?.resultVisibility,
-                headerPublishError.headerError?.title,
-                headerPublishError.missingHeadersError,
-                addFieldPublishError,
-              ]
-                .filter(Boolean)
-                .join(", ")}
-            </div>
-          </Card>
-        )}
+      <form className="mt-8">
         <Card>
-          <div className="sm:flex lg:gap-[15%]">
-            <div className="relative mr-[3rem] flex-1 lg:mr-0">
-              <SelectFieldController
-                name="type"
-                defaultValue=""
-                label="Kategoria formularza"
-                options={dataSelectOptions}
-                onChangeAction={handleEdit}
-              />
-              {headerPublishError?.headerError?.type && (
-                <Icon
-                  icon="exclamation"
-                  size={23}
-                  className="absolute right-8 top-[1.5rem] -translate-y-1/2 bg-error text-error sm:top-1/2"
-                />
-              )}
-            </div>
-
-            <div className="relative flex flex-1 items-center">
-              <div className="w-full">
-                <SelectFieldController
-                  name="resultVisibility"
-                  defaultValue=""
-                  label="Tryb wyników"
-                  options={resultVisibilityOptions}
-                  onChangeAction={handleEdit}
-                />
-                {headerPublishError?.headerError?.resultVisibility && (
-                  <Icon
-                    icon="exclamation"
-                    size={23}
-                    className="absolute right-20 top-1/2 -translate-y-1/2 bg-error text-error"
-                  />
-                )}
-              </div>
-
-              <InfoIcon>
-                <>
-                  <div>
-                    <span className="font-semibold">Jawny: </span>
-                    <span>
-                      odpowiedzi z każdego formularza oraz zbiorcze podsumowanie
-                      odpowiedzi.
-                    </span>
-                  </div>
-                  <div className="pt-4">
-                    <span className="font-semibold">Tajny: </span>
-                    <span>
-                      {" "}
-                      zbiorcze podsumowanie odpowiedzi bez powiązania ich z
-                      pojedynczymi formularzami.
-                    </span>
-                  </div>
-                </>
-              </InfoIcon>
-            </div>
-          </div>
-
-          <div className="w-fit text-sm">
-            <CheckboxSwitch
-              label="Wyświetl email autora/autorki"
-              name="displayAuthorEmail"
-              control={control}
-              onChangeAction={handleSwitch}
-            />
-          </div>
-        </Card> */}
-
-        <FormHeaderImageUpload
-          formId={formId}
-          headerFileData={props.headerFileData}
-        />
-
-        <Card>
-          <div className="flex items-center">
+          <FormHeaderImageUpload
+            formId={formId}
+            headerFileData={props.headerFileData}
+          />
+          <div className="mt-8 flex items-center">
             <div className="relative w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}

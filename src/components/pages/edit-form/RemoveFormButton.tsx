@@ -21,7 +21,7 @@ function RemoveFormButton(props: Props) {
   return (
     <Button
       variant="empty-accent"
-      className="!hover:br-w group ml-auto w-full !border-error !text-error"
+      className="group ml-auto !border-error !bg-white !text-error hover:!bg-error hover:!text-white"
       onClickAction={() =>
         openModal({
           action: () => {

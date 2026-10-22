@@ -113,13 +113,10 @@ const SelectField = ({
   return (
     <div
       ref={ref}
-      className={`relative mt-[1.7rem] w-full pb-[1.7rem] ${className ? className : ""}`}
+      className={`relative w-full pb-[1.7rem] ${className ? className : ""}`}
     >
       {label && (
-        <label
-          htmlFor={name}
-          className="block shrink-0 text-sm md:mr-4 lg:static"
-        >
+        <label htmlFor={name} className="ml-4 block shrink-0 text-sm lg:static">
           {label}
         </label>
       )}

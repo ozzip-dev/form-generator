@@ -31,7 +31,7 @@ const RemoveAliasButton = ({ form }: Props) => {
       <Button
         onClickAction={handleRemoveAliasUrl}
         isLoading={isPending}
-        variant="primary-rounded"
+        variant="empty-accent"
         type="button"
       >
         Usuń alias

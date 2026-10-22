@@ -54,8 +54,8 @@ export default function AliasUrlForm(form: FormSerialized) {
   }, [reset, form.url, form._id]);
 
   return (
-    <form className="sm:flex sm:items-center sm:justify-between lg:justify-start">
-      <div className="mr-[3rem] w-full sm:w-1/2 lg:w-[340px]">
+    <form className="sm:flex sm:items-center sm:justify-between md:block lg:justify-start">
+      <div className="mt-4 w-full sm:w-3/4 md:w-full">
         <InputFields
           inputsData={dataInputUrl}
           register={register}
@@ -63,7 +63,7 @@ export default function AliasUrlForm(form: FormSerialized) {
           onChange={handleEditLabel}
         />
       </div>
-      <div className="sm:w-1/2">
+      <div className="mb-4">
         {form.url && <RemoveAliasButton form={form} />}
       </div>
     </form>

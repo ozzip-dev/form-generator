@@ -10,11 +10,11 @@ type Props = {
 const Checkbox = (props: Props) => {
   return (
     <label
-      className={`flex cursor-pointer gap-3 ${
+      className={`flex cursor-pointer items-center gap-3 ${
         props.isSubmitting ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
-      <div className="relative mt-1 h-6 min-w-12">
+      <div className="relative h-6 min-w-12">
         <input
           type="checkbox"
           id={props.name}

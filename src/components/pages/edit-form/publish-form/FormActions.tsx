@@ -20,7 +20,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { startTransition, use, useState } from "react";
-import { useLoader } from "@/context/LoaderContextProvider";
 import {
   editFormHeaderSchema,
   EditFormHeaderSchema,
@@ -33,6 +32,7 @@ import {
   useAddFieldPublishError,
   useHeaderPublishError,
 } from "@/context/PublishFormErrorContextProvider";
+import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -73,7 +73,6 @@ const FormActions = ({ formStructure }: Props) => {
 
   const {
     control,
-    register,
     formState: { errors },
     trigger,
     setError,
@@ -87,6 +86,10 @@ const FormActions = ({ formStructure }: Props) => {
     mode: "formHeader",
     setError,
   });
+
+  const isSelectLoading =
+    isLoading?.type === true || isLoading?.resultVisibility === true;
+  useAutoLoader(isSelectLoading);
 
   const handleSwitch = () => {
     setLoading("fullscreen", true);
@@ -103,17 +106,15 @@ const FormActions = ({ formStructure }: Props) => {
   );
 
   return (
-    <div>
+    <div className="mb-8">
       <Card className="my-8">
         <h3 className="text-lg">Ustawienia</h3>
-        <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
         <PublishFormButton form={formStructure} />
-
-        <AliasUrlForm {...formStructure} />
-        <div className="mb-2 flex gap-2">
+        <div className="flex items-center gap-2 text-sm sm:text-base">
           <div>Adres:</div>
           <div>{formUrl}</div>
         </div>
+        <AliasUrlForm {...formStructure} />
 
         <FormProvider {...methods}>
           <form>
@@ -136,7 +137,7 @@ const FormActions = ({ formStructure }: Props) => {
               </Card>
             )}
 
-            <div className="grid gap-8">
+            <div className="grid">
               <div className="relative mr-[3rem] flex-1 lg:mr-0">
                 <SelectFieldController
                   name="type"
@@ -196,7 +197,7 @@ const FormActions = ({ formStructure }: Props) => {
 
             <div className="w-fit text-sm">
               <CheckboxSwitch
-                label="Wyświetl email autora/autorki"
+                label="E-mail kontaktowy"
                 name="displayAuthorEmail"
                 control={control}
                 onChangeAction={handleSwitch}
@@ -204,6 +205,7 @@ const FormActions = ({ formStructure }: Props) => {
             </div>
           </form>
         </FormProvider>
+        <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
       </Card>
       {isAuthor && _id && <RemoveFormButton formId={_id} />}
     </div>
