@@ -61,16 +61,16 @@ const LogoutButton = ({ isUser }: Props) => {
       ) : (
         <>
           <ButtonLink
-            message="Zarejestruj"
             link="/admin-contact"
             variant="empty-accent"
             className="mb-11"
-          />
-          <ButtonLink
-            message="Zaloguj"
-            link="/login"
-            variant="primary-rounded"
-          />
+          >
+            Zarejestruj
+          </ButtonLink>
+          <ButtonLink link="/login" variant="primary-rounded">
+            {" "}
+            Zaloguj
+          </ButtonLink>
         </>
       )}
     </>

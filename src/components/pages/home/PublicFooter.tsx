@@ -38,9 +38,11 @@ export default function PublicFooter() {
             link="https://transferhub.pl"
             variant="underline"
             target="_blank"
-            message="www.transferhub.pl"
             className="inline text-xs"
-          />
+          >
+            {" "}
+            www.transferhub.pl
+          </ButtonLink>
         </div>
         <div className="text-center text-xs">
           <span className="mr-2">
@@ -53,9 +55,11 @@ export default function PublicFooter() {
             link="https://creativecommons.org/licenses/by/4.0/deed.pl"
             variant="underline"
             target="_blank"
-            message="CC BY 4.0"
             className="inline text-xs"
-          />
+          >
+            {" "}
+            CC BY 4.0
+          </ButtonLink>
         </div>{" "}
       </div>
     </footer>

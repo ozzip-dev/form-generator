@@ -144,7 +144,7 @@ const TextEditor = (props: Props) => {
       <div className="textEditorTags">
         <EditorContent
           editor={editor}
-          className="texEditorPlaceholder bg-white text-sm"
+          className="texEditorPlaceholder overflow-hidden rounded-sm bg-white text-sm [&_div]:!border [&_div]:!border-gray"
         />
       </div>
       <div className="flex justify-between text-xs">

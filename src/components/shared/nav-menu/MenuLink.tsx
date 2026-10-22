@@ -42,11 +42,12 @@ const MenuLink = ({
       }}
     >
       <ButtonLink
-        message={text}
         link={link}
         target={sameTab ? "_self" : newTabTarget}
         className={`${mobile && "py-10"}`}
-      />
+      >
+        {text}
+      </ButtonLink>
     </li>
   );
 };

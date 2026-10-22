@@ -10,8 +10,6 @@ const VARIANTS = {
 };
 
 type Props = {
-  icon?: React.ReactNode;
-  message?: string;
   link: string;
   target?: string;
   rel?: string;
@@ -25,11 +23,10 @@ type Props = {
     | "ghost";
   ariaLabel?: string;
   ariaCurrent?: "page";
+  children?: React.ReactNode;
 };
 
 export default function ButtonLink({
-  icon,
-  message,
   link,
   target,
   rel,
@@ -37,6 +34,7 @@ export default function ButtonLink({
   variant = "ghost",
   ariaLabel,
   ariaCurrent,
+  children,
 }: Props) {
   return (
     <Link
@@ -47,8 +45,7 @@ export default function ButtonLink({
       aria-current={ariaCurrent}
       className={`block text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${VARIANTS[variant]} ${className ?? ""} `}
     >
-      {icon}
-      {message}
+      {children}
     </Link>
   );
 }

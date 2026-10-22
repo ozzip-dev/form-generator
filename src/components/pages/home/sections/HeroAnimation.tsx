@@ -82,9 +82,8 @@ export default function HeroAnimation() {
           <ButtonLink
             link="#templates"
             variant="empty-white"
-            message="Zobacz gotowe szablony"
             className="mt-20 w-fit"
-          />
+          >Zobacz gotowe szablony</ButtonLink>
         </div>
 
         <div className="flex flex-1 items-center justify-center">

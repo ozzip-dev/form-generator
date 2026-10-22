@@ -93,11 +93,9 @@ const ProtocolListItem = (props: Props) => {
 
           {isAuthor && (
             <>
-              <ButtonLink
-                icon={<Icon icon="edit" size={20} className="bg-accent" />}
-                link={`/protocols/${_id}`}
-                variant="ghost"
-              />
+              <ButtonLink link={`/protocols/${_id}`} variant="ghost">
+                <Icon icon="edit" size={20} className="bg-accent" />{" "}
+              </ButtonLink>
 
               <RemoveProtocolBtn ProtocolId={props.protocol._id} />
             </>

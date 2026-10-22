@@ -4,6 +4,8 @@ import MoveInputUpBtn from "./MoveInputUpBtn";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { useInputData } from "@/context/InputDataContextProvider";
+import { SelectFieldController } from "@/components/shared/inputs/select-field/SelectFieldController";
+import { dataSelectOptions } from "../editFormData";
 
 function FormInputMoveRemoveButtons() {
   const { input, isLastInput } = useInputData();
@@ -11,7 +13,7 @@ function FormInputMoveRemoveButtons() {
   const isFirstInput = input.order === 0;
 
   return (
-    <div className="mb-4 flex gap-4">
+    <div className="flex gap-4">
       <div className="ml-auto flex gap-4">
         {!isFirstInput && (
           <MoveInputUpBtn inputId={inputId} order={input.order} />

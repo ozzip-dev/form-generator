@@ -25,9 +25,10 @@ const Start = () => {
         <ButtonLink
           link="/admin-cntact"
           variant="empty-white"
-          message="Zarejestruj organizację"
           className="mx-auto w-fit"
-        />
+        >
+          Zarejestruj organizację
+        </ButtonLink>
         {/* </div> */}
         <div>
           <h2 className="my-8 bg-clip-text text-center text-[18rem] font-black leading-tight tracking-tighter text-transparent [background-image:linear-gradient(180deg,var(--color-accent)_1%,var(--color-accent-dark)_100%)]">

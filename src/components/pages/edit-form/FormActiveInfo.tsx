@@ -123,12 +123,14 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           Skopiuj link formularza
         </Button>
         <ButtonLink
-          message="Przejdź do formularza"
           link={`/${url ? url : _id!}`}
           target="_blank"
           variant="primary-rounded"
           className="m-auto mb-10 w-fit"
-        />
+        >
+          {" "}
+          Przejdź do formularza
+        </ButtonLink>
 
         <div className="text-font-light">
           Kategoria formularza:{" "}
@@ -152,12 +154,13 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
         </div>
 
         <ButtonLink
-          message="Przejdź do wyników"
           link={`/forms/${_id}/results/details`}
           target="_blank"
           variant="primary-rounded"
           className="m-auto mb-3 mt-16 w-fit"
-        />
+        >
+          Przejdź do wyników
+        </ButtonLink>
 
         <div className="text-font-light mt-16 text-2xs">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>

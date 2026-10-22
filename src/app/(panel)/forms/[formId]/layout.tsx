@@ -14,7 +14,7 @@ export default async function CreateFormLayout(props: Props) {
       <PublishFormErrorContextProvider>
         <div className="flex h-full flex-col">
           <div className="shrink-0">
-            <CreateFormMenu formId={formId} />
+            <CreateFormMenu formId={formId} /> eeeeeeesss
           </div>
 
           <section className="flex-1 overflow-y-auto">{props.children}</section>

@@ -117,14 +117,12 @@ const EditFormInput = () => {
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
+  const formData = useFormData();
 
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  // TODO Krzyztof: moze masz lepszy pomysl.
-  // Musi byc reaktywne na zmiany w formie, np. dodanie/usunięcie inputu
-  const formData = useFormData();
   useEffect(() => {
     if (!header) setError("header", { message: "Uzupełnij pytanie" });
   }, [header, setError, formData]);
@@ -133,7 +131,7 @@ const EditFormInput = () => {
     {
       name: "header",
       placeholder: "Pytanie",
-      floatingLabel: `Edytuj pytanie ${inputNumber}`,
+      floatingLabel: `Pytanie ${inputNumber}`,
       type: InputType.TEXT,
     },
   ];
@@ -153,7 +151,19 @@ const EditFormInput = () => {
             }
           >
             <form>
-              <FormInputMoveRemoveButtons />
+              <div className="flex flex-col sm:flex-row-reverse sm:items-center sm:gap-8">
+                <FormInputMoveRemoveButtons />
+                <div className="sm:w-[22rem]">
+                  <SelectFieldController
+                    name="type"
+                    defaultValue={type}
+                    options={dataSelectOptions}
+                    onChangeAction={(name, value) => {
+                      handleEditType(value as InputType);
+                    }}
+                  />
+                </div>
+              </div>
 
               <div className="items-center md:flex md:gap-12">
                 <div className="flex min-w-0 flex-1 items-center">
@@ -187,17 +197,6 @@ const EditFormInput = () => {
                       </div>
                     ))}
                 </div>
-
-                <div className="mb-auto mt-2 w-[23rem]">
-                  <SelectFieldController
-                    name="type"
-                    defaultValue={type}
-                    options={dataSelectOptions}
-                    onChangeAction={(name, value) => {
-                      handleEditType(value as InputType);
-                    }}
-                  />
-                </div>
               </div>
 
               <div className="md:flex md:gap-10">
@@ -218,10 +217,9 @@ const EditFormInput = () => {
                     />
                   )}
                 </div>
-                {!isInputTypeParagraph(input) && <ToggleInputs />}
               </div>
-
               {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
+              {!isInputTypeParagraph(input) && <ToggleInputs />}
             </form>
           </div>
         </FormProvider>

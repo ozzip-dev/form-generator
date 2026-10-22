@@ -27,17 +27,13 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
 
       {!user && (
         <div className="ml-auto hidden shrink-0 items-center gap-3 lg:flex lg:gap-6 xl:gap-10">
-          <ButtonLink
-            message="Zarejestruj organizację"
-            link="/admin-contact"
-            variant="empty-accent"
-          />
+          <ButtonLink link="/admin-contact" variant="empty-accent">
+            Zarejestruj organizację
+          </ButtonLink>
 
-          <ButtonLink
-            message="Zaloguj"
-            link="/login"
-            variant="primary-rounded"
-          />
+          <ButtonLink link="/login" variant="primary-rounded">
+            Zaloguj
+          </ButtonLink>
         </div>
       )}
 

@@ -12,7 +12,7 @@ export default function InfoIcon({ children }: Props) {
   const tooltipId = useId();
 
   return (
-    <div className="relative ml-2">
+    <div className="relative ml-2 flex items-center">
       <button
         type="button"
         aria-describedby={tooltipId}
