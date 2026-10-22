@@ -106,8 +106,8 @@ const FormActions = ({ formStructure }: Props) => {
   );
 
   return (
-    <div className="mb-8">
-      <Card className="my-8">
+    <div className="pt-8">
+      <Card className="mb-8">
         <h3 className="text-lg">Ustawienia</h3>
         <PublishFormButton form={formStructure} />
         <div className="flex items-center gap-2 text-sm sm:text-base">

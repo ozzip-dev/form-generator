@@ -61,8 +61,8 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
 
   return (
     <>
-      <div className="relative m-auto w-fit">
-        <div className="m-auto h-[3.4rem] w-[22rem] rounded-full bg-accent text-white sm:w-[28rem]">
+      <div className="relative mb-8 mr-[2.6rem]">
+        <div className="bg-bg-dark h-16 w-full rounded-sm border border-gray">
           <UploadFileForm
             {...{
               onFileUploaded,

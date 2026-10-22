@@ -125,9 +125,7 @@ const AcceptedValuesSection = () => {
     });
   };
 
-  const btnText: string = isOpen
-    ? "Schowaj"
-    : "Zdefiniuj dopuszczalne odpowiedzi";
+  const btnText: string = isOpen ? "Schowaj" : "Dopuszczalne odpowiedzi";
 
   return (
     <div className="mt-8 flex w-full flex-col gap-3 pt-5 text-sm">

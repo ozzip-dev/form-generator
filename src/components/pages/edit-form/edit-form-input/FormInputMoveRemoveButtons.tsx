@@ -4,8 +4,6 @@ import MoveInputUpBtn from "./MoveInputUpBtn";
 import MoveInputDownBtn from "./MoveInputDownBtn";
 import RemoveInputBtn from "./RemoveInputBtn";
 import { useInputData } from "@/context/InputDataContextProvider";
-import { SelectFieldController } from "@/components/shared/inputs/select-field/SelectFieldController";
-import { dataSelectOptions } from "../editFormData";
 
 function FormInputMoveRemoveButtons() {
   const { input, isLastInput } = useInputData();

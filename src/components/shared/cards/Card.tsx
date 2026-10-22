@@ -1,12 +1,14 @@
 type Props = {
   children: React.ReactNode;
   className?: string;
+  id?: number | null;
 };
 
-const Card = ({ children, className }: Props) => {
+const Card = ({ children, className, id }: Props) => {
   return (
     <div
-      className={`bg-bg-light rounded-sm border border-gray p-8 ${className && className}`}
+      {...(id !== undefined ? { id: String(id) } : {})}
+      className={`bg-bg-light rounded-sm border border-gray p-8 ${className ?? ""}`}
     >
       {children}
     </div>

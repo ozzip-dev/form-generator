@@ -115,13 +115,13 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="mt-8">
+      <form className="mt-8" id="header">
         <Card>
           <FormHeaderImageUpload
             formId={formId}
             headerFileData={props.headerFileData}
           />
-          <div className="mt-8 flex items-center">
+          <div className="flex items-center">
             <div className="relative w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}

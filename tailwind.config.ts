@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: "var(--color-accent)",
+        accent: "rgb(from var(--color-accent) r g b / <alpha-value>)",
         "accent-dark": "var(--color-accent-dark)",
         "accent-light": "var(--color-accent-light)",
         "accent-lighter": "var(--color-accent-lighter)",
