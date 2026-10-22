@@ -83,13 +83,14 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
       </div>
 
       {!!headerFileData && (
-        <div className="relative mx-auto my-4 w-fit">
-          <div className="relative h-32 w-64 overflow-hidden">
+        <div className="relative my-4 mr-[2.6rem]">
+          <div>
             <Image
               src={`data:image/png;base64,${headerFileData}`}
               alt="form header"
-              fill={true}
-              className="object-contain"
+              width={1200}
+              height={600}
+              className="h-auto w-full rounded-sm"
             />
           </div>
           <div className="absolute -right-10 top-0">
