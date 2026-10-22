@@ -108,33 +108,34 @@ const FormActions = ({ formStructure }: Props) => {
         <h3 className="text-lg">Ustawienia</h3>
         <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
         <PublishFormButton form={formStructure} />
+
+        <AliasUrlForm {...formStructure} />
         <div className="mb-2 flex gap-2">
           <div>Adres:</div>
-          <div className="font-semibold">{formUrl}</div>
+          <div>{formUrl}</div>
         </div>
-        <AliasUrlForm {...formStructure} />
-      </Card>
-      <FormProvider {...methods}>
-        <form>
-          {(!!addFieldPublishError || hasAnyError) && (
-            <Card className="text-sm text-error lg:flex">
-              <p className="mb-2 mr-2 text-center">
-                Błąd przy publikacji formularza:{" "}
-              </p>
-              <div className="text-center">
-                {[
-                  headerPublishError.headerError?.type,
-                  headerPublishError.headerError?.resultVisibility,
-                  headerPublishError.headerError?.title,
-                  headerPublishError.missingHeadersError,
-                  addFieldPublishError,
-                ]
-                  .filter(Boolean)
-                  .join(", ")}
-              </div>
-            </Card>
-          )}
-          <Card>
+
+        <FormProvider {...methods}>
+          <form>
+            {(!!addFieldPublishError || hasAnyError) && (
+              <Card className="text-sm text-error lg:flex">
+                <p className="mb-2 mr-2 text-center">
+                  Błąd przy publikacji formularza:{" "}
+                </p>
+                <div className="text-center">
+                  {[
+                    headerPublishError.headerError?.type,
+                    headerPublishError.headerError?.resultVisibility,
+                    headerPublishError.headerError?.title,
+                    headerPublishError.missingHeadersError,
+                    addFieldPublishError,
+                  ]
+                    .filter(Boolean)
+                    .join(", ")}
+                </div>
+              </Card>
+            )}
+
             <div className="grid gap-8">
               <div className="relative mr-[3rem] flex-1 lg:mr-0">
                 <SelectFieldController
@@ -201,9 +202,9 @@ const FormActions = ({ formStructure }: Props) => {
                 onChangeAction={handleSwitch}
               />
             </div>
-          </Card>
-        </form>
-      </FormProvider>
+          </form>
+        </FormProvider>
+      </Card>
       {isAuthor && _id && <RemoveFormButton formId={_id} />}
     </div>
   );

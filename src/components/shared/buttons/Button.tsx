@@ -4,11 +4,12 @@ import Loader from "../loaders/Loader";
 const VARIANTS = {
   primary: "btn-primary",
   "primary-rounded": "btn-primary-rounded",
+  "empty-accent": "btn-empty-acccent",
   ghost: "",
 };
 
 type Props = {
-  variant?: "primary" | "primary-rounded" | "ghost";
+  variant?: "primary" | "primary-rounded" | "empty-accent" | "ghost";
   isLoading?: boolean;
   onClickAction?: (...args: any[]) => void | Promise<void>;
   type?: "button" | "submit";

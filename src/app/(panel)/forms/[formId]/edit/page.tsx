@@ -50,7 +50,9 @@ const EditFormPage = async (props: Props) => {
             size="sm"
             errorMessage="Błąd publikacji formularza"
           >
-            <FormActions formStructure={form} />
+            <div className="sticky top-0">
+              <FormActions formStructure={form} />
+            </div>
           </SuspenseErrorBoundary>
           <div className="flex flex-col gap-8">
             <SuspenseErrorBoundary

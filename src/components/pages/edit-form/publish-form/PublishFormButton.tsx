@@ -60,6 +60,7 @@ const PublishFormButton = ({ form }: Props) => {
         })
       }
       isLoading={isPending}
+      className="w-full"
     >
       Opublikuj
     </Button>
