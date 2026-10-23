@@ -11,7 +11,7 @@ const FormListPage = async () => {
   return (
     <>
       <section>
-        <div className="container px-4 py-16 md:flex">
+        <div className="bg-bg-light container px-4 py-16 md:flex">
           <SuspenseErrorBoundary
             errorMessage="Błąd ładowania listy formularzy"
             loadingMessage="Ładowanie listy formularzy"
