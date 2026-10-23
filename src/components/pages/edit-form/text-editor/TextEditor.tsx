@@ -135,7 +135,7 @@ const TextEditor = (props: Props) => {
   const remaining = MAX_CHARS - characters;
 
   return (
-    <div className="">
+    <div className="mb-4">
       <MenuBar
         editor={editor}
         handleEditDescription={handleEditDescription}
@@ -144,7 +144,7 @@ const TextEditor = (props: Props) => {
       <div className="textEditorTags">
         <EditorContent
           editor={editor}
-          className="texEditorPlaceholder overflow-hidden rounded-sm bg-white text-sm [&_div]:!border [&_div]:!border-gray"
+          className="texEditorPlaceholder overflow-hidden rounded-b-sm bg-white text-sm [&_div]:!rounded-b-sm [&_div]:!rounded-t-none [&_div]:!border [&_div]:!border-gray"
         />
       </div>
       <div className="flex justify-between text-xs">

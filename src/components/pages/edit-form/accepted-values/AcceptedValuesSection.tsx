@@ -137,7 +137,7 @@ const AcceptedValuesSection = () => {
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}
         >
-          {btnText}
+          {btnText} - {input.acceptedValues ? input.acceptedValues.length : "0"}
         </Button>
         <AcceptedValuesInfoBox />
       </div>
@@ -146,9 +146,6 @@ const AcceptedValuesSection = () => {
         <div className="flex w-full flex-col gap-2">
           {!!input.acceptedValues?.length && (
             <>
-              <div>
-                Dopuszczalne odpowiedzi: ({input.acceptedValues.length})
-              </div>
               <div className="flex flex-wrap gap-3">
                 {input.acceptedValues.sort().map((value, idx) => (
                   <AcceptedValueBox value={value} key={idx} />

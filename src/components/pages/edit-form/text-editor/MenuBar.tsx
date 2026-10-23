@@ -112,20 +112,20 @@ const MenuBar = ({
   ];
 
   return (
-    <div className="control-group flex items-center">
-      <div className="button-group flex gap-2">
+    <div className="control-group flex items-center rounded-t-sm border-l border-r border-t border-gray">
+      <div className="button-group flex">
         {createBtnsData.map(({ onClick, btnName, icon, ariaLabel }, idx) => (
           <Button
             key={idx}
             type="button"
             onClickAction={onClick}
-            className="p-1 px-2"
+            className="group p-1 px-2"
             ariaLabel={ariaLabel}
             variant="ghost"
           >
             {" "}
             <Icon
-              className={`${editorState[btnName as keyof typeof editorState] ? "bg-font-dark" : "bg-font-light"}`}
+              className={`${editorState[btnName as keyof typeof editorState] ? "bg-accent" : "bg-font-light"} group-hover:font-black`}
               icon={icon as string}
               size={15}
             />{" "}

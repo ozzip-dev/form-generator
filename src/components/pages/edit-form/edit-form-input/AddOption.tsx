@@ -98,9 +98,7 @@ const AddOption = (props: Props) => {
                   {
                     type: InputType.TEXT,
                     name: `options.${idx}.label`,
-                    floatingLabel: isOtherOption
-                      ? "Edytuj inne"
-                      : "Edytuj opcję",
+                    floatingLabel: isOtherOption ? "Inne" : "Opcja",
                   },
                 ]}
                 register={register}

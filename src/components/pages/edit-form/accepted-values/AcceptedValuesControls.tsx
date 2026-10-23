@@ -12,8 +12,8 @@ const AcceptedValuesControls = (props: Props) => {
     <div className="flex flex-wrap justify-between gap-3">
       <Button
         type="button"
-        variant="primary-rounded"
-        className="w-fit px-4 py-2"
+        variant="ghost"
+        className="w-fit px-4 py-2 !text-accent"
         isLoading={props.isAddBtnLoading}
         onClickAction={props.addBtnAction}
       >
