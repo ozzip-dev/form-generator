@@ -32,7 +32,7 @@ const FormTemplateTrigger = (props: Props) => {
         onClickAction={handleCreateForm}
         isLoading={isPending}
         variant="ghost"
-        className="flex aspect-square w-[11rem] items-center justify-center rounded-md border !bg-white !text-black transition hover:!bg-accent hover:!text-white md:rounded-lg"
+        className="!bg-bg-light flex aspect-square w-[11rem] items-center justify-center rounded-sm border !text-black transition hover:!bg-accent hover:!text-white"
         ariaLabel={props.title}
       >
         {props.title}{" "}

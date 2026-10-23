@@ -18,7 +18,7 @@ type FormStateConfig = {
 
 const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
   draft: {
-    bgColor: "bg-accent-lighter",
+    bgColor: "bg-bg-white",
     iconConfig: { icon: "pencil", size: 31, color: "bg-accent" },
   },
   active: {
@@ -44,7 +44,7 @@ export default async function FormLink(props: Props) {
     <li className="w-[11rem]">
       <Link
         href={`/forms/${props.form._id}/edit`}
-        className={`m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border text-xs transition ${bgColor} hover:bg-[#ffa4a4] md:rounded-lg`}
+        className={`m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border text-xs transition ${bgColor} hover:bg-[#ffa4a4]`}
         aria-label={`Formularz: ${props.form.title ?? "Brak tytułu"}`}
       >
         <div>
