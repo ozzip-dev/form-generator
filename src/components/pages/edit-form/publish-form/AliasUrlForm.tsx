@@ -54,7 +54,7 @@ export default function AliasUrlForm(form: FormSerialized) {
   }, [reset, form.url, form._id]);
 
   return (
-    <form className="pb-16 pt-20 sm:flex sm:items-center sm:justify-between md:block lg:justify-start">
+    <form className="py-12 sm:flex sm:items-center sm:justify-between md:block lg:justify-start">
       <div className="flex-1">
         <div className="mt-4 w-full sm:w-3/4 md:w-full">
           <InputFields

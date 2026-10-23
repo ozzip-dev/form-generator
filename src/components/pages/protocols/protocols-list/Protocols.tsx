@@ -27,10 +27,10 @@ const Protocols = ({ protocols }: Props) => {
     );
 
   return (
-    <div className="container relative flex h-full overflow-y-hidden">
+    <div className="container relative flex h-full gap-8 overflow-y-hidden">
       <Button
         variant="primary-rounded"
-        className="!absolute right-12 !z-20 h-fit !text-xs lg:hidden"
+        className="!absolute right-20 top-8 !z-20 h-fit !text-xs lg:hidden"
         onClickAction={() => setAreOpenFilters((prev) => !prev)}
       >
         {" "}
@@ -54,7 +54,7 @@ const Protocols = ({ protocols }: Props) => {
         />
       )}
 
-      <div className="mr-14 hidden overflow-y-auto lg:block">
+      <div className="hidden overflow-y-auto lg:block">
         <ProtocolListFilters filters={filters} setFilters={setFilters} />
       </div>
       <div className="min-h-0 flex-1 overflow-y-scroll">

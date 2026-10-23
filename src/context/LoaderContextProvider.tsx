@@ -61,7 +61,7 @@ export const LoaderContextProvider = ({ children }: Props) => {
       {visible.fullscreen && <FullscreenLoader />}
       {showSmallLoaderInfo && (
         <div className="container relative">
-          <div className="text-font-light absolute top-[8rem] z-10 w-[15rem] text-xs md:right-[3rem] md:top-[6rem]">
+          <div className="text-font-light absolute top-[8rem] z-10 w-[16rem] text-xs md:right-[3rem] md:top-[6rem]">
             <div className="flex items-center gap-2">
               <div className="h-4 w-4 rounded-full bg-accent"></div>
               {visible.small
