@@ -18,7 +18,7 @@ const AddTextEditorBtn = (props: Props) => {
         <Icon icon="plus-solid-full" size={12} className="bg-font-dark" />
       </Button>
 
-      <div className="bg-font-dark pointer-events-none absolute -left-[6rem] top-10 z-50 whitespace-nowrap rounded-sm p-4 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100">
+      <div className="bg-font-dark pointer-events-none absolute right-[0] top-10 z-50 whitespace-nowrap rounded-sm p-4 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100">
         Dodaj opis pytania
       </div>
     </div>
