@@ -110,12 +110,7 @@ const FormActions = ({ formStructure }: Props) => {
       <Card className="mb-8">
         <h3 className="text-lg">Ustawienia</h3>
         <PublishFormButton form={formStructure} />
-        <div className="flex items-center gap-2 text-sm sm:text-base">
-          <div>Adres:</div>
-          <div>{formUrl}</div>
-        </div>
         <AliasUrlForm {...formStructure} />
-
         <FormProvider {...methods}>
           <form>
             {(!!addFieldPublishError || hasAnyError) && (
@@ -142,7 +137,7 @@ const FormActions = ({ formStructure }: Props) => {
                 <SelectFieldController
                   name="type"
                   defaultValue=""
-                  label="Kategoria formularza"
+                  label="Kategoria"
                   options={dataSelectOptions}
                   onChangeAction={handleEdit}
                 />
@@ -205,7 +200,9 @@ const FormActions = ({ formStructure }: Props) => {
             </div>
           </form>
         </FormProvider>
-        <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
+        <div className="mt-8">
+          <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
+        </div>
       </Card>
       {isAuthor && _id && <RemoveFormButton formId={_id} />}
     </div>
