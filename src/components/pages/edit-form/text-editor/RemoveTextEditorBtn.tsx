@@ -10,7 +10,7 @@ const RemoveTextEditorBtn = (props: Props) => {
       onClickAction={props.handleRemoveDescription}
       variant="ghost"
       ariaLabel="Usuń opis"
-      className="h-fir !bg-red mb-auto ml-4 mt-10 w-fit !text-error"
+      className="!absolute -right-10 top-9"
     >
       <Icon icon="trash" size={20} className="bg-font-dark" />
     </Button>

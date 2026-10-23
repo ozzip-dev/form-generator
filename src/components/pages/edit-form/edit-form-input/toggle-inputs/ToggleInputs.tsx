@@ -8,14 +8,14 @@ import { FormInput } from "@/types/input";
 const toggleSwitchesData = (formInput: FormInput) => [
   {
     name: "required",
-    label: `Odpowiedź wymagana`,
+    label: `Wymagana`,
     infoText: "Bez wypełnienia pola formularz nie zostanie wysłany",
     action: toggleRequiredAction,
     disabled: formInput.hidden || formInput.unique,
   },
   {
     name: "unique",
-    label: `Odpowiedź unikalna`,
+    label: `Unikalna`,
     infoText:
       "Ponowne przekazanie tej samej odpowiedzi zablokuje wysłanie formularza.",
     action: toggleUniqueAction,
@@ -23,7 +23,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
   },
   {
     name: "hidden",
-    label: `Odpowiedź ukryta`,
+    label: `Ukryta`,
     infoText:
       "Odpowiedź nie będzie widoczna w wynikach. Dotyczy unikalnych i tajnych wartości takich jak dane osobowe, numery identyfikacyjne itd.",
     action: toggleHiddenAction,
@@ -34,7 +34,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
 const ToggleInputs = () => {
   const { formId, input } = useInputData();
   return (
-    <div className="flex flex-col flex-wrap gap-4 sm:flex-row sm:gap-8">
+    <div className="mt-4 flex flex-col flex-wrap gap-4 border-t border-gray pt-4 sm:flex-row">
       {toggleSwitchesData(input).map(
         ({ name, label, action, infoText, disabled }, idx) => (
           <InputDataToggleSwitch

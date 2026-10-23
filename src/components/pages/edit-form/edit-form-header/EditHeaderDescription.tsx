@@ -37,7 +37,7 @@ const EditHeaderDescription = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="mt-4 flex gap-2">
+    <div className="relative mr-[2.7rem] flex">
       <div className="flex-1">
         {isEditorOpen ? (
           <TextEditor

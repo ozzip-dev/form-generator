@@ -127,12 +127,12 @@ const AddOption = (props: Props) => {
       })}
 
       <div className="flex gap-2">
-        <div className="mb-10 w-fit">
+        <div className="w-fit">
           <Button
             type="button"
             disabled={!!errors.options || hasReachedOptionLimit}
             onClickAction={handleAddOption}
-            variant="primary-rounded"
+            variant="empty-accent"
           >
             {" "}
             Dodaj opcję
@@ -144,7 +144,7 @@ const AddOption = (props: Props) => {
               type="button"
               disabled={hasReachedOptionLimit}
               onClickAction={handleAddOther}
-              variant="primary-rounded"
+              variant="empty-accent"
             >
               Dodaj inne
             </Button>

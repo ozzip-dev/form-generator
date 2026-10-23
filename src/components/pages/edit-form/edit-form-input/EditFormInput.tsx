@@ -171,9 +171,8 @@ const EditFormInput = () => {
                   {inputNumber}
                 </div>
               </div>
-
               <div className="items-center md:flex md:gap-12">
-                <div className="flex min-w-0 flex-1 items-center">
+                <div className="relative mr-[2.7rem] flex min-w-0 flex-1 items-center">
                   {!isInputTypeParagraph(input) ? (
                     <div className="w-full">
                       <InputFields
@@ -184,7 +183,7 @@ const EditFormInput = () => {
                       />
                     </div>
                   ) : (
-                    <div className="w-full">
+                    <div className="mb-4 w-full">
                       <EditFormDescriptionEditor
                         setDescription={setDescription}
                         isDescription={showDescription}
@@ -193,7 +192,16 @@ const EditFormInput = () => {
                       />
                     </div>
                   )}
-                  {!isInputTypeParagraph(input) &&
+                  {!isInputTypeParagraph(input) && !showDescription && (
+                    <div className="absolute -right-10">
+                      {" "}
+                      <AddTextEditorBtn
+                        action={() => setShowDescription(true)}
+                      />
+                    </div>
+                  )}
+
+                  {/* {!isInputTypeParagraph(input) &&
                     (showDescription ? (
                       <div className="h-1 w-[3rem]" />
                     ) : (
@@ -202,11 +210,10 @@ const EditFormInput = () => {
                           action={() => setShowDescription(true)}
                         />
                       </div>
-                    ))}
+                    ))} */}
                 </div>
               </div>
-
-              <div className="md:flex md:gap-10">
+              <div className="mr-[2.7rem] md:flex md:gap-10">
                 <div className="min-w-0 md:flex-1">
                   {!isInputTypeParagraph(input) && showDescription && (
                     <EditFormDescriptionEditor
@@ -224,9 +231,9 @@ const EditFormInput = () => {
                     />
                   )}
                 </div>
-              </div>
-              {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
+              </div>{" "}
               {!isInputTypeParagraph(input) && <ToggleInputs />}
+              {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
             </form>
           </div>
         </FormProvider>

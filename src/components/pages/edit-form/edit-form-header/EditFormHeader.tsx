@@ -122,7 +122,7 @@ export default function EditFormHeader(props: Props) {
             headerFileData={props.headerFileData}
           />
           <div className="flex items-center">
-            <div className="relative w-full">
+            <div className="relative mr-[2.7rem] w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}
@@ -136,13 +136,8 @@ export default function EditFormHeader(props: Props) {
                   className="absolute right-8 top-1/2 -translate-y-1/2 bg-error text-error"
                 />
               )}
-            </div>
-
-            <div className="ml-1 h-fit w-fit">
-              {showDescription ? (
-                <div className="h-1 w-[2rem]" />
-              ) : (
-                <div className="ml-1 h-fit w-fit">
+              {!showDescription && (
+                <div className="absolute -right-10 top-1/2 -translate-y-1/2">
                   <AddTextEditorBtn action={() => setShowDescription(true)} />
                 </div>
               )}

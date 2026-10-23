@@ -49,21 +49,26 @@ const AddFormField = ({ formId }: Props) => {
   };
 
   return (
-    <div className="relative mx-auto mb-16 w-fit">
+    <div className="relative mb-16">
       {!!addFieldPublishError && (
         <Icon
           icon="exclamation"
           size={23}
-          className="absolute -right-10 top-0 top-1/2 -translate-y-1/2 bg-error text-error"
+          className="absolute -right-10 top-1/2 -translate-y-1/2 bg-error text-error"
         />
       )}
       <Button
         onClickAction={handleAddField}
-        variant="primary-rounded"
-        className="mx-auto !rounded-full bg-accent p-2 px-8"
+        variant="empty-accent"
+        className="w-full"
         ariaLabel="Przycisk dodaj pytanie"
       >
         {" "}
+        <Icon
+          icon="plus-solid-full"
+          size={15}
+          className="bg-accent group-hover:bg-white"
+        />{" "}
         Dodaj pytanie
       </Button>
     </div>

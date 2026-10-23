@@ -10,7 +10,7 @@ const AddTextEditorBtn = (props: Props) => {
       <Button
         type="button"
         variant="ghost"
-        className="border-font-dark ml-2 !rounded-full border p-[0.2rem]"
+        className="border-font-dark !rounded-full border p-[0.2rem]"
         onClickAction={props.action}
         ariaLabel="Dodaj edytor"
       >

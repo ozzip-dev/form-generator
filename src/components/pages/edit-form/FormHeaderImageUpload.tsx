@@ -72,7 +72,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
           />
         </div>
 
-        <div className="absolute -right-12 top-[0.5rem]">
+        <div className="absolute -right-10 top-[0.5rem]">
           <InfoIcon>
             <div>
               Dodaj obraz nad tytułem formularza. <br />
