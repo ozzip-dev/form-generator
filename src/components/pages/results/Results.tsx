@@ -53,10 +53,10 @@ const Results = (props: Props) => {
               <div className="flex gap-6">
                 <h1>{title}</h1>
                 <div className="flex-shrink-0 font-[var(--fw-base)]">
-                  ({props.submissionNumber} wyników)
+                  (wyniki: {props.submissionNumber})
                 </div>
               </div>
-              <div className="text-center text-xs text-font_light sm:text-left">
+              <div className="text-font_light text-center text-xs sm:text-left">
                 <span className="mr-1"> Opublikowany:</span>
                 {formatDateAndTime(createdAt.toString())}
               </div>
@@ -67,11 +67,10 @@ const Results = (props: Props) => {
         <ResultFieldSelect {...{ inputs, setInputs }} />
       </Card>
 
-      <Button
-        onClickAction={onDisplayAnswers}
-        message="Wyświetl odpowiedzi"
-        className="mx-auto my-12"
-      />
+      <Button onClickAction={onDisplayAnswers} className="mx-auto my-12">
+        {" "}
+        Wyświetl odpowiedzi
+      </Button>
 
       <div id="results" className="flex flex-col gap-4">
         {displayedResults.results.map((result, idx) => (

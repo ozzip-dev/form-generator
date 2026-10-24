@@ -26,7 +26,7 @@ const FormTrigger = () => {
         ariaLabel="Dodaj nowy formularz"
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent !bg-accent_lighter text-xs transition hover:bg-accent_light md:rounded-lg"
+        className="!bg-accent_lighter hover:bg-accent_light group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent text-xs transition md:rounded-lg"
         icon={
           <div>
             <Icon
@@ -34,7 +34,7 @@ const FormTrigger = () => {
               size={40}
               className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
             />
-            <span className="text-xs font-semibold text-font_dark">DODAJ</span>
+            <span className="text-font_dark text-xs font-semibold">DODAJ</span>
           </div>
         }
       />

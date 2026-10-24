@@ -1,63 +1,64 @@
-import { ButtonLink } from "@/components/shared";
+import { Icon } from "@/components/shared";
+import CardSmall from "@/components/shared/cards/CardSmall";
+import IconCart from "@/components/shared/icons/IconCart";
 import { TemplateFormId } from "@/lib/mongo/models";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   _id?: string;
   id?: TemplateFormId;
-  templateTitle?: string;
+  templateTitle: string;
+  subtitle: string;
+  icon: string;
 };
 
-const FormTemplate = ({ _id, id, templateTitle }: Props) => {
-  const templateCard = (
-    <div
-      className={`group relative flex items-center justify-center overflow-hidden rounded-[40px] text-font_dark ${
-        _id
-          ? "cursor-pointer transition-transform duration-100 hover:scale-[1.03]"
-          : ""
+const FormTemplate = ({ _id, templateTitle, icon, subtitle }: Props) => {
+  const isTemplate = Boolean(_id);
+
+  return (
+    <Link
+      href={isTemplate ? `/${_id}` : "/login"}
+      target="_blank"
+      aria-label={`Zobacz ${templateTitle}`}
+      className={`mx-auto mb-8 block h-full overflow-hidden rounded-sm border border-gray transition-transform duration-300 hover:-translate-y-2 hover:border-accent ${
+        isTemplate ? "bg-bg-light" : "bg-gradient-accent-light text-white"
       }`}
     >
-      <Image
-        src={`/images/templates/${id || "custom"}.png`}
-        alt=""
-        width={300}
-        height={250}
-        className="h-auto w-full"
-        style={!!id ? { border: "25px #f0f0f0 solid" } : {}}
-      />
-
-      <div className="absolute inset-0 mt-auto flex w-full items-end justify-center">
-        <p className="h-[37%] w-full bg-white px-4 pt-3 text-center leading-7 sm:h-1/3 sm:pt-6 xl:pt-8">
-          {templateTitle}
-        </p>
-      </div>
-
-      {_id && (
-        <div className="absolute inset-0 opacity-0 transition-opacity duration-100 group-hover:opacity-100">
-          <div className="absolute inset-0 bg-font_dark opacity-80" />
-
-          <div className="relative z-10 flex h-full w-full items-center justify-center">
-            <div className="btn-primary-rounded !border-white !bg-font_dark text-white hover:!bg-white hover:!text-font_dark">
-              Zobacz
+      <CardSmall className="group relative flex flex-col justify-between !bg-transparent">
+        <div className="flex items-center justify-between">
+          {isTemplate ? (
+            <IconCart>
+              <Icon icon={icon} size={30} className="bg-white" />
+            </IconCart>
+          ) : (
+            <div className="w-fit rounded-sm border border-white bg-white/10 p-4">
+              <Icon icon={icon} size={30} className="bg-white" />
             </div>
+          )}
+
+          <div
+            className={`group-hover:border-accent-dark group-hover:bg-accent-dark rounded-full border p-3 transition-colors duration-300 ${
+              isTemplate ? "border-gray" : "border-white"
+            }`}
+          >
+            <Icon
+              icon="arrow"
+              size={20}
+              className={`-rotate-[130deg] transition-colors duration-300 ${
+                isTemplate ? "bg-font-light group-hover:bg-white" : "bg-white"
+              }`}
+            />
           </div>
         </div>
-      )}
-    </div>
-  );
 
-  return _id ? (
-    <Link
-      href={`/${_id}`}
-      target="_blank"
-      aria-label={`Zobacz ${templateTitle ?? "formularz"}`}
-      className="mx-auto mb-8 block"
-    >
-      {templateCard}
+        <div className="mt-auto">
+          <p className={`text-xs ${isTemplate ? "text-accent" : "text-white"}`}>
+            {subtitle}
+          </p>
+          <p className="mt-2 font-bold">{templateTitle}</p>
+        </div>
+      </CardSmall>
     </Link>
-  ) : (
-    <div className="mx-auto mb-8">{templateCard}</div>
   );
 };
 

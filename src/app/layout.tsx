@@ -11,7 +11,7 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "Formy pracy",
   description: "Generator formularzy dla związków zawodowych",
-  icons: "/favicon.png",
+  icons: "/favicon.ico",
 };
 
 export default function RootLayout({

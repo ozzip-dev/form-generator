@@ -106,9 +106,10 @@ const Signup = () => {
           <Button
             type="submit"
             isLoading={isAction.current && isPending}
-            message="Załóż"
             className="m-auto mt-8 !px-20 !py-4 !text-base"
-          />
+          >
+            Załóż
+          </Button>
         </form>
       </Card>
     </div>

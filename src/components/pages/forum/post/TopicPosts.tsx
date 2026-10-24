@@ -15,18 +15,17 @@ const TopicPosts = (props: Props) => {
   return (
     <div>
       <Button
-        message={
-          showPosts
-            ? "Ukryj odpowiedzi"
-            : `Pokaż odpowiedzi (${props.posts?.length})`
-        }
         onClickAction={() => {
           setShowPosts(!showPosts);
         }}
         disabled={!props.posts?.length}
         className="my-8"
         variant="primary-rounded"
-      />
+      >
+        {showPosts
+          ? "Ukryj odpowiedzi"
+          : `Pokaż odpowiedzi (${props.posts?.length})`}{" "}
+      </Button>
       {showPosts && <TopicPostList posts={props.posts} />}
     </div>
   );

@@ -13,7 +13,7 @@ export default async function CreateFormLayout(props: Props) {
     <FormDataContextProvider formDataPromise={formPromise}>
       <PublishFormErrorContextProvider>
         <div className="flex h-full flex-col">
-          <div className="container shrink-0">
+          <div className="shrink-0 border-b border-gray bg-white">
             <CreateFormMenu formId={formId} />
           </div>
 

@@ -60,9 +60,11 @@ const ContactList = ({ type, getUserCommittees, getForms }: Props) => {
             className={`btn-primary-rounded ${
               value == activeType ? "!bg-white !text-accent" : ""
             }`}
-            message={label}
             onClickAction={() => handleReasonSelect(value)}
-          />
+          >
+            {" "}
+            {label}{" "}
+          </Button>
         ))}
       </div>
 

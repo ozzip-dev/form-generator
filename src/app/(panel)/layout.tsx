@@ -31,7 +31,7 @@ export default async function DashboardLayout({
               </SuspenseErrorBoundary>
             </Header>
             <main
-              className="flex-1 overflow-y-auto"
+              className="bg-bg-dark flex-1 overflow-y-auto"
               id="main-content"
               tabIndex={-1}
               role="main"

@@ -8,6 +8,7 @@ import { serializeForm } from "@/lib/serialize-utils";
 import { Form } from "@/types/form";
 import CreatedForm from "@/components/pages/form/created-form/CreatedForm";
 import { Metadata } from "next";
+import { getLoggedInUser } from "@/services/user-service";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Opublikowany formularz",
@@ -20,6 +21,8 @@ const FormPage = async (props: Props) => {
   const form: FormCreated | null = await getFormBySlug(db, createdFormId);
 
   if (!form) redirect("/dashboard");
+
+  const user = await getLoggedInUser();
 
   const { authorEmail, headerFileData } = !isTemplate(form)
     ? await getFormAdditionalData(form._id?.toString() as string)
@@ -35,7 +38,7 @@ const FormPage = async (props: Props) => {
         <div className="flex h-full flex-col justify-between overflow-y-auto">
           {isDisabled(form) ? (
             <div className="container my-4 !max-w-[800px]">
-              <p className="mb-5 text-center text-sm text-font_light">
+              <p className="text-font-light mb-5 text-center text-sm">
                 Formularz nieaktywny
               </p>
               <h1 className="mb-8 text-lg font-bold">{form.title}</h1>
@@ -49,6 +52,7 @@ const FormPage = async (props: Props) => {
               form={serializeForm(form as Form)}
               {...{ authorEmail, headerFileData }}
               isTemplatePreview={isTemplate(form)}
+              isLoggedIn={!!user}
             />
           )}
         </div>

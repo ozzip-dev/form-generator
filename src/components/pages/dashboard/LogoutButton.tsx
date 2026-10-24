@@ -53,23 +53,24 @@ const LogoutButton = ({ isUser }: Props) => {
         <Button
           onClickAction={handleSignOut}
           isLoading={pending}
-          message="Wyloguj"
           variant="primary-rounded"
           className="!w-full"
-        />
+        >
+          Wyloguj
+        </Button>
       ) : (
         <>
           <ButtonLink
-            message="Zarejestruj organizację"
             link="/admin-contact"
-            variant="primary-rounded"
+            variant="empty-accent"
             className="mb-11"
-          />
-          <ButtonLink
-            message="Zaloguj"
-            link="/login"
-            variant="primary-rounded"
-          />
+          >
+            Zarejestruj
+          </ButtonLink>
+          <ButtonLink link="/login" variant="primary-rounded">
+            {" "}
+            Zaloguj
+          </ButtonLink>
         </>
       )}
     </>

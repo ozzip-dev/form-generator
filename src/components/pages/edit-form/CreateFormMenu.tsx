@@ -42,8 +42,13 @@ const CreateFormMenu = async ({ formId }: Props) => {
   );
 
   return (
-    <div className="py-8">
-      <NavMenu links={visibleLinks} icon="edit-form" depth={3} level="sub" />
+    <div className="container pb-9 pt-4 md:pb-4">
+      <NavMenu
+        links={visibleLinks}
+        icon="clipboard"
+        depth={3}
+        level="sub"
+      />{" "}
     </div>
   );
 };

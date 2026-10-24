@@ -11,7 +11,7 @@ const AdminContactPage = () => {
       <Card className="mx-auto w-5/6 max-w-[60rem] text-center sm:w-2/3">
         <h2 className="mb-4 text-lg font-semibold">Kontakt</h2>
 
-        <p className="mb-10 text-font_dark">
+        <p className="text-font-dark mb-10">
           Reprezentujesz związek zawodowy i chcesz korzystać z aplikacji
           <span className="font-semibold"> Formy Pracy</span> w swojej
           działaności?

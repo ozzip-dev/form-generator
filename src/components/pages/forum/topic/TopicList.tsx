@@ -65,9 +65,10 @@ const TopicList = (props: Props) => {
               className={`btn-primary-rounded ${
                 category == selectedCategory ? "!bg-white !text-accent" : ""
               }`}
-              message={mapTopicCategory[category]}
               onClickAction={() => onCategorySelect(category)}
-            />
+            >
+              {mapTopicCategory[category]}{" "}
+            </Button>
           ))}
         </div>
       </div>

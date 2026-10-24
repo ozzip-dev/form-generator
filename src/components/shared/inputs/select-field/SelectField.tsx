@@ -113,13 +113,10 @@ const SelectField = ({
   return (
     <div
       ref={ref}
-      className={`relative mt-[1.7rem] w-full items-center pb-[1.7rem] lg:flex ${className ? className : ""}`}
+      className={`relative w-full pb-[1.7rem] ${className ? className : ""}`}
     >
       {label && (
-        <label
-          htmlFor={name}
-          className="absolute -top-[2rem] block shrink-0 text-sm md:mr-4 lg:static"
-        >
+        <label htmlFor={name} className="ml-4 block shrink-0 text-sm lg:static">
           {label}
         </label>
       )}
@@ -135,7 +132,7 @@ const SelectField = ({
           aria-expanded={open}
           onClick={() => !disabled && setOpen((o) => !o)}
           onKeyDown={handleKeyDown}
-          className={`flex w-full items-center justify-between rounded-sm border bg-white p-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
+          className={`flex w-full items-center justify-between rounded-sm border border-gray bg-white p-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
         >
           <span className={!selectedOption ? "text-gray-400" : ""}>
             {selectedOption ? selectedOption.label : placeholder}
@@ -144,7 +141,7 @@ const SelectField = ({
           <Icon
             icon="chevron-down-solid-full"
             size={14}
-            className={`transition-transform ${open ? "rotate-180" : ""} bg-font_dark`}
+            className={`transition-transform ${open ? "rotate-180" : ""} bg-font-dark`}
           />
         </button>
 
@@ -170,7 +167,7 @@ const SelectField = ({
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
                     : "cursor-pointer hover:bg-accent hover:text-white"
-                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent_light" : ""} `}
+                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent-light" : ""} `}
               >
                 {option.label}
               </li>

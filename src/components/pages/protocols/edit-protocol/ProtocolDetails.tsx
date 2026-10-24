@@ -81,12 +81,13 @@ const ProtocolDetails = (props: Props) => {
         );
       })}
       <Button
-        message="Edytuj"
         type="button"
         variant="primary-rounded"
         onClickAction={props.handlePrintForm}
         className="m-auto w-full sm:w-fit"
-      />{" "}
+      >
+        Edytuj
+      </Button>
     </Card>
   );
 };

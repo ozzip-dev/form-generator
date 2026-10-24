@@ -30,7 +30,7 @@ export const RenderAnswers = ({ answers }: Props) => {
               </div>
             </div>
 
-            <div className="h-3 w-full overflow-hidden rounded-full bg-bg_dark">
+            <div className="bg-bg-dark h-3 w-full overflow-hidden rounded-full">
               <div
                 className="h-full bg-accent transition-all duration-500"
                 style={{ width: `${percentage}%` }}

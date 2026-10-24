@@ -103,7 +103,7 @@ const Login = () => {
         <div className="my-4">
           <Link
             href="/forgot-password"
-            className="text-xs text-accent_dark hover:underline hover:decoration-accent_dark"
+            className="text-xs text-accent hover:underline hover:decoration-accent"
           >
             Nie pamiętasz hasła?
           </Link>
@@ -111,10 +111,11 @@ const Login = () => {
 
         <Button
           isLoading={isAction.current && isPending}
-          message="Zaloguj"
           type="submit"
           className="m-auto !px-20 !py-4 !text-base"
-        />
+        >
+          Zaloguj
+        </Button>
       </form>
     </AuthForm>
   );

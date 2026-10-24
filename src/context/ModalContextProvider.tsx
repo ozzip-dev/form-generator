@@ -80,20 +80,24 @@ export const ModalContextProvider = ({ children }: { children: ReactNode }) => {
 
             <div className="flex justify-center gap-8">
               <Button
-                message="Anuluj"
                 onClickAction={close}
                 disabled={isPending}
                 className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
-              />
+              >
+                {" "}
+                Anuluj
+              </Button>
               <Button
-                message={config?.confirmBtnMessage}
                 onClickAction={() => {
                   startTransition(() => {
                     action();
                   });
                 }}
                 isLoading={isPending}
-              />
+              >
+                {" "}
+                {config?.confirmBtnMessage}
+              </Button>
               <div role="status" aria-live="polite" className="sr-only">
                 {statusMessage}
               </div>{" "}

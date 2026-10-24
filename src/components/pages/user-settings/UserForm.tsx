@@ -106,19 +106,18 @@ const UserForm = (props: Props) => {
         <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           {isEditMode && (
             <Button
-              message="Anuluj"
               onClickAction={() => {
                 isEditMode && props.handlePrintForm?.();
               }}
               type="button"
               className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
-            />
+            >
+              Anuluj
+            </Button>
           )}
-          <Button
-            isLoading={isAction.current && isPending}
-            message="Zapisz"
-            type="submit"
-          />
+          <Button isLoading={isAction.current && isPending} type="submit">
+            Zapisz
+          </Button>
         </div>
       </form>
     </>

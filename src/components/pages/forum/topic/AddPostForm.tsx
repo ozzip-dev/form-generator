@@ -89,11 +89,12 @@ const AddPostForm = (props: Props) => {
         <div className="flex gap-8">
           <Button
             type="button"
-            message="Anuluj"
             onClickAction={onCancel}
             className="!bg-white !text-accent"
-          />
-          <Button type="submit" message="Dodaj odpowiedź" />
+          >
+            Anuluj{" "}
+          </Button>
+          <Button type="submit"> Dodaj odpowiedź </Button>
         </div>
       </form>
     </>

@@ -31,9 +31,10 @@ const ProtocolUploadsMenu = (props: Props) => {
             className={`h-[80px] w-[164px] whitespace-pre-wrap rounded-sm !px-4 !text-base sm:h-[125px] sm:w-[178px] sm:!px-8 ${
               category == props.visibleCategory ? "!bg-white !text-accent" : ""
             }`}
-            message={getButtonText(category)}
             onClickAction={() => props.setVisibleCategory(category)}
-          />
+          >
+            {getButtonText(category)}
+          </Button>
         </li>
       ))}
     </ul>

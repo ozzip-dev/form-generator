@@ -24,31 +24,26 @@ const MenuLink = ({
 }: Props) => {
   const isSub = level === "sub";
 
-  const borderClass = isSub
-    ? "border-accent text-accent"
-    : mobile
-      ? "!text-font_dark font-extrabold border-none"
-      : "!border-" + textColor;
-
   const newTabTarget = mobile && iSiOS() ? "_blank" : "externalWindow";
 
   return (
     <li
-      className={`shrink-0 ${
-        isActive ? `border-b ${borderClass}` : "border-b border-transparent"
-      } ${isSub ? "" : "text-" + textColor}`}
+      className={`shrink-0 ${isSub ? "" : "text-" + textColor}`}
       style={{
         borderColor: isActive ? textColor : undefined,
       }}
     >
-      <div className={`${mobile && isActive ? `font-bold` : "text-base_bold"}`}>
-        <ButtonLink
-          message={text}
-          link={link}
-          target={sameTab ? "_self" : newTabTarget}
-          className={`${mobile && "py-10"}`}
-        />
-      </div>
+      <ButtonLink
+        link={link}
+        target={sameTab ? "_self" : newTabTarget}
+        className={`hover:text-accent ${mobile && "py-8"}`}
+      >
+        <div
+          className={`m-auto w-fit border-b ${isActive ? `border-accent text-accent` : "border-transparent"}`}
+        >
+          {text}
+        </div>
+      </ButtonLink>
     </li>
   );
 };

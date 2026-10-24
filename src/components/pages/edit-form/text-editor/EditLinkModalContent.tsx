@@ -47,19 +47,21 @@ const EditLinkModalContent = (props: Props) => {
 
       <div className="flex justify-center gap-8">
         <Button
-          message="Anuluj"
           onClickAction={props.onClose}
           className="border border-accent !bg-white !text-accent"
-        />
+        >
+          Anuluj
+        </Button>
 
         <Button
-          message="Wstaw"
           onClickAction={() => {
             insertLink();
             props.onClose();
           }}
           className="rounded bg-accent px-3 py-1 text-white"
-        />
+        >
+          Wstaw
+        </Button>
       </div>
     </div>
   );

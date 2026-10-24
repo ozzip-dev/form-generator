@@ -85,25 +85,22 @@ const ProtocolListItem = (props: Props) => {
 
         <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[15%]">
           <Button
-            icon={
-              isOpen ? (
-                <Icon icon="folder-open" size={20} className="bg-font_light" />
-              ) : (
-                <Icon icon="folder-closed" size={20} className="bg-accent" />
-              )
-            }
             variant="ghost"
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
-          />
+          >
+            {isOpen ? (
+              <Icon icon="folder-open" size={20} className="bg-font-light" />
+            ) : (
+              <Icon icon="folder-closed" size={20} className="bg-accent" />
+            )}{" "}
+          </Button>
 
           {isAuthor && (
             <>
-              <ButtonLink
-                icon={<Icon icon="edit" size={20} className="bg-accent" />}
-                link={`/protocols/${_id}`}
-                variant="ghost"
-              />
+              <ButtonLink link={`/protocols/${_id}`} variant="ghost">
+                <Icon icon="edit" size={20} className="bg-accent" />{" "}
+              </ButtonLink>
 
               <RemoveProtocolBtn ProtocolId={props.protocol._id} />
             </>

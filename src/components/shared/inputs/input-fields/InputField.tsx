@@ -40,7 +40,7 @@ const InputField = (props: Props) => {
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
-        className={`peer w-full rounded-sm border p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
+        className={`peer w-full rounded-sm border border-gray p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
           props.isLoading?.[name] || props.isSubmitting
             ? "cursor-not-allowed opacity-50"
             : ""

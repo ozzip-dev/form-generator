@@ -36,6 +36,15 @@ import AcceptedValuesSection from "../accepted-values/AcceptedValuesSection";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
 
+const dataInputLabel: InputData[] = [
+  {
+    name: "header",
+    placeholder: "Pytanie",
+    floatingLabel: `Pytanie`,
+    type: InputType.TEXT,
+  },
+];
+
 const EditFormInput = () => {
   const { formId, input, inputIdx, inputNumber, isLastInput } = useInputData();
   const focusRegionRef = useRef<HTMLDivElement>(null);
@@ -117,29 +126,18 @@ const EditFormInput = () => {
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
+  const formData = useFormData();
 
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
 
-  // TODO Krzyztof: moze masz lepszy pomysl.
-  // Musi byc reaktywne na zmiany w formie, np. dodanie/usunięcie inputu
-  const formData = useFormData();
   useEffect(() => {
     if (!header) setError("header", { message: "Uzupełnij pytanie" });
   }, [header, setError, formData]);
 
-  const dataInputLabel: InputData[] = [
-    {
-      name: "header",
-      placeholder: "Pytanie",
-      floatingLabel: `Edytuj pytanie ${inputNumber}`,
-      type: InputType.TEXT,
-    },
-  ];
-
   return (
-    <Card className="">
+    <Card className="" id={inputNumber}>
       {!inputId ? (
         <div>Błąd pola fomrularza, skontanktuj się z administratorem</div>
       ) : (
@@ -148,15 +146,33 @@ const EditFormInput = () => {
             ref={focusRegionRef}
             tabIndex={-1}
             className="rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            aria-label={
-              inputNumber != null ? `Pytanie ${inputNumber}` : "Pole formularza"
-            }
+            aria-label={inputNumber != null ? `Pytanie` : "Pole formularza"}
           >
             <form>
-              <FormInputMoveRemoveButtons />
+              <div className="relative flex flex-col sm:flex-row-reverse sm:items-center sm:gap-8">
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:hidden">
+                    {inputNumber}
+                  </div>
+                  <FormInputMoveRemoveButtons />
+                </div>
 
+                <div className="sm:w-[20rem]">
+                  <SelectFieldController
+                    name="type"
+                    defaultValue={type}
+                    options={dataSelectOptions}
+                    onChangeAction={(name, value) => {
+                      handleEditType(value as InputType);
+                    }}
+                  />
+                </div>
+                <div className="mb-auto mr-auto hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:flex">
+                  {inputNumber}
+                </div>
+              </div>
               <div className="items-center md:flex md:gap-12">
-                <div className="flex min-w-0 flex-1 items-center">
+                <div className="relative mr-[2.7rem] flex min-w-0 flex-1 items-center">
                   {!isInputTypeParagraph(input) ? (
                     <div className="w-full">
                       <InputFields
@@ -167,7 +183,7 @@ const EditFormInput = () => {
                       />
                     </div>
                   ) : (
-                    <div className="w-full">
+                    <div className="mb-4 w-full">
                       <EditFormDescriptionEditor
                         setDescription={setDescription}
                         isDescription={showDescription}
@@ -176,7 +192,16 @@ const EditFormInput = () => {
                       />
                     </div>
                   )}
-                  {!isInputTypeParagraph(input) &&
+                  {!isInputTypeParagraph(input) && !showDescription && (
+                    <div className="absolute -right-10">
+                      {" "}
+                      <AddTextEditorBtn
+                        action={() => setShowDescription(true)}
+                      />
+                    </div>
+                  )}
+
+                  {/* {!isInputTypeParagraph(input) &&
                     (showDescription ? (
                       <div className="h-1 w-[3rem]" />
                     ) : (
@@ -185,22 +210,10 @@ const EditFormInput = () => {
                           action={() => setShowDescription(true)}
                         />
                       </div>
-                    ))}
-                </div>
-
-                <div className="mb-auto mt-2 w-[23rem]">
-                  <SelectFieldController
-                    name="type"
-                    defaultValue={type}
-                    options={dataSelectOptions}
-                    onChangeAction={(name, value) => {
-                      handleEditType(value as InputType);
-                    }}
-                  />
+                    ))} */}
                 </div>
               </div>
-
-              <div className="md:flex md:gap-10">
+              <div className="mr-[2.7rem] md:flex md:gap-10">
                 <div className="min-w-0 md:flex-1">
                   {!isInputTypeParagraph(input) && showDescription && (
                     <EditFormDescriptionEditor
@@ -218,9 +231,8 @@ const EditFormInput = () => {
                     />
                   )}
                 </div>
-                {!isInputTypeParagraph(input) && <ToggleInputs />}
-              </div>
-
+              </div>{" "}
+              {!isInputTypeParagraph(input) && <ToggleInputs />}
               {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
             </form>
           </div>

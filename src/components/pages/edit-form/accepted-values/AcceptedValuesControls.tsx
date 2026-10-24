@@ -12,21 +12,24 @@ const AcceptedValuesControls = (props: Props) => {
     <div className="flex flex-wrap justify-between gap-3">
       <Button
         type="button"
-        variant="primary-rounded"
-        className="w-fit px-4 py-2"
-        message="Dodaj"
+        variant="ghost"
+        className="w-fit px-4 py-2 !text-accent"
         isLoading={props.isAddBtnLoading}
         onClickAction={props.addBtnAction}
-      />
+      >
+        Dodaj{" "}
+      </Button>
 
       <Button
         type="button"
         variant="ghost"
         className="w-fit px-4 py-2 !text-accent"
-        message="Wyczyść"
         disabled={props.isClearBtnDisabled}
         onClickAction={props.clearBtnAction}
-      />
+      >
+        {" "}
+        Wyczyść
+      </Button>
     </div>
   );
 };

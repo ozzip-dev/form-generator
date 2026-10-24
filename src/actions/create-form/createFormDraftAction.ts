@@ -1,35 +1,14 @@
 "use server";
 
+import { maxFormCount } from "@/helpers/formHelpers";
 import { db, findOne } from "@/lib/mongo";
-import { createDraft } from "@/services/form-service";
+import { checkFormLimitError, createDraft } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
 import { Form } from "@/types/form";
 import { ObjectId } from "mongodb";
 import { redirect } from "next/navigation";
 
-const maxFormCount = Number(process.env.NEXT_PUBLIC_MAX_FORMS_PER_USER) || 10;
-
 const isEmpty = (templateId: string) => templateId === "empty";
-
-const hasReachedFormLimit = async (userId: ObjectId): Promise<boolean> => {
-  const formsCount = await db.collection("form").countDocuments({
-    createdBy: userId,
-    state: {
-      $in: ["active", "draft"],
-    },
-  });
-
-  return formsCount >= maxFormCount;
-};
-
-const checkFormLimitError = async (
-  userId: ObjectId,
-): Promise<string | null> => {
-  if (await hasReachedFormLimit(userId)) {
-    return `Limit osiągnięty: ${maxFormCount}`;
-  }
-  return null;
-};
 
 export async function createFormDraftAction(
   templateId: string,

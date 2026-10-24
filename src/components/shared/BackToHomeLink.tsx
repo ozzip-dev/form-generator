@@ -1,21 +1,13 @@
 import Link from "next/link";
 import Icon from "./icons/Icon";
 
-type Props = {
-  isDark?: boolean;
-};
-
-const BackToHomeLink = ({ isDark = true }: Props) => {
+const BackToHomeLink = () => {
   return (
     <Link
       href="/"
-      className={`flex shrink-0 items-center gap-3 ${isDark ? "text-font_dark" : "text-white"}`}
+      className={`text-font-dark} flex shrink-0 items-center gap-3`}
     >
-      <Icon
-        icon="fp_black"
-        size={18}
-        className={isDark ? "bg-font_dark" : "bg-white"}
-      />
+      <Icon icon="fp_black" size={18} className={"bg-accent"} />
       <span className="text-lg font-bold uppercase tracking-wide">
         Formy Pracy
       </span>

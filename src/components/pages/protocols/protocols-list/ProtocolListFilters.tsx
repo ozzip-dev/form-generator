@@ -131,7 +131,10 @@ const ProtocolListFilters = ({
             message="Resetuj filtry"
             variant="primary-rounded"
             className="mb-[1.7rem] mt-12 w-full"
-          />
+          >
+            {" "}
+            Resetuj filtry
+          </Button>
         </form>
       </FormProvider>
     </Card>
