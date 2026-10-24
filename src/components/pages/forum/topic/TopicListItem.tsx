@@ -16,10 +16,11 @@ const TopicListItem = (topic: TopicSerializedDetailed) => {
       <a href={`/forum/${_id}`}>
         <Button
           variant="primary-rounded"
-          message="Otwórz"
           className="mt-6"
           ariaLabel={`Otwórz temat ${title}`}
-        />
+        >
+          Otwórz
+        </Button>
       </a>
     </Card>
   );

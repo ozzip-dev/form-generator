@@ -94,7 +94,7 @@ const FormResultsTablePage = async (props: Props) => {
                 ({submissionsSum} wyników)
               </div>
             </div>
-            <div className="text-font_light text-center text-xs sm:text-left">
+            <div className="text-center text-xs text-font-light sm:text-left">
               <span className="mr-1"> Opublikowany:</span>
               {formatDateAndTime(createdAt.toString())}
             </div>

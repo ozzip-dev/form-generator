@@ -162,7 +162,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           Przejdź do wyników
         </ButtonLink>
 
-        <div className="text-font_light mt-16 text-xs">
+        <div className="mt-16 text-xs text-font-light">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
           <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
         </div>

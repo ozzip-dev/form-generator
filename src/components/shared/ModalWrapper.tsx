@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useRef } from "react";
-import Card from "./Card";
+import Card from "./cards/Card";
 
 type ModalWrapperProps = {
   isOpen?: boolean;
@@ -14,7 +14,7 @@ export default function ModalWrapper({
   onClose,
   children,
 }: ModalWrapperProps) {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isOpen) {

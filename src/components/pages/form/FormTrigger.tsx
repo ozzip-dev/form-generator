@@ -27,17 +27,17 @@ const FormTrigger = () => {
         onClickAction={handleCreateForm}
         variant="ghost"
         className="!bg-accent_lighter hover:bg-accent_light group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent text-xs transition md:rounded-lg"
-        icon={
-          <div>
-            <Icon
-              icon="plus-solid-full"
-              size={40}
-              className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
-            />
-            <span className="text-font_dark text-xs font-semibold">DODAJ</span>
-          </div>
-        }
-      />
+      >
+        {" "}
+        <div>
+          <Icon
+            icon="plus-solid-full"
+            size={40}
+            className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
+          />
+          <span className="text-xs font-semibold text-font-dark">DODAJ</span>
+        </div>{" "}
+      </Button>
       {state?.error ? (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>

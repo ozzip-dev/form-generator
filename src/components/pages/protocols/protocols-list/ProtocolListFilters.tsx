@@ -128,7 +128,6 @@ const ProtocolListFilters = ({
           </div>
           <Button
             type="submit"
-            message="Resetuj filtry"
             variant="primary-rounded"
             className="mb-[1.7rem] mt-12 w-full"
           >
