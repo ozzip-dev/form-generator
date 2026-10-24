@@ -15,8 +15,13 @@ import {
 import { DbModel } from "@/types/mongo";
 import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
 
-const client = new MongoClient(process.env.DATABASE_URL as string);
-await client.connect();
+const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
+const mongoUrl = isBuildPhase ? "-" : (process.env.DATABASE_URL as string);
+
+const client = new MongoClient(mongoUrl);
+
+if (!isBuildPhase) await client.connect();
+
 const db = client.db();
 
 const collections: [string, DbModel][] = [
@@ -48,7 +53,9 @@ async function addTemplateForms() {
   }
 }
 
-await initCollections();
-await addTemplateForms();
+if (!isBuildPhase) {
+  await initCollections();
+  await addTemplateForms();
+}
 
 export { db };
