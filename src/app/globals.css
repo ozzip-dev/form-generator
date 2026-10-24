@@ -20,8 +20,8 @@
   --color-accent: #34669f;
   --color-accent-dark: #334b67;
   --color-accent-light: #3d6fa5;
-  --color-accent-lighter: #ffb3b3;
-  --color-accent-opacity: #ff8b8b;
+  --color-accent-lighter: #94b6da;
+  --color-accent-opacity: #5c7fa3;
   --color-gray: #c3c8d0;
 
   /* --color-bg-dark: rgba(245, 245, 245, 1);
@@ -29,8 +29,8 @@
   --color-bg-dark: #dfe2e6;
   --color-bg-light: #eff1f4;
 
-  --color-font_dark: rgb(66, 66, 66);
-  --color-font_light: rgb(101, 96, 96);
+  --color-font-dark: rgb(66, 66, 66);
+  --color-font-light: rgb(101, 96, 96);
   --color-error: rgb(231, 0, 0);
 
   /* Hero */

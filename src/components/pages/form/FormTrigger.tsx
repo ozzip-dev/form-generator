@@ -35,7 +35,9 @@ const FormTrigger = () => {
             size={40}
             className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
           />
-          <span className="text-xs font-semibold text-font-dark">DODAJ</span>
+          <span className="text-xs font-semibold uppercase text-font-dark">
+            Dodaj
+          </span>
         </div>{" "}
       </Button>
       {state?.error ? (
