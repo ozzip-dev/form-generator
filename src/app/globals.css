@@ -5,7 +5,6 @@
 :root {
   --max-width: 1322px;
 
-  --fs-2xs: 1rem;
   --fs-xs: 1.2rem;
   --fs-sm: 1.2rem;
   --fs-md: 1.2rem;
@@ -28,7 +27,7 @@
   --color-bg_light: rgba(251, 251, 251, 1);
 
   --color-font_dark: rgb(66, 66, 66);
-  --color-font_light: #9b9b9b;
+  --color-font_light: rgb(101, 96, 96);
   --color-error: rgb(231, 0, 0);
 }
 
@@ -112,7 +111,7 @@ body {
 }
 
 .textEditorTags {
-  @apply break-words text-sm [&_a]:text-accent [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-2xs [&_strong]:font-semibold;
+  @apply break-words text-sm [&_a]:text-accent [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-xs [&_strong]:font-semibold;
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {

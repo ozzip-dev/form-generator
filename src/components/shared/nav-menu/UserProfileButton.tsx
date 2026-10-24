@@ -14,8 +14,8 @@ const UserProfileButton = ({ isPublic, userName }: Props) => {
   const [isOpen, setOpen] = useState(false);
 
   const toggleClass = isOpen
-    ? "scale-100 opacity-100"
-    : "pointer-events-none scale-95 opacity-0";
+    ? "scale-100 block"
+    : "pointer-events-none scale-95 hidden";
 
   return (
     <div className="relative">

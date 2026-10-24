@@ -61,18 +61,23 @@ const ProtocolListItem = (props: Props) => {
     .map((reason) => mapDisputeReason[reason])
     .join(", ");
 
+  const startDate = formatDateAndTime(disputeStartDate).split(",")[0];
+
   const dataProtocolsList = {
     "Branża:": branch,
     "Nazwa związku:": tradeUnionName,
     "Nazwa zakładu:": workplaceName,
-    "Początek sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
+    "Początek sporu:": startDate,
     "Przyczyna sporu": disputeReasons,
   };
 
   const isAuthor = user && isProtocolAuthor(user, props.protocol);
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      aria-label={`Protokół branża: ${branch}, data sporu: ${startDate}`}
+    >
       <div className="items-center md:flex">
         <div className="md:w-full">
           <ResponsiveList listItems={dataProtocolsList} truncateText={false} />

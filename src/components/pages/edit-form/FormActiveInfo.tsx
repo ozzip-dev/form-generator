@@ -121,7 +121,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           className="m-auto mb-3 mt-16 w-fit"
         />
 
-        <div className="mt-16 text-2xs text-font_light">
+        <div className="mt-16 text-xs text-font_light">
           <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
           <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
         </div>

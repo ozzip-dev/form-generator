@@ -29,7 +29,10 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const displayIcon = isImageType(file.type) || isPdfType(file.type);
 
   return (
-    <div className="flex items-center">
+    <div
+      className="flex items-center"
+      aria-label={`Załączony plik: ${file.name}`}
+    >
       {file?.data && (
         <>
           <div className="grid min-w-0 grid-cols-[20px_repeat(2,auto)] items-center gap-4">

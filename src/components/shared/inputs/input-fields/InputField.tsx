@@ -16,8 +16,15 @@ type Props = {
 };
 
 const InputField = (props: Props) => {
-  const { name, floatingLabel, type, required, placeholder, defaultValue } =
-    props.inputData;
+  const {
+    name,
+    floatingLabel,
+    type,
+    required,
+    placeholder,
+    defaultValue,
+    staticLabel,
+  } = props.inputData;
   const inputDefaultValue = props.default?.[name] ?? defaultValue ?? "";
 
   return (
@@ -26,7 +33,7 @@ const InputField = (props: Props) => {
         id={name}
         name={name}
         type={type}
-        aria-label={`${floatingLabel || name}`}
+        aria-label={`${floatingLabel || staticLabel || name}`}
         placeholder={floatingLabel ? " " : placeholder}
         defaultValue={inputDefaultValue}
         disabled={props.isLoading?.[name] || props.isSubmitting}

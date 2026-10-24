@@ -23,9 +23,10 @@ const FormTrigger = () => {
   return (
     <>
       <Button
+        ariaLabel="Dodaj nowy formularz"
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="!bg-accent_lighter group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-accent text-xs transition hover:bg-accent_light md:rounded-lg"
+        className="group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent !bg-accent_lighter text-xs transition hover:bg-accent_light md:rounded-lg"
         icon={
           <div>
             <Icon
