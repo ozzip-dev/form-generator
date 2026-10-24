@@ -16,7 +16,9 @@ import { DbModel } from "@/types/mongo";
 import { maybeAddTemplateForm } from "@/services/migrations/form-input-migrations";
 
 const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
-const mongoUrl = isBuildPhase ? "-" : (process.env.DATABASE_URL as string);
+const mongoUrl = isBuildPhase
+  ? "mongodb://placeholder"
+  : (process.env.DATABASE_URL as string);
 
 const client = new MongoClient(mongoUrl);
 
