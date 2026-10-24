@@ -79,26 +79,24 @@ const EditFormNavigation = ({ ids }: Props) => {
             const active = activeId === id;
 
             return (
-              <>
-                <ButtonLink
-                  key={id}
-                  variant="ghost"
-                  link={`#${id}`}
-                  className={`rounded-sm p-2 transition-colors ${
-                    active ? "bg-accent/10" : "hover:bg-white/50"
+              <ButtonLink
+                key={id}
+                variant="ghost"
+                link={`#${id}`}
+                className={`rounded-sm p-2 transition-colors ${
+                  active ? "bg-accent/10" : "hover:bg-white/50"
+                }`}
+              >
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-full border transition-all ${
+                    active
+                      ? "scale-105 border-accent bg-accent font-semibold text-white"
+                      : "border-gray bg-white"
                   }`}
                 >
-                  <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-full border transition-all ${
-                      active
-                        ? "scale-105 border-accent bg-accent font-semibold text-white"
-                        : "border-gray bg-white"
-                    }`}
-                  >
-                    {id}
-                  </div>
-                </ButtonLink>
-              </>
+                  {id}
+                </div>
+              </ButtonLink>
             );
           })}
       </div>

@@ -39,7 +39,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
             <button
               type="button"
               onClick={() => handleDownload(file)}
-              aria-label="Pobierz plik"
+              aria-label={`Pobierz plik ${file.name}`}
               className="flex shrink-0 items-center justify-center transition hover:opacity-70"
             >
               <Icon icon="download" size={20} className="bg-accent" />
@@ -49,7 +49,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
               <button
                 type="button"
                 onClick={handleFileNameClick}
-                className="hover:text-accent-dark truncate text-left underline decoration-accent underline-offset-2"
+                className="truncate text-left underline decoration-accent underline-offset-2 hover:text-accent-dark"
               >
                 {file?.name || "-"}
               </button>
