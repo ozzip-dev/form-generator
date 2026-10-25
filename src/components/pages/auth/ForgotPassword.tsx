@@ -92,9 +92,11 @@ const ForgotPassword = () => {
         <Button
           type="submit"
           isLoading={isAction.current && isPending}
-          message="Wyślij link"
           className="m-auto !px-20 !py-4 !text-base"
-        />
+        >
+          {" "}
+          Wyślij link
+        </Button>
       </form>
     </AuthForm>
   );

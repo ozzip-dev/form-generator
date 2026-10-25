@@ -135,7 +135,7 @@ const TextEditor = (props: Props) => {
   const remaining = MAX_CHARS - characters;
 
   return (
-    <div className="">
+    <div className="mb-4">
       <MenuBar
         editor={editor}
         handleEditDescription={handleEditDescription}
@@ -144,7 +144,7 @@ const TextEditor = (props: Props) => {
       <div className="textEditorTags">
         <EditorContent
           editor={editor}
-          className="texEditorPlaceholder bg-white text-sm"
+          className="texEditorPlaceholder overflow-hidden rounded-b-sm bg-white text-sm [&_div]:!rounded-b-sm [&_div]:!rounded-t-none [&_div]:!border [&_div]:!border-gray"
         />
       </div>
       <div className="flex justify-between text-xs">
@@ -161,13 +161,14 @@ const TextEditor = (props: Props) => {
           {statusMessage}
         </div>
         <Button
-          message="Zapisz"
           type="button"
           onClickAction={handleEditDescription}
           className="!text-bold ml-auto !text-sm !text-accent"
           variant="ghost"
           ariaLabel="Zapisz opis"
-        />
+        >
+          Zapisz
+        </Button>
         <div role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </div>{" "}

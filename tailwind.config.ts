@@ -10,22 +10,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        accent: "rgb(var(--color-accent) / <alpha-value>)",
-        accent_dark: "var(--color-accent_dark)",
-        accent_light: "var(--color-accent_light)",
-        accent_lighter: "var(--color-accent_lighter)",
-        accent_opacity: "var(--color-accent_opacity)",
+        accent: "rgb(var(--color-accent-rgb) / <alpha-value>)",
+        "accent-dark": "var(--color-accent-dark)",
+        "accent-light": "var(--color-accent-light)",
+        "accent-lighter": "var(--color-accent-lighter)",
+        "accent-opacity": "var(--color-accent-opacity)",
+        gray: "var(--color-gray)",
 
-        bg_dark: "var(--color-bg_dark)",
-        bg_light: "var(--color-bg_light)",
+        "bg-dark": "var(--color-bg-dark)",
+        "bg-light": "var(--color-bg-light)",
 
-        font_dark: "var(--color-font_dark)",
-        font_light: "var(--color-font_light)",
+        "font-dark": "var(--color-font-dark)",
+        "font-light": "var(--color-font-light)",
 
         error: "var(--color-error)",
       },
       fontSize: {
-        "2xs": ["var(--fs-2xs)", { fontWeight: "var(--fw-base)" }],
         xs: ["var(--fs-xs)", { fontWeight: "var(--fw-base)" }],
         sm: ["var(--fs-sm)", { fontWeight: "var(--fw-base)" }],
         base: ["var(--fs-md)", { fontWeight: "var(--fw-base)" }],
@@ -41,9 +41,9 @@ module.exports = {
       container: {
         center: true,
         padding: {
-          DEFAULT: "1rem",
-          sm: "1.5rem",
-          lg: "2rem",
+          DEFAULT: "2rem",
+          // sm: "1.5rem",
+          // lg: "2rem",
         },
         screens: {
           xl: "1450px",
@@ -76,6 +76,7 @@ module.exports = {
         sm: "500px",
         md: "750px",
         lg: "950px",
+        xl: "1300px",
       },
       keyframes: {
         "toast-in": {

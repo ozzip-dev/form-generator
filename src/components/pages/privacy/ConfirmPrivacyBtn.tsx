@@ -16,12 +16,14 @@ const ConfirmPrivacyBtn = () => {
   return (
     <div className="m-auto w-fit">
       <Button
-        message="Akceptuję politykę prywatności"
         onClickAction={handleConfirmPrivacyPolicy}
         isLoading={isPending}
         variant="primary-rounded"
         type="button"
-      />
+      >
+        {" "}
+        Akceptuję politykę prywatności
+      </Button>
     </div>
   );
 };

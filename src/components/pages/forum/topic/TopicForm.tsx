@@ -108,7 +108,7 @@ const TopicForm = (props: Props) => {
           <select
             name="category"
             defaultValue={topic.category}
-            className="mt-4 w-full rounded border border-gray-300 p-2"
+            className="border-gray-300 mt-4 w-auto rounded border p-2"
           >
             <option key="empty" value="">
               Wybierz kategorię
@@ -123,17 +123,20 @@ const TopicForm = (props: Props) => {
 
         <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           <Button
-            message="Anuluj"
             onClickAction={handlePrintForm}
             type="button"
             className="m-auto w-full sm:w-fit"
-          />
+          >
+            Anuluj
+          </Button>
           <Button
-            message="Zapisz"
             type="submit"
             className="m-auto w-full sm:w-fit"
             disabled={isPending}
-          />
+          >
+            {" "}
+            Zapisz
+          </Button>
         </div>
       </form>
       {isPending && <FullscreenLoader />}

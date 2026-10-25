@@ -16,7 +16,7 @@ const ForumMenu = () => {
     : [{ text: "Edycja", link: `/forum/${topicId}` }, ...protocolBasicItems];
 
   return (
-    <div className="py-8">
+    <div className="container py-4">
       <NavMenu links={dataNavLinks} icon="forum" level="sub" />
     </div>
   );

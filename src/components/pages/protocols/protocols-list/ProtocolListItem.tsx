@@ -61,18 +61,23 @@ const ProtocolListItem = (props: Props) => {
     .map((reason) => mapDisputeReason[reason])
     .join(", ");
 
+  const startDate = formatDateAndTime(disputeStartDate).split(",")[0];
+
   const dataProtocolsList = {
     "Branża:": branch,
     "Nazwa związku:": tradeUnionName,
     "Nazwa zakładu:": workplaceName,
-    "Początek sporu:": formatDateAndTime(disputeStartDate).split(",")[0],
+    "Początek sporu:": startDate,
     "Przyczyna sporu": disputeReasons,
   };
 
   const isAuthor = user && isProtocolAuthor(user, props.protocol);
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      aria-label={`Protokół branża: ${branch}, data sporu: ${startDate}`}
+    >
       <div className="items-center md:flex">
         <div className="md:w-full">
           <ResponsiveList listItems={dataProtocolsList} truncateText={false} />
@@ -80,25 +85,22 @@ const ProtocolListItem = (props: Props) => {
 
         <div className="mb-2 mt-8 flex justify-between md:mt-0 md:w-[15%]">
           <Button
-            icon={
-              isOpen ? (
-                <Icon icon="folder-open" size={20} className="bg-font_light" />
-              ) : (
-                <Icon icon="folder-closed" size={20} className="bg-accent" />
-              )
-            }
             variant="ghost"
             onClickAction={() => startTransition(fetchDetails)}
             isLoading={isPending && isFetching.current}
-          />
+          >
+            {isOpen ? (
+              <Icon icon="folder-open" size={20} className="bg-font-light" />
+            ) : (
+              <Icon icon="folder-closed" size={20} className="bg-accent" />
+            )}{" "}
+          </Button>
 
           {isAuthor && (
             <>
-              <ButtonLink
-                icon={<Icon icon="edit" size={20} className="bg-accent" />}
-                link={`/protocols/${_id}`}
-                variant="ghost"
-              />
+              <ButtonLink link={`/protocols/${_id}`} variant="ghost">
+                <Icon icon="edit" size={20} className="bg-accent" />{" "}
+              </ButtonLink>
 
               <RemoveProtocolBtn ProtocolId={props.protocol._id} />
             </>

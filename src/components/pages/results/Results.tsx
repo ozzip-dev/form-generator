@@ -56,7 +56,7 @@ const Results = (props: Props) => {
                   (wyniki: {props.submissionNumber})
                 </div>
               </div>
-              <div className="text-center text-2xs text-font_light sm:text-left">
+              <div className="text-center text-xs text-font-light sm:text-left">
                 <span className="mr-1"> Opublikowany:</span>
                 {formatDateAndTime(createdAt.toString())}
               </div>
@@ -67,11 +67,10 @@ const Results = (props: Props) => {
         <ResultFieldSelect {...{ inputs, setInputs }} />
       </Card>
 
-      <Button
-        onClickAction={onDisplayAnswers}
-        message="Wyświetl odpowiedzi"
-        className="mx-auto my-12"
-      />
+      <Button onClickAction={onDisplayAnswers} className="mx-auto my-12">
+        {" "}
+        Wyświetl odpowiedzi
+      </Button>
 
       <div id="results" className="flex flex-col gap-4">
         {displayedResults.results.map((result, idx) => (

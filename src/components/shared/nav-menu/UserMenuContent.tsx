@@ -16,18 +16,9 @@ const UserMenuContent = ({ isPublic, isLoggedIn, onClose }: Props) => {
 
   return (
     <div className="overflow-y-auto px-4" onClick={onClose}>
-      {isPublic ? <div className="lg:hidden">{publicMenu}</div> : publicMenu}
+      <div className="border-b border-gray lg:hidden">{publicMenu}</div>
 
-      {isLoggedIn &&
-        (isPublic ? (
-          <>
-            <div className="border-t border-accent lg:hidden"></div>
-            {userMenu}
-          </>
-        ) : (
-          <div className="border-t border-accent lg:hidden">{userMenu}</div>
-        ))}
-
+      {isLoggedIn && <div>{userMenu}</div>}
       <div className="mt-11">
         <LogoutButton isUser={isLoggedIn} />
       </div>

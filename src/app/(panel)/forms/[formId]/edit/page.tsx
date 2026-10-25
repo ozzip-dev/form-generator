@@ -1,6 +1,6 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
 import EditFormInput from "@/components/pages/edit-form/edit-form-input/EditFormInput";
-import { SuspenseErrorBoundary } from "@/components/shared";
+import { ButtonLink, Icon, SuspenseErrorBoundary } from "@/components/shared";
 import { serializeFile } from "@/lib/serialize-utils";
 import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFormHeader";
 import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
@@ -13,6 +13,7 @@ import { File } from "@/types/file";
 import { InputDataContextProvider } from "@/context/InputDataContextProvider";
 import { getSubmissionCount } from "@/services/result-service";
 import { Metadata } from "next";
+import EditFormNavigation from "@/components/pages/edit-form/EditFormNavigation";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Edycja formularza",
@@ -31,12 +32,11 @@ const EditFormPage = async (props: Props) => {
     ? await getFileById(headerFileId)
     : null;
   const submissionCount: number = await getSubmissionCount(formId as string);
+  const inputsNumbers = [...Array(inputs.length)].map((_, i) => i + 1);
 
   const hasReachedInputLimit =
     form.inputs?.length >=
     Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
-
-  let textNumber = 0;
 
   const displayInfoFrame = isActive(form) || isDisabled(form);
 
@@ -45,14 +45,16 @@ const EditFormPage = async (props: Props) => {
       {displayInfoFrame && <FormActiveInfo submissionCount={submissionCount} />}
 
       {isDraft(form) && (
-        <>
+        <div className="flex flex-col md:flex-row-reverse md:gap-8">
           <SuspenseErrorBoundary
             size="sm"
             errorMessage="Błąd publikacji formularza"
           >
-            <FormActions form={form} />
+            <div className="sticky top-0 md:w-[25rem]">
+              <FormActions formStructure={form} />
+            </div>
           </SuspenseErrorBoundary>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-1 flex-col gap-8">
             <SuspenseErrorBoundary
               size="lg"
               errorMessage="Błąd edycji nagłówka formularza"
@@ -63,11 +65,11 @@ const EditFormPage = async (props: Props) => {
               />
             </SuspenseErrorBoundary>
 
+            <div className="ml-8 text-lg">Pytania</div>
+
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((input, idx) => {
-                const number = input.type !== "paragraph" ? ++textNumber : null;
-
                 return (
                   <SuspenseErrorBoundary
                     key={input.id}
@@ -79,7 +81,7 @@ const EditFormPage = async (props: Props) => {
                       inputIdx={idx}
                       isLastInput={inputs.length === idx + 1}
                       formId={form._id!}
-                      inputNumber={number}
+                      inputNumber={idx + 1}
                     >
                       <EditFormInput />
                     </InputDataContextProvider>
@@ -99,8 +101,9 @@ const EditFormPage = async (props: Props) => {
                 <AddFormField formId={formId} idx={inputs.length + 1} />
               </SuspenseErrorBoundary>
             )}
-          </div>
-        </>
+          </div>{" "}
+          <EditFormNavigation ids={["header", ...inputsNumbers.map(String)]} />
+        </div>
       )}
     </div>
   );

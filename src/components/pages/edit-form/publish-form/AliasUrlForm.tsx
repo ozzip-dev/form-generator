@@ -54,16 +54,19 @@ export default function AliasUrlForm(form: FormSerialized) {
   }, [reset, form.url, form._id]);
 
   return (
-    <form className="sm:flex sm:items-center sm:justify-between lg:justify-start">
-      <div className="mr-[3rem] w-full sm:w-1/2 lg:w-[340px]">
-        <InputFields
-          inputsData={dataInputUrl}
-          register={register}
-          errorMsg={errors}
-          onChange={handleEditLabel}
-        />
+    <form className="py-12 sm:flex sm:items-center sm:justify-between md:block lg:justify-start">
+      <div className="flex-1">
+        <div className="mt-4 w-full sm:w-3/4 md:w-full">
+          <InputFields
+            inputsData={dataInputUrl}
+            register={register}
+            errorMsg={errors}
+            onChange={handleEditLabel}
+          />
+        </div>
       </div>
-      <div className="sm:w-1/2">
+
+      <div className="mb-4">
         {form.url && <RemoveAliasButton form={form} />}
       </div>
     </form>

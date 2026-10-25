@@ -8,19 +8,21 @@ import {
   Usage,
   Vote,
 } from "@/components/pages/home/sections";
-import ContactDetails from "@/components/pages/home/sections/ContactDetails";
+import HeroAnimation from "@/components/pages/home/sections/HeroAnimation";
+import Start from "@/components/pages/home/sections/Start";
 
 const PageHome = () => {
   return (
     <Home>
-      <Hero />
+      {/* <Hero /> */}
+      <HeroAnimation />
       <Tool />
+      <Usage />
       <FormTemplates />
       <Steps />
       <Vote />
-      <Usage />
       <Faq />
-      <ContactDetails />
+      {/* <Start /> */}
     </Home>
   );
 };

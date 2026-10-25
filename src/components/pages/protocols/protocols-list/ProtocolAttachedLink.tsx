@@ -12,7 +12,7 @@ const ProtocolAttachedLink = ({ link }: Props) => {
   const parsedUrl = parseUrl(link);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" aria-label={`Załączony link: ${link}`}>
       <div className="grid min-w-0 grid-cols-[20px_auto] items-center gap-4">
         <button
           type="button"

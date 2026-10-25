@@ -23,20 +23,23 @@ const FormTrigger = () => {
   return (
     <>
       <Button
+        ariaLabel="Dodaj nowy formularz"
         onClickAction={handleCreateForm}
         variant="ghost"
-        className="!bg-accent_lighter group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-md border border-accent text-xs transition hover:bg-accent_light md:rounded-lg"
-        icon={
-          <div>
-            <Icon
-              icon="plus-solid-full"
-              size={40}
-              className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
-            />
-            <span className="text-xs font-semibold text-font_dark">DODAJ</span>
-          </div>
-        }
-      />
+        className="!bg-accent_lighter hover:bg-accent_light group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent text-xs transition md:rounded-lg"
+      >
+        {" "}
+        <div>
+          <Icon
+            icon="plus-solid-full"
+            size={40}
+            className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
+          />
+          <span className="text-xs font-semibold uppercase text-font-dark">
+            Dodaj
+          </span>
+        </div>{" "}
+      </Button>
       {state?.error ? (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>

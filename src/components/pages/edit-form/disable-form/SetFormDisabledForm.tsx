@@ -26,12 +26,14 @@ function SetFormDisabledForm({ formId }: Props) {
         <Button
           type="button"
           variant="primary-rounded"
-          message="Zamknij opublikowany formularz"
           className="ml-auto size-fit"
           onClickAction={() => setIsEditorOpen(true)}
-        />
+        >
+          {" "}
+          Zamknij opublikowany formularz
+        </Button>
       ) : (
-        <Card className="w-full space-y-4 rounded border border-gray-200 bg-white p-4">
+        <Card className="border-gray-200 w-full space-y-4 rounded border bg-white p-4">
           <div className="w-full">
             <h3 className="mb-3 text-sm font-semibold">
               Wpisany tekst będzie wyświetlany pod adresem formularza. Po
@@ -51,14 +53,14 @@ function SetFormDisabledForm({ formId }: Props) {
             <Button
               type="button"
               variant="primary-rounded"
-              message="Anuluj"
               className="h-fit !bg-white !text-accent"
               onClickAction={handleCancel}
-            />
+            >
+              Anuluj
+            </Button>
             <Button
               type="button"
               variant="primary-rounded"
-              message="Zamknij opublikowany formularz"
               className="h-fit"
               onClickAction={() => {
                 openModal({
@@ -81,7 +83,9 @@ function SetFormDisabledForm({ formId }: Props) {
                   confirmBtnMessage: "Zamknij",
                 });
               }}
-            />
+            >
+              Zamknij opublikowany formularz
+            </Button>
           </div>
         </Card>
       )}

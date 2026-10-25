@@ -12,28 +12,28 @@ import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee: InputData[] = [
   {
-    staticLabel: "Nazwa związku zawodowego:",
+    floatingLabel: "Nazwa związku zawodowego:",
     name: "committeeUnion",
     type: InputType.TEXT,
     placeholder: "Związek",
     labelClassName: "w-[22rem]",
   },
   {
-    staticLabel: "Nazwa struktury związku:",
+    floatingLabel: "Nazwa struktury związku:",
     name: "committeeName",
     type: InputType.TEXT,
     placeholder: "Komisja",
     labelClassName: "w-[22rem]",
   },
   {
-    staticLabel: "Telefon kontaktowy struktury:",
+    floatingLabel: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: InputType.TEXT,
     placeholder: "111-111-111",
     labelClassName: "w-[22rem]",
   },
   {
-    staticLabel: "Email kontaktowy struktury:",
+    floatingLabel: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: InputType.EMAIL,
     placeholder: "email@zzz.pl",
@@ -96,29 +96,29 @@ const UserForm = (props: Props) => {
     <>
       <form action={formAction}>
         <Card>
-          <SectionHeader message="Dane kontaktowe:" headerTag="h1" />
+          <div className="mb-12">
+            <SectionHeader message="Dane kontaktowe:" headerTag="h1" />
+          </div>
           <InputFields
             errorMsg={state.errors}
             inputsData={inputsWithDefaults}
-            variant="horizontal"
           />{" "}
         </Card>
         <div className="mt-10 flex flex-col justify-center gap-10 sm:flex-row sm:gap-16">
           {isEditMode && (
             <Button
-              message="Anuluj"
               onClickAction={() => {
                 isEditMode && props.handlePrintForm?.();
               }}
               type="button"
               className="!bg-white !text-accent hover:!bg-accent hover:!text-white"
-            />
+            >
+              Anuluj
+            </Button>
           )}
-          <Button
-            isLoading={isAction.current && isPending}
-            message="Zapisz"
-            type="submit"
-          />
+          <Button isLoading={isAction.current && isPending} type="submit">
+            Zapisz
+          </Button>
         </div>
       </form>
     </>

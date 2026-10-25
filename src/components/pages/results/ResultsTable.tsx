@@ -11,7 +11,7 @@ const ResultsTable = async (props: Props) => {
           {props.inputHeaders?.map((header, idx) => (
             <th
               key={idx}
-              className={`whitespace-normal break-normal text-left ${header ? "" : "text-font_light"}`}
+              className={`whitespace-normal break-normal text-left ${header ? "" : "text-font-light"}`}
             >
               {header || "Brak pytania"}
             </th>
@@ -24,7 +24,7 @@ const ResultsTable = async (props: Props) => {
             {submission.map((value, index) => (
               <td
                 key={index}
-                className={`max-w-[1200px] whitespace-normal break-normal ${value ? "" : "text-font_light"}`}
+                className={`max-w-[1200px] whitespace-normal break-normal ${value ? "" : "text-font-light"}`}
               >
                 {value || "Brak odpowiedzi"}
               </td>

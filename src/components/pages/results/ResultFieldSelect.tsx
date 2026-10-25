@@ -55,15 +55,17 @@ const ResultFieldSelect = (props: Props) => {
           variant="primary-rounded"
           type="button"
           onClickAction={() => setAllInputs(true)}
-          message="Zaznacz wszystkie"
-        />
+        >
+          Zaznacz wszystkie
+        </Button>
 
         <Button
           variant="primary-rounded"
           type="button"
           onClickAction={() => setAllInputs(false)}
-          message="Odznacz wszystkie"
-        />
+        >
+          Odznacz wszystkie
+        </Button>
       </div>
     </div>
   );

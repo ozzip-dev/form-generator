@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/shared";
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import UserMenuContent from "./UserMenuContent";
 import UserMenuTrigger from "./UserMenuTrigger";
 
@@ -14,22 +15,24 @@ const UserProfileButton = ({ isPublic, userName }: Props) => {
   const [isOpen, setOpen] = useState(false);
 
   const toggleClass = isOpen
-    ? "scale-100 opacity-100"
-    : "pointer-events-none scale-95 opacity-0";
+    ? "scale-100 block"
+    : "pointer-events-none scale-95 hidden";
 
   return (
     <div className="relative">
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-10 backdrop-blur-sm"
-          onClick={() => setOpen(false)}
-        />
-      )}
+      {isOpen &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-10 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+          />,
+          document.body,
+        )}
       <UserMenuTrigger
         isPublic={isPublic}
         userName={userName}
         isOpen={isOpen}
-        onToggle={() => setOpen((v) => !v)}
+        onToggle={() => setOpen((prev) => !prev)}
       />
 
       <Card

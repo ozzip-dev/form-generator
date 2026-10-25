@@ -1,38 +1,39 @@
-import Image from "next/image";
-import SectionHeader from "../SectionHeader";
-
 const Usage = () => {
   const usageCases: string[] = [
-    "Zbieranie opinii o warunkach pracy",
-    "Konsultacje w sprawie regulaminów",
-    "Głosowanie na temat planowanych działań",
-    "Organizacja spotkań i wydarzeń",
-    "Szybkie ankiety w zakładach pracy",
-    "Organizowanie wyborów",
+    "Opinie o warunkach pracy",
+    "Konsultacje regulaminów",
+    "Głosowanie nad planowanymi działaniami",
+    "Spotkania i wydarzenia",
+    "Ankiety w zakładach pracy",
+    "Wybory",
+    "Petycje",
   ];
-  return (
-    <section className="">
-      <div className="container pb-20 pt-16">
-        <SectionHeader
-          header="Zastosowania w organizacjach związkowych"
-          subheader="Zamiast maili i chaosu jeden uporządkowany system"
-        />
 
-        <ul className="mt-16 grid list-none gap-8 md:grid-cols-2">
-          {usageCases.map((text, idx) => (
-            <li key={idx} className="flex items-center gap-6">
-              <div className="h-[40px] w-[70px]">
-                <Image
-                  src="/images/usage_icon.png"
-                  alt="usage"
-                  width={190}
-                  height={124}
-                />
-              </div>
-              <p>{text}</p>
-            </li>
+  return (
+    <section className="py-28">
+      <div className="overflow-hidden">
+        <div className="animate-marquee-right flex w-max">
+          {[0, 1].map((group) => (
+            <ul
+              key={group}
+              className="flex shrink-0 items-center gap-6 pr-6"
+              aria-hidden={group === 1}
+            >
+              {usageCases.map((item) => (
+                <li
+                  key={item}
+                  className="bg-bg-light flex shrink-0 items-center gap-2 rounded-full border border-gray px-6 py-2 text-lg font-semibold"
+                >
+                  <span>{item}</span>
+                  <span
+                    className="bg-accent-light h-4 w-4 rounded-full"
+                    aria-hidden="true"
+                  ></span>
+                </li>
+              ))}
+            </ul>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

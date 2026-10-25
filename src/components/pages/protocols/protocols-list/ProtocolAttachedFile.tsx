@@ -29,14 +29,17 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
   const displayIcon = isImageType(file.type) || isPdfType(file.type);
 
   return (
-    <div className="flex items-center">
+    <div
+      className="flex items-center"
+      aria-label={`Załączony plik: ${file.name}`}
+    >
       {file?.data && (
         <>
           <div className="grid min-w-0 grid-cols-[20px_repeat(2,auto)] items-center gap-4">
             <button
               type="button"
               onClick={() => handleDownload(file)}
-              aria-label="Pobierz plik"
+              aria-label={`Pobierz plik ${file.name}`}
               className="flex shrink-0 items-center justify-center transition hover:opacity-70"
             >
               <Icon icon="download" size={20} className="bg-accent" />
@@ -46,7 +49,7 @@ const ProtocolDetailsAttachedFile = (file: FileSerialized) => {
               <button
                 type="button"
                 onClick={handleFileNameClick}
-                className="truncate text-left underline decoration-accent underline-offset-2 hover:text-accent_dark"
+                className="truncate text-left underline decoration-accent underline-offset-2 hover:text-accent-dark"
               >
                 {file?.name || "-"}
               </button>

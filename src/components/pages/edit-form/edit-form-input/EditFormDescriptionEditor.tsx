@@ -55,8 +55,8 @@ const EditFormDescriptionEditor = (props: Props) => {
   return (
     <>
       {(props.isDescription || isParagraph) && (
-        <div className="flex w-full">
-          <div className="w-[calc(100%-3rem)] md:w-[calc(100%-1.5rem)]">
+        <div className="relative w-full">
+          <div className="w-full">
             {isEditorOpen ? (
               <TextEditor
                 formId={formId}

@@ -17,14 +17,13 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-8">
       {/* using <a> instead of <Link> for caching reasons */}
       <a href={`/forum/list#${topic.category}`}>
-        <Button
-          message="❮ Powrót do listy"
-          variant="primary-rounded"
-          className="mb-8"
-        />
+        <Button variant="primary-rounded" className="mb-8">
+          {" "}
+          ❮ Powrót do listy
+        </Button>
       </a>
 
       {!isFormPrinted && (

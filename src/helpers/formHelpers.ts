@@ -61,3 +61,6 @@ export const getTypeLabel = (type: FormType): string =>
 
 export const getSortedInputs = (form: Form | FormSerialized): FormInput[] =>
   form.inputs.sort((a, b) => a.order - b.order);
+
+export const maxFormCount =
+  Number(process.env.NEXT_PUBLIC_MAX_FORMS_PER_USER) || 10;

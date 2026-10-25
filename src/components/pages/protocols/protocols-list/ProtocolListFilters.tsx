@@ -68,7 +68,6 @@ const ProtocolListFilters = ({
       ...filters,
       [name]: value,
     });
-    name !== "text" && setAreOpenFilters && setAreOpenFilters((prev) => !prev);
   };
 
   const resetFilters = () => {
@@ -128,10 +127,13 @@ const ProtocolListFilters = ({
             />
           </div>
           <Button
-            message="Resetuj filtry"
+            type="submit"
             variant="primary-rounded"
             className="mb-[1.7rem] mt-12 w-full"
-          />
+          >
+            {" "}
+            Resetuj filtry
+          </Button>
         </form>
       </FormProvider>
     </Card>

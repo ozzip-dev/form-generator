@@ -98,9 +98,7 @@ const AddOption = (props: Props) => {
                   {
                     type: InputType.TEXT,
                     name: `options.${idx}.label`,
-                    floatingLabel: isOtherOption
-                      ? "Edytuj inne"
-                      : "Edytuj opcję",
+                    floatingLabel: isOtherOption ? "Inne" : "Opcja",
                   },
                 ]}
                 register={register}
@@ -113,37 +111,41 @@ const AddOption = (props: Props) => {
 
             <Button
               type="button"
-              icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
               onClickAction={() =>
                 handleDeleteOption(`option.${idx}.${props.header}`, idx)
               }
               ariaLabel="Usuń opcję"
               variant="ghost"
               className="ml-4 h-fit w-fit"
-            />
+            >
+              <Icon icon="trash" size={20} className="bg-font-dark" />
+            </Button>
           </div>
         );
       })}
 
       <div className="flex gap-2">
-        <div className="mb-10 w-fit">
+        <div className="w-fit">
           <Button
-            message="Dodaj opcję"
             type="button"
             disabled={!!errors.options || hasReachedOptionLimit}
             onClickAction={handleAddOption}
-            variant="primary-rounded"
-          />
+            variant="empty-accent"
+          >
+            {" "}
+            Dodaj opcję
+          </Button>
         </div>
         {!inputHasOther(props.input) && (
           <div className="w-fit">
             <Button
-              message="Dodaj inne"
               type="button"
               disabled={hasReachedOptionLimit}
               onClickAction={handleAddOther}
-              variant="primary-rounded"
-            />
+              variant="empty-accent"
+            >
+              Dodaj inne
+            </Button>
           </div>
         )}
       </div>

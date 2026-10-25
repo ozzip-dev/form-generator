@@ -49,7 +49,7 @@ export const ToastProvider = (props: Props) => {
 
       <div className="fixed bottom-4 right-4 z-50 z-[101] flex flex-col gap-2">
         {toasts.map((toast) => {
-          let bgColor = "bg-font_light";
+          let bgColor = "bg-font-light";
           if (toast.variant === "success") bgColor = "bg-accent";
           if (toast.variant === "error") bgColor = "bg-error";
 

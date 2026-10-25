@@ -16,8 +16,15 @@ type Props = {
 };
 
 const InputField = (props: Props) => {
-  const { name, floatingLabel, type, required, placeholder, defaultValue } =
-    props.inputData;
+  const {
+    name,
+    floatingLabel,
+    type,
+    required,
+    placeholder,
+    defaultValue,
+    staticLabel,
+  } = props.inputData;
   const inputDefaultValue = props.default?.[name] ?? defaultValue ?? "";
 
   return (
@@ -26,14 +33,14 @@ const InputField = (props: Props) => {
         id={name}
         name={name}
         type={type}
-        aria-label={`${floatingLabel || name}`}
+        aria-label={`${floatingLabel || staticLabel || name}`}
         placeholder={floatingLabel ? " " : placeholder}
         defaultValue={inputDefaultValue}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
-        className={`peer w-full rounded-sm border p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
+        className={`peer w-full rounded-sm border border-gray p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
           props.isLoading?.[name] || props.isSubmitting
             ? "cursor-not-allowed opacity-50"
             : ""

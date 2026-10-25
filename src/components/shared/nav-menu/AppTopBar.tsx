@@ -17,31 +17,23 @@ export default function AppTopBar({ isPublic, links, user }: Props) {
     <div className="flex items-center justify-between">
       <div className="flex items-center justify-between gap-6">
         <div className="flex min-w-0 items-center gap-6 lg:gap-8">
-          <BackToHomeLink isDark={isPublic} />
+          <BackToHomeLink />
 
           <div className="hidden lg:block">
-            <NavMenu
-              links={links}
-              depth={1}
-              textColor={isPublic ? "var(--color-font_dark)" : "white"}
-            />
+            <NavMenu links={links} depth={1} textColor={isPublic ? "" : ""} />
           </div>
         </div>
       </div>
 
       {!user && (
         <div className="ml-auto hidden shrink-0 items-center gap-3 lg:flex lg:gap-6 xl:gap-10">
-          <ButtonLink
-            message="Zarejestruj organizację"
-            link="/admin-contact"
-            variant="primary-rounded"
-          />
+          <ButtonLink link="/admin-contact" variant="empty-accent">
+            Zarejestruj organizację
+          </ButtonLink>
 
-          <ButtonLink
-            message="Zaloguj"
-            link="/login"
-            variant="primary-rounded"
-          />
+          <ButtonLink link="/login" variant="primary-rounded">
+            Zaloguj
+          </ButtonLink>
         </div>
       )}
 

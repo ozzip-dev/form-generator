@@ -28,7 +28,7 @@ const InputError = (props: Props) => {
   return (
     <div
       id={props.nameId ? `${props.nameId}-error` : undefined}
-      className="absolute -bottom-[1.7rem] left-2 text-2xs text-error"
+      className="absolute -bottom-[1.7rem] left-2 text-xs text-error"
       role="alert"
       aria-live="assertive"
     >

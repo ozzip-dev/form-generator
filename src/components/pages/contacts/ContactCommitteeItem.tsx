@@ -45,10 +45,12 @@ const ContactCommitteeItem = ({ committee, type, getForms }: Props) => {
 
       <Button
         onClickAction={onShowForms}
-        message={message}
         variant="primary-rounded"
         className="mt-4"
-      />
+      >
+        {" "}
+        {message}
+      </Button>
 
       {showDetails && <FormsOfTypeList forms={forms} />}
     </div>

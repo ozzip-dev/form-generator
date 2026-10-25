@@ -11,7 +11,7 @@ function FormInputMoveRemoveButtons() {
   const isFirstInput = input.order === 0;
 
   return (
-    <div className="mb-4 flex gap-4">
+    <div className="flex gap-4">
       <div className="ml-auto flex gap-4">
         {!isFirstInput && (
           <MoveInputUpBtn inputId={inputId} order={input.order} />
@@ -21,7 +21,7 @@ function FormInputMoveRemoveButtons() {
         )}
       </div>
       <div className="flex flex-col">
-        <div className="w-px flex-1 bg-font_light" />
+        <div className="bg-font-light w-px flex-1" />
       </div>
 
       <div className="mb-auto">

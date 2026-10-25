@@ -54,16 +54,19 @@ type Props = {
   authorEmail?: string;
   isPreview?: boolean;
   isTemplatePreview?: boolean;
+  isLoggedIn?: boolean;
 };
 
 const CreatedForm = (props: Props) => {
   const {
     title,
+    templateTitle,
     description,
     inputs,
     displayAuthorEmail,
     resultVisibility,
     state,
+    id,
   } = props.form;
   const schema = createdFormSchema(props.form.inputs);
   const { toast } = useToast();
@@ -167,7 +170,10 @@ const CreatedForm = (props: Props) => {
       {!canSubmit && (
         <CreatedFormTemplateHeader
           title={title}
+          templateTitle={templateTitle}
           isTemplate={isTemplate(props.form)}
+          isLoggedIn={props.isLoggedIn}
+          id={id}
         />
       )}
 
@@ -202,19 +208,23 @@ const CreatedForm = (props: Props) => {
 
             <div className="mb-6 mt-16 flex flex-col items-center gap-8 sm:flex-row sm:justify-end sm:gap-16">
               <Button
-                message="Wyczyść"
                 type="button"
                 onClickAction={handleCleanForm}
                 className="w-full !bg-white !text-accent hover:!bg-accent hover:!text-white sm:w-fit"
-              />
+              >
+                {" "}
+                Wyczyść
+              </Button>
 
               <Button
-                message="Zatwierdź"
                 disabled={!canSubmit}
                 type="submit"
                 isLoading={isSubmitting}
                 className="w-full sm:w-fit"
-              />
+              >
+                {" "}
+                Zatwierdź
+              </Button>
             </div>
           </form>
         </FormProvider>

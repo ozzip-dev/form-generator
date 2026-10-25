@@ -1,14 +1,26 @@
 type Props = {
+  title?: string;
   header: string;
   subheader?: string;
+  className?: string;
 };
 
 const SectionHeader = (props: Props) => {
   return (
-    <div className="mx-auto w-4/5 text-center">
-      <h2 className="mb-8 text-xl font-semibold">{props.header}</h2>
+    <div className={` ${props.className && props.className}`}>
+      {!!props.title && (
+        <div className="text-center text-accent">{props.title}</div>
+      )}
 
-      {!!props.subheader && <div className="text-md">{props.subheader}</div>}
+      <h2 className="my-2 bg-clip-text text-center text-2xl font-extrabold leading-tight text-transparent [background-image:linear-gradient(180deg,rgb(66_66_66)_60%,var(--color-accent-dark)_100%)]">
+        {props.header}
+      </h2>
+
+      {!!props.subheader && (
+        <div className="text-md text-font-light text-center text-lg">
+          {props.subheader}
+        </div>
+      )}
     </div>
   );
 };

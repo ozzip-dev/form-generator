@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "./cards/Card";
 
 type Props = {
   message: string | React.ReactNode;

@@ -33,12 +33,13 @@ const AcceptedValueBox = ({ value }: Props) => {
 
       <Button
         type="button"
-        icon={<Icon icon="trash" size={20} className="bg-font_dark" />}
         variant="ghost"
         ariaLabel="Usuń post"
         isLoading={isPending}
         onClickAction={handleRemoveAcceptedValue}
-      />
+      >
+        <Icon icon="trash" size={20} className="bg-font-dark" />{" "}
+      </Button>
     </div>
   );
 };

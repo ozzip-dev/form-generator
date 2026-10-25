@@ -38,11 +38,12 @@ const TopicDetails = (props: Props) => {
       </Card>
 
       <Button
-        message="Edytuj"
         type="button"
         onClickAction={handlePrintForm}
-        className="m-auto w-full sm:w-fit mt-10"
-      />
+        className="m-auto mt-10 w-full sm:w-fit"
+      >
+        Edytuj
+      </Button>
     </>
   );
 };

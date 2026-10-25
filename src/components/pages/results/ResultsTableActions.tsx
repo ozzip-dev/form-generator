@@ -18,11 +18,10 @@ const ResultsTableActions = ({
 }: Props) => {
   return (
     <div className="fixed bottom-0 left-1/2 mb-8 flex -translate-x-1/2 gap-md">
-      <Button
-        onClickAction={exportGridToPDF}
-        message="Pobierz wyniki (.pdf)"
-        variant="primary-rounded"
-      />
+      <Button onClickAction={exportGridToPDF} variant="primary-rounded">
+        {" "}
+        Pobierz wyniki (.pdf)
+      </Button>
 
       <DownloadResultsButton
         {...{

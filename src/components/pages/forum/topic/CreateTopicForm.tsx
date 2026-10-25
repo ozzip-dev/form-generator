@@ -104,7 +104,7 @@ const CreateTopicForm = () => {
             >
               Wróć
             </Link>
-            <Button type="submit" message="Utwórz" />
+            <Button type="submit"> Utwórz</Button>
           </div>
         </form>
       </FormProvider>

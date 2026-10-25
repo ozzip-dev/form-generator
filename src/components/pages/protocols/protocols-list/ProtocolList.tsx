@@ -3,7 +3,7 @@
 import { ProtocolSerialized } from "@/types/protocol";
 import { isAscending, ProtocolFilters } from "../utils";
 import ProtocolListItem from "./ProtocolListItem";
-import { ResponsiveListHeader } from "@/components/shared";
+import { Card, ResponsiveListHeader } from "@/components/shared";
 
 const headers = ["Branża", "Związek", "Zakład", "Rozpoczęcie", "Przyczyna"];
 
@@ -50,8 +50,8 @@ const ProtocolList = ({
     );
 
   return (
-    <>
-      <div className="sticky top-0 z-10 w-full bg-white">
+    <Card>
+      <div className="bg-bg-light sticky top-0 z-10 w-full">
         <div className="md:flex">
           <ResponsiveListHeader headers={headers} />
           <div className="md:w-[15%]"></div>
@@ -69,7 +69,7 @@ const ProtocolList = ({
           ))
         )}
       </div>
-    </>
+    </Card>
   );
 };
 

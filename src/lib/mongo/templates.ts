@@ -856,7 +856,7 @@ export const formTemplates: Form[] = [
     title: "Zapisy na ulotkowanie [...]",
     templateTitle: "Ulotkowanie",
     description:
-      "<p>Jeśli chcesz dołaczyć do akcji ulotkowania [...], wybierz odpowiadające Tobie terminy.</p>",
+      "<p>Jeśli chcesz dołączyć do akcji ulotkowania [...], wybierz odpowiadające Tobie terminy.</p>",
     ...getCreatedUpdatedDates(),
     inputs: [
       {

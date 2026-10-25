@@ -104,12 +104,13 @@ const TopicActionButtons = (props: Props) => {
           .map(({ text, action, errorText, confirmText = "" }, idx) => (
             <Button
               key={idx}
-              message={text}
               variant="primary-rounded"
               onClickAction={() =>
                 triggerAction(action, props.topic._id, errorText, confirmText)
               }
-            />
+            >
+              {text}{" "}
+            </Button>
           ))}
       </div>
 

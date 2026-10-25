@@ -49,9 +49,10 @@ const AcceptedValuesSection = () => {
           <Button
             variant="primary-rounded"
             className="m-auto w-fit"
-            message="Zamknij"
             onClickAction={close}
-          />
+          >
+            Zamknij{" "}
+          </Button>
         </div>
       ),
     });
@@ -124,22 +125,20 @@ const AcceptedValuesSection = () => {
     });
   };
 
-  const btnText: string = isOpen
-    ? "Schowaj"
-    : "Zdefiniuj dopuszczalne odpowiedzi";
+  const btnText: string = isOpen ? "Schowaj" : "Dopuszczalne odpowiedzi";
 
   return (
-    <div className="mt-8 flex w-full flex-col gap-3 border-t border-default pt-5 text-sm">
+    <div className="mt-4 flex w-full flex-col gap-3 text-sm">
       <div className="flex items-center">
         <Button
           type="button"
-          variant="primary-rounded"
-          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font_dark"
-          message={btnText}
+          variant="empty-accent"
+          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font-dark"
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}
-        />
-
+        >
+          {btnText} - {input.acceptedValues ? input.acceptedValues.length : "0"}
+        </Button>
         <AcceptedValuesInfoBox />
       </div>
 
@@ -147,9 +146,6 @@ const AcceptedValuesSection = () => {
         <div className="flex w-full flex-col gap-2">
           {!!input.acceptedValues?.length && (
             <>
-              <div>
-                Dopuszczalne odpowiedzi: ({input.acceptedValues.length})
-              </div>
               <div className="flex flex-wrap gap-3">
                 {input.acceptedValues.sort().map((value, idx) => (
                   <AcceptedValueBox value={value} key={idx} />

@@ -27,13 +27,15 @@ const Protocols = ({ protocols }: Props) => {
     );
 
   return (
-    <div className="container relative flex h-full overflow-y-hidden">
+    <div className="container relative flex h-full gap-8 overflow-y-hidden pt-8">
       <Button
-        message={areActiveFilters > 1 ? "Filtry aktywne" : "Filtruj"}
         variant="primary-rounded"
-        className="!absolute right-12 !z-20 h-fit !text-xs lg:hidden"
+        className="!absolute right-16 top-[3.7rem] !z-20 h-fit !text-xs lg:hidden"
         onClickAction={() => setAreOpenFilters((prev) => !prev)}
-      />
+      >
+        {" "}
+        {areActiveFilters > 1 ? "Filtry aktywne" : "Filtruj"}
+      </Button>
 
       <div
         className={`fixed left-4 top-[6.9rem] z-40 transform transition-transform duration-300 ease-in-out lg:hidden ${areOpenFilters ? "translate-x-0" : "-translate-x-[150%]"} `}
@@ -52,7 +54,7 @@ const Protocols = ({ protocols }: Props) => {
         />
       )}
 
-      <div className="mr-14 hidden overflow-y-auto lg:block">
+      <div className="hidden overflow-y-auto lg:block">
         <ProtocolListFilters filters={filters} setFilters={setFilters} />
       </div>
       <div className="min-h-0 flex-1 overflow-y-scroll">
