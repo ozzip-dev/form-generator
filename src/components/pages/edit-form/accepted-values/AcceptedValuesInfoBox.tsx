@@ -4,6 +4,8 @@ const AcceptedValuesInfoBox = () => {
   return (
     <InfoIcon>
       <div>
+        Opcjonalnie:
+        <br />
         Ustal możliwe odpowiedzi dla pola, np. numery PESEL, identyfikatory
         pracownicze, itd.
         <br />

@@ -107,7 +107,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
   return (
     <>
-      <Card className="my-16 flex flex-col gap-2 text-center text-sm">
+      <Card className="my-8 flex flex-col gap-2 text-center text-sm">
         <div className="text-lg font-semibold">{title}</div>
         <div className="mb-10 text-font-light">
           Edycja niedostępna, {formStateInfo}

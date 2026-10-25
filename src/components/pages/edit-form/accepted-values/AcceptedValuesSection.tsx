@@ -125,7 +125,7 @@ const AcceptedValuesSection = () => {
     });
   };
 
-  const btnText: string = isOpen ? "Schowaj" : "Dopuszczalne";
+  const btnText: string = isOpen ? "Schowaj" : "Dopuszczalne odpowiedzi";
 
   return (
     <div className="mt-4 flex w-full flex-col gap-3 text-sm">
@@ -133,7 +133,7 @@ const AcceptedValuesSection = () => {
         <Button
           type="button"
           variant="empty-accent"
-          className="text-font-dark mb-[4px] w-fit rounded-sm border border-default px-3 py-2"
+          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font-dark"
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}
         >
