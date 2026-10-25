@@ -49,8 +49,11 @@ const EditFormNavigation = ({ ids }: Props) => {
   }, [ids]);
 
   return (
-    <div>
-      <div className="sticky top-0 hidden h-fit pt-8 md:grid">
+    <div className="">
+      <div
+        dir="rtl"
+        className="sticky top-0 hidden h-full max-h-[calc(100dvh-2rem)] overflow-y-auto pt-8 md:block"
+      >
         <ButtonLink
           variant="ghost"
           link="#header"

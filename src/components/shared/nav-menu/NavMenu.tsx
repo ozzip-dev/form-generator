@@ -36,7 +36,7 @@ const NavMenu = (props: Props) => {
     <>
       {props.variant === "mobile" ? (
         <nav className="m-auto">
-          <ul className="flex flex-col">
+          <ul>
             {props.links.map(({ text, link, sameTab }) => (
               <div key={link}>
                 <MenuLink

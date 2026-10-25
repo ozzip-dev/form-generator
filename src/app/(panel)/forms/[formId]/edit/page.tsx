@@ -38,8 +38,6 @@ const EditFormPage = async (props: Props) => {
     form.inputs?.length >=
     Number(process.env.NEXT_PUBLIC_MAX_INPUTS_PER_FORM || 20);
 
-  let textNumber = 0;
-
   const displayInfoFrame = isActive(form) || isDisabled(form);
 
   return (
@@ -70,8 +68,6 @@ const EditFormPage = async (props: Props) => {
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((input, idx) => {
-                const number = input.type !== "paragraph" ? ++textNumber : null;
-
                 return (
                   <SuspenseErrorBoundary
                     key={input.id}
@@ -83,7 +79,7 @@ const EditFormPage = async (props: Props) => {
                       inputIdx={idx}
                       isLastInput={inputs.length === idx + 1}
                       formId={form._id!}
-                      inputNumber={number}
+                      inputNumber={idx + 1}
                     >
                       <EditFormInput />
                     </InputDataContextProvider>

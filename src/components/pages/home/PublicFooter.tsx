@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function PublicFooter() {
   return (
     <footer className="mt-auto border-t border-gray pb-10 pt-6">
-      <div className="text-font-light container">
+      <div className="container text-font-light">
         <div className="items-center justify-center p-2 md:flex">
           <Image
             src="/images/UELogos.webp"
@@ -60,6 +60,7 @@ export default function PublicFooter() {
             {" "}
             CC BY 4.0
           </ButtonLink>
+          <p>Kontakt: wstapdoip@ozzip.pl</p>
         </div>{" "}
       </div>
     </footer>

@@ -157,7 +157,7 @@ const EditFormInput = () => {
                   <FormInputMoveRemoveButtons />
                 </div>
 
-                <div className="sm:w-[20rem]">
+                <div className="sm:w-[17rem]">
                   <SelectFieldController
                     name="type"
                     defaultValue={type}
