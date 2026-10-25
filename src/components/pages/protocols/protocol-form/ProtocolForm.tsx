@@ -35,7 +35,7 @@ const dataInputsProtocolForm: InputData[] = [
   {
     staticLabel: "Branża:",
     name: "branch",
-    placeholder: "Budownictwo",
+    placeholder: "np. budownictwo",
     type: InputType.TEXT,
   },
   {
