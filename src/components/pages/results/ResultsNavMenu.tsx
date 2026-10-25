@@ -12,7 +12,7 @@ const ResultsNavMenu = ({ formId }: Props) => {
   ];
 
   return (
-    <div className="pb-2">
+    <div className="mt-8 pb-2">
       <NavMenu links={resultsNavLinks} level="sub" />
     </div>
   );
