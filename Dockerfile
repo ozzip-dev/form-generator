@@ -21,6 +21,10 @@ RUN \
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+ARG NEXT_PUBLIC_APP_ENV
+ENV NEXT_PUBLIC_APP_ENV=$NEXT_PUBLIC_APP_ENV
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
