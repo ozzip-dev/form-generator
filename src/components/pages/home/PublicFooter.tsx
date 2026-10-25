@@ -15,14 +15,14 @@ export default function PublicFooter() {
             placeholder="blur"
             blurDataURL="/images/placeholder.jpg"
             loading="lazy"
-            className="m-auto w-[27rem] md:m-0"
+            className="m-auto w-[45rem] md:m-0"
           />
           <Image
             src="/images/TransferHubLogo.webp"
             alt="TransferHub logo"
             width={100}
             height={25}
-            className="m-auto w-[6rem] pl-2 md:m-0 md:border-l-2 md:border-gray"
+            className="m-auto w-[11rem] pl-2 md:m-0 md:border-l-2 md:border-gray"
             placeholder="blur"
             blurDataURL="/images/placeholder.jpg"
             loading="lazy"
