@@ -17,7 +17,7 @@ const TopicContainer = (topic: TopicSerializedDetailed) => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-8">
       {/* using <a> instead of <Link> for caching reasons */}
       <a href={`/forum/list#${topic.category}`}>
         <Button variant="primary-rounded" className="mb-8">

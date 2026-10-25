@@ -108,7 +108,7 @@ const TopicForm = (props: Props) => {
           <select
             name="category"
             defaultValue={topic.category}
-            className="border-gray-300 mt-4 w-full rounded border p-2"
+            className="border-gray-300 mt-4 w-auto rounded border p-2"
           >
             <option key="empty" value="">
               Wybierz kategorię

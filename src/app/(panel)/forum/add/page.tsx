@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const ForumPage = async () => {
   return (
-    <div className="container">
+    <div className="container mt-8">
       <CreateTopicForm />
     </div>
   );

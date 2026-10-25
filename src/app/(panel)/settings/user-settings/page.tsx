@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 const UserSettingsPage = async () => {
   return (
-    <div className="container mt-16">
+    <div className="container mt-8">
       <UserSettings />
     </div>
   );
