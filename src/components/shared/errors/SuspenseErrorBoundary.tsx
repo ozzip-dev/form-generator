@@ -28,7 +28,7 @@ const SuspenseErrorBoundary = (props: Props) => {
           <DataLoader message={props.loadingMessage} size={props.size} />
         }
       >
-        <div>{props.children}</div>
+        {props.children}
       </Suspense>
     </ErrorBoundary>
   );

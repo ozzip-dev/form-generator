@@ -145,6 +145,10 @@ body {
   @apply border-b border-transparent text-accent hover:border-b-accent;
 }
 
+.cardHover {
+  @apply transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-lg;
+}
+
 .table-highlighted tr:nth-child(even) {
   background-color: var(--color-bg-dark);
 }

@@ -1,14 +1,15 @@
 "use client";
 
 import { startTransition, useActionState } from "react";
-import Link from "next/link";
 import { createFormDraftAction } from "@/actions/create-form/createFormDraftAction";
-import { Button, Icon } from "@/components/shared";
+import { Button, ButtonLink, Card, Icon } from "@/components/shared";
+import IconCart from "@/components/shared/icons/IconCart";
 
 type Props = {
   _id: string;
   id: string;
   title: string;
+  iconName: string;
 };
 
 const FormTemplateTrigger = (props: Props) => {
@@ -27,32 +28,54 @@ const FormTemplateTrigger = (props: Props) => {
   };
 
   return (
-    <>
-      <Button
-        onClickAction={handleCreateForm}
-        isLoading={isPending}
-        variant="ghost"
-        className="!bg-bg-light flex aspect-square w-[11rem] items-center justify-center rounded-sm border !text-black transition hover:!bg-accent hover:!text-white"
-        ariaLabel={props.title}
-      >
-        {props.title}{" "}
-      </Button>
+    <Card className="flex h-full flex-col">
+      <IconCart>
+        <Icon icon={props.iconName} size={22} className="shrink-0 bg-white" />
+      </IconCart>
 
-      <Link
-        href={`/${props._id}`}
+      <h3 className="py-8">{props.title} </h3>
+
+      <div className="mt-auto border-t border-gray pt-4">
+        <Button
+          onClickAction={handleCreateForm}
+          isLoading={isPending}
+          variant="primary-rounded"
+          ariaLabel={props.title}
+          className="group mb-4 mt-auto w-full"
+        >
+          <div className="flex gap-2">
+            <Icon
+              icon="plus-solid-full"
+              size={22}
+              className="shrink-0 bg-white group-hover:bg-accent"
+            />{" "}
+            Użyj wzroru
+          </div>
+        </Button>
+      </div>
+
+      <ButtonLink
+        link={`/${props._id}`}
         target="_blank"
-        className="mt-4 inline-flex items-center gap-2"
+        variant="empty-accent"
+        className="group"
       >
-        <span>Podgląd</span>
-        <Icon icon="preview" size={22} className="shrink-0 bg-accent" />
-      </Link>
+        <div className="m-auto flex w-fit gap-2">
+          <Icon
+            icon="eye"
+            size={22}
+            className="shrink-0 bg-accent group-hover:bg-white"
+          />{" "}
+          Podgląd
+        </div>
+      </ButtonLink>
 
       {state?.error && (
         <div className="text-center text-error">
           <div className="mt-4">{state.error}</div>
         </div>
       )}
-    </>
+    </Card>
   );
 };
 

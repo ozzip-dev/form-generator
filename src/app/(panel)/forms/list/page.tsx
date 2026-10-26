@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 const FormListPage = async () => {
   return (
     <>
-      <section>
-        <div className="container bg-bg-light px-4 py-8 md:flex">
+      <section className="pt-16">
+        <div className="container">
           <SuspenseErrorBoundary
             errorMessage="Błąd ładowania listy formularzy"
             loadingMessage="Ładowanie listy formularzy"
@@ -21,8 +21,8 @@ const FormListPage = async () => {
           </SuspenseErrorBoundary>
         </div>
       </section>
-      <section className="bg-bg-dark pb-10">
-        <div className="container px-4 py-8 md:flex">
+      <section className="py-32">
+        <div className="container">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia szablonu formularza"
             size="lg"
