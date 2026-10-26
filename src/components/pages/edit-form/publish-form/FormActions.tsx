@@ -107,7 +107,7 @@ const FormActions = ({ formStructure }: Props) => {
 
   return (
     <div className="py-8">
-      <Card className="mb-8">
+      <Card className="mb-8 bg-white">
         <h3 className="text-lg">Ustawienia</h3>
         <PublishFormButton form={formStructure} />
         <AliasUrlForm {...formStructure} />

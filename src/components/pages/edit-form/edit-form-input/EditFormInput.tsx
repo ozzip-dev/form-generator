@@ -137,7 +137,7 @@ const EditFormInput = () => {
   }, [header, setError, formData]);
 
   return (
-    <Card className="" id={inputNumber}>
+    <Card className="bg-white" id={inputNumber}>
       {!inputId ? (
         <div>Błąd pola fomrularza, skontanktuj się z administratorem</div>
       ) : (

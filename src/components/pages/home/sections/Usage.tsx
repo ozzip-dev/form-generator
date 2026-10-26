@@ -10,7 +10,7 @@ const Usage = () => {
   ];
 
   return (
-    <section className="py-28">
+    <section className="py-16">
       <div className="overflow-hidden">
         <div className="animate-marquee-right flex w-max">
           {[0, 1].map((group) => (
@@ -22,11 +22,11 @@ const Usage = () => {
               {usageCases.map((item) => (
                 <li
                   key={item}
-                  className="bg-bg-light flex shrink-0 items-center gap-2 rounded-full border border-gray px-6 py-2 text-lg font-semibold"
+                  className="flex shrink-0 items-center gap-2 rounded-full border border-gray bg-bg-light px-6 py-2 text-lg font-semibold"
                 >
                   <span>{item}</span>
                   <span
-                    className="bg-accent-light h-4 w-4 rounded-full"
+                    className="h-4 w-4 rounded-full bg-accent-light"
                     aria-hidden="true"
                   ></span>
                 </li>

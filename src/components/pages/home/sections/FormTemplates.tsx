@@ -13,7 +13,10 @@ type FormTemplateItem = {
   icon: string;
 };
 
-const templateDetails: Record<string, { subtitle: string; icon: string }> = {
+export const templateDetails: Record<
+  string,
+  { subtitle: string; icon: string }
+> = {
   elections: {
     subtitle: "Wybory",
     icon: "landmark",

@@ -14,9 +14,10 @@ import {
 } from "react";
 import RemoveFormButton from "./RemoveFormButton";
 import { formatDateAndTime } from "@/helpers/dates/formatDateAndTime";
-import SetFormDisabledForm from "./disable-form/SetFormDisabledForm";
+import CloseFormBtn from "./disable-form/CloseFormBtn";
 import { useToast } from "@/context/ToastProvider";
 import { copyFormAction } from "@/actions/form/copyFormAction";
+import CloseFormEditor from "./CloseFormEditor";
 
 const mapTypes: Record<string, string> = {
   survey: "ankieta pracownicza",
@@ -35,6 +36,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   const user: UserSerialized | null = use(userPromise);
   const form = use(formDataPromise);
   const { toast } = useToast();
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
 
   const [origin, setOrigin] = useState("");
 
@@ -81,8 +83,8 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
   const isFormActive = isActive(form);
   const formStateInfo = isFormActive
-    ? "formularz aktywny"
-    : "formularz nieaktywny";
+    ? "Formularz jest aktywny, edycja niedostępna."
+    : "Formularz jest nieaktywny, edycja niedostępna.";
 
   const linkPath = `/${url || _id}`;
   const link = origin ? `${origin}${linkPath}` : linkPath;
@@ -106,85 +108,118 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   };
 
   return (
-    <>
-      <Card className="my-8 flex flex-col gap-2 text-center text-sm">
-        <div className="text-lg font-semibold">{title}</div>
+    <div className="flex flex-col md:flex-row md:gap-8">
+      <div className="flex-1 pb-32 pt-8">
+        <div className="mb-2 text-xl">{title}</div>
         <div className="mb-10 text-font-light">
-          Edycja niedostępna, {formStateInfo}
-        </div>
-        <div className="text-font-light">Opublikowany pod adresem</div>
-
-        <div className="font-semibold text-font-dark">{link}</div>
-        <Button
-          className="m-auto w-fit"
-          variant="primary-rounded"
-          onClickAction={handleCopy}
-        >
-          Skopiuj link formularza
-        </Button>
-        <ButtonLink
-          link={`/${url ? url : _id!}`}
-          target="_blank"
-          variant="primary-rounded"
-          className="m-auto mb-10 w-fit"
-        >
-          {" "}
-          Przejdź do formularza
-        </ButtonLink>
-
-        <div className="text-font-light">
-          Kategoria formularza:{" "}
-          <span className="ml-2 font-semibold text-font-dark">
-            {" "}
-            {mapTypes[type]}
-          </span>
-        </div>
-        <div className="text-font-light">
-          Tryb wyników:{" "}
-          <span className="ml-2 font-semibold text-font-dark">
-            {" "}
-            {resultVisibility === "open" ? "jawny" : "tajny"}
-          </span>
-        </div>
-        <div className="text-font-light">
-          Zapisane wyniki:{" "}
-          <span className="ml-2 font-semibold text-font-dark">
-            {submissionCount}
-          </span>
+          {formStateInfo} <br /> Aby zmienić pytania, skopiuj formularz jako
+          nowy szkic.
         </div>
 
-        <ButtonLink
-          link={`/forms/${_id}/results/details`}
-          target="_blank"
-          variant="primary-rounded"
-          className="m-auto mb-3 mt-16 w-fit"
-        >
-          Przejdź do wyników
-        </ButtonLink>
+        {isEditorOpen && (
+          <Card className="mb-8 bg-white">
+            {isFormActive && _id && (
+              <CloseFormEditor formId={_id} setIsEditorOpen={setIsEditorOpen} />
+            )}
+          </Card>
+        )}
+        <Card className="bg-white">
+          <div className="mb-4 font-extrabold">Opublikowany pod adresem</div>
 
-        <div className="mt-16 text-xs text-font-light">
-          <div className="">Utworzono: {formatDateAndTime(createdAt)}</div>
-          <div className="">Opublikowano: {formatDateAndTime(updatedAt)}</div>
-        </div>
-      </Card>
+          <div className="font-semibold text-font-dark">{link}</div>
+          <div className="mt-4 flex flex-col gap-4 sm:flex-row">
+            <Button
+              className="w-fit"
+              variant="empty-accent"
+              onClickAction={handleCopy}
+            >
+              Kopiuj link
+            </Button>
 
-      {isAuthor && _id && (
-        <div className="flex flex-col gap-sm pb-20">
-          <Button
-            isLoading={isPending}
-            className="ml-auto w-fit"
+            <ButtonLink
+              link={`/${url ? url : _id!}`}
+              target="_blank"
+              variant="primary-rounded"
+              className="w-fit"
+            >
+              {" "}
+              Przejdź do formularza
+            </ButtonLink>
+          </div>
+        </Card>
+        <Card className="my-8 flex flex-col gap-4 bg-white sm:flex-row sm:justify-between">
+          <div>
+            <span className="text-extrabold mr-2 text-xl">
+              {submissionCount}
+            </span>
+            zapisane wyniki{" "}
+          </div>
+
+          <ButtonLink
+            link={`/forms/${_id}/results/details`}
+            target="_blank"
             variant="primary-rounded"
-            onClickAction={handleCopyForm}
+            className="mt-3 w-fit"
           >
-            Skopiuj formularz
-          </Button>
+            Przejdź do wyników
+          </ButtonLink>
+        </Card>
+        <Card className="bg-white">
+          <div className="mb-4 font-extrabold">Szczegóły</div>
 
-          {isFormActive && <SetFormDisabledForm formId={_id} />}
+          <div className="flex">
+            <p className="w-52">Kategoria:</p> <p>{mapTypes[type]}</p>
+          </div>
+          <div className="flex">
+            <p className="w-52">Tryb wyników:</p>{" "}
+            <p>{resultVisibility === "open" ? "jawny" : "tajny"}</p>
+          </div>
+          <div className="flex">
+            <p className="w-52">Utworzono:</p>{" "}
+            <p>{formatDateAndTime(createdAt)}</p>
+          </div>
+          <div className="flex">
+            <p className="w-52">Opublikowano:</p>{" "}
+            <p>{formatDateAndTime(updatedAt)}</p>
+          </div>
+        </Card>
+      </div>
+      <div className="top-0 md:sticky md:h-fit md:w-[25rem]">
+        <div className="pb-32 pt-8">
+          <Card className="bg-white">
+            <h3 className="mb-8 text-lg font-extrabold">Usatwienia</h3>{" "}
+            {isAuthor && _id && (
+              <div className="flex flex-col">
+                <Button
+                  isLoading={isPending}
+                  className=""
+                  variant="empty-accent"
+                  onClickAction={handleCopyForm}
+                >
+                  Skopiuj formularz
+                </Button>
+                <p className="mb-8 text-sm text-font-light">
+                  Tworzy nowy formularz z tymi samymi pytaniami.
+                </p>
 
-          <RemoveFormButton formId={_id} />
+                {isFormActive && (
+                  <CloseFormBtn
+                    isEditorOpen={isEditorOpen}
+                    setIsEditorOpen={setIsEditorOpen}
+                  />
+                )}
+
+                <RemoveFormButton formId={_id} />
+                <p className="text-sm text-font-light">
+                  Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie
+                  można cofnąć.
+                </p>
+              </div>
+            )}
+          </Card>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 };
 

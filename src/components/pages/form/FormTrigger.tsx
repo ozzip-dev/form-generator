@@ -1,11 +1,15 @@
 "use client";
 
 import { createFormDraftAction } from "@/actions/create-form/createFormDraftAction";
-import { Button, Icon } from "@/components/shared";
+import { Card, Icon } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { startTransition, useActionState } from "react";
 
-const FormTrigger = () => {
+type Props = {
+  freePlaces: number;
+};
+
+const FormTrigger = ({ freePlaces }: Props) => {
   const [state, createForm, isPending] = useActionState<
     Promise<null | {
       error: string;
@@ -22,31 +26,31 @@ const FormTrigger = () => {
 
   return (
     <>
-      <Button
-        ariaLabel="Dodaj nowy formularz"
-        onClickAction={handleCreateForm}
-        variant="ghost"
-        className="!bg-accent_lighter hover:bg-accent_light group m-auto flex aspect-square w-[11rem] items-center justify-center rounded-sm border border-accent text-xs transition md:rounded-lg"
+      <button
+        aria-label="Dodaj nowy formularz"
+        onClick={handleCreateForm}
+        className="mb-4 block h-full w-full sm:mb-0"
       >
         {" "}
-        <div>
-          <Icon
-            icon="plus-solid-full"
-            size={40}
-            className="mb-3 bg-accent transition-transform duration-200 group-hover:scale-125"
-          />
-          <span className="text-xs font-semibold uppercase text-font-dark">
-            Dodaj
-          </span>
-        </div>{" "}
-      </Button>
-      {state?.error ? (
-        <div className="text-center text-error">
-          <div className="mt-4">{state.error}</div>
-        </div>
-      ) : (
-        <div className="mt-4 text-center text-sm">Nowy formularz</div>
-      )}
+        <Card className="cardHover flex h-full w-full items-center justify-center bg-transparent hover:bg-white">
+          <div>
+            <div className="m-auto flex h-12 w-12 items-center justify-center rounded-full border border-gray bg-white">
+              <Icon
+                icon="plus-solid-full"
+                size={20}
+                className="bg-accent transition-transform duration-200 group-hover:scale-125"
+              />
+            </div>
+
+            <div className="text-center text-accent">Nowy formularz</div>
+            <div className="mt-2 text-sm text-font-light">Wolne miejsca</div>
+
+            <div className="mt-4 text-center text-sm text-error">
+              {state?.error && state.error}
+            </div>
+          </div>
+        </Card>{" "}
+      </button>
     </>
   );
 };

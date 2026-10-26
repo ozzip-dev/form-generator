@@ -1,19 +1,19 @@
 import AddFormField from "@/components/pages/edit-form/AddFormField";
-import EditFormInput from "@/components/pages/edit-form/edit-form-input/EditFormInput";
-import { ButtonLink, Icon, SuspenseErrorBoundary } from "@/components/shared";
-import { serializeFile } from "@/lib/serialize-utils";
 import EditFormHeader from "@/components/pages/edit-form/edit-form-header/EditFormHeader";
-import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
-import { getForm } from "@/services/form-service";
-import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
-import { isActive, isDisabled, isDraft } from "@/helpers/formHelpers";
-import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
-import { getFileById } from "@/services/file-service";
-import { File } from "@/types/file";
-import { InputDataContextProvider } from "@/context/InputDataContextProvider";
-import { getSubmissionCount } from "@/services/result-service";
-import { Metadata } from "next";
+import EditFormInput from "@/components/pages/edit-form/edit-form-input/EditFormInput";
 import EditFormNavigation from "@/components/pages/edit-form/EditFormNavigation";
+import FormActiveInfo from "@/components/pages/edit-form/FormActiveInfo";
+import FormActions from "@/components/pages/edit-form/publish-form/FormActions";
+import { SuspenseErrorBoundary } from "@/components/shared";
+import { InputDataContextProvider } from "@/context/InputDataContextProvider";
+import { verifyUserIsFormAuthor } from "@/helpers/formAccess";
+import { isActive, isDisabled, isDraft } from "@/helpers/formHelpers";
+import { serializeFile } from "@/lib/serialize-utils";
+import { getFileById } from "@/services/file-service";
+import { getForm } from "@/services/form-service";
+import { getSubmissionCount } from "@/services/result-service";
+import { File } from "@/types/file";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Formy pracy - Edycja formularza",
@@ -50,7 +50,7 @@ const EditFormPage = async (props: Props) => {
             size="sm"
             errorMessage="Błąd publikacji formularza"
           >
-            <div className="sticky top-0 md:w-[25rem]">
+            <div className="top-0 h-fit md:sticky md:w-[25rem]">
               <FormActions formStructure={form} />
             </div>
           </SuspenseErrorBoundary>
