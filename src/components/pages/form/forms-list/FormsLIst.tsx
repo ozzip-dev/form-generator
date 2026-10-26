@@ -7,6 +7,7 @@ import { maxFormCount } from "@/helpers/formHelpers";
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();
   const formsRatio = (forms.length / maxFormCount) * 100;
+  const freePlaces = forms.length - maxFormCount;
 
   return (
     <>
@@ -39,7 +40,7 @@ const FormsLIst = async () => {
             errorMessage="Błąd tworzenia formularza"
             size="sm"
           >
-            <FormTrigger />
+            <FormTrigger freePlaces={freePlaces} />
           </SuspenseErrorBoundary>
         </li>
 

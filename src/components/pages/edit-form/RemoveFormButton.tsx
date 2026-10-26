@@ -19,34 +19,41 @@ function RemoveFormButton(props: Props) {
   const { _id, title, url } = form;
 
   return (
-    <Button
-      variant="empty-accent"
-      className="group ml-auto size-fit !border-error !bg-white !text-error hover:!bg-error hover:!text-white"
-      onClickAction={() =>
-        openModal({
-          action: () => {
-            if (!_id) return;
-            removeFormAction(_id);
-          },
-          header: (
-            <>
-              Usunąć formularz?
-              <br />
-              <div className="font-semibold">{title} </div>
-            </>
-          ),
-          confirmBtnMessage: "Usuń",
-        })
-      }
-    >
-      {" "}
-      <Icon
-        icon="trash"
-        size={20}
-        className="bg-error transition-colors group-hover:bg-white"
-      />
-      Usuń formularz
-    </Button>
+    <>
+      <Button
+        variant="empty-accent"
+        className="group w-full !border-error !bg-white !text-error hover:!bg-error hover:!text-white"
+        onClickAction={() =>
+          openModal({
+            action: () => {
+              if (!_id) return;
+              removeFormAction(_id);
+            },
+            header: (
+              <>
+                Usunąć formularz?
+                <br />
+                <div className="font-semibold">{title} </div>
+              </>
+            ),
+            confirmBtnMessage: "Usuń",
+          })
+        }
+      >
+        {" "}
+        <Icon
+          icon="trash"
+          size={20}
+          className="bg-error transition-colors group-hover:bg-white"
+        />
+        Usuń formularz
+      </Button>
+
+      <p className="text-sm text-font-light">
+        Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie można
+        cofnąć.
+      </p>
+    </>
   );
 }
 

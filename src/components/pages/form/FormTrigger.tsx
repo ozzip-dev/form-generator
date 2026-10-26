@@ -5,7 +5,11 @@ import { Card, Icon } from "@/components/shared";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
 import { startTransition, useActionState } from "react";
 
-const FormTrigger = () => {
+type Props = {
+  freePlaces: number;
+};
+
+const FormTrigger = ({ freePlaces }: Props) => {
   const [state, createForm, isPending] = useActionState<
     Promise<null | {
       error: string;
