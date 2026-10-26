@@ -210,6 +210,10 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
                 )}
 
                 <RemoveFormButton formId={_id} />
+                <p className="text-sm text-font-light">
+                  Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie
+                  można cofnąć.
+                </p>
               </div>
             )}
           </Card>

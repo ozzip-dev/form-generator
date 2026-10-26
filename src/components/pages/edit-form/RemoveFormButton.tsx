@@ -48,11 +48,6 @@ function RemoveFormButton(props: Props) {
         />
         Usuń formularz
       </Button>
-
-      <p className="text-sm text-font-light">
-        Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie można
-        cofnąć.
-      </p>
     </>
   );
 }
