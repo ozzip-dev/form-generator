@@ -62,7 +62,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
         element.classList.remove("hidden");
       }
     };
-  }, []);
+  }, [form]);
 
   const [_, copyAction, isPending] = useActionState(async () => {
     try {
