@@ -25,8 +25,12 @@
   --color-accent-opacity: #5c7fa3;
   --color-gray: #c3c8d0;
 
-  /* --color-bg-dark: rgba(245, 245, 245, 1);
-  --color-bg-light: rgba(251, 251, 251, 1); */
+  --color-active: #45ba7e;
+  --color-active-rgb: 69 186 126;
+
+  --color-disabled: #ff9800;
+  --color-disabled-rgb: 255 152 0;
+
   --color-bg-dark: #dfe2e6;
   --color-bg-light: #eff1f4;
 

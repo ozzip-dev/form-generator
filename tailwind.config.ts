@@ -16,6 +16,8 @@ module.exports = {
         "accent-lighter": "var(--color-accent-lighter)",
         "accent-opacity": "var(--color-accent-opacity)",
         gray: "var(--color-gray)",
+        active: "rgb(var(--color-active-rgb) / <alpha-value>)",
+        disabled: "rgb(var(--color-disabled-rgb) / <alpha-value>)",
 
         "bg-dark": "var(--color-bg-dark)",
         "bg-light": "var(--color-bg-light)",

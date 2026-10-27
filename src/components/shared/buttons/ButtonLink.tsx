@@ -43,7 +43,7 @@ export default function ButtonLink({
       rel={target === "_blank" ? (rel ?? "noopener noreferrer") : rel}
       aria-label={ariaLabel}
       aria-current={ariaCurrent}
-      className={`block text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${VARIANTS[variant]} ${className ?? ""} `}
+      className={`group block text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${VARIANTS[variant]} ${className ?? ""} `}
     >
       {children}
     </Link>

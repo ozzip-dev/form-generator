@@ -8,7 +8,7 @@ const Card = ({ children, className, id }: Props) => {
   return (
     <div
       {...(id !== undefined ? { id: String(id) } : {})}
-      className={`bg-bg-light rounded-sm border border-gray p-8 ${className ?? ""}`}
+      className={`rounded-sm border border-gray bg-white p-8 ${className ?? ""}`}
     >
       {children}
     </div>
