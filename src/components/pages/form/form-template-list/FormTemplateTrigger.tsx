@@ -35,7 +35,7 @@ const FormTemplateTrigger = (props: Props) => {
 
       <h3 className="py-8">{props.title} </h3>
 
-      <div className="mt-auto border-t border-gray pt-4">
+      <div className="mt-auto pt-4">
         <Button
           onClickAction={handleCreateForm}
           isLoading={isPending}
@@ -43,13 +43,13 @@ const FormTemplateTrigger = (props: Props) => {
           ariaLabel={props.title}
           className="group mb-4 mt-auto w-full"
         >
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <Icon
               icon="plus-solid-full"
-              size={22}
+              size={18}
               className="shrink-0 bg-white group-hover:bg-accent"
             />{" "}
-            Użyj wzroru
+            Użyj
           </div>
         </Button>
       </div>

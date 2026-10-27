@@ -64,7 +64,7 @@ export const hasReachedFormLimit = async (
     },
   });
 
-  console.log({ formsCount, maxFormCount });
+  console.log("cound:", { formsCount, maxFormCount });
 
   return formsCount >= maxFormCount;
 };
@@ -410,6 +410,7 @@ export async function copyForm(
 export const checkFormLimitError = async (
   userId: ObjectId,
 ): Promise<string | null> => {
+  console.log("reached", await hasReachedFormLimit(userId));
   if (await hasReachedFormLimit(userId)) {
     return `Limit formularzy osiągnięty: ${maxFormCount}`;
   }

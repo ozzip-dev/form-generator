@@ -54,15 +54,15 @@ const CreatedFormTemplateHeader = ({
   };
 
   return (
-    <div className="bg-accent-opacity fixed bottom-0 z-30 flex w-full py-4 text-center">
-      <div className="m-auto flex items-center justify-center gap-12">
-        <p className="font-bold text-white">
-          {formStateHeader} <br /> {templateTitle || title}
+    <div className="fixed bottom-0 z-30 flex w-full bg-accent/90 py-4 text-center">
+      <div className="m-auto grid gap-4">
+        <p className="text-white">
+          {formStateHeader} "{templateTitle || title}"
         </p>
         {isLoggedIn && isTemplate && (
           <Button
             className="m-auto w-fit"
-            variant="primary-rounded"
+            variant="empty-white"
             onClickAction={handleCreateForm}
             isLoading={isPending}
           >

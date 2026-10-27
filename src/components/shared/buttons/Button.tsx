@@ -5,11 +5,17 @@ const VARIANTS = {
   primary: "btn-primary",
   "primary-rounded": "btn-primary-rounded",
   "empty-accent": "btn-empty-acccent",
+  "empty-white": "btn-empty-white",
   ghost: "",
 };
 
 type Props = {
-  variant?: "primary" | "primary-rounded" | "empty-accent" | "ghost";
+  variant?:
+    | "primary"
+    | "primary-rounded"
+    | "empty-accent"
+    | "empty-white"
+    | "ghost";
   isLoading?: boolean;
   onClickAction?: (...args: any[]) => void | Promise<void>;
   type?: "button" | "submit";

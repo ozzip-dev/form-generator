@@ -1,7 +1,7 @@
 "use client";
 
 import { disableFormAction } from "@/actions/form/disableFormAction";
-import { Button } from "@/components/shared";
+import { Button, Icon } from "@/components/shared";
 import { useModal } from "@/context/ModalContextProvider";
 import { Dispatch, SetStateAction, useRef } from "react";
 import TextEditor from "./text-editor/TextEditor";
@@ -77,7 +77,16 @@ const CloseFormEditor = ({ formId, setIsEditorOpen }: Props) => {
             });
           }}
         >
-          Zamknij publikację
+          <div className="flex items-center gap-2">
+            {
+              <Icon
+                icon="lock"
+                size={16}
+                className="bg-white group-hover:bg-accent"
+              />
+            }
+            <p>Zamknij publikację</p>
+          </div>
         </Button>
       </div>
     </>

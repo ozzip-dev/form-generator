@@ -35,15 +35,13 @@ const FormTrigger = ({ freePlaces }: Props) => {
         <Card className="cardHover flex h-full w-full items-center justify-center bg-transparent hover:bg-white">
           <div>
             <div className="m-auto flex h-12 w-12 items-center justify-center rounded-full border border-gray bg-white">
-              <Icon
-                icon="plus-solid-full"
-                size={20}
-                className="bg-accent transition-transform duration-200 group-hover:scale-125"
-              />
+              <Icon icon="plus-solid-full" size={20} className="bg-accent" />
             </div>
 
             <div className="text-center text-accent">Nowy formularz</div>
-            <div className="mt-2 text-sm text-font-light">Wolne miejsca</div>
+            <div className="mt-2 text-sm text-font-light">
+              Wolne miejsca {freePlaces}
+            </div>
 
             <div className="mt-4 text-center text-sm text-error">
               {state?.error && state.error}

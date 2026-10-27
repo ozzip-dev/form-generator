@@ -13,7 +13,13 @@ type Props = { form: Partial<FormSerialized> };
 type FormStateConfig = {
   bgColor: string;
   border: string;
-  iconConfig: { icon: string; size: number; color: string; textColor: string };
+  iconConfig: {
+    icon: string;
+    size: number;
+    color: string;
+    textColor: string;
+    border: string;
+  };
 };
 
 const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
@@ -25,26 +31,29 @@ const stateConfig: Partial<Record<FormState, FormStateConfig>> = {
       size: 12,
       color: "bg-font-light",
       textColor: "text-font-light",
+      border: "bg-dark",
     },
   },
   active: {
-    bgColor: "bg-[#e8f9f0]",
-    border: "border-t-[#45ba7e]",
+    bgColor: "bg-active/10",
+    border: "border-t-active",
     iconConfig: {
       icon: "circle-check",
       size: 18,
-      color: "bg-[#45ba7e]",
-      textColor: "text-[#45ba7e]",
+      color: "bg-active",
+      textColor: "text-active",
+      border: "border-active",
     },
   },
   disabled: {
-    bgColor: "bg-[#ffe8d6]",
-    border: "border-t-[#ff9800]",
+    bgColor: "bg-disabled/10",
+    border: "border-t-disabled",
     iconConfig: {
       icon: "xmark",
       size: 14,
-      color: "bg-[#ff9800]",
-      textColor: "text-[#ff9800]",
+      color: "bg-disabled",
+      textColor: "text-disabled",
+      border: "border-disabled",
     },
   },
 };
@@ -66,16 +75,14 @@ export default async function FormLink(props: Props) {
       >
         <Card className={`cardHover !border-t-4 ${border} !bg-white`}>
           <div
-            className={`flex w-fit items-center gap-2 rounded-full ${bgColor} px-4 py-2`}
+            className={`flex w-fit items-center gap-2 rounded-full ${bgColor} border ${iconConfig.border} px-4 py-2`}
           >
             <Icon
               icon={iconConfig!.icon}
               size={iconConfig!.size}
               className={`${iconConfig.color}`}
             />
-            <div
-              className={`text-sm uppercase text-font-light ${iconConfig.textColor}`}
-            >
+            <div className={`text-xs uppercase ${iconConfig.textColor}`}>
               {state && formStateWithLabels[state]}
             </div>
           </div>
