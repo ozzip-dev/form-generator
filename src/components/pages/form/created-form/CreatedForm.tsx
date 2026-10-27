@@ -187,7 +187,7 @@ const CreatedForm = (props: Props) => {
         )}
 
         <Card className="mb-8">
-          <h1 className="mb-8 text-lg">{title}</h1>
+          <h1 className="mb-8 text-xl">{title}</h1>
           {description && (
             <FormDescription description={description} variant="published" />
           )}

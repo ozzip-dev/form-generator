@@ -103,23 +103,6 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
 
   const isFormActive = isActive(form);
 
-  const formStateInfo = (
-    <div
-      className={`flex w-fit items-center gap-2 rounded-full border ${isFormActive ? "bg-active/10" : "bg-disabled/10"} ${isFormActive ? "border-active" : "border-disabled"} px-4 py-2`}
-    >
-      <Icon
-        icon={isFormActive ? "circle-check" : "xmark"}
-        size={20}
-        className={`${isFormActive ? "bg-active" : "bg-disabled"}`}
-      />
-      <div
-        className={`text-xs uppercase ${isFormActive ? "text-active" : "text-disabled"}`}
-      >
-        FORMULARZ {isFormActive ? "AKTYWNY" : "NIEAKTYWNY"}
-      </div>
-    </div>
-  );
-
   const linkPath = `/${url || _id}`;
   const link = origin ? `${origin}${linkPath}` : linkPath;
 
@@ -146,7 +129,20 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
       <div className="flex-1 pt-8 md:pb-32">
         <div className="mb-2 text-xl">{title}</div>
         <div className="mb-10 text-font-light">
-          <div>{formStateInfo}</div>
+          <div
+            className={`flex w-fit items-center gap-2 rounded-full border ${isFormActive ? "bg-active/10" : "bg-disabled/10"} ${isFormActive ? "border-active" : "border-disabled"} px-4 py-2`}
+          >
+            <Icon
+              icon={isFormActive ? "circle-check" : "xmark"}
+              size={20}
+              className={`${isFormActive ? "bg-active" : "bg-disabled"}`}
+            />
+            <div
+              className={`text-xs uppercase ${isFormActive ? "text-active" : "text-disabled"}`}
+            >
+              FORMULARZ {isFormActive ? "AKTYWNY" : "NIEAKTYWNY"}
+            </div>
+          </div>
           <div className="mt-4">
             Edycja niedostępna, aby zmienić pytania, skopiuj formularz jako nowy
             szkic.
