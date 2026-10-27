@@ -7,17 +7,13 @@ import { maxFormCount } from "@/helpers/formHelpers";
 const FormsLIst = async () => {
   const forms = await getSerializedFormList();
   const formsRatio = (forms.length / maxFormCount) * 100;
-  const freePlaces = forms.length - maxFormCount;
+  const freePlaces = maxFormCount - forms.length;
 
   return (
     <>
       <div className="mb-8 items-center md:flex md:justify-between">
         <div>
-          <SectionHeader
-            message="Twoje formularze"
-            headerTag="h1"
-            subheader="Szkice i aktywne formularze Twojej organizacji."
-          />
+          <SectionHeader message="Twoje formularze" headerTag="h1" />
         </div>
         <div className="mt-4">
           <div className="text-sm text-font-light">
@@ -34,7 +30,7 @@ const FormsLIst = async () => {
         </div>
       </div>
 
-      <ul className="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="gap-4 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <li className="">
           <SuspenseErrorBoundary
             errorMessage="Błąd tworzenia formularza"
