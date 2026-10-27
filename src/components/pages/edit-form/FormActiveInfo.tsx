@@ -44,6 +44,26 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
     setOrigin(window.location.origin);
   }, []);
 
+  useEffect(() => {
+    if (!form) return;
+
+    const element = document.querySelector<HTMLElement>(
+      "#inputs-change-loader",
+    );
+
+    if (!element) return;
+
+    const wasHidden = element.classList.contains("hidden");
+
+    element.classList.add("hidden");
+
+    return () => {
+      if (!wasHidden) {
+        element.classList.remove("hidden");
+      }
+    };
+  }, []);
+
   const [_, copyAction, isPending] = useActionState(async () => {
     try {
       if (!form?._id) return;
@@ -82,6 +102,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
   const isAuthor = user && isUserAuthor(form, user._id);
 
   const isFormActive = isActive(form);
+
   const formStateInfo = (
     <div
       className={`flex w-fit items-center gap-2 rounded-full border ${isFormActive ? "bg-active/10" : "bg-disabled/10"} ${isFormActive ? "border-active" : "border-disabled"} px-4 py-2`}

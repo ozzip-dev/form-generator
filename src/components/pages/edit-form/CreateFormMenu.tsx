@@ -1,5 +1,5 @@
 import { NavMenu } from "@/components/shared";
-import { isActive, isUserAuthor } from "@/helpers/formHelpers";
+import { isActive, isDisabled, isUserAuthor } from "@/helpers/formHelpers";
 import { getFormById } from "@/services/form-service";
 import { requireUser } from "@/services/user-service";
 import { NavMenuLink } from "@/types/shared";
@@ -11,6 +11,11 @@ type Props = {
 const CreateFormMenu = async ({ formId }: Props) => {
   const form = await getFormById(formId);
   const isFormActive = isActive(form);
+  const isFormDisabled = isDisabled(form);
+
+  console.log("isFormActive", isFormActive);
+
+  console.log("isFormDisabled", isFormDisabled);
 
   const user = await requireUser();
   const isAuthor = isUserAuthor(form, user.id);
@@ -22,18 +27,18 @@ const CreateFormMenu = async ({ formId }: Props) => {
       text: "Podgląd",
       link: `/${formId}`,
       sameTab: false,
-      isVisible: true,
+      isVisible: !isFormDisabled && !isFormActive,
+    },
+    {
+      text: "Wyniki",
+      link: `/forms/${formId}/results/details`,
+      isVisible: isFormDisabled || isFormActive,
     },
     {
       text: "Kontakty",
       link: `/forms/${formId}/contacts`,
       sameTab: false,
       isVisible: isAuthor,
-    },
-    {
-      text: "Wyniki",
-      link: `/forms/${formId}/results/details`,
-      isVisible: isAuthor && isFormActive,
     },
   ];
 
