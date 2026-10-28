@@ -246,7 +246,7 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           </div>
         </Card>
       </div>
-      <div className="top-0 md:sticky md:h-fit md:w-[25rem]">
+      <div className="top-0 md:sticky md:h-fit md:w-[26rem]">
         <div className="pb-32 pt-8">
           <Card className="mb-8">
             <h3 className="mb-8 text-lg font-extrabold">Akcje</h3>{" "}

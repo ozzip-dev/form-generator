@@ -177,7 +177,7 @@ const CreatedForm = (props: Props) => {
         />
       )}
 
-      <div className="container my-4 !max-w-[800px]">
+      <div className="container my-20 !max-w-[800px]">
         <CreatedFormTopError displayInvalidInfo={hasErrors} />
 
         {isSuccess && <SuccesMsg setSucces={setSuccess} />}

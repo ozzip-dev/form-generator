@@ -57,7 +57,7 @@ const CreatedFormTemplateHeader = ({
     <div className="fixed bottom-0 z-30 flex w-full bg-accent/90 py-4 text-center">
       <div className="m-auto grid gap-4">
         <p className="text-white">
-          {formStateHeader} "{templateTitle || title}"
+          {formStateHeader} &quot;{templateTitle || title}&quot;
         </p>
         {isLoggedIn && isTemplate && (
           <Button
