@@ -108,99 +108,100 @@ const FormActions = ({ formStructure }: Props) => {
   return (
     <div className="py-8">
       <Card className="mb-8 bg-white">
-        <h3 className="text-lg">Ustawienia</h3>
-        <PublishFormButton form={formStructure} />
-        <AliasUrlForm {...formStructure} />
-        <FormProvider {...methods}>
-          <form>
-            {(!!addFieldPublishError || hasAnyError) && (
-              <Card className="text-sm text-error lg:flex">
-                <p className="mb-2 mr-2 text-center">
-                  Błąd przy publikacji formularza:{" "}
-                </p>
-                <div className="text-center">
-                  {[
-                    headerPublishError.headerError?.type,
-                    headerPublishError.headerError?.resultVisibility,
-                    headerPublishError.headerError?.title,
-                    headerPublishError.missingHeadersError,
-                    addFieldPublishError,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                </div>
-              </Card>
-            )}
+        <h3 className="mb-8 text-lg font-extrabold">Ustawienia</h3>
+        <div className="flex flex-col gap-16">
+          <PublishFormButton form={formStructure} />
+          <AliasUrlForm {...formStructure} />
+          <FormProvider {...methods}>
+            <form>
+              {(!!addFieldPublishError || hasAnyError) && (
+                <Card className="text-sm text-error lg:flex">
+                  <p className="mb-2 mr-2 text-center">
+                    Błąd przy publikacji formularza:{" "}
+                  </p>
+                  <div className="text-center">
+                    {[
+                      headerPublishError.headerError?.type,
+                      headerPublishError.headerError?.resultVisibility,
+                      headerPublishError.headerError?.title,
+                      headerPublishError.missingHeadersError,
+                      addFieldPublishError,
+                    ]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </div>
+                </Card>
+              )}
 
-            <div className="grid">
-              <div className="relative mr-[3rem] flex-1 lg:mr-0">
-                <SelectFieldController
-                  name="type"
-                  defaultValue=""
-                  label="Kategoria"
-                  options={dataSelectOptions}
-                  onChangeAction={handleEdit}
-                />
-                {headerPublishError?.headerError?.type && (
-                  <Icon
-                    icon="exclamation"
-                    size={23}
-                    className="absolute right-8 top-[1.5rem] -translate-y-1/2 bg-error text-error sm:top-1/2"
-                  />
-                )}
-              </div>
-
-              <div className="relative flex flex-1 items-center">
-                <div className="w-full">
+              <div className="grid">
+                <div className="relative mr-[3rem] flex-1 lg:mr-0">
                   <SelectFieldController
-                    name="resultVisibility"
+                    name="type"
                     defaultValue=""
-                    label="Tryb wyników"
-                    options={resultVisibilityOptions}
+                    label="Kategoria formularza"
+                    options={dataSelectOptions}
                     onChangeAction={handleEdit}
                   />
-                  {headerPublishError?.headerError?.resultVisibility && (
+                  {headerPublishError?.headerError?.type && (
                     <Icon
                       icon="exclamation"
                       size={23}
-                      className="absolute right-20 top-1/2 -translate-y-1/2 bg-error text-error"
+                      className="absolute right-8 top-[1.5rem] -translate-y-1/2 bg-error text-error sm:top-1/2"
                     />
                   )}
                 </div>
 
-                <InfoIcon>
-                  <>
-                    <div>
-                      <span className="font-semibold">Jawny: </span>
-                      <span>
-                        odpowiedzi z każdego formularza oraz zbiorcze
-                        podsumowanie odpowiedzi.
-                      </span>
-                    </div>
-                    <div className="pt-4">
-                      <span className="font-semibold">Tajny: </span>
-                      <span>
-                        {" "}
-                        zbiorcze podsumowanie odpowiedzi bez powiązania ich z
-                        pojedynczymi formularzami.
-                      </span>
-                    </div>
-                  </>
-                </InfoIcon>
-              </div>
-            </div>
+                <div className="relative flex flex-1 items-center">
+                  <div className="w-full">
+                    <SelectFieldController
+                      name="resultVisibility"
+                      defaultValue=""
+                      label="Tryb wyników"
+                      options={resultVisibilityOptions}
+                      onChangeAction={handleEdit}
+                    />
+                    {headerPublishError?.headerError?.resultVisibility && (
+                      <Icon
+                        icon="exclamation"
+                        size={23}
+                        className="absolute right-20 top-1/2 -translate-y-1/2 bg-error text-error"
+                      />
+                    )}
+                  </div>
 
-            <div className="w-fit text-sm">
-              <CheckboxSwitch
-                label="E-mail kontaktowy"
-                name="displayAuthorEmail"
-                control={control}
-                onChangeAction={handleSwitch}
-              />
-            </div>
-          </form>
-        </FormProvider>
-        <div className="mt-8">
+                  <InfoIcon>
+                    <>
+                      <div>
+                        <span className="font-semibold">Jawny: </span>
+                        <span>
+                          odpowiedzi z każdego formularza oraz zbiorcze
+                          podsumowanie odpowiedzi.
+                        </span>
+                      </div>
+                      <div className="pt-4">
+                        <span className="font-semibold">Tajny: </span>
+                        <span>
+                          {" "}
+                          zbiorcze podsumowanie odpowiedzi bez powiązania ich z
+                          pojedynczymi formularzami.
+                        </span>
+                      </div>
+                    </>
+                  </InfoIcon>
+                </div>
+              </div>
+
+              <div className="w-fit text-sm">
+                <CheckboxSwitch
+                  label="E-mail kontaktowy"
+                  name="displayAuthorEmail"
+                  control={control}
+                  onChangeAction={handleSwitch}
+                />
+              </div>
+            </form>
+          </FormProvider>
+
           <CreatedUpdatedInfo createdAt={createdAt} updatedAt={updatedAt} />
         </div>
       </Card>

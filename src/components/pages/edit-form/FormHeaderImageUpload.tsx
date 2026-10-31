@@ -61,8 +61,9 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
 
   return (
     <>
-      <div className="relative mb-8 mr-[2.6rem]">
-        <div className="h-16 w-full rounded-sm border border-gray bg-bg-light">
+      <p className="tetx-sm mb-2"> Obraz nad tytułem </p>
+      <div className="relative mb-8">
+        <div className="w-full rounded-sm border border-gray bg-bg-light">
           <UploadFileForm
             {...{
               onFileUploaded,
@@ -71,19 +72,10 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
             }}
           />
         </div>
-
-        <div className="absolute -right-10 top-[0.5rem]">
-          <InfoIcon>
-            <div>
-              Dodaj obraz nad tytułem formularza. <br />
-              Maksymalny rozmiar: 1 MB
-            </div>
-          </InfoIcon>
-        </div>
       </div>
 
       {!!headerFileData && (
-        <div className="relative my-4 mr-[2.6rem]">
+        <div className="relative my-4">
           <div>
             <Image
               src={`data:image/png;base64,${headerFileData}`}
@@ -93,14 +85,14 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               className="h-auto w-full rounded-sm"
             />
           </div>
-          <div className="absolute -right-10 top-0">
+          <div className="absolute inset-0 flex items-center justify-center">
             <Button
               onClickAction={handlePublishForm}
               type="button"
               variant="ghost"
               ariaLabel="Usuń obraz z tytułu"
             >
-              <Icon icon="trash" size={20} className="bg-font-dark" />
+              <Icon icon="trash" size={40} className="bg-white hover:bg-gray" />
             </Button>
           </div>
         </div>

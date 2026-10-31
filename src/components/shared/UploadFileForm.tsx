@@ -105,9 +105,21 @@ const UploadFileForm = ({
           placeholder="aaaa"
         />
 
-        {isDragActive && <p> Upuść plik w tym miejscu </p>}
+        {isDragActive && (
+          <div className="text-center text-white">
+            <p> Upuść </p>
+            <p className="text-center text-sm">Maksymalny rozmiar: 1 MB</p>
+          </div>
+        )}
 
-        {!isDragActive && <p> Wybierz / upuść plik z komputera </p>}
+        {!isDragActive && (
+          <div className="text-center">
+            <p> Upuść / wybierz plik </p>
+            <p className="text-center text-sm text-font-light">
+              Maksymalny rozmiar: 1 MB
+            </p>
+          </div>
+        )}
       </div>
       <div role="status" aria-live="polite" className="sr-only">
         {isPending ? "Trwa przesyłanie pliku..." : ""}

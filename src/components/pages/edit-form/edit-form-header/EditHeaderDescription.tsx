@@ -37,7 +37,7 @@ const EditHeaderDescription = ({ onClose }: Props) => {
   };
 
   return (
-    <div className="relative mr-[2.7rem] flex">
+    <div className="relative flex">
       <div className="flex-1">
         {isEditorOpen ? (
           <TextEditor
@@ -45,7 +45,7 @@ const EditHeaderDescription = ({ onClose }: Props) => {
             description={form?.description ?? ""}
             editAction={editFormHeaderAction}
             printDescriptionInput={() => setEditorOpen(false)}
-            placeholder="Edytuj opis pod tytułem formularza"
+            placeholder="Opis formularza"
           />
         ) : (
           <TextEditorPrinter
@@ -54,7 +54,7 @@ const EditHeaderDescription = ({ onClose }: Props) => {
           />
         )}
       </div>
-      <RemoveTextEditorBtn handleRemoveDescription={handleRemove} />
+      {/* <RemoveTextEditorBtn handleRemoveDescription={handleRemove} /> */}
     </div>
   );
 };

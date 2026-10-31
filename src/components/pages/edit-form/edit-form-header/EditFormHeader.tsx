@@ -116,13 +116,14 @@ export default function EditFormHeader(props: Props) {
   return (
     <FormProvider {...methods}>
       <form className="mt-8" id="header">
+        <div className="mb-8 ml-8 text-lg font-extrabold">Nagłówek</div>
         <Card className="bg-white">
           <FormHeaderImageUpload
             formId={formId}
             headerFileData={props.headerFileData}
           />
           <div className="flex items-center">
-            <div className="relative mr-[2.7rem] w-full">
+            <div className="w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}
@@ -136,17 +137,15 @@ export default function EditFormHeader(props: Props) {
                   className="absolute right-8 top-1/2 -translate-y-1/2 bg-error text-error"
                 />
               )}
-              {!showDescription && (
+              {/* {!showDescription && (
                 <div className="absolute -right-10 top-1/2 -translate-y-1/2">
                   <AddTextEditorBtn action={() => setShowDescription(true)} />
                 </div>
-              )}
+              )} */}
             </div>
           </div>
 
-          {showDescription && (
-            <EditHeaderDescription onClose={() => setShowDescription(false)} />
-          )}
+          <EditHeaderDescription onClose={() => setShowDescription(false)} />
         </Card>
       </form>
     </FormProvider>
