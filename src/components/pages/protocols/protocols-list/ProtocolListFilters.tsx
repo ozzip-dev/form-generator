@@ -5,7 +5,7 @@ import {
   Card,
   InputFields,
   SelectFieldController,
-  FloatingLabel,
+  label,
 } from "@/components/shared";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, mapDisputeReason, ProtocolFilters } from "../utils";
@@ -15,7 +15,7 @@ import { InputData, InputType } from "@/enums";
 
 const dataSearchInput: InputData[] = [
   {
-    floatingLabel: "Szukaj:",
+    label: "Szukaj:",
     name: "text",
     type: InputType.TEXT,
   },
@@ -23,12 +23,12 @@ const dataSearchInput: InputData[] = [
 
 const dataDatesInputs: InputData[] = [
   {
-    floatingLabel: "Spory od:",
+    label: "Spory od:",
     name: "fromDate",
     type: InputType.DATE,
   },
   {
-    floatingLabel: "Spory do:",
+    label: "Spory do:",
     name: "toDate",
     type: InputType.DATE,
   },
@@ -96,9 +96,9 @@ const ProtocolListFilters = ({
             onChange={onFilterChange}
           />{" "}
           <div className="relative mt-6">
-            <FloatingLabel
+            <label
               name="disputeReason"
-              floatingLabel="Przyczyna sporu"
+              label="Przyczyna sporu"
               required={false}
             />
             <SelectFieldController
@@ -113,11 +113,7 @@ const ProtocolListFilters = ({
             />
           </div>
           <div className="relative mt-12">
-            <FloatingLabel
-              name="sortOrder"
-              floatingLabel="Sortuj"
-              required={false}
-            />
+            <label name="sortOrder" label="Sortuj" required={false} />
             <SelectFieldController
               name="sortOrder"
               defaultValue="ascending"

@@ -61,7 +61,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
 
   return (
     <>
-      <p className="tetx-sm mb-2"> Obraz nad tytułem </p>
+      <p className="tetx-xs mb-2"> Obraz nad tytułem </p>
       <div className="relative mb-8">
         <div className="w-full rounded-sm border border-gray bg-bg-light">
           <UploadFileForm

@@ -1,12 +1,10 @@
 "use client";
 
-import { FieldErrors, UseFormRegister, Path } from "react-hook-form";
-import { DataLoader, InputError } from "../../index";
-import TextareaField from "./TextareaField";
-import InputField from "./InputField";
-import FloatingLabel from "./FloatingLabel";
 import { InputData, InputType } from "@/enums";
+import { UseFormRegister } from "react-hook-form";
 import InputTexts from "../input-texts/InputTexts";
+import InputField from "./InputField";
+import TextareaField from "./TextareaField";
 
 type Props = {
   inputsData: InputData[];
@@ -24,8 +22,7 @@ const InputFields = (props: Props) => {
     <>
       {props.inputsData.map((inputData) => {
         const {
-          staticLabel,
-          floatingLabel,
+          label,
           required,
           unique,
           description,
@@ -41,18 +38,17 @@ const InputFields = (props: Props) => {
           <div
             key={name}
             className={`relative text-sm ${
-              props.variant === "horizontal"
-                ? "flex flex-col md:flex-row md:items-center"
-                : ""
-            } ${staticLabel ? "pb-[1.7rem] md:mt-[1.7rem]" : "mt-[1.7rem] pb-[1.7rem]"}`}
+              props.variant === "horizontal" &&
+              "flex flex-col md:flex-row md:items-center"
+            } `}
           >
-            <InputTexts
-              label={staticLabel}
+            {/* <InputTexts
+              label={label}
               description={description}
               required={required}
               unique={unique}
               hidden={hidden}
-            />
+            /> */}
 
             {isTextArea ? (
               <TextareaField

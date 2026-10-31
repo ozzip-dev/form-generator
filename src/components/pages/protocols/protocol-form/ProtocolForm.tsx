@@ -28,30 +28,30 @@ import { InputData, InputType } from "@/enums";
 
 const dataInputsProtocolForm: InputData[] = [
   {
-    staticLabel: "Data rozpoczęcia sporu:",
+    label: "Data rozpoczęcia sporu:",
     name: "disputeStartDate",
     type: InputType.DATE,
   },
   {
-    staticLabel: "Branża:",
+    label: "Branża:",
     name: "branch",
     placeholder: "np. budownictwo",
     type: InputType.TEXT,
   },
   {
-    staticLabel: "Nazwa związku:",
+    label: "Nazwa związku:",
     name: "tradeUnionName",
     placeholder: "Związek",
     type: InputType.TEXT,
   },
   {
-    staticLabel: "Organizacja zakładowa:",
+    label: "Organizacja zakładowa:",
     name: "tradeUnionOrganization",
     placeholder: "Organizacja",
     type: InputType.TEXT,
   },
   {
-    staticLabel: "Nazwa przedsiębiorstwa:",
+    label: "Nazwa przedsiębiorstwa:",
     name: "workplaceName",
     placeholder: "Firma",
     type: InputType.TEXT,

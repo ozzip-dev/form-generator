@@ -12,28 +12,28 @@ import { use, useActionState, useRef } from "react";
 
 const dataInputscommittee: InputData[] = [
   {
-    floatingLabel: "Nazwa związku zawodowego:",
+    label: "Nazwa związku zawodowego:",
     name: "committeeUnion",
     type: InputType.TEXT,
     placeholder: "Związek",
     labelClassName: "w-[22rem]",
   },
   {
-    floatingLabel: "Nazwa struktury związku:",
+    label: "Nazwa struktury związku:",
     name: "committeeName",
     type: InputType.TEXT,
     placeholder: "Komisja",
     labelClassName: "w-[22rem]",
   },
   {
-    floatingLabel: "Telefon kontaktowy struktury:",
+    label: "Telefon kontaktowy struktury:",
     name: "committeePhone",
     type: InputType.TEXT,
     placeholder: "111-111-111",
     labelClassName: "w-[22rem]",
   },
   {
-    floatingLabel: "Email kontaktowy struktury:",
+    label: "Email kontaktowy struktury:",
     name: "committeeEmail",
     type: InputType.EMAIL,
     placeholder: "email@zzz.pl",

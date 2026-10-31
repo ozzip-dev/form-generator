@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 const dataSearchInput: InputData[] = [
   {
-    floatingLabel: "Szukaj:",
+    label: "Szukaj:",
     name: "text",
     type: InputType.TEXT,
   },

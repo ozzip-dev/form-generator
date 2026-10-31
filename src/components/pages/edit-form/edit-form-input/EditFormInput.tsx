@@ -40,7 +40,7 @@ const dataInputLabel: InputData[] = [
   {
     name: "header",
     placeholder: "Pytanie",
-    floatingLabel: `Pytanie`,
+    label: `Pytanie`,
     type: InputType.TEXT,
   },
 ];

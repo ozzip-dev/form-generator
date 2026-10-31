@@ -135,7 +135,7 @@ const TextEditor = (props: Props) => {
   const remaining = MAX_CHARS - characters;
 
   return (
-    <div className="mb-4">
+    <div>
       <MenuBar
         editor={editor}
         handleEditDescription={handleEditDescription}

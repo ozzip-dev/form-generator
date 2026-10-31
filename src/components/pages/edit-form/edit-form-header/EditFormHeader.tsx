@@ -43,7 +43,7 @@ const resultVisibilityOptions: {
 
 const dataInputsFormTitle = [
   {
-    floatingLabel: "tytuł formularza",
+    label: "tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
     type: InputType.TEXT,

@@ -7,7 +7,7 @@ type Props = {
 
 const TextEditorPrinter = (props: Props) => {
   return (
-    <div className="mb-[1.8rem]">
+    <div>
       <Button
         type="button"
         variant="ghost"

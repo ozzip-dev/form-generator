@@ -19,14 +19,14 @@ import { SelectFieldController } from "@/components/shared";
 import { InputData, InputType } from "@/enums";
 
 const topicInputData: InputData[] = [
-  { floatingLabel: "Tytuł", name: "title", type: InputType.TEXT },
-  { floatingLabel: "Opis", name: "description", type: InputType.TEXT },
+  { label: "Tytuł", name: "title", type: InputType.TEXT },
+  { label: "Opis", name: "description", type: InputType.TEXT },
 ];
 
 const categorySelectOptions = [
-  { floatingLabel: "Formularz", value: TopicCategory.FORM },
-  { floatingLabel: "Protokół", value: TopicCategory.PROTOCOL },
-  { floatingLabel: "Inne", value: TopicCategory.OTHER },
+  { label: "Formularz", value: TopicCategory.FORM },
+  { label: "Protokół", value: TopicCategory.PROTOCOL },
+  { label: "Inne", value: TopicCategory.OTHER },
 ];
 
 const CreateTopicForm = () => {
@@ -92,9 +92,9 @@ const CreateTopicForm = () => {
           <SelectFieldController
             name="category"
             label="Wybierz kategorię"
-            options={categorySelectOptions.map(({ value, floatingLabel }) => ({
+            options={categorySelectOptions.map(({ value, label }) => ({
               value,
-              label: floatingLabel,
+              label: label,
             }))}
           />
           <div className="mt-6 flex gap-8">

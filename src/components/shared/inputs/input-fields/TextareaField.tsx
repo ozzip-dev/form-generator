@@ -1,7 +1,7 @@
 import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
-import FloatingLabel from "./FloatingLabel";
+import label from "./label";
 import { useState } from "react";
 import { InputData } from "@/enums";
 
@@ -12,18 +12,18 @@ type Props = {
   isLoading?: Record<string, boolean>;
   default?: Record<string, string>;
   error?: any;
-  floatingLabel?: string;
+  label?: string;
 };
 
 const TextareaField = (props: Props) => {
-  const { name, placeholder, type, required, floatingLabel } = props.inputData;
+  const { name, placeholder, type, required, label } = props.inputData;
   const defaultValue = props.default?.[name] ?? "";
 
   return (
     <div className="relative flex-1">
       <textarea
         id={name}
-        aria-label={`Wpisz ${floatingLabel}`}
+        aria-label={`Wpisz ${label}`}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
@@ -40,12 +40,8 @@ const TextareaField = (props: Props) => {
             })
           : {})}
       />
-      {floatingLabel && (
-        <FloatingLabel
-          name={name}
-          floatingLabel={floatingLabel}
-          required={required || false}
-        />
+      {label && (
+        <label name={name} label={label} required={required || false} />
       )}
 
       <InputError

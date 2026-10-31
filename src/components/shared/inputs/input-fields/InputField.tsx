@@ -1,8 +1,7 @@
+import { InputData } from "@/enums";
 import { UseFormRegister } from "react-hook-form";
 import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
-import FloatingLabel from "./FloatingLabel";
-import { InputData } from "@/enums";
 
 type Props = {
   inputData: InputData;
@@ -16,31 +15,32 @@ type Props = {
 };
 
 const InputField = (props: Props) => {
-  const {
-    name,
-    floatingLabel,
-    type,
-    required,
-    placeholder,
-    defaultValue,
-    staticLabel,
-  } = props.inputData;
+  const { name, label, type, required, placeholder, defaultValue } =
+    props.inputData;
   const inputDefaultValue = props.default?.[name] ?? defaultValue ?? "";
 
   return (
-    <div className={`relative flex-1`}>
+    <div className="group relative">
+      <label
+        htmlFor={name}
+        className="mb-1 pl-3 transition-colors duration-200 group-focus-within:text-accent"
+      >
+        {label}
+        {required && <span className="text-red ml-0.5">*</span>}
+      </label>
+
       <input
         id={name}
         name={name}
         type={type}
-        aria-label={`${floatingLabel || staticLabel || name}`}
-        placeholder={floatingLabel ? " " : placeholder}
+        aria-label={`${label || label || name}`}
+        placeholder={label ? " " : placeholder}
         defaultValue={inputDefaultValue}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
-        className={`peer w-full rounded-sm border border-gray p-2 focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
+        className={`peer w-full rounded-sm border border-gray p-3 text-base focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${
           props.isLoading?.[name] || props.isSubmitting
             ? "cursor-not-allowed opacity-50"
             : ""
@@ -51,13 +51,6 @@ const InputField = (props: Props) => {
           props.onChange?.(name, e.target.value);
         }}
       />
-      {floatingLabel && (
-        <FloatingLabel
-          name={name}
-          floatingLabel={floatingLabel}
-          required={required || false}
-        />
-      )}
 
       {props.isLoading?.[name] && (
         <div className="absolute right-3 top-1/2 -translate-y-1/2">

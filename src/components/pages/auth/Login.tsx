@@ -33,13 +33,13 @@ const ToastsData: ModelToast[] = [
 
 const dataInputsLogin: InputData[] = [
   {
-    floatingLabel: "Email",
+    label: "Email",
     name: "email",
     type: InputType.EMAIL,
     defaultValue: isTestEnv() ? "moderator@moderator.com" : undefined,
   },
   {
-    floatingLabel: "Hasło",
+    label: "Hasło",
     name: "password",
     type: "password",
     defaultValue: isTestEnv() ? "123123123" : undefined,

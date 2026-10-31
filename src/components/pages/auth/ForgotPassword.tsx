@@ -13,7 +13,7 @@ import { useActionState, useRef } from "react";
 
 const dataInputsForgotPassword = [
   {
-    floatingLabel: "Podaj swój email",
+    label: "Podaj swój email",
     name: "email",
     type: InputType.EMAIL,
   },

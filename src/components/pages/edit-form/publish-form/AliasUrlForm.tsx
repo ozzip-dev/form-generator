@@ -18,7 +18,7 @@ import { InputData, InputType } from "@/enums";
 const dataInputUrl: InputData[] = [
   {
     name: "url",
-    floatingLabel: "Edytuj adres formularza",
+    label: "Edytuj adres formularza",
     placeholder: "www:formularz",
     type: InputType.TEXT,
   },

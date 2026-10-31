@@ -48,7 +48,7 @@ export const renderInput = ({ input, errors, register }: RendererParams) => {
       key={id}
       inputsData={[
         {
-          staticLabel: header,
+          label: header,
           name: id!,
           placeholder,
           type,

@@ -49,7 +49,7 @@ const AddFormField = ({ formId }: Props) => {
   };
 
   return (
-    <div className="relative mb-16">
+    <div className="relative mb-32">
       {!!addFieldPublishError && (
         <Icon
           icon="exclamation"

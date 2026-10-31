@@ -16,7 +16,7 @@ import {
 } from "react";
 
 const topicInputData: InputData[] = [
-  { floatingLabel: "Treść", name: "content", type: InputType.TEXT },
+  { label: "Treść", name: "content", type: InputType.TEXT },
 ];
 
 type State = { errors: Record<string, string[]>; inputs?: any };

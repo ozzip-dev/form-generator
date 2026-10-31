@@ -34,7 +34,7 @@ const toggleSwitchesData = (formInput: FormInput) => [
 const ToggleInputs = () => {
   const { formId, input } = useInputData();
   return (
-    <div className="mt-4 flex flex-col flex-wrap gap-4 border-t border-gray pt-4 sm:flex-row">
+    <div className="mt-16 flex flex-col flex-wrap gap-4 border-t border-gray pt-8 sm:flex-row">
       {toggleSwitchesData(input).map(
         ({ name, label, action, infoText, disabled }, idx) => (
           <InputDataToggleSwitch

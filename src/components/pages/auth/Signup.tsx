@@ -12,25 +12,25 @@ import { useActionState, useRef } from "react";
 
 const dataInputsSignup: InputData[] = [
   {
-    floatingLabel: "Imię",
+    label: "Imię",
     name: "name",
     placeholder: "Jan",
     type: InputType.TEXT,
   },
   {
-    floatingLabel: "Email",
+    label: "Email",
     name: "email",
     placeholder: "email@com",
     type: InputType.EMAIL,
   },
   {
-    floatingLabel: "Hasło",
+    label: "Hasło",
     name: "password",
     placeholder: "xxxxx",
     type: "password",
   },
   {
-    floatingLabel: "Powtórz hasło",
+    label: "Powtórz hasło",
     name: "confirmPassword",
     placeholder: "xxxxx",
     type: "password",
