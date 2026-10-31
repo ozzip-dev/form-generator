@@ -12,9 +12,18 @@ type Props = {
 
 const InputRadioOther = (props: Props) => {
   return (
-    <div>
-      {props.label && <label className="block pb-3">{props.label}</label>}
+    <div className="group gap-3 md:flex md:items-center">
+      {props.label && (
+        <label
+          htmlFor={props.name}
+          className="block pb-1 !text-base transition-colors duration-200 group-focus-within:text-accent md:pb-0"
+        >
+          {props.label}
+        </label>
+      )}
       <input
+        id={props.name}
+        aria-label={`Podaj inną odpowiedź ${props.label || props.name}`}
         type="text"
         value={props.isRadioValue ? "" : props.value || ""}
         placeholder="Inna odpowiedź"
@@ -24,7 +33,7 @@ const InputRadioOther = (props: Props) => {
             shouldValidate: true,
           });
         }}
-        className="rounded-sm border p-3 focus:border-accent focus:outline-none"
+        className="rounded-sm border border-gray p-3 focus:border-accent focus:outline-none"
       />
     </div>
   );

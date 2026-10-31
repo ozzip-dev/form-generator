@@ -1,5 +1,3 @@
-import InputField from "../input-fields/InputField";
-
 type Props = {
   label?: string;
   name: string;
@@ -13,9 +11,12 @@ const InputCheckboxOther = (props: Props) => {
   const inputValue = typeof rawValue === "string" ? rawValue : "";
 
   return (
-    <div>
+    <div className="group gap-3 md:flex md:items-center">
       {props.label && (
-        <label htmlFor={props.name} className="block pb-3">
+        <label
+          htmlFor={props.name}
+          className="block pb-1 !text-base transition-colors duration-200 group-focus-within:text-accent md:pb-0"
+        >
           {props.label}
         </label>
       )}
@@ -23,7 +24,7 @@ const InputCheckboxOther = (props: Props) => {
       <input
         id={props.name}
         type="text"
-        aria-label={`Podak inną odpowiedź ${props.label || props.name}`}
+        aria-label={`Podaj inną odpowiedź ${props.label || props.name}`}
         placeholder="Inna odpowiedź"
         disabled={props.isSubmitting}
         value={inputValue}
@@ -33,7 +34,7 @@ const InputCheckboxOther = (props: Props) => {
             [props.name]: e.target.value,
           });
         }}
-        className={`w-full rounded-sm border p-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${props.isSubmitting ? "cursor-not-allowed opacity-50" : ""}`}
+        className="rounded-sm border border-gray p-3 focus:border-accent focus:outline-none"
       />
     </div>
   );
