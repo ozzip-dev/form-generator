@@ -65,8 +65,6 @@ const EditFormPage = async (props: Props) => {
               />
             </SuspenseErrorBoundary>
 
-            <div className="ml-8 text-lg font-extrabold">Pytania</div>
-
             {inputs
               .sort((a, b) => a.order - b.order)
               .map((input, idx) => {

@@ -12,7 +12,7 @@ const TextEditorPrinter = (props: Props) => {
         type="button"
         variant="ghost"
         onClickAction={props.printDescriptionInput}
-        className="ml-auto !text-sm !text-accent"
+        className="mb-1 ml-3 !text-sm !text-accent"
       >
         {" "}
         Edytuj opis

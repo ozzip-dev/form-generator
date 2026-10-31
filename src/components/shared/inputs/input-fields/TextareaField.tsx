@@ -1,8 +1,5 @@
 import { UseFormRegister } from "react-hook-form";
-import DataLoader from "../../loaders/DataLoader";
 import InputError from "../InputError";
-import label from "./label";
-import { useState } from "react";
 import { InputData } from "@/enums";
 
 type Props = {
@@ -28,7 +25,7 @@ const TextareaField = (props: Props) => {
         aria-invalid={!!props.error}
         aria-describedby={props.error ? `${name}-error` : undefined}
         disabled={props.isLoading?.[name]}
-        className={`peer w-full rounded-sm border p-3 text-sm focus:border-accent focus:outline-none ${props.error ? "border-red" : "border-default"} ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
+        className={`peer w-full rounded-sm border border-gray p-3 text-sm focus:border-accent focus:outline-none ${props.isLoading?.[name] ? "cursor-not-allowed opacity-50" : ""} `}
         placeholder={placeholder}
         defaultValue={defaultValue}
         {...(props.register
@@ -40,9 +37,6 @@ const TextareaField = (props: Props) => {
             })
           : {})}
       />
-      {label && (
-        <label name={name} label={label} required={required || false} />
-      )}
 
       <InputError
         errorMsg={
@@ -52,7 +46,6 @@ const TextareaField = (props: Props) => {
         }
         nameId={name}
       />
-      {/* {props.isLoading?.[name] && <DataLoader size="sm" />} */}
     </div>
   );
 };

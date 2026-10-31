@@ -21,20 +21,12 @@ const InputField = (props: Props) => {
 
   return (
     <div className="group relative">
-      <label
-        htmlFor={name}
-        className="mb-1 pl-3 transition-colors duration-200 group-focus-within:text-accent"
-      >
-        {label}
-        {required && <span className="text-red ml-0.5">*</span>}
-      </label>
-
       <input
         id={name}
         name={name}
         type={type}
         aria-label={`${label || label || name}`}
-        placeholder={label ? " " : placeholder}
+        placeholder={placeholder}
         defaultValue={inputDefaultValue}
         disabled={props.isLoading?.[name] || props.isSubmitting}
         aria-required={required}

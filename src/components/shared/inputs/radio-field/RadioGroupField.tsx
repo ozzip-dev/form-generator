@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { useState, useRef } from "react";
 import InputError from "../InputError";
 import InputRadioOther from "./InputRadioOther";
-import InputTexts from "../input-texts/InputTexts";
+import InputTexts from "../input-texts/InputLabel";
 
 type Option = {
   label: string;

@@ -61,7 +61,6 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
 
   return (
     <>
-      <p className="tetx-xs mb-2"> Obraz nad tytułem </p>
       <div className="relative mb-8">
         <div className="w-full rounded-sm border border-gray bg-bg-light">
           <UploadFileForm
@@ -92,7 +91,11 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               variant="ghost"
               ariaLabel="Usuń obraz z tytułu"
             >
-              <Icon icon="trash" size={40} className="bg-white hover:bg-gray" />
+              <Icon
+                icon="trash"
+                size={50}
+                className="bg-white/50 hover:bg-white"
+              />
             </Button>
           </div>
         </div>

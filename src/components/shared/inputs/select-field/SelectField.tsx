@@ -111,12 +111,9 @@ const SelectField = ({
   }, [open]);
 
   return (
-    <div
-      ref={ref}
-      className={`relative w-full pb-[1.7rem] ${className ? className : ""}`}
-    >
+    <div ref={ref} className={`relative w-full ${className ? className : ""}`}>
       {label && (
-        <label htmlFor={name} className="ml-4 block shrink-0 text-sm lg:static">
+        <label htmlFor={name} className="block shrink-0 pb-1 pl-3 text-sm">
           {label}
         </label>
       )}
@@ -132,7 +129,7 @@ const SelectField = ({
           aria-expanded={open}
           onClick={() => !disabled && setOpen((o) => !o)}
           onKeyDown={handleKeyDown}
-          className={`flex w-full items-center justify-between rounded-sm border border-gray bg-white p-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
+          className={`flex w-full items-center justify-between rounded-sm border border-gray bg-white p-3 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} `}
         >
           <span className={!selectedOption ? "text-gray-400" : ""}>
             {selectedOption ? selectedOption.label : placeholder}
@@ -148,7 +145,7 @@ const SelectField = ({
         {open && (
           <ul
             role="listbox"
-            className="absolute left-0 top-1/2 z-20 w-full -translate-y-1/2 overflow-hidden rounded-sm border bg-white shadow-md"
+            className="absolute left-0 top-1/2 z-20 w-full -translate-y-1/2 overflow-hidden rounded-sm border border-gray bg-white shadow-md"
           >
             {options.map((option, idx) => (
               <li
@@ -166,8 +163,12 @@ const SelectField = ({
                 className={`px-3 py-2 text-sm transition focus:outline-none ${
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
-                    : "cursor-pointer hover:bg-accent hover:text-white"
-                } ${option.value === selectedValue ? "bg-accent text-white" : focusedIndex === idx ? "bg-accent-light" : ""} `}
+                    : "cursor-pointer hover:bg-accent/50 hover:text-white"
+                } ${
+                  option.value === selectedValue
+                    ? "bg-accent/15 font-semibold text-accent"
+                    : "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent"
+                } `}
               >
                 {option.label}
               </li>

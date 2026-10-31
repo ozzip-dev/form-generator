@@ -43,7 +43,7 @@ const resultVisibilityOptions: {
 
 const dataInputsFormTitle = [
   {
-    label: "tytuł formularza",
+    label: "Tytuł formularza",
     name: "title",
     placeholder: "Tytuł formularza",
     type: InputType.TEXT,
@@ -73,7 +73,6 @@ export default function EditFormHeader(props: Props) {
   });
 
   const {
-    control,
     register,
     formState: { errors },
     trigger,
@@ -89,8 +88,6 @@ export default function EditFormHeader(props: Props) {
     setError,
   });
 
-  const { setLoading } = useLoader();
-
   const isSelectLoading =
     isLoading?.type === true || isLoading?.resultVisibility === true;
   useAutoLoader(isSelectLoading);
@@ -99,24 +96,9 @@ export default function EditFormHeader(props: Props) {
     isLoading?.description === true || isLoading?.title === true;
   useAutoLoader(isTextLoading, "small");
 
-  const handleSwitch = () => {
-    setLoading("fullscreen", true);
-
-    startTransition(async () => {
-      if (!formId) return;
-      await toggleDisplayAuthorEmailAction(formId);
-      setLoading("fullscreen", false);
-    });
-  };
-
-  const hasAnyError = Object.values(headerPublishError?.headerError ?? {}).some(
-    (value) => value !== "",
-  );
-
   return (
     <FormProvider {...methods}>
-      <form className="mt-8" id="header">
-        <div className="mb-8 ml-8 text-lg font-extrabold">Nagłówek</div>
+      <form className="mt-8 [&_input]:text-lg [&_label]:text-lg" id="header">
         <Card className="bg-white">
           <FormHeaderImageUpload
             formId={formId}
@@ -137,11 +119,6 @@ export default function EditFormHeader(props: Props) {
                   className="absolute right-8 top-1/2 -translate-y-1/2 bg-error text-error"
                 />
               )}
-              {/* {!showDescription && (
-                <div className="absolute -right-10 top-1/2 -translate-y-1/2">
-                  <AddTextEditorBtn action={() => setShowDescription(true)} />
-                </div>
-              )} */}
             </div>
           </div>
 

@@ -2,7 +2,7 @@
 
 import { InputData, InputType } from "@/enums";
 import { UseFormRegister } from "react-hook-form";
-import InputTexts from "../input-texts/InputTexts";
+import InputLabel from "../input-texts/InputLabel";
 import InputField from "./InputField";
 import TextareaField from "./TextareaField";
 
@@ -21,34 +21,27 @@ const InputFields = (props: Props) => {
   return (
     <>
       {props.inputsData.map((inputData) => {
-        const {
-          label,
-          required,
-          unique,
-          description,
-          name,
-          type,
-          labelClassName,
-          hidden,
-        } = inputData;
+        const { label, required, unique, description, name, type, hidden } =
+          inputData;
 
         const isTextArea = type === InputType.SUPER_TEXT;
 
         return (
           <div
             key={name}
-            className={`relative text-sm ${
+            className={` ${
               props.variant === "horizontal" &&
               "flex flex-col md:flex-row md:items-center"
             } `}
           >
-            {/* <InputTexts
+            <InputLabel
               label={label}
+              name={name}
               description={description}
               required={required}
               unique={unique}
               hidden={hidden}
-            /> */}
+            />
 
             {isTextArea ? (
               <TextareaField

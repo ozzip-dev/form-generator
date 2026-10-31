@@ -202,7 +202,7 @@ const CreatedForm = (props: Props) => {
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-8"
+            className="flex flex-col gap-8 [&_label]:pl-0 [&_label]:text-lg [&_label]:font-bold [&_label_span]:text-xs"
           >
             {formFields}
 

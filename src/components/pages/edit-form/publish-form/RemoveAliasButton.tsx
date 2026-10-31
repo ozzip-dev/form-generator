@@ -33,6 +33,7 @@ const RemoveAliasButton = ({ form }: Props) => {
         isLoading={isPending}
         variant="empty-accent"
         type="button"
+        className="!w-full"
       >
         Usuń alias
       </Button>

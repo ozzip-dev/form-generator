@@ -108,7 +108,7 @@ const FormActions = ({ formStructure }: Props) => {
   return (
     <div className="py-8">
       <Card className="mb-8 bg-white">
-        <h3 className="mb-8 text-lg font-extrabold">Ustawienia</h3>
+        <h3 className="mb-8 text-lg">Ustawienia</h3>
         <div className="flex flex-col gap-16">
           <PublishFormButton form={formStructure} />
           <AliasUrlForm {...formStructure} />
@@ -134,7 +134,7 @@ const FormActions = ({ formStructure }: Props) => {
               )}
 
               <div className="grid">
-                <div className="relative mr-[3rem] flex-1 lg:mr-0">
+                <div className="relative flex-1 lg:mr-0">
                   <SelectFieldController
                     name="type"
                     defaultValue=""

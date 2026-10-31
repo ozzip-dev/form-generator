@@ -10,7 +10,7 @@ type Props = {
 const Checkbox = (props: Props) => {
   return (
     <label
-      className={`flex cursor-pointer items-center gap-3 ${
+      className={`flex cursor-pointer items-center gap-3 !text-base ${
         props.isSubmitting ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
@@ -24,7 +24,7 @@ const Checkbox = (props: Props) => {
           aria-label={`${props.checkboxLabel || props.name}`}
           className="peer sr-only"
         />
-        <div className="bg-font-light absolute left-0 top-0 h-full w-full rounded-full transition-colors peer-checked:bg-accent peer-focus:ring-2 peer-focus:ring-accent peer-focus:ring-offset-2" />
+        <div className="absolute left-0 top-0 h-full w-full rounded-full bg-font-light transition-colors peer-checked:bg-accent peer-focus:ring-2 peer-focus:ring-accent peer-focus:ring-offset-2" />
         <div className="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform peer-checked:translate-x-6" />
       </div>
 
