@@ -134,15 +134,15 @@ body {
 }
 
 .btn-primary-rounded {
-  @apply rounded-full border border-accent bg-accent px-4 py-2 text-sm text-white hover:bg-white hover:text-accent md:px-8;
+  @apply rounded-sm border border-accent bg-accent px-4 py-2 text-sm text-white hover:bg-white hover:text-accent md:px-8;
 }
 
 .btn-empty-white {
-  @apply rounded-full border border-white px-4 py-2 text-sm text-white hover:bg-white hover:text-font-dark md:px-8;
+  @apply rounded-sm border border-white px-4 py-2 text-sm text-white hover:bg-white hover:text-font-dark md:px-8;
 }
 
 .btn-empty-acccent {
-  @apply rounded-full border border-accent px-4 py-2 text-sm text-accent hover:bg-accent hover:text-white md:px-8;
+  @apply rounded-sm border border-accent px-4 py-2 text-sm text-accent hover:bg-accent hover:text-white md:px-8;
 }
 
 .btn-underline {
@@ -155,6 +155,34 @@ body {
 
 .table-highlighted tr:nth-child(even) {
   background-color: var(--color-bg-dark);
+}
+
+/* scroll */
+
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-bg-dark) transparent;
+  scrollbar-gutter: stable;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background: var(--color-bg-dark);
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bg-dark);
+  background-clip: padding-box;
 }
 
 /* text editor */

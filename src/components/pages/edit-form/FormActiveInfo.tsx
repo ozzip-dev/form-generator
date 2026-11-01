@@ -246,49 +246,46 @@ const FormActiveInfo = ({ submissionCount }: Props) => {
           </div>
         </Card>
       </div>
-      <div className="top-0 md:sticky md:h-fit md:w-[26rem]">
-        <div className="pb-32 pt-8">
-          <Card className="mb-8">
-            <h3 className="mb-8 text-lg font-extrabold">Akcje</h3>{" "}
-            {isAuthor && _id && (
-              <div className="flex flex-col">
-                <Button
-                  isLoading={isPending}
-                  className=""
-                  variant="empty-accent"
-                  onClickAction={handleCopyForm}
-                >
-                  <div className="flex items-center gap-2">
-                    {
-                      <Icon
-                        icon="copy"
-                        size={16}
-                        className="bg-accent group-hover:bg-white"
-                      />
-                    }
-                    <p> Skopiuj formularz</p>
-                  </div>
-                </Button>
-                <p className="mb-16 mt-2 text-sm text-font-light">
-                  Tworzy nowy formularz z tymi samymi pytaniami.
-                </p>
-
-                {isFormActive && (
-                  <CloseFormBtn
-                    isEditorOpen={isEditorOpen}
-                    setIsEditorOpen={setIsEditorOpen}
-                  />
-                )}
-
-                <RemoveFormButton formId={_id} />
-                <p className="mt-2 text-sm text-font-light">
-                  Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie
-                  można cofnąć.
-                </p>
-              </div>
-            )}
-          </Card>
-        </div>
+      <div className="scrollbar-custom sticky top-0 mb-32 pt-8 md:mb-0 md:h-[calc(100dvh-11rem)] md:w-[26rem]">
+        <Card className="!p-0 !pr-1 md:h-full md:max-h-[44rem]">
+          {isAuthor && _id && (
+            <div className="flex flex-col overflow-y-auto p-8 md:h-full">
+              {" "}
+              <h2 className="mb-8 text-lg font-semibold">Akcje</h2>
+              <Button
+                isLoading={isPending}
+                className=""
+                variant="empty-accent"
+                onClickAction={handleCopyForm}
+              >
+                <div className="flex items-center gap-2">
+                  {
+                    <Icon
+                      icon="copy"
+                      size={16}
+                      className="bg-accent group-hover:bg-white"
+                    />
+                  }
+                  <p> Skopiuj formularz</p>
+                </div>
+              </Button>
+              <p className="mb-16 mt-2 text-sm text-font-light">
+                Tworzy nowy formularz z tymi samymi pytaniami.
+              </p>
+              {isFormActive && (
+                <CloseFormBtn
+                  isEditorOpen={isEditorOpen}
+                  setIsEditorOpen={setIsEditorOpen}
+                />
+              )}
+              <RemoveFormButton formId={_id} />
+              <p className="mt-2 text-sm text-font-light">
+                Usuwa formularz razem z zapisanymi wynikami. Tej operacji nie
+                można cofnąć.
+              </p>
+            </div>
+          )}
+        </Card>
       </div>
     </div>
   );
