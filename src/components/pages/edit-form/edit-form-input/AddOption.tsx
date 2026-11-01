@@ -124,7 +124,7 @@ const AddOption = (props: Props) => {
         );
       })}
 
-      <div className="flex gap-2">
+      <div className="flex gap-4">
         <div className="w-fit">
           <Button
             type="button"
@@ -144,7 +144,7 @@ const AddOption = (props: Props) => {
               onClickAction={handleAddOther}
               variant="empty-accent"
             >
-              Dodaj inne
+              Dodaj "Inne"
             </Button>
           </div>
         )}

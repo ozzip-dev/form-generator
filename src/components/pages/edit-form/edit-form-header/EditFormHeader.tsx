@@ -98,7 +98,7 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="mt-8 [&_input]:text-lg [&_label]:text-lg" id="header">
+      <form className="mt-8 [&_input]:text-xl [&_input]:font-bold" id="header">
         <Card className="bg-white">
           <FormHeaderImageUpload
             formId={formId}

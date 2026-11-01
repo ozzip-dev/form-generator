@@ -150,14 +150,14 @@ const EditFormInput = () => {
           >
             <form>
               <div className="relative flex flex-col sm:flex-row-reverse sm:items-center sm:gap-8">
-                <div className="mb-4 flex items-center justify-between">
+                <div className="mb-auto mt-4 flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:hidden">
                     {inputNumber}
                   </div>
                   <FormInputMoveRemoveButtons />
                 </div>
 
-                <div className="sm:w-[17rem]">
+                <div className="sm:w-[22rem]">
                   <SelectFieldController
                     name="type"
                     defaultValue={type}
@@ -167,7 +167,7 @@ const EditFormInput = () => {
                     }}
                   />
                 </div>
-                <div className="mb-auto mr-auto hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:flex">
+                <div className="mb-auto mr-auto mt-4 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:flex">
                   {inputNumber}
                 </div>
               </div>
