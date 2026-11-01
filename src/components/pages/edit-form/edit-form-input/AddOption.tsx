@@ -144,7 +144,7 @@ const AddOption = (props: Props) => {
               onClickAction={handleAddOther}
               variant="empty-accent"
             >
-              Dodaj "Inne"
+              Dodaj &quot;Inne&quot;
             </Button>
           </div>
         )}
