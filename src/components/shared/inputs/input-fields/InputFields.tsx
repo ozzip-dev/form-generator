@@ -29,7 +29,7 @@ const InputFields = (props: Props) => {
         return (
           <div
             key={name}
-            className={` ${
+            className={`group ${
               props.variant === "horizontal" &&
               "flex flex-col md:flex-row md:items-center"
             } `}

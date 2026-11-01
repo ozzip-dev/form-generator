@@ -12,7 +12,6 @@ export enum InputType {
 
 export type InputData = {
   label?: string;
-  label?: string;
   name: string;
   placeholder?: string;
   type: InputType | "password";

@@ -5,13 +5,11 @@ import {
   Card,
   InputFields,
   SelectFieldController,
-  label,
 } from "@/components/shared";
+import { InputData, InputType } from "@/enums";
+import { Dispatch, SetStateAction } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { filtersDefault, mapDisputeReason, ProtocolFilters } from "../utils";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { az } from "zod/v4/locales";
-import { InputData, InputType } from "@/enums";
 
 const dataSearchInput: InputData[] = [
   {
@@ -96,12 +94,8 @@ const ProtocolListFilters = ({
             onChange={onFilterChange}
           />{" "}
           <div className="relative mt-6">
-            <label
-              name="disputeReason"
-              label="Przyczyna sporu"
-              required={false}
-            />
             <SelectFieldController
+              label="Przyczyna sporu"
               name="disputeReason"
               defaultValue=""
               options={[
@@ -113,8 +107,8 @@ const ProtocolListFilters = ({
             />
           </div>
           <div className="relative mt-12">
-            <label name="sortOrder" label="Sortuj" required={false} />
             <SelectFieldController
+              label="Sortuj"
               name="sortOrder"
               defaultValue="ascending"
               options={dataSelectOptions}
