@@ -15,7 +15,7 @@ const InputCheckboxOther = (props: Props) => {
       {props.label && (
         <label
           htmlFor={props.name}
-          className="block pb-1 !text-base transition-colors duration-200 group-focus-within:text-accent md:pb-0"
+          className="!mb-0 block pb-1 !text-base transition-colors duration-200 group-focus-within:text-accent md:pb-0"
         >
           {props.label}
         </label>

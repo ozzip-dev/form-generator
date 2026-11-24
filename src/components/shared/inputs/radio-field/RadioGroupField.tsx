@@ -78,7 +78,6 @@ const RadioGroupField = (props: Props) => {
         unique={props.unique}
         hidden={props.hidden}
       />
-
       <fieldset
         className={`relative flex flex-col gap-6 ${props.className ?? ""}`}
         aria-required={props.required}
@@ -130,22 +129,23 @@ const RadioGroupField = (props: Props) => {
                   />
 
                   <span className="flex h-7 w-7 items-center justify-center rounded-full border transition peer-checked:border-accent peer-checked:bg-accent peer-checked:shadow-[inset_0_0_0_2px_white] peer-focus:ring-2 peer-focus:ring-accent peer-focus:ring-offset-2"></span>
-                  <div className="block w-full text-sm">{option.label}</div>
+                  <div className="mb-0 block w-full text-sm">
+                    {option.label}
+                  </div>
                 </label>
               )}
             </div>
           );
         })}
-
-        <InputError
-          errorMsg={
-            props.errorMsg?.[props.name]?.message ||
-            (props.errorMsg as any)?.message ||
-            errorMsg
-          }
-          nameId={props.name}
-        />
-      </fieldset>
+      </fieldset>{" "}
+      <InputError
+        errorMsg={
+          props.errorMsg?.[props.name]?.message ||
+          (props.errorMsg as any)?.message ||
+          errorMsg
+        }
+        nameId={props.name}
+      />
     </div>
   );
 };

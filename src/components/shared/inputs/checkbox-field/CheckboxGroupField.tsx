@@ -59,7 +59,6 @@ export default function CheckboxGroupField(props: Props) {
               unique={props.unique}
               hidden={props.hidden}
             />
-
             <div className="relative flex flex-col gap-6">
               {props.options.map(({ name, checkboxLabel, optionId = "" }) => {
                 if (optionId === OPTION_OTHER) {
@@ -86,15 +85,14 @@ export default function CheckboxGroupField(props: Props) {
                   />
                 );
               })}
-
-              <InputError
-                errorMsg={
-                  fieldState.error?.message ||
-                  (props.errorMsg?.[props.name]?.message as string) ||
-                  (props.errorMsg as any)?.message
-                }
-              />
-            </div>
+            </div>{" "}
+            <InputError
+              errorMsg={
+                fieldState.error?.message ||
+                (props.errorMsg?.[props.name]?.message as string) ||
+                (props.errorMsg as any)?.message
+              }
+            />
           </fieldset>
         );
       }}

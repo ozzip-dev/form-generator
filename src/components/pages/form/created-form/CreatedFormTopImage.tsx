@@ -6,7 +6,7 @@ type Props = {
 
 const CreatedFormTopImage = ({ headerFileData }: Props) => {
   return (
-    <div className="mb-8 flex w-full justify-center overflow-hidden rounded-sm border">
+    <div className="mb-8 flex w-full justify-center overflow-hidden rounded-sm">
       <Image
         src={`data:image/png;base64,${headerFileData}`}
         alt=""

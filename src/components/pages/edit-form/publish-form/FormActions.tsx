@@ -170,7 +170,7 @@ const FormActions = ({ formStructure }: Props) => {
                   </div>
 
                   <InfoIcon>
-                    <>
+                    <div className="relative z-40">
                       <div>
                         <span className="font-semibold">Jawny: </span>
                         <span>
@@ -186,7 +186,7 @@ const FormActions = ({ formStructure }: Props) => {
                           pojedynczymi formularzami.
                         </span>
                       </div>
-                    </>
+                    </div>
                   </InfoIcon>
                 </div>
               </div>

@@ -2,13 +2,21 @@
 
 import { submitFormAction } from "@/actions/form/submitFormAction";
 import { Button, Card, FormDescription } from "@/components/shared";
+import { useToast } from "@/context/ToastProvider";
+import { InputType } from "@/enums";
+import { isActive, isTemplate } from "@/helpers/formHelpers";
 import { setClientErrors } from "@/helpers/helpers-validation/handleFormErrors";
+import {
+  isInputSubmittable,
+  isInputTypeCheckbox,
+} from "@/helpers/inputHelpers";
 import { createdFormSchema } from "@/lib/zod-schema/createdFormSchema";
 import { FormSerialized } from "@/types/form";
 import { FormInput } from "@/types/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JSX, useEffect, useState } from "react";
+import { JSX, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import CreatedFormAuthor from "./CreatedFormAuthor";
 import {
   renderCheckbox,
   RendererParams,
@@ -16,20 +24,12 @@ import {
   renderParagraph,
   renderRadio,
 } from "./CreatedFormFields";
-import SuccesMsg from "./SuccesMsg";
-import { useToast } from "@/context/ToastProvider";
-import {
-  isInputSubmittable,
-  isInputTypeCheckbox,
-} from "@/helpers/inputHelpers";
+import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
 import CreatedFormTopError from "./CreatedFormTopError";
 import CreatedFormTopImage from "./CreatedFormTopImage";
 import FieldIndicators from "./FieldIndicators";
-import CreatedFormAuthor from "./CreatedFormAuthor";
 import ResultsMode from "./ResultsMode";
-import CreatedFormTemplateHeader from "./CreatedFormTemplateHeader";
-import { isActive, isTemplate } from "@/helpers/formHelpers";
-import { InputType } from "@/enums";
+import SuccesMsg from "./SuccesMsg";
 
 const defaultValues = (inputs: FormInput[]) => {
   const defaultValues = inputs.reduce((formObject: any, input: FormInput) => {
@@ -202,7 +202,7 @@ const CreatedForm = (props: Props) => {
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-8 [&_label]:pl-0 [&_label]:text-lg [&_label]:font-bold [&_label_span]:text-xs"
+            className="flex flex-col gap-8 [&_label]:mb-6 [&_label]:pl-0 [&_label]:text-lg [&_label]:font-bold [&_label_span]:text-xs"
           >
             {formFields}
 
