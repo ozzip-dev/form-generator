@@ -129,6 +129,8 @@ body {
   @apply space-y-2 rounded-md border border-default bg-bg-light shadow-default md:rounded-lg;
 }
 
+/* btns */
+
 .btn-primary {
   @apply border border-accent bg-accent px-12 py-2 text-white hover:!bg-white hover:text-accent;
 }
@@ -195,7 +197,7 @@ body {
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {
-  @apply text-sm text-font-light;
+  @apply text-gray text-sm;
   content: attr(data-placeholder);
 }
 

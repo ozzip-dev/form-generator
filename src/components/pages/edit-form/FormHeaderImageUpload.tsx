@@ -67,7 +67,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
             {...{
               onFileUploaded,
               acceptedExtentions: { "image/*": [] },
-              text: "Dodaj obraz nad tytułem formularza",
+              text: "Obraz nad tytułem",
             }}
           />
         </div>
@@ -94,7 +94,7 @@ const FormHeaderImageUpload = ({ formId, headerFileData }: Props) => {
               <Icon
                 icon="trash"
                 size={50}
-                className="bg-white/50 hover:bg-white"
+                className="bg-white/60 hover:bg-white"
               />
             </Button>
           </div>

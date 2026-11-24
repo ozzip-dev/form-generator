@@ -8,13 +8,12 @@ import { MAX_FILE_SIZE_B, MAX_FILE_SIZE_MB } from "@/helpers/protocolHelpers";
 
 type Props = {
   onFileUploaded: (file: File) => Promise<void>;
-  // text?: string;
+  text?: string;
   acceptedExtentions?: Accept;
 };
 
 const UploadFileForm = ({
   onFileUploaded,
-  // text, // TODO: bedziemy tego uzywac?
   acceptedExtentions = {
     "image/*": [],
     "application/pdf": [],
@@ -28,6 +27,7 @@ const UploadFileForm = ({
     ".ods": [],
     ".csv": [],
   },
+  text,
 }: Props) => {
   const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
@@ -91,7 +91,7 @@ const UploadFileForm = ({
     <>
       <div
         {...getRootProps()}
-        className={`group relative flex h-full w-full cursor-pointer items-center justify-center border border-transparent transition-colors hover:border-accent hover:bg-white hover:text-accent ${isDragActive ? "bg-accent" : "bg-transparent"}`}
+        className={`group relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-sm border border-transparent transition-colors hover:rounded-sm hover:border-accent hover:bg-white hover:text-accent ${isDragActive ? "rounded-sm border-accent bg-accent" : "bg-transparent"}`}
       >
         {isPending && (
           <div className="bg-red/50 w-100 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
@@ -106,18 +106,22 @@ const UploadFileForm = ({
         />
 
         {isDragActive && (
-          <div className="text-center text-white">
-            <p> Upuść </p>
-            <p className="text-center text-sm">Maksymalny rozmiar: 1 MB</p>
+          <div className="flex w-full flex-col items-center justify-between rounded-sm p-4 text-white sm:flex-row">
+            {text && <p className="flex-1 font-bold">{text}</p>}
+            <div className="flex-1 text-center">
+              <p> Upuść</p>
+              <p className="text-center text-xs">Maksymalny rozmiar: 1 MB</p>
+            </div>
           </div>
         )}
 
         {!isDragActive && (
-          <div className="text-center">
-            <p> Upuść / wybierz plik </p>
-            <p className="text-center text-sm text-font-light">
-              Maksymalny rozmiar: 1 MB
-            </p>
+          <div className="flex w-full flex-col items-center justify-between p-4 sm:flex-row">
+            {text && <p className="flex-1 font-bold">{text}</p>}
+            <div className="flex-1 text-center">
+              <p> Upuść / wybierz plik </p>
+              <p className="text-center text-xs">Maksymalny rozmiar: 1 MB</p>
+            </div>
           </div>
         )}
       </div>

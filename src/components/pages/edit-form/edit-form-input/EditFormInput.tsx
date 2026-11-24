@@ -200,17 +200,6 @@ const EditFormInput = () => {
                       />
                     </div>
                   )}
-
-                  {/* {!isInputTypeParagraph(input) &&
-                    (showDescription ? (
-                      <div className="h-1 w-[3rem]" />
-                    ) : (
-                      <div className="ml-1 h-fit w-fit">
-                        <AddTextEditorBtn
-                          action={() => setShowDescription(true)}
-                        />
-                      </div>
-                    ))} */}
                 </div>
               </div>
               <div className="mr-[2.7rem] md:flex md:gap-10">

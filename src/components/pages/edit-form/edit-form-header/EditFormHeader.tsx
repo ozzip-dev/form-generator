@@ -1,21 +1,14 @@
 "use client";
 
 import { editFormHeaderAction } from "@/actions/edit-form/editFormHeaderAction";
-import { toggleDisplayAuthorEmailAction } from "@/actions/edit-form/toggleDisplayAuthorEmailAction";
-import {
-  Card,
-  Icon,
-  InfoIcon,
-  InputFields,
-  SelectFieldController,
-  CheckboxSwitch,
-} from "@/components/shared";
+import { Card, Icon, InputFields } from "@/components/shared";
 import { useFormData } from "@/context/FormDataContextProvider";
-import { useAutoLoader, useLoader } from "@/context/LoaderContextProvider";
+import { useAutoLoader } from "@/context/LoaderContextProvider";
 import {
   useAddFieldPublishError,
   useHeaderPublishError,
 } from "@/context/PublishFormErrorContextProvider";
+import { InputType } from "@/enums";
 import { FormResultVisibility, FormType } from "@/enums/form";
 import { formTypesWithLabels, formVisibilityData } from "@/helpers/formHelpers";
 import { useEditForm } from "@/hooks/useEditForm";
@@ -24,12 +17,10 @@ import {
   EditFormHeaderSchema,
 } from "@/lib/zod-schema/edit-form-schemas/editFormHeaderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, use, useState } from "react";
+import { use, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import AddTextEditorBtn from "../AddTextEditorBtn";
 import FormHeaderImageUpload from "../FormHeaderImageUpload";
 import EditHeaderDescription from "./EditHeaderDescription";
-import { InputType } from "@/enums";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -45,7 +36,7 @@ const dataInputsFormTitle = [
   {
     label: "Tytuł formularza",
     name: "title",
-    placeholder: "Tytuł formularza",
+    placeholder: "Tytuł",
     type: InputType.TEXT,
   },
 ];
@@ -98,7 +89,7 @@ export default function EditFormHeader(props: Props) {
 
   return (
     <FormProvider {...methods}>
-      <form className="mt-8 [&_input]:text-xl [&_input]:font-bold" id="header">
+      <form className="mt-8 [&_input]:text-xl" id="header">
         <Card className="bg-white">
           <FormHeaderImageUpload
             formId={formId}

@@ -5,7 +5,7 @@ import InputError from "../InputError";
 import InputCheckboxOther from "./InputCheckboxOther";
 import { OPTION_OTHER } from "@/helpers/inputHelpers";
 import Checkbox from "./Checkbox";
-import InputTexts from "../input-texts/InputLabel";
+import InputLabel from "../input-texts/InputLabel";
 
 type CheckboxOption = {
   name: string;
@@ -52,7 +52,7 @@ export default function CheckboxGroupField(props: Props) {
           <fieldset
             className={`flex w-fit flex-col text-sm ${props.mode === "horizontal" ? "md:flex-row" : ""}`}
           >
-            <InputTexts
+            <InputLabel
               label={props.groupLabel}
               description={props.groupDescription}
               required={props.required}
