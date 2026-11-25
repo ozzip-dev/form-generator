@@ -136,15 +136,15 @@ body {
 }
 
 .btn-primary-rounded {
-  @apply rounded-sm border border-accent bg-accent px-4 py-2 text-sm text-white hover:bg-white hover:text-accent md:px-8;
+  @apply rounded-sm border border-accent bg-accent px-4 py-2 text-white hover:bg-white hover:text-accent md:px-8;
 }
 
 .btn-empty-white {
-  @apply rounded-sm border border-white px-4 py-2 text-sm text-white hover:bg-white hover:text-font-dark md:px-8;
+  @apply rounded-sm border border-white px-4 py-2 text-white hover:bg-white hover:text-font-dark md:px-8;
 }
 
 .btn-empty-acccent {
-  @apply rounded-sm border border-accent px-4 py-2 text-sm text-accent hover:bg-accent hover:text-white md:px-8;
+  @apply rounded-sm border border-accent px-4 py-2 text-accent hover:bg-accent hover:text-white md:px-8;
 }
 
 .btn-underline {

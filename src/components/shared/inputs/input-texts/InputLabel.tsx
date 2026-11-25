@@ -26,7 +26,7 @@ const InputLabel = ({
       {hasLabel && (
         <label
           htmlFor={name}
-          className="block pb-1 pl-3 transition-colors duration-200 group-focus-within:text-accent"
+          className="block pb-1 transition-colors duration-200 group-focus-within:text-accent"
         >
           {label}
           <span className="inline-flex align-super text-sm">

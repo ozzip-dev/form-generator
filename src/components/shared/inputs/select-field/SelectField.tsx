@@ -113,7 +113,7 @@ const SelectField = ({
   return (
     <div ref={ref} className={`relative w-full ${className ? className : ""}`}>
       {label && (
-        <label htmlFor={name} className="block shrink-0 pb-1 pl-3 text-sm">
+        <label htmlFor={name} className="block shrink-0 pb-1">
           {label}
         </label>
       )}
@@ -160,7 +160,7 @@ const SelectField = ({
                 onClick={() => !option.disabled && handleSelect(option.value)}
                 onKeyDown={(e) => handleOptionKeyDown(e, idx)}
                 onFocus={() => setFocusedIndex(idx)}
-                className={`px-3 py-2 text-sm transition focus:outline-none ${
+                className={`px-3 py-2 transition focus:outline-none ${
                   option.disabled
                     ? "cursor-not-allowed opacity-50"
                     : "cursor-pointer hover:bg-accent/50 hover:text-white"

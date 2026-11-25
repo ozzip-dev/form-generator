@@ -10,9 +10,9 @@ const TextEditorPrinter = (props: Props) => {
     <div>
       <Button
         type="button"
-        variant="ghost"
+        variant="empty-accent"
         onClickAction={props.printDescriptionInput}
-        className="mb-1 ml-3 !text-sm !text-accent"
+        className="mb-1"
       >
         {" "}
         Edytuj opis

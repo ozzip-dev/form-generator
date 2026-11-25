@@ -35,6 +35,7 @@ import ToggleInputs from "./toggle-inputs/ToggleInputs";
 import AcceptedValuesSection from "../accepted-values/AcceptedValuesSection";
 import AddTextEditorBtn from "../AddTextEditorBtn";
 import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
+import InputFieldHeader from "./InputFieldHeader";
 
 const dataInputLabel: InputData[] = [
   {
@@ -116,13 +117,6 @@ const EditFormInput = () => {
       setError,
     });
 
-  const handleEditType = (type: InputType) => {
-    startTransition(async () => {
-      if (!formId || !inputId) return;
-      await editInputTypeAction(formId, inputId, type);
-    });
-  };
-
   useAutoLoader(isPending);
   const isAnyLoading = [...Object.values(isLoadingLabel ?? {})].some(Boolean);
   useAutoLoader(isAnyLoading, "small");
@@ -149,62 +143,42 @@ const EditFormInput = () => {
             aria-label={inputNumber != null ? `Pytanie` : "Pole formularza"}
           >
             <form>
-              <div className="relative flex flex-col sm:flex-row-reverse sm:items-center sm:gap-8">
-                <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white sm:hidden">
-                    {inputNumber}
+              <InputFieldHeader
+                inputNumber={inputNumber}
+                type={type}
+                formId={formId}
+                inputId={inputId}
+              />
+              <div className="">
+                {!isInputTypeParagraph(input) && (
+                  <div className="mb-4">
+                    <InputFields
+                      inputsData={dataInputLabel}
+                      register={register}
+                      errorMsg={errors.header as any}
+                      onChange={handleEditLabel}
+                    />
                   </div>
-                  <FormInputMoveRemoveButtons />
-                </div>
+                )}
 
-                <div className="my-4 sm:my-0 sm:w-[22rem] [&_[id='type-error']]:hidden">
-                  <SelectFieldController
-                    name="type"
-                    defaultValue={type}
-                    options={dataSelectOptions}
-                    onChangeAction={(name, value) => {
-                      handleEditType(value as InputType);
-                    }}
+                {isInputTypeParagraph(input) && (
+                  <EditFormDescriptionEditor
+                    setDescription={setDescription}
+                    isDescription={showDescription}
+                    variant="input"
+                    onClose={() => setShowDescription(false)}
                   />
-                </div>
-                <div className="mb-auto mr-auto mt-4 hidden h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:flex">
-                  {inputNumber}
-                </div>
-              </div>
-              <div className="items-center md:flex md:gap-12">
-                <div className="">
-                  {!isInputTypeParagraph(input) ? (
-                    <div className="w-full">
-                      <InputFields
-                        inputsData={dataInputLabel}
-                        register={register}
-                        errorMsg={errors.header as any}
-                        onChange={handleEditLabel}
-                      />
-                    </div>
-                  ) : (
-                    <div className="mb-4 w-full">
-                      <EditFormDescriptionEditor
-                        setDescription={setDescription}
-                        isDescription={showDescription}
-                        variant="input"
-                        onClose={() => setShowDescription(false)}
-                      />
-                    </div>
-                  )}
-                </div>
+                )}
               </div>
               <div
                 className={` ${showDescription ? "block" : "flex flex-wrap items-center gap-4"}`}
               >
                 {!isInputTypeParagraph(input) && !showDescription && (
-                  <div className="">
-                    {" "}
-                    <AddTextEditorBtn action={() => setShowDescription(true)} />
-                  </div>
+                  <AddTextEditorBtn action={() => setShowDescription(true)} />
                 )}
+
                 {!isInputTypeParagraph(input) && showDescription && (
-                  <div className="mb-4 w-full">
+                  <div className="mb-8">
                     <EditFormDescriptionEditor
                       setDescription={setDescription}
                       isDescription={showDescription}

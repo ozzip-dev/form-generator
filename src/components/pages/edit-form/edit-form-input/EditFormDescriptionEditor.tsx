@@ -57,28 +57,24 @@ const EditFormDescriptionEditor = (props: Props) => {
       {(props.isDescription || isParagraph) && (
         <div className="relative w-full">
           <div className="w-full">
-            {isEditorOpen ? (
-              <TextEditor
-                formId={formId}
-                inputId={props.variant === "input" ? input.id! : undefined}
-                description={input.description || ""}
-                printDescriptionInput={() => setEditorOpen(false)}
-                editAction={editInputLabelAction}
-                placeholder={editorPlaceholder}
-              />
-            ) : (
-              <TextEditorPrinter
-                description={input.description || ""}
-                printDescriptionInput={() => setEditorOpen(true)}
-              />
-            )}
-          </div>
+            <div className="flex">
+              <p className="mb-1">Opis</p>
+              {!isParagraph && (
+                <RemoveTextEditorBtn
+                  handleRemoveDescription={handleRemoveDescriptionInput}
+                />
+              )}
+            </div>
 
-          {!isParagraph && (
-            <RemoveTextEditorBtn
-              handleRemoveDescription={handleRemoveDescriptionInput}
+            <TextEditor
+              formId={formId}
+              inputId={props.variant === "input" ? input.id! : undefined}
+              description={input.description || ""}
+              printDescriptionInput={() => setEditorOpen(false)}
+              editAction={editInputLabelAction}
+              placeholder={editorPlaceholder}
             />
-          )}
+          </div>
         </div>
       )}
     </>

@@ -59,6 +59,7 @@ const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description ?? "");
   const [statusMessage, setStatusMessage] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [] = useState();
 
   const editor = useEditor({
     extensions: [
@@ -102,6 +103,7 @@ const TextEditor = (props: Props) => {
       props.onContentUpdate?.(html);
     },
   });
+  const [editorMessage, setEditorMessage] = useState(editor?.getText().trim());
 
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
@@ -111,9 +113,9 @@ const TextEditor = (props: Props) => {
 
     const text = editor.getText().trim();
 
-    if (text.length === 0) {
-      return;
-    }
+    // if (text.length === 0) {
+    //   return;
+    // }
 
     startTransition(async () => {
       if (props.inputId) {
@@ -121,6 +123,7 @@ const TextEditor = (props: Props) => {
           description: editorContent,
         });
         setStatusMessage("Opis zapisany");
+        setEditorMessage(editor?.getText().trim());
       } else {
         if (!props?.editAction) return;
         await props?.editAction(props.formId, { description: editorContent });
@@ -133,6 +136,8 @@ const TextEditor = (props: Props) => {
 
   useAutoLoader(isPending);
   const remaining = MAX_CHARS - characters;
+
+  console.log("editor", editor?.getText().trim());
 
   return (
     <div>
@@ -147,7 +152,7 @@ const TextEditor = (props: Props) => {
           className="texEditorPlaceholder overflow-hidden rounded-b-sm bg-white text-sm [&_div]:!rounded-b-sm [&_div]:!rounded-t-none [&_div]:!border [&_div]:!border-gray"
         />
       </div>
-      <div className="flex justify-between text-xs">
+      <div className="mt-3 flex justify-between">
         <span
           className={
             characters >= MAX_CHARS
@@ -160,15 +165,17 @@ const TextEditor = (props: Props) => {
         <div role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </div>
-        <Button
-          type="button"
-          onClickAction={handleEditDescription}
-          className="!text-bold ml-auto !text-sm !text-accent"
-          variant="ghost"
-          ariaLabel="Zapisz opis"
-        >
-          Zapisz
-        </Button>
+        {editorMessage !== editor?.getText().trim() && (
+          <Button
+            type="button"
+            onClickAction={handleEditDescription}
+            className="ml-auto"
+            variant="empty-accent"
+            ariaLabel="Zapisz opis"
+          >
+            Zapisz opis
+          </Button>
+        )}
         <div role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </div>{" "}

@@ -13,10 +13,6 @@ const CreateFormMenu = async ({ formId }: Props) => {
   const isFormActive = isActive(form);
   const isFormDisabled = isDisabled(form);
 
-  console.log("isFormActive", isFormActive);
-
-  console.log("isFormDisabled", isFormDisabled);
-
   const user = await requireUser();
   const isAuthor = isUserAuthor(form, user.id);
 

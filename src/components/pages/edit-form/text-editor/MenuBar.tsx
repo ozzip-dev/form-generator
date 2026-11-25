@@ -119,7 +119,7 @@ const MenuBar = ({
             key={idx}
             type="button"
             onClickAction={onClick}
-            className="group p-1 px-2"
+            className="group px-2 py-4 sm:px-3"
             ariaLabel={ariaLabel}
             variant="ghost"
           >
@@ -127,7 +127,7 @@ const MenuBar = ({
             <Icon
               className={`${editorState[btnName as keyof typeof editorState] ? "bg-accent" : "bg-font-light"} group-hover:font-black`}
               icon={icon as string}
-              size={15}
+              size={18}
             />{" "}
           </Button>
         ))}
