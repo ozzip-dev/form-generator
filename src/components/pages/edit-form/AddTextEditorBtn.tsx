@@ -10,17 +10,14 @@ const AddTextEditorBtn = (props: Props) => {
       <Button
         type="button"
         variant="ghost"
-        className="border-font-dark !rounded-full border p-[0.2rem]"
+        className="!px-3 py-2 !text-accent hover:bg-accent-light"
         onClickAction={props.action}
         ariaLabel="Dodaj edytor"
       >
         {" "}
-        <Icon icon="plus-solid-full" size={12} className="bg-font-dark" />
+        <Icon icon="plus-solid-full" size={18} className="bg-accent" />
+        Dodaj opis
       </Button>
-
-      <div className="bg-font-dark pointer-events-none absolute right-[0] top-10 z-50 whitespace-nowrap rounded-sm p-4 text-sm text-white opacity-0 transition-opacity group-hover:opacity-100">
-        Dodaj opis pytania
-      </div>
     </div>
   );
 };

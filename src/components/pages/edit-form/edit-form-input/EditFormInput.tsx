@@ -150,14 +150,14 @@ const EditFormInput = () => {
           >
             <form>
               <div className="relative flex flex-col sm:flex-row-reverse sm:items-center sm:gap-8">
-                <div className="mb-auto mt-4 flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white sm:hidden">
+                <div className="flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white sm:hidden">
                     {inputNumber}
                   </div>
                   <FormInputMoveRemoveButtons />
                 </div>
 
-                <div className="sm:w-[22rem]">
+                <div className="my-4 sm:my-0 sm:w-[22rem] [&_[id='type-error']]:hidden">
                   <SelectFieldController
                     name="type"
                     defaultValue={type}
@@ -172,7 +172,7 @@ const EditFormInput = () => {
                 </div>
               </div>
               <div className="items-center md:flex md:gap-12">
-                <div className="relative mr-[2.7rem] flex min-w-0 flex-1 items-center">
+                <div className="">
                   {!isInputTypeParagraph(input) ? (
                     <div className="w-full">
                       <InputFields
@@ -192,26 +192,32 @@ const EditFormInput = () => {
                       />
                     </div>
                   )}
-                  {!isInputTypeParagraph(input) && !showDescription && (
-                    <div className="absolute -right-10">
-                      {" "}
-                      <AddTextEditorBtn
-                        action={() => setShowDescription(true)}
-                      />
-                    </div>
-                  )}
                 </div>
               </div>
-              <div className="mr-[2.7rem] md:flex md:gap-10">
-                <div className="min-w-0 md:flex-1">
-                  {!isInputTypeParagraph(input) && showDescription && (
+              <div
+                className={` ${showDescription ? "block" : "flex flex-wrap items-center gap-4"}`}
+              >
+                {!isInputTypeParagraph(input) && !showDescription && (
+                  <div className="">
+                    {" "}
+                    <AddTextEditorBtn action={() => setShowDescription(true)} />
+                  </div>
+                )}
+                {!isInputTypeParagraph(input) && showDescription && (
+                  <div className="mb-4 w-full">
                     <EditFormDescriptionEditor
                       setDescription={setDescription}
                       isDescription={showDescription}
                       variant="input"
                       onClose={() => setShowDescription(false)}
                     />
-                  )}
+                  </div>
+                )}
+
+                {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
+              </div>
+              <div className="mr-[2.7rem] md:flex md:gap-10">
+                <div className="min-w-0 md:flex-1">
                   {isInputWithOptions(input) && (
                     <AddOption
                       inputIdx={inputIdx}
@@ -222,7 +228,6 @@ const EditFormInput = () => {
                 </div>
               </div>{" "}
               {!isInputTypeParagraph(input) && <ToggleInputs />}
-              {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
             </form>
           </div>
         </FormProvider>

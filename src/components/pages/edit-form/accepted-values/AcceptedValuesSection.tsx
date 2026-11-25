@@ -128,18 +128,18 @@ const AcceptedValuesSection = () => {
   const btnText: string = isOpen ? "Schowaj" : "Dopuszczalne odpowiedzi";
 
   return (
-    <div className="mt-4 flex w-full flex-col gap-3 text-sm">
+    <div className={`flex ${isOpen ? "w-full" : "w-fit"} flex-col gap-3`}>
       <div className="flex items-center">
         <Button
           type="button"
           variant="empty-accent"
-          className="mb-[4px] w-fit rounded-sm border border-default px-3 py-2 text-font-dark"
+          className="w-fit rounded-sm px-3 py-2 !text-base"
           aria-expanded={isOpen}
           onClickAction={() => setIsOpen((prev) => !prev)}
         >
           {btnText} - {input.acceptedValues ? input.acceptedValues.length : "0"}
         </Button>
-        <AcceptedValuesInfoBox />
+        {isOpen && <AcceptedValuesInfoBox />}
       </div>
 
       {isOpen && (
