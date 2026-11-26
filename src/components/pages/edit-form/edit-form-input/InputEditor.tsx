@@ -15,17 +15,9 @@ type Props = {
   variant: "header" | "input";
 };
 
-const EditFormDescriptionEditor = (props: Props) => {
+const InputEditor = (props: Props) => {
   const { formId, input } = useInputData();
   const [isPending, startTransition] = useTransition();
-  const [isEditorOpen, setEditorOpen] = useState(!input.description);
-
-  const {
-    register,
-    formState: { errors },
-    trigger,
-    setError,
-  } = useFormContext();
 
   useAutoLoader(isPending);
 
@@ -55,30 +47,26 @@ const EditFormDescriptionEditor = (props: Props) => {
   return (
     <>
       {(props.isDescription || isParagraph) && (
-        <div className="relative w-full">
-          <div className="w-full">
-            <div className="flex">
-              <p className="mb-1">Opis</p>
-              {!isParagraph && (
-                <RemoveTextEditorBtn
-                  handleRemoveDescription={handleRemoveDescriptionInput}
-                />
-              )}
-            </div>
-
-            <TextEditor
-              formId={formId}
-              inputId={props.variant === "input" ? input.id! : undefined}
-              description={input.description || ""}
-              printDescriptionInput={() => setEditorOpen(false)}
-              editAction={editInputLabelAction}
-              placeholder={editorPlaceholder}
-            />
+        <div className="relative">
+          <div className="absolute right-0">
+            {!isParagraph && (
+              <RemoveTextEditorBtn
+                handleRemoveDescription={handleRemoveDescriptionInput}
+              />
+            )}
           </div>
+
+          <TextEditor
+            formId={formId}
+            inputId={props.variant === "input" ? input.id! : undefined}
+            description={input.description || ""}
+            editAction={editInputLabelAction}
+            placeholder={editorPlaceholder}
+          />
         </div>
       )}
     </>
   );
 };
 
-export default EditFormDescriptionEditor;
+export default InputEditor;

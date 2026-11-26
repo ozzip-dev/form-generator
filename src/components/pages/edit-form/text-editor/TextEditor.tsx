@@ -48,18 +48,16 @@ type Props = {
   formId: string;
   inputId?: string;
   description?: string;
-  printDescriptionInput?: () => void;
   editAction?: any;
   placeholder: string;
   onContentUpdate?: (content: string) => void;
-  displaySaveButton?: boolean;
 };
 
 const TextEditor = (props: Props) => {
   const [editorContent, setEditorContent] = useState(props.description ?? "");
+  const [savedContent, setSavedContent] = useState(props.description ?? "");
   const [statusMessage, setStatusMessage] = useState("");
   const [isPending, startTransition] = useTransition();
-  const [] = useState();
 
   const editor = useEditor({
     extensions: [
@@ -103,7 +101,6 @@ const TextEditor = (props: Props) => {
       props.onContentUpdate?.(html);
     },
   });
-  const [editorMessage, setEditorMessage] = useState(editor?.getText().trim());
 
   const characters = editor?.storage.characterCount.characters() ?? 0;
 
@@ -111,78 +108,68 @@ const TextEditor = (props: Props) => {
     setStatusMessage("Zapis opisu");
     if (!editor) return;
 
-    const text = editor.getText().trim();
-
-    // if (text.length === 0) {
-    //   return;
-    // }
-
     startTransition(async () => {
       if (props.inputId) {
         await props?.editAction(props.formId, props.inputId, {
           description: editorContent,
         });
         setStatusMessage("Opis zapisany");
-        setEditorMessage(editor?.getText().trim());
+        setSavedContent(editorContent);
       } else {
         if (!props?.editAction) return;
         await props?.editAction(props.formId, { description: editorContent });
         setStatusMessage("Opis zapisany");
+        setSavedContent(editorContent);
       }
-
-      props.printDescriptionInput && props.printDescriptionInput();
     });
   };
 
   useAutoLoader(isPending);
   const remaining = MAX_CHARS - characters;
 
-  console.log("editor", editor?.getText().trim());
-
   return (
-    <div>
-      <MenuBar
-        editor={editor}
-        handleEditDescription={handleEditDescription}
-        displaySaveButton={props.displaySaveButton}
-      />
-      <div className="textEditorTags">
-        <EditorContent
-          editor={editor}
-          className="texEditorPlaceholder overflow-hidden rounded-b-sm bg-white text-sm [&_div]:!rounded-b-sm [&_div]:!rounded-t-none [&_div]:!border [&_div]:!border-gray"
-        />
-      </div>
-      <div className="mt-3 flex justify-between">
-        <span
-          className={
-            characters >= MAX_CHARS
-              ? "font-semibold text-red-500"
-              : "text-gray-500"
-          }
-        >
-          {characters}/{MAX_CHARS}
-        </span>
-        <div role="status" aria-live="polite" className="sr-only">
-          {statusMessage}
+    <div className="group">
+      <p className="mb-1 group-focus-within:text-accent">Opis</p>
+      <div className="[&_div:focus-within]:!border-accent">
+        <MenuBar editor={editor} />
+        <div className="textEditorTags">
+          <EditorContent
+            editor={editor}
+            className="texEditorPlaceholder overflow-hidden rounded-b-sm bg-white text-sm [&_div:focus-within]:!border-accent [&_div]:!rounded-b-sm [&_div]:!rounded-t-none [&_div]:!border [&_div]:!border-gray"
+          />
         </div>
-        {editorMessage !== editor?.getText().trim() && (
-          <Button
-            type="button"
-            onClickAction={handleEditDescription}
-            className="ml-auto"
-            variant="empty-accent"
-            ariaLabel="Zapisz opis"
+        <div className="mt-3 flex justify-between">
+          <span
+            className={
+              characters >= MAX_CHARS
+                ? "font-semibold text-red-500"
+                : "text-gray-500"
+            }
           >
-            Zapisz opis
-          </Button>
-        )}
-        <div role="status" aria-live="polite" className="sr-only">
-          {statusMessage}
-        </div>{" "}
-        <div role="status" aria-live="polite" className="sr-only">
-          {remaining > 0
-            ? `Pozostało ${remaining} znaków`
-            : "Osiągnięto maksymalny limit znaków"}
+            {characters}/{MAX_CHARS}
+          </span>
+          <div role="status" aria-live="polite" className="sr-only">
+            {statusMessage}
+          </div>
+          {editor && editorContent !== savedContent && (
+            <Button
+              type="button"
+              onClickAction={handleEditDescription}
+              className="ml-auto"
+              variant="empty-accent"
+              ariaLabel="Zapisz opis"
+            >
+              Zapisz opis
+            </Button>
+          )}
+          <div role="status" aria-live="polite" className="sr-only">
+            {statusMessage}
+          </div>{" "}
+          <div role="status" aria-live="polite" className="sr-only">
+            {remaining > 0
+              ? `Pozostało ${remaining} znaków`
+              : "Osiągnięto maksymalny limit znaków"}
+          </div>
         </div>
       </div>
     </div>

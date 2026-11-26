@@ -6,19 +6,21 @@ type Props = {
 
 const AddTextEditorBtn = (props: Props) => {
   return (
-    <div className="group relative">
-      <Button
-        type="button"
-        variant="ghost"
-        className="!px-3 py-2 !text-accent hover:bg-accent-light"
-        onClickAction={props.action}
-        ariaLabel="Dodaj edytor"
-      >
-        {" "}
-        <Icon icon="plus-solid-full" size={18} className="bg-accent" />
-        Dodaj opis
-      </Button>
-    </div>
+    <Button
+      type="button"
+      variant="empty-accent"
+      onClickAction={props.action}
+      ariaLabel="Dodaj edytor"
+      className=""
+    >
+      {" "}
+      <Icon
+        icon="plus-solid-full"
+        size={18}
+        className="bg-accent group-hover:bg-white"
+      />
+      Dodaj opis
+    </Button>
   );
 };
 

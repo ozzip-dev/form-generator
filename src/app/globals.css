@@ -193,7 +193,7 @@ body {
 }
 
 .textEditorTags {
-  @apply break-words text-sm [&_a]:text-accent [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-xs [&_strong]:font-semibold;
+  @apply break-words text-sm [&_a]:text-accent [&_a]:underline [&_h3]:text-lg [&_p]:mb-4 [&_p]:min-h-4 [&_small]:text-xs [&_strong]:font-bold;
 }
 
 .texEditorPlaceholder p.is-editor-empty:first-child::before {

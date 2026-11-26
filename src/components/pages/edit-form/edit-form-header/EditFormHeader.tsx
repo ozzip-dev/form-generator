@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { use, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormHeaderImageUpload from "../FormHeaderImageUpload";
-import EditHeaderDescription from "./EditHeaderDescription";
+import HeaderEditor from "./HeaderEditor";
 
 const dataSelectOptions: { label: string; value: FormType | "" }[] = [
   { label: "Wybierz", value: "" },
@@ -50,7 +50,6 @@ export default function EditFormHeader(props: Props) {
   const form = use(formDataPromise);
   const { error: headerPublishError } = useHeaderPublishError();
   const { error: addFieldPublishError } = useAddFieldPublishError();
-  const [showDescription, setShowDescription] = useState(!!form?.description);
 
   const methods = useForm<EditFormHeaderSchema>({
     resolver: zodResolver(editFormHeaderSchema),
@@ -113,7 +112,7 @@ export default function EditFormHeader(props: Props) {
             </div>
           </div>
 
-          <EditHeaderDescription onClose={() => setShowDescription(false)} />
+          <HeaderEditor />
         </Card>
       </form>
     </FormProvider>

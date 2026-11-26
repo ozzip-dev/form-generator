@@ -1,11 +1,10 @@
 "use client";
 
 import { editInputLabelAction } from "@/actions/edit-form/edit-form-input/editInputLabelAction";
-import { editInputTypeAction } from "@/actions/edit-form/edit-form-input/editInputTypeAction";
-import { Card, InputFields, SelectFieldController } from "@/components/shared";
+import { Card, InputFields } from "@/components/shared";
+import { useFormData } from "@/context/FormDataContextProvider";
 import { useInputData } from "@/context/InputDataContextProvider";
 import { useAutoLoader } from "@/context/LoaderContextProvider";
-import { useFormData } from "@/context/FormDataContextProvider";
 import { InputData, InputType } from "@/enums";
 import {
   canInputHaveAcceptedValues,
@@ -28,14 +27,12 @@ import {
   useTransition,
 } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { dataSelectOptions } from "../editFormData";
-import AddOption from "./AddOption";
-import FormInputMoveRemoveButtons from "./FormInputMoveRemoveButtons";
-import ToggleInputs from "./toggle-inputs/ToggleInputs";
 import AcceptedValuesSection from "../accepted-values/AcceptedValuesSection";
 import AddTextEditorBtn from "../AddTextEditorBtn";
-import EditFormDescriptionEditor from "./EditFormDescriptionEditor";
+import AddOption from "./AddOption";
+import InputEditor from "./InputEditor";
 import InputFieldHeader from "./InputFieldHeader";
+import ToggleInputs from "./toggle-inputs/ToggleInputs";
 
 const dataInputLabel: InputData[] = [
   {
@@ -162,7 +159,7 @@ const EditFormInput = () => {
                 )}
 
                 {isInputTypeParagraph(input) && (
-                  <EditFormDescriptionEditor
+                  <InputEditor
                     setDescription={setDescription}
                     isDescription={showDescription}
                     variant="input"
@@ -179,7 +176,7 @@ const EditFormInput = () => {
 
                 {!isInputTypeParagraph(input) && showDescription && (
                   <div className="mb-8">
-                    <EditFormDescriptionEditor
+                    <InputEditor
                       setDescription={setDescription}
                       isDescription={showDescription}
                       variant="input"
@@ -190,17 +187,16 @@ const EditFormInput = () => {
 
                 {canInputHaveAcceptedValues(input) && <AcceptedValuesSection />}
               </div>
-              <div className="mr-[2.7rem] md:flex md:gap-10">
-                <div className="min-w-0 md:flex-1">
-                  {isInputWithOptions(input) && (
-                    <AddOption
-                      inputIdx={inputIdx}
-                      input={input}
-                      header={header}
-                    />
-                  )}
-                </div>
-              </div>{" "}
+              <div className="mt-8 md:gap-10">
+                {isInputWithOptions(input) && (
+                  <AddOption
+                    inputIdx={inputIdx}
+                    input={input}
+                    header={header}
+                  />
+                )}
+              </div>
+
               {!isInputTypeParagraph(input) && <ToggleInputs />}
             </form>
           </div>

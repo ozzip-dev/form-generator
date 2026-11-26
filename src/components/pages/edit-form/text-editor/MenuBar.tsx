@@ -8,15 +8,9 @@ import { useState } from "react";
 
 type Props = {
   editor: Editor | null;
-  handleEditDescription: () => void;
-  displaySaveButton?: boolean;
 };
 
-const MenuBar = ({
-  editor,
-  handleEditDescription,
-  displaySaveButton = true,
-}: Props) => {
+const MenuBar = ({ editor }: Props) => {
   const { openModal } = useModal();
   const [_, forceUpdate] = useState(false);
 
@@ -112,7 +106,7 @@ const MenuBar = ({
   ];
 
   return (
-    <div className="control-group flex items-center rounded-t-sm border-l border-r border-t border-gray">
+    <div className="control-group flex items-center rounded-t-sm border-l border-r border-t border-gray [&_div:focus-within]:!border-accent">
       <div className="button-group flex">
         {createBtnsData.map(({ onClick, btnName, icon, ariaLabel }, idx) => (
           <Button

@@ -91,7 +91,7 @@ const AddOption = (props: Props) => {
         const isOtherOption = isOptionOther(field as unknown as FormOption);
 
         return (
-          <div key={field.id} className="flex w-full items-center sm:w-4/5">
+          <div key={field.id} className="flex w-full items-center">
             <div className="flex-1">
               <InputFields
                 inputsData={[
