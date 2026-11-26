@@ -39,7 +39,6 @@ const CloseFormEditor = ({ formId, setIsEditorOpen }: Props) => {
           onContentUpdate={(content) => {
             editorContentRef.current = content;
           }}
-          displaySaveButton={false}
         />
       </div>
 
