@@ -52,6 +52,7 @@ const AddFormField = ({ formId }: Props) => {
     <div className="relative mb-32">
       {!!addFieldPublishError && (
         <Icon
+          id="addBtn"
           icon="exclamation"
           size={23}
           className="absolute right-4 top-1/2 z-10 -translate-y-1/2 bg-error text-error"

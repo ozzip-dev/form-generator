@@ -111,7 +111,11 @@ const SelectField = ({
   }, [open]);
 
   return (
-    <div ref={ref} className={`relative w-full ${className ? className : ""}`}>
+    <div
+      ref={ref}
+      id={name}
+      className={`relative w-full ${className ? className : ""}`}
+    >
       {label && (
         <label htmlFor={name} className="block shrink-0 pb-1">
           {label}

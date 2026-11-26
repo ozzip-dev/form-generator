@@ -9,6 +9,7 @@ import RemoveFormButton from "../RemoveFormButton";
 import AliasUrlForm from "./AliasUrlForm";
 import PublishFormButton from "./PublishFormButton";
 import {
+  ButtonLink,
   Card,
   CheckboxSwitch,
   Icon,
@@ -115,6 +116,31 @@ const FormActions = ({ formStructure }: Props) => {
     (value) => value !== "",
   );
 
+  const errorsList = [
+    {
+      errorMsg: headerPublishError?.headerError?.type,
+      id: "#type",
+    },
+    {
+      errorMsg: headerPublishError?.headerError?.resultVisibility,
+      id: "#resultVisibility",
+    },
+    {
+      errorMsg: headerPublishError?.headerError?.title,
+      id: "#title",
+    },
+    {
+      errorMsg: headerPublishError?.missingHeadersError,
+      id: "#kkkk",
+    },
+    {
+      errorMsg: addFieldPublishError,
+      id: "#addBtn",
+    },
+  ];
+
+  console.log("", errorsList);
+
   return (
     <div className="py-8">
       <Card className="mb-8 bg-white">
@@ -122,22 +148,28 @@ const FormActions = ({ formStructure }: Props) => {
         <div className="flex flex-col gap-16">
           <PublishFormButton form={formStructure} />
           {(!!addFieldPublishError || hasAnyError) && (
-            <Card className="w-full text-sm text-error">
+            <Card className="!bg-error/10 w-full !border-error text-sm text-error">
               <p className="mb-2">Błąd publikacji</p>
               <div className="text-xs">
-                {headerPublishError.headerError?.type && (
-                  <p>- {headerPublishError.headerError?.type}</p>
-                )}
-                {headerPublishError.headerError?.resultVisibility && (
-                  <p>- {headerPublishError.headerError?.resultVisibility}</p>
-                )}
-                {headerPublishError.headerError?.title && (
-                  <p>- {headerPublishError.headerError?.title}</p>
-                )}
-                {headerPublishError.missingHeadersError && (
-                  <p>- {headerPublishError.missingHeadersError}</p>
-                )}
-                {addFieldPublishError && <p>- {addFieldPublishError}</p>}
+                {errorsList.map(({ errorMsg, id }) => {
+                  return (
+                    errorMsg && (
+                      <ButtonLink
+                        key={id}
+                        link={id}
+                        variant="underline"
+                        className="flex w-fit gap-2 !text-error hover:!border-b-error"
+                      >
+                        {errorMsg}
+                        <Icon
+                          icon="arrow"
+                          size={15}
+                          className="-rotate-90 bg-error"
+                        />
+                      </ButtonLink>
+                    )
+                  );
+                })}
               </div>
             </Card>
           )}

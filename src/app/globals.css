@@ -36,7 +36,7 @@
 
   --color-font-dark: rgb(66, 66, 66);
   --color-font-light: rgb(101, 96, 96);
-  --color-error: rgb(231, 0, 0);
+  --color-error: 231 0 0;
 
   /* Hero */
   --acc: rgb(192 0 0);

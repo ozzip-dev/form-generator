@@ -25,7 +25,8 @@ module.exports = {
         "font-dark": "var(--color-font-dark)",
         "font-light": "var(--color-font-light)",
 
-        error: "var(--color-error)",
+        // error: "var(--color-error)",
+        error: "rgb(var(--color-error) / <alpha-value>)",
       },
       fontSize: {
         xs: ["var(--fs-xs)", { fontWeight: "var(--fw-base)" }],
