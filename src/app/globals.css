@@ -71,6 +71,14 @@ html {
   scroll-behavior: smooth !important;
 }
 
+main {
+  scroll-behavior: smooth;
+}
+
+div {
+  scroll-behavior: smooth;
+}
+
 section[id] {
   scroll-margin-top: 50px;
 }
@@ -105,6 +113,8 @@ body {
   top: 0;
 }
 
+/* gradients */
+
 .bg-gradient-accent {
   background: linear-gradient(
     135deg,
@@ -120,11 +130,13 @@ body {
     var(--color-accent) 100%
   );
 }
+
+/* shadows */
+
 .shadow-accent {
   box-shadow: 10px 10px 20px 5px var(--color-accent);
 }
 
-/* util classes */
 .shadow-border-box {
   @apply space-y-2 rounded-md border border-default bg-bg-light shadow-default md:rounded-lg;
 }
@@ -201,89 +213,6 @@ body {
   content: attr(data-placeholder);
 }
 
-/* TODO Pawel: move to tailwind */
-/* Hero */
-.hero-wrap {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-
-  svg {
-    scale: 1.7;
-  }
-}
-
-#heroCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: calc(100% - 60px);
-  display: block;
-}
-
-.hero-inner {
-  position: relative;
-  z-index: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 5rem 2.5rem 8rem;
-  width: 100%;
-  display: grid;
-  gap: 4rem;
-  align-items: center;
-}
-
-.hero-text {
-  color: #e4e4e4;
-  text-align: left;
-}
-.hero-visual-wrap {
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  animation: fadeUp 0.8s 0.5s ease forwards;
-}
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(192, 0, 0, 0.2);
-  color: #e4e4e4;
-  border: 1px solid rgba(192, 0, 0, 0.26);
-  padding: 0.4rem 2rem;
-  border-radius: 999px;
-  font-size: 26px;
-  font-weight: 600;
-  margin-left: -2rem;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  animation: fadeUp 0.6s 0.1s ease forwards;
-}
-
-.hero {
-  margin-bottom: 1.25rem;
-  color: #e4e4e4;
-  font-size: 20px;
-  opacity: 0;
-  animation: fadeUp 0.6s 0.2s ease forwards;
-
-  li {
-    padding-bottom: 8px;
-  }
-}
-
-.hero-btns {
-  margin-top: 30px;
-  opacity: 0;
-  animation: fadeUp 0.6s 0.4s ease forwards;
-
-  .btn-primary-rounded {
-    font-size: 20px;
-  }
-}
-
 @keyframes floatA {
   0%,
   100% {
@@ -314,17 +243,6 @@ body {
     transform: translateY(0);
   }
 }
-.reveal {
-  opacity: 0;
-  transform: translateY(26px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
 
 @keyframes marquee-right {
   from {
@@ -352,11 +270,7 @@ body {
     transform: translate(260px, 140px) scale(1.2);
   }
 }
-/* @keyframes hero-f2 {
-  to {
-    transform: translate(-300px, 180px) scale(0.85);
-  }
-} */
+
 @keyframes hero-f3 {
   from {
     transform: scale(0.1);
@@ -375,18 +289,6 @@ body {
     transform: rotate(7deg) scaleX(1.15);
   }
 }
-/* @keyframes hero-shadow {
-  50% {
-    transform: scale(0.8);
-    opacity: 0.6;
-  }
-} */
-
-/* @keyframes hero-float {
-  50% {
-    transform: translateY(-22px);
-  }
-} */
 
 @keyframes hero-spin {
   from {

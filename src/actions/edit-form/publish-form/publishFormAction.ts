@@ -20,23 +20,23 @@ const HEADER_FIELDS: {
   {
     key: "title",
     value: (form) => !!form.title,
-    message: "wpisz tytuł formularza",
+    message: "wpisz tytuł",
   },
   {
     key: "type",
     value: (form) => !!form.type,
-    message: "wybierz kategorię formularza",
+    message: "wybierz kategorię",
   },
   {
     key: "resultVisibility",
     value: (form) => !!form.resultVisibility,
-    message: "wybierz tryb wyświetlania wyników",
+    message: "wybierz tryb wyników",
   },
 ];
 
-const ADD_FIELD_ERROR = "dodaj min. jedno pytanie";
-const INPUT_HEADER_ERROR_SG = "brakujący opis pytania";
-const INPUT_HEADER_ERROR_PL = "brakujące opisy pytań";
+const ADD_FIELD_ERROR = "dodaj jedno pytanie";
+const INPUT_HEADER_ERROR_SG = "wpisz tytuł pytania";
+const INPUT_HEADER_ERROR_PL = "wpisz tytuły pytań";
 
 export type PublishFormActionResult =
   | {

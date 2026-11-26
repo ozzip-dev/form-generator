@@ -175,13 +175,11 @@ const Hero = () => {
     }
 
     function draw() {
-      /* 1. Mesh gradient — upscaled z bilinear interpolation */
       renderMesh();
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
       ctx.drawImage(mCV, 0, 0, W, H);
 
-      /* 2. Grain — dwie warstwy dla matte feel */
       if (noisePat) {
         ctx.save();
         ctx.globalAlpha = 0.055;
@@ -198,7 +196,6 @@ const Hero = () => {
         ctx.restore();
       }
 
-      /* 3. Vignette */
       const vig = ctx.createRadialGradient(
         W * 0.5,
         H * 0.45,
@@ -230,8 +227,8 @@ const Hero = () => {
     <section className="relative overflow-hidden">
       <div className="hero-wrap">
         <canvas id="heroCanvas" />
-        <div className="hero-inner lg:grid-cols-2">
-          <div className="hero-text">
+        <div className="lg:grid-cols-2">
+          <div className="">
             <p>Formy Pracy - dla organizacji związkowych i pracowniczych</p>
             <div className="hero-badge">
               Chcesz przeprowadzić wybory, głosówanie albo anietę wśród

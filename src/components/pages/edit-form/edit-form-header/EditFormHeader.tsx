@@ -95,7 +95,7 @@ export default function EditFormHeader(props: Props) {
             headerFileData={props.headerFileData}
           />
           <div className="flex items-center">
-            <div className="w-full">
+            <div className="relative w-full">
               <InputFields
                 inputsData={dataInputsFormTitle}
                 register={register}
@@ -106,7 +106,7 @@ export default function EditFormHeader(props: Props) {
                 <Icon
                   icon="exclamation"
                   size={23}
-                  className="absolute right-8 top-1/2 -translate-y-1/2 bg-error text-error"
+                  className="absolute right-4 top-[4.5rem] bg-error text-error"
                 />
               )}
             </div>

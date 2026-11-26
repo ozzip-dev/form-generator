@@ -27,6 +27,7 @@ const PublishFormButton = ({ form }: Props) => {
 
   const [_, publishForm, isPending] = useActionState(async () => {
     const result = await publishFormAction(form);
+    console.log("result", result);
     if (result.success) {
       window.open(result.msg, "_blank");
       router.refresh();

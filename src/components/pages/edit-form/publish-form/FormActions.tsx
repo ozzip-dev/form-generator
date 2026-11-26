@@ -48,6 +48,16 @@ type Props = {
   formStructure: FormSerialized;
 };
 
+const IconError = () => {
+  return (
+    <Icon
+      icon="exclamation"
+      size={23}
+      className="absolute right-10 top-[3.5rem] bg-error text-error"
+    />
+  );
+};
+
 const FormActions = ({ formStructure }: Props) => {
   const { _id, url, createdAt, updatedAt } = formStructure;
   const { formDataPromise } = useFormData();
@@ -111,30 +121,31 @@ const FormActions = ({ formStructure }: Props) => {
         <h3 className="mb-8 text-lg">Ustawienia</h3>
         <div className="flex flex-col gap-16">
           <PublishFormButton form={formStructure} />
+          {(!!addFieldPublishError || hasAnyError) && (
+            <Card className="w-full text-sm text-error">
+              <p className="mb-2">Błąd publikacji</p>
+              <div className="text-xs">
+                {headerPublishError.headerError?.type && (
+                  <p>- {headerPublishError.headerError?.type}</p>
+                )}
+                {headerPublishError.headerError?.resultVisibility && (
+                  <p>- {headerPublishError.headerError?.resultVisibility}</p>
+                )}
+                {headerPublishError.headerError?.title && (
+                  <p>- {headerPublishError.headerError?.title}</p>
+                )}
+                {headerPublishError.missingHeadersError && (
+                  <p>- {headerPublishError.missingHeadersError}</p>
+                )}
+                {addFieldPublishError && <p>- {addFieldPublishError}</p>}
+              </div>
+            </Card>
+          )}
           <AliasUrlForm {...formStructure} />
           <FormProvider {...methods}>
             <form>
-              {(!!addFieldPublishError || hasAnyError) && (
-                <Card className="text-sm text-error lg:flex">
-                  <p className="mb-2 mr-2 text-center">
-                    Błąd przy publikacji formularza:{" "}
-                  </p>
-                  <div className="text-center">
-                    {[
-                      headerPublishError.headerError?.type,
-                      headerPublishError.headerError?.resultVisibility,
-                      headerPublishError.headerError?.title,
-                      headerPublishError.missingHeadersError,
-                      addFieldPublishError,
-                    ]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </div>
-                </Card>
-              )}
-
               <div className="grid">
-                <div className="relative flex-1 lg:mr-0">
+                <div className="relative w-full">
                   <SelectFieldController
                     name="type"
                     defaultValue=""
@@ -142,17 +153,11 @@ const FormActions = ({ formStructure }: Props) => {
                     options={dataSelectOptions}
                     onChangeAction={handleEdit}
                   />
-                  {headerPublishError?.headerError?.type && (
-                    <Icon
-                      icon="exclamation"
-                      size={23}
-                      className="absolute right-8 top-[1.5rem] -translate-y-1/2 bg-error text-error sm:top-1/2"
-                    />
-                  )}
+                  {headerPublishError?.headerError?.type && <IconError />}
                 </div>
 
                 <div className="relative flex flex-1 items-center">
-                  <div className="w-full">
+                  <div className="relative w-full">
                     <SelectFieldController
                       name="resultVisibility"
                       defaultValue=""
@@ -161,11 +166,7 @@ const FormActions = ({ formStructure }: Props) => {
                       onChangeAction={handleEdit}
                     />
                     {headerPublishError?.headerError?.resultVisibility && (
-                      <Icon
-                        icon="exclamation"
-                        size={23}
-                        className="absolute right-20 top-1/2 -translate-y-1/2 bg-error text-error"
-                      />
+                      <IconError />
                     )}
                   </div>
 
